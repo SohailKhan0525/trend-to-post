@@ -144,17 +144,27 @@ def _fetch_trends_worker(
             "ct0": ct0,
         })
 
-        try:
-            raw = await client.get_trends("trending", count=limit, retry=False)
-            names = _normalize_trends(raw, limit)
-            result_queue.put(("ok", names))
-            return
-        except Exception as primary_error:
-            log.warning(
-                "twifork current Trends endpoint failed; trying place Trends backup: %s",
-                primary_error,
-            )
+        # X exposes multiple live Trends surfaces. A single "trending" board
+        # can legitimately contain no Technology/AI topics, so collect the
+        # non-sports/non-entertainment trend surfaces and let the niche filter
+        # decide what is usable. This remains X Trends-only.
+        collected = []
+        errors = []
+        for category in ("trending", "news", "for-you"):
+            try:
+                raw = await client.get_trends(category, count=limit, retry=False)
+                names = _normalize_trends(raw, limit)
+                collected.extend(names)
+                log.info("Collected %d X %s trends", len(names), category)
+            except Exception as exc:
+                errors.append(f"{category}={exc}")
+                log.warning("X %s Trends endpoint failed: %s", category, exc)
 
+        if collected:
+            result_queue.put(("ok", _normalize_trends(collected, limit * 3)))
+            return
+
+        # Keep the legacy place endpoint as a final compatibility fallback.
         try:
             raw = await client.get_place_trends(woeid=1)
             trend_items = (
@@ -166,8 +176,10 @@ def _fetch_trends_worker(
                 raise XTrendError("X returned an empty place Trends response.")
             result_queue.put(("ok", _normalize_trends(trend_items, limit)))
         except Exception as backup_error:
+            detail = "; ".join(errors) or "no category response"
             raise XTrendError(
-                f"Both X Trends endpoints failed. primary={primary_error}; backup={backup_error}"
+                f"X Trends category endpoints failed. categories={detail}; "
+                f"place_backup={backup_error}"
             ) from backup_error
 
     try:
