@@ -2,7 +2,6 @@ import json
 from datetime import datetime, timezone
 
 from google import genai
-from google.genai import types
 
 from .models import Draft, Trend
 
@@ -56,10 +55,6 @@ class GeminiWriter:
                         "schema": RESPONSE_SCHEMA,
                     }
                 ],
-                config=types.InteractionConfig(
-                    temperature=0.7,
-                    max_output_tokens=256,
-                ),
             )
         except Exception as exc:
             message = str(exc)
