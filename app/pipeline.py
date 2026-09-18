@@ -10,6 +10,8 @@ class TrendPipeline:
     def __init__(self, settings: Settings):
         self.settings = settings
         self.x = XTrendClient(
+            settings.x_auth_token,
+            settings.x_ct0,
             settings.x_cookies_file,
             location=settings.x_trends_location,
         )
