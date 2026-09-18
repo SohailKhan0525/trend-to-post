@@ -14,34 +14,41 @@ class XTrendError(RuntimeError):
 
 
 class XTrendClient:
-    """Read-only X Trends collector.
+    """Read-only X Trends collector. Credentials stay in the local environment."""
 
-    Authentication is cookie-based because current X web login flows are not
-    reliable for non-browser clients. This class never calls any write method.
-    """
-
-    def __init__(self, cookies_file: Path, location: str = "worldwide"):
+    def __init__(
+        self,
+        auth_token: str,
+        ct0: str,
+        cookies_file: Path,
+        location: str = "worldwide",
+    ):
+        self.auth_token = auth_token
+        self.ct0 = ct0
         self.cookies_file = cookies_file
         self.location = location or "worldwide"
         self.client = Client("en-US", impersonate="chrome124")
 
     async def _load_session(self) -> None:
-        if not self.cookies_file.exists():
-            raise XTrendError(
-                f"X cookies not found at {self.cookies_file}. "
-                "Export a fresh X session cookie file locally and retry."
-            )
-
         try:
-            self.client.load_cookies(str(self.cookies_file))
-            logged_in = await self.client.is_logged_in()
-        except Exception as exc:
-            raise XTrendError(f"Unable to load/validate X cookies: {exc}") from exc
+            if self.auth_token and self.ct0:
+                self.client.set_cookies({
+                    "auth_token": self.auth_token,
+                    "ct0": self.ct0,
+                })
+            elif self.cookies_file.exists():
+                self.client.load_cookies(str(self.cookies_file))
+            else:
+                raise XTrendError(
+                    "No X session found. Set X_AUTH_TOKEN and X_CT0 in your local .env."
+                )
 
-        if not logged_in:
-            raise XTrendError(
-                "The saved X cookies are expired or invalid. Export a fresh session."
-            )
+            if not await self.client.is_logged_in():
+                raise XTrendError("The X session is expired or invalid.")
+        except XTrendError:
+            raise
+        except Exception as exc:
+            raise XTrendError(f"Unable to initialize X session: {exc}") from exc
 
     async def get_trends(self, limit: int) -> list[Trend]:
         await self._load_session()
@@ -53,8 +60,8 @@ class XTrendClient:
                 if not raw:
                     raise XTrendError("X returned an empty Trends response.")
 
-                result: list[Trend] = []
-                seen: set[str] = set()
+                result = []
+                seen = set()
 
                 for item in raw:
                     name = str(getattr(item, "name", "") or item).strip()
@@ -69,11 +76,7 @@ class XTrendClient:
                 if not result:
                     raise XTrendError("X returned Trends objects without names.")
 
-                log.info(
-                    "Collected %d X trends (location setting: %s)",
-                    len(result),
-                    self.location,
-                )
+                log.info("Collected %d X trends", len(result))
                 return result
 
             except Exception as exc:
@@ -82,9 +85,7 @@ class XTrendClient:
                     delay = 2 ** (attempt - 1)
                     log.warning(
                         "X Trends attempt %d/3 failed: %s; retrying in %ss",
-                        attempt,
-                        exc,
-                        delay,
+                        attempt, exc, delay
                     )
                     await asyncio.sleep(delay)
 
