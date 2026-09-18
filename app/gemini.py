@@ -91,7 +91,7 @@ class GeminiWriter:
         if interaction is None:
             raise last_error or RuntimeError("Gemini generation failed.")
 
-        data = json.loads(interaction.output_text)
+        data = json.loads(interaction.text)
         now = datetime.now(timezone.utc).isoformat()
         text = str(data["text"]).strip()
         if len(text) > 280:
