@@ -2,6 +2,7 @@ import json
 from datetime import datetime, timezone
 
 from google import genai
+from google.genai import types
 
 from .models import Draft, Trend
 
@@ -43,14 +44,13 @@ class GeminiWriter:
 
     def _generate_with_client(self, client, prompt):
         try:
-            return client.interactions.create(
+            return client.models.generate_content(
                 model=MODEL,
-                input=prompt,
-                response_format={
-                    "type": "text",
-                    "mime_type": "application/json",
-                    "schema": RESPONSE_SCHEMA,
-                },
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                    response_schema=RESPONSE_SCHEMA,
+                ),
             )
         except Exception as exc:
             message = str(exc)
