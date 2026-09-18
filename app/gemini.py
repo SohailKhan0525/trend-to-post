@@ -50,6 +50,8 @@ class GeminiWriter:
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",
                     response_schema=RESPONSE_SCHEMA,
+                    temperature=0.7,
+                    max_output_tokens=256,
                 ),
             )
         except Exception as exc:
