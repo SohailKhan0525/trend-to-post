@@ -8,13 +8,16 @@ from .models import Trend
 
 log = logging.getLogger(__name__)
 
+X_REQUEST_TIMEOUT = 45
+MAX_ATTEMPTS = 2
+
 
 class XTrendError(RuntimeError):
     pass
 
 
 class XTrendClient:
-    """Read-only X Trends collector. Credentials stay in the local environment."""
+    """Read-only X Trends collector. Credentials stay in the environment."""
 
     def __init__(
         self,
@@ -40,11 +43,19 @@ class XTrendClient:
                 self.client.load_cookies(str(self.cookies_file))
             else:
                 raise XTrendError(
-                    "No X session found. Set X_AUTH_TOKEN and X_CT0 in your local .env."
+                    "No X session found. Set X_AUTH_TOKEN and X_CT0 in your environment."
                 )
 
-            if not await self.client.is_logged_in():
+            logged_in = await asyncio.wait_for(
+                self.client.is_logged_in(),
+                timeout=X_REQUEST_TIMEOUT,
+            )
+            if not logged_in:
                 raise XTrendError("The X session is expired or invalid.")
+        except asyncio.TimeoutError as exc:
+            raise XTrendError(
+                f"X session validation timed out after {X_REQUEST_TIMEOUT}s."
+            ) from exc
         except XTrendError:
             raise
         except Exception as exc:
@@ -54,9 +65,12 @@ class XTrendClient:
         await self._load_session()
 
         last_error = None
-        for attempt in range(1, 4):
+        for attempt in range(1, MAX_ATTEMPTS + 1):
             try:
-                raw = await self.client.get_trends("trending")
+                raw = await asyncio.wait_for(
+                    self.client.get_trends("trending"),
+                    timeout=X_REQUEST_TIMEOUT,
+                )
                 if not raw:
                     raise XTrendError("X returned an empty Trends response.")
 
@@ -79,14 +93,21 @@ class XTrendClient:
                 log.info("Collected %d X trends", len(result))
                 return result
 
+            except asyncio.TimeoutError as exc:
+                last_error = XTrendError(
+                    f"X Trends request timed out after {X_REQUEST_TIMEOUT}s."
+                )
             except Exception as exc:
                 last_error = exc
-                if attempt < 3:
-                    delay = 2 ** (attempt - 1)
-                    log.warning(
-                        "X Trends attempt %d/3 failed: %s; retrying in %ss",
-                        attempt, exc, delay
-                    )
-                    await asyncio.sleep(delay)
 
-        raise XTrendError(f"X Trends collection failed after 3 attempts: {last_error}")
+            if attempt < MAX_ATTEMPTS:
+                delay = 2 ** (attempt - 1)
+                log.warning(
+                    "X Trends attempt %d/%d failed: %s; retrying in %ss",
+                    attempt, MAX_ATTEMPTS, last_error, delay
+                )
+                await asyncio.sleep(delay)
+
+        raise XTrendError(
+            f"X Trends collection failed after {MAX_ATTEMPTS} attempts: {last_error}"
+        )
