@@ -43,15 +43,15 @@ def _fetch_trends_worker(
                 "No X session found. Set X_AUTH_TOKEN and X_CT0 in your environment."
             )
 
-        raw = await client.get_trends(
-            "trending",
-            count=limit,
-            retry=False,
-        )
-        if not raw:
-            raise XTrendError("X returned an empty Trends response.")
+        # Backup path: use X's location-based trends endpoint instead of the
+        # broken/deprecated guide.json trends endpoint.
+        # WOEID 1 is Worldwide.
+        raw = await client.get_place_trends(woeid=1)
+        trend_items = raw.get("trends", []) if isinstance(raw, dict) else getattr(raw, "trends", [])
+        if not trend_items:
+            raise XTrendError("X returned an empty place Trends response.")
 
-        result_queue.put(("ok", _normalize_trends(raw, limit)))
+        result_queue.put(("ok", _normalize_trends(trend_items, limit)))
 
     try:
         asyncio.run(run())
