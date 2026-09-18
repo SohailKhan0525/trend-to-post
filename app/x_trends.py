@@ -16,6 +16,26 @@ MAX_ATTEMPTS = 2
 XKIT_TIMEOUT_SECONDS = 25
 
 
+NICHE_KEYWORDS = (
+    "artificial intelligence", "machine learning", "deep learning", "generative ai",
+    "large language model", "llm", "chatgpt", "openai", "gemini", "claude",
+    "anthropic", "copilot", "ai agent", "agentic", "neural network", "robotics",
+    "robot", "autonomous", "gpu", "nvidia", "amd", "intel", "semiconductor", "chip",
+    "processor", "cpu", "data center", "cloud", "cybersecurity", "software",
+    "programming", "coding", "developer", "github", "microsoft", "google", "apple",
+    "iphone", "android", "meta", "amazon web services", "aws", "technology", "tech",
+)
+
+
+def is_technology_ai_trend(name: str) -> bool:
+    normalized = name.casefold().strip()
+    return any(keyword in normalized for keyword in NICHE_KEYWORDS)
+
+
+def filter_technology_ai_trends(trends: list[Trend]) -> list[Trend]:
+    return [trend for trend in trends if is_technology_ai_trend(trend.name)]
+
+
 class XTrendError(RuntimeError):
     pass
 
