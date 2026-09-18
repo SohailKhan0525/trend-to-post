@@ -2,7 +2,7 @@ from pathlib import Path
 from .config import Settings
 from .gemini import GeminiWriter
 from .storage import filter_new_drafts, write_daily_markdown
-from .x_trends import XTrendClient
+from .x_trends import XTrendClient, XTrendError, filter_technology_ai_trends
 
 class TrendPipeline:
     def __init__(self, settings: Settings):
@@ -23,11 +23,13 @@ class TrendPipeline:
         return await self.x.get_trends(self.settings.trend_limit)
 
     async def print_trends(self):
-        for trend in await self.collect():
+        for trend in filter_technology_ai_trends(await self.collect()):
             print(f"{trend.rank:>2}. {trend.name}")
 
     async def run(self, generate=True):
-        trends = await self.collect()
+        trends = filter_technology_ai_trends(await self.collect())
+        if not trends:
+            raise XTrendError("No Technology/Artificial Intelligence trends were found in the current X Trends.")
         drafts = self.gemini.generate(trends) if generate else []
         drafts = filter_new_drafts(drafts)
         path = write_daily_markdown(Path("."), trends, drafts)
