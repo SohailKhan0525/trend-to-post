@@ -9,7 +9,7 @@ from google.genai import types
 
 from .models import Draft, Trend
 
-MODELS = ("gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash")
+MODELS = ("gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.8-flash")
 
 INSTRUCTION = """Write one original short-form post for a technology and artificial intelligence account.
 The input is an X Trend used only as research input.
@@ -158,11 +158,18 @@ class GeminiWriter:
             try:
                 data = json.loads(raw_text)
             except (TypeError, json.JSONDecodeError) as exc:
-                raise RuntimeError(
-                    "Gemini returned a non-empty response that was not valid JSON."
+                raise GeminiQuotaError(
+                    "Gemini returned content that was not valid JSON; "
+                    "the next model/key will be tried."
                 ) from exc
 
         now = datetime.now(timezone.utc).isoformat()
+        required = {"trend", "angle", "text", "generated_at"}
+        if not required.issubset(data):
+            raise GeminiQuotaError(
+                "Gemini returned incomplete structured content; "
+                "the next model/key will be tried."
+            )
         text = str(data["text"]).strip()
         if len(text) > 280:
             raise ValueError("Gemini returned a post longer than 280 characters.")
