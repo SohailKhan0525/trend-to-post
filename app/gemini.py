@@ -58,7 +58,7 @@ class GeminiWriter:
         last_error = None
         for attempt in range(4):
             try:
-                return client.models.generate_content(
+                response = client.models.generate_content(
                     model=model,
                     contents=prompt,
                     config=types.GenerateContentConfig(
@@ -68,6 +68,13 @@ class GeminiWriter:
                         max_output_tokens=256,
                     ),
                 )
+                parsed = getattr(response, "parsed", None)
+                text = getattr(response, "text", None)
+                if parsed is None and not (text and text.strip()):
+                    raise GeminiQuotaError(
+                        "Gemini returned HTTP 200 but no structured/text content."
+                    )
+                return response
             except Exception as exc:
                 last_error = exc
                 message = str(exc)
@@ -138,7 +145,23 @@ class GeminiWriter:
         if interaction is None:
             raise last_error or RuntimeError("Gemini generation failed.")
 
-        data = json.loads(interaction.text)
+        parsed = getattr(interaction, "parsed", None)
+        if parsed is not None:
+            if hasattr(parsed, "model_dump"):
+                data = parsed.model_dump()
+            elif isinstance(parsed, dict):
+                data = parsed
+            else:
+                data = dict(parsed)
+        else:
+            raw_text = (getattr(interaction, "text", None) or "").strip()
+            try:
+                data = json.loads(raw_text)
+            except (TypeError, json.JSONDecodeError) as exc:
+                raise RuntimeError(
+                    "Gemini returned a non-empty response that was not valid JSON."
+                ) from exc
+
         now = datetime.now(timezone.utc).isoformat()
         text = str(data["text"]).strip()
         if len(text) > 280:
