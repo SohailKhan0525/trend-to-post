@@ -5,6 +5,9 @@ on:
   push:
     paths:
       - ".github/workflows/generate.yml"
+      - "app/**"
+      - "requirements.txt"
+      - "tests/**"
   schedule:
     - cron: "17 2,8,14,20 * * *"
       timezone: "Asia/Kolkata"
