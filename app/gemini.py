@@ -9,7 +9,7 @@ from google.genai import types
 
 from .models import Draft, Trend
 
-MODELS = ("gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.8-flash")
+MODELS = ("gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite", "gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.8-flash")
 
 INSTRUCTION = """Write one original short-form post for a technology and artificial intelligence account.
 The input is an X Trend used only as research input.
@@ -47,7 +47,7 @@ class GeminiWriter:
                 api_key=key,
                 http_options=types.HttpOptions(
                     retry_options=types.HttpRetryOptions(attempts=1),
-                    timeout=30000,
+                    timeout=20000,
                 ),
             )
             for key in self.api_keys
@@ -56,7 +56,7 @@ class GeminiWriter:
 
     def _generate_with_client(self, client, prompt, model):
         last_error = None
-        for attempt in range(4):
+        for attempt in range(2):
             try:
                 response = client.models.generate_content(
                     model=model,
@@ -102,13 +102,13 @@ class GeminiWriter:
                     ) from exc
                 if not is_transient:
                     raise
-                if attempt == 3:
+                if attempt == 1:
                     raise GeminiQuotaError(
                         "Gemini transient service/network failure; "
                         "the next model/key will be tried. "
                         f"Google error: {message[:1000]}"
                     ) from exc
-                delay = 3 * (2 ** attempt)
+                delay = 2 * (2 ** attempt)
                 print(
                     f"Gemini transient error on attempt {attempt + 1}/4; "
                     f"retrying in {delay}s: {message[:300]}"
