@@ -46,13 +46,11 @@ class GeminiWriter:
             return client.interactions.create(
                 model=MODEL,
                 input=prompt,
-                response_format=[
-                    {
-                        "type": "text",
-                        "mime_type": "application/json",
-                        "schema": RESPONSE_SCHEMA,
-                    }
-                ],
+                response_format={
+                    "type": "text",
+                    "mime_type": "application/json",
+                    "schema": RESPONSE_SCHEMA,
+                },
             )
         except Exception as exc:
             message = str(exc)
