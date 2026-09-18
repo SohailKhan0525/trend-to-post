@@ -58,7 +58,7 @@ jobs:
       - name: Commit generated draft and history
         shell: bash
         run: |
-          if git diff --quiet -- posts/ state/; then
+          if test -z "$(git status --porcelain -- posts/ state/)"; then
             echo "No new draft generated (duplicate or no content change)."
             exit 0
           fi
