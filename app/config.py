@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 @dataclass(frozen=True)
 class Settings:
     gemini_api_key: str
+    gemini_api_key_backup: str
     x_auth_token: str
     x_ct0: str
     x_cookies_file: Path
@@ -21,6 +22,7 @@ class Settings:
         load_dotenv()
         return cls(
             gemini_api_key=os.environ["GEMINI_API_KEY"],
+            gemini_api_key_backup=os.environ.get("GEMINI_API_KEY_BACKUP", "").strip(),
             x_auth_token=os.environ.get("X_AUTH_TOKEN", "").strip(),
             x_ct0=os.environ.get("X_CT0", "").strip(),
             x_cookies_file=Path(os.environ.get("X_COOKIES_FILE", "data/x_cookies.json")),
