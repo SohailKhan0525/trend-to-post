@@ -1,4 +1,5 @@
 import json
+import time
 from datetime import datetime, timezone
 
 from google import genai
@@ -43,33 +44,51 @@ class GeminiWriter:
         self.draft_count = 1
 
     def _generate_with_client(self, client, prompt):
-        try:
-            return client.models.generate_content(
-                model=MODEL,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json",
-                    response_schema=RESPONSE_SCHEMA,
-                    temperature=0.7,
-                    max_output_tokens=256,
-                ),
-            )
-        except Exception as exc:
-            message = str(exc)
-            if (
-                "429" in message
-                or "RESOURCE_EXHAUSTED" in message
-                or "quota" in message.lower()
-                or "401" in message
-                or "403" in message
-                or "authentication" in message.lower()
-                or "permission_denied" in message.lower()
-            ):
-                raise GeminiQuotaError(
-                    "Gemini API request failed with a retryable key/quota/auth error. "
-                    f"Google error: {message[:1000]}"
-                ) from exc
-            raise
+        last_error = None
+        for attempt in range(4):
+            try:
+                return client.models.generate_content(
+                    model=MODEL,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        response_schema=RESPONSE_SCHEMA,
+                        temperature=0.7,
+                        max_output_tokens=256,
+                    ),
+                )
+            except Exception as exc:
+                last_error = exc
+                message = str(exc)
+                is_key_error = (
+                    "401" in message
+                    or "403" in message
+                    or "authentication" in message.lower()
+                    or "permission_denied" in message.lower()
+                )
+                is_transient = (
+                    "429" in message
+                    or "RESOURCE_EXHAUSTED" in message
+                    or "503" in message
+                    or "UNAVAILABLE" in message
+                    or "500" in message
+                    or "502" in message
+                    or "504" in message
+                )
+                if is_key_error:
+                    raise GeminiQuotaError(
+                        "Gemini API key/authentication failed. "
+                        f"Google error: {message[:1000]}"
+                    ) from exc
+                if not is_transient or attempt == 3:
+                    raise
+                delay = 5 * (2 ** attempt)
+                print(
+                    f"Gemini transient error on attempt {attempt + 1}/4; "
+                    f"retrying in {delay}s: {message[:300]}"
+                )
+                time.sleep(delay)
+        raise last_error or RuntimeError("Gemini generation failed.")
 
     def generate(self, trends: list[Trend]):
         payload = {"trends": [{"rank": t.rank, "name": t.name} for t in trends]}
