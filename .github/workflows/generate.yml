@@ -2,16 +2,16 @@ name: Generate X Trend Draft
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/generate.yml'
   schedule:
-    # Four runs per day, deliberately offset from the top of the hour.
     - cron: "17 2,8,14,20 * * *"
       timezone: "Asia/Kolkata"
 
 permissions:
   contents: write
+
+concurrency:
+  group: x-trend-generation
+  cancel-in-progress: false
 
 jobs:
   generate:
@@ -28,31 +28,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
-
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
-
       - name: Validate required secrets
         shell: bash
         run: |
           test -n "$GEMINI_API_KEY" || { echo "Missing GEMINI_API_KEY"; exit 1; }
           test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
           test -n "$X_CT0" || { echo "Missing X_CT0"; exit 1; }
-
       - name: Collect trends and generate one new draft
         run: python -m app run
-
       - name: Commit generated draft and history
         shell: bash
         run: |
           if git diff --quiet -- posts/ state/; then
-            echo "No changes to commit."
+            echo "No new draft generated (duplicate or no content change)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
