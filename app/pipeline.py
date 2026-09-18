@@ -2,7 +2,7 @@ from pathlib import Path
 
 from .config import Settings
 from .gemini import GeminiWriter
-from .storage import write_daily_markdown
+from .storage import filter_new_drafts, write_daily_markdown
 from .x_trends import XTrendClient
 
 
@@ -27,8 +27,9 @@ class TrendPipeline:
     async def run(self, generate=True):
         trends = await self.collect()
         drafts = self.gemini.generate(trends) if generate else []
+        drafts = filter_new_drafts(drafts)
         path = write_daily_markdown(Path("."), trends, drafts)
-        print(f"Wrote {len(drafts)} drafts to {path}")
+        print(f"Wrote {len(drafts)} new drafts to {path}")
 
     def health(self):
         print("trend-to-post: configuration loaded")
