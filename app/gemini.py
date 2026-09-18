@@ -123,47 +123,42 @@ class GeminiWriter:
         )
 
         last_error = None
-        interaction = None
-        attempts = [(key_index, model) for model in MODELS for key_index in range(len(self.clients))]
-        for attempt_index, (key_index, model) in enumerate(attempts):
-            client = self.clients[key_index]
-            try:
-                print(f"Gemini generation attempt {attempt_index + 1}/{len(attempts)}: model={model}, key={key_index + 1}")
-                interaction = self._generate_with_client(client, prompt, model)
-                break
-            except GeminiQuotaError as exc:
-                last_error = exc
-                if attempt_index + 1 < len(attempts):
-                    next_key_index, next_model = attempts[attempt_index + 1]
+        for model in MODELS:
+            for key_index, client in enumerate(self.clients):
+                try:
                     print(
-                        f"Gemini attempt failed; trying model={next_model}, "
-                        f"key={next_key_index + 1} ({attempt_index + 2}/{len(attempts)})."
+                        f"Gemini generation attempt: model={model}, "
+                        f"key={key_index + 1}"
                     )
-                else:
-                    raise
-
-        if interaction is None:
-            raise last_error or RuntimeError("Gemini generation failed.")
-
-        parsed = getattr(interaction, "parsed", None)
-        if parsed is not None:
-            if hasattr(parsed, "model_dump"):
-                data = parsed.model_dump()
-            elif isinstance(parsed, dict):
-                data = parsed
+                    interaction = self._generate_with_client(client, prompt, model)
+                    parsed = getattr(interaction, "parsed", None)
+                    if parsed is not None:
+                        if hasattr(parsed, "model_dump"):
+                            data = parsed.model_dump()
+                        elif isinstance(parsed, dict):
+                            data = parsed
+                        else:
+                            data = dict(parsed)
+                    else:
+                        raw_text = (getattr(interaction, "text", None) or "").strip()
+                        if not raw_text:
+                            raise GeminiQuotaError(
+                                "Gemini returned HTTP 200 with no usable content."
+                            )
+                        data = json.loads(raw_text)
+                    required = {"trend", "angle", "text", "generated_at"}
+                    if not required.issubset(data):
+                        raise GeminiQuotaError("Gemini returned incomplete structured content.")
+                    now = datetime.now(timezone.utc).isoformat()
+                    break
+                except (GeminiQuotaError, json.JSONDecodeError) as exc:
+                    last_error = exc
+                    print(f"Gemini attempt failed; trying next model/key: {exc}")
             else:
-                data = dict(parsed)
+                continue
+            break
         else:
-            raw_text = (getattr(interaction, "text", None) or "").strip()
-            try:
-                data = json.loads(raw_text)
-            except (TypeError, json.JSONDecodeError) as exc:
-                raise GeminiQuotaError(
-                    "Gemini returned content that was not valid JSON; "
-                    "the next model/key will be tried."
-                ) from exc
-
-        now = datetime.now(timezone.utc).isoformat()
+            raise last_error or RuntimeError("Gemini generation failed.")
         required = {"trend", "angle", "text", "generated_at"}
         if not required.issubset(data):
             raise GeminiQuotaError(
