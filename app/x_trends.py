@@ -1,6 +1,8 @@
 import asyncio
+import json
 import logging
 import multiprocessing as mp
+import subprocess
 from pathlib import Path
 
 from twikit import Client
@@ -11,10 +13,90 @@ log = logging.getLogger(__name__)
 
 X_REQUEST_TIMEOUT = 30
 MAX_ATTEMPTS = 2
+XKIT_TIMEOUT_SECONDS = 25
 
 
 class XTrendError(RuntimeError):
     pass
+
+
+def _normalize_trends(raw, limit: int) -> list[str]:
+    names = []
+    seen = set()
+    for item in raw:
+        if isinstance(item, dict):
+            name = str(
+                item.get("headline")
+                or item.get("name")
+                or item.get("title")
+                or ""
+            ).strip()
+        else:
+            name = str(getattr(item, "name", "") or item).strip()
+        key = name.casefold()
+        if not name or key in seen:
+            continue
+        seen.add(key)
+        names.append(name)
+        if len(names) >= limit:
+            break
+    if not names:
+        raise XTrendError("X returned Trends objects without names.")
+    return names
+
+
+def _xkit_trends(auth_token: str, ct0: str, limit: int) -> list[str]:
+    """Primary fallback: X web GraphQL Explore/Trending via xKit.
+
+    xKit uses the same auth_token + ct0 web session and refreshes its
+    GraphQL query IDs when X rotates them.
+    """
+    env = {
+        "AUTH_TOKEN": auth_token,
+        "CT0": ct0,
+        "TWITTER_AUTH_TOKEN": auth_token,
+        "TWITTER_CT0": ct0,
+    }
+    command = [
+        "npx",
+        "--no-install",
+        "@brainwav/xkit",
+        "news",
+        "--tabs",
+        "trending",
+        "--no-ai-only",
+        "--json",
+        "-n",
+        str(limit),
+    ]
+    try:
+        completed = subprocess.run(
+            command,
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=XKIT_TIMEOUT_SECONDS,
+            env={**__import__("os").environ, **env},
+        )
+    except FileNotFoundError as exc:
+        raise XTrendError("xKit is not installed in the workflow runner.") from exc
+    except subprocess.TimeoutExpired as exc:
+        raise XTrendError(
+            f"xKit X Trends request timed out after {XKIT_TIMEOUT_SECONDS}s."
+        ) from exc
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stderr or exc.stdout or "").strip()[-800:]
+        raise XTrendError(f"xKit X Trends failed: {detail}") from exc
+
+    output = completed.stdout.strip()
+    try:
+        payload = json.loads(output)
+    except json.JSONDecodeError as exc:
+        raise XTrendError("xKit returned non-JSON output.") from exc
+
+    if isinstance(payload, dict):
+        payload = payload.get("news") or payload.get("results") or payload.get("data") or []
+    return _normalize_trends(payload, limit)
 
 
 def _fetch_trends_worker(
@@ -24,12 +106,25 @@ def _fetch_trends_worker(
     limit: int,
     result_queue,
 ) -> None:
-    """Run the X client in a killable child process.
+    """Run X Trends in a killable child process.
 
-    This is intentional: if the underlying HTTP stack blocks without yielding
-    to asyncio, asyncio.wait_for() cannot enforce a timeout in the parent.
+    xKit is tried first because it reads the X Explore/Trending surface through
+    current web GraphQL. Twifork's place-trends endpoint remains a secondary
+    fallback. Both paths are read-only and use the user's existing X session.
     """
     async def run():
+        if not auth_token or not ct0:
+            raise XTrendError(
+                "X_AUTH_TOKEN and X_CT0 are required for the X web Trends collector."
+            )
+
+        try:
+            names = _xkit_trends(auth_token, ct0, limit)
+            result_queue.put(("ok", names))
+            return
+        except Exception as xkit_error:
+            log.warning("xKit Trends failed; trying twifork backup: %s", xkit_error)
+
         client = Client("en-US", impersonate="chrome124")
         if auth_token and ct0:
             client.set_cookies({
@@ -43,11 +138,12 @@ def _fetch_trends_worker(
                 "No X session found. Set X_AUTH_TOKEN and X_CT0 in your environment."
             )
 
-        # Backup path: use X's location-based trends endpoint instead of the
-        # broken/deprecated guide.json trends endpoint.
-        # WOEID 1 is Worldwide.
         raw = await client.get_place_trends(woeid=1)
-        trend_items = raw.get("trends", []) if isinstance(raw, dict) else getattr(raw, "trends", [])
+        trend_items = (
+            raw.get("trends", [])
+            if isinstance(raw, dict)
+            else getattr(raw, "trends", [])
+        )
         if not trend_items:
             raise XTrendError("X returned an empty place Trends response.")
 
@@ -57,23 +153,6 @@ def _fetch_trends_worker(
         asyncio.run(run())
     except Exception as exc:
         result_queue.put(("error", f"{type(exc).__name__}: {exc}"))
-
-
-def _normalize_trends(raw, limit: int) -> list[str]:
-    names = []
-    seen = set()
-    for item in raw:
-        name = str(getattr(item, "name", "") or item).strip()
-        key = name.casefold()
-        if not name or key in seen:
-            continue
-        seen.add(key)
-        names.append(name)
-        if len(names) >= limit:
-            break
-    if not names:
-        raise XTrendError("X returned Trends objects without names.")
-    return names
 
 
 class XTrendClient:
@@ -146,7 +225,10 @@ class XTrendClient:
                 delay = 2 ** (attempt - 1)
                 log.warning(
                     "X Trends attempt %d/%d failed: %s; retrying in %ss",
-                    attempt, MAX_ATTEMPTS, last_error, delay,
+                    attempt,
+                    MAX_ATTEMPTS,
+                    last_error,
+                    delay,
                 )
                 await asyncio.sleep(delay)
 
