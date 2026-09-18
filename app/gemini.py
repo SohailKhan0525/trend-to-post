@@ -9,7 +9,7 @@ from google.genai import types
 
 from .models import Draft, Trend
 
-MODEL = "gemini-3.8-flash"
+MODELS = ("gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash")
 
 INSTRUCTION = """Write one original short-form post for a technology and artificial intelligence account.
 The input is an X Trend used only as research input.
@@ -54,12 +54,12 @@ class GeminiWriter:
         ]
         self.draft_count = 1
 
-    def _generate_with_client(self, client, prompt):
+    def _generate_with_client(self, client, prompt, model):
         last_error = None
         for attempt in range(4):
             try:
                 return client.models.generate_content(
-                    model=MODEL,
+                    model=model,
                     contents=prompt,
                     config=types.GenerateContentConfig(
                         response_mime_type="application/json",
@@ -97,8 +97,8 @@ class GeminiWriter:
                     raise
                 if attempt == 3:
                     raise GeminiQuotaError(
-                        "Gemini transient service/network failure after retries; "
-                        "the next configured key will be tried. "
+                        "Gemini transient service/network failure; "
+                        "the next model/key will be tried. "
                         f"Google error: {message[:1000]}"
                     ) from exc
                 delay = 3 * (2 ** attempt)
@@ -117,14 +117,21 @@ class GeminiWriter:
 
         last_error = None
         interaction = None
-        for index, client in enumerate(self.clients):
+        attempts = [(key_index, model) for model in MODELS for key_index in range(len(self.clients))]
+        for attempt_index, (key_index, model) in enumerate(attempts):
+            client = self.clients[key_index]
             try:
-                interaction = self._generate_with_client(client, prompt)
+                print(f"Gemini generation attempt {attempt_index + 1}/{len(attempts)}: model={model}, key={key_index + 1}")
+                interaction = self._generate_with_client(client, prompt, model)
                 break
             except GeminiQuotaError as exc:
                 last_error = exc
-                if index + 1 < len(self.clients):
-                    print(f"Gemini primary key failed; trying backup key ({index + 2}/{len(self.clients)}).")
+                if attempt_index + 1 < len(attempts):
+                    next_key_index, next_model = attempts[attempt_index + 1]
+                    print(
+                        f"Gemini attempt failed; trying model={next_model}, "
+                        f"key={next_key_index + 1} ({attempt_index + 2}/{len(attempts)})."
+                    )
                 else:
                     raise
 
