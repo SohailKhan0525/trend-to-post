@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/generate.yml':
+      - '.github/workflows/generate.yml'
   schedule:
     # Four runs per day, deliberately offset from the top of the hour.
     - cron: "17 2,8,14,20 * * *"
