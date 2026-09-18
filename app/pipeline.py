@@ -1,10 +1,8 @@
 from pathlib import Path
-
 from .config import Settings
 from .gemini import GeminiWriter
 from .storage import filter_new_drafts, write_daily_markdown
 from .x_trends import XTrendClient
-
 
 class TrendPipeline:
     def __init__(self, settings: Settings):
@@ -15,7 +13,11 @@ class TrendPipeline:
             settings.x_cookies_file,
             location=settings.x_trends_location,
         )
-        self.gemini = GeminiWriter(settings.gemini_api_key, settings.ai_draft_count)
+        self.gemini = GeminiWriter(
+            settings.gemini_api_key,
+            settings.ai_draft_count,
+            backup_api_key=settings.gemini_api_key_backup,
+        )
 
     async def collect(self):
         return await self.x.get_trends(self.settings.trend_limit)
