@@ -1,9 +1,11 @@
-name: Generate X Trend Drafts
+name: Generate X Trend Draft
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 */6 * * *"
+    # Four runs per day, deliberately offset from the top of the hour.
+    - cron: "17 2,8,14,20 * * *"
+      timezone: "Asia/Kolkata"
 
 permissions:
   contents: write
@@ -18,7 +20,7 @@ jobs:
       X_CT0: ${{ secrets.X_CT0 }}
       X_TRENDS_LOCATION: worldwide
       TREND_LIMIT: "25"
-      AI_DRAFT_COUNT: "3"
+      AI_DRAFT_COUNT: "1"
       LOG_LEVEL: INFO
     steps:
       - name: Checkout
@@ -40,18 +42,18 @@ jobs:
           test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
           test -n "$X_CT0" || { echo "Missing X_CT0"; exit 1; }
 
-      - name: Collect trends and generate drafts
+      - name: Collect trends and generate one new draft
         run: python -m app run
 
-      - name: Commit generated drafts
+      - name: Commit generated draft and history
         shell: bash
         run: |
-          if git diff --quiet -- posts/; then
-            echo "No new draft files."
+          if git diff --quiet -- posts/ state/; then
+            echo "No changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add posts/
-          git commit -m "content: generate X trend drafts"
+          git add posts/ state/
+          git commit -m "content: generate X trend draft"
           git push
