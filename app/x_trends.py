@@ -45,17 +45,6 @@ class XTrendClient:
                 raise XTrendError(
                     "No X session found. Set X_AUTH_TOKEN and X_CT0 in your environment."
                 )
-
-            logged_in = await asyncio.wait_for(
-                self.client.is_logged_in(),
-                timeout=X_REQUEST_TIMEOUT,
-            )
-            if not logged_in:
-                raise XTrendError("The X session is expired or invalid.")
-        except asyncio.TimeoutError as exc:
-            raise XTrendError(
-                f"X session validation timed out after {X_REQUEST_TIMEOUT}s."
-            ) from exc
         except XTrendError:
             raise
         except Exception as exc:
@@ -67,8 +56,15 @@ class XTrendClient:
         last_error = None
         for attempt in range(1, MAX_ATTEMPTS + 1):
             try:
+                # twifork's Trends API supports retry=False. This is important here:
+                # its default internal retry loop can otherwise keep a failed Trends
+                # request alive indefinitely.
                 raw = await asyncio.wait_for(
-                    self.client.get_trends("trending"),
+                    self.client.get_trends(
+                        "trending",
+                        count=limit,
+                        retry=False,
+                    ),
                     timeout=X_REQUEST_TIMEOUT,
                 )
                 if not raw:
