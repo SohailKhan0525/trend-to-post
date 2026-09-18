@@ -51,26 +51,29 @@ def _fetch_trends_worker(
         if not raw:
             raise XTrendError("X returned an empty Trends response.")
 
-        names = []
-        seen = set()
-        for item in raw:
-            name = str(getattr(item, "name", "") or item).strip()
-            key = name.casefold()
-            if not name or key in seen:
-                continue
-            seen.add(key)
-            names.append(name)
-            if len(names) >= limit:
-                break
-
-        if not names:
-            raise XTrendError("X returned Trends objects without names.")
-        result_queue.put(("ok", names))
+        result_queue.put(("ok", _normalize_trends(raw, limit)))
 
     try:
         asyncio.run(run())
     except Exception as exc:
         result_queue.put(("error", f"{type(exc).__name__}: {exc}"))
+
+
+def _normalize_trends(raw, limit: int) -> list[str]:
+    names = []
+    seen = set()
+    for item in raw:
+        name = str(getattr(item, "name", "") or item).strip()
+        key = name.casefold()
+        if not name or key in seen:
+            continue
+        seen.add(key)
+        names.append(name)
+        if len(names) >= limit:
+            break
+    if not names:
+        raise XTrendError("X returned Trends objects without names.")
+    return names
 
 
 class XTrendClient:
