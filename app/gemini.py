@@ -1,5 +1,7 @@
 import json
 import time
+
+import httpx
 from datetime import datetime, timezone
 
 from google import genai
@@ -40,7 +42,16 @@ class GeminiWriter:
         self.api_keys = [key.strip() for key in (api_key, backup_api_key) if key and key.strip()]
         if not self.api_keys:
             raise ValueError("At least one Gemini API key is required.")
-        self.clients = [genai.Client(api_key=key) for key in self.api_keys]
+        self.clients = [
+            genai.Client(
+                api_key=key,
+                http_options=types.HttpOptions(
+                    retry_options=types.HttpRetryOptions(attempts=1),
+                    timeout=30000,
+                ),
+            )
+            for key in self.api_keys
+        ]
         self.draft_count = 1
 
     def _generate_with_client(self, client, prompt):
@@ -67,7 +78,9 @@ class GeminiWriter:
                     or "permission_denied" in message.lower()
                 )
                 is_transient = (
-                    "429" in message
+                    isinstance(exc, httpx.RemoteProtocolError)
+                    or isinstance(exc, httpx.ReadTimeout)
+                    or "429" in message
                     or "RESOURCE_EXHAUSTED" in message
                     or "503" in message
                     or "UNAVAILABLE" in message
@@ -80,9 +93,15 @@ class GeminiWriter:
                         "Gemini API key/authentication failed. "
                         f"Google error: {message[:1000]}"
                     ) from exc
-                if not is_transient or attempt == 3:
+                if not is_transient:
                     raise
-                delay = 5 * (2 ** attempt)
+                if attempt == 3:
+                    raise GeminiQuotaError(
+                        "Gemini transient service/network failure after retries; "
+                        "the next configured key will be tried. "
+                        f"Google error: {message[:1000]}"
+                    ) from exc
+                delay = 3 * (2 ** attempt)
                 print(
                     f"Gemini transient error on attempt {attempt + 1}/4; "
                     f"retrying in {delay}s: {message[:300]}"
