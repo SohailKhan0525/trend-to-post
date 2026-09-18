@@ -26,10 +26,35 @@ class TrendPipeline:
         for trend in filter_technology_ai_trends(await self.collect()):
             print(f"{trend.rank:>2}. {trend.name}")
 
-    async def run(self, generate=True):
+    async def collect_niche_trends(self):
+        """Collect enough X Trends to find the requested Technology/AI niche.
+
+        X's top Trends can contain no Technology/AI item at a low limit. In that
+        case, expand the same X Trends request to the API's supported maximum
+        instead of failing the scheduled job.
+        """
         trends = filter_technology_ai_trends(await self.collect())
+        if trends:
+            return trends
+
+        expanded_limit = 50
+        if self.settings.trend_limit < expanded_limit:
+            print(
+                f"No Technology/AI trends in the first {self.settings.trend_limit} X Trends; "
+                f"expanding the X Trends collection to {expanded_limit}."
+            )
+            trends = filter_technology_ai_trends(
+                await self.x.get_trends(expanded_limit)
+            )
+        return trends
+
+    async def run(self, generate=True):
+        trends = await self.collect_niche_trends()
         if not trends:
-            raise XTrendError("No Technology/Artificial Intelligence trends were found in the current X Trends.")
+            raise XTrendError(
+                "X returned no Technology/Artificial Intelligence trends in the "
+                "available Trends window. No non-niche content was generated."
+            )
         drafts = self.gemini.generate(trends) if generate else []
         drafts = filter_new_drafts(drafts)
         path = write_daily_markdown(Path("."), trends, drafts)
