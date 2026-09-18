@@ -108,46 +108,47 @@ def _fetch_trends_worker(
 ) -> None:
     """Run X Trends in a killable child process.
 
-    xKit is tried first because it reads the X Explore/Trending surface through
-    current web GraphQL. Twifork's place-trends endpoint remains a secondary
-    fallback. Both paths are read-only and use the user's existing X session.
+    twifork 2.4.x contains the current GenericTimelineById implementation for
+    X's Trends surface. The older place-trends endpoint is retained as a
+    secondary fallback because X has changed Trends endpoints repeatedly.
     """
     async def run():
         if not auth_token or not ct0:
             raise XTrendError(
-                "X_AUTH_TOKEN and X_CT0 are required for the X web Trends collector."
+                "X_AUTH_TOKEN and X_CT0 are required for the X Trends collector."
+            )
+
+        client = Client("en-US", impersonate="chrome124")
+        client.set_cookies({
+            "auth_token": auth_token,
+            "ct0": ct0,
+        })
+
+        try:
+            raw = await client.get_trends("trending", count=limit, retry=False)
+            names = _normalize_trends(raw, limit)
+            result_queue.put(("ok", names))
+            return
+        except Exception as primary_error:
+            log.warning(
+                "twifork current Trends endpoint failed; trying place Trends backup: %s",
+                primary_error,
             )
 
         try:
-            names = _xkit_trends(auth_token, ct0, limit)
-            result_queue.put(("ok", names))
-            return
-        except Exception as xkit_error:
-            log.warning("xKit Trends failed; trying twifork backup: %s", xkit_error)
-
-        client = Client("en-US", impersonate="chrome124")
-        if auth_token and ct0:
-            client.set_cookies({
-                "auth_token": auth_token,
-                "ct0": ct0,
-            })
-        elif Path(cookies_file).exists():
-            client.load_cookies(cookies_file)
-        else:
-            raise XTrendError(
-                "No X session found. Set X_AUTH_TOKEN and X_CT0 in your environment."
+            raw = await client.get_place_trends(woeid=1)
+            trend_items = (
+                raw.get("trends", [])
+                if isinstance(raw, dict)
+                else getattr(raw, "trends", [])
             )
-
-        raw = await client.get_place_trends(woeid=1)
-        trend_items = (
-            raw.get("trends", [])
-            if isinstance(raw, dict)
-            else getattr(raw, "trends", [])
-        )
-        if not trend_items:
-            raise XTrendError("X returned an empty place Trends response.")
-
-        result_queue.put(("ok", _normalize_trends(trend_items, limit)))
+            if not trend_items:
+                raise XTrendError("X returned an empty place Trends response.")
+            result_queue.put(("ok", _normalize_trends(trend_items, limit)))
+        except Exception as backup_error:
+            raise XTrendError(
+                f"Both X Trends endpoints failed. primary={primary_error}; backup={backup_error}"
+            ) from backup_error
 
     try:
         asyncio.run(run())
