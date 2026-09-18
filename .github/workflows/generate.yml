@@ -14,12 +14,12 @@ permissions:
 
 concurrency:
   group: x-trend-generation
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
