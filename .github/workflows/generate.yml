@@ -19,7 +19,7 @@ concurrency:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 5 # bounded production run
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
