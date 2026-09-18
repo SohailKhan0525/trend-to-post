@@ -34,18 +34,16 @@ class GeminiQuotaError(RuntimeError):
 
 
 class GeminiWriter:
-    def __init__(self, api_key, draft_count):
-        self.client = genai.Client(api_key=api_key)
+    def __init__(self, api_key, draft_count, backup_api_key=""):
+        self.api_keys = [key.strip() for key in (api_key, backup_api_key) if key and key.strip()]
+        if not self.api_keys:
+            raise ValueError("At least one Gemini API key is required.")
+        self.clients = [genai.Client(api_key=key) for key in self.api_keys]
         self.draft_count = 1
 
-    def generate(self, trends: list[Trend]):
-        payload = {"trends": [{"rank": t.rank, "name": t.name} for t in trends]}
-        prompt = INSTRUCTION + "\nINPUT:\n" + json.dumps(
-            payload, ensure_ascii=False
-        )
-
+    def _generate_with_client(self, client, prompt):
         try:
-            interaction = self.client.interactions.create(
+            return client.interactions.create(
                 model=MODEL,
                 input=prompt,
                 response_format=[
@@ -58,13 +56,42 @@ class GeminiWriter:
             )
         except Exception as exc:
             message = str(exc)
-            if "429" in message or "RESOURCE_EXHAUSTED" in message or "quota" in message.lower():
+            if (
+                "429" in message
+                or "RESOURCE_EXHAUSTED" in message
+                or "quota" in message.lower()
+                or "401" in message
+                or "403" in message
+                or "authentication" in message.lower()
+                or "permission_denied" in message.lower()
+            ):
                 raise GeminiQuotaError(
-                    "Gemini API quota/rate limit was exhausted. "
-                    "Check Google AI Studio > Usage/Rates for this project. "
+                    "Gemini API request failed with a retryable key/quota/auth error. "
                     f"Google error: {message[:1000]}"
                 ) from exc
             raise
+
+    def generate(self, trends: list[Trend]):
+        payload = {"trends": [{"rank": t.rank, "name": t.name} for t in trends]}
+        prompt = INSTRUCTION + "\nINPUT:\n" + json.dumps(
+            payload, ensure_ascii=False
+        )
+
+        last_error = None
+        interaction = None
+        for index, client in enumerate(self.clients):
+            try:
+                interaction = self._generate_with_client(client, prompt)
+                break
+            except GeminiQuotaError as exc:
+                last_error = exc
+                if index + 1 < len(self.clients):
+                    print(f"Gemini primary key failed; trying backup key ({index + 2}/{len(self.clients)}).")
+                else:
+                    raise
+
+        if interaction is None:
+            raise last_error or RuntimeError("Gemini generation failed.")
 
         data = json.loads(interaction.output_text)
         now = datetime.now(timezone.utc).isoformat()
