@@ -12,5 +12,12 @@
     "trend": "Vibe Coding Thrives in Prototyping but Struggles with Debugging Reality",
     "angle": "Evaluating the practical limitations of prompt-driven development in production environments",
     "generated_at": "2025-05-18T14:32:00Z"
+  },
+  {
+    "fingerprint": "4a703325b9d4ca2f85c219b2786ce6a2f0dc840ea14c653d24c7984912afb572",
+    "text": "Generating an entire app via prompts takes minutes, but untangling the resulting architecture takes weeks. As vibe coding scales, the real engineering bottleneck is shifting from writing syntax to reading and debugging black-box AI output.",
+    "trend": "Developers Question Vibe Coding's Long-Term Value",
+    "angle": "Technical debt and maintainability concerns in prompt-generated codebases",
+    "generated_at": "2025-05-18T14:32:00Z"
   }
 ]
