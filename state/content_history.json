@@ -5,5 +5,12 @@
     "trend": "Resident Evil",
     "angle": "NPC behavior in modern gaming vs early survival horror limits",
     "generated_at": "2024-05-18T15:30:00Z"
+  },
+  {
+    "fingerprint": "7fdd7002390ea24c667440b6bf9fe6daa66c1d2d77a0a7f10f2b3aac1463ca55",
+    "text": "Vibe coding is great for spinning up prototypes in minutes, but the real test hits during debugging. When an AI-generated codebase breaks under edge cases, reading the underlying stack trace still requires traditional engineering fundamentals.",
+    "trend": "Vibe Coding Thrives in Prototyping but Struggles with Debugging Reality",
+    "angle": "Evaluating the practical limitations of prompt-driven development in production environments",
+    "generated_at": "2025-05-18T14:32:00Z"
   }
 ]
