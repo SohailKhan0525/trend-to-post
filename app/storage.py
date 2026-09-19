@@ -1,7 +1,7 @@
 import hashlib
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime\nfrom zoneinfo import ZoneInfo
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -17,6 +17,11 @@ def _normalize(text: str) -> str:
 
 def _fingerprint(text: str) -> str:
     return hashlib.sha256(_normalize(text).encode("utf-8")).hexdigest()
+
+
+def load_recent_texts(limit: int = 100) -> list[str]:
+    history = _load_history()
+    return [str(item.get("text", "")) for item in history[-limit:] if item.get("text")]
 
 
 def _load_history() -> list[dict]:
@@ -73,7 +78,7 @@ def write_daily_markdown(root: Path, trends: list[Trend], drafts: list[Draft]):
     path = directory / f"{stamp}.md"
 
     lines = [
-        f"# X Trend Content — {now.strftime('%Y-%m-%d %H:%M UTC')}",
+        f"# X Trend Content — {now.strftime("%d %b %Y, %I:%M %p IST")}",
         "",
         "## X Trends collected",
         "",
