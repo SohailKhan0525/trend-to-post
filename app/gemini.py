@@ -11,7 +11,7 @@ from .models import Draft, Trend
 
 MODELS = ("gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite", "gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.8-flash")
 
-INSTRUCTION = """Write one original short-form post for a technology and artificial intelligence account.
+POST_INSTRUCTIONS = {\n    "standard": """Write one original short-form post for a technology and artificial intelligence account.\n
 The input is an X Trend used only as research input.
 Only use a trend plausibly related to technology or artificial intelligence.
 Write like a knowledgeable human: concrete, concise, natural, and specific.
@@ -116,7 +116,7 @@ class GeminiWriter:
                 time.sleep(delay)
         raise last_error or RuntimeError("Gemini generation failed.")
 
-    def generate(self, trends: list[Trend]):
+    def generate(self, trends: list[Trend], post_type: str = "standard"):
         payload = {"trends": [{"rank": t.rank, "name": t.name} for t in trends]}
         prompt = INSTRUCTION + "\nINPUT:\n" + json.dumps(
             payload, ensure_ascii=False
