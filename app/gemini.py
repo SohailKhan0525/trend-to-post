@@ -11,16 +11,28 @@ from .models import Draft, Trend
 
 MODELS = ("gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite", "gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.8-flash")
 
-POST_INSTRUCTIONS = {\n    "standard": """Write one original short-form post for a technology and artificial intelligence account.\n
+POST_INSTRUCTIONS = {
+    "standard": """Write one original short-form post for a technology and artificial intelligence account.
 The input is an X Trend used only as research input.
 Only use a trend plausibly related to technology or artificial intelligence.
 Write like a knowledgeable human: concrete, concise, natural, and specific.
-Do not invent facts or personal experiences. Do not copy or closely paraphrase existing posts.
-Avoid engagement bait, generic AI phrasing, excessive hashtags, and empty summaries.
+Do not invent facts or personal experiences. Do not copy or closely paraphrase existing posts.""",
+    "funny": """Write one original funny short-form post for a technology and artificial intelligence account.
+Use the input X Trend only as the topic. Make the humor sharp, light, relatable, and natural—not forced, insulting, or clickbait.
+Do not invent facts or personal experiences.""",
+    "breaking_news": """Write one original breaking-news-style short-form post for a technology and artificial intelligence account.
+Use the input X Trend only as the source signal. Be urgent and concise, but NEVER invent facts, numbers, quotes, timelines, launches, or causes not present in the trend input.
+If the trend name alone does not establish a specific event, write a cautious news-style observation that the topic is trending rather than fabricating details.""",
+    "question": """Write one original question-led short-form post for a technology and artificial intelligence account.
+Use the input X Trend only as the topic. Ask a specific, thoughtful question that invites genuine discussion without engagement bait.
+Do not invent facts or personal experiences.""",
+}
+
+INSTRUCTION_SUFFIX = """
+Avoid generic AI phrasing, excessive hashtags, and empty summaries.
 The final text must be suitable for a single X post and must be no longer than 280 characters.
 Return exactly one JSON object with trend, angle, text, generated_at.
 """
-
 RESPONSE_SCHEMA = {
     "type": "object",
     "properties": {
@@ -117,8 +129,10 @@ class GeminiWriter:
         raise last_error or RuntimeError("Gemini generation failed.")
 
     def generate(self, trends: list[Trend], post_type: str = "standard"):
+        if post_type not in POST_INSTRUCTIONS:
+            raise ValueError(f"Unsupported post type: {post_type}")
         payload = {"trends": [{"rank": t.rank, "name": t.name} for t in trends]}
-        prompt = INSTRUCTION + "\nINPUT:\n" + json.dumps(
+        prompt = POST_INSTRUCTIONS[post_type] + INSTRUCTION_SUFFIX + "\nINPUT:\n" + json.dumps(
             payload, ensure_ascii=False
         )
 
