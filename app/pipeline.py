@@ -1,7 +1,7 @@
 from pathlib import Path
 from .config import Settings
 from .gemini import GeminiWriter
-from .storage import filter_new_drafts, write_daily_markdown
+from .storage import filter_new_drafts, load_recent_texts, write_daily_markdown
 from .x_trends import XTrendClient, XTrendError, filter_technology_ai_trends
 
 class TrendPipeline:
@@ -56,8 +56,21 @@ class TrendPipeline:
                 "available Trends window. No non-niche content was generated."
             )
         print(f"Post style: {post_type}")
-        drafts = self.gemini.generate(trends, post_type=post_type) if generate else []
-        drafts = filter_new_drafts(drafts)
+        recent_texts = load_recent_texts(100)
+        drafts = []
+        if generate:
+            for attempt in range(3):
+                candidate = self.gemini.generate(
+                    trends,
+                    post_type=post_type,
+                    recent_texts=recent_texts + [d.text for d in drafts],
+                )
+                fresh = filter_new_drafts(candidate)
+                if fresh:
+                    drafts = fresh
+                    break
+                recent_texts.extend(d.text for d in candidate)
+                print(f"Generated duplicate; requesting a different {post_type} post (attempt {attempt + 2}/3).")
         path = write_daily_markdown(Path("."), trends, drafts)
         print(f"Wrote {len(drafts)} new drafts to {path}")
 
