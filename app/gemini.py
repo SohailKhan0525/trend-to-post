@@ -128,11 +128,17 @@ class GeminiWriter:
                 time.sleep(delay)
         raise last_error or RuntimeError("Gemini generation failed.")
 
-    def generate(self, trends: list[Trend], post_type: str = "standard"):
+    def generate(self, trends: list[Trend], post_type: str = "standard", recent_texts: list[str] | None = None):
         if post_type not in POST_INSTRUCTIONS:
             raise ValueError(f"Unsupported post type: {post_type}")
         payload = {"trends": [{"rank": t.rank, "name": t.name} for t in trends]}
-        prompt = POST_INSTRUCTIONS[post_type] + INSTRUCTION_SUFFIX + "\nINPUT:\n" + json.dumps(
+        recent_texts = recent_texts or []
+        diversity_instruction = """
+IMPORTANT: This post must be substantially different from every recent post below.
+Do not reuse their wording, sentence structure, hook, joke, question, or angle.
+The post type is mandatory and must be obvious from the writing.
+""" + "\nRECENT POSTS TO AVOID REPEATING:\n" + json.dumps(recent_texts[-30:], ensure_ascii=False)
+        prompt = POST_INSTRUCTIONS[post_type] + INSTRUCTION_SUFFIX + diversity_instruction + "\nINPUT:\n" + json.dumps(
             payload, ensure_ascii=False
         )
 
