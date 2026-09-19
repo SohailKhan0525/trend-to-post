@@ -48,14 +48,15 @@ class TrendPipeline:
             )
         return trends
 
-    async def run(self, generate=True):
+    async def run(self, generate=True, post_type="standard"):
         trends = await self.collect_niche_trends()
         if not trends:
             raise XTrendError(
                 "X returned no Technology/Artificial Intelligence trends in the "
                 "available Trends window. No non-niche content was generated."
             )
-        drafts = self.gemini.generate(trends) if generate else []
+        print(f"Post style: {post_type}")
+        drafts = self.gemini.generate(trends, post_type=post_type) if generate else []
         drafts = filter_new_drafts(drafts)
         path = write_daily_markdown(Path("."), trends, drafts)
         print(f"Wrote {len(drafts)} new drafts to {path}")
