@@ -1,14 +1,16 @@
 import hashlib
 import json
 import re
-from datetime import datetime\nfrom zoneinfo import ZoneInfo
+from datetime import datetime
 from difflib import SequenceMatcher
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from .models import Draft, Trend
 
 HISTORY_PATH = Path("state/content_history.json")
 SIMILARITY_THRESHOLD = 0.90
+IST = ZoneInfo("Asia/Kolkata")
 
 
 def _normalize(text: str) -> str:
@@ -71,14 +73,14 @@ def filter_new_drafts(drafts: list[Draft]) -> list[Draft]:
 
 
 def write_daily_markdown(root: Path, trends: list[Trend], drafts: list[Draft]):
-    now = datetime.now(timezone.utc)
-    stamp = now.strftime("%Y-%m-%d-%H%M")
+    now = datetime.now(IST)
+    stamp = now.strftime("%Y-%m-%d-%H%M-IST")
     directory = root / "posts"
     directory.mkdir(parents=True, exist_ok=True)
     path = directory / f"{stamp}.md"
 
     lines = [
-        f"# X Trend Content — {now.strftime("%d %b %Y, %I:%M %p IST")}",
+        f"# X Trend Content — {now.strftime('%d %b %Y, %I:%M %p IST')}",
         "",
         "## X Trends collected",
         "",
@@ -88,8 +90,14 @@ def write_daily_markdown(root: Path, trends: list[Trend], drafts: list[Draft]):
 
     for i, draft in enumerate(drafts, 1):
         lines += [
-            f"### Draft {i}", "", f"**Trend:** {draft.trend}", "",
-            f"**Angle:** {draft.angle}", "", draft.text, "",
+            f"### Draft {i}",
+            "",
+            f"**Trend:** {draft.trend}",
+            "",
+            f"**Angle:** {draft.angle}",
+            "",
+            draft.text,
+            "",
         ]
 
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
