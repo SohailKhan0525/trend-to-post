@@ -26,7 +26,7 @@ Do not invent facts, quotes, personal experiences, or events.""",
 
 INSTRUCTION_SUFFIX = """
 Avoid generic AI phrasing, excessive hashtags, and empty summaries.
-The final text must be natural and immediately publishable on X and no longer than 280 characters including spaces and emojis.
+The final text must be natural and immediately publishable on X, exactly 17 whitespace-separated words, and no longer than 280 characters including spaces and emojis.
 Do not start with labels such as "Post:", "Breaking:", "Question:", or "Tweet:".
 Return exactly one JSON object with trend, angle, text, generated_at.
 """
@@ -183,8 +183,12 @@ The post type is mandatory and must be obvious from the writing.
                 "the next model/key will be tried."
             )
         text = str(data["text"]).strip()
-        if not text or len(text) > 280:
-            raise ValueError("Gemini returned an empty or over-280-character X post.")
+        word_count = len(text.split())
+        if not text or word_count != 17 or len(text) > 280:
+            raise ValueError(
+                f"Gemini returned an invalid X post: expected exactly 17 words and <=280 characters; "
+                f"got {word_count} words and {len(text)} characters."
+            )
         if post_type == "funny_ragebait" and not any(ch in text for ch in "😂🤣😭😅💀🔥🤯😤🙃😈"):
             raise ValueError("Funny ragebait post must contain an emoji.")
         if post_type == "question" and "?" not in text:
