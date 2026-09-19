@@ -166,6 +166,19 @@ The post type is mandatory and must be obvious from the writing.
                     required = {"trend", "angle", "text", "generated_at"}
                     if not required.issubset(data):
                         raise GeminiQuotaError("Gemini returned incomplete structured content.")
+                    text = str(data["text"]).strip()
+                    word_count = len(text.split())
+                    if not text or word_count != 17 or len(text) > 280:
+                        raise GeminiQuotaError(
+                            f"Gemini returned an invalid X post: expected exactly 17 words and <=280 "
+                            f"characters; got {word_count} words and {len(text)} characters."
+                        )
+                    if post_type == "funny_ragebait" and not any(
+                        ch in text for ch in "😂🤣😭😅💀🔥🤯😤🙃😈"
+                    ):
+                        raise GeminiQuotaError("Funny ragebait post must contain an emoji.")
+                    if post_type == "question" and "?" not in text:
+                        raise GeminiQuotaError("Question post must contain a question mark.")
                     now = datetime.now(timezone.utc).isoformat()
                     break
                 except (GeminiQuotaError, json.JSONDecodeError) as exc:
@@ -182,18 +195,6 @@ The post type is mandatory and must be obvious from the writing.
                 "Gemini returned incomplete structured content; "
                 "the next model/key will be tried."
             )
-        text = str(data["text"]).strip()
-        word_count = len(text.split())
-        if not text or word_count != 17 or len(text) > 280:
-            raise ValueError(
-                f"Gemini returned an invalid X post: expected exactly 17 words and <=280 characters; "
-                f"got {word_count} words and {len(text)} characters."
-            )
-        if post_type == "funny_ragebait" and not any(ch in text for ch in "😂🤣😭😅💀🔥🤯😤🙃😈"):
-            raise ValueError("Funny ragebait post must contain an emoji.")
-        if post_type == "question" and "?" not in text:
-            raise ValueError("Question post must contain a question mark.")
-
         return [
             Draft(
                 trend=str(data["trend"]),
