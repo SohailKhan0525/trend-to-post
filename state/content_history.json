@@ -40,5 +40,12 @@
     "trend": "Claude Code Adds AGENTS.md Support for Easier AI Tool Sharing",
     "angle": "developer workflow efficiency",
     "generated_at": "2024-05-18T12:00:00Z"
+  },
+  {
+    "fingerprint": "7165a135642acb7cba462ef7fe73bb075ffce44f7edb793ed67a8dd24d899d73",
+    "text": "Claude Code adding AGENTS.md support as a fallback standard is a subtle but important shift. Standardizing how context is passed to CLI coding agents makes local repo orchestration much less brittle across different tools.",
+    "trend": "Claude Code Adds AGENTS.md Support as Fallback Standard",
+    "angle": "Developer workflow implications",
+    "generated_at": "2024-05-14T12:00:00Z"
   }
 ]
