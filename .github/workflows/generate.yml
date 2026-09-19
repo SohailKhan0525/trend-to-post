@@ -2,12 +2,16 @@ name: Generate X Trend Draft
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/generate.yml"
-      - "app/**"
-      - "requirements.txt"
-      - "tests/**"
+    inputs:
+      post_type:
+        description: "Post style for a manual test run"
+        required: true
+        default: "question"
+        type: choice
+        options:
+          - funny_ragebait
+          - breaking_news
+          - question
   schedule:
     - cron: "0 2,8,14,20 * * *"
       timezone: "Asia/Kolkata"
@@ -55,14 +59,19 @@ jobs:
       - name: Select post style
         shell: bash
         run: |
-          case "${{ github.event.schedule }}" in
-            "0 2 * * *") echo "POST_TYPE=funny_ragebait" >> "$GITHUB_ENV" ;;
-            "0 8 * * *") echo "POST_TYPE=breaking_news" >> "$GITHUB_ENV" ;;
-            "0 14 * * *") echo "POST_TYPE=question" >> "$GITHUB_ENV" ;;
-            "0 20 * * *") echo "POST_TYPE=question" >> "$GITHUB_ENV" ;;
-            *) echo "POST_TYPE=question" >> "$GITHUB_ENV" ;;
-          esac
-          echo "Scheduled post style: $POST_TYPE"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            POST_TYPE="${{ inputs.post_type }}"
+          else
+            case "${{ github.event.schedule }}" in
+              "0 2 * * *") POST_TYPE="funny_ragebait" ;;
+              "0 8 * * *") POST_TYPE="breaking_news" ;;
+              "0 14 * * *") POST_TYPE="question" ;;
+              "0 20 * * *") POST_TYPE="question" ;;
+              *) echo "Unknown schedule: ${{ github.event.schedule }}"; exit 1 ;;
+            esac
+          fi
+          echo "POST_TYPE=$POST_TYPE" >> "$GITHUB_ENV"
+          echo "Selected post style: $POST_TYPE"
 
       - name: Collect trends and generate one new draft
         run: python -m app run --post-type "$POST_TYPE"
