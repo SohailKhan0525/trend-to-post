@@ -26,5 +26,12 @@
     "trend": "Vibe Coding Faces Pushback from Developers on Quality Concerns",
     "angle": "Evaluating the tension between rapid prototyping and technical debt in software engineering.",
     "generated_at": "2025-05-15T14:30:00Z"
+  },
+  {
+    "fingerprint": "69d3a9aa0b75a8d729d9b98e287b02ad9dd6b8c285f74ca103c5ccf9f0befa3a",
+    "text": "Claude Code adding AGENTS.md support is a subtle shift toward standardizing how repos communicate context to LLM agents. Instead of custom prompts per tool, having a unified markdown file makes multi-agent handoffs much cleaner in practice.",
+    "trend": "Claude Code Adds AGENTS.md Support for Broader AI Compatibility",
+    "angle": "Developer utility and standardizing agent instructions",
+    "generated_at": "2025-05-18T14:32:00Z"
   }
 ]
