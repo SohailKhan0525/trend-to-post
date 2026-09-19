@@ -47,5 +47,12 @@
     "trend": "Claude Code Adds AGENTS.md Support as Fallback Standard",
     "angle": "Developer workflow implications",
     "generated_at": "2024-05-14T12:00:00Z"
+  },
+  {
+    "fingerprint": "ba27b22f0db8ed93fbecc651eca1dd137a57ae5ddde37888518680f60fe55a28",
+    "text": "Rumors about the iPhone 18 Pro featuring upgraded thermal design for local AI processing highlights a real hardware constraint. Running heavy LLMs on mobile isn't just about NPU TOPS anymore; sustained thermal dissipation is the actual bottleneck for on-device agents.",
+    "trend": "iPhone 18 Pro",
+    "angle": "hardware constraints on local AI models",
+    "generated_at": "2025-05-18T14:32:00Z"
   }
 ]
