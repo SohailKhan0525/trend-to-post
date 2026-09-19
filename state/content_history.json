@@ -33,5 +33,12 @@
     "trend": "Claude Code Adds AGENTS.md Support for Broader AI Compatibility",
     "angle": "Developer utility and standardizing agent instructions",
     "generated_at": "2025-05-18T14:32:00Z"
+  },
+  {
+    "fingerprint": "00eea588ea9a7d9697cdd2c126189045d97cfddfef9adc0c92c1d2453dd9ca81",
+    "text": "Claude Code adding AGENTS.md support is a massive win for developer workflows. Standardizing how we define agent context and tool sharing across repos removes so much friction. Excited to see how teams adopt this for custom CLI tooling.",
+    "trend": "Claude Code Adds AGENTS.md Support for Easier AI Tool Sharing",
+    "angle": "developer workflow efficiency",
+    "generated_at": "2024-05-18T12:00:00Z"
   }
 ]
