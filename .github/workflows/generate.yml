@@ -9,7 +9,7 @@ on:
       - "requirements.txt"
       - "tests/**"
   schedule:
-    - cron: "17 2,8,14,20 * * *"
+    - cron: "0 2,8,14,20 * * *"
       timezone: "Asia/Kolkata"
 
 permissions:
@@ -56,10 +56,10 @@ jobs:
         shell: bash
         run: |
           case "${{ github.event.schedule }}" in
-            "17 2 * * *") echo "POST_TYPE=standard" >> "$GITHUB_ENV" ;;
-            "17 8 * * *") echo "POST_TYPE=funny" >> "$GITHUB_ENV" ;;
-            "17 14 * * *") echo "POST_TYPE=breaking_news" >> "$GITHUB_ENV" ;;
-            "17 20 * * *") echo "POST_TYPE=question" >> "$GITHUB_ENV" ;;
+            "0 2 * * *") echo "POST_TYPE=standard" >> "$GITHUB_ENV" ;;
+            "0 8 * * *") echo "POST_TYPE=funny" >> "$GITHUB_ENV" ;;
+            "0 14 * * *") echo "POST_TYPE=breaking_news" >> "$GITHUB_ENV" ;;
+            "0 20 * * *") echo "POST_TYPE=question" >> "$GITHUB_ENV" ;;
             *) echo "POST_TYPE=standard" >> "$GITHUB_ENV" ;;
           esac
           echo "Scheduled post style: $POST_TYPE"
