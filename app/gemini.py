@@ -12,25 +12,22 @@ from .models import Draft, Trend
 MODELS = ("gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite", "gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.8-flash")
 
 POST_INSTRUCTIONS = {
-    "standard": """Write one original short-form post for a technology and artificial intelligence account.
-The input is an X Trend used only as research input.
-Only use a trend plausibly related to technology or artificial intelligence.
-Write like a knowledgeable human: concrete, concise, natural, and specific.
-Do not invent facts or personal experiences. Do not copy or closely paraphrase existing posts.""",
-    "funny": """Write one original funny short-form post for a technology and artificial intelligence account.
-Use the input X Trend only as the topic. Make the humor sharp, light, relatable, and natural—not forced, insulting, or clickbait.
-Do not invent facts or personal experiences.""",
-    "breaking_news": """Write one original breaking-news-style short-form post for a technology and artificial intelligence account.
-Use the input X Trend only as the source signal. Be urgent and concise, but NEVER invent facts, numbers, quotes, timelines, launches, or causes not present in the trend input.
-If the trend name alone does not establish a specific event, write a cautious news-style observation that the topic is trending rather than fabricating details.""",
-    "question": """Write one original question-led short-form post for a technology and artificial intelligence account.
-Use the input X Trend only as the topic. Ask a specific, thoughtful question that invites genuine discussion without engagement bait.
-Do not invent facts or personal experiences.""",
+    "funny_ragebait": """Write one original funny technology/AI X post designed to spark debate.
+Use only the supplied X Trend as the topic. Use playful ragebait framing and 1-2 relevant emojis.
+Make it witty and relatable, not hateful, abusive, deceptive, or based on invented facts.
+Do not invent facts, quotes, personal experiences, or events.""",
+    "breaking_news": """Write one original breaking-news-style technology/AI X post.
+Use only the supplied X Trend as the source signal. Be urgent and concise, but NEVER invent facts, numbers, quotes, timelines, launches, causes, or details.
+If the trend name does not establish a specific event, clearly frame it as a topic/trend gaining attention instead of claiming unverified news.""",
+    "question": """Write one original technology/AI X post built around ONE specific, thoughtful question.
+Use only the supplied X Trend as the topic. Make the question natural and useful, not generic engagement bait.
+Do not invent facts, quotes, personal experiences, or events.""",
 }
 
 INSTRUCTION_SUFFIX = """
 Avoid generic AI phrasing, excessive hashtags, and empty summaries.
-The final text must be suitable for a single X post and must be no longer than 280 characters.
+The final text must be natural and immediately publishable on X and no longer than 280 characters including spaces and emojis.
+Do not start with labels such as "Post:", "Breaking:", "Question:", or "Tweet:".
 Return exactly one JSON object with trend, angle, text, generated_at.
 """
 RESPONSE_SCHEMA = {
@@ -186,8 +183,12 @@ The post type is mandatory and must be obvious from the writing.
                 "the next model/key will be tried."
             )
         text = str(data["text"]).strip()
-        if len(text) > 280:
-            raise ValueError("Gemini returned a post longer than 280 characters.")
+        if not text or len(text) > 280:
+            raise ValueError("Gemini returned an empty or over-280-character X post.")
+        if post_type == "funny_ragebait" and not any(ch in text for ch in "😂🤣😭😅💀🔥🤯😤🙃😈"):
+            raise ValueError("Funny ragebait post must contain an emoji.")
+        if post_type == "question" and "?" not in text:
+            raise ValueError("Question post must contain a question mark.")
 
         return [
             Draft(
