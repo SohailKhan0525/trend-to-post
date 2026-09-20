@@ -68,5 +68,12 @@
     "trend": "Developers Switch Between Claude Code and Codex for Best Coding Tasks",
     "angle": "Tool selection strategy",
     "generated_at": "2025-05-22T14:30:00Z"
+  },
+  {
+    "fingerprint": "a57a54e54f1999cfc3337b5a5211d89f38e3d6912201437ba9db9dc7c924607a",
+    "text": "When pasting code directly from a chatbot into production, how do you verify hidden vulnerabilities before deployment?",
+    "trend": "Developers Share Stories of Copy-Pasting ChatGPT Code",
+    "angle": "Security risks of unverified copy-pasted code",
+    "generated_at": "2025-02-26T00:00:00Z"
   }
 ]
