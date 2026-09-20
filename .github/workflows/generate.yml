@@ -13,7 +13,13 @@ on:
           - breaking_news
           - question
   schedule:
-    - cron: "0 2,8,14,20 * * *"
+    - cron: "0 2 * * *"
+      timezone: "Asia/Kolkata"
+    - cron: "0 8 * * *"
+      timezone: "Asia/Kolkata"
+    - cron: "0 14 * * *"
+      timezone: "Asia/Kolkata"
+    - cron: "0 20 * * *"
       timezone: "Asia/Kolkata"
 
 permissions:
