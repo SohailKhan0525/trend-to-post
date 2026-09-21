@@ -82,5 +82,12 @@
     "trend": "Vibe Coding Divides Developers on AI Reliance",
     "angle": "Industry division",
     "generated_at": "2025-05-22T14:30:00Z"
+  },
+  {
+    "fingerprint": "8acbc72419b7095b0ee04b5c41ba54f8457b59c2e9935444b58b51ad618c2a68",
+    "text": "When migrating to Go for massive latency gains, what specific architectural compromises are you willing to accept?",
+    "trend": "Developer's Go Migration Claims 38-Second to 223ms Speed Boost",
+    "angle": "Performance trade-offs",
+    "generated_at": "2025-05-22T14:30:00Z"
   }
 ]
