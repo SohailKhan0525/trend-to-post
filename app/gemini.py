@@ -50,7 +50,9 @@ def _validate_candidate(text: str, post_type: str) -> bool:
     if post_type == "funny_ragebait":
         return any(ch in text for ch in "😂🤣😭😅💀🔥🤯😤🙃😈")
     if post_type == "question":
-        return "?" in text
+        return text.count("?") == 1
+    if post_type == "breaking_news":
+        return "?" not in text
     return True
 
 
