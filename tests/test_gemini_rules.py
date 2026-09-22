@@ -24,3 +24,11 @@ def test_breaking_news_requires_exactly_17_words():
     valid = "AI developers are watching this trend explode across X tonight as attention shifts rapidly toward the technology"
     assert len(valid.split()) == 17
     assert _validate_candidate(valid, "breaking_news")
+
+
+
+def test_gemini_model_fallbacks_are_supported():
+    from app.gemini import MODELS
+
+    assert MODELS == ("gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.1-flash-lite")
+    assert all("2.5" not in model for model in MODELS)
