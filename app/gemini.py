@@ -129,49 +129,49 @@ INPUT X TRENDS:
         for model in MODELS:
             for attempt in range(MAX_ATTEMPTS_PER_KEY):
                 for key_index, client in enumerate(self.clients):
-                try:
-                    print(
-                        f"Gemini generation attempt: model={model}, key={key_index + 1}, "
-                        f"round={attempt + 1}/{MAX_ATTEMPTS_PER_KEY}"
-                    )
-                    data = self._generate(client, prompt, model)
-                    candidates = [str(x).strip() for x in data.get("candidates", [])]
-                    valid = [x for x in candidates if _validate_candidate(x, post_type)]
-                    if not valid:
-                        raise GeminiQuotaError(
-                            "Gemini returned candidates, but none met the exact 17-word/style rules."
+                    try:
+                        print(
+                            f"Gemini generation attempt: model={model}, key={key_index + 1}, "
+                            f"round={attempt + 1}/{MAX_ATTEMPTS_PER_KEY}"
                         )
+                        data = self._generate(client, prompt, model)
+                        candidates = [str(x).strip() for x in data.get("candidates", [])]
+                        valid = [x for x in candidates if _validate_candidate(x, post_type)]
+                        if not valid:
+                            raise GeminiQuotaError(
+                                "Gemini returned candidates, but none met the exact 17-word/style rules."
+                            )
 
-                    text = valid[0]
-                    now = datetime.now(timezone.utc).isoformat()
-                    return [
-                        Draft(
-                            trend=str(data.get("trend") or trends[0].name),
-                            angle=str(data.get("angle") or post_type),
-                            text=text,
-                            generated_at=now,
-                            post_type=post_type,
+                        text = valid[0]
+                        now = datetime.now(timezone.utc).isoformat()
+                        return [
+                            Draft(
+                                trend=str(data.get("trend") or trends[0].name),
+                                angle=str(data.get("angle") or post_type),
+                                text=text,
+                                generated_at=now,
+                                post_type=post_type,
+                            )
+                        ]
+                    except (GeminiQuotaError, json.JSONDecodeError, ValueError) as exc:
+                        last_error = exc
+                        print(f"Gemini attempt failed; trying again: {exc}")
+                    except Exception as exc:
+                        message = str(exc)
+                        is_transient = (
+                            isinstance(exc, (httpx.RemoteProtocolError, httpx.ReadTimeout))
+                            or "429" in message
+                            or "RESOURCE_EXHAUSTED" in message
+                            or "500" in message
+                            or "502" in message
+                            or "503" in message
+                            or "504" in message
+                            or "UNAVAILABLE" in message
                         )
-                    ]
-                except (GeminiQuotaError, json.JSONDecodeError, ValueError) as exc:
-                    last_error = exc
-                    print(f"Gemini attempt failed; trying again: {exc}")
-                except Exception as exc:
-                    message = str(exc)
-                    is_transient = (
-                        isinstance(exc, (httpx.RemoteProtocolError, httpx.ReadTimeout))
-                        or "429" in message
-                        or "RESOURCE_EXHAUSTED" in message
-                        or "500" in message
-                        or "502" in message
-                        or "503" in message
-                        or "504" in message
-                        or "UNAVAILABLE" in message
-                    )
-                    if not is_transient:
-                        raise
-                    last_error = GeminiQuotaError(message[:1000])
-                    print(f"Gemini transient error; trying again: {message[:300]}")
-                    time.sleep(2)
+                        if not is_transient:
+                            raise
+                        last_error = GeminiQuotaError(message[:1000])
+                        print(f"Gemini transient error; trying again: {message[:300]}")
+                        time.sleep(2)
 
         raise last_error or RuntimeError("Gemini generation failed.")
