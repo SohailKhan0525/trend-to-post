@@ -27,12 +27,12 @@ permissions:
 
 concurrency:
   group: x-trend-generation
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GEMINI_API_KEY_BACKUP: ${{ secrets.GEMINI_API_KEY_BACKUP }}
@@ -62,6 +62,9 @@ jobs:
           test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
           test -n "$X_CT0" || { echo "Missing X_CT0"; exit 1; }
 
+      - name: Run tests
+        run: python -m pytest -q
+
       - name: Select post style
         shell: bash
         run: |
@@ -82,12 +85,47 @@ jobs:
       - name: Collect trends and generate one new draft
         run: python -m app run --post-type "$POST_TYPE"
 
+      - name: Validate generated draft
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          files = sorted(Path("posts").glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
+          if not files:
+              raise SystemExit("No generated post file found.")
+
+          text = files[0].read_text(encoding="utf-8")
+          expected = "${{ env.POST_TYPE }}"
+          match = re.search(r"\*\*Post type:\*\* (.+)", text)
+          if not match or match.group(1).strip() != expected:
+              raise SystemExit(f"Post type mismatch: expected {expected!r}")
+
+          draft_match = re.search(r"\*\*Word count:\*\* (\d+).*?\n\*\*Character count:\*\* (\d+).*?\n\n(.+?)\n", text, re.S)
+          if not draft_match:
+              raise SystemExit("Generated draft metadata is missing.")
+
+          words = int(draft_match.group(1))
+          chars = int(draft_match.group(2))
+          post = draft_match.group(3).strip()
+
+          if words != 17 or len(post.split()) != 17:
+              raise SystemExit(f"Expected exactly 17 words, got {words}: {post}")
+          if chars > 280 or len(post) > 280:
+              raise SystemExit(f"Post exceeds 280 characters: {len(post)}")
+          if expected == "funny_ragebait" and not any(c in post for c in "😂🤣😭😅💀🔥🤯😤🙃😈"):
+              raise SystemExit("Funny/ragebait post is missing a required emoji.")
+          if expected == "question" and "?" not in post:
+              raise SystemExit("Question post is missing '?'.")
+          PY
+
       - name: Commit generated draft and history
         shell: bash
         run: |
           if test -z "$(git status --porcelain -- posts/ state/)"; then
-            echo "No new draft generated (duplicate or no content change)."
-            exit 0
+            echo "No new draft generated."
+            exit 1
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
