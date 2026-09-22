@@ -1,10 +1,12 @@
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True)
 class Trend:
     name: str
     rank: int
-    source: str = 'x'
+    source: str = "x"
+
 
 @dataclass(frozen=True)
 class Draft:
@@ -12,3 +14,4 @@ class Draft:
     angle: str
     text: str
     generated_at: str
+    post_type: str = "question"
