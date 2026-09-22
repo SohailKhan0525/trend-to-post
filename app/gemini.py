@@ -108,8 +108,10 @@ STYLE:
 {POST_INSTRUCTIONS[post_type]}
 
 HARD RULES FOR EVERY CANDIDATE:
-- Exactly 17 whitespace-separated words.
+- Exactly 17 whitespace-separated words, counted before returning each candidate.
 - Maximum 280 characters.
+- Treat punctuation attached to a word as part of that word; whitespace is the only word separator.
+- Do not add or remove words after counting; every returned candidate must already be exactly 17 words.
 - No hashtags unless genuinely necessary.
 - No labels like "Post:", "Breaking:", "Question:", or "Tweet:".
 - Every candidate must be meaningfully different from the others.
@@ -126,7 +128,7 @@ INPUT X TRENDS:
         last_error = None
         for model in MODELS:
             for attempt in range(MAX_ATTEMPTS_PER_KEY):
-            for key_index, client in enumerate(self.clients):
+                for key_index, client in enumerate(self.clients):
                 try:
                     print(
                         f"Gemini generation attempt: model={model}, key={key_index + 1}, "
