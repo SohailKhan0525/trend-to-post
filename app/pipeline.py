@@ -1,8 +1,10 @@
 from pathlib import Path
+
 from .config import Settings
 from .gemini import GeminiWriter
 from .storage import filter_new_drafts, load_recent_texts, write_daily_markdown
 from .x_trends import XTrendClient, XTrendError, filter_technology_ai_trends
+
 
 class TrendPipeline:
     def __init__(self, settings: Settings):
@@ -27,12 +29,6 @@ class TrendPipeline:
             print(f"{trend.rank:>2}. {trend.name}")
 
     async def collect_niche_trends(self):
-        """Collect enough X Trends to find the requested Technology/AI niche.
-
-        X's top Trends can contain no Technology/AI item at a low limit. In that
-        case, expand the same X Trends request to the API's supported maximum
-        instead of failing the scheduled job.
-        """
         trends = filter_technology_ai_trends(await self.collect())
         if trends:
             return trends
@@ -48,16 +44,21 @@ class TrendPipeline:
             )
         return trends
 
-    async def run(self, generate=True, post_type="standard"):
+    async def run(self, generate=True, post_type="question"):
+        if post_type not in {"funny_ragebait", "breaking_news", "question"}:
+            raise ValueError(f"Unsupported post type: {post_type}")
+
         trends = await self.collect_niche_trends()
         if not trends:
             raise XTrendError(
                 "X returned no Technology/Artificial Intelligence trends in the "
                 "available Trends window. No non-niche content was generated."
             )
+
         print(f"Post style: {post_type}")
         recent_texts = load_recent_texts(100)
         drafts = []
+
         if generate:
             for attempt in range(3):
                 candidate = self.gemini.generate(
@@ -70,13 +71,23 @@ class TrendPipeline:
                     drafts = fresh
                     break
                 recent_texts.extend(d.text for d in candidate)
-                print(f"Generated duplicate; requesting a different {post_type} post (attempt {attempt + 2}/3).")
+                print(
+                    f"Generated duplicate; requesting a different {post_type} "
+                    f"post (attempt {attempt + 2}/3)."
+                )
+
+            if not drafts:
+                raise RuntimeError(
+                    f"Could not generate a fresh {post_type} post after 3 duplicate checks."
+                )
+
         path = write_daily_markdown(Path("."), trends, drafts)
-        print(f"Wrote {len(drafts)} new drafts to {path}")
+        print(f"Wrote {len(drafts)} new {post_type} draft(s) to {path}")
 
     def health(self):
         print("trend-to-post: configuration loaded")
         print("X Trends only; niche: Technology + Artificial Intelligence")
+        print("Daily schedule: 02:00 funny+ragebait+emoji; 08:00 breaking-news; 14:00 question; 20:00 question")
         print(f"location setting: {self.settings.x_trends_location}")
         print(f"trend limit: {self.settings.trend_limit}")
         print(f"draft count: {self.settings.ai_draft_count}")
