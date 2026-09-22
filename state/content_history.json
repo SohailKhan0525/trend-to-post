@@ -104,5 +104,13 @@
     "angle": "Mocking developers who complain about UI changes instead of actually writing any real code.",
     "post_type": "funny_ragebait",
     "generated_at": "2026-09-22T11:51:59.401767+00:00"
+  },
+  {
+    "fingerprint": "a1f614c0d9739c1d0b1a3a80de9e6b91ce1aa252a0926090e55ae49606344a91",
+    "text": "How should engineering organizations review and govern codebases that were entirely constructed through rapid casual AI prompts?",
+    "trend": "Vibe Coding Lets Builders Create Software with Casual AI Prompts",
+    "angle": "Evaluating the long-term maintainability and technical debt implications of casual AI prompt-based software development.",
+    "post_type": "question",
+    "generated_at": "2026-09-22T13:34:02.636400+00:00"
   }
 ]
