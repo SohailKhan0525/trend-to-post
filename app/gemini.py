@@ -1,49 +1,57 @@
 import json
 import time
-
-import httpx
 from datetime import datetime, timezone
 
+import httpx
 from google import genai
 from google.genai import types
 
 from .models import Draft, Trend
 
-MODELS = ("gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite", "gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.8-flash")
+MODEL = "gemini-3.5-flash-lite"
+MAX_ATTEMPTS_PER_KEY = 4
+CANDIDATE_COUNT = 5
 
 POST_INSTRUCTIONS = {
-    "funny_ragebait": """Write one original funny technology/AI X post designed to spark debate.
-Use only the supplied X Trend as the topic. Use playful ragebait framing and 1-2 relevant emojis.
-Make it witty and relatable, not hateful, abusive, deceptive, or based on invented facts.
-Do not invent facts, quotes, personal experiences, or events.""",
-    "breaking_news": """Write one original breaking-news-style technology/AI X post.
-Use only the supplied X Trend as the source signal. Be urgent and concise, but NEVER invent facts, numbers, quotes, timelines, launches, causes, or details.
-If the trend name does not establish a specific event, clearly frame it as a topic/trend gaining attention instead of claiming unverified news.""",
-    "question": """Write one original technology/AI X post built around ONE specific, thoughtful question.
-Use only the supplied X Trend as the topic. Make the question natural and useful, not generic engagement bait.
-Do not invent facts, quotes, personal experiences, or events.""",
+    "funny_ragebait": """Write funny, provocative technology/AI X posts that invite disagreement.
+The tone MUST be playful ragebait: bold, cheeky, slightly controversial, relatable, and likely to make tech people argue.
+Use 1-2 relevant emojis in every candidate. Never be hateful, abusive, deceptive, or invent facts.
+Use only the supplied X Trend as the topic.""",
+    "breaking_news": """Write a breaking-news-style technology/AI X post.
+Sound urgent and current, like a concise newsroom alert, but NEVER invent facts, numbers, quotes, launches, timelines, causes, or details.
+Use only what the supplied X Trend itself establishes. If it is merely a trending topic, say it is gaining attention rather than pretending a verified event happened.""",
+    "question": """Write a natural technology/AI X post centered on ONE specific, thoughtful question.
+The question must be concrete, interesting, and tied directly to the supplied X Trend.
+Avoid generic engagement bait. Do not invent facts, quotes, personal experiences, or events.""",
 }
 
-INSTRUCTION_SUFFIX = """
-Avoid generic AI phrasing, excessive hashtags, and empty summaries.
-The final text must be natural and immediately publishable on X, exactly 17 whitespace-separated words, and no longer than 280 characters including spaces and emojis.
-Do not start with labels such as "Post:", "Breaking:", "Question:", or "Tweet:".
-Return exactly one JSON object with trend, angle, text, generated_at.
-"""
 RESPONSE_SCHEMA = {
     "type": "object",
     "properties": {
         "trend": {"type": "string"},
         "angle": {"type": "string"},
-        "text": {"type": "string"},
-        "generated_at": {"type": "string"},
+        "candidates": {
+            "type": "array",
+            "items": {"type": "string"},
+        },
     },
-    "required": ["trend", "angle", "text", "generated_at"],
+    "required": ["trend", "angle", "candidates"],
 }
 
 
 class GeminiQuotaError(RuntimeError):
-    """A Gemini 429 caused by exhausted project quota."""
+    pass
+
+
+def _validate_candidate(text: str, post_type: str) -> bool:
+    text = text.strip()
+    if len(text.split()) != 17 or len(text) > 280:
+        return False
+    if post_type == "funny_ragebait":
+        return any(ch in text for ch in "😂🤣😭😅💀🔥🤯😤🙃😈")
+    if post_type == "question":
+        return "?" in text
+    return True
 
 
 class GeminiWriter:
@@ -63,143 +71,102 @@ class GeminiWriter:
         ]
         self.draft_count = 1
 
-    def _generate_with_client(self, client, prompt, model):
-        last_error = None
-        for attempt in range(2):
-            try:
-                response = client.models.generate_content(
-                    model=model,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        response_mime_type="application/json",
-                        response_schema=RESPONSE_SCHEMA,
-                        temperature=0.7,
-                        max_output_tokens=256,
-                    ),
-                )
-                parsed = getattr(response, "parsed", None)
-                text = getattr(response, "text", None)
-                if parsed is None and not (text and text.strip()):
-                    raise GeminiQuotaError(
-                        "Gemini returned HTTP 200 but no structured/text content."
-                    )
-                return response
-            except Exception as exc:
-                last_error = exc
-                message = str(exc)
-                is_key_error = (
-                    "401" in message
-                    or "403" in message
-                    or "authentication" in message.lower()
-                    or "permission_denied" in message.lower()
-                )
-                is_transient = (
-                    isinstance(exc, httpx.RemoteProtocolError)
-                    or isinstance(exc, httpx.ReadTimeout)
-                    or "429" in message
-                    or "RESOURCE_EXHAUSTED" in message
-                    or "503" in message
-                    or "UNAVAILABLE" in message
-                    or "500" in message
-                    or "502" in message
-                    or "504" in message
-                )
-                if is_key_error:
-                    raise GeminiQuotaError(
-                        "Gemini API key/authentication failed. "
-                        f"Google error: {message[:1000]}"
-                    ) from exc
-                if not is_transient:
-                    raise
-                if attempt == 1:
-                    raise GeminiQuotaError(
-                        "Gemini transient service/network failure; "
-                        "the next model/key will be tried. "
-                        f"Google error: {message[:1000]}"
-                    ) from exc
-                delay = 2 * (2 ** attempt)
-                print(
-                    f"Gemini transient error on attempt {attempt + 1}/4; "
-                    f"retrying in {delay}s: {message[:300]}"
-                )
-                time.sleep(delay)
-        raise last_error or RuntimeError("Gemini generation failed.")
+    def _generate(self, client, prompt):
+        response = client.models.generate_content(
+            model=MODEL,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=RESPONSE_SCHEMA,
+                temperature=0.9,
+                max_output_tokens=512,
+            ),
+        )
+        parsed = getattr(response, "parsed", None)
+        if parsed is not None:
+            if hasattr(parsed, "model_dump"):
+                return parsed.model_dump()
+            if isinstance(parsed, dict):
+                return parsed
+            return dict(parsed)
+        raw = (getattr(response, "text", None) or "").strip()
+        if not raw:
+            raise GeminiQuotaError("Gemini returned no content.")
+        return json.loads(raw)
 
     def generate(self, trends: list[Trend], post_type: str = "standard", recent_texts: list[str] | None = None):
         if post_type not in POST_INSTRUCTIONS:
             raise ValueError(f"Unsupported post type: {post_type}")
+
         payload = {"trends": [{"rank": t.rank, "name": t.name} for t in trends]}
         recent_texts = recent_texts or []
-        diversity_instruction = """
-IMPORTANT: This post must be substantially different from every recent post below.
-Do not reuse their wording, sentence structure, hook, joke, question, or angle.
-The post type is mandatory and must be obvious from the writing.
-""" + "\nRECENT POSTS TO AVOID REPEATING:\n" + json.dumps(recent_texts[-30:], ensure_ascii=False)
-        prompt = POST_INSTRUCTIONS[post_type] + INSTRUCTION_SUFFIX + diversity_instruction + "\nINPUT:\n" + json.dumps(
-            payload, ensure_ascii=False
-        )
+        prompt = f"""You are generating ONE publishable X post for the requested style.
+
+STYLE:
+{POST_INSTRUCTIONS[post_type]}
+
+HARD RULES FOR EVERY CANDIDATE:
+- Exactly 17 whitespace-separated words.
+- Maximum 280 characters.
+- No hashtags unless genuinely necessary.
+- No labels like "Post:", "Breaking:", "Question:", or "Tweet:".
+- Every candidate must be meaningfully different from the others.
+- Carefully count the words before returning each candidate.
+- Return exactly {CANDIDATE_COUNT} candidates.
+
+RECENT POSTS TO AVOID:
+{json.dumps(recent_texts[-30:], ensure_ascii=False)}
+
+INPUT X TRENDS:
+{json.dumps(payload, ensure_ascii=False)}
+"""
 
         last_error = None
-        for model in MODELS:
+        for attempt in range(MAX_ATTEMPTS_PER_KEY):
             for key_index, client in enumerate(self.clients):
                 try:
                     print(
-                        f"Gemini generation attempt: model={model}, "
-                        f"key={key_index + 1}"
+                        f"Gemini generation attempt: model={MODEL}, key={key_index + 1}, "
+                        f"round={attempt + 1}/{MAX_ATTEMPTS_PER_KEY}"
                     )
-                    interaction = self._generate_with_client(client, prompt, model)
-                    parsed = getattr(interaction, "parsed", None)
-                    if parsed is not None:
-                        if hasattr(parsed, "model_dump"):
-                            data = parsed.model_dump()
-                        elif isinstance(parsed, dict):
-                            data = parsed
-                        else:
-                            data = dict(parsed)
-                    else:
-                        raw_text = (getattr(interaction, "text", None) or "").strip()
-                        if not raw_text:
-                            raise GeminiQuotaError(
-                                "Gemini returned HTTP 200 with no usable content."
-                            )
-                        data = json.loads(raw_text)
-                    required = {"trend", "angle", "text", "generated_at"}
-                    if not required.issubset(data):
-                        raise GeminiQuotaError("Gemini returned incomplete structured content.")
-                    text = str(data["text"]).strip()
-                    word_count = len(text.split())
-                    if not text or word_count != 17 or len(text) > 280:
+                    data = self._generate(client, prompt)
+                    candidates = [str(x).strip() for x in data.get("candidates", [])]
+                    valid = [x for x in candidates if _validate_candidate(x, post_type)]
+                    if not valid:
                         raise GeminiQuotaError(
-                            f"Gemini returned an invalid X post: expected exactly 17 words and <=280 "
-                            f"characters; got {word_count} words and {len(text)} characters."
+                            "Gemini returned candidates, but none met the exact 17-word/style rules."
                         )
-                    if post_type == "funny_ragebait" and not any(
-                        ch in text for ch in "😂🤣😭😅💀🔥🤯😤🙃😈"
-                    ):
-                        raise GeminiQuotaError("Funny ragebait post must contain an emoji.")
-                    if post_type == "question" and "?" not in text:
-                        raise GeminiQuotaError("Question post must contain a question mark.")
+
+                    text = valid[0]
                     now = datetime.now(timezone.utc).isoformat()
-                    break
-                except (GeminiQuotaError, json.JSONDecodeError) as exc:
+                    return [
+                        Draft(
+                            trend=str(data.get("trend") or trends[0].name),
+                            angle=str(data.get("angle") or post_type),
+                            text=text,
+                            generated_at=now,
+                            post_type=post_type,
+                        )
+                    ]
+                except (GeminiQuotaError, json.JSONDecodeError, ValueError) as exc:
                     last_error = exc
-                    print(f"Gemini attempt failed; trying next model/key: {exc}")
-            else:
-                continue
-            break
-        else:
-            raise last_error or RuntimeError("Gemini generation failed.")
-        required = {"trend", "angle", "text", "generated_at"}
-        if not required.issubset(data):
-            raise GeminiQuotaError(
-                "Gemini returned incomplete structured content; "
-                "the next model/key will be tried."
-            )
-        return [
-            Draft(
-                trend=str(data["trend"]),
-                angle=str(data["angle"]),
-                text=text,
-                generated_at=str(data.get("generated_at") or now),
-            )
-        ]
+                    print(f"Gemini attempt failed; trying again: {exc}")
+                except Exception as exc:
+                    message = str(exc)
+                    is_transient = (
+                        isinstance(exc, (httpx.RemoteProtocolError, httpx.ReadTimeout))
+                        or "429" in message
+                        or "RESOURCE_EXHAUSTED" in message
+                        or "500" in message
+                        or "502" in message
+                        or "503" in message
+                        or "504" in message
+                        or "UNAVAILABLE" in message
+                    )
+                    if not is_transient:
+                        raise
+                    last_error = GeminiQuotaError(message[:1000])
+                    print(f"Gemini transient error; trying again: {message[:300]}")
+                    time.sleep(2)
+
+        raise last_error or RuntimeError("Gemini generation failed.")
