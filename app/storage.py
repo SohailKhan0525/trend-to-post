@@ -61,6 +61,7 @@ def filter_new_drafts(drafts: list[Draft]) -> list[Draft]:
             "text": draft.text,
             "trend": draft.trend,
             "angle": draft.angle,
+            "post_type": draft.post_type,
             "generated_at": draft.generated_at,
         })
 
@@ -92,9 +93,15 @@ def write_daily_markdown(root: Path, trends: list[Trend], drafts: list[Draft]):
         lines += [
             f"### Draft {i}",
             "",
+            f"**Post type:** {draft.post_type}",
+            "",
             f"**Trend:** {draft.trend}",
             "",
             f"**Angle:** {draft.angle}",
+            "",
+            f"**Word count:** {len(draft.text.split())}",
+            "",
+            f"**Character count:** {len(draft.text)}",
             "",
             draft.text,
             "",
