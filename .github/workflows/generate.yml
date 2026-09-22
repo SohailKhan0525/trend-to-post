@@ -117,8 +117,10 @@ jobs:
               raise SystemExit(f"Post exceeds 280 characters: {len(post)}")
           if expected == "funny_ragebait" and not any(c in post for c in "😂🤣😭😅💀🔥🤯😤🙃😈"):
               raise SystemExit("Funny/ragebait post is missing a required emoji.")
-          if expected == "question" and "?" not in post:
-              raise SystemExit("Question post is missing '?'.")
+          if expected == "question" and post.count("?") != 1:
+              raise SystemExit("Question post must contain exactly one question mark.")
+          if expected == "breaking_news" and "?" in post:
+              raise SystemExit("Breaking-news post must not be a question.")
           PY
 
       - name: Commit generated draft and history
