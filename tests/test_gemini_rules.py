@@ -3,7 +3,7 @@ from app.gemini import _validate_candidate
 
 def test_funny_ragebait_requires_17_words_and_emoji():
     text = "AI just stole your job again, and somehow you are still defending it 😂"
-    assert len(text.split()) == 13
+    assert len(text.split()) == 14
     assert not _validate_candidate(text, "funny_ragebait")
 
     valid = "AI just stole your weekend, and somehow developers are defending it again 😂🔥 like nothing happened today"
