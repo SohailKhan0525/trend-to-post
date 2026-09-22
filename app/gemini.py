@@ -8,9 +8,9 @@ from google.genai import types
 
 from .models import Draft, Trend
 
-MODEL = "gemini-3.5-flash-lite"
-MAX_ATTEMPTS_PER_KEY = 4
-CANDIDATE_COUNT = 5
+MODELS = ("gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.1-flash-lite")
+MAX_ATTEMPTS_PER_KEY = 3
+CANDIDATE_COUNT = 8
 
 POST_INSTRUCTIONS = {
     "funny_ragebait": """Write funny, provocative technology/AI X posts that invite disagreement.
@@ -73,15 +73,15 @@ class GeminiWriter:
         ]
         self.draft_count = 1
 
-    def _generate(self, client, prompt):
+    def _generate(self, client, prompt, model):
         response = client.models.generate_content(
-            model=MODEL,
+            model=model,
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=RESPONSE_SCHEMA,
-                temperature=0.9,
-                max_output_tokens=512,
+                thinking_config=types.ThinkingConfig(thinking_level="minimal"),
+                max_output_tokens=768,
             ),
         )
         parsed = getattr(response, "parsed", None)
@@ -124,14 +124,15 @@ INPUT X TRENDS:
 """
 
         last_error = None
-        for attempt in range(MAX_ATTEMPTS_PER_KEY):
+        for model in MODELS:
+            for attempt in range(MAX_ATTEMPTS_PER_KEY):
             for key_index, client in enumerate(self.clients):
                 try:
                     print(
-                        f"Gemini generation attempt: model={MODEL}, key={key_index + 1}, "
+                        f"Gemini generation attempt: model={model}, key={key_index + 1}, "
                         f"round={attempt + 1}/{MAX_ATTEMPTS_PER_KEY}"
                     )
-                    data = self._generate(client, prompt)
+                    data = self._generate(client, prompt, model)
                     candidates = [str(x).strip() for x in data.get("candidates", [])]
                     valid = [x for x in candidates if _validate_candidate(x, post_type)]
                     if not valid:
