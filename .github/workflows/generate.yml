@@ -90,6 +90,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import os
           import re
 
           files = sorted(Path("posts").glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
@@ -97,7 +98,7 @@ jobs:
               raise SystemExit("No generated post file found.")
 
           text = files[0].read_text(encoding="utf-8")
-          expected = "${{ env.POST_TYPE }}"
+          expected = os.environ["POST_TYPE"]
           match = re.search(r"\*\*Post type:\*\* (.+)", text)
           if not match or match.group(1).strip() != expected:
               raise SystemExit(f"Post type mismatch: expected {expected!r}")
