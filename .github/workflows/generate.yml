@@ -142,10 +142,50 @@ jobs:
             echo "No new draft generated."
             exit 1
           fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add posts/ state/
-          git commit -m "content: generate X trend draft"
+
+          # The generated post and history are created from this run's checkout.
+          # Sync to the latest main before committing so concurrent/manual changes
+          # do not create a rebase conflict in the append-only history JSON.
+          GENERATED_POST="$(find posts -maxdepth 1 -type f -name '*.md' -printf '%T@ %p\n' | sort -nr | head -1 | cut -d' ' -f2-)"
+          cp "$GENERATED_POST" /tmp/generated-post.md
+          cp state/content_history.json /tmp/generated-history.json
+
           git fetch origin main
-          git rebase origin/main
+          git reset --hard origin/main
+
+          cp /tmp/generated-post.md "$GENERATED_POST"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          current_path = Path("state/content_history.json")
+          generated_path = Path("/tmp/generated-history.json")
+
+          def load(path):
+              if not path.exists():
+                  return []
+              return json.loads(path.read_text(encoding="utf-8"))
+
+          current = load(current_path)
+          generated = load(generated_path)
+
+          by_fingerprint = {}
+          for item in current + generated:
+              fingerprint = item.get("fingerprint")
+              if fingerprint:
+                  by_fingerprint[fingerprint] = item
+
+          merged = list(by_fingerprint.values())[-1000:]
+          current_path.parent.mkdir(parents=True, exist_ok=True)
+          current_path.write_text(
+              json.dumps(merged, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+          git add posts/ state/content_history.json
+          git commit -m "content: generate X trend draft"
           git push
