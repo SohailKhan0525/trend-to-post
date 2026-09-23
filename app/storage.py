@@ -26,6 +26,11 @@ def load_recent_texts(limit: int = 100) -> list[str]:
     return [str(item.get("text", "")) for item in history[-limit:] if item.get("text")]
 
 
+def load_recent_trends(limit: int = 100) -> list[str]:
+    history = _load_history()
+    return [str(item.get("trend", "")) for item in history[-limit:] if item.get("trend")]
+
+
 def _load_history() -> list[dict]:
     if not HISTORY_PATH.exists():
         return []
