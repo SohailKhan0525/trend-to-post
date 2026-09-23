@@ -15,7 +15,7 @@ MODELS = (
     "gemini-3.5-flash-lite",
     "gemini-3-flash-preview",
 )
-MAX_ATTEMPTS_PER_KEY = 2
+MAX_ATTEMPTS_PER_KEY = 1
 CANDIDATE_COUNT = 2
 
 POST_INSTRUCTIONS = {
@@ -100,7 +100,7 @@ class GeminiWriter:
             genai.Client(
                 api_key=key,
                 http_options=types.HttpOptions(
-                    retry_options=types.HttpRetryOptions(attempts=1),
+                    retry_options=types.HttpRetryOptions(attempts=4),
                     timeout=30000,
                 ),
             )
