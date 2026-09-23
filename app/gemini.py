@@ -125,12 +125,13 @@ class GeminiWriter:
             raise GeminiQuotaError("Gemini returned no content.")
         return json.loads(raw)
 
-    def generate(self, trends: list[Trend], post_type: str = "standard", recent_texts: list[str] | None = None):
+    def generate(self, trends: list[Trend], post_type: str = "standard", recent_texts: list[str] | None = None, recent_trends: list[str] | None = None):
         if post_type not in POST_INSTRUCTIONS:
             raise ValueError(f"Unsupported post type: {post_type}")
 
         payload = {"trends": [{"rank": t.rank, "name": t.name} for t in trends]}
         recent_texts = recent_texts or []
+        recent_trends = recent_trends or []
         prompt = f"""You are generating ONE publishable X post for the requested style.
 
 STYLE:
@@ -164,6 +165,14 @@ REPLY STYLE:
 
 RECENT POSTS TO AVOID:
 {json.dumps(recent_texts[-30:], ensure_ascii=False)}
+
+RECENT X TRENDS ALREADY USED — DO NOT USE THESE TRENDS AGAIN:
+{json.dumps(recent_trends[-100:], ensure_ascii=False)}
+
+TREND SELECTION RULE:
+- Choose a trend from INPUT X TRENDS that is NOT in RECENT X TRENDS ALREADY USED.
+- Do not merely rephrase a recently used trend with different wording.
+- If multiple fresh trends are available, prefer one that has not appeared recently.
 
 INPUT X TRENDS:
 {json.dumps(payload, ensure_ascii=False)}
