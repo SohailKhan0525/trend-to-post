@@ -1,4 +1,5 @@
 import json
+import random
 import time
 from datetime import datetime, timezone
 
@@ -8,9 +9,14 @@ from google.genai import types
 
 from .models import Draft, Trend
 
-MODELS = ("gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.1-flash-lite")
-MAX_ATTEMPTS_PER_KEY = 3
-CANDIDATE_COUNT = 4
+MODELS = (
+    "gemini-3.5-flash",
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite",
+    "gemini-3-flash-preview",
+)
+MAX_ATTEMPTS_PER_KEY = 2
+CANDIDATE_COUNT = 2
 
 POST_INSTRUCTIONS = {
     "funny_ragebait": """Write a funny, provocative technology/AI X post based DIRECTLY on ONE supplied X Trend.
@@ -149,11 +155,13 @@ HARD RULES FOR EVERY MAIN POST CANDIDATE:
 - Every candidate must be meaningfully different from the others.
 - Carefully count the words before returning each candidate.
 - Return exactly {CANDIDATE_COUNT} main post candidates.
-- Build each candidate by counting whitespace-separated tokens one by one before returning it.
+- Before returning each candidate, explicitly count its whitespace-separated tokens from left to right and revise it until the count is exactly 17.
+- Do the same exact count check for its paired reply.
 - Candidate 1 is paired with reply 1, candidate 2 with reply 2, and so on.
 
 REPLY RULES:
 - Return exactly {CANDIDATE_COUNT} reply_candidates.
+- Reply candidate N must be generated only after candidate N has been finalized at exactly 17 words.
 - Every reply must be exactly 17 whitespace-separated words and maximum 280 characters.
 - Reply candidate N must respond specifically to main-post candidate N.
 - Every reply must be respectful, polite, conversational, and directly relevant to the generated main-post topic.
@@ -230,7 +238,11 @@ INPUT X TRENDS:
                         if not is_transient:
                             raise
                         last_error = GeminiQuotaError(message[:1000])
-                        print(f"Gemini transient error; trying again: {message[:300]}")
-                        time.sleep(2)
+                        delay = min(30, 2 ** attempt) + random.uniform(0, 1)
+                        print(
+                            f"Gemini transient error; retrying after {delay:.1f}s: "
+                            f"{message[:300]}"
+                        )
+                        time.sleep(delay)
 
         raise last_error or RuntimeError("Gemini generation failed.")
