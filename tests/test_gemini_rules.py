@@ -41,5 +41,10 @@ def test_reply_requires_17_words_and_no_emoji():
 def test_gemini_model_fallbacks_are_supported():
     from app.gemini import MODELS
 
-    assert MODELS == ("gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.1-flash-lite")
+    assert MODELS == (
+        "gemini-3.5-flash",
+        "gemini-3.1-flash-lite",
+        "gemini-3.5-flash-lite",
+        "gemini-3-flash-preview",
+    )
     assert all("2.5" not in model for model in MODELS)
