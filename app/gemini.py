@@ -13,16 +13,19 @@ MAX_ATTEMPTS_PER_KEY = 3
 CANDIDATE_COUNT = 8
 
 POST_INSTRUCTIONS = {
-    "funny_ragebait": """Write funny, provocative technology/AI X posts that invite disagreement.
+    "funny_ragebait": """Write a funny, provocative technology/AI X post based DIRECTLY on ONE supplied X Trend.
 The tone MUST be playful ragebait: bold, cheeky, slightly controversial, relatable, and likely to make tech people argue.
-Use 1-2 relevant emojis in every candidate. Never be hateful, abusive, deceptive, or invent facts.
-Use only the supplied X Trend as the topic.""",
-    "breaking_news": """Write a breaking-news-style technology/AI X post.
-Sound urgent and current, like a concise newsroom alert, but NEVER invent facts, numbers, quotes, launches, timelines, causes, or details.
-Use only what the supplied X Trend itself establishes. If it is merely a trending topic, say it is gaining attention rather than pretending a verified event happened.""",
-    "question": """Write a natural technology/AI X post centered on ONE specific, thoughtful question.
-The question must be concrete, interesting, and tied directly to the supplied X Trend.
-Avoid generic engagement bait. Do not invent facts, quotes, personal experiences, or events.""",
+Use EXACTLY ONE relevant emoji in every candidate. Never be hateful, abusive, deceptive, or invent facts.
+Do not turn the trend into a generic technology joke; the supplied X Trend must clearly be the topic.""",
+    "breaking_news": """Write a breaking-news-style technology/AI X post based DIRECTLY on ONE supplied X Trend.
+It MUST begin exactly with "Breaking news 🚨".
+Sound urgent and current, but NEVER invent facts, numbers, quotes, launches, timelines, causes, or details.
+Use only what the supplied X Trend itself establishes. If it is merely a trending topic, say it is gaining attention rather than pretending a verified event happened.
+The 🚨 emoji is the ONLY emoji allowed in the main post.""",
+    "question": """Write a natural technology/AI X post centered on ONE specific, thoughtful question tied DIRECTLY to the supplied X Trend.
+The question must be concrete and interesting, not generic engagement bait.
+Use EXACTLY ONE relevant emoji naturally in every candidate.
+Do not invent facts, quotes, personal experiences, or events.""",
 }
 
 RESPONSE_SCHEMA = {
