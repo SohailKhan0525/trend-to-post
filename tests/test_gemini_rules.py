@@ -12,7 +12,7 @@ def test_funny_ragebait_requires_17_words_and_emoji():
 
 
 def test_question_requires_exactly_17_words_and_question_mark():
-    valid = "Will AI coding assistants make developers better, or simply make average code arrive faster every single day?"
+    valid = "Will AI coding assistants make developers better, or simply make average code arrive faster every day? 🤯"
     assert len(valid.split()) == 17
     assert _validate_candidate(valid, "question")
 
