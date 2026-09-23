@@ -1,7 +1,7 @@
 import hashlib
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from difflib import SequenceMatcher
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -26,9 +26,26 @@ def load_recent_texts(limit: int = 100) -> list[str]:
     return [str(item.get("text", "")) for item in history[-limit:] if item.get("text")]
 
 
-def load_recent_trends(limit: int = 100) -> list[str]:
+def load_recent_trends(days: int = 7) -> list[str]:
     history = _load_history()
-    return [str(item.get("trend", "")) for item in history[-limit:] if item.get("trend")]
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    trends = []
+
+    for item in history:
+        trend = str(item.get("trend", "")).strip()
+        generated_at = str(item.get("generated_at", "")).strip()
+        if not trend:
+            continue
+        try:
+            timestamp = datetime.fromisoformat(generated_at.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if timestamp.tzinfo is None:
+            timestamp = timestamp.replace(tzinfo=timezone.utc)
+        if timestamp >= cutoff:
+            trends.append(trend)
+
+    return trends
 
 
 def _load_history() -> list[dict]:
