@@ -37,8 +37,12 @@ RESPONSE_SCHEMA = {
             "type": "array",
             "items": {"type": "string"},
         },
+        "reply_candidates": {
+            "type": "array",
+            "items": {"type": "string"},
+        },
     },
-    "required": ["trend", "angle", "candidates"],
+    "required": ["trend", "angle", "candidates", "reply_candidates"],
 }
 
 
