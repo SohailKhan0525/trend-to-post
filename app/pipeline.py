@@ -1,8 +1,9 @@
 from pathlib import Path
+from difflib import SequenceMatcher
 
 from .config import Settings
 from .gemini import GeminiWriter
-from .storage import filter_new_drafts, load_recent_texts, write_daily_markdown
+from .storage import filter_new_drafts, load_recent_texts, load_recent_trends, write_daily_markdown
 from .x_trends import XTrendClient, XTrendError, filter_technology_ai_trends
 
 
@@ -30,8 +31,20 @@ class TrendPipeline:
 
     async def collect_niche_trends(self):
         trends = filter_technology_ai_trends(await self.collect())
-        if trends:
-            return trends
+        recent_trends = load_recent_trends(100)
+
+        def is_recent_duplicate(name: str) -> bool:
+            normalized = name.casefold().strip()
+            return any(
+                normalized == recent.casefold().strip()
+                or SequenceMatcher(None, normalized, recent.casefold().strip()).ratio() >= 0.88
+                for recent in recent_trends
+                if recent
+            )
+
+        fresh = [trend for trend in trends if not is_recent_duplicate(trend.name)]
+        if fresh:
+            return fresh
 
         expanded_limit = 50
         if self.settings.trend_limit < expanded_limit:
@@ -42,7 +55,8 @@ class TrendPipeline:
             trends = filter_technology_ai_trends(
                 await self.x.get_trends(expanded_limit)
             )
-        return trends
+            fresh = [trend for trend in trends if not is_recent_duplicate(trend.name)]
+        return fresh
 
     async def run(self, generate=True, post_type="question"):
         if post_type not in {"funny_ragebait", "breaking_news", "question"}:
@@ -57,6 +71,7 @@ class TrendPipeline:
 
         print(f"Post style: {post_type}")
         recent_texts = load_recent_texts(100)
+        recent_trends = load_recent_trends(100)
         drafts = []
 
         if generate:
@@ -65,6 +80,7 @@ class TrendPipeline:
                     trends,
                     post_type=post_type,
                     recent_texts=recent_texts + [d.text for d in drafts],
+                    recent_trends=recent_trends,
                 )
                 fresh = filter_new_drafts(candidate)
                 if fresh:
