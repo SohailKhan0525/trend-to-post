@@ -149,7 +149,9 @@ REPLY RULES:
 - Every reply must be respectful, polite, conversational, and directly relevant to the generated main-post topic.
 - Replies must not use emojis or hashtags.
 - Do not simply repeat the main post.
-- Follow the separate reply-writing guidance above.
+
+REPLY STYLE:
+{REPLY_INSTRUCTIONS}
 
 RECENT POSTS TO AVOID:
 {json.dumps(recent_texts[-30:], ensure_ascii=False)}
