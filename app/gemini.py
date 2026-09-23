@@ -46,17 +46,33 @@ class GeminiQuotaError(RuntimeError):
     pass
 
 
+EMOJI_SET = "😂🤣😭😅💀🔥🤯😤🙃😈"
+REPLY_INSTRUCTIONS = """Write ONE respectful, polite, natural reply that a second X account could post underneath the generated main post.
+It must clearly relate to the main post and its supplied X Trend.
+Be conversational and sincere, not sycophantic, hostile, promotional, or generic.
+Do not invent facts, personal experiences, or events.
+Do not use hashtags or emojis."""
+
+
 def _validate_candidate(text: str, post_type: str) -> bool:
     text = text.strip()
     if len(text.split()) != 17 or len(text) > 280:
         return False
+    emoji_count = sum(ch in EMOJI_SET for ch in text)
+    if emoji_count != 1:
+        return False
     if post_type == "funny_ragebait":
-        return any(ch in text for ch in "😂🤣😭😅💀🔥🤯😤🙃😈")
+        return True
     if post_type == "question":
         return text.count("?") == 1
     if post_type == "breaking_news":
-        return "?" not in text
+        return text.startswith("Breaking news 🚨") and text.count("🚨") == 1 and "?" not in text
     return True
+
+
+def _validate_reply(text: str) -> bool:
+    text = text.strip()
+    return len(text.split()) == 17 and len(text) <= 280 and not any(ch in text for ch in EMOJI_SET)
 
 
 class GeminiWriter:
