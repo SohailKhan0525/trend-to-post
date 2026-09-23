@@ -103,24 +103,36 @@ jobs:
           if not match or match.group(1).strip() != expected:
               raise SystemExit(f"Post type mismatch: expected {expected!r}")
 
-          draft_match = re.search(r"\*\*Word count:\*\* (\d+).*?\n\*\*Character count:\*\* (\d+).*?\n\n(.+?)\n", text, re.S)
+          draft_match = re.search(r"\*\*Word count:\*\* (\d+).*?\n\*\*Character count:\*\* (\d+).*?\n\n\*\*Main post:\*\*\n\n(.+?)\n\n\*\*Reply word count:\*\* (\d+).*?\n\*\*Reply character count:\*\* (\d+).*?\n\n\*\*Second-account reply:\*\*\n\n(.+?)\n", text, re.S)
           if not draft_match:
-              raise SystemExit("Generated draft metadata is missing.")
+              raise SystemExit("Generated post/reply metadata is missing.")
 
           words = int(draft_match.group(1))
           chars = int(draft_match.group(2))
           post = draft_match.group(3).strip()
+          reply_words = int(draft_match.group(4))
+          reply_chars = int(draft_match.group(5))
+          reply = draft_match.group(6).strip()
+          emojis = sum(c in "😂🤣😭😅💀🔥🤯😤🙃😈🚨" for c in post)
 
           if words != 17 or len(post.split()) != 17:
-              raise SystemExit(f"Expected exactly 17 words, got {words}: {post}")
+              raise SystemExit(f"Expected exactly 17 post words, got {words}: {post}")
           if chars > 280 or len(post) > 280:
               raise SystemExit(f"Post exceeds 280 characters: {len(post)}")
-          if expected == "funny_ragebait" and not any(c in post for c in "😂🤣😭😅💀🔥🤯😤🙃😈"):
-              raise SystemExit("Funny/ragebait post is missing a required emoji.")
+          if emojis != 1:
+              raise SystemExit(f"Main post must contain exactly one emoji, got {emojis}: {post}")
+          if expected == "breaking_news" and not post.startswith("Breaking news 🚨"):
+              raise SystemExit("Breaking-news post must start with 'Breaking news 🚨'.")
           if expected == "question" and post.count("?") != 1:
               raise SystemExit("Question post must contain exactly one question mark.")
           if expected == "breaking_news" and "?" in post:
               raise SystemExit("Breaking-news post must not be a question.")
+          if reply_words != 17 or len(reply.split()) != 17:
+              raise SystemExit(f"Expected exactly 17 reply words, got {reply_words}: {reply}")
+          if reply_chars > 280 or len(reply) > 280:
+              raise SystemExit(f"Reply exceeds 280 characters: {len(reply)}")
+          if any(c in "😂🤣😭😅💀🔥🤯😤🙃😈🚨" for c in reply):
+              raise SystemExit("Second-account reply must not contain emojis.")
           PY
 
       - name: Commit generated draft and history
