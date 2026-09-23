@@ -1,4 +1,4 @@
-from app.gemini import _validate_candidate
+from app.gemini import _validate_candidate, _validate_reply
 
 
 def test_funny_ragebait_requires_17_words_and_emoji():
