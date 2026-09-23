@@ -50,7 +50,7 @@ class GeminiQuotaError(RuntimeError):
     pass
 
 
-EMOJI_SET = "😂🤣😭😅💀🔥🤯😤🙃😈"
+EMOJI_SET = "😂🤣😭😅💀🔥🤯😤🙃😈🚨"
 REPLY_INSTRUCTIONS = """Write ONE respectful, polite, natural reply that a second X account could post underneath the generated main post.
 It must clearly relate to the main post and its supplied X Trend.
 Be conversational and sincere, not sycophantic, hostile, promotional, or generic.
@@ -149,6 +149,7 @@ REPLY RULES:
 - Every reply must be respectful, polite, conversational, and directly relevant to the generated main-post topic.
 - Replies must not use emojis or hashtags.
 - Do not simply repeat the main post.
+- Follow the separate reply-writing guidance above.
 
 RECENT POSTS TO AVOID:
 {json.dumps(recent_texts[-30:], ensure_ascii=False)}
