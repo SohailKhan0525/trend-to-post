@@ -31,7 +31,7 @@ class TrendPipeline:
 
     async def collect_niche_trends(self):
         trends = filter_technology_ai_trends(await self.collect())
-        recent_trends = load_recent_trends(100)
+        recent_trends = load_recent_trends(7)
 
         def is_recent_duplicate(name: str) -> bool:
             normalized = name.casefold().strip()
