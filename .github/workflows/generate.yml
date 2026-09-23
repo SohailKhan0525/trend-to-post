@@ -92,6 +92,7 @@ jobs:
           from pathlib import Path
           import os
           import re
+          from datetime import datetime, timedelta, timezone
 
           files = sorted(Path("posts").glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
           if not files:
@@ -102,6 +103,35 @@ jobs:
           match = re.search(r"\*\*Post type:\*\* (.+)", text)
           if not match or match.group(1).strip() != expected:
               raise SystemExit(f"Post type mismatch: expected {expected!r}")
+
+          trend_match = re.search(r"\*\*Trend:\*\* (.+)", text)
+          if not trend_match:
+              raise SystemExit("Generated trend metadata is missing.")
+          generated_trend = trend_match.group(1).strip()
+
+          history_path = Path("state/content_history.json")
+          if history_path.exists():
+              import json
+              history = json.loads(history_path.read_text(encoding="utf-8"))
+              cutoff = datetime.now(timezone.utc) - timedelta(days=7)
+              recent_same_trend = 0
+              for item in history:
+                  if str(item.get("trend", "")).strip().casefold() != generated_trend.casefold():
+                      continue
+                  raw_timestamp = str(item.get("generated_at", "")).strip()
+                  try:
+                      timestamp = datetime.fromisoformat(raw_timestamp.replace("Z", "+00:00"))
+                  except ValueError:
+                      continue
+                  if timestamp.tzinfo is None:
+                      timestamp = timestamp.replace(tzinfo=timezone.utc)
+                  if timestamp >= cutoff:
+                      recent_same_trend += 1
+              if recent_same_trend > 1:
+                  raise SystemExit(
+                      f"Trend reuse detected within seven days: {generated_trend!r} "
+                      f"appears {recent_same_trend} times in history."
+                  )
 
           draft_match = re.search(r"\*\*Word count:\*\* (\d+).*?\n\*\*Character count:\*\* (\d+).*?\n\n\*\*Main post:\*\*\n\n(.+?)\n\n\*\*Reply word count:\*\* (\d+).*?\n\*\*Reply character count:\*\* (\d+).*?\n\n\*\*Second-account reply:\*\*\n\n(.+?)\n", text, re.S)
           if not draft_match:
@@ -133,6 +163,40 @@ jobs:
               raise SystemExit(f"Reply exceeds 280 characters: {len(reply)}")
           if any(c in "😂🤣😭😅💀🔥🤯😤🙃😈🚨" for c in reply):
               raise SystemExit("Second-account reply must not contain emojis.")
+          PY
+
+      - name: Verify trend cooldown before commit
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+          import re
+
+          files = sorted(Path("posts").glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
+          text = files[0].read_text(encoding="utf-8")
+          trend_match = re.search(r"\*\*Trend:\*\* (.+)", text)
+          if not trend_match:
+              raise SystemExit("Generated trend metadata is missing.")
+          trend = trend_match.group(1).strip().casefold()
+          cutoff = datetime.now(timezone.utc) - timedelta(days=7)
+          history = json.loads(Path("state/content_history.json").read_text(encoding="utf-8"))
+          matches = 0
+          for item in history:
+              if str(item.get("trend", "")).strip().casefold() != trend:
+                  continue
+              try:
+                  ts = datetime.fromisoformat(str(item.get("generated_at", "")).replace("Z", "+00:00"))
+              except ValueError:
+                  continue
+              if ts.tzinfo is None:
+                  ts = ts.replace(tzinfo=timezone.utc)
+              if ts >= cutoff:
+                  matches += 1
+          if matches != 1:
+              raise SystemExit(f"Trend cooldown violation: {trend!r} has {matches} recent history entries.")
+          print(f"Trend cooldown verified: {trend}")
           PY
 
       - name: Commit generated draft and history
