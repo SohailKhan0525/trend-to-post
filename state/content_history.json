@@ -136,5 +136,13 @@
     "angle": "Announcing the release directly as a newsroom alert focusing on cost and performance claims.",
     "post_type": "breaking_news",
     "generated_at": "2026-09-23T03:11:56.040271+00:00"
+  },
+  {
+    "fingerprint": "f13adb9b366e522d4faa1bc9dcd5c15dfaf28f79e2688103b27b347f2b29070c",
+    "text": "Breaking news 🚨 OpenAI launches GPT-6 Sol and Luna at half the price according to new reports.",
+    "trend": "OpenAI Launches GPT-6 Sol and Luna at Half the Price",
+    "angle": "Reporting on the official release of the new models emphasizing reduced cost directly from the trend.",
+    "post_type": "breaking_news",
+    "generated_at": "2026-09-23T03:26:16.939921+00:00"
   }
 ]
