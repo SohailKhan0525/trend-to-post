@@ -30,7 +30,7 @@ def test_breaking_news_requires_exactly_17_words():
 
 
 def test_reply_requires_17_words_and_no_emoji():
-    valid = "I can see why this trend is getting attention, and I think the discussion around it will be interesting"
+    valid = "I can see why this trend is getting attention, and I think the discussion will be interesting"
     assert len(valid.split()) == 17
     assert _validate_reply(valid)
 
