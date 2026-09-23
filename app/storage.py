@@ -103,7 +103,17 @@ def write_daily_markdown(root: Path, trends: list[Trend], drafts: list[Draft]):
             "",
             f"**Character count:** {len(draft.text)}",
             "",
+            "**Main post:**",
+            "",
             draft.text,
+            "",
+            f"**Reply word count:** {len(draft.reply_text.split())}",
+            "",
+            f"**Reply character count:** {len(draft.reply_text)}",
+            "",
+            "**Second-account reply:**",
+            "",
+            draft.reply_text,
             "",
         ]
 
