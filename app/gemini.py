@@ -10,7 +10,7 @@ from .models import Draft, Trend
 
 MODELS = ("gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.1-flash-lite")
 MAX_ATTEMPTS_PER_KEY = 3
-CANDIDATE_COUNT = 8
+CANDIDATE_COUNT = 4
 
 POST_INSTRUCTIONS = {
     "funny_ragebait": """Write a funny, provocative technology/AI X post based DIRECTLY on ONE supplied X Trend.
@@ -35,11 +35,17 @@ RESPONSE_SCHEMA = {
         "angle": {"type": "string"},
         "candidates": {
             "type": "array",
+            "minItems": CANDIDATE_COUNT,
+            "maxItems": CANDIDATE_COUNT,
             "items": {"type": "string"},
+            "description": "Exactly four distinct main-post candidates, in order.",
         },
         "reply_candidates": {
             "type": "array",
+            "minItems": CANDIDATE_COUNT,
+            "maxItems": CANDIDATE_COUNT,
             "items": {"type": "string"},
+            "description": "Exactly four replies; reply N directly responds to main-post candidate N.",
         },
     },
     "required": ["trend", "angle", "candidates", "reply_candidates"],
@@ -89,7 +95,7 @@ class GeminiWriter:
                 api_key=key,
                 http_options=types.HttpOptions(
                     retry_options=types.HttpRetryOptions(attempts=1),
-                    timeout=20000,
+                    timeout=30000,
                 ),
             )
             for key in self.api_keys
@@ -104,7 +110,7 @@ class GeminiWriter:
                 response_mime_type="application/json",
                 response_schema=RESPONSE_SCHEMA,
                 thinking_config=types.ThinkingConfig(thinking_level="minimal"),
-                max_output_tokens=768,
+                max_output_tokens=512,
             ),
         )
         parsed = getattr(response, "parsed", None)
@@ -142,10 +148,13 @@ HARD RULES FOR EVERY MAIN POST CANDIDATE:
 - Every candidate must be meaningfully different from the others.
 - Carefully count the words before returning each candidate.
 - Return exactly {CANDIDATE_COUNT} main post candidates.
+- Build each candidate by counting whitespace-separated tokens one by one before returning it.
+- Candidate 1 is paired with reply 1, candidate 2 with reply 2, and so on.
 
 REPLY RULES:
 - Return exactly {CANDIDATE_COUNT} reply_candidates.
 - Every reply must be exactly 17 whitespace-separated words and maximum 280 characters.
+- Reply candidate N must respond specifically to main-post candidate N.
 - Every reply must be respectful, polite, conversational, and directly relevant to the generated main-post topic.
 - Replies must not use emojis or hashtags.
 - Do not simply repeat the main post.
