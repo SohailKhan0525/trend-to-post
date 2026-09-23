@@ -130,16 +130,25 @@ class GeminiWriter:
 STYLE:
 {POST_INSTRUCTIONS[post_type]}
 
-HARD RULES FOR EVERY CANDIDATE:
+HARD RULES FOR EVERY MAIN POST CANDIDATE:
 - Exactly 17 whitespace-separated words, counted before returning each candidate.
 - Maximum 280 characters.
 - Treat punctuation attached to a word as part of that word; whitespace is the only word separator.
 - Do not add or remove words after counting; every returned candidate must already be exactly 17 words.
-- No hashtags unless genuinely necessary.
-- No labels like "Post:", "Breaking:", "Question:", or "Tweet:".
+- Exactly ONE emoji in every main post candidate.
+- No hashtags.
+- No labels like "Post:", "Question:", or "Tweet:".
+- For breaking_news, the candidate MUST begin exactly "Breaking news 🚨".
 - Every candidate must be meaningfully different from the others.
 - Carefully count the words before returning each candidate.
-- Return exactly {CANDIDATE_COUNT} candidates.
+- Return exactly {CANDIDATE_COUNT} main post candidates.
+
+REPLY RULES:
+- Return exactly {CANDIDATE_COUNT} reply_candidates.
+- Every reply must be exactly 17 whitespace-separated words and maximum 280 characters.
+- Every reply must be respectful, polite, conversational, and directly relevant to the generated main-post topic.
+- Replies must not use emojis or hashtags.
+- Do not simply repeat the main post.
 
 RECENT POSTS TO AVOID:
 {json.dumps(recent_texts[-30:], ensure_ascii=False)}
