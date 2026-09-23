@@ -15,3 +15,4 @@ class Draft:
     text: str
     generated_at: str
     post_type: str = "question"
+    reply_text: str = ""
