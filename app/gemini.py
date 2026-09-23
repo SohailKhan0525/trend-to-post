@@ -168,13 +168,18 @@ INPUT X TRENDS:
                         )
                         data = self._generate(client, prompt, model)
                         candidates = [str(x).strip() for x in data.get("candidates", [])]
-                        valid = [x for x in candidates if _validate_candidate(x, post_type)]
-                        if not valid:
+                        replies = [str(x).strip() for x in data.get("reply_candidates", [])]
+                        valid_pairs = [
+                            (post, reply)
+                            for post, reply in zip(candidates, replies)
+                            if _validate_candidate(post, post_type) and _validate_reply(reply)
+                        ]
+                        if not valid_pairs:
                             raise GeminiQuotaError(
-                                "Gemini returned candidates, but none met the exact 17-word/style rules."
+                                "Gemini returned candidates, but none met the exact 17-word/style rules for both post and reply."
                             )
 
-                        text = valid[0]
+                        text, reply_text = valid_pairs[0]
                         now = datetime.now(timezone.utc).isoformat()
                         return [
                             Draft(
@@ -183,6 +188,7 @@ INPUT X TRENDS:
                                 text=text,
                                 generated_at=now,
                                 post_type=post_type,
+                                reply_text=reply_text,
                             )
                         ]
                     except (GeminiQuotaError, json.JSONDecodeError, ValueError) as exc:
