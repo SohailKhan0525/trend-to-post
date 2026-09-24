@@ -10,9 +10,12 @@ from google.genai import types
 from .models import Draft, Trend
 
 MODELS = (
-    "gemini-3.5-flash",
-    "gemini-3.1-flash-lite",
+    "gemini-3.8-flash",
+    "gemini-3.7-flash",
+    "gemini-3.6-flash",
     "gemini-3.5-flash-lite",
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash",
     "gemini-3-flash-preview",
 )
 MAX_ATTEMPTS_PER_KEY = 1
@@ -115,7 +118,9 @@ class GeminiWriter:
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=RESPONSE_SCHEMA,
-                thinking_config=types.ThinkingConfig(thinking_level="minimal"),
+                thinking_config=types.ThinkingConfig(
+                    thinking_level="low" if model in {"gemini-3.8-flash", "gemini-3.7-flash"} else "minimal"
+                ),
                 max_output_tokens=512,
             ),
         )
