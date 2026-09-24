@@ -18,8 +18,8 @@ MODELS = (
     "gemini-3.5-flash",
     "gemini-3-flash-preview",
 )
-MAX_ATTEMPTS_PER_KEY = 1
-CANDIDATE_COUNT = 2
+MAX_ATTEMPTS_PER_KEY = 2
+CANDIDATE_COUNT = 1
 
 POST_INSTRUCTIONS = {
     "funny_ragebait": """Write a funny, provocative technology/AI X post based DIRECTLY on ONE supplied X Trend.
@@ -104,7 +104,7 @@ class GeminiWriter:
                 api_key=key,
                 http_options=types.HttpOptions(
                     retry_options=types.HttpRetryOptions(attempts=4),
-                    timeout=30000,
+                    timeout=60000,
                 ),
             )
             for key in self.api_keys
