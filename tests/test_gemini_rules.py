@@ -50,4 +50,4 @@ def test_gemini_model_fallbacks_are_supported():
         "gemini-3.5-flash",
         "gemini-3-flash-preview",
     )
-    assert all("2.5" not in model for model in MODELS)
+    assert MODELS[-1] == "gemini-2.5-flash"
