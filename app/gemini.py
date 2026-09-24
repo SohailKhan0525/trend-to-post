@@ -17,6 +17,7 @@ MODELS = (
     "gemini-3.1-flash-lite",
     "gemini-3.5-flash",
     "gemini-3-flash-preview",
+    "gemini-2.5-flash",
 )
 MAX_ATTEMPTS_PER_KEY = 1
 CANDIDATE_COUNT = 2
@@ -118,8 +119,14 @@ class GeminiWriter:
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=RESPONSE_SCHEMA,
-                thinking_config=types.ThinkingConfig(
-                    thinking_level="low" if model in {"gemini-3.8-flash", "gemini-3.7-flash"} else "minimal"
+                thinking_config=(
+                    types.ThinkingConfig(
+                        thinking_level="low"
+                        if model in {"gemini-3.8-flash", "gemini-3.7-flash"}
+                        else "minimal"
+                    )
+                    if model != "gemini-2.5-flash"
+                    else None
                 ),
                 max_output_tokens=512,
             ),
