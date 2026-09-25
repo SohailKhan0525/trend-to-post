@@ -1,4 +1,5 @@
 import json
+import os
 import random
 import time
 from datetime import datetime, timezone
@@ -18,7 +19,8 @@ MODELS = (
     "gemini-3.7-flash",
     "gemini-3-flash-preview",
 )
-MAX_ATTEMPTS_PER_KEY = 2
+PRO_MODEL = "gemini-3.1-pro-preview"
+MAX_ATTEMPTS_PER_KEY = 1
 CANDIDATE_COUNT = 1
 
 POST_INSTRUCTIONS = {
@@ -103,8 +105,8 @@ class GeminiWriter:
             genai.Client(
                 api_key=key,
                 http_options=types.HttpOptions(
-                    retry_options=types.HttpRetryOptions(attempts=4),
-                    timeout=60000,
+                    retry_options=types.HttpRetryOptions(attempts=2),
+                    timeout=45000,
                 ),
             )
             for key in self.api_keys
@@ -118,14 +120,10 @@ class GeminiWriter:
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=RESPONSE_SCHEMA,
-                thinking_config=(
-                    types.ThinkingConfig(
-                        thinking_level="low"
-                        if model in {"gemini-3.8-flash", "gemini-3.7-flash"}
-                        else "minimal"
-                    )
-                    if model != "gemini-2.5-flash"
-                    else None
+                thinking_config=types.ThinkingConfig(
+                    thinking_level="low"
+                    if model in {"gemini-3.8-flash", "gemini-3.7-flash"}
+                    else "minimal"
                 ),
                 max_output_tokens=512,
             ),
@@ -163,18 +161,16 @@ HARD RULES FOR EVERY MAIN POST CANDIDATE:
 - No hashtags.
 - No labels like "Post:", "Question:", or "Tweet:".
 - For breaking_news, the candidate MUST begin exactly "Breaking news 🚨".
-- Every candidate must be meaningfully different from the others.
-- Carefully count the words before returning each candidate.
-- Return exactly {CANDIDATE_COUNT} main post candidates.
-- Before returning each candidate, explicitly count its whitespace-separated tokens from left to right and revise it until the count is exactly 17.
-- Do the same exact count check for its paired reply.
-- Candidate 1 is paired with reply 1, candidate 2 with reply 2, and so on.
+- Carefully count the words before returning the candidate.
+- Return exactly one main post candidate.
+- Before returning the candidate, explicitly count its whitespace-separated tokens from left to right and revise it until the count is exactly 17.
+- Do the same exact count check for the paired reply.
 
 REPLY RULES:
-- Return exactly {CANDIDATE_COUNT} reply_candidates.
-- Reply candidate N must be generated only after candidate N has been finalized at exactly 17 words.
-- Every reply must be exactly 17 whitespace-separated words and maximum 280 characters.
-- Reply candidate N must respond specifically to main-post candidate N.
+- Return exactly one reply_candidates item.
+- Generate the reply only after the main post has been finalized at exactly 17 words.
+- The reply must be exactly 17 whitespace-separated words and maximum 280 characters.
+- The reply must respond specifically to the main post.
 - Every reply must be respectful, polite, conversational, and directly relevant to the generated main-post topic.
 - Replies must not use emojis or hashtags.
 - Do not simply repeat the main post.
@@ -198,7 +194,10 @@ INPUT X TRENDS:
 """
 
         last_error = None
-        for model in MODELS:
+        models = MODELS
+        if os.getenv("ENABLE_GEMINI_PRO", "").strip().lower() in {"1", "true", "yes"}:
+            models = MODELS + (PRO_MODEL,)
+        for model in models:
             for attempt in range(MAX_ATTEMPTS_PER_KEY):
                 for key_index, client in enumerate(self.clients):
                     try:
