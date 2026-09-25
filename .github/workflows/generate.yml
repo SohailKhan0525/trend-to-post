@@ -1,6 +1,7 @@
-name: Generate X Trend Draft
+name: Generate X Trend Draft (DISABLED)
 
 on:
+  # Automation intentionally disabled by owner request.
   workflow_dispatch:
     inputs:
       post_type:
