@@ -1,0 +1,1000 @@
+[
+  {
+    "number": 1,
+    "sentence": "My AI assistant summarized my meeting so accurately that it also summarized my regrets. AI automation is changing how we build software. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 2,
+    "sentence": "I asked an LLM to explain why my code failed, and it politely suggested I consider a different career. developer tools is changing how we build software. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 3,
+    "sentence": "🤖 AI agents",
+    "type": "emoji"
+  },
+  {
+    "number": 4,
+    "sentence": "The model hallucinated a feature so confidently that the product manager added it to the roadmap. AI products is changing how we build software. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 5,
+    "sentence": "🧠⚡ large language models",
+    "type": "emoji"
+  },
+  {
+    "number": 6,
+    "sentence": "AI wrote my code, then asked me why the code looked nervous. AI agents is changing how we build software. The interesting part is what happens next with AI agents.",
+    "type": "funny"
+  },
+  {
+    "number": 7,
+    "sentence": "My GPU has two moods: training and financially irresponsible. large language models is changing how we build software. That shift is bigger than it looks.",
+    "type": "funny"
+  },
+  {
+    "number": 8,
+    "sentence": "I asked an AI for a simple answer and received a startup pitch. AI coding is changing how we build software. The practical details will matter more than the hype.",
+    "type": "funny"
+  },
+  {
+    "number": 9,
+    "sentence": "Debugging AI code is just archaeology with more caffeine. machine learning is changing how we build software. Small improvements can compound quickly here.",
+    "type": "funny"
+  },
+  {
+    "number": 10,
+    "sentence": "My chatbot knows everything except why production is broken. robotics is changing how we build software. The next challenge is making it reliable.",
+    "type": "funny"
+  },
+  {
+    "number": 11,
+    "sentence": "What AI tool has genuinely saved you the most time about computer vision?",
+    "type": "question"
+  },
+  {
+    "number": 12,
+    "sentence": "My GPU fan sounds like it is preparing for liftoff, but the model is still deciding between hello and hi. AI agents is making experimentation cheaper. The interesting part is what happens next with AI agents.",
+    "type": "so_funny"
+  },
+  {
+    "number": 13,
+    "sentence": "I gave an AI agent access to my calendar, and now even my procrastination has orchestration. large language models is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 14,
+    "sentence": "Nothing builds trust in AI like watching it confidently invent a documentation page that never existed. AI coding is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 15,
+    "sentence": "Will AI make software development more creative or more automated about AI infrastructure?",
+    "type": "question"
+  },
+  {
+    "number": 16,
+    "sentence": "What is the most underrated skill for working with AI about open-source AI?",
+    "type": "question"
+  },
+  {
+    "number": 17,
+    "sentence": "I asked for production-ready code and got production-ready confidence with development-ready bugs. machine learning is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 18,
+    "sentence": "There is something beautiful about watching technology turn a difficult idea into something people can actually use. computer vision is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "emotional"
+  },
+  {
+    "number": 19,
+    "sentence": "Our AI pipeline has so many agents that nobody knows which agent is responsible for apologizing. robotics is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 20,
+    "sentence": "💻🤖 AI coding",
+    "type": "emoji"
+  },
+  {
+    "number": 21,
+    "sentence": "Artificial intelligence is becoming part of everyday software. prompt engineering is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "not_funny"
+  },
+  {
+    "number": 22,
+    "sentence": "🚀 machine learning",
+    "type": "emoji"
+  },
+  {
+    "number": 23,
+    "sentence": "I told my AI assistant to think outside the box; it generated a box with a subscription plan. AI search is changing how we build software. The interesting part is what happens next with AI search.",
+    "type": "funny"
+  },
+  {
+    "number": 24,
+    "sentence": "Machine learning systems depend heavily on data quality. AI safety is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "not_funny"
+  },
+  {
+    "number": 25,
+    "sentence": "🔥🤖🔥 robotics",
+    "type": "emoji"
+  },
+  {
+    "number": 26,
+    "sentence": "The chatbot said, 'I understand,' which is exactly what humans say five minutes before misunderstanding everything. AI search is making experimentation cheaper. The interesting part is what happens next with AI search.",
+    "type": "so_funny"
+  },
+  {
+    "number": 27,
+    "sentence": "🧠💡 AI search",
+    "type": "emoji"
+  },
+  {
+    "number": 28,
+    "sentence": "Large language models can generate text from natural-language prompts. model evaluation is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "not_funny"
+  },
+  {
+    "number": 29,
+    "sentence": "Every AI demo works perfectly until someone says, 'Let's try it with real data.' generative AI is changing how we build software. That shift is bigger than it looks.",
+    "type": "funny"
+  },
+  {
+    "number": 30,
+    "sentence": "My model converged faster than my attention span. computer vision is changing how we build software. The practical details will matter more than the hype.",
+    "type": "funny"
+  },
+  {
+    "number": 31,
+    "sentence": "My AI model has excellent reasoning skills, especially when reasoning about why it needs more compute. generative AI is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 32,
+    "sentence": "⚙️🤖✨ generative AI",
+    "type": "emoji"
+  },
+  {
+    "number": 33,
+    "sentence": "AI applications often require monitoring after deployment. GPU computing is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "not_funny"
+  },
+  {
+    "number": 34,
+    "sentence": "My AI assistant summarized my meeting so accurately that it also summarized my regrets. computer vision is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 35,
+    "sentence": "Which AI feature do you use every single day about AI startups?",
+    "type": "question"
+  },
+  {
+    "number": 36,
+    "sentence": "AI reminds me that the future is not a distant place; it is being built in tiny decisions every day. AI infrastructure is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "emotional"
+  },
+  {
+    "number": 37,
+    "sentence": "AI is moving so fast that my roadmap needs a roadmap. AI infrastructure is changing how we build software. Small improvements can compound quickly here.",
+    "type": "funny"
+  },
+  {
+    "number": 38,
+    "sentence": "I trained a model to recognize chaos, and now it recognizes my desk. open-source AI is changing how we build software. The next challenge is making it reliable.",
+    "type": "funny"
+  },
+  {
+    "number": 39,
+    "sentence": "AI wrote my code, then asked me why the code looked nervous. AI startups is changing how we build software. The interesting part is what happens next with AI startups.",
+    "type": "funny"
+  },
+  {
+    "number": 40,
+    "sentence": "I asked an LLM to explain why my code failed, and it politely suggested I consider a different career. AI infrastructure is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 41,
+    "sentence": "Inference latency matters when AI is used in interactive products. voice AI is making experimentation cheaper. The interesting part is what happens next with voice AI.",
+    "type": "not_funny"
+  },
+  {
+    "number": 42,
+    "sentence": "Model evaluation should include realistic use cases. multimodal AI is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "not_funny"
+  },
+  {
+    "number": 43,
+    "sentence": "Are we building AI assistants or building new interfaces for ourselves about prompt engineering?",
+    "type": "question"
+  },
+  {
+    "number": 44,
+    "sentence": "What is one AI workflow you wish more people knew about about AI safety?",
+    "type": "question"
+  },
+  {
+    "number": 45,
+    "sentence": "The model hallucinated a feature so confidently that the product manager added it to the roadmap. open-source AI is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 46,
+    "sentence": "My GPU has two moods: training and financially irresponsible. prompt engineering is changing how we build software. That shift is bigger than it looks.",
+    "type": "funny"
+  },
+  {
+    "number": 47,
+    "sentence": "My GPU fan sounds like it is preparing for liftoff, but the model is still deciding between hello and hi. AI startups is making experimentation cheaper. The interesting part is what happens next with AI startups.",
+    "type": "so_funny"
+  },
+  {
+    "number": 48,
+    "sentence": "How do you decide whether an AI answer is trustworthy about model evaluation?",
+    "type": "question"
+  },
+  {
+    "number": 49,
+    "sentence": "Good prompts can improve the usefulness of many language-model workflows. AI automation is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "not_funny"
+  },
+  {
+    "number": 50,
+    "sentence": "I asked an AI for a simple answer and received a startup pitch. AI safety is changing how we build software. The practical details will matter more than the hype.",
+    "type": "funny"
+  },
+  {
+    "number": 51,
+    "sentence": "Debugging AI code is just archaeology with more caffeine. model evaluation is changing how we build software. Small improvements can compound quickly here.",
+    "type": "funny"
+  },
+  {
+    "number": 52,
+    "sentence": "Which AI task should humans never fully automate about GPU computing?",
+    "type": "question"
+  },
+  {
+    "number": 53,
+    "sentence": "I gave an AI agent access to my calendar, and now even my procrastination has orchestration. prompt engineering is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 54,
+    "sentence": "My chatbot knows everything except why production is broken. GPU computing is changing how we build software. The next challenge is making it reliable.",
+    "type": "funny"
+  },
+  {
+    "number": 55,
+    "sentence": "AI systems can support repetitive tasks across many industries. developer tools is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "not_funny"
+  },
+  {
+    "number": 56,
+    "sentence": "Nothing builds trust in AI like watching it confidently invent a documentation page that never existed. AI safety is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 57,
+    "sentence": "I told my AI assistant to think outside the box; it generated a box with a subscription plan. voice AI is changing how we build software. The interesting part is what happens next with voice AI.",
+    "type": "funny"
+  },
+  {
+    "number": 58,
+    "sentence": "👀 AI computer vision",
+    "type": "emoji"
+  },
+  {
+    "number": 59,
+    "sentence": "Data pipelines remain an important part of machine-learning infrastructure. AI products is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "not_funny"
+  },
+  {
+    "number": 60,
+    "sentence": "I asked for production-ready code and got production-ready confidence with development-ready bugs. model evaluation is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 61,
+    "sentence": "Our AI pipeline has so many agents that nobody knows which agent is responsible for apologizing. GPU computing is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 62,
+    "sentence": "💾🧠 AI infrastructure",
+    "type": "emoji"
+  },
+  {
+    "number": 63,
+    "sentence": "🚀🧑‍💻🤖 open-source AI",
+    "type": "emoji"
+  },
+  {
+    "number": 64,
+    "sentence": "Sometimes the most exciting part of AI is not the model, but the person whose idea finally became possible. open-source AI is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "emotional"
+  },
+  {
+    "number": 65,
+    "sentence": "🤖 AI startups",
+    "type": "emoji"
+  },
+  {
+    "number": 66,
+    "sentence": "The chatbot said, 'I understand,' which is exactly what humans say five minutes before misunderstanding everything. voice AI is making experimentation cheaper. The interesting part is what happens next with voice AI.",
+    "type": "so_funny"
+  },
+  {
+    "number": 67,
+    "sentence": "What will the average developer workflow look like in five years about voice AI?",
+    "type": "question"
+  },
+  {
+    "number": 68,
+    "sentence": "What is the biggest misconception people have about artificial intelligence about multimodal AI?",
+    "type": "question"
+  },
+  {
+    "number": 69,
+    "sentence": "Every AI demo works perfectly until someone says, 'Let's try it with real data.' multimodal AI is changing how we build software. That shift is bigger than it looks.",
+    "type": "funny"
+  },
+  {
+    "number": 70,
+    "sentence": "Human review can be useful for high-impact AI workflows. AI agents is creating new product possibilities. The interesting part is what happens next with AI agents.",
+    "type": "not_funny"
+  },
+  {
+    "number": 71,
+    "sentence": "Artificial intelligence is becoming part of everyday software. large language models is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "not_funny"
+  },
+  {
+    "number": 72,
+    "sentence": "Machine learning systems depend heavily on data quality. AI coding is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "not_funny"
+  },
+  {
+    "number": 73,
+    "sentence": "🧠⚡ prompt engineering",
+    "type": "emoji"
+  },
+  {
+    "number": 74,
+    "sentence": "My AI model has excellent reasoning skills, especially when reasoning about why it needs more compute. multimodal AI is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 75,
+    "sentence": "My AI assistant summarized my meeting so accurately that it also summarized my regrets. AI automation is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 76,
+    "sentence": "What AI tool has genuinely saved you the most time about AI automation?",
+    "type": "question"
+  },
+  {
+    "number": 77,
+    "sentence": "Will AI make software development more creative or more automated about developer tools?",
+    "type": "question"
+  },
+  {
+    "number": 78,
+    "sentence": "💻🤖 AI safety",
+    "type": "emoji"
+  },
+  {
+    "number": 79,
+    "sentence": "Technology feels meaningful when it gives someone more time to create, learn, or simply breathe. AI startups is creating new product possibilities. The interesting part is what happens next with AI startups.",
+    "type": "emotional"
+  },
+  {
+    "number": 80,
+    "sentence": "I asked an LLM to explain why my code failed, and it politely suggested I consider a different career. developer tools is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 81,
+    "sentence": "The model hallucinated a feature so confidently that the product manager added it to the roadmap. AI products is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 82,
+    "sentence": "My model converged faster than my attention span. AI automation is changing how we build software. The practical details will matter more than the hype.",
+    "type": "funny"
+  },
+  {
+    "number": 83,
+    "sentence": "Large language models can generate text from natural-language prompts. machine learning is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "not_funny"
+  },
+  {
+    "number": 84,
+    "sentence": "🚀 model evaluation",
+    "type": "emoji"
+  },
+  {
+    "number": 85,
+    "sentence": "Behind every impressive AI demo is a long trail of failed experiments that nobody sees. prompt engineering is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "emotional"
+  },
+  {
+    "number": 86,
+    "sentence": "My GPU fan sounds like it is preparing for liftoff, but the model is still deciding between hello and hi. AI agents is creating new product possibilities. The interesting part is what happens next with AI agents.",
+    "type": "so_funny"
+  },
+  {
+    "number": 87,
+    "sentence": "AI applications often require monitoring after deployment. robotics is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "not_funny"
+  },
+  {
+    "number": 88,
+    "sentence": "Inference latency matters when AI is used in interactive products. AI search is creating new product possibilities. The interesting part is what happens next with AI search.",
+    "type": "not_funny"
+  },
+  {
+    "number": 89,
+    "sentence": "🔥🤖🔥 GPU computing",
+    "type": "emoji"
+  },
+  {
+    "number": 90,
+    "sentence": "AI is moving so fast that my roadmap needs a roadmap. developer tools is changing how we build software. Small improvements can compound quickly here.",
+    "type": "funny"
+  },
+  {
+    "number": 91,
+    "sentence": "I gave an AI agent access to my calendar, and now even my procrastination has orchestration. large language models is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 92,
+    "sentence": "I trained a model to recognize chaos, and now it recognizes my desk. AI products is changing how we build software. The next challenge is making it reliable.",
+    "type": "funny"
+  },
+  {
+    "number": 93,
+    "sentence": "Model evaluation should include realistic use cases. generative AI is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "not_funny"
+  },
+  {
+    "number": 94,
+    "sentence": "AI wrote my code, then asked me why the code looked nervous. AI agents is making experimentation cheaper. The interesting part is what happens next with AI agents.",
+    "type": "funny"
+  },
+  {
+    "number": 95,
+    "sentence": "Nothing builds trust in AI like watching it confidently invent a documentation page that never existed. AI coding is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 96,
+    "sentence": "Good prompts can improve the usefulness of many language-model workflows. computer vision is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "not_funny"
+  },
+  {
+    "number": 97,
+    "sentence": "AI systems can support repetitive tasks across many industries. AI infrastructure is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "not_funny"
+  },
+  {
+    "number": 98,
+    "sentence": "I asked for production-ready code and got production-ready confidence with development-ready bugs. machine learning is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 99,
+    "sentence": "Our AI pipeline has so many agents that nobody knows which agent is responsible for apologizing. robotics is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 100,
+    "sentence": "Data pipelines remain an important part of machine-learning infrastructure. open-source AI is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "not_funny"
+  },
+  {
+    "number": 101,
+    "sentence": "The chatbot said, 'I understand,' which is exactly what humans say five minutes before misunderstanding everything. AI search is creating new product possibilities. The interesting part is what happens next with AI search.",
+    "type": "so_funny"
+  },
+  {
+    "number": 102,
+    "sentence": "What is the most underrated skill for working with AI about AI products?",
+    "type": "question"
+  },
+  {
+    "number": 103,
+    "sentence": "Human review can be useful for high-impact AI workflows. AI startups is creating new product possibilities. The interesting part is what happens next with AI startups.",
+    "type": "not_funny"
+  },
+  {
+    "number": 104,
+    "sentence": "Which AI feature do you use every single day about AI agents?",
+    "type": "question"
+  },
+  {
+    "number": 105,
+    "sentence": "My GPU has two moods: training and financially irresponsible. large language models is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "funny"
+  },
+  {
+    "number": 106,
+    "sentence": "Artificial intelligence is becoming part of everyday software. prompt engineering is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "not_funny"
+  },
+  {
+    "number": 107,
+    "sentence": "I asked an AI for a simple answer and received a startup pitch. AI coding is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "funny"
+  },
+  {
+    "number": 108,
+    "sentence": "Are we building AI assistants or building new interfaces for ourselves about large language models?",
+    "type": "question"
+  },
+  {
+    "number": 109,
+    "sentence": "The future of AI will be shaped by curiosity, patience, and the people willing to keep learning. AI safety is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "emotional"
+  },
+  {
+    "number": 110,
+    "sentence": "🧠💡 voice AI",
+    "type": "emoji"
+  },
+  {
+    "number": 111,
+    "sentence": "⚙️🤖✨ multimodal AI",
+    "type": "emoji"
+  },
+  {
+    "number": 112,
+    "sentence": "Debugging AI code is just archaeology with more caffeine. machine learning is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "funny"
+  },
+  {
+    "number": 113,
+    "sentence": "Machine learning systems depend heavily on data quality. AI safety is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "not_funny"
+  },
+  {
+    "number": 114,
+    "sentence": "Large language models can generate text from natural-language prompts. model evaluation is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "not_funny"
+  },
+  {
+    "number": 115,
+    "sentence": "AI applications often require monitoring after deployment. GPU computing is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "not_funny"
+  },
+  {
+    "number": 116,
+    "sentence": "My AI model has excellent reasoning skills, especially when reasoning about why it needs more compute. generative AI is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 117,
+    "sentence": "Inference latency matters when AI is used in interactive products. voice AI is creating new product possibilities. The interesting part is what happens next with voice AI.",
+    "type": "not_funny"
+  },
+  {
+    "number": 118,
+    "sentence": "Model evaluation should include realistic use cases. multimodal AI is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "not_funny"
+  },
+  {
+    "number": 119,
+    "sentence": "My AI assistant summarized my meeting so accurately that it also summarized my regrets. computer vision is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 120,
+    "sentence": "What is one AI workflow you wish more people knew about about AI coding?",
+    "type": "question"
+  },
+  {
+    "number": 121,
+    "sentence": "How do you decide whether an AI answer is trustworthy about machine learning?",
+    "type": "question"
+  },
+  {
+    "number": 122,
+    "sentence": "A machine can generate an answer, but humans still decide which questions are worth asking. model evaluation is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "emotional"
+  },
+  {
+    "number": 123,
+    "sentence": "I asked an LLM to explain why my code failed, and it politely suggested I consider a different career. AI infrastructure is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 124,
+    "sentence": "My chatbot knows everything except why production is broken. robotics is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "funny"
+  },
+  {
+    "number": 125,
+    "sentence": "Good prompts can improve the usefulness of many language-model workflows. AI automation is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "not_funny"
+  },
+  {
+    "number": 126,
+    "sentence": "Which AI task should humans never fully automate about robotics?",
+    "type": "question"
+  },
+  {
+    "number": 127,
+    "sentence": "The model hallucinated a feature so confidently that the product manager added it to the roadmap. open-source AI is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 128,
+    "sentence": "I told my AI assistant to think outside the box; it generated a box with a subscription plan. AI search is making experimentation cheaper. The interesting part is what happens next with AI search.",
+    "type": "funny"
+  },
+  {
+    "number": 129,
+    "sentence": "Every AI demo works perfectly until someone says, 'Let's try it with real data.' generative AI is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "funny"
+  },
+  {
+    "number": 130,
+    "sentence": "👀 AI AI automation",
+    "type": "emoji"
+  },
+  {
+    "number": 131,
+    "sentence": "My model converged faster than my attention span. computer vision is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "funny"
+  },
+  {
+    "number": 132,
+    "sentence": "My GPU fan sounds like it is preparing for liftoff, but the model is still deciding between hello and hi. AI startups is creating new product possibilities. The interesting part is what happens next with AI startups.",
+    "type": "so_funny"
+  },
+  {
+    "number": 133,
+    "sentence": "I gave an AI agent access to my calendar, and now even my procrastination has orchestration. prompt engineering is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 134,
+    "sentence": "Some of the best technology stories begin with someone wondering, 'What if this were easier?' GPU computing is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "emotional"
+  },
+  {
+    "number": 135,
+    "sentence": "Nothing builds trust in AI like watching it confidently invent a documentation page that never existed. AI safety is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 136,
+    "sentence": "I asked for production-ready code and got production-ready confidence with development-ready bugs. model evaluation is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 137,
+    "sentence": "AI systems can support repetitive tasks across many industries. developer tools is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "not_funny"
+  },
+  {
+    "number": 138,
+    "sentence": "💾🧠 developer tools",
+    "type": "emoji"
+  },
+  {
+    "number": 139,
+    "sentence": "Our AI pipeline has so many agents that nobody knows which agent is responsible for apologizing. GPU computing is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 140,
+    "sentence": "AI progress is impressive, but the human stories behind that progress are what make it matter. voice AI is creating new product possibilities. The interesting part is what happens next with voice AI.",
+    "type": "emotional"
+  },
+  {
+    "number": 141,
+    "sentence": "Data pipelines remain an important part of machine-learning infrastructure. AI products is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "not_funny"
+  },
+  {
+    "number": 142,
+    "sentence": "Every breakthrough has a quiet beginning: one person trying something that did not work yesterday. multimodal AI is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "emotional"
+  },
+  {
+    "number": 143,
+    "sentence": "Human review can be useful for high-impact AI workflows. AI agents is turning natural language into an interface. The interesting part is what happens next with AI agents.",
+    "type": "not_funny"
+  },
+  {
+    "number": 144,
+    "sentence": "AI is moving so fast that my roadmap needs a roadmap. AI infrastructure is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "funny"
+  },
+  {
+    "number": 145,
+    "sentence": "🚀🧑‍💻🤖 AI products",
+    "type": "emoji"
+  },
+  {
+    "number": 146,
+    "sentence": "I trained a model to recognize chaos, and now it recognizes my desk. open-source AI is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "funny"
+  },
+  {
+    "number": 147,
+    "sentence": "AI wrote my code, then asked me why the code looked nervous. AI startups is making experimentation cheaper. The interesting part is what happens next with AI startups.",
+    "type": "funny"
+  },
+  {
+    "number": 148,
+    "sentence": "What will the average developer workflow look like in five years about AI search?",
+    "type": "question"
+  },
+  {
+    "number": 149,
+    "sentence": "The chatbot said, 'I understand,' which is exactly what humans say five minutes before misunderstanding everything. voice AI is creating new product possibilities. The interesting part is what happens next with voice AI.",
+    "type": "so_funny"
+  },
+  {
+    "number": 150,
+    "sentence": "My AI model has excellent reasoning skills, especially when reasoning about why it needs more compute. multimodal AI is creating new product possibilities. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 151,
+    "sentence": "Artificial intelligence is becoming part of everyday software. large language models is turning natural language into an interface. That shift is bigger than it looks.",
+    "type": "not_funny"
+  },
+  {
+    "number": 152,
+    "sentence": "My AI assistant summarized my meeting so accurately that it also summarized my regrets. AI automation is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 153,
+    "sentence": "Machine learning systems depend heavily on data quality. AI coding is turning natural language into an interface. The practical details will matter more than the hype.",
+    "type": "not_funny"
+  },
+  {
+    "number": 154,
+    "sentence": "I asked an LLM to explain why my code failed, and it politely suggested I consider a different career. developer tools is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 155,
+    "sentence": "My GPU has two moods: training and financially irresponsible. prompt engineering is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "funny"
+  },
+  {
+    "number": 156,
+    "sentence": "The model hallucinated a feature so confidently that the product manager added it to the roadmap. AI products is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 157,
+    "sentence": "My GPU fan sounds like it is preparing for liftoff, but the model is still deciding between hello and hi. AI agents is turning natural language into an interface. The interesting part is what happens next with AI agents.",
+    "type": "so_funny"
+  },
+  {
+    "number": 158,
+    "sentence": "Large language models can generate text from natural-language prompts. machine learning is turning natural language into an interface. Small improvements can compound quickly here.",
+    "type": "not_funny"
+  },
+  {
+    "number": 159,
+    "sentence": "I gave an AI agent access to my calendar, and now even my procrastination has orchestration. large language models is turning natural language into an interface. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 160,
+    "sentence": "There is something beautiful about watching technology turn a difficult idea into something people can actually use. AI automation is creating new product possibilities. The practical details will matter more than the hype.",
+    "type": "emotional"
+  },
+  {
+    "number": 161,
+    "sentence": "AI applications often require monitoring after deployment. robotics is turning natural language into an interface. The next challenge is making it reliable.",
+    "type": "not_funny"
+  },
+  {
+    "number": 162,
+    "sentence": "Nothing builds trust in AI like watching it confidently invent a documentation page that never existed. AI coding is turning natural language into an interface. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 163,
+    "sentence": "Inference latency matters when AI is used in interactive products. AI search is turning natural language into an interface. The interesting part is what happens next with AI search.",
+    "type": "not_funny"
+  },
+  {
+    "number": 164,
+    "sentence": "Model evaluation should include realistic use cases. generative AI is turning natural language into an interface. That shift is bigger than it looks.",
+    "type": "not_funny"
+  },
+  {
+    "number": 165,
+    "sentence": "AI reminds me that the future is not a distant place; it is being built in tiny decisions every day. developer tools is creating new product possibilities. Small improvements can compound quickly here.",
+    "type": "emotional"
+  },
+  {
+    "number": 166,
+    "sentence": "I asked for production-ready code and got production-ready confidence with development-ready bugs. machine learning is turning natural language into an interface. Small improvements can compound quickly here.",
+    "type": "so_funny"
+  },
+  {
+    "number": 167,
+    "sentence": "I asked an AI for a simple answer and received a startup pitch. AI safety is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "funny"
+  },
+  {
+    "number": 168,
+    "sentence": "Debugging AI code is just archaeology with more caffeine. model evaluation is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "funny"
+  },
+  {
+    "number": 169,
+    "sentence": "Sometimes the most exciting part of AI is not the model, but the person whose idea finally became possible. AI products is creating new product possibilities. The next challenge is making it reliable.",
+    "type": "emotional"
+  },
+  {
+    "number": 170,
+    "sentence": "My chatbot knows everything except why production is broken. GPU computing is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "funny"
+  },
+  {
+    "number": 171,
+    "sentence": "Good prompts can improve the usefulness of many language-model workflows. computer vision is turning natural language into an interface. The practical details will matter more than the hype.",
+    "type": "not_funny"
+  },
+  {
+    "number": 172,
+    "sentence": "What is the biggest misconception people have about artificial intelligence about generative AI?",
+    "type": "question"
+  },
+  {
+    "number": 173,
+    "sentence": "I told my AI assistant to think outside the box; it generated a box with a subscription plan. voice AI is making experimentation cheaper. The interesting part is what happens next with voice AI.",
+    "type": "funny"
+  },
+  {
+    "number": 174,
+    "sentence": "AI systems can support repetitive tasks across many industries. AI infrastructure is turning natural language into an interface. Small improvements can compound quickly here.",
+    "type": "not_funny"
+  },
+  {
+    "number": 175,
+    "sentence": "Data pipelines remain an important part of machine-learning infrastructure. open-source AI is turning natural language into an interface. The next challenge is making it reliable.",
+    "type": "not_funny"
+  },
+  {
+    "number": 176,
+    "sentence": "Every AI demo works perfectly until someone says, 'Let's try it with real data.' multimodal AI is making experimentation cheaper. That shift is bigger than it looks.",
+    "type": "funny"
+  },
+  {
+    "number": 177,
+    "sentence": "🤖 AI agent #177",
+    "type": "emoji"
+  },
+  {
+    "number": 178,
+    "sentence": "Technology feels meaningful when it gives someone more time to create, learn, or simply breathe. AI agents is turning natural language into an interface. The interesting part is what happens next with AI agents.",
+    "type": "emotional"
+  },
+  {
+    "number": 179,
+    "sentence": "Our AI pipeline has so many agents that nobody knows which agent is responsible for apologizing. robotics is turning natural language into an interface. The next challenge is making it reliable.",
+    "type": "so_funny"
+  },
+  {
+    "number": 180,
+    "sentence": "Behind every impressive AI demo is a long trail of failed experiments that nobody sees. large language models is turning natural language into an interface. That shift is bigger than it looks.",
+    "type": "emotional"
+  },
+  {
+    "number": 181,
+    "sentence": "The future of AI will be shaped by curiosity, patience, and the people willing to keep learning. AI coding is turning natural language into an interface. The practical details will matter more than the hype.",
+    "type": "emotional"
+  },
+  {
+    "number": 182,
+    "sentence": "My model converged faster than my attention span. AI automation is making experimentation cheaper. The practical details will matter more than the hype.",
+    "type": "funny"
+  },
+  {
+    "number": 183,
+    "sentence": "The chatbot said, 'I understand,' which is exactly what humans say five minutes before misunderstanding everything. AI search is turning natural language into an interface. The interesting part is what happens next with AI search.",
+    "type": "so_funny"
+  },
+  {
+    "number": 184,
+    "sentence": "A machine can generate an answer, but humans still decide which questions are worth asking. machine learning is turning natural language into an interface. Small improvements can compound quickly here.",
+    "type": "emotional"
+  },
+  {
+    "number": 185,
+    "sentence": "What AI tool has genuinely saved you the most time about computer vision #185",
+    "type": "question"
+  },
+  {
+    "number": 186,
+    "sentence": "Will AI make software development more creative or more automated about AI infrastructure #186",
+    "type": "question"
+  },
+  {
+    "number": 187,
+    "sentence": "AI is moving so fast that my roadmap needs a roadmap. developer tools is making experimentation cheaper. Small improvements can compound quickly here.",
+    "type": "funny"
+  },
+  {
+    "number": 188,
+    "sentence": "What is the most underrated skill for working with AI about open-source AI #188",
+    "type": "question"
+  },
+  {
+    "number": 189,
+    "sentence": "Some of the best technology stories begin with someone wondering, 'What if this were easier?' robotics is turning natural language into an interface. The next challenge is making it reliable.",
+    "type": "emotional"
+  },
+  {
+    "number": 190,
+    "sentence": "My AI model has excellent reasoning skills, especially when reasoning about why it needs more compute. generative AI is turning natural language into an interface. That shift is bigger than it looks.",
+    "type": "so_funny"
+  },
+  {
+    "number": 191,
+    "sentence": "Which AI feature do you use every single day about AI startups #191",
+    "type": "question"
+  },
+  {
+    "number": 192,
+    "sentence": "Are we building AI assistants or building new interfaces for ourselves about prompt engineering #192",
+    "type": "question"
+  },
+  {
+    "number": 193,
+    "sentence": "My AI assistant summarized my meeting so accurately that it also summarized my regrets. computer vision is turning natural language into an interface. The practical details will matter more than the hype.",
+    "type": "so_funny"
+  },
+  {
+    "number": 194,
+    "sentence": "What is one AI workflow you wish more people knew about about AI safety #194",
+    "type": "question"
+  },
+  {
+    "number": 195,
+    "sentence": "Human review can be useful for high-impact AI workflows. AI startups is turning natural language into an interface. The interesting part is what happens next with AI startups.",
+    "type": "not_funny"
+  },
+  {
+    "number": 196,
+    "sentence": "AI progress is impressive, but the human stories behind that progress are what make it matter. AI search is turning natural language into an interface. The interesting part is what happens next with AI search.",
+    "type": "emotional"
+  },
+  {
+    "number": 197,
+    "sentence": "I trained a model to recognize chaos, and now it recognizes my desk. AI products is making experimentation cheaper. The next challenge is making it reliable.",
+    "type": "funny"
+  },
+  {
+    "number": 198,
+    "sentence": "🧠⚡ large language model #198",
+    "type": "emoji"
+  },
+  {
+    "number": 199,
+    "sentence": "How do you decide whether an AI answer is trustworthy about model evaluation #199",
+    "type": "question"
+  },
+  {
+    "number": 200,
+    "sentence": "AI wrote my code, then asked me why the code looked nervous. AI agents is creating new product possibilities. The interesting part is what happens next with AI agents.",
+    "type": "funny"

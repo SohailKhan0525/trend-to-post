@@ -1,24 +1,19 @@
 import argparse
 import asyncio
+import os
 
-from .config import Settings
-from .logging_setup import configure_logging
-from .pipeline import TrendPipeline
+from .post_queue import post_next
 
-POST_TYPES = ["funny_ragebait", "breaking_news", "question"]
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(prog="trend-to-post")
-    parser.add_argument("command", choices=["health", "trends", "generate", "run"])
-    parser.add_argument("--post-type", choices=POST_TYPES, default="question")
+    parser.add_argument("command", choices=["post"])
     args = parser.parse_args()
-    settings = Settings.from_env()
-    configure_logging(settings.log_level)
-    pipeline = TrendPipeline(settings)
-    if args.command == "health":
-        pipeline.health()
-        return
-    if args.command == "trends":
-        asyncio.run(pipeline.print_trends())
-        return
-    asyncio.run(pipeline.run(generate=True, post_type=args.post_type))
+
+    if args.command == "post":
+        asyncio.run(
+            post_next(
+                os.environ.get("X_AUTH_TOKEN", "").strip(),
+                os.environ.get("X_CT0", "").strip(),
+            )
+        )
