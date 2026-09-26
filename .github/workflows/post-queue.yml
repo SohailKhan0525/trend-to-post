@@ -39,6 +39,32 @@ jobs:
           test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
           test -n "$X_CT0" || { echo "Missing X_CT0"; exit 1; }
 
+      - name: Validate queue
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("x.json")
+          items = json.loads(path.read_text(encoding="utf-8"))
+
+          if not isinstance(items, list) or len(items) != 5000:
+              raise SystemExit(f"Expected exactly 5000 queue entries; found {len(items) if isinstance(items, list) else 'non-list'}")
+
+          numbers = [item.get("number") for item in items]
+          if numbers != list(range(1, 5001)):
+              raise SystemExit("Queue numbers are not the expected 1..5000 sequence.")
+
+          sentences = [str(item.get("sentence", "")).strip() for item in items]
+          if any(not sentence for sentence in sentences):
+              raise SystemExit("Queue contains an empty sentence.")
+          if any(len(sentence) > 280 for sentence in sentences):
+              raise SystemExit("Queue contains a sentence longer than 280 characters.")
+
+          print(f"Queue validated: {len(items)} posts.")
+          PY
+
       - name: Post next queue item
         run: python -m app post
 
