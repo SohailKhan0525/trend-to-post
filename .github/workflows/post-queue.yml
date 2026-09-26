@@ -3,7 +3,10 @@ name: Post X Queue
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */2 * * *"
+    # 90-minute cadence, offset from the top of the hour to reduce GitHub schedule congestion.
+    - cron: "15 */3 * * *"
+      timezone: "Asia/Kolkata"
+    - cron: "45 1-23/3 * * *"
       timezone: "Asia/Kolkata"
 
 permissions:
