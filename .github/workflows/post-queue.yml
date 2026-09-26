@@ -2,10 +2,8 @@ name: Post X Queue
 
 on:
   workflow_dispatch:
-  schedule:
-    # Check frequently; app state enforces the actual 30-minute posting interval.
-    - cron: "*/5 * * * *"
-      timezone: "Asia/Kolkata"
+  repository_dispatch:
+    types: [post-next]
 
 permissions:
   contents: write
