@@ -5,10 +5,8 @@ on:
   push:
     paths:
       - ".github/workflows/post-queue.yml"
-  schedule:
-    # Check every 5 minutes; the application enforces a minimum 30-minute post interval.
-    - cron: "*/5 * * * *"
-      timezone: "Asia/Kolkata"
+  repository_dispatch:
+    types: [post-next]
 
 permissions:
   contents: write
@@ -20,7 +18,7 @@ concurrency:
 jobs:
   post:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 40
     env:
       X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
       X_CT0: ${{ secrets.X_CT0 }}
@@ -86,3 +84,17 @@ jobs:
           git add state/post_queue.json
           git commit -m "chore: advance X post queue"
           git push
+
+      - name: Schedule next post
+        if: always()
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await new Promise(resolve => setTimeout(resolve, 29 * 60 * 1000));
+            await github.rest.repos.createDispatchEvent({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              event_type: "post-next"
+            });
+            console.log("Scheduled next queue run via repository_dispatch.");
