@@ -67,6 +67,18 @@ async def post_next(auth_token: str, ct0: str) -> bool:
         print(f"Queue exhausted: {len(queue)} posts have already been published.")
         return False
 
+    last_posted_at = state.get("last_posted_at")
+    if last_posted_at:
+        try:
+            last_posted = datetime.fromisoformat(str(last_posted_at))
+            elapsed = datetime.now(timezone.utc) - last_posted.astimezone(timezone.utc)
+            if elapsed.total_seconds() < 30 * 60:
+                remaining = int(30 * 60 - elapsed.total_seconds())
+                print(f"Post interval guard: next post allowed in about {remaining // 60 + (1 if remaining % 60 else 0)} minute(s).")
+                return False
+        except ValueError as exc:
+            raise QueueError(f"Invalid last_posted_at in queue state: {last_posted_at}") from exc
+
     item = queue[index]
     text = str(item["sentence"]).strip()
     number = item.get("number", index + 1)
