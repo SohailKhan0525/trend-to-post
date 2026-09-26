@@ -2,11 +2,12 @@ name: Post X Queue
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/post-queue.yml"
   schedule:
     # Check every 5 minutes; the application enforces a minimum 30-minute post interval.
     - cron: "*/5 * * * *"
-      timezone: "Asia/Kolkata"
-    - cron: "45 1-23/3 * * *"
       timezone: "Asia/Kolkata"
 
 permissions:
