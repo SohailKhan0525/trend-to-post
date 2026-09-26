@@ -1,6 +1,10 @@
 name: Post X Queue
 
 on:
+  push:
+    paths:
+      - ".github/workflows/post-queue.yml"
+  workflow_dispatch:
   schedule:
     - cron: "0 */3 * * *"
       timezone: "Asia/Kolkata"
@@ -54,4 +58,38 @@ jobs:
 
           git add state/post_queue.json
           git commit -m "chore: advance X post queue"
+          git push
+
+      - name: Remove one-time push trigger
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path(".github/workflows/post-queue.yml")
+          text = path.read_text(encoding="utf-8")
+          old = '''on:
+  push:
+    paths:
+      - ".github/workflows/post-queue.yml"
+  workflow_dispatch:
+  schedule:
+'''
+          new = '''on:
+  workflow_dispatch:
+  schedule:
+'''
+          if old not in text:
+              print("One-time push trigger already removed.")
+          else:
+              path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
+
+          if test -z "$(git status --porcelain -- .github/workflows/post-queue.yml)"; then
+            echo "No workflow cleanup needed."
+            exit 0
+          fi
+
+          git add .github/workflows/post-queue.yml
+          git commit -m "chore: remove one-time X post trigger"
           git push
