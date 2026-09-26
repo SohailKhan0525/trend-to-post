@@ -1,9 +1,6 @@
 name: Post X Queue
 
 on:
-  push:
-    paths:
-      - ".github/workflows/post-queue.yml"
   workflow_dispatch:
   schedule:
     - cron: "0 */3 * * *"
