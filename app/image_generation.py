@@ -12,49 +12,7 @@ from pathlib import Path
 MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 
 IMAGE_PROMPT_SUFFIX = """
-You are an expert editorial art director.
-
-Turn the post into ONE coherent, premium social-media image that communicates the idea immediately.
-
-CRITICAL:
-- Stay faithful to the actual subject of the post.
-- Do NOT introduce robots, spaceships, cyberpunk, futuristic technology, server rooms, laboratories, or AI imagery unless the post itself is about those things.
-- Do NOT invent unrelated objects or themes.
-- Prefer a believable real-world scene when the post is about everyday life, work, humor, or human behavior.
-- For abstract ideas, use one clear visual metaphor grounded in the subject.
-
-VISUAL QUALITY:
-- cinematic editorial photography or premium editorial illustration
-- realistic materials and believable proportions
-- natural human anatomy and expressions
-- strong composition and depth
-- clear focal subject
-- intentional lighting
-- polished, sophisticated, contemporary look
-- visually interesting without being chaotic
-
-POST-TYPE GUIDANCE:
-- funny: make the visual situation subtly humorous and relatable, not cartoonish
-- question: show the subject of the question through a compelling scene
-- future_news: cinematic but plausible depiction of the future described
-- observation: thoughtful editorial visual metaphor
-- other: choose the most natural visual interpretation of the post
-
-STRICT EXCLUSIONS:
-- no readable text
-- no letters or words
-- no captions
-- no logos
-- no watermarks
-- no UI screenshots
-- no charts with labels
-- no fake social-media interfaces
-- no collage
-- no split screen
-- no random decorative objects
-- no generic AI/cyberpunk imagery unless explicitly relevant
-
-The final image must look intentionally designed for a high-quality technology/social-media publication, not like a generic AI wallpaper.
+Editorial image generation rules: communicate the post visually; never render the post as text, quote card, poster, or social-media UI. No readable text, letters, numbers, captions, logos, watermarks, or typography.
 """
 
 
@@ -67,8 +25,6 @@ def _build_prompt(sentence: str, item_type: str = "") -> str:
     lower = post.lower()
 
     if "hardcoded secret" in lower:
-        # Deliberately do not pass the original sentence as visible prompt context.
-        # It was causing the model to imitate social-post typography.
         return (
             "Editorial illustration for a funny software-developer post. "
             "Show one exhausted developer in a contemporary office, sitting at a laptop after finally solving a stubborn bug. "
@@ -80,17 +36,17 @@ def _build_prompt(sentence: str, item_type: str = "") -> str:
             "NO TEXT ANYWHERE. No words, letters, numbers, captions, logos, watermarks, UI, readable code, signs, or typography."
         )
 
-    visual = (
-        "Create one single coherent editorial image that communicates the idea of the social post through a concrete scene. "
-        "Use people, objects, environment, and action as visual storytelling. Never turn the post into a poster or quote card."
-    )
     return (
-        visual + " "
-        "Premium editorial photography or tasteful editorial illustration, believable real-world setting, natural anatomy, "
-        "strong composition, cinematic depth, polished lighting. NO TEXT: no words, letters, numbers, captions, logos, "
-        "watermarks, UI, signs, readable screens, or typography. The image must communicate the idea visually, not by writing it."
+        "Create one single coherent editorial photograph or tasteful editorial illustration inspired by the meaning of the post. "
+        "Use concrete people, objects, environment, and action to tell the story. "
+        "Never turn the post into a poster, quote card, screenshot, infographic, or text overlay. "
+        f"Post type: {item_type or \"general\"}. "
+        "The following is semantic reference only. Understand its meaning and subject; do NOT reproduce or display any of its wording. "
+        f"Semantic reference: {post} "
+        "Premium realistic visual style, believable real-world setting, natural anatomy, strong composition, cinematic depth, "
+        "polished lighting. Absolutely no readable text, letters, numbers, captions, logos, watermarks, UI, signs, "
+        "readable screens, or typography anywhere in the image."
     )
-
 def _multipart_body(fields: dict[str, str]) -> tuple[bytes, str]:
     boundary = f"----trend-to-post-{uuid.uuid4().hex}"
     chunks: list[bytes] = []

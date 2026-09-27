@@ -34,11 +34,23 @@ jobs:
       - name: Install X client
         run: python -m pip install -r requirements.txt
 
+      - name: Sync latest queue state
+        shell: bash
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+
       - name: Validate X secrets
         shell: bash
         run: |
           test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
           test -n "$X_CT0" || { echo "Missing X_CT0"; exit 1; }
+
+      - name: Validate Cloudflare secrets
+        shell: bash
+        run: |
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
 
       - name: Validate queue
         shell: bash
@@ -82,4 +94,18 @@ jobs:
 
           git add state/post_queue.json
           git commit -m "chore: advance X post queue"
-          git push
+
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "git push failed; refreshing main before retry $((attempt + 1))."
+            git fetch origin main
+            git rebase origin/main || {
+              echo "Unable to rebase queue state onto origin/main."
+              exit 1
+            }
+          done
+
+          echo "Failed to push queue state after 3 attempts."
+          exit 1
