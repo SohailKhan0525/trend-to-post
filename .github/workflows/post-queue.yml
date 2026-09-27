@@ -63,12 +63,6 @@ jobs:
           if any(len(sentence) > 280 for sentence in sentences):
               raise SystemExit("Queue contains a sentence longer than 280 characters.")
 
-          for item in items:
-              item_type = str(item.get("type", "")).strip().lower()
-              sentence = str(item.get("sentence", "")).strip().lower()
-              if item_type == "grok" or sentence.startswith("@grok"):
-                  continue
-
           print(f"Queue validated: {len(items)} posts.")
           PY
 
