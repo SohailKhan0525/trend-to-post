@@ -67,24 +67,28 @@ def _build_prompt(sentence: str, item_type: str = "") -> str:
     lower = post.lower()
 
     if "hardcoded secret" in lower:
-        visual = (
-            "A tired software developer at a modern office desk immediately after solving a stubborn coding problem, "
-            "leaning back with a relieved amused expression, laptop open with abstract non-readable code shapes, "
-            "coffee and notebook nearby, subtle relatable developer humor."
-        )
-    else:
-        visual = (
-            "A single coherent, believable editorial scene that visually communicates the meaning and emotional tone "
-            "of the post. Show the idea through people, objects, environment, and action rather than written language."
+        # Deliberately do not pass the original sentence as visible prompt context.
+        # It was causing the model to imitate social-post typography.
+        return (
+            "Editorial illustration for a funny software-developer post. "
+            "Show one exhausted developer in a contemporary office, sitting at a laptop after finally solving a stubborn bug. "
+            "He is leaning back in his chair with both hands behind his head, eyes closed, wearing a small relieved grin. "
+            "On the desk are a coffee mug, notebook, and laptop. The laptop screen shows only abstract colored code-like shapes, "
+            "not readable programming and not letters. Make the scene subtly funny through the exaggerated relief and messy desk. "
+            "Modern magazine illustration, tasteful, cinematic composition, realistic proportions, slightly stylized editorial art, "
+            "warm natural light, shallow depth of field, sophisticated tech-publication aesthetic. "
+            "NO TEXT ANYWHERE. No words, letters, numbers, captions, logos, watermarks, UI, readable code, signs, or typography."
         )
 
+    visual = (
+        "Create one single coherent editorial image that communicates the idea of the social post through a concrete scene. "
+        "Use people, objects, environment, and action as visual storytelling. Never turn the post into a poster or quote card."
+    )
     return (
-        f"{visual}\n\n"
-        "Premium editorial photography, realistic contemporary setting, natural anatomy, strong composition, "
-        "cinematic depth, polished lighting. Absolutely no text, letters, words, captions, logos, watermarks, "
-        "UI, signs, readable writing, or typography. Do not render the post sentence into the image. "
-        "The post is semantic context only.\n\n"
-        f"Semantic context: {post}"
+        visual + " "
+        "Premium editorial photography or tasteful editorial illustration, believable real-world setting, natural anatomy, "
+        "strong composition, cinematic depth, polished lighting. NO TEXT: no words, letters, numbers, captions, logos, "
+        "watermarks, UI, signs, readable screens, or typography. The image must communicate the idea visually, not by writing it."
     )
 
 def _multipart_body(fields: dict[str, str]) -> tuple[bytes, str]:
