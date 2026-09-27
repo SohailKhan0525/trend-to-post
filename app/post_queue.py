@@ -103,7 +103,7 @@ async def post_next(auth_token: str, ct0: str) -> bool:
         print(f"Queue item {number}/{len(queue)} is @grok; posting without an image.")
     else:
         print(f"Generating image for queue item {number}/{len(queue)}...")
-        image_path = await generate_image(text, seed=int(number))
+        image_path = await generate_image(text)
         try:
             print(f"Uploading generated image for queue item {number}/{len(queue)}...")
             media_id = await client.upload_media(
