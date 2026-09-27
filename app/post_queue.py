@@ -4,6 +4,8 @@ from pathlib import Path
 
 from twikit import Client
 
+from .image_generation import generate_image, is_grok_post
+
 QUEUE_PATH = Path("x.json")
 STATE_PATH = Path("state/post_queue.json")
 
@@ -74,10 +76,15 @@ async def post_next(auth_token: str, ct0: str) -> bool:
             elapsed = datetime.now(timezone.utc) - last_posted.astimezone(timezone.utc)
             if elapsed.total_seconds() < 30 * 60:
                 remaining = int(30 * 60 - elapsed.total_seconds())
-                print(f"Post interval guard: next post allowed in about {remaining // 60 + (1 if remaining % 60 else 0)} minute(s).")
+                print(
+                    "Post interval guard: next post allowed in about "
+                    f"{remaining // 60 + (1 if remaining % 60 else 0)} minute(s)."
+                )
                 return False
         except ValueError as exc:
-            raise QueueError(f"Invalid last_posted_at in queue state: {last_posted_at}") from exc
+            raise QueueError(
+                f"Invalid last_posted_at in queue state: {last_posted_at}"
+            ) from exc
 
     item = queue[index]
     text = str(item["sentence"]).strip()
@@ -89,8 +96,30 @@ async def post_next(auth_token: str, ct0: str) -> bool:
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; auth_token/ct0 may be expired.")
 
+    media_ids: list[str] = []
+    image_path: Path | None = None
+
+    if is_grok_post(item):
+        print(f"Queue item {number}/{len(queue)} is @grok; posting without an image.")
+    else:
+        print(f"Generating image for queue item {number}/{len(queue)}...")
+        image_path = await generate_image(text, seed=int(number))
+        try:
+            print(f"Uploading generated image for queue item {number}/{len(queue)}...")
+            media_id = await client.upload_media(
+                str(image_path),
+                wait_for_completion=True,
+            )
+            media_ids.append(media_id)
+        finally:
+            image_path.unlink(missing_ok=True)
+
     print(f"Posting queue item {number}/{len(queue)}...")
-    tweet = await client.create_tweet(text=text)
+    if media_ids:
+        tweet = await client.create_tweet(text=text, media_ids=media_ids)
+    else:
+        tweet = await client.create_tweet(text=text)
+
     tweet_id = str(getattr(tweet, "id", "") or "")
 
     state.update(
