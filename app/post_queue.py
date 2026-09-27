@@ -89,6 +89,7 @@ async def post_next(auth_token: str, ct0: str) -> bool:
     item = queue[index]
     text = str(item["sentence"]).strip()
     number = item.get("number", index + 1)
+    item_type = str(item.get("type", "")).strip()
 
     client = Client("en-US", impersonate="chrome124")
     client.set_cookies({"auth_token": auth_token, "ct0": ct0})
@@ -103,7 +104,7 @@ async def post_next(auth_token: str, ct0: str) -> bool:
         print(f"Queue item {number}/{len(queue)} is @grok; posting without an image.")
     else:
         print(f"Generating image for queue item {number}/{len(queue)}...")
-        image_path = await generate_image(text)
+        image_path = await generate_image(text, item_type=item_type, seed=int(number))
         try:
             print(f"Uploading generated image for queue item {number}/{len(queue)}...")
             media_id = await client.upload_media(
