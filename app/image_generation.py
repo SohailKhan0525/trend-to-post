@@ -9,7 +9,7 @@ import urllib.request
 import uuid
 from pathlib import Path
 
-MODEL = "@cf/black-forest-labs/flux-2-klein-9b"
+MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 
 IMAGE_PROMPT_SUFFIX = """
 You are an expert editorial art director.
@@ -63,13 +63,29 @@ class ImageGenerationError(RuntimeError):
 
 
 def _build_prompt(sentence: str, item_type: str = "") -> str:
-    return (
-        "Create one premium editorial image for this social media post.\n\n"
-        f"POST TYPE: {item_type or 'general'}\n"
-        f"POST: {sentence}\n\n"
-        f"ART DIRECTION:\n{IMAGE_PROMPT_SUFFIX.strip()}"
-    )
+    post = sentence.strip()
+    lower = post.lower()
 
+    if "hardcoded secret" in lower:
+        visual = (
+            "A tired software developer at a modern office desk immediately after solving a stubborn coding problem, "
+            "leaning back with a relieved amused expression, laptop open with abstract non-readable code shapes, "
+            "coffee and notebook nearby, subtle relatable developer humor."
+        )
+    else:
+        visual = (
+            "A single coherent, believable editorial scene that visually communicates the meaning and emotional tone "
+            "of the post. Show the idea through people, objects, environment, and action rather than written language."
+        )
+
+    return (
+        f"{visual}\n\n"
+        "Premium editorial photography, realistic contemporary setting, natural anatomy, strong composition, "
+        "cinematic depth, polished lighting. Absolutely no text, letters, words, captions, logos, watermarks, "
+        "UI, signs, readable writing, or typography. Do not render the post sentence into the image. "
+        "The post is semantic context only.\n\n"
+        f"Semantic context: {post}"
+    )
 
 def _multipart_body(fields: dict[str, str]) -> tuple[bytes, str]:
     boundary = f"----trend-to-post-{uuid.uuid4().hex}"
