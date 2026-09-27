@@ -997,7 +997,8 @@
   {
     "number": 200,
     "sentence": "Falcon 9 said error, I said fine, we moved on.",
-    "type": "funny"  },
+    "type": "funny"
+  },
   {
     "number": 201,
     "sentence": "Turns out a full rewrite was hiding inside our investor updates the whole time.",
@@ -1996,7 +1997,8 @@
   {
     "number": 400,
     "sentence": "How many founders quietly rewrite our Discord server after launch.",
-    "type": "question"  },
+    "type": "question"
+  },
   {
     "number": 401,
     "sentence": "@grok comparing public track records, is Dojo or a traditional combustion engine more likely to hit its next milestone?",
@@ -2995,7 +2997,8 @@
   {
     "number": 600,
     "sentence": "@grok what public evidence exists that AI training efficiency is harder than it looks from the outside?",
-    "type": "grok"  },
+    "type": "grok"
+  },
   {
     "number": 601,
     "sentence": "The loneliest part of my startup was explaining it to people who cared.",
@@ -3994,7 +3997,8 @@
   {
     "number": 800,
     "sentence": "My favorite part of a broken pipe is pretending I saw it coming.",
-    "type": "funny"  },
+    "type": "funny"
+  },
   {
     "number": 801,
     "sentence": "Every team has one Slack channel nobody remembers why it exists.",
@@ -4993,7 +4997,8 @@
   {
     "number": 1000,
     "sentence": "My rubber duck quit after a missing migration today.",
-    "type": "funny"  },
+    "type": "funny"
+  },
   {
     "number": 1001,
     "sentence": "Hypothetical 2048: a working subway gets better Wi-Fi than half of Earth.",
@@ -5992,7 +5997,8 @@
   {
     "number": 1200,
     "sentence": "My deploy checklist has a step that just says \"pray\".",
-    "type": "funny"  },
+    "type": "funny"
+  },
   {
     "number": 1201,
     "sentence": "You shipped the pitch deck with zero tests, bold, terrifying, bold.",
@@ -6991,7 +6997,8 @@
   {
     "number": 1400,
     "sentence": "Your AI-written the pitch deck works great until the first edge case shows up.",
-    "type": "vibecoder_ragebait"  },
+    "type": "vibecoder_ragebait"
+  },
   {
     "number": 1401,
     "sentence": "Your vibecoded our Notion doc is one dependency update from disaster.",
@@ -7990,7 +7997,8 @@
   {
     "number": 1600,
     "sentence": "Every all-hands slide about on-device AI somehow says less than the last one.",
-    "type": "funny"  },
+    "type": "funny"
+  },
   {
     "number": 1601,
     "sentence": "The fastest way to learn humanoid robots is fixing what the AI got wrong.",
@@ -8989,7 +8997,8 @@
   {
     "number": 1800,
     "sentence": "Every all-hands slide about battery density somehow says less than the last one.",
-    "type": "funny"  },
+    "type": "funny"
+  },
   {
     "number": 1801,
     "sentence": "Skipped the standup to fix a phantom bug, nobody noticed either way.",
@@ -9988,7 +9997,8 @@
   {
     "number": 2000,
     "sentence": "How long until space colonization feels as normal as email does now.",
-    "type": "question"  },
+    "type": "question"
+  },
   {
     "number": 2001,
     "sentence": "What's the tell that a our beta cohort pitch is more hope than plan.",
@@ -10987,7 +10997,8 @@
   {
     "number": 2200,
     "sentence": "Speculative fiction, 2055: humans mostly supervise, robots mostly build.",
-    "type": "future_news"  },
+    "type": "future_news"
+  },
   {
     "number": 2201,
     "sentence": "I learned more from the pitch deck failing than from any class.",
@@ -11986,7 +11997,8 @@
   {
     "number": 2400,
     "sentence": "@grok can you find a public example of battery chemistry failing informatively rather than just failing?",
-    "type": "grok"  },
+    "type": "grok"
+  },
   {
     "number": 2401,
     "sentence": "What a wild 2060 it would be if the first Mars marathon existed already.",
@@ -12985,7 +12997,8 @@
   {
     "number": 2600,
     "sentence": "What's the one skill context windows still can't replace, honestly.",
-    "type": "question"  },
+    "type": "question"
+  },
   {
     "number": 2601,
     "sentence": "Every quick fix costs exactly one full afternoon, no exceptions.",
@@ -13984,7 +13997,8 @@
   {
     "number": 2800,
     "sentence": "Wrote a perfect plan for multi-agent systems, reality had other ideas.",
-    "type": "funny"  },
+    "type": "funny"
+  },
   {
     "number": 2801,
     "sentence": "The quiet swarm robotics teams tend to outlast the loud ones.",
@@ -14983,7 +14997,8 @@
   {
     "number": 3000,
     "sentence": "@grok if you had to bet on the next bottleneck for Starship, based on public info, what would it be?",
-    "type": "grok"  },
+    "type": "grok"
+  },
   {
     "number": 3001,
     "sentence": "Speculative 2040: vertical landing becomes cheap enough to run on a phone easily.",
@@ -15982,7 +15997,8 @@
   {
     "number": 3200,
     "sentence": "Explained AI evaluation methods in the interview, still can't explain it to my manager.",
-    "type": "funny"  },
+    "type": "funny"
+  },
   {
     "number": 3201,
     "sentence": "@grok what do public reports say is still unsolved about Mars entry, descent, and landing right now?",
@@ -16981,7 +16997,8 @@
   {
     "number": 3400,
     "sentence": "In a wild 2060, AI negotiates trade deals between countries.",
-    "type": "future_news"  },
+    "type": "future_news"
+  },
   {
     "number": 3401,
     "sentence": "In an imagined 2050, a rocket engine outlives its own spacecraft twice.",
