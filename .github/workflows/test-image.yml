@@ -49,11 +49,15 @@ jobs:
           item = queue[index]
           number = item["number"]
           sentence = str(item["sentence"]).strip()
+          item_type = str(item.get("type", "")).strip()
 
           print(f"Testing Cloudflare image generation for queue item {number}.")
+          print(f"Type: {item_type}")
           print(f"Sentence: {sentence}")
 
-          source = asyncio.run(generate_image(sentence))
+          source = asyncio.run(
+              generate_image(sentence, item_type=item_type, seed=int(number))
+          )
           output_dir = Path("test-output")
           output_dir.mkdir(parents=True, exist_ok=True)
 
