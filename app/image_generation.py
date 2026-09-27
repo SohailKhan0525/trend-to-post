@@ -26,7 +26,7 @@ def _build_prompt(sentence: str) -> str:
     return f'Social media post: "{sentence}"\n\nImage direction: {IMAGE_PROMPT_SUFFIX}'
 
 
-def _generate_image_sync(prompt: str, seed: int) -> tuple[bytes, str]:
+def _generate_image_sync(prompt: str) -> tuple[bytes, str]:
     account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
     api_token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
 
@@ -43,7 +43,6 @@ def _generate_image_sync(prompt: str, seed: int) -> tuple[bytes, str]:
         {
             "prompt": prompt,
             "steps": 4,
-            "seed": seed,
         }
     ).encode("utf-8")
 
@@ -101,12 +100,12 @@ def _generate_image_sync(prompt: str, seed: int) -> tuple[bytes, str]:
     return image_bytes, suffix
 
 
-async def generate_image(sentence: str, seed: int) -> Path:
+async def generate_image(sentence: str) -> Path:
     if not sentence.strip():
         raise ImageGenerationError("Cannot generate an image for an empty sentence.")
 
     prompt = _build_prompt(sentence.strip())
-    image_bytes, suffix = await asyncio.to_thread(_generate_image_sync, prompt, seed)
+    image_bytes, suffix = await asyncio.to_thread(_generate_image_sync, prompt)
 
     temp = tempfile.NamedTemporaryFile(prefix="x-post-", suffix=suffix, delete=False)
     try:
