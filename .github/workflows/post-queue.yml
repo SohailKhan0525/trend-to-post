@@ -19,6 +19,8 @@ jobs:
     env:
       X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
       X_CT0: ${{ secrets.X_CT0 }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
     steps:
       - name: Checkout
@@ -32,7 +34,7 @@ jobs:
       - name: Install X client
         run: python -m pip install -r requirements.txt
 
-      - name: Validate secrets
+      - name: Validate X secrets
         shell: bash
         run: |
           test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
@@ -60,6 +62,12 @@ jobs:
               raise SystemExit("Queue contains an empty sentence.")
           if any(len(sentence) > 280 for sentence in sentences):
               raise SystemExit("Queue contains a sentence longer than 280 characters.")
+
+          for item in items:
+              item_type = str(item.get("type", "")).strip().lower()
+              sentence = str(item.get("sentence", "")).strip().lower()
+              if item_type == "grok" or sentence.startswith("@grok"):
+                  continue
 
           print(f"Queue validated: {len(items)} posts.")
           PY
