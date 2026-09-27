@@ -6,63 +6,90 @@ import os
 import tempfile
 import urllib.error
 import urllib.request
+import uuid
 from pathlib import Path
 
-MODEL = "@cf/black-forest-labs/flux-1-schnell"
+MODEL = "@cf/black-forest-labs/flux-2-klein-9b"
 
 IMAGE_PROMPT_SUFFIX = """
-Act as a professional editorial art director creating a premium social-media image.
+You are an expert editorial art director.
 
-Interpret the meaning of the post, rather than illustrating its words literally.
+Turn the post into ONE coherent, premium social-media image that communicates the idea immediately.
 
-Create ONE strong visual concept with:
-- a clear primary subject
-- a specific environment that supports the idea
-- a memorable visual metaphor when the post is abstract
-- natural human or technological details only when relevant
-- cinematic, realistic lighting
-- strong depth, composition, and visual hierarchy
-- a polished contemporary editorial / magazine aesthetic
-- an image that is understandable and interesting even when viewed without the post
+CRITICAL:
+- Stay faithful to the actual subject of the post.
+- Do NOT introduce robots, spaceships, cyberpunk, futuristic technology, server rooms, laboratories, or AI imagery unless the post itself is about those things.
+- Do NOT invent unrelated objects or themes.
+- Prefer a believable real-world scene when the post is about everyday life, work, humor, or human behavior.
+- For abstract ideas, use one clear visual metaphor grounded in the subject.
 
-For technology or AI topics, prefer sophisticated real-world scenes, products, interfaces represented as physical environments, data centers, laboratories, engineers, robots, hardware, or conceptual visual metaphors. Avoid generic neon cyberpunk imagery unless the post specifically calls for it.
+VISUAL QUALITY:
+- cinematic editorial photography or premium editorial illustration
+- realistic materials and believable proportions
+- natural human anatomy and expressions
+- strong composition and depth
+- clear focal subject
+- intentional lighting
+- polished, sophisticated, contemporary look
+- visually interesting without being chaotic
 
-For future/space/science topics, use believable engineering, scientific, or cinematic environments rather than generic sci-fi clichés.
+POST-TYPE GUIDANCE:
+- funny: make the visual situation subtly humorous and relatable, not cartoonish
+- question: show the subject of the question through a compelling scene
+- future_news: cinematic but plausible depiction of the future described
+- observation: thoughtful editorial visual metaphor
+- other: choose the most natural visual interpretation of the post
 
-For questions, create a visual scene that represents the subject being questioned; do not create a literal question mark.
-
-For emotional or human topics, use expressive but natural scenes and body language rather than generic stock-photo compositions.
-
-Composition rules:
-- one coherent scene
-- clear focal point
-- strong foreground/midground/background separation
-- visually balanced
-- no clutter
+STRICT EXCLUSIONS:
+- no readable text
+- no letters or words
+- no captions
+- no logos
+- no watermarks
+- no UI screenshots
+- no charts with labels
+- no fake social-media interfaces
 - no collage
-- no split-screen
-- no random objects
+- no split screen
+- no random decorative objects
+- no generic AI/cyberpunk imagery unless explicitly relevant
 
-Absolutely no visible text, letters, words, captions, subtitles, typography, logos, watermarks, UI screenshots, charts with readable labels, or fake social-media interfaces.
-
-Do not reproduce the post as text inside the image.
-Do not add decorative text.
-Do not make the image look like an AI-generated meme.
+The final image must look intentionally designed for a high-quality technology/social-media publication, not like a generic AI wallpaper.
 """
+
 
 class ImageGenerationError(RuntimeError):
     pass
 
 
-def _build_prompt(sentence: str) -> str:
+def _build_prompt(sentence: str, item_type: str = "") -> str:
     return (
-        "Create a premium editorial image inspired by this social media post.\n\n"
+        "Create one premium editorial image for this social media post.\n\n"
+        f"POST TYPE: {item_type or 'general'}\n"
         f"POST: {sentence}\n\n"
-        f"VISUAL BRIEF:{IMAGE_PROMPT_SUFFIX.strip()}"
+        f"ART DIRECTION:\n{IMAGE_PROMPT_SUFFIX.strip()}"
     )
 
 
-def _generate_image_sync(prompt: str) -> tuple[bytes, str]:
+def _multipart_body(fields: dict[str, str]) -> tuple[bytes, str]:
+    boundary = f"----trend-to-post-{uuid.uuid4().hex}"
+    chunks: list[bytes] = []
+
+    for name, value in fields.items():
+        chunks.extend(
+            [
+                f"--{boundary}\r\n".encode(),
+                f'Content-Disposition: form-data; name="{name}"\r\n\r\n'.encode(),
+                value.encode("utf-8"),
+                b"\r\n",
+            ]
+        )
+
+    chunks.append(f"--{boundary}--\r\n".encode())
+    return b"".join(chunks), f"multipart/form-data; boundary={boundary}"
+
+
+def _generate_image_sync(prompt: str, seed: int) -> tuple[bytes, str]:
     account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
     api_token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
 
@@ -75,19 +102,21 @@ def _generate_image_sync(prompt: str) -> tuple[bytes, str]:
         f"https://api.cloudflare.com/client/v4/accounts/{account_id}"
         f"/ai/run/{MODEL}"
     )
-    body = json.dumps(
+    body, content_type = _multipart_body(
         {
             "prompt": prompt,
-            "steps": 8,
+            "width": "1024",
+            "height": "1024",
+            "seed": str(seed),
         }
-    ).encode("utf-8")
+    )
 
     request = urllib.request.Request(
         url,
         data=body,
         headers={
             "Authorization": f"Bearer {api_token}",
-            "Content-Type": "application/json",
+            "Content-Type": content_type,
         },
         method="POST",
     )
@@ -136,12 +165,16 @@ def _generate_image_sync(prompt: str) -> tuple[bytes, str]:
     return image_bytes, suffix
 
 
-async def generate_image(sentence: str) -> Path:
+async def generate_image(sentence: str, item_type: str = "", seed: int = 0) -> Path:
     if not sentence.strip():
         raise ImageGenerationError("Cannot generate an image for an empty sentence.")
 
-    prompt = _build_prompt(sentence.strip())
-    image_bytes, suffix = await asyncio.to_thread(_generate_image_sync, prompt)
+    prompt = _build_prompt(sentence.strip(), item_type.strip())
+    image_bytes, suffix = await asyncio.to_thread(
+        _generate_image_sync,
+        prompt,
+        seed,
+    )
 
     temp = tempfile.NamedTemporaryFile(prefix="x-post-", suffix=suffix, delete=False)
     try:
