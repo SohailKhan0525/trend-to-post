@@ -1,5 +1,6 @@
 import asyncio
 import base64
+import binascii
 import json
 import os
 import tempfile
@@ -9,21 +10,56 @@ from pathlib import Path
 
 MODEL = "@cf/black-forest-labs/flux-1-schnell"
 
-IMAGE_PROMPT_SUFFIX = (
-    "Create one original, visually striking editorial image that communicates the core idea "
-    "of this social media post. Use a modern, polished, cinematic visual style with clear "
-    "subject focus, believable lighting, strong composition, and context-appropriate details. "
-    "Do not place any words, captions, letters, logos, watermarks, social-media UI, or fake "
-    "screenshots in the image. Represent the idea visually rather than literally printing the post."
-)
+IMAGE_PROMPT_SUFFIX = """
+Act as a professional editorial art director creating a premium social-media image.
 
+Interpret the meaning of the post, rather than illustrating its words literally.
+
+Create ONE strong visual concept with:
+- a clear primary subject
+- a specific environment that supports the idea
+- a memorable visual metaphor when the post is abstract
+- natural human or technological details only when relevant
+- cinematic, realistic lighting
+- strong depth, composition, and visual hierarchy
+- a polished contemporary editorial / magazine aesthetic
+- an image that is understandable and interesting even when viewed without the post
+
+For technology or AI topics, prefer sophisticated real-world scenes, products, interfaces represented as physical environments, data centers, laboratories, engineers, robots, hardware, or conceptual visual metaphors. Avoid generic neon cyberpunk imagery unless the post specifically calls for it.
+
+For future/space/science topics, use believable engineering, scientific, or cinematic environments rather than generic sci-fi clichés.
+
+For questions, create a visual scene that represents the subject being questioned; do not create a literal question mark.
+
+For emotional or human topics, use expressive but natural scenes and body language rather than generic stock-photo compositions.
+
+Composition rules:
+- one coherent scene
+- clear focal point
+- strong foreground/midground/background separation
+- visually balanced
+- no clutter
+- no collage
+- no split-screen
+- no random objects
+
+Absolutely no visible text, letters, words, captions, subtitles, typography, logos, watermarks, UI screenshots, charts with readable labels, or fake social-media interfaces.
+
+Do not reproduce the post as text inside the image.
+Do not add decorative text.
+Do not make the image look like an AI-generated meme.
+"""
 
 class ImageGenerationError(RuntimeError):
     pass
 
 
 def _build_prompt(sentence: str) -> str:
-    return f'Social media post: "{sentence}"\n\nImage direction: {IMAGE_PROMPT_SUFFIX}'
+    return (
+        "Create a premium editorial image inspired by this social media post.\n\n"
+        f"POST: {sentence}\n\n"
+        f"VISUAL BRIEF:{IMAGE_PROMPT_SUFFIX.strip()}"
+    )
 
 
 def _generate_image_sync(prompt: str) -> tuple[bytes, str]:
@@ -42,7 +78,7 @@ def _generate_image_sync(prompt: str) -> tuple[bytes, str]:
     body = json.dumps(
         {
             "prompt": prompt,
-            "steps": 4,
+            "steps": 8,
         }
     ).encode("utf-8")
 
@@ -57,7 +93,7 @@ def _generate_image_sync(prompt: str) -> tuple[bytes, str]:
     )
 
     try:
-        with urllib.request.urlopen(request, timeout=120) as response:
+        with urllib.request.urlopen(request, timeout=180) as response:
             payload = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace")
@@ -87,7 +123,7 @@ def _generate_image_sync(prompt: str) -> tuple[bytes, str]:
 
     try:
         image_bytes = base64.b64decode(image_b64, validate=True)
-    except (ValueError, base64.binascii.Error) as exc:
+    except (ValueError, binascii.Error) as exc:
         raise ImageGenerationError("Cloudflare returned invalid base64 image data.") from exc
 
     if image_bytes.startswith(b"\x89PNG\r\n\x1a\n"):
