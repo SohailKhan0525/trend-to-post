@@ -40,7 +40,7 @@ def _build_prompt(sentence: str, item_type: str = "") -> str:
         "Create one single coherent editorial photograph or tasteful editorial illustration inspired by the meaning of the post. "
         "Use concrete people, objects, environment, and action to tell the story. "
         "Never turn the post into a poster, quote card, screenshot, infographic, or text overlay. "
-        f"Post type: {item_type or \"general\"}. "
+        "Post type: " + (item_type or "general") + ". "
         "The following is semantic reference only. Understand its meaning and subject; do NOT reproduce or display any of its wording. "
         f"Semantic reference: {post} "
         "Premium realistic visual style, believable real-world setting, natural anatomy, strong composition, cinematic depth, "
