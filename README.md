@@ -6,8 +6,10 @@ This repository posts the supplied `x.json` queue directly to X.
 - An external cron job triggers GitHub Actions every 30 minutes through `repository_dispatch`.
 - The queue advances only after X accepts the post.
 - X session credentials are read only from `X_AUTH_TOKEN` and `X_CT0` GitHub Secrets.
-- Non-`@grok` posts get one generated image from Cloudflare Workers AI using FLUX.2 [klein] 4B. The image is generated from the post's meaning and instructed not to contain post text.
-- `@grok` posts are posted without an image.
+- Each normal 24-hour posting cycle contains 48 queue posts. Exactly 5 eligible non-`@grok` posts are selected pseudo-randomly for images; the remaining posts are text-only.
+- The 5 image slots are selected deterministically from the cycle, so retries do not reshuffle the schedule or consume extra daily image slots.
+- `@grok` posts are always posted without an image and do not consume one of the 5 image slots.
+- The generated image uses Cloudflare Workers AI with FLUX.2 [klein] 4B. The prompt is based on the post's meaning and explicitly excludes readable post text.
 - The generated image is created in the GitHub Actions runner, uploaded to X, attached to the post, and then removed from the runner.
 - No Gemini, trend collection, generation, or automatic rewriting is used.
 
@@ -27,6 +29,7 @@ The Cloudflare API token must have Workers AI access. Cloudflare documents creat
 
 The queue is exhausted after all 5,000 entries are published.
 
-## Free-plan usage
+## Image quota behavior
 
-Cloudflare Workers AI currently includes 10,000 Neurons per day on Workers Free. This repository uses FLUX.2 [klein] 4B at 1024x1024; at the configured 30-minute cadence, the repository's maximum of 48 image generations per day remains below that daily allocation. Cloudflare states that requests beyond the Free allocation fail rather than automatically becoming paid usage.
+The scheduler treats the normal 30-minute cadence as 48 posts per 24-hour cycle. For each cycle it chooses 5 eligible queue entries at random for images. Because the selection is seeded from the cycle, the same queue item stays selected on retries. Once those 5 image slots are used, all later posts in that cycle are text-only.
+
