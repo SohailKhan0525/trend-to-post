@@ -1,6 +1,10 @@
 {
-  "next_index": 0,
+  "next_index": 1,
   "image_cycle_start_index": 0,
   "image_cycle": 0,
-  "image_count": 0
+  "image_count": 0,
+  "last_number": 1,
+  "last_text": "The AI generated my whole app, the bill generated my whole headache.",
+  "last_tweet_id": "2104889363851296870",
+  "last_posted_at": "2026-09-29T11:01:46.116825+00:00"
 }
