@@ -5,7 +5,7 @@ from pathlib import Path
 
 from twikit import Client
 
-from .image_generation import generate_image, is_grok_post
+from .image_generation import generate_image, has_mention_tag
 
 QUEUE_PATH = Path("x.json")
 STATE_PATH = Path("state/post_queue.json")
@@ -71,13 +71,14 @@ def _select_image_indices(
     candidates = [
         index
         for index in range(start, end)
-        if not is_grok_post(queue[index])
+        if not has_mention_tag(queue[index])
     ]
 
     if len(candidates) <= IMAGES_PER_DAY:
         return set(candidates)
 
-    # The seed makes the random selection stable for retries of the same post.
+    # Randomize once per cycle, but keep the seed stable so retries do not
+    # reshuffle image slots or consume additional image quota.
     rng = random.Random(f"trend-to-post-image-cycle:{cycle_start_index}:{cycle_number}")
     return set(rng.sample(candidates, IMAGES_PER_DAY))
 
@@ -132,25 +133,32 @@ async def post_next(auth_token: str, ct0: str) -> bool:
         image_cycle,
     )
     images_used_before = sum(target < index for target in image_targets)
-    use_image = index in image_targets and images_used_before < IMAGES_PER_DAY
 
     item = queue[index]
     text = str(item["sentence"]).strip()
     number = item.get("number", index + 1)
     item_type = str(item.get("type", "")).strip()
 
+    # Defense in depth: a post containing any @ mention is never eligible for
+    # image generation, even if a selection bug or stale state says otherwise.
+    use_image = (
+        not has_mention_tag(item)
+        and index in image_targets
+        and images_used_before < IMAGES_PER_DAY
+    )
+
     client = Client("en-US", impersonate="chrome124")
     client.set_cookies({"auth_token": auth_token, "ct0": ct0})
 
-    if is_grok_post(item):
+    if has_mention_tag(item):
         print(
-            f"Queue item {number}/{len(queue)} is @grok; "
+            f"Queue item {number}/{len(queue)} contains an @ mention; "
             "posting without an image."
         )
     elif use_image:
         print(
             f"Queue item {number}/{len(queue)} is one of the "
-            f"{IMAGES_PER_DAY} random image slots for this 24-hour posting cycle "
+            f"{IMAGES_PER_DAY} randomized image slots for this 24-hour posting cycle "
             f"({images_used_before + 1}/{IMAGES_PER_DAY})."
         )
     else:

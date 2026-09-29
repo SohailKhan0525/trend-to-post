@@ -62,12 +62,12 @@ jobs:
           path = Path("x.json")
           items = json.loads(path.read_text(encoding="utf-8"))
 
-          if not isinstance(items, list) or len(items) != 5000:
-              raise SystemExit(f"Expected exactly 5000 queue entries; found {len(items) if isinstance(items, list) else 'non-list'}")
+          if not isinstance(items, list) or len(items) != 1000:
+              raise SystemExit(f"Expected exactly 1000 queue entries; found {len(items) if isinstance(items, list) else 'non-list'}")
 
           numbers = [item.get("number") for item in items]
-          if numbers != list(range(1, 5001)):
-              raise SystemExit("Queue numbers are not the expected 1..5000 sequence.")
+          if numbers != list(range(1, 1001)):
+              raise SystemExit("Queue numbers are not the expected 1..1000 sequence.")
 
           sentences = [str(item.get("sentence", "")).strip() for item in items]
           if any(not sentence for sentence in sentences):

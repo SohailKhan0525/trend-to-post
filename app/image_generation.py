@@ -11,13 +11,13 @@ from pathlib import Path
 
 MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 
-IMAGE_PROMPT_SUFFIX = """
-Editorial image generation rules: communicate the post visually; never render the post as text, quote card, poster, or social-media UI. No readable text, letters, numbers, captions, logos, watermarks, or typography.
-"""
-
 
 class ImageGenerationError(RuntimeError):
     pass
+
+
+def has_mention_tag(item: dict) -> bool:
+    return "@" in str(item.get("sentence", ""))
 
 
 def _build_prompt(sentence: str, item_type: str = "") -> str:
@@ -47,6 +47,8 @@ def _build_prompt(sentence: str, item_type: str = "") -> str:
         "polished lighting. Absolutely no readable text, letters, numbers, captions, logos, watermarks, UI, signs, "
         "readable screens, or typography anywhere in the image."
     )
+
+
 def _multipart_body(fields: dict[str, str]) -> tuple[bytes, str]:
     boundary = f"----trend-to-post-{uuid.uuid4().hex}"
     chunks: list[bytes] = []
@@ -144,6 +146,10 @@ def _generate_image_sync(prompt: str, seed: int) -> tuple[bytes, str]:
 async def generate_image(sentence: str, item_type: str = "", seed: int = 0) -> Path:
     if not sentence.strip():
         raise ImageGenerationError("Cannot generate an image for an empty sentence.")
+    if "@" in sentence:
+        raise ImageGenerationError(
+            "Refusing to generate an image for a post containing an @ mention."
+        )
 
     prompt = _build_prompt(sentence.strip(), item_type.strip())
     image_bytes, suffix = await asyncio.to_thread(
@@ -160,9 +166,3 @@ async def generate_image(sentence: str, item_type: str = "", seed: int = 0) -> P
         temp.close()
 
     return Path(temp.name)
-
-
-def is_grok_post(item: dict) -> bool:
-    return str(item.get("type", "")).strip().lower() == "grok" or (
-        str(item.get("sentence", "")).strip().lower().startswith("@grok")
-    )

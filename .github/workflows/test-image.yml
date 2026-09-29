@@ -29,7 +29,7 @@ jobs:
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
           test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
 
-      - name: Generate image for next queue item
+      - name: Generate image for first eligible post
         shell: bash
         run: |
           python - <<'PY'
@@ -37,16 +37,16 @@ jobs:
           import json
           from pathlib import Path
 
-          from app.image_generation import generate_image
+          from app.image_generation import generate_image, has_mention_tag
 
-          state = json.loads(Path("state/post_queue.json").read_text(encoding="utf-8"))
           queue = json.loads(Path("x.json").read_text(encoding="utf-8"))
+          item = next(
+              (entry for entry in queue if not has_mention_tag(entry)),
+              None,
+          )
+          if item is None:
+              raise SystemExit("No image-eligible queue item exists.")
 
-          index = int(state.get("next_index", 0))
-          if index >= len(queue):
-              raise SystemExit("Queue is exhausted.")
-
-          item = queue[index]
           number = item["number"]
           sentence = str(item["sentence"]).strip()
           item_type = str(item.get("type", "")).strip()
