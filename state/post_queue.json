@@ -1,10 +1,10 @@
 {
-  "next_index": 21,
+  "next_index": 22,
   "image_cycle_start_index": 0,
   "image_cycle": 0,
   "image_count": 4,
-  "last_number": 21,
-  "last_text": "@grok what's the clearest public example of General Motors failing informatively rather than just failing?",
-  "last_tweet_id": "2105176218664579281",
-  "last_posted_at": "2026-09-30T06:01:37.624053+00:00"
+  "last_number": 22,
+  "last_text": "The AI wrote a whole essay defending an answer that was simply wrong.",
+  "last_tweet_id": "2105191314811916560",
+  "last_posted_at": "2026-09-30T07:01:36.795751+00:00"
 }
