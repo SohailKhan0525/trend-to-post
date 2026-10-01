@@ -49,8 +49,6 @@ def _load_state() -> dict:
         raise QueueError(f"Invalid state JSON: {exc}") from exc
     if not isinstance(state, dict):
         raise QueueError("State must be a JSON object.")
-    if "next_index" in state:
-        return _new_state()
 
     today = _today()
     if str(state.get("day_key", "")).strip() != today:
@@ -72,7 +70,10 @@ def _load_state() -> dict:
 def _save_state(state: dict) -> None:
     STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     tmp = STATE_PATH.with_suffix(".tmp")
-    tmp.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp.write_text(
+        json.dumps(state, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
     tmp.replace(STATE_PATH)
 
 
@@ -106,16 +107,24 @@ def _interval_ok(state: dict) -> bool:
         last = datetime.fromisoformat(str(value))
     except ValueError as exc:
         raise QueueError(f"Invalid last_posted_at: {value}") from exc
+
     remaining = MIN_POST_INTERVAL_MINUTES * 60 - int(
         (datetime.now(timezone.utc) - last.astimezone(timezone.utc)).total_seconds()
     )
     if remaining > 0:
-        print(f"Post interval guard: next post allowed in about {(remaining + 59) // 60} minute(s).")
+        print(
+            "Post interval guard: next post allowed in about "
+            f"{(remaining + 59) // 60} minute(s)."
+        )
         return False
     return True
 
 
-async def post_next(auth_token: str, ct0: str, gemini_api_key: str | None = None) -> bool:
+async def post_next(
+    auth_token: str,
+    ct0: str,
+    gemini_api_key: str | None = None,
+) -> bool:
     if not auth_token or not ct0:
         raise QueueError("X_AUTH_TOKEN and X_CT0 are required.")
     if not (gemini_api_key or "").strip():
