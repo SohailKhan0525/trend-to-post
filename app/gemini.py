@@ -8,7 +8,9 @@ import urllib.error
 import urllib.request
 
 MODEL = "gemini-3.5-flash-lite"
+CLOUDFLARE_MODEL = os.environ.get("CLOUDFLARE_AI_MODEL", "@cf/zai-org/glm-4.7-flash")
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
+CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{model}"
 MAX_QUOTE_CHARS = 260
 MAX_API_ATTEMPTS_PER_KEY = 3
 RETRYABLE_HTTP_CODES = {408, 429, 500, 502, 503, 504}
@@ -219,6 +221,61 @@ def _parse_quote_json(text: str) -> QuoteDraft:
         angle=angle,
     )
 
+
+
+def _cloudflare_credentials() -> tuple[str, str]:
+    account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
+    token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
+    if not account_id or not token:
+        raise GeminiError("CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are required.")
+    return account_id, token
+
+
+def _cloudflare_text(prompt: str) -> str:
+    account_id, token = _cloudflare_credentials()
+    url = CLOUDFLARE_API_URL.format(account_id=account_id, model=CLOUDFLARE_MODEL)
+    payload = {
+        "messages": [
+            {"role": "system", "content": "Write short, funny, human X quote-posts. Never sound like an AI assistant, news summary, marketer, content farm, or corporate social-media manager."},
+            {"role": "user", "content": prompt},
+        ],
+        "max_tokens": 220,
+        "temperature": 0.95,
+        "top_p": 0.9,
+    }
+    request = urllib.request.Request(
+        url,
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    for attempt in range(1, 3):
+        try:
+            with urllib.request.urlopen(request, timeout=90) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+                if payload.get("success") is False:
+                    raise GeminiError(f"Cloudflare Workers AI error: {payload.get('errors') or payload.get('messages')}")
+                result = payload.get("result") or {}
+                text = result.get("response")
+                if not text and result.get("choices"):
+                    text = ((result["choices"][0].get("message") or {}).get("content"))
+                if not isinstance(text, str) or not text.strip():
+                    raise GeminiError("Cloudflare Workers AI returned no text.")
+                return text.strip()
+        except urllib.error.HTTPError as exc:
+            detail = exc.read().decode("utf-8", errors="replace")
+            if exc.code in {408, 429, 500, 502, 503, 504} and attempt == 1:
+                time.sleep(2)
+                continue
+            raise GeminiError("Cloudflare Workers AI failed with HTTP {exc.code}: {detail[:1000]}") from exc
+        except (urllib.error.URLError, TimeoutError) as exc:
+            if attempt == 1:
+                time.sleep(2)
+                continue
+            raise GeminiError(f"Cloudflare Workers AI request failed: {exc}") from exc
+        except json.JSONDecodeError as exc:
+            raise GeminiError("Cloudflare Workers AI returned invalid JSON.") from exc
+    raise GeminiError("Cloudflare Workers AI failed unexpectedly.")
 
 def generate_quote(source: dict) -> QuoteDraft:
     schema = {
