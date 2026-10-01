@@ -33,7 +33,7 @@ def _new_state() -> dict:
     return {
         "day_key": _today(),
         "daily_count": 0,
-        "gemini_call_count": 0,
+        "ai_call_count": 0,
         "last_posted_at": None,
         "last_source_tweet_id": None,
         "last_tweet_id": None,
@@ -64,19 +64,19 @@ def _load_state() -> dict:
     if str(state.get("day_key", "")).strip() != today:
         state["day_key"] = today
         state["daily_count"] = 0
-        state["gemini_call_count"] = 0
+        state["ai_call_count"] = 0
 
     try:
         state["daily_count"] = int(state.get("daily_count", 0))
-        state["gemini_call_count"] = int(state.get("gemini_call_count", 0))
+        state["ai_call_count"] = int(state.get("ai_call_count", 0))
     except (TypeError, ValueError) as exc:
         raise QueueError("State counters must be integers.") from exc
 
     if not 0 <= state["daily_count"] <= POSTS_PER_DAY:
         raise QueueError(f"State daily_count is outside 0..{POSTS_PER_DAY}.")
-    if not 0 <= state["gemini_call_count"] <= GEMINI_CALLS_PER_DAY:
+    if not 0 <= state["ai_call_count"] <= GEMINI_CALLS_PER_DAY:
         raise QueueError(
-            f"State gemini_call_count is outside 0..{GEMINI_CALLS_PER_DAY}."
+            f"State ai_call_count is outside 0..{GEMINI_CALLS_PER_DAY}."
         )
 
     state["posted_source_tweet_ids"] = _history(
@@ -167,8 +167,8 @@ async def post_next(
 
     # Keep Gemini traffic bounded as well. With one Gemini call per candidate,
     # this prevents skipped candidates from turning into an unbounded quota drain.
-    if state["gemini_call_count"] >= GEMINI_CALLS_PER_DAY:
-        print(f"Daily Gemini request limit reached: {GEMINI_CALLS_PER_DAY}.")
+    if state["ai_call_count"] >= GEMINI_CALLS_PER_DAY:
+        print(f"Daily AI generation limit reached: {GEMINI_CALLS_PER_DAY}.")
         return False
 
     if not _interval_ok(state):
@@ -188,7 +188,7 @@ async def post_next(
         # Count successful Gemini calls so repeated workflow dispatches cannot
         # exhaust the provider quota by processing unlimited candidates.
         draft = generate_quote(payload)
-        state["gemini_call_count"] += 1
+        state["ai_call_count"] += 1
         _save_state(state)
     except (TrendSourceError, GeminiError) as exc:
         raise QueueError(str(exc)) from exc
@@ -231,6 +231,6 @@ async def post_next(
 
     print(
         f"Posted quote #{state['daily_count']}/{POSTS_PER_DAY}; "
-        f"Gemini calls {state['gemini_call_count']}/{GEMINI_CALLS_PER_DAY}."
+        f"AI generations {state['ai_call_count']}/{GEMINI_CALLS_PER_DAY}."
     )
     return True
