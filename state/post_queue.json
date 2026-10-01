@@ -1,10 +1,9 @@
 {
-  "next_index": 59,
-  "image_cycle_start_index": 0,
-  "image_cycle": 1,
-  "image_count": 1,
-  "last_number": 59,
-  "last_text": "vibe coding a vibe-coded backend is trusting the AI's taste in architecture more than my own.",
-  "last_tweet_id": "2105719999545712987",
-  "last_posted_at": "2026-10-01T18:02:25.201893+00:00"
+  "day_key": "2026-10-01",
+  "daily_count": 0,
+  "last_posted_at": null,
+  "last_source_tweet_id": null,
+  "last_tweet_id": null,
+  "posted_source_tweet_ids": [],
+  "skipped_source_tweet_ids": []
 }
