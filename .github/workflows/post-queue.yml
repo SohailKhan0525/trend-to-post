@@ -51,9 +51,11 @@ jobs:
           }
 
       - name: Run trend quote bot
+        id: post_bot
         run: python -m app post
 
       - name: Commit bot state
+        if: always() && steps.post_bot.outcome != 'skipped'
         shell: bash
         run: |
           if test -z "$(git status --porcelain -- state/post_queue.json)"; then
@@ -62,7 +64,7 @@ jobs:
           fi
 
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot].com"
           git add state/post_queue.json
           git commit -m "chore: update quote bot state"
 
