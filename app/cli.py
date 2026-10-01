@@ -15,5 +15,6 @@ def main() -> None:
             post_next(
                 os.environ.get("X_AUTH_TOKEN", "").strip(),
                 os.environ.get("X_CT0", "").strip(),
+                os.environ.get("GEMINI_API_KEY", "").strip(),
             )
         )
