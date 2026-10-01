@@ -151,11 +151,11 @@ async def post_next(
         raise QueueError("X_AUTH_TOKEN and X_CT0 are required.")
 
     if not (
-        (gemini_api_key or "").strip()
-        or os.environ.get("GEMINI_API_KEY_BACKUP", "").strip()
+        os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
+        and os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
     ):
         raise QueueError(
-            "GEMINI_API_KEY or GEMINI_API_KEY_BACKUP is required."
+            "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are required."
         )
 
     state = _load_state()
