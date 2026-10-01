@@ -9,7 +9,7 @@ import urllib.request
 MODEL = "gemini-3.8-flash"
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 MAX_QUOTE_CHARS = 260
-MAX_API_ATTEMPTS = 2
+MAX_API_ATTEMPTS_PER_KEY = 2
 
 
 class GeminiError(RuntimeError):
@@ -25,44 +25,68 @@ class QuoteDraft:
         self.angle = angle
 
 
+def _api_keys() -> list[str]:
+    keys: list[str] = []
+    for name in ("GEMINI_API_KEY", "GEMINI_API_KEY_BACKUP"):
+        value = os.environ.get(name, "").strip()
+        if value and value not in keys:
+            keys.append(value)
+    if not keys:
+        raise GeminiError("GEMINI_API_KEY or GEMINI_API_KEY_BACKUP is required.")
+    return keys
+
+
 def _post_json(payload: dict) -> dict:
-    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        raise GeminiError("GEMINI_API_KEY is required.")
-
-    request = urllib.request.Request(
-        API_URL,
-        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-        headers={
-            "Content-Type": "application/json",
-            "x-goog-api-key": api_key,
-        },
-        method="POST",
-    )
-
     last_error: GeminiError | None = None
-    for attempt in range(1, MAX_API_ATTEMPTS + 1):
-        try:
-            with urllib.request.urlopen(request, timeout=120) as response:
-                return json.loads(response.read().decode("utf-8"))
-        except urllib.error.HTTPError as exc:
-            detail = exc.read().decode("utf-8", errors="replace")
-            retryable = exc.code in {408, 429, 500, 502, 503, 504}
-            last_error = GeminiError(
-                f"Gemini request failed with HTTP {exc.code}: {detail[:1200]}"
-            )
-            if retryable and attempt < MAX_API_ATTEMPTS:
-                time.sleep(2 * attempt)
-                continue
-            raise last_error from exc
-        except (urllib.error.URLError, TimeoutError) as exc:
-            last_error = GeminiError(f"Gemini request failed: {exc}")
-            if attempt < MAX_API_ATTEMPTS:
-                time.sleep(2 * attempt)
-                continue
-            raise last_error from exc
-        except json.JSONDecodeError as exc:
-            raise GeminiError("Gemini returned invalid JSON.") from exc
+
+    for key_index, api_key in enumerate(_api_keys(), start=1):
+        request = urllib.request.Request(
+            API_URL,
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
+                "x-goog-api-key": api_key,
+            },
+            method="POST",
+        )
+
+        for attempt in range(1, MAX_API_ATTEMPTS_PER_KEY + 1):
+            try:
+                with urllib.request.urlopen(request, timeout=120) as response:
+                    return json.loads(response.read().decode("utf-8"))
+            except urllib.error.HTTPError as exc:
+                detail = exc.read().decode("utf-8", errors="replace")
+                last_error = GeminiError(
+                    f"Gemini request failed with HTTP {exc.code}: {detail[:1200]}"
+                )
+
+                if exc.code == 429:
+                    # A second key may belong to a different Google AI project/quota.
+                    # Try it immediately instead of burning retries on the exhausted key.
+                    if key_index < len(_api_keys()):
+                        print(
+                            f"Gemini key {key_index} hit HTTP 429; "
+                            f"trying backup key."
+                        )
+                        break
+                    if attempt < MAX_API_ATTEMPTS_PER_KEY:
+                        time.sleep(2 * attempt)
+                        continue
+                    raise last_error from exc
+
+                retryable = exc.code in {408, 500, 502, 503, 504}
+                if retryable and attempt < MAX_API_ATTEMPTS_PER_KEY:
+                    time.sleep(2 * attempt)
+                    continue
+                raise last_error from exc
+            except (urllib.error.URLError, TimeoutError) as exc:
+                last_error = GeminiError(f"Gemini request failed: {exc}")
+                if attempt < MAX_API_ATTEMPTS_PER_KEY:
+                    time.sleep(2 * attempt)
+                    continue
+                raise last_error from exc
+            except json.JSONDecodeError as exc:
+                raise GeminiError("Gemini returned invalid JSON.") from exc
 
     raise last_error or GeminiError("Gemini request failed unexpectedly.")
 
