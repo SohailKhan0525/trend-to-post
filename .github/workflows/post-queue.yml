@@ -1,4 +1,4 @@
-name: Post X Queue
+name: Post X Quote
 
 on:
   workflow_dispatch:
@@ -9,18 +9,17 @@ permissions:
   contents: write
 
 concurrency:
-  group: x-post-queue
+  group: x-post-quote
   cancel-in-progress: false
 
 jobs:
   post:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
-      X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
-      X_CT0: ${{ secrets.X_CT0 }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      X_AUTH_TOKEN: \${{ secrets.X_AUTH_TOKEN }}
+      X_CT0: \${{ secrets.X_CT0 }}
+      GEMINI_API_KEY: \${{ secrets.GEMINI_API_KEY }}
 
     steps:
       - name: Checkout
@@ -34,66 +33,34 @@ jobs:
       - name: Install X client
         run: python -m pip install -r requirements.txt
 
-      - name: Sync latest queue state
+      - name: Sync latest state
         shell: bash
         run: |
           git fetch origin main
           git reset --hard origin/main
 
-      - name: Validate X secrets
+      - name: Validate secrets
         shell: bash
         run: |
           test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
           test -n "$X_CT0" || { echo "Missing X_CT0"; exit 1; }
+          test -n "$GEMINI_API_KEY" || { echo "Missing GEMINI_API_KEY"; exit 1; }
 
-      - name: Validate Cloudflare secrets
-        shell: bash
-        run: |
-          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
-          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
-
-      - name: Validate queue
-        shell: bash
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          path = Path("x.json")
-          items = json.loads(path.read_text(encoding="utf-8"))
-
-          if not isinstance(items, list) or len(items) != 1000:
-              raise SystemExit(f"Expected exactly 1000 queue entries; found {len(items) if isinstance(items, list) else 'non-list'}")
-
-          numbers = [item.get("number") for item in items]
-          if numbers != list(range(1, 1001)):
-              raise SystemExit("Queue numbers are not the expected 1..1000 sequence.")
-
-          sentences = [str(item.get("sentence", "")).strip() for item in items]
-          if any(not sentence for sentence in sentences):
-              raise SystemExit("Queue contains an empty sentence.")
-          if any(len(sentence) > 280 for sentence in sentences):
-              raise SystemExit("Queue contains a sentence longer than 280 characters.")
-
-          print(f"Queue validated: {len(items)} posts.")
-          PY
-
-      - name: Post next queue item
+      - name: Run trend quote bot
         run: python -m app post
 
-      - name: Commit queue state
+      - name: Commit bot state
         shell: bash
         run: |
           if test -z "$(git status --porcelain -- state/post_queue.json)"; then
-            echo "No queue state change."
+            echo "No state change."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add state/post_queue.json
-          git commit -m "chore: advance X post queue"
+          git commit -m "chore: update quote bot state"
 
           for attempt in 1 2 3; do
             if git push; then
@@ -102,10 +69,10 @@ jobs:
             echo "git push failed; refreshing main before retry $((attempt + 1))."
             git fetch origin main
             git rebase origin/main || {
-              echo "Unable to rebase queue state onto origin/main."
+              echo "Unable to rebase bot state onto origin/main."
               exit 1
             }
           done
 
-          echo "Failed to push queue state after 3 attempts."
+          echo "Failed to push bot state after 3 attempts."
           exit 1
