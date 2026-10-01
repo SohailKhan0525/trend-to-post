@@ -6,7 +6,7 @@ import time
 import urllib.error
 import urllib.request
 
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-3.8-flash"
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 MAX_QUOTE_CHARS = 260
 MAX_API_ATTEMPTS = 2
