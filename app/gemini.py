@@ -330,27 +330,3 @@ def _cloudflare_text(prompt: str) -> str:
         except json.JSONDecodeError as exc:
             raise GeminiError("Cloudflare Workers AI returned invalid JSON.") from exc
     raise GeminiError("Cloudflare Workers AI failed unexpectedly.")
-
-def generate_quote(source: dict) -> QuoteDraft:
-    schema = {
-        "type": "OBJECT",
-        "properties": {
-            "should_quote": {"type": "BOOLEAN"},
-            "quote_text": {"type": "STRING"},
-            "angle": {"type": "STRING"},
-        },
-        "required": ["should_quote", "quote_text", "angle"],
-    }
-
-    payload = {
-        "contents": [{"parts": [{"text": _prompt(source)}]}],
-        "tools": [{"google_search": {}}],
-        "generationConfig": {
-            "temperature": 0.7,
-            "maxOutputTokens": 350,
-            "responseMimeType": "application/json",
-            "responseSchema": schema,
-        },
-    }
-
-    return _parse_quote_json(_extract_text(_post_json(payload)))
