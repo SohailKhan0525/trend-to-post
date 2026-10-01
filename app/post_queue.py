@@ -165,8 +165,8 @@ async def post_next(
         print(f"Daily post limit reached: {POSTS_PER_DAY}.")
         return False
 
-    # Keep Gemini traffic bounded as well. With one Gemini call per candidate,
-    # this prevents skipped candidates from turning into an unbounded quota drain.
+    # Keep all AI generation attempts bounded as well. This prevents repeated workflow
+    # dispatches and skipped candidates from turning into an unbounded quota drain.
     if state["ai_call_count"] >= GEMINI_CALLS_PER_DAY:
         print(f"Daily AI generation limit reached: {GEMINI_CALLS_PER_DAY}.")
         return False
@@ -184,9 +184,9 @@ async def post_next(
         source = await find_trending_source(client, used)
         payload = _source_dict(source)
 
-        # One Gemini request does both grounding/research and quote drafting.
-        # Count successful Gemini calls so repeated workflow dispatches cannot
-        # exhaust the provider quota by processing unlimited candidates.
+        # One AI request normally generates the complete quote. Cloudflare is primary;
+        # Gemini 3.5 Flash-Lite is the fallback. Count the completed generation so
+        # repeated workflow dispatches cannot process unlimited candidates.
         draft = generate_quote(payload)
         state["ai_call_count"] += 1
         _save_state(state)
@@ -198,12 +198,12 @@ async def post_next(
         skipped.append(source.tweet_id)
         state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
         _save_state(state)
-        print("Gemini rejected the source; it is skipped on later runs.")
+        print("AI rejected the source; it is skipped on later runs.")
         return False
 
     text = draft.quote_text.strip()
     if not text or len(text) > 280:
-        raise QueueError("Gemini returned invalid quote-post text length.")
+        raise QueueError("AI returned invalid quote-post text length.")
 
     print(f"Quote text ({len(text)}/280): {text}")
     print(f"Quote-post source: {source.url}")
