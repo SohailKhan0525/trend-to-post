@@ -74,8 +74,7 @@ def _extract_text(payload: dict) -> str:
         raise GeminiError(f"Gemini returned no candidates: {feedback}")
 
     parts = ((candidates[0].get("content") or {}).get("parts") or [])
-    text = "
-".join(
+    text = "\n".join(
         str(part.get("text", ""))
         for part in parts
         if isinstance(part, dict) and part.get("text")
@@ -166,7 +165,9 @@ def _parse_quote_json(text: str) -> QuoteDraft:
     try:
         data = json.loads(text)
     except json.JSONDecodeError as exc:
-        raise GeminiError(f"Gemini quote response was not valid JSON: {text[:800]}") from exc
+        raise GeminiError(
+            f"Gemini quote response was not valid JSON: {text[:800]}"
+        ) from exc
 
     if not isinstance(data, dict):
         raise GeminiError("Gemini quote response was not a JSON object.")
@@ -180,10 +181,15 @@ def _parse_quote_json(text: str) -> QuoteDraft:
 
     if quote_text and len(quote_text) > MAX_QUOTE_CHARS:
         raise GeminiError(
-            f"Gemini quote text is {len(quote_text)} characters; expected {MAX_QUOTE_CHARS} or fewer."
+            f"Gemini quote text is {len(quote_text)} characters; "
+            f"expected {MAX_QUOTE_CHARS} or fewer."
         )
 
-    return QuoteDraft(should_quote=should_quote, quote_text=quote_text, angle=angle)
+    return QuoteDraft(
+        should_quote=should_quote,
+        quote_text=quote_text,
+        angle=angle,
+    )
 
 
 def write_quote(source: dict, research: str) -> QuoteDraft:
