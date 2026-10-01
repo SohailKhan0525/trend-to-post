@@ -1,224 +1,230 @@
+from __future__ import annotations
+
 import json
-import random
 from datetime import datetime, timezone
 from pathlib import Path
 
 from twikit import Client
 
-from .image_generation import generate_image, has_mention_tag
+from .gemini import GeminiError, research_source, write_quote
+from .trend_source import (
+    SOURCE_HISTORY_LIMIT,
+    SourceTweet,
+    TrendSourceError,
+    find_trending_source,
+)
 
-QUEUE_PATH = Path("x.json")
 STATE_PATH = Path("state/post_queue.json")
-
-POSTS_PER_DAY = 48
-IMAGES_PER_DAY = 5
+POSTS_PER_DAY = 10
+MIN_POST_INTERVAL = 144  # minutes; external cron can poll more often.
 
 
 class QueueError(RuntimeError):
     pass
 
 
-def _load_queue() -> list[dict]:
-    if not QUEUE_PATH.exists():
-        raise QueueError("x.json is missing.")
-    try:
-        items = json.loads(QUEUE_PATH.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        raise QueueError(f"x.json is invalid JSON: {exc}") from exc
-    if not isinstance(items, list) or not items:
-        raise QueueError("x.json must contain a non-empty JSON array.")
+def _today_key() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    for item in items:
-        if not isinstance(item, dict):
-            raise QueueError("Every queue entry must be an object.")
-        text = str(item.get("sentence", "")).strip()
-        if not text:
-            raise QueueError(f"Queue entry {item.get('number', '?')} has no sentence.")
-        if len(text) > 280:
-            raise QueueError(
-                f"Queue entry {item.get('number', '?')} exceeds 280 characters."
-            )
-    return items
+
+def _new_state(day_key: str) -> dict:
+    return {
+        "day_key": day_key,
+        "daily_count": 0,
+        "last_posted_at": None,
+        "last_source_tweet_id": None,
+        "last_tweet_id": None,
+        "posted_source_tweet_ids": [],
+        "skipped_source_tweet_ids": [],
+    }
+
+
+def _clean_history(value: object) -> list[str]:
+    if not isinstance(value, list):
+        raise QueueError("Source history must be a list.")
+    return [
+        str(item).strip()
+        for item in value
+        if str(item).strip()
+    ][-SOURCE_HISTORY_LIMIT:]
 
 
 def _load_state() -> dict:
     if not STATE_PATH.exists():
-        return {"next_index": 0}
+        return _new_state(_today_key())
+
     try:
         state = json.loads(STATE_PATH.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
-        raise QueueError(f"Queue state is invalid JSON: {exc}") from exc
+        raise QueueError(f"State file is invalid JSON: {exc}") from exc
+
     if not isinstance(state, dict):
-        raise QueueError("Queue state must be a JSON object.")
+        raise QueueError("State file must be a JSON object.")
+
+    # The old fixed-queue/image system is intentionally discarded. Any old
+    # next_index state starts the new trend-based state cleanly.
+    if "next_index" in state:
+        return _new_state(_today_key())
+
+    day_key = str(state.get("day_key", "")).strip() or _today_key()
+    if day_key != _today_key():
+        state["day_key"] = _today_key()
+        state["daily_count"] = 0
+
+    try:
+        state["daily_count"] = int(state.get("daily_count", 0))
+    except (TypeError, ValueError) as exc:
+        raise QueueError("State daily_count must be an integer.") from exc
+
+    if not 0 <= state["daily_count"] <= POSTS_PER_DAY:
+        raise QueueError("State daily_count is outside the allowed 0..10 range.")
+
+    state["posted_source_tweet_ids"] = _clean_history(
+        state.get("posted_source_tweet_ids", [])
+    )
+    state["skipped_source_tweet_ids"] = _clean_history(
+        state.get("skipped_source_tweet_ids", [])
+    )
     return state
 
 
 def _save_state(state: dict) -> None:
     STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STATE_PATH.write_text(
-        json.dumps(state, ensure_ascii=False, indent=2) + "\n",
+    temp_path = STATE_PATH.with_suffix(".tmp")
+    temp_path.write_text(
+        json.dumps(state, ensure_ascii=False, indent=2) + "
+",
         encoding="utf-8",
     )
+    temp_path.replace(STATE_PATH)
 
 
-def _select_image_indices(
-    queue: list[dict],
-    cycle_start_index: int,
-    cycle_number: int,
-) -> set[int]:
-    start = cycle_start_index + cycle_number * POSTS_PER_DAY
-    end = min(start + POSTS_PER_DAY, len(queue))
-    candidates = [
-        index
-        for index in range(start, end)
-        if not has_mention_tag(queue[index])
-    ]
-
-    if len(candidates) <= IMAGES_PER_DAY:
-        return set(candidates)
-
-    # Randomize once per cycle, but keep the seed stable so retries do not
-    # reshuffle image slots or consume additional image quota.
-    rng = random.Random(f"trend-to-post-image-cycle:{cycle_start_index}:{cycle_number}")
-    return set(rng.sample(candidates, IMAGES_PER_DAY))
-
-
-async def post_next(auth_token: str, ct0: str) -> bool:
-    if not auth_token or not ct0:
-        raise QueueError("X_AUTH_TOKEN and X_CT0 are required.")
-
-    queue = _load_queue()
-    state = _load_state()
-    index = int(state.get("next_index", 0))
-
-    if index < 0:
-        raise QueueError(f"Queue state next_index cannot be negative: {index}")
-
-    if index >= len(queue):
-        print(f"Queue exhausted: {len(queue)} posts have already been published.")
-        return False
-
-    last_posted_at = state.get("last_posted_at")
-    if last_posted_at:
-        try:
-            last_posted = datetime.fromisoformat(str(last_posted_at))
-            elapsed = datetime.now(timezone.utc) - last_posted.astimezone(timezone.utc)
-            if elapsed.total_seconds() < 30 * 60:
-                remaining = int(30 * 60 - elapsed.total_seconds())
-                print(
-                    "Post interval guard: next post allowed in about "
-                    f"{remaining // 60 + (1 if remaining % 60 else 0)} minute(s)."
-                )
-                return False
-        except ValueError as exc:
-            raise QueueError(
-                f"Invalid last_posted_at in queue state: {last_posted_at}"
-            ) from exc
-
-    image_cycle_start_index = int(state.get("image_cycle_start_index", index))
-    if not 0 <= image_cycle_start_index < len(queue):
-        raise QueueError(
-            "Queue state image_cycle_start_index must point to an existing queue item."
-        )
-    if index < image_cycle_start_index:
-        raise QueueError(
-            "Queue state next_index is before image_cycle_start_index; refusing to "
-            "change the image schedule."
-        )
-
-    image_cycle = (index - image_cycle_start_index) // POSTS_PER_DAY
-    image_targets = _select_image_indices(
-        queue,
-        image_cycle_start_index,
-        image_cycle,
-    )
-    images_used_before = sum(target < index for target in image_targets)
-
-    item = queue[index]
-    text = str(item["sentence"]).strip()
-    number = item.get("number", index + 1)
-    item_type = str(item.get("type", "")).strip()
-
-    # Defense in depth: a post containing any @ mention is never eligible for
-    # image generation, even if a selection bug or stale state says otherwise.
-    use_image = (
-        not has_mention_tag(item)
-        and index in image_targets
-        and images_used_before < IMAGES_PER_DAY
-    )
-
+def _client(auth_token: str, ct0: str) -> Client:
     client = Client("en-US", impersonate="chrome124")
     client.set_cookies({"auth_token": auth_token, "ct0": ct0})
+    return client
 
-    if has_mention_tag(item):
-        print(
-            f"Queue item {number}/{len(queue)} contains an @ mention; "
-            "posting without an image."
-        )
-    elif use_image:
-        print(
-            f"Queue item {number}/{len(queue)} is one of the "
-            f"{IMAGES_PER_DAY} randomized image slots for this 24-hour posting cycle "
-            f"({images_used_before + 1}/{IMAGES_PER_DAY})."
-        )
-    else:
-        print(
-            f"Queue item {number}/{len(queue)} is text-only; "
-            f"{images_used_before}/{IMAGES_PER_DAY} image slots have already been used "
-            "in this cycle."
-        )
 
+def _source_dict(source: SourceTweet) -> dict:
+    return {
+        "tweet_id": source.tweet_id,
+        "text": source.text,
+        "username": source.username,
+        "created_at": source.created_at.isoformat(),
+        "url": source.url,
+        "trend": source.trend,
+        "trend_volume": source.trend_volume,
+        "view_count": source.view_count,
+        "favorite_count": source.favorite_count,
+        "retweet_count": source.retweet_count,
+        "reply_count": source.reply_count,
+    }
+
+
+def _validate_interval(state: dict) -> bool:
+    last_posted_at = state.get("last_posted_at")
+    if not last_posted_at:
+        return True
+
+    try:
+        last_posted = datetime.fromisoformat(str(last_posted_at))
+    except ValueError as exc:
+        raise QueueError(f"Invalid last_posted_at in state: {last_posted_at}") from exc
+
+    elapsed = datetime.now(timezone.utc) - last_posted.astimezone(timezone.utc)
+    remaining = MIN_POST_INTERVAL * 60 - int(elapsed.total_seconds())
+    if remaining > 0:
+        minutes = (remaining + 59) // 60
+        print(f"Post interval guard: next post allowed in about {minutes} minute(s).")
+        return False
+    return True
+
+
+async def post_next(
+    auth_token: str,
+    ct0: str,
+    gemini_api_key: str | None = None,
+) -> bool:
+    if not auth_token or not ct0:
+        raise QueueError("X_AUTH_TOKEN and X_CT0 are required.")
+    if not (gemini_api_key or "").strip():
+        raise QueueError("GEMINI_API_KEY is required.")
+
+    state = _load_state()
+    if state["daily_count"] >= POSTS_PER_DAY:
+        print(
+            f"Daily limit reached: {POSTS_PER_DAY} quote-posts have been "
+            "published today."
+        )
+        return False
+
+    if not _validate_interval(state):
+        return False
+
+    client = _client(auth_token, ct0)
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; auth_token/ct0 may be expired.")
 
-    media_ids: list[str] = []
-    image_path: Path | None = None
-    posted_with_image = False
+    used_source_ids = (
+        state["posted_source_tweet_ids"] + state["skipped_source_tweet_ids"]
+    )
+    try:
+        source = await find_trending_source(client, used_source_ids)
+    except TrendSourceError as exc:
+        raise QueueError(str(exc)) from exc
 
-    if use_image:
-        print(f"Generating image for queue item {number}/{len(queue)}...")
-        image_path = await generate_image(
-            text,
-            item_type=item_type,
-            seed=int(number),
+    source_payload = _source_dict(source)
+    print(f"Researching source post with Gemini: {source.url}")
+    try:
+        research = research_source(source_payload)
+        draft = write_quote(source_payload, research)
+    except GeminiError as exc:
+        raise QueueError(str(exc)) from exc
+
+    if not draft.should_quote:
+        skipped = state["skipped_source_tweet_ids"]
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print(
+            "Gemini rejected this source for quote-posting; trying a different "
+            "source next run."
         )
-        try:
-            print(f"Uploading generated image for queue item {number}/{len(queue)}...")
-            media_id = await client.upload_media(
-                str(image_path),
-                wait_for_completion=True,
-            )
-            media_ids.append(media_id)
-            posted_with_image = True
-        finally:
-            image_path.unlink(missing_ok=True)
+        return False
 
-    print(f"Posting queue item {number}/{len(queue)}...")
-    if media_ids:
-        tweet = await client.create_tweet(text=text, media_ids=media_ids)
-    else:
-        tweet = await client.create_tweet(text=text)
+    quote_text = draft.quote_text.strip()
+    if not quote_text or len(quote_text) > 280:
+        raise QueueError("Gemini returned invalid quote-post text length.")
 
+    print(f"Gemini angle: {draft.angle}")
+    print(f"Quote text ({len(quote_text)}/280): {quote_text}")
+    print(f"Quote-posting source: {source.url}")
+
+    # Twikit documents attachment_url as the URL of the tweet to be quoted.
+    tweet = await client.create_tweet(
+        text=quote_text,
+        attachment_url=source.url,
+    )
     tweet_id = str(getattr(tweet, "id", "") or "")
-    image_count = images_used_before + int(posted_with_image)
 
+    posted = state["posted_source_tweet_ids"]
+    posted.append(source.tweet_id)
+    state["posted_source_tweet_ids"] = posted[-SOURCE_HISTORY_LIMIT:]
+
+    now = datetime.now(timezone.utc)
     state.update(
         {
-            "next_index": index + 1,
-            "last_number": number,
-            "last_text": text,
+            "day_key": _today_key(),
+            "daily_count": int(state.get("daily_count", 0)) + 1,
+            "last_posted_at": now.isoformat(),
+            "last_source_tweet_id": source.tweet_id,
             "last_tweet_id": tweet_id,
-            "last_posted_at": datetime.now(timezone.utc).isoformat(),
-            "image_cycle_start_index": image_cycle_start_index,
-            "image_cycle": image_cycle,
-            "image_count": image_count,
         }
     )
     _save_state(state)
 
     print(
-        f"Posted queue item {number}/{len(queue)}"
-        + (f" as tweet {tweet_id}" if tweet_id else "")
-        + (" with image." if posted_with_image else " as text-only.")
+        f"Posted quote #{state['daily_count']}/{POSTS_PER_DAY}"
+        + (f" as tweet {tweet_id}." if tweet_id else ".")
     )
     return True
