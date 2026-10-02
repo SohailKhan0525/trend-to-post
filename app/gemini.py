@@ -340,7 +340,7 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
 
     valid_fragments = [
         fragment for fragment in fragments
-        if fragment in source_text and len(fragment.split()) <= 8
+        if fragment in source_text and 2 <= len(fragment.split()) <= 6
     ]
     if not valid_fragments:
         return _repair_missing_source_quote(draft, source)
