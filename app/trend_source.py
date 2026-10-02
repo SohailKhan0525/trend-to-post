@@ -170,11 +170,23 @@ def _username(tweet: object) -> str:
     return str(getattr(user, "screen_name", "") or "").lstrip("@").strip()
 
 
-def _topic_allowed(trend: str, text: str) -> bool:
-    haystack = f"{trend} {text}".lower()
-    if any(keyword in haystack for keyword in BLOCKED_TOPIC_KEYWORDS):
+def _keyword_matches(text: str, keyword: str) -> bool:
+    words = [
+        "".join(ch.lower() if ch.isalnum() else " " for ch in text).split(),
+        "".join(ch.lower() if ch.isalnum() else " " for ch in keyword).split(),
+    ]
+    haystack, needle = words
+    if not needle or len(needle) > len(haystack):
         return False
-    return any(keyword in haystack for keyword in ALLOWED_TOPIC_KEYWORDS)
+    width = len(needle)
+    return any(haystack[i : i + width] == needle for i in range(len(haystack) - width + 1))
+
+
+def _topic_allowed(trend: str, text: str) -> bool:
+    haystack = f"{trend} {text}"
+    if any(_keyword_matches(haystack, keyword) for keyword in BLOCKED_TOPIC_KEYWORDS):
+        return False
+    return any(_keyword_matches(haystack, keyword) for keyword in ALLOWED_TOPIC_KEYWORDS)
 
 
 def _is_candidate(tweet: object, now: datetime, used_ids: set[str], trend_name: str) -> bool:
