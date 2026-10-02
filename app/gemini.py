@@ -347,92 +347,116 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
 
     if len(text) > MAX_QUOTE_CHARS:
         raise GeminiError("Generated quote-post is too long.")
+    lowered = text.lower()
+    if any(phrase in lowered for phrase in BANNED_STYLE_PHRASES):
+        raise GeminiError("Generated quote-post used generic engagement or corporate phrasing.")
 
     return draft
 
 
-def generate_quote(source: dict) -> QuoteDraft:
-    prompt = _prompt(source)
-    try:
-        return _validate_quote_against_source(
-            _parse_quote_json(_cloudflare_text(prompt)),
-            source,
-        )
-    except GeminiError as cloudflare_error:
-        try:
-            _api_keys()
-        except GeminiError:
-            raise cloudflare_error
-
-        print(
-            "Cloudflare generation failed; trying Gemini 3.5 Flash-Lite fallback: "
-            f"{cloudflare_error}"
-        )
-
-    schema = {
-        "type": "OBJECT",
-        "properties": {
-            "should_quote": {"type": "BOOLEAN"},
-            "quote_text": {"type": "STRING"},
-            "angle": {"type": "STRING"},
-        },
-        "required": ["should_quote", "quote_text", "angle"],
-    }
-
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {
-            "temperature": 0.9,
-            "maxOutputTokens": 350,
-            "responseMimeType": "application/json",
-            "responseSchema": schema,
-        },
-    }
-
-    return _validate_quote_against_source(
-        _parse_quote_json(_extract_text(_post_json(payload))),
-        source,
-    )
-
-
-def _parse_quote_json(text: str) -> QuoteDraft:
+def _clean_generated_post(text: str) -> str:
     text = text.strip()
-    if text.startswith("```"):
+    fence = chr(96) * 3
+    if text.startswith(fence):
         lines = text.splitlines()
-        if lines and lines[0].strip().startswith("```"):
+        if lines and lines[0].strip().startswith(fence):
             lines = lines[1:]
-        if lines and lines[-1].strip() == "```":
+        if lines and lines[-1].strip() == fence:
             lines = lines[:-1]
         text = "\n".join(lines).strip()
 
     try:
         data = json.loads(text)
-    except json.JSONDecodeError as exc:
-        raise GeminiError(
-            f"Gemini quote response was not valid JSON: {text[:800]}"
-        ) from exc
+    except json.JSONDecodeError:
+        data = None
 
-    if not isinstance(data, dict):
-        raise GeminiError("Gemini quote response was not a JSON object.")
+    if isinstance(data, dict) and data.get("quote_text"):
+        text = str(data["quote_text"]).strip()
 
-    should_quote = bool(data.get("should_quote"))
-    quote_text = " ".join(str(data.get("quote_text", "")).split()).strip()
-    angle = " ".join(str(data.get("angle", "")).split()).strip()
+    for prefix in ("quote_text:", "quote:", "post:"):
+        if text.lower().startswith(prefix):
+            text = text[len(prefix):].strip()
 
-    if should_quote and not quote_text:
-        raise GeminiError("Gemini marked the source quotable but returned no quote text.")
+    return " ".join(text.split())
 
-    if quote_text and len(quote_text) > MAX_QUOTE_CHARS:
-        raise GeminiError(
-            f"Gemini quote text is {len(quote_text)} characters; "
-            f"expected {MAX_QUOTE_CHARS} or fewer."
-        )
 
-    return QuoteDraft(
-        should_quote=should_quote,
-        quote_text=quote_text,
-        angle=angle,
+def _pick_best_draft(drafts: list[QuoteDraft]) -> QuoteDraft:
+    def score(draft: QuoteDraft) -> float:
+        text = draft.quote_text
+        lowered = text.lower()
+        value = 0.0
+        if any(token in lowered for token in ("bro", "nah", "lmao", "lol", "😭", "💀", "literally")):
+            value += 2.0
+        if any(token in lowered for token in ("we are", "we're", "they really", "imagine", "meanwhile")):
+            value += 1.0
+        if "?" not in text:
+            value += 1.5
+        if len(text) <= 180:
+            value += 1.0
+        if len(text) <= 140:
+            value += 0.5
+        if any(char in text for char in ("!", "—", "…")):
+            value += 0.5
+        if text[:1].islower():
+            value += 0.25
+        value -= sum(2.5 for phrase in BANNED_STYLE_PHRASES if phrase in lowered)
+        return value
+
+    return max(drafts, key=score)
+
+
+def generate_quote(source: dict) -> QuoteDraft:
+    prompt = _prompt(source)
+    cloudflare_error: GeminiError | None = None
+
+    try:
+        raw_candidates = _cloudflare_candidates(prompt)
+        drafts: list[QuoteDraft] = []
+        for raw in raw_candidates:
+            cleaned = _clean_generated_post(raw)
+            if not cleaned:
+                continue
+            draft = _repair_missing_source_quote(QuoteDraft(True, cleaned, ""), source)
+            drafts.append(_validate_quote_against_source(draft, source))
+        if drafts:
+            return _pick_best_draft(drafts)
+        cloudflare_error = GeminiError("Cloudflare generated no usable quote-post candidates.")
+    except GeminiError as exc:
+        cloudflare_error = exc
+
+    try:
+        _api_keys()
+    except GeminiError:
+        raise cloudflare_error or GeminiError("Cloudflare generation failed.")
+
+    print(
+        "Cloudflare generation failed; trying Gemini 3.5 Flash-Lite fallback: "
+        f"{cloudflare_error}"
     )
+
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "temperature": 0.95,
+            "maxOutputTokens": 220,
+        },
+    }
+
+    raw = _extract_text(_post_json(payload))
+    cleaned = _clean_generated_post(raw)
+    if not cleaned:
+        raise GeminiError("Gemini returned an empty quote-post.")
+    draft = _repair_missing_source_quote(QuoteDraft(True, cleaned, ""), source)
+    return _validate_quote_against_source(draft, source)
+
+
+def _parse_quote_json(text: str) -> QuoteDraft:
+    cleaned = _clean_generated_post(text)
+    if not cleaned:
+        raise GeminiError("AI returned an empty quote-post.")
+    return QuoteDraft(True, cleaned, "")
+
+
 
 
 def _cloudflare_credentials() -> tuple[str, str]:
@@ -443,7 +467,7 @@ def _cloudflare_credentials() -> tuple[str, str]:
     return account_id, token
 
 
-def _cloudflare_text(prompt: str) -> str:
+def _cloudflare_candidates(prompt: str) -> list[str]:
     account_id, token = _cloudflare_credentials()
     url = CLOUDFLARE_API_URL.format(account_id=account_id)
     payload = {
@@ -459,10 +483,12 @@ def _cloudflare_text(prompt: str) -> str:
             },
             {"role": "user", "content": prompt},
         ],
-        "max_tokens": 220,
-        "temperature": 0.95,
-        "top_p": 0.9,
+        "n": CLOUDFLARE_CANDIDATE_COUNT,
+        "max_completion_tokens": 180,
+        "temperature": 1.0,
+        "top_p": 0.95,
         "stream": False,
+        "options": {"rejectIfBusy": True},
     }
     request = urllib.request.Request(
         url,
@@ -486,38 +512,39 @@ def _cloudflare_text(prompt: str) -> str:
                     )
 
                 choices = response_payload.get("choices") or []
-                if choices:
-                    choice = choices[0] or {}
+                outputs: list[str] = []
+                for choice in choices:
+                    choice = choice or {}
                     message = choice.get("message") or {}
-                    text = message.get("content")
-                    if isinstance(text, str) and text.strip():
-                        return text.strip()
-                    if isinstance(text, list):
-                        parts = [
+                    content = message.get("content")
+                    if isinstance(content, str) and content.strip():
+                        outputs.append(content.strip())
+                    elif isinstance(content, list):
+                        joined = "".join(
                             part.get("text", "")
-                            for part in text
+                            for part in content
                             if isinstance(part, dict) and isinstance(part.get("text"), str)
-                        ]
-                        joined = "".join(parts).strip()
+                        ).strip()
                         if joined:
-                            return joined
+                            outputs.append(joined)
                     for key in ("text", "output_text"):
                         value = choice.get(key)
                         if isinstance(value, str) and value.strip():
-                            return value.strip()
+                            outputs.append(value.strip())
+
+                if outputs:
+                    return outputs
 
                 result = response_payload.get("result")
                 if isinstance(result, str) and result.strip():
-                    return result.strip()
+                    return [result.strip()]
                 if isinstance(result, dict):
                     for key in ("response", "text", "output_text"):
                         value = result.get(key)
                         if isinstance(value, str) and value.strip():
-                            return value.strip()
+                            return [value.strip()]
 
-                raise GeminiError(
-                    "Cloudflare Workers AI returned an empty completion response."
-                )
+                raise GeminiError("Cloudflare Workers AI returned no usable completion text.")
 
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
