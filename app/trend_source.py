@@ -10,6 +10,34 @@ TREND_COUNT = 8
 TWEETS_PER_SEARCH = 20
 MAX_TWEET_AGE = timedelta(hours=24)
 SOURCE_HISTORY_LIMIT = 100
+FALLBACK_SEARCHES = (
+    "ChatGPT",
+    "OpenAI",
+    "Claude AI",
+    "Gemini AI",
+    "Google AI",
+    "Apple",
+    "iPhone",
+    "Samsung Galaxy",
+    "NVIDIA",
+    "Microsoft Copilot",
+    "AI",
+    "artificial intelligence",
+    "technology",
+    "software",
+    "hardware",
+    "robotics",
+    "gaming",
+    "esports",
+    "football",
+    "soccer",
+    "cricket",
+    "NBA",
+    "NFL",
+    "Formula 1",
+    "tennis",
+    "UFC",
+)
 
 # Keep the bot focused on the requested subjects. A trend must contain at least
 # one allowed signal, while political/current-affairs signals are explicitly rejected.
@@ -263,7 +291,7 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
 
     for trend in trends[:TREND_COUNT]:
         name = str(getattr(trend, "name", "") or "").strip()
-        if not name or not _topic_allowed(name, ""):
+        if not name:
             continue
         trend_volume = _as_int(getattr(trend, "tweets_count", 0))
 
@@ -284,9 +312,32 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
                 source = _build_source(tweet, name, trend_volume)
                 candidates[source.tweet_id] = source
 
+    # X's current trending list is not guaranteed to contain a tech/sports trend.
+    # If it does not, search the requested subjects directly instead of failing.
+    if not candidates:
+        print("No eligible topic in current trends; using targeted AI/tech/sports searches.")
+        for query in FALLBACK_SEARCHES:
+            for product in ("Top", "Latest"):
+                try:
+                    results = await client.search_tweet(
+                        query,
+                        product,
+                        count=TWEETS_PER_SEARCH,
+                    )
+                except Exception as exc:
+                    print(f"Skipping fallback search {query!r} ({product}): {exc}")
+                    continue
+
+                for tweet in results:
+                    if not _is_candidate(tweet, now, used_ids, query):
+                        continue
+                    source = _build_source(tweet, query, 0)
+                    candidates[source.tweet_id] = source
+
     if not candidates:
         raise TrendSourceError(
-            "No eligible recent AI, technology, sports, or major-company post was found."
+            "No eligible recent AI, technology, sports, or major-company post was found "
+            "after current-trend and targeted-search checks."
         )
 
     ranked = sorted(
