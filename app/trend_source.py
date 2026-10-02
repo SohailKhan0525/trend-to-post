@@ -10,33 +10,18 @@ TREND_COUNT = 8
 TWEETS_PER_SEARCH = 20
 MAX_TWEET_AGE = timedelta(hours=24)
 SOURCE_HISTORY_LIMIT = 100
+# Keep the emergency path small because each search_tweet call consumes X search budget.
 FALLBACK_SEARCHES = (
     "ChatGPT",
     "OpenAI",
     "Claude AI",
     "Gemini AI",
-    "Google AI",
     "Apple",
-    "iPhone",
-    "Samsung Galaxy",
     "NVIDIA",
-    "Microsoft Copilot",
-    "AI",
-    "artificial intelligence",
-    "technology",
-    "software",
-    "hardware",
-    "robotics",
     "gaming",
-    "esports",
     "football",
-    "soccer",
-    "cricket",
     "NBA",
-    "NFL",
     "Formula 1",
-    "tennis",
-    "UFC",
 )
 
 # Keep the bot focused on the requested subjects. A trend must contain at least
@@ -293,6 +278,10 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
         name = str(getattr(trend, "name", "") or "").strip()
         if not name:
             continue
+        if any(_keyword_matches(name, keyword) for keyword in BLOCKED_TOPIC_KEYWORDS):
+            continue
+        if not any(_keyword_matches(name, keyword) for keyword in ALLOWED_TOPIC_KEYWORDS):
+            continue
         trend_volume = _as_int(getattr(trend, "tweets_count", 0))
 
         for product in ("Top", "Latest"):
@@ -315,9 +304,9 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
     # X's current trending list is not guaranteed to contain a tech/sports trend.
     # If it does not, search the requested subjects directly instead of failing.
     if not candidates:
-        print("No eligible topic in current trends; using targeted AI/tech/sports searches.")
+        print("No eligible topic in current trends; using limited targeted AI/tech/sports searches.")
         for query in FALLBACK_SEARCHES:
-            for product in ("Top", "Latest"):
+            for product in ("Top",):
                 try:
                     results = await client.search_tweet(
                         query,
@@ -333,6 +322,11 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
                         continue
                     source = _build_source(tweet, query, 0)
                     candidates[source.tweet_id] = source
+
+                if candidates:
+                    break
+            if candidates:
+                break
 
     if not candidates:
         raise TrendSourceError(
