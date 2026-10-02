@@ -212,18 +212,19 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
     text = draft.quote_text
     source_text = str(source["text"])
     fragments = []
-    start = 0
-    while True:
-        left = text.find('"', start)
-        if left < 0:
-            break
-        right = text.find('"', left + 1)
-        if right < 0:
-            break
-        fragment = text[left + 1:right].strip()
-        if fragment:
-            fragments.append(fragment)
-        start = right + 1
+    for left_mark, right_mark in (("\"", "\""), ("“", "”"), ("‘", "’")):
+        start = 0
+        while True:
+            left = text.find(left_mark, start)
+            if left < 0:
+                break
+            right = text.find(right_mark, left + 1)
+            if right < 0:
+                break
+            fragment = text[left + 1:right].strip()
+            if fragment:
+                fragments.append(fragment)
+            start = right + 1
 
     if not fragments:
         raise GeminiError("Generated post contains no quoted source fragment.")
@@ -289,6 +290,15 @@ def generate_quote(source: dict) -> QuoteDraft:
 
 
 def _parse_quote_json(text: str) -> QuoteDraft:
+    text = text.strip()
+    if text.startswith("```"):
+        lines = text.splitlines()
+        if lines and lines[0].strip().startswith("```"):
+            lines = lines[1:]
+        if lines and lines[-1].strip() == "```":
+            lines = lines[:-1]
+        text = "\n".join(lines).strip()
+
     try:
         data = json.loads(text)
     except json.JSONDecodeError as exc:
