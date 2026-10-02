@@ -14,6 +14,20 @@ API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:gene
 CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1/chat/completions"
 MAX_QUOTE_CHARS = 260
 MAX_API_ATTEMPTS_PER_KEY = 3
+CLOUDFLARE_CANDIDATE_COUNT = 3
+BANNED_STYLE_PHRASES = (
+    "this highlights",
+    "it's worth noting",
+    "in today's world",
+    "a reminder that",
+    "the implications are",
+    "fascinating",
+    "interesting development",
+    "what do you think",
+    "thoughts?",
+    "agree?",
+    "let that sink in",
+)
 RETRYABLE_HTTP_CODES = {408, 429, 500, 502, 503, 504}
 
 
@@ -143,61 +157,76 @@ def _extract_text(payload: dict) -> str:
 
 
 def _prompt(source: dict) -> str:
-    return f"""Write ONE X quote-post about the source post below.
+    fragments = _quote_options(str(source["text"]))
+    options = "\n".join(f"- \"{item}\"" for item in fragments)
+    return f"""Write ONE hilarious, meme-native X quote-post about the source post below.
 
-ROLE:
-You are a funny person on X reacting to something you just saw. You are NOT a journalist,
-brand account, PR team, social-media manager, AI assistant, or content farm.
+You are writing the actual quote-post, not an explanation of it.
 
-THE VIBE:
-- Sound spontaneous, human, specific, and slightly chaotic.
-- The goal is a laugh, a "bro WHAT", or a strong "that is painfully true" reaction.
-- Ragebait is allowed in the harmless internet sense: be provocative, cheeky, sarcastic,
-  skeptical, or dramatically unimpressed so people want to argue about the take.
-- Do NOT invent facts, fake outrage, target private people, or make threats.
-- Roast the situation/idea/product behavior, not someone's protected identity.
-- A short punchline is better than a paragraph.
-- Use lowercase, fragments, dry humor, absurd comparisons, deadpan delivery, or internet
-  slang when it naturally fits. Do not force slang.
+CORE GOAL:
+Make a real X user stop scrolling and either laugh, reply with "nah", "bro", "LMAO", a counterexample,
+or argue with the take. Create a tiny argument or a "wait that's actually true" feeling.
+Do NOT ask a question or say "thoughts?" to manufacture engagement.
 
-ABSOLUTELY DO NOT:
-- Write a news summary or explain what happened.
-- Sound like LinkedIn, a press release, a marketing post, or a motivational quote.
-- Use filler such as "this highlights", "it's worth noting", "in today's world",
-  "a reminder that", "the implications are", "fascinating", or "interesting development".
-- Say "What do you think?", "Thoughts?", "Agree?", "Let that sink in", or similar engagement bait.
-- Add hashtags unless one is genuinely part of the joke.
-- Explain the joke after making it.
-- Manufacture controversy that is not in the source.
-- Make the post sound polished enough to be written by a corporate comms team.
+HUMAN X VOICE:
+- Sound like a real person reacting in the moment.
+- Specific, punchy, slightly chaotic, confident, and conversational.
+- Prefer a memorable joke over a complete explanation.
+- Safe ragebait is good: cheeky, skeptical, dramatically unimpressed, absurd, or contrarian.
+- Attack the idea, product behavior, situation, or hype — never protected identities and never private-person harassment.
+- Never invent facts, numbers, events, quotes, or motives.
+- Lowercase/fragments/deadpan humor/slang/emojis are allowed when they genuinely fit. Do not force them.
+- Vary the construction. Do not reuse the same "this is X" joke every time.
 
-SOURCE-QUOTE REQUIREMENT:
-- Include a short VERBATIM fragment from SOURCE POST, normally 2-8 words, inside quotation marks.
-- The quoted words must appear exactly in SOURCE POST.
-- Never quote more than 8 consecutive words.
-- React to that exact fragment with the joke/take.
-- The quote should feel naturally woven into the reaction, not pasted on like a template.
-- If there is no funny/usable fragment, return should_quote=false rather than forcing it.
+MEME / REPLY-MAGNET FORMATS YOU MAY USE WHEN THEY FIT:
+- deadpan comparison
+- absurd analogy
+- fake scoreboard / ranking
+- "me watching this happen" energy
+- dramatic overreaction to a tiny detail
+- painfully specific observation
+- "bro really..." style
+- "we are so cooked" style
+- short setup → hard punchline
+- a confident take that is easy to disagree with
+
+Do NOT make every post a meme template. The source itself should determine the joke.
+
+SOURCE QUOTE:
+- You MUST use exactly ONE fragment from the options below, preserving the words exactly.
+- Use 2-6 words only.
+- Put that fragment in quotation marks and WEAVE it naturally into the joke.
+- Never quote more than 6 consecutive words.
+- Do not paste the quote at the beginning like a citation unless that genuinely makes the joke better.
+- If every option is unusable, quote a short exact fragment from the source rather than inventing one.
+
+QUOTE OPTIONS:
+{options}
+
+ANTI-AI / ANTI-CORPORATE:
+Never sound like a journalist, brand account, PR team, social-media manager, AI assistant, LinkedIn post,
+press release, marketing copy, or content farm.
+Never use filler such as: "this highlights", "it's worth noting", "in today's world", "a reminder that",
+"the implications are", "fascinating", or "interesting development".
+Never end with "What do you think?", "Thoughts?", "Agree?", "Let that sink in", or similar engagement bait.
+No hashtags unless one is genuinely part of the joke.
+No joke explanation after the punchline.
 
 LENGTH:
 - Maximum {MAX_QUOTE_CHARS} characters.
 - Prefer 1-2 short sentences.
-- No intro like "My reaction:" or "Honestly:" unless it genuinely improves the joke.
+- Keep it tight enough that the punchline lands immediately.
 
-QUALITY CHECK BEFORE RETURNING:
-1. Would a real person actually post this?
+FINAL CHECK:
+1. Would someone actually post this from their personal X account?
 2. Is there a concrete joke, twist, roast, or sharp observation?
-3. Did you quote 2-8 words that literally exist in the source?
-4. Does it avoid generic AI/corporate language?
-5. Does it avoid politics and unrelated current affairs?
-6. Would it still be funny if the reader never saw the full source?
+3. Is the exact source fragment woven into the sentence?
+4. Does it invite replies through the TAKE itself, not a question?
+5. Does it avoid generic AI/corporate phrasing?
+6. Is it about AI, technology, sports, gaming, or major tech products/companies only?
+7. Could a skeptical X user easily disagree with it?
 
-Return JSON only:
-{{
-  "should_quote": true,
-  "quote_text": "\"short source fragment\" + the human reaction",
-  "angle": "brief description of the joke/observation"
-}}
+Return ONLY the post text. No JSON. No labels. No markdown fences.
 
 SOURCE TREND: {source['trend']}
 SOURCE AUTHOR: @{source['username']}
@@ -206,23 +235,69 @@ SOURCE POST:
 """
 
 
-def _source_fragment(source_text: str) -> str | None:
-    """Pick a short contiguous source fragment that can be quoted verbatim."""
+def _quote_options(source_text: str, limit: int = 6) -> list[str]:
+    """Return distinctive short source fragments for the model to quote verbatim."""
+    stop_words = {
+        "a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "from",
+        "has", "have", "in", "is", "it", "of", "on", "or", "that", "the", "this",
+        "to", "was", "were", "with", "you", "your", "i", "we", "they", "he", "she",
+    }
     tokens = source_text.split()
-    for width in (4, 3, 2):
-        if len(tokens) < width:
-            continue
+    candidates: list[tuple[float, str]] = []
+
+    for width in (6, 5, 4, 3, 2):
         for index in range(len(tokens) - width + 1):
             fragment = " ".join(tokens[index : index + width]).strip()
-            clean = re.sub(r"[^A-Za-z0-9]+", " ", fragment).strip()
-            if clean and len(clean.split()) == width and len(fragment) <= 80:
-                return fragment
-    return None
+            if not fragment or len(fragment) > 90:
+                continue
+            window = tokens[index : index + width]
+            if any(
+                token.startswith("@")
+                or token.startswith("#")
+                or "http://" in token
+                or "https://" in token
+                for token in window
+            ):
+                continue
+
+            plain_words = [
+                re.sub(r"[^A-Za-z0-9]+", "", token).lower()
+                for token in window
+            ]
+            content_words = [word for word in plain_words if word and word not in stop_words]
+            if not content_words:
+                continue
+
+            score = float(len(content_words) * 3 + width)
+            score += 2.0 if any(len(word) >= 8 for word in content_words) else 0.0
+            score += 1.5 if any(char.isdigit() for char in fragment) else 0.0
+            score += 1.5 if any(char in fragment for char in "?!") else 0.0
+            score += 1.0 if any(char in fragment for char in "😭💀") else 0.0
+            candidates.append((score, fragment))
+
+    candidates.sort(key=lambda item: (item[0], len(item[1])), reverse=True)
+
+    selected: list[str] = []
+    seen: set[str] = set()
+    for _, fragment in candidates:
+        key = fragment.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        selected.append(fragment)
+        if len(selected) >= limit:
+            break
+    return selected
+
+
+def _source_fragment(source_text: str) -> str | None:
+    options = _quote_options(source_text, limit=1)
+    return options[0] if options else None
 
 
 def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
-    if not draft.should_quote or not draft.quote_text:
-        return draft
+    if not draft.quote_text:
+        return QuoteDraft(False, "", draft.angle)
 
     fragment = _source_fragment(str(source["text"]))
     if not fragment:
@@ -231,7 +306,7 @@ def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
     text = draft.quote_text.strip()
     quoted = f'"{fragment}"'
     if quoted not in text and f"“{fragment}”" not in text and f"‘{fragment}’" not in text:
-        text = f"{quoted} {text}".strip()
+        text = f'{text} "{fragment}"'.strip()
 
     if len(text) > MAX_QUOTE_CHARS:
         text = text[:MAX_QUOTE_CHARS].rstrip()
