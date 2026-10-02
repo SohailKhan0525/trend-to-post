@@ -10,7 +10,7 @@ import urllib.request
 MODEL = "gemini-3.5-flash-lite"
 CLOUDFLARE_MODEL = os.environ.get("CLOUDFLARE_AI_MODEL", "@cf/zai-org/glm-4.7-flash")
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
-CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{model}"
+CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1/chat/completions"
 MAX_QUOTE_CHARS = 260
 MAX_API_ATTEMPTS_PER_KEY = 3
 RETRYABLE_HTTP_CODES = {408, 429, 500, 502, 503, 504}
@@ -329,8 +329,9 @@ def _cloudflare_credentials() -> tuple[str, str]:
 
 def _cloudflare_text(prompt: str) -> str:
     account_id, token = _cloudflare_credentials()
-    url = CLOUDFLARE_API_URL.format(account_id=account_id, model=CLOUDFLARE_MODEL)
+    url = CLOUDFLARE_API_URL.format(account_id=account_id)
     payload = {
+        "model": CLOUDFLARE_MODEL,
         "messages": [
             {
                 "role": "system",
@@ -345,6 +346,7 @@ def _cloudflare_text(prompt: str) -> str:
         "max_tokens": 220,
         "temperature": 0.95,
         "top_p": 0.9,
+        "stream": False,
     }
     request = urllib.request.Request(
         url,
@@ -360,27 +362,37 @@ def _cloudflare_text(prompt: str) -> str:
         try:
             with urllib.request.urlopen(request, timeout=90) as response:
                 response_payload = json.loads(response.read().decode("utf-8"))
+
                 if response_payload.get("success") is False:
                     raise GeminiError(
                         "Cloudflare Workers AI error: "
                         f"{response_payload.get('errors') or response_payload.get('messages')}"
                     )
 
+                choices = response_payload.get("choices") or []
+                if choices:
+                    message = choices[0].get("message") or {}
+                    text = message.get("content")
+                    if isinstance(text, str) and text.strip():
+                        return text.strip()
+
                 result = response_payload.get("result") or {}
                 text = result.get("response")
-                if not text and result.get("choices"):
-                    text = (
-                        (result["choices"][0].get("message") or {})
-                        .get("content")
-                    )
+                if isinstance(text, str) and text.strip():
+                    return text.strip()
 
-                if not isinstance(text, str) or not text.strip():
-                    raise GeminiError("Cloudflare Workers AI returned no text.")
-                return text.strip()
+                raise GeminiError(
+                    "Cloudflare Workers AI returned an empty completion response."
+                )
 
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
-            if exc.code in {408, 429, 500, 502, 503, 504} and attempt == 1:
+            if exc.code == 429:
+                # Do not hammer Cloudflare when capacity/quota is unavailable.
+                raise GeminiError(
+                    f"Cloudflare Workers AI rate/quota limited (HTTP 429): {detail[:800]}"
+                ) from exc
+            if exc.code in {408, 500, 502, 503, 504} and attempt == 1:
                 time.sleep(2)
                 continue
             raise GeminiError(
