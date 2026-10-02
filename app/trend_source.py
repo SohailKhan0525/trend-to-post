@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+import math
 from typing import Iterable
 
 from twikit import Client
 
 TREND_COUNT = 8
-TWEETS_PER_SEARCH = 20
+TWEETS_PER_SEARCH = 15
+MAX_ELIGIBLE_TRENDS_TO_SEARCH = 4
 MAX_TWEET_AGE = timedelta(hours=24)
 SOURCE_HISTORY_LIMIT = 100
 # Keep the emergency path small because each search_tweet call consumes X search budget.
@@ -141,14 +143,16 @@ class SourceTweet:
         return f"https://x.com/{self.username}/status/{self.tweet_id}"
 
     @property
-    def engagement_score(self) -> tuple[int, int, int, int, float]:
-        return (
-            self.view_count,
-            self.favorite_count,
-            self.retweet_count,
-            self.reply_count,
-            self.created_at.timestamp(),
+    def engagement_score(self) -> tuple[float, float]:
+        # Favor posts that already generate conversation, while using log scaling
+        # so a huge view count does not completely dominate reply potential.
+        score = (
+            1.0 * math.log1p(self.view_count)
+            + 1.2 * math.log1p(self.favorite_count)
+            + 2.2 * math.log1p(self.retweet_count)
+            + 3.0 * math.log1p(self.reply_count)
         )
+        return (score, self.created_at.timestamp())
 
 
 def _as_int(value: object) -> int:
@@ -273,6 +277,7 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
         raise TrendSourceError("X returned no current trends.")
 
     candidates: dict[str, SourceTweet] = {}
+    searched_trends = 0
 
     for trend in trends[:TREND_COUNT]:
         name = str(getattr(trend, "name", "") or "").strip()
@@ -282,9 +287,12 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
             continue
         if not any(_keyword_matches(name, keyword) for keyword in ALLOWED_TOPIC_KEYWORDS):
             continue
+        if searched_trends >= MAX_ELIGIBLE_TRENDS_TO_SEARCH:
+            break
+        searched_trends += 1
         trend_volume = _as_int(getattr(trend, "tweets_count", 0))
 
-        for product in ("Top", "Latest"):
+        for product in ("Top",):
             try:
                 results = await client.search_tweet(
                     name,
@@ -292,7 +300,12 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
                     count=TWEETS_PER_SEARCH,
                 )
             except Exception as exc:
-                print(f"Skipping trend {name!r} ({product}): {exc}")
+                message = str(exc)
+                print(f"Skipping trend {name!r} ({product}): {message}")
+                if "429" in message or "rate limit" in message.lower():
+                    raise TrendSourceError(
+                        "X search is currently rate limited; stopping before more requests."
+                    ) from exc
                 continue
 
             for tweet in results:
@@ -314,7 +327,12 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
                         count=TWEETS_PER_SEARCH,
                     )
                 except Exception as exc:
-                    print(f"Skipping fallback search {query!r} ({product}): {exc}")
+                    message = str(exc)
+                    print(f"Skipping fallback search {query!r} ({product}): {message}")
+                    if "429" in message or "rate limit" in message.lower():
+                        raise TrendSourceError(
+                            "X search is currently rate limited; stopping before more requests."
+                        ) from exc
                     continue
 
                 for tweet in results:
