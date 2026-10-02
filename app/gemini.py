@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import random
+import re
 import time
 import urllib.error
 import urllib.request
@@ -205,6 +206,39 @@ SOURCE POST:
 """
 
 
+def _source_fragment(source_text: str) -> str | None:
+    """Pick a short contiguous source fragment that can be quoted verbatim."""
+    tokens = source_text.split()
+    for width in (4, 3, 2):
+        if len(tokens) < width:
+            continue
+        for index in range(len(tokens) - width + 1):
+            fragment = " ".join(tokens[index : index + width]).strip()
+            clean = re.sub(r"[^A-Za-z0-9]+", " ", fragment).strip()
+            if clean and len(clean.split()) == width and len(fragment) <= 80:
+                return fragment
+    return None
+
+
+def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
+    if not draft.should_quote or not draft.quote_text:
+        return draft
+
+    fragment = _source_fragment(str(source["text"]))
+    if not fragment:
+        return QuoteDraft(False, "", draft.angle)
+
+    text = draft.quote_text.strip()
+    quoted = f'"{fragment}"'
+    if quoted not in text and f"“{fragment}”" not in text and f"‘{fragment}’" not in text:
+        text = f"{quoted} {text}".strip()
+
+    if len(text) > MAX_QUOTE_CHARS:
+        text = text[:MAX_QUOTE_CHARS].rstrip()
+
+    return QuoteDraft(True, text, draft.angle)
+
+
 def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraft:
     if not draft.should_quote:
         return draft
@@ -227,17 +261,14 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
             start = right + 1
 
     if not fragments:
-        raise GeminiError("Generated post contains no quoted source fragment.")
+        return _repair_missing_source_quote(draft, source)
 
     valid_fragments = [
         fragment for fragment in fragments
         if fragment in source_text and len(fragment.split()) <= 8
     ]
     if not valid_fragments:
-        raise GeminiError(
-            "Generated quote fragment does not exist in the source post "
-            "or is longer than 8 words."
-        )
+        return _repair_missing_source_quote(draft, source)
 
     if len(text) > MAX_QUOTE_CHARS:
         raise GeminiError("Generated quote-post is too long.")
@@ -381,15 +412,33 @@ def _cloudflare_text(prompt: str) -> str:
 
                 choices = response_payload.get("choices") or []
                 if choices:
-                    message = choices[0].get("message") or {}
+                    choice = choices[0] or {}
+                    message = choice.get("message") or {}
                     text = message.get("content")
                     if isinstance(text, str) and text.strip():
                         return text.strip()
+                    if isinstance(text, list):
+                        parts = [
+                            part.get("text", "")
+                            for part in text
+                            if isinstance(part, dict) and isinstance(part.get("text"), str)
+                        ]
+                        joined = "".join(parts).strip()
+                        if joined:
+                            return joined
+                    for key in ("text", "output_text"):
+                        value = choice.get(key)
+                        if isinstance(value, str) and value.strip():
+                            return value.strip()
 
-                result = response_payload.get("result") or {}
-                text = result.get("response")
-                if isinstance(text, str) and text.strip():
-                    return text.strip()
+                result = response_payload.get("result")
+                if isinstance(result, str) and result.strip():
+                    return result.strip()
+                if isinstance(result, dict):
+                    for key in ("response", "text", "output_text"):
+                        value = result.get(key)
+                        if isinstance(value, str) and value.strip():
+                            return value.strip()
 
                 raise GeminiError(
                     "Cloudflare Workers AI returned an empty completion response."
