@@ -77,9 +77,6 @@ def _post_json(payload: dict) -> dict:
                 )
 
                 if exc.code == 429:
-                    # A backup key can be useful when it belongs to another
-                    # Google Cloud/AI Studio project. It cannot bypass a quota
-                    # shared by the same project.
                     if key_index < len(keys):
                         print(
                             f"Gemini key {key_index} hit HTTP 429; "
@@ -144,32 +141,60 @@ def _extract_text(payload: dict) -> str:
     return text
 
 
-
 def _prompt(source: dict) -> str:
     return f"""Write ONE X quote-post about the source post below.
 
-This is not a news article, summary, thought-leadership post, or corporate update.
-It is one person reacting to something they just saw on the timeline.
+ROLE:
+You are a funny person on X reacting to something you just saw. You are NOT a journalist,
+brand account, PR team, social-media manager, AI assistant, or content farm.
 
-NON-NEGOTIABLE STYLE:
-- Make it genuinely funny or sharply witty. Dry humor, absurdity, understatement, internet humor, or a clever observation are fine.
-- No generic AI phrasing. Never say "this highlights", "it's worth noting", "in today's world", "a reminder that", "the implications are", "fascinating", "interesting development", or similar filler.
-- No corporate, motivational, polished LinkedIn, or engagement-bait voice.
-- No "What do you think?", "Thoughts?", "Agree?", and no hashtags unless essential to the joke.
-- Do not explain the joke. Do not invent facts or context. Do not manufacture outrage.
-- Keep it under {MAX_QUOTE_CHARS} characters.
+THE VIBE:
+- Sound spontaneous, human, specific, and slightly chaotic.
+- The goal is a laugh, a "bro WHAT", or a strong "that is painfully true" reaction.
+- Ragebait is allowed in the harmless internet sense: be provocative, cheeky, sarcastic,
+  skeptical, or dramatically unimpressed so people want to argue about the take.
+- Do NOT invent facts, fake outrage, target private people, or make threats.
+- Roast the situation/idea/product behavior, not someone's protected identity.
+- A short punchline is better than a paragraph.
+- Use lowercase, fragments, dry humor, absurd comparisons, deadpan delivery, or internet
+  slang when it naturally fits. Do not force slang.
 
-QUOTE REQUIREMENT:
-- Include a short verbatim fragment from the source, normally 2-8 words, in quotation marks.
-- Then react to that fragment with the funny/clever observation.
-- The quoted fragment must actually appear in SOURCE POST.
+ABSOLUTELY DO NOT:
+- Write a news summary or explain what happened.
+- Sound like LinkedIn, a press release, a marketing post, or a motivational quote.
+- Use filler such as "this highlights", "it's worth noting", "in today's world",
+  "a reminder that", "the implications are", "fascinating", or "interesting development".
+- Say "What do you think?", "Thoughts?", "Agree?", "Let that sink in", or similar engagement bait.
+- Add hashtags unless one is genuinely part of the joke.
+- Explain the joke after making it.
+- Manufacture controversy that is not in the source.
+- Make the post sound polished enough to be written by a corporate comms team.
+
+SOURCE-QUOTE REQUIREMENT:
+- Include a short VERBATIM fragment from SOURCE POST, normally 2-8 words, inside quotation marks.
+- The quoted words must appear exactly in SOURCE POST.
 - Never quote more than 8 consecutive words.
-- If there is no usable fragment or the source is weak, return should_quote=false.
+- React to that exact fragment with the joke/take.
+- The quote should feel naturally woven into the reaction, not pasted on like a template.
+- If there is no funny/usable fragment, return should_quote=false rather than forcing it.
+
+LENGTH:
+- Maximum {MAX_QUOTE_CHARS} characters.
+- Prefer 1-2 short sentences.
+- No intro like "My reaction:" or "Honestly:" unless it genuinely improves the joke.
+
+QUALITY CHECK BEFORE RETURNING:
+1. Would a real person actually post this?
+2. Is there a concrete joke, twist, roast, or sharp observation?
+3. Did you quote 2-8 words that literally exist in the source?
+4. Does it avoid generic AI/corporate language?
+5. Does it avoid politics and unrelated current affairs?
+6. Would it still be funny if the reader never saw the full source?
 
 Return JSON only:
 {{
   "should_quote": true,
-  "quote_text": "\\"short source fragment\\" + your funny reaction",
+  "quote_text": "\"short source fragment\" + the human reaction",
   "angle": "brief description of the joke/observation"
 }}
 
@@ -183,6 +208,7 @@ SOURCE POST:
 def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraft:
     if not draft.should_quote:
         return draft
+
     text = draft.quote_text
     source_text = str(source["text"])
     fragments = []
@@ -198,10 +224,23 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
         if fragment:
             fragments.append(fragment)
         start = right + 1
+
     if not fragments:
         raise GeminiError("Generated post contains no quoted source fragment.")
-    if not any(fragment in source_text for fragment in fragments):
-        raise GeminiError("Generated quote fragment does not exist in the source post.")
+
+    valid_fragments = [
+        fragment for fragment in fragments
+        if fragment in source_text and len(fragment.split()) <= 8
+    ]
+    if not valid_fragments:
+        raise GeminiError(
+            "Generated quote fragment does not exist in the source post "
+            "or is longer than 8 words."
+        )
+
+    if len(text) > MAX_QUOTE_CHARS:
+        raise GeminiError("Generated quote-post is too long.")
+
     return draft
 
 
@@ -213,8 +252,11 @@ def generate_quote(source: dict) -> QuoteDraft:
             source,
         )
     except GeminiError as cloudflare_error:
-        if not _api_keys():
+        try:
+            _api_keys()
+        except GeminiError:
             raise cloudflare_error
+
         print(
             "Cloudflare generation failed; trying Gemini 3.5 Flash-Lite fallback: "
             f"{cloudflare_error}"
@@ -244,6 +286,7 @@ def generate_quote(source: dict) -> QuoteDraft:
         _parse_quote_json(_extract_text(_post_json(payload))),
         source,
     )
+
 
 def _parse_quote_json(text: str) -> QuoteDraft:
     try:
@@ -276,7 +319,6 @@ def _parse_quote_json(text: str) -> QuoteDraft:
     )
 
 
-
 def _cloudflare_credentials() -> tuple[str, str]:
     account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
     token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
@@ -290,7 +332,14 @@ def _cloudflare_text(prompt: str) -> str:
     url = CLOUDFLARE_API_URL.format(account_id=account_id, model=CLOUDFLARE_MODEL)
     payload = {
         "messages": [
-            {"role": "system", "content": "Write short, funny, human X quote-posts. Never sound like an AI assistant, news summary, marketer, content farm, or corporate social-media manager."},
+            {
+                "role": "system",
+                "content": (
+                    "Write short, funny, human X quote-posts. "
+                    "Never sound like an AI assistant, news summary, marketer, "
+                    "content farm, or corporate social-media manager."
+                ),
+            },
             {"role": "user", "content": prompt},
         ],
         "max_tokens": 220,
@@ -300,28 +349,43 @@ def _cloudflare_text(prompt: str) -> str:
     request = urllib.request.Request(
         url,
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+        },
         method="POST",
     )
+
     for attempt in range(1, 3):
         try:
             with urllib.request.urlopen(request, timeout=90) as response:
-                payload = json.loads(response.read().decode("utf-8"))
-                if payload.get("success") is False:
-                    raise GeminiError(f"Cloudflare Workers AI error: {payload.get('errors') or payload.get('messages')}")
-                result = payload.get("result") or {}
+                response_payload = json.loads(response.read().decode("utf-8"))
+                if response_payload.get("success") is False:
+                    raise GeminiError(
+                        "Cloudflare Workers AI error: "
+                        f"{response_payload.get('errors') or response_payload.get('messages')}"
+                    )
+
+                result = response_payload.get("result") or {}
                 text = result.get("response")
                 if not text and result.get("choices"):
-                    text = ((result["choices"][0].get("message") or {}).get("content"))
+                    text = (
+                        (result["choices"][0].get("message") or {})
+                        .get("content")
+                    )
+
                 if not isinstance(text, str) or not text.strip():
                     raise GeminiError("Cloudflare Workers AI returned no text.")
                 return text.strip()
+
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
             if exc.code in {408, 429, 500, 502, 503, 504} and attempt == 1:
                 time.sleep(2)
                 continue
-            raise GeminiError("Cloudflare Workers AI failed with HTTP {exc.code}: {detail[:1000]}") from exc
+            raise GeminiError(
+                f"Cloudflare Workers AI failed with HTTP {exc.code}: {detail[:1000]}"
+            ) from exc
         except (urllib.error.URLError, TimeoutError) as exc:
             if attempt == 1:
                 time.sleep(2)
@@ -329,4 +393,5 @@ def _cloudflare_text(prompt: str) -> str:
             raise GeminiError(f"Cloudflare Workers AI request failed: {exc}") from exc
         except json.JSONDecodeError as exc:
             raise GeminiError("Cloudflare Workers AI returned invalid JSON.") from exc
+
     raise GeminiError("Cloudflare Workers AI failed unexpectedly.")
