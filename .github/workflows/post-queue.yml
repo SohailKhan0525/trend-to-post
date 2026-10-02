@@ -56,6 +56,9 @@ jobs:
             exit 1
           }
 
+      - name: Validate Python syntax
+        run: python -m compileall -q app
+
       - name: Run trend quote bot
         id: post_bot
         run: python -m app post
