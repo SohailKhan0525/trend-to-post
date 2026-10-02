@@ -417,6 +417,8 @@ def generate_quote(source: dict) -> QuoteDraft:
             if not cleaned:
                 continue
             draft = _repair_missing_source_quote(QuoteDraft(True, cleaned, ""), source)
+            if not draft.should_quote or not draft.quote_text:
+                continue
             drafts.append(_validate_quote_against_source(draft, source))
         if drafts:
             return _pick_best_draft(drafts)
