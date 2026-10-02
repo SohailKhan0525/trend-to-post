@@ -17,7 +17,7 @@ from .trend_source import (
 
 STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 10
-GEMINI_CALLS_PER_DAY = 10
+AI_GENERATIONS_PER_DAY = 10
 MIN_POST_INTERVAL_MINUTES = 144
 
 
@@ -74,9 +74,9 @@ def _load_state() -> dict:
 
     if not 0 <= state["daily_count"] <= POSTS_PER_DAY:
         raise QueueError(f"State daily_count is outside 0..{POSTS_PER_DAY}.")
-    if not 0 <= state["ai_call_count"] <= GEMINI_CALLS_PER_DAY:
+    if not 0 <= state["ai_call_count"] <= AI_GENERATIONS_PER_DAY:
         raise QueueError(
-            f"State ai_call_count is outside 0..{GEMINI_CALLS_PER_DAY}."
+            f"State ai_call_count is outside 0..{AI_GENERATIONS_PER_DAY}."
         )
 
     state["posted_source_tweet_ids"] = _history(
@@ -160,15 +160,12 @@ async def post_next(
 
     state = _load_state()
 
-    # Hard application-level cap: never create more than 10 posts in one UTC day.
     if state["daily_count"] >= POSTS_PER_DAY:
         print(f"Daily post limit reached: {POSTS_PER_DAY}.")
         return False
 
-    # Keep all AI generation attempts bounded as well. This prevents repeated workflow
-    # dispatches and skipped candidates from turning into an unbounded quota drain.
-    if state["ai_call_count"] >= GEMINI_CALLS_PER_DAY:
-        print(f"Daily AI generation limit reached: {GEMINI_CALLS_PER_DAY}.")
+    if state["ai_call_count"] >= AI_GENERATIONS_PER_DAY:
+        print(f"Daily AI generation limit reached: {AI_GENERATIONS_PER_DAY}.")
         return False
 
     if not _interval_ok(state):
@@ -184,9 +181,9 @@ async def post_next(
         source = await find_trending_source(client, used)
         payload = _source_dict(source)
 
-        # One AI request normally generates the complete quote. Cloudflare is primary;
-        # Gemini 3.5 Flash-Lite is the fallback. Count the completed generation so
-        # repeated workflow dispatches cannot process unlimited candidates.
+        # Cloudflare is primary; Gemini 3.5 Flash-Lite is the fallback.
+        # The application-level generation cap prevents repeated workflow
+        # dispatches from draining provider quotas indefinitely.
         draft = generate_quote(payload)
         state["ai_call_count"] += 1
         _save_state(state)
@@ -211,8 +208,6 @@ async def post_next(
     try:
         tweet = await client.create_tweet(text=text, attachment_url=source.url)
     except Exception as exc:
-        # The Gemini call remains counted, but daily_count is only incremented
-        # after X confirms the post. This avoids claiming a post that did not happen.
         raise QueueError(f"X post failed: {exc}") from exc
 
     posted = state["posted_source_tweet_ids"]
@@ -231,6 +226,6 @@ async def post_next(
 
     print(
         f"Posted quote #{state['daily_count']}/{POSTS_PER_DAY}; "
-        f"AI generations {state['ai_call_count']}/{GEMINI_CALLS_PER_DAY}."
+        f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
     )
     return True
