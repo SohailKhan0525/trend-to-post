@@ -348,7 +348,8 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
     if len(text) > MAX_QUOTE_CHARS:
         raise GeminiError("Generated quote-post is too long.")
     lowered = text.lower()
-    if any(phrase in lowered for phrase in BANNED_STYLE_PHRASES):
+    unquoted = re.sub(r'["“‘][^"”’]*["”’]', "", lowered)
+    if any(phrase in unquoted for phrase in BANNED_STYLE_PHRASES):
         raise GeminiError("Generated quote-post used generic engagement or corporate phrasing.")
 
     return draft
@@ -384,6 +385,7 @@ def _pick_best_draft(drafts: list[QuoteDraft]) -> QuoteDraft:
     def score(draft: QuoteDraft) -> float:
         text = draft.quote_text
         lowered = text.lower()
+        unquoted = re.sub(r'["“‘][^"”’]*["”’]', "", lowered)
         value = 0.0
         if any(token in lowered for token in ("bro", "nah", "lmao", "lol", "😭", "💀", "literally")):
             value += 2.0
@@ -399,7 +401,7 @@ def _pick_best_draft(drafts: list[QuoteDraft]) -> QuoteDraft:
             value += 0.5
         if text[:1].islower():
             value += 0.25
-        value -= sum(2.5 for phrase in BANNED_STYLE_PHRASES if phrase in lowered)
+        value -= sum(2.5 for phrase in BANNED_STYLE_PHRASES if phrase in unquoted)
         return value
 
     return max(drafts, key=score)
