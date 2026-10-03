@@ -261,6 +261,7 @@ FINAL CHECK:
 
 Return JSON only:
 {{
+  "should_post": true,
   "post": "the actual quote-post",
   "quote_fragment": "the exact 2-6 word source fragment",
   "format_name": "short invented or mutated format name",
@@ -353,7 +354,9 @@ def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
         text = f'{text} "{fragment}"'.strip()
 
     if len(text) > MAX_QUOTE_CHARS:
-        text = text[:MAX_QUOTE_CHARS].rstrip()
+        suffix = f' "{fragment}"'
+        budget = max(0, MAX_QUOTE_CHARS - len(suffix))
+        text = f"{text[:budget].rstrip()}{suffix}".strip()
 
     return QuoteDraft(
         True,
@@ -477,6 +480,10 @@ def _parse_experiment(text: str) -> QuoteDraft:
     if not isinstance(data, dict):
         return QuoteDraft(True, text, "")
 
+    should_post = data.get("should_post", True)
+    if isinstance(should_post, str):
+        should_post = should_post.strip().lower() not in {"false", "no", "skip"}
+    should_post = bool(should_post)
     post = " ".join(str(data.get("post", "")).split()).strip()
     fragment = " ".join(str(data.get("quote_fragment", "")).split()).strip()
     format_name = " ".join(str(data.get("format_name", "")).split()).strip()
@@ -488,7 +495,7 @@ def _parse_experiment(text: str) -> QuoteDraft:
         raise GeminiError("AI returned no main quote-post text.")
 
     return QuoteDraft(
-        True,
+        should_post,
         post,
         fragment,
         format_name,
