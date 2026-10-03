@@ -401,6 +401,10 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
         raise GeminiError("Generated quote-post is too long.")
     if draft.self_reply and len(draft.self_reply) > 240:
         raise GeminiError("Generated self-reply is too long.")
+    if draft.self_reply:
+        reply_lower = draft.self_reply.lower()
+        if any(phrase in reply_lower for phrase in BANNED_STYLE_PHRASES):
+            raise GeminiError("Generated self-reply used generic engagement phrasing.")
     lowered = text.lower()
     unquoted = re.sub(r'["“‘][^"”’]*["”’]', "", lowered)
     if any(phrase in unquoted for phrase in BANNED_STYLE_PHRASES):
@@ -621,7 +625,6 @@ def _cloudflare_candidates(prompt: str) -> list[str]:
         "temperature": 1.0,
         "top_p": 0.95,
         "stream": False,
-        "options": {"rejectIfBusy": True},
     }
     request = urllib.request.Request(
         url,
