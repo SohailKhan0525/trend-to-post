@@ -14,7 +14,7 @@ API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:gene
 CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1/chat/completions"
 MAX_QUOTE_CHARS = 260
 MAX_API_ATTEMPTS_PER_KEY = 3
-CLOUDFLARE_CANDIDATE_COUNT = 3
+CLOUDFLARE_CANDIDATE_COUNT = 2
 BANNED_STYLE_PHRASES = (
     "this highlights",
     "it's worth noting",
@@ -36,12 +36,33 @@ class GeminiError(RuntimeError):
 
 
 class QuoteDraft:
-    __slots__ = ("should_quote", "quote_text", "angle")
+    __slots__ = (
+        "should_quote",
+        "quote_text",
+        "angle",
+        "format_name",
+        "comedy_mechanism",
+        "self_reply",
+        "use_self_reply",
+    )
 
-    def __init__(self, should_quote: bool, quote_text: str, angle: str) -> None:
+    def __init__(
+        self,
+        should_quote: bool,
+        quote_text: str,
+        angle: str,
+        format_name: str = "",
+        comedy_mechanism: str = "",
+        self_reply: str = "",
+        use_self_reply: bool = False,
+    ) -> None:
         self.should_quote = should_quote
         self.quote_text = quote_text
         self.angle = angle
+        self.format_name = format_name
+        self.comedy_mechanism = comedy_mechanism
+        self.self_reply = self_reply
+        self.use_self_reply = use_self_reply
 
 
 def _api_keys() -> list[str]:
@@ -156,77 +177,100 @@ def _extract_text(payload: dict) -> str:
     return text
 
 
-def _prompt(source: dict) -> str:
+def _prompt(source: dict, format_memory: list[dict] | None = None) -> str:
     fragments = _quote_options(str(source["text"]))
     options = "\n".join(f"- \"{item}\"" for item in fragments)
-    return f"""Write ONE hilarious, meme-native X quote-post about the source post below.
+    recent_formats = format_memory[-10:] if format_memory else []
+    memory_text = "\n".join(
+        f"- {item.get('format_name', 'unknown')}: {item.get('comedy_mechanism', '')}"
+        for item in recent_formats
+        if isinstance(item, dict)
+    ) or "- none yet"
 
-You are writing the actual quote-post, not an explanation of it.
+    return f"""You are the creative brain of an experimental X account.
 
-CORE GOAL:
-Make a real X user stop scrolling and either laugh, reply with "nah", "bro", "LMAO", a counterexample,
-or argue with the take. Create a tiny argument or a "wait that's actually true" feeling.
-Do NOT ask a question or say "thoughts?" to manufacture engagement.
+Write ONE original quote-post package about the source post below.
 
-HUMAN X VOICE:
-- Sound like a real person reacting in the moment.
-- Specific, punchy, slightly chaotic, confident, and conversational.
-- Prefer a memorable joke over a complete explanation.
-- Safe ragebait is good: cheeky, skeptical, dramatically unimpressed, absurd, or contrarian.
-- Attack the idea, product behavior, situation, or hype — never protected identities and never private-person harassment.
-- Never invent facts, numbers, events, quotes, or motives.
-- Lowercase/fragments/deadpan humor/slang/emojis are allowed when they genuinely fit. Do not force them.
-- Vary the construction. Do not reuse the same "this is X" joke every time.
+IMPORTANT: You are not a generic tweet generator.
+You are running a private FORMAT LAB whose job is to create new internet-native comedy formats.
 
-MEME / REPLY-MAGNET FORMATS YOU MAY USE WHEN THEY FIT:
-- deadpan comparison
-- absurd analogy
-- fake scoreboard / ranking
-- "me watching this happen" energy
-- dramatic overreaction to a tiny detail
-- painfully specific observation
-- "bro really..." style
-- "we are so cooked" style
-- short setup → hard punchline
-- a confident take that is easy to disagree with
+THE TARGET:
+Make someone stop scrolling, laugh, quote-post it, or reply because the TAKE itself creates tension.
+No "thoughts?", no "what do you think?", no empty engagement tricks.
 
-Do NOT make every post a meme template. The source itself should determine the joke.
+FORMAT LAB:
+Recent formats already used by this account:
+{memory_text}
+
+Do NOT recycle a recent format name, structure, opening, or punchline mechanism unless you mutate it substantially.
+
+For this candidate, invent or mutate a format that feels like it belongs to the account.
+A format can be something that does not exist in normal social-media language:
+a fake institution, strange measurement, fictional protocol, bizarre report type, new mini-game,
+new recurring notation, fake category, impossible scoreboard, etc.
+
+Novelty matters, but coherence matters more. Do not make random nonsense just to seem original.
+
+CREATIVE LANES:
+- Lane A: a very strong, funny, immediately understandable format.
+- Lane B: take a risk and INVENT a new format/mechanism that is not in recent memory.
+
+MEME / X STYLE:
+- human, punchy, specific, slightly chaotic
+- deadpan, absurd analogy, dramatic overreaction, fake bureaucracy, fake stats, fake rules,
+  "bro really..." energy, "we are cooked" energy, or an entirely new structure
+- lowercase/fragments/slang/emojis are allowed when natural
+- roast the idea, product behavior, hype, or situation—not protected identities or private people
+- never invent facts or present fiction as real information
+- safe ragebait is allowed: confident, cheeky, skeptical, dramatically unimpressed
+- no political content
 
 SOURCE QUOTE:
-- You MUST use exactly ONE fragment from the options below, preserving the words exactly.
-- Use 2-6 words only.
-- Put that fragment in quotation marks and WEAVE it naturally into the joke.
-- Never quote more than 6 consecutive words.
-- Do not paste the quote at the beginning like a citation unless that genuinely makes the joke better.
-- If every option is unusable, quote a short exact fragment from the source rather than inventing one.
+Use exactly ONE 2-6 word fragment from QUOTE OPTIONS.
+Preserve the words exactly and put them in quotation marks.
+Weave it into the joke naturally.
+Never quote more than 6 consecutive source words.
+
+REPLY-CHAIN DESIGN:
+Sometimes the best bit is a main post followed by ONE self-reply.
+Set use_self_reply=true only when the self-reply materially improves the joke.
+The self-reply should feel like "evidence", a second punchline, a fake receipt, a callback,
+a tiny escalation, or an invented artifact—not a generic explanation.
+Never ask a question.
+If used, keep it under 240 characters.
+
+THE MAIN POST:
+- maximum {MAX_QUOTE_CHARS} characters
+- 1-2 short sentences or a compact meme artifact
+- the punchline should land fast
+- don't explain the joke
+- don't sound like journalism, PR, LinkedIn, marketing, or an AI assistant
+
+BANNED PHRASES:
+"this highlights", "it's worth noting", "in today's world", "a reminder that",
+"the implications are", "fascinating", "interesting development",
+"What do you think?", "Thoughts?", "Agree?", "Let that sink in"
+
+FINAL CHECK:
+- funny without needing a paragraph of context
+- exact quote fragment is present
+- format feels distinctive
+- easy for another X user to disagree with, riff on, or add a joke to
+- no politics
+- no fake facts
+
+Return JSON only:
+{{
+  "post": "the actual quote-post",
+  "quote_fragment": "the exact 2-6 word source fragment",
+  "format_name": "short invented or mutated format name",
+  "comedy_mechanism": "short description of why the joke works",
+  "self_reply": "optional second punchline or artifact",
+  "use_self_reply": false
+}}
 
 QUOTE OPTIONS:
 {options}
-
-ANTI-AI / ANTI-CORPORATE:
-Never sound like a journalist, brand account, PR team, social-media manager, AI assistant, LinkedIn post,
-press release, marketing copy, or content farm.
-Never use filler such as: "this highlights", "it's worth noting", "in today's world", "a reminder that",
-"the implications are", "fascinating", or "interesting development".
-Never end with "What do you think?", "Thoughts?", "Agree?", "Let that sink in", or similar engagement bait.
-No hashtags unless one is genuinely part of the joke.
-No joke explanation after the punchline.
-
-LENGTH:
-- Maximum {MAX_QUOTE_CHARS} characters.
-- Prefer 1-2 short sentences.
-- Keep it tight enough that the punchline lands immediately.
-
-FINAL CHECK:
-1. Would someone actually post this from their personal X account?
-2. Is there a concrete joke, twist, roast, or sharp observation?
-3. Is the exact source fragment woven into the sentence?
-4. Does it invite replies through the TAKE itself, not a question?
-5. Does it avoid generic AI/corporate phrasing?
-6. Is it about AI, technology, sports, gaming, or major tech products/companies only?
-7. Could a skeptical X user easily disagree with it?
-
-Return ONLY the post text. No JSON. No labels. No markdown fences.
 
 SOURCE TREND: {source['trend']}
 SOURCE AUTHOR: @{source['username']}
@@ -311,7 +355,15 @@ def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
     if len(text) > MAX_QUOTE_CHARS:
         text = text[:MAX_QUOTE_CHARS].rstrip()
 
-    return QuoteDraft(True, text, draft.angle)
+    return QuoteDraft(
+        True,
+        text,
+        draft.angle,
+        draft.format_name,
+        draft.comedy_mechanism,
+        draft.self_reply,
+        draft.use_self_reply,
+    )
 
 
 def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraft:
@@ -347,6 +399,8 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
 
     if len(text) > MAX_QUOTE_CHARS:
         raise GeminiError("Generated quote-post is too long.")
+    if draft.self_reply and len(draft.self_reply) > 240:
+        raise GeminiError("Generated self-reply is too long.")
     lowered = text.lower()
     unquoted = re.sub(r'["“‘][^"”’]*["”’]', "", lowered)
     if any(phrase in unquoted for phrase in BANNED_STYLE_PHRASES):
@@ -371,6 +425,8 @@ def _clean_generated_post(text: str) -> str:
     except json.JSONDecodeError:
         data = None
 
+    if isinstance(data, dict) and data.get("post"):
+        return json.dumps(data, ensure_ascii=False)
     if isinstance(data, dict) and data.get("quote_text"):
         text = str(data["quote_text"]).strip()
 
@@ -407,24 +463,95 @@ def _pick_best_draft(drafts: list[QuoteDraft]) -> QuoteDraft:
     return max(drafts, key=score)
 
 
-def generate_quote(source: dict) -> QuoteDraft:
-    prompt = _prompt(source)
+def _parse_experiment(text: str) -> QuoteDraft:
+    text = _clean_generated_post(text)
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError:
+        return QuoteDraft(True, text, "")
+
+    if not isinstance(data, dict):
+        return QuoteDraft(True, text, "")
+
+    post = " ".join(str(data.get("post", "")).split()).strip()
+    fragment = " ".join(str(data.get("quote_fragment", "")).split()).strip()
+    format_name = " ".join(str(data.get("format_name", "")).split()).strip()
+    mechanism = " ".join(str(data.get("comedy_mechanism", "")).split()).strip()
+    self_reply = " ".join(str(data.get("self_reply", "")).split()).strip()
+    use_self_reply = bool(data.get("use_self_reply")) and bool(self_reply)
+
+    if not post:
+        raise GeminiError("AI returned no main quote-post text.")
+
+    return QuoteDraft(
+        True,
+        post,
+        fragment,
+        format_name,
+        mechanism,
+        self_reply,
+        use_self_reply,
+    )
+
+
+def _pick_best_draft(drafts: list[QuoteDraft], format_memory: list[dict]) -> QuoteDraft:
+    recent_names = {
+        str(item.get("format_name", "")).strip().lower()
+        for item in format_memory
+        if isinstance(item, dict)
+    }
+
+    def score(draft: QuoteDraft) -> float:
+        text = draft.quote_text
+        lowered = text.lower()
+        unquoted = re.sub(r'["“‘][^"”’]*["”’]', "", lowered)
+        value = 0.0
+        if draft.format_name and draft.format_name.lower() not in recent_names:
+            value += 4.0
+        if draft.use_self_reply and draft.self_reply:
+            value += 2.0
+        if any(token in lowered for token in ("bro", "nah", "lmao", "lol", "😭", "💀", "literally")):
+            value += 2.0
+        if any(token in lowered for token in ("we are", "we're", "they really", "imagine", "meanwhile")):
+            value += 1.0
+        if "?" not in text:
+            value += 1.5
+        if len(text) <= 180:
+            value += 1.0
+        if len(text) <= 140:
+            value += 0.5
+        if len(text) >= 90 and len(text) <= 220:
+            value += 0.5
+        if any(char in text for char in ("!", "—", "…")):
+            value += 0.5
+        if text[:1].islower():
+            value += 0.25
+        if any(phrase in unquoted for phrase in BANNED_STYLE_PHRASES):
+            value -= 4.0
+        return value
+
+    return max(drafts, key=score)
+
+
+def generate_quote(source: dict, format_memory: list[dict] | None = None) -> QuoteDraft:
+    format_memory = format_memory or []
+    prompt = _prompt(source, format_memory)
     cloudflare_error: GeminiError | None = None
 
     try:
         raw_candidates = _cloudflare_candidates(prompt)
         drafts: list[QuoteDraft] = []
         for raw in raw_candidates:
-            cleaned = _clean_generated_post(raw)
-            if not cleaned:
+            draft = _parse_experiment(raw)
+            if not draft.should_quote:
                 continue
-            draft = _repair_missing_source_quote(QuoteDraft(True, cleaned, ""), source)
-            if not draft.should_quote or not draft.quote_text:
+            draft = _repair_missing_source_quote(draft, source)
+            if not draft.quote_text:
                 continue
             drafts.append(_validate_quote_against_source(draft, source))
         if drafts:
-            return _pick_best_draft(drafts)
-        cloudflare_error = GeminiError("Cloudflare generated no usable quote-post candidates.")
+            return _pick_best_draft(drafts, format_memory)
+        cloudflare_error = GeminiError("Cloudflare generated no usable experiment candidates.")
     except GeminiError as exc:
         cloudflare_error = exc
 
@@ -438,19 +565,21 @@ def generate_quote(source: dict) -> QuoteDraft:
         f"{cloudflare_error}"
     )
 
+    fallback_prompt = prompt + """
+
+Generate only ONE candidate for Lane A: clear, funny, understandable, but still distinctive.
+"""
     payload = {
-        "contents": [{"parts": [{"text": prompt}]}],
+        "contents": [{"parts": [{"text": fallback_prompt}]}],
         "generationConfig": {
             "temperature": 0.95,
-            "maxOutputTokens": 220,
+            "maxOutputTokens": 260,
+            "responseMimeType": "application/json",
         },
     }
 
-    raw = _extract_text(_post_json(payload))
-    cleaned = _clean_generated_post(raw)
-    if not cleaned:
-        raise GeminiError("Gemini returned an empty quote-post.")
-    draft = _repair_missing_source_quote(QuoteDraft(True, cleaned, ""), source)
+    draft = _parse_experiment(_extract_text(_post_json(payload)))
+    draft = _repair_missing_source_quote(draft, source)
     return _validate_quote_against_source(draft, source)
 
 
