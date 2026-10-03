@@ -186,6 +186,16 @@ def _extract_text(payload: dict) -> str:
 
 def _prompt(source: dict, format_memory: list[dict] | None = None) -> str:
     fragments = _quote_options(str(source["text"]))
+    break_mode = random.random() < 0.45
+    mode_text = (
+        "BREAK MODE IS ON: reject familiar meme templates. Invent a new interaction primitive "
+        "from scratch for this source. It can be a new notation, fictional system, strange rule, "
+        "fake measurement, mini-game, classification, or social ritual. Do not copy a known format."
+        if break_mode
+        else
+        "NORMAL MODE: a strong mutation of a familiar comedy mechanism is allowed, but still prefer "
+        "a fresh structure over a stock meme template."
+    )
     options = "\n".join(f"- \"{item}\"" for item in fragments)
     recent_formats = format_memory[-10:] if format_memory else []
     memory_text = "\n".join(
@@ -208,6 +218,8 @@ No "thoughts?", no "what do you think?", no empty engagement tricks.
 FORMAT LAB:
 Recent formats already used by this account:
 {memory_text}
+
+{mode_text}
 
 Do NOT recycle a recent format name, structure, opening, or punchline mechanism unless you mutate it substantially.
 
@@ -242,7 +254,7 @@ REPLY-CHAIN DESIGN:
 Sometimes the best bit is a main post followed by ONE self-reply.
 Set use_self_reply=true only when the self-reply materially improves the joke.
 The self-reply should feel like "evidence", a second punchline, a fake receipt, a callback,
-a tiny escalation, or an invented artifact—not a generic explanation.
+a tiny escalation, an invented artifact, or a newly invented rule that expands the bit—not a generic explanation.
 Never ask a question.
 If used, keep it under 240 characters.
 
