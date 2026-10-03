@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-03",
-  "daily_count": 6,
-  "ai_call_count": 6,
-  "last_posted_at": "2026-10-03T12:31:26.455054+00:00",
-  "last_source_tweet_id": "2106147184693620924",
-  "last_tweet_id": "2106361481851965783",
+  "daily_count": 8,
+  "ai_call_count": 7,
+  "last_posted_at": "2026-10-03T15:01:52.921619+00:00",
+  "last_source_tweet_id": "2106119810509881791",
+  "last_tweet_id": "2106399341929717810",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -22,8 +22,18 @@
     "2106226725428572371",
     "2106252868307271752",
     "2106125468365918268",
-    "2106147184693620924"
+    "2106147184693620924",
+    "2106119810509881791"
   ],
   "skipped_source_tweet_ids": [],
-  "format_lab": []
+  "format_lab": [
+    {
+      "format_name": "federal indictment speedrun",
+      "comedy_mechanism": "contrasting normal tech influencer posting behavior with absurd cartel-level criminal enterprise framing",
+      "used_at": "2026-10-03T15:01:52.921581+00:00",
+      "topic": "Claude AI",
+      "self_reply": true,
+      "tweet_id": "2106399340499738870"
+    }
+  ]
 }
