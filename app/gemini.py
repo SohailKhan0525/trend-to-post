@@ -413,18 +413,34 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
         raise GeminiError("Generated self-reply is too long.")
     if draft.self_reply:
         reply_lower = draft.self_reply.lower()
-        if any(term in reply_lower for term in BLOCKED_OUTPUT_TERMS):
+            if _contains_blocked_output_term(draft.self_reply):
             raise GeminiError("Generated self-reply contained blocked political/current-affairs content.")
         if any(phrase in reply_lower for phrase in BANNED_STYLE_PHRASES):
             raise GeminiError("Generated self-reply used generic engagement phrasing.")
     lowered = text.lower()
     unquoted = re.sub(r'["“‘][^"”’]*["”’]', "", lowered)
-    if any(term in unquoted for term in BLOCKED_OUTPUT_TERMS):
+    if _contains_blocked_output_term(unquoted):
         raise GeminiError("Generated quote-post contained blocked political/current-affairs content.")
     if any(phrase in unquoted for phrase in BANNED_STYLE_PHRASES):
         raise GeminiError("Generated quote-post used generic engagement or corporate phrasing.")
 
     return draft
+
+
+def _contains_blocked_output_term(text: str) -> bool:
+    normalized = " ".join(
+        "".join(char.lower() if char.isalnum() else " " for char in text).split()
+    )
+    words = normalized.split()
+    for term in BLOCKED_OUTPUT_TERMS:
+        needle = " ".join(
+            "".join(char.lower() if char.isalnum() else " " for char in term).split()
+        )
+        parts = needle.split()
+        width = len(parts)
+        if width and any(words[i:i + width] == parts for i in range(max(0, len(words) - width + 1))):
+            return True
+    return False
 
 
 def _clean_generated_post(text: str) -> str:
@@ -502,7 +518,7 @@ def _parse_experiment(text: str) -> QuoteDraft:
     self_reply = " ".join(str(data.get("self_reply", "")).split()).strip()
     use_self_reply = bool(data.get("use_self_reply")) and bool(self_reply)
 
-    if not post:
+    if should_post and not post:
         raise GeminiError("AI returned no main quote-post text.")
 
     return QuoteDraft(
