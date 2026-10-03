@@ -225,7 +225,7 @@ async def post_next(
             try:
                 reply = await client.create_tweet(
                     text=draft.self_reply.strip(),
-                    reply_to_tweet_id=str(getattr(tweet, "id", "") or ""),
+                    reply_to=str(getattr(tweet, "id", "") or ""),
                 )
                 self_reply_posted = True
                 self_reply_id = str(getattr(reply, "id", "") or "")
