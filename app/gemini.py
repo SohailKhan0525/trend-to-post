@@ -413,7 +413,7 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
         raise GeminiError("Generated self-reply is too long.")
     if draft.self_reply:
         reply_lower = draft.self_reply.lower()
-            if _contains_blocked_output_term(draft.self_reply):
+        if _contains_blocked_output_term(draft.self_reply):
             raise GeminiError("Generated self-reply contained blocked political/current-affairs content.")
         if any(phrase in reply_lower for phrase in BANNED_STYLE_PHRASES):
             raise GeminiError("Generated self-reply used generic engagement phrasing.")
