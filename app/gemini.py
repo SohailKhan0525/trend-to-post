@@ -15,6 +15,13 @@ CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}
 MAX_QUOTE_CHARS = 260
 MAX_API_ATTEMPTS_PER_KEY = 3
 CLOUDFLARE_CANDIDATE_COUNT = 2
+BLOCKED_OUTPUT_TERMS = (
+    "election", "elections", "president", "presidential", "prime minister",
+    "parliament", "congress", "senate", "government", "governor", "minister",
+    "politician", "politics", "political", "vote", "voting", "ballot", "campaign",
+    "democrat", "republican", "labour", "conservative party", "liberal party",
+    "maga", "war", "military", "geopolitics",
+)
 BANNED_STYLE_PHRASES = (
     "this highlights",
     "it's worth noting",
@@ -406,10 +413,14 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
         raise GeminiError("Generated self-reply is too long.")
     if draft.self_reply:
         reply_lower = draft.self_reply.lower()
+        if any(term in reply_lower for term in BLOCKED_OUTPUT_TERMS):
+            raise GeminiError("Generated self-reply contained blocked political/current-affairs content.")
         if any(phrase in reply_lower for phrase in BANNED_STYLE_PHRASES):
             raise GeminiError("Generated self-reply used generic engagement phrasing.")
     lowered = text.lower()
     unquoted = re.sub(r'["“‘][^"”’]*["”’]', "", lowered)
+    if any(term in unquoted for term in BLOCKED_OUTPUT_TERMS):
+        raise GeminiError("Generated quote-post contained blocked political/current-affairs content.")
     if any(phrase in unquoted for phrase in BANNED_STYLE_PHRASES):
         raise GeminiError("Generated quote-post used generic engagement or corporate phrasing.")
 
