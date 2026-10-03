@@ -31,6 +31,7 @@ def _today() -> str:
 
 def _new_state() -> dict:
     return {
+        "format_lab": [],
         "day_key": _today(),
         "daily_count": 0,
         "ai_call_count": 0,
@@ -82,6 +83,13 @@ def _load_state() -> dict:
     state["posted_source_tweet_ids"] = _history(
         state.get("posted_source_tweet_ids", [])
     )
+    lab = state.get("format_lab", [])
+    if not isinstance(lab, list):
+        raise QueueError("State format_lab must be a list.")
+    state["format_lab"] = [
+        item for item in lab[-20:]
+        if isinstance(item, dict)
+    ]
     state["skipped_source_tweet_ids"] = _history(
         state.get("skipped_source_tweet_ids", [])
     )
@@ -182,11 +190,11 @@ async def post_next(
         payload = _source_dict(source)
 
         # Cloudflare is primary; Gemini 3.5 Flash-Lite is the fallback.
-        # The application-level generation cap prevents repeated workflow
-        # dispatches from draining provider quotas indefinitely.
-        draft = generate_quote(payload)
+        # Consume the application-level generation budget before calling a provider
+        # so repeated provider failures cannot bypass the daily guard.
         state["ai_call_count"] += 1
         _save_state(state)
+        draft = generate_quote(payload, state["format_lab"])
     except (TrendSourceError, GeminiError) as exc:
         raise QueueError(str(exc)) from exc
 
@@ -210,16 +218,46 @@ async def post_next(
     except Exception as exc:
         raise QueueError(f"X post failed: {exc}") from exc
 
+    self_reply_posted = False
+    self_reply_id = ""
+    if draft.use_self_reply and draft.self_reply.strip():
+        if state["daily_count"] + 2 <= POSTS_PER_DAY:
+            try:
+                reply = await client.create_tweet(
+                    text=draft.self_reply.strip(),
+                    reply_to_tweet_id=str(getattr(tweet, "id", "") or ""),
+                )
+                self_reply_posted = True
+                self_reply_id = str(getattr(reply, "id", "") or "")
+                print(f"Posted experimental self-reply: {draft.self_reply.strip()}")
+            except Exception as exc:
+                print(f"Self-reply skipped: {exc}")
+        else:
+            print("Self-reply skipped: daily post cap would be exceeded.")
+
+    lab = state["format_lab"]
+    lab.append(
+        {
+            "format_name": draft.format_name or "unnamed format",
+            "comedy_mechanism": draft.comedy_mechanism,
+            "used_at": datetime.now(timezone.utc).isoformat(),
+            "topic": source.trend,
+            "self_reply": self_reply_posted,
+            "tweet_id": str(getattr(tweet, "id", "") or ""),
+        }
+    )
+    state["format_lab"] = lab[-20:]
+
     posted = state["posted_source_tweet_ids"]
     posted.append(source.tweet_id)
     state["posted_source_tweet_ids"] = posted[-SOURCE_HISTORY_LIMIT:]
     state.update(
         {
             "day_key": _today(),
-            "daily_count": int(state["daily_count"]) + 1,
+            "daily_count": int(state["daily_count"]) + (2 if self_reply_posted else 1),
+            "last_tweet_id": self_reply_id or str(getattr(tweet, "id", "") or ""),
             "last_posted_at": datetime.now(timezone.utc).isoformat(),
             "last_source_tweet_id": source.tweet_id,
-            "last_tweet_id": str(getattr(tweet, "id", "") or ""),
         }
     )
     _save_state(state)
@@ -227,5 +265,6 @@ async def post_next(
     print(
         f"Posted quote #{state['daily_count']}/{POSTS_PER_DAY}; "
         f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
+        f" Format={draft.format_name or 'unnamed'}"
     )
     return True
