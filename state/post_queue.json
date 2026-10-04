@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-04",
-  "daily_count": 6,
-  "ai_call_count": 3,
-  "last_posted_at": "2026-10-04T05:01:43.476281+00:00",
-  "last_source_tweet_id": "2106439068557144179",
-  "last_tweet_id": "2106610695299338684",
+  "daily_count": 8,
+  "ai_call_count": 4,
+  "last_posted_at": "2026-10-04T07:31:26.289125+00:00",
+  "last_source_tweet_id": "2106610099720720811",
+  "last_tweet_id": "2106648371704578262",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -27,7 +27,8 @@
     "2106420478273286424",
     "2106401263089029122",
     "2106388373221118198",
-    "2106439068557144179"
+    "2106439068557144179",
+    "2106610099720720811"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
@@ -70,6 +71,14 @@
       "topic": "OpenAI",
       "self_reply": true,
       "tweet_id": "2106610693869015197"
+    },
+    {
+      "format_name": "corporate sermon translation protocol",
+      "comedy_mechanism": "juxtaposing heavy-handed executive product jargon with an embarrassingly mundane failure in reality",
+      "used_at": "2026-10-04T07:31:26.289090+00:00",
+      "topic": "ChatGPT",
+      "self_reply": true,
+      "tweet_id": "2106648369653223880"
     }
   ]
 }
