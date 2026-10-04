@@ -1,10 +1,10 @@
 {
-  "day_key": "2026-10-03",
-  "daily_count": 10,
-  "ai_call_count": 8,
-  "last_posted_at": "2026-10-03T17:31:27.365305+00:00",
-  "last_source_tweet_id": "2106420478273286424",
-  "last_tweet_id": "2106436983509709006",
+  "day_key": "2026-10-04",
+  "daily_count": 2,
+  "ai_call_count": 1,
+  "last_posted_at": "2026-10-04T00:01:50.740137+00:00",
+  "last_source_tweet_id": "2106401263089029122",
+  "last_tweet_id": "2106535228084998319",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -24,7 +24,8 @@
     "2106125468365918268",
     "2106147184693620924",
     "2106119810509881791",
-    "2106420478273286424"
+    "2106420478273286424",
+    "2106401263089029122"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
@@ -43,6 +44,14 @@
       "topic": "ChatGPT",
       "self_reply": true,
       "tweet_id": "2106436982050070972"
+    },
+    {
+      "format_name": "ai grievance audit",
+      "comedy_mechanism": "framing an absurdly minor software latency complaint as a high-stakes interpersonal betrayal",
+      "used_at": "2026-10-04T00:01:50.740099+00:00",
+      "topic": "ChatGPT",
+      "self_reply": true,
+      "tweet_id": "2106535225677250966"
     }
   ]
 }
