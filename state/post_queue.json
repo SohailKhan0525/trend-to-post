@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-04",
-  "daily_count": 4,
-  "ai_call_count": 2,
-  "last_posted_at": "2026-10-04T02:31:32.210847+00:00",
-  "last_source_tweet_id": "2106388373221118198",
-  "last_tweet_id": "2106572898978959795",
+  "daily_count": 6,
+  "ai_call_count": 3,
+  "last_posted_at": "2026-10-04T05:01:43.476281+00:00",
+  "last_source_tweet_id": "2106439068557144179",
+  "last_tweet_id": "2106610695299338684",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -26,7 +26,8 @@
     "2106119810509881791",
     "2106420478273286424",
     "2106401263089029122",
-    "2106388373221118198"
+    "2106388373221118198",
+    "2106439068557144179"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
@@ -61,6 +62,14 @@
       "topic": "OpenAI",
       "self_reply": true,
       "tweet_id": "2106572896625897501"
+    },
+    {
+      "format_name": "developer trauma confessional taxonomy",
+      "comedy_mechanism": "framing a standard feature request prompt as a spiritual intervention where developers are forced to confront their internal emptiness",
+      "used_at": "2026-10-04T05:01:43.476236+00:00",
+      "topic": "OpenAI",
+      "self_reply": true,
+      "tweet_id": "2106610693869015197"
     }
   ]
 }
