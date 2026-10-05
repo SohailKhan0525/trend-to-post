@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-05",
-  "daily_count": 4,
-  "ai_call_count": 2,
-  "last_posted_at": "2026-10-05T02:31:31.932573+00:00",
-  "last_source_tweet_id": "2106882728193098052",
-  "last_tweet_id": "2106935285754032590",
+  "daily_count": 6,
+  "ai_call_count": 3,
+  "last_posted_at": "2026-10-05T05:01:45.706727+00:00",
+  "last_source_tweet_id": "2106897350820012102",
+  "last_tweet_id": "2106973092337893394",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -31,7 +31,8 @@
     "2106610099720720811",
     "2106432039817998463",
     "2106863630419710307",
-    "2106882728193098052"
+    "2106882728193098052",
+    "2106897350820012102"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
@@ -106,6 +107,14 @@
       "topic": "OpenAI",
       "self_reply": true,
       "tweet_id": "2106935283585310968"
+    },
+    {
+      "format_name": "tech bro actuarial audit",
+      "comedy_mechanism": "framing a billionaire's dystopia trade-off as a mundane insurance spreadsheet item",
+      "used_at": "2026-10-05T05:01:45.706672+00:00",
+      "topic": "OpenAI",
+      "self_reply": true,
+      "tweet_id": "2106973090248831346"
     }
   ]
 }
