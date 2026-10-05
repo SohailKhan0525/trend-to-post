@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-05",
-  "daily_count": 6,
-  "ai_call_count": 3,
-  "last_posted_at": "2026-10-05T05:01:45.706727+00:00",
-  "last_source_tweet_id": "2106897350820012102",
-  "last_tweet_id": "2106973092337893394",
+  "daily_count": 8,
+  "ai_call_count": 4,
+  "last_posted_at": "2026-10-05T07:31:29.837574+00:00",
+  "last_source_tweet_id": "2106912161041649681",
+  "last_tweet_id": "2107010774459875762",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -32,7 +32,8 @@
     "2106432039817998463",
     "2106863630419710307",
     "2106882728193098052",
-    "2106897350820012102"
+    "2106897350820012102",
+    "2106912161041649681"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
@@ -115,6 +116,14 @@
       "topic": "OpenAI",
       "self_reply": true,
       "tweet_id": "2106973090248831346"
+    },
+    {
+      "format_name": "product roadmap emergency containment protocol",
+      "comedy_mechanism": "framing a standard corporate feature consolidation as an emergency containment drill for a structural engineering failure",
+      "used_at": "2026-10-05T07:31:29.837534+00:00",
+      "topic": "ChatGPT",
+      "self_reply": true,
+      "tweet_id": "2107010773176422462"
     }
   ]
 }
