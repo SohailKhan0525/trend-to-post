@@ -48,7 +48,7 @@ jobs:
               exit 0
             fi
             delay=$((attempt * 5))
-            echo "git fetch failed (attempt $attempt/5); retrying in $delay""s..."
+            echo "git fetch failed (attempt $attempt/5); retrying in ${delay}s..."
             sleep "$delay"
           done
 
@@ -89,17 +89,39 @@ jobs:
           git add state/post_queue.json
           git commit -m "chore: update quote bot state"
 
-          for attempt in 1 2 3; do
+          for attempt in 1 2 3 4 5; do
             if git push; then
               exit 0
             fi
-            echo "git push failed; refreshing main before retry $((attempt + 1))."
-            git fetch origin main
+
+            echo "git push failed (attempt $attempt/5). Retrying the push before fetching."
+            sleep $((attempt * 3))
+
+            if git push; then
+              exit 0
+            fi
+
+            echo "Direct push retry failed; refreshing main before the next attempt."
+            fetched=false
+            for fetch_attempt in 1 2 3; do
+              if git fetch --no-tags origin main; then
+                fetched=true
+                break
+              fi
+              echo "git fetch failed (attempt $fetch_attempt/3); retrying in 5s."
+              sleep 5
+            done
+
+            if test "$fetched" != true; then
+              echo "GitHub is still temporarily unreachable; retrying the push loop."
+              continue
+            fi
+
             git rebase origin/main || {
               echo "Unable to rebase bot state onto origin/main."
               exit 1
             }
           done
 
-          echo "Failed to push bot state after 3 attempts."
+          echo "Failed to push bot state after 5 attempts."
           exit 1
