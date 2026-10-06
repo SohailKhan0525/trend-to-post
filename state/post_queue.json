@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-06",
-  "daily_count": 6,
-  "ai_call_count": 3,
-  "last_posted_at": "2026-10-06T05:01:50.529771+00:00",
-  "last_source_tweet_id": "2107311729768353844",
-  "last_tweet_id": "2107335500369666188",
+  "daily_count": 8,
+  "ai_call_count": 4,
+  "last_posted_at": "2026-10-06T07:31:32.408112+00:00",
+  "last_source_tweet_id": "2107248329918644627",
+  "last_tweet_id": "2107373173192970543",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -37,7 +37,8 @@
     "2106978557222334833",
     "2107164650249101695",
     "2107112781854245256",
-    "2107311729768353844"
+    "2107311729768353844",
+    "2107248329918644627"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
@@ -160,6 +161,14 @@
       "topic": "ChatGPT",
       "self_reply": true,
       "tweet_id": "2107335498276516199"
+    },
+    {
+      "format_name": "macroeconomic hostage crisis census",
+      "comedy_mechanism": "contrasting massive tech industry valuation hype with an embarrassingly tiny, hyper-specific consumer reality",
+      "used_at": "2026-10-06T07:31:32.408066+00:00",
+      "topic": "ChatGPT",
+      "self_reply": true,
+      "tweet_id": "2107373170890088674"
     }
   ]
 }
