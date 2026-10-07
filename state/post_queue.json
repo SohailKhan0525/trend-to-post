@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-07",
-  "daily_count": 6,
-  "ai_call_count": 3,
-  "last_posted_at": "2026-10-07T05:01:52.963689+00:00",
-  "last_source_tweet_id": "2107360959157436462",
-  "last_tweet_id": "2107697898507169921",
+  "daily_count": 8,
+  "ai_call_count": 4,
+  "last_posted_at": "2026-10-07T07:31:30.034355+00:00",
+  "last_source_tweet_id": "2107613388729974839",
+  "last_tweet_id": "2107735551130337658",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -42,18 +42,11 @@
     "2107377339311198453",
     "2107567930557026653",
     "2107596713791767021",
-    "2107360959157436462"
+    "2107360959157436462",
+    "2107613388729974839"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
-    {
-      "format_name": "federal indictment speedrun",
-      "comedy_mechanism": "contrasting normal tech influencer posting behavior with absurd cartel-level criminal enterprise framing",
-      "used_at": "2026-10-03T15:01:52.921581+00:00",
-      "topic": "Claude AI",
-      "self_reply": true,
-      "tweet_id": "2106399340499738870"
-    },
     {
       "format_name": "kitchen breakdown protocol",
       "comedy_mechanism": "framing a standard tech spec comparison as a devastating domestic financial crisis",
@@ -205,6 +198,14 @@
       "topic": "ChatGPT",
       "self_reply": true,
       "tweet_id": "2107697896003178552"
+    },
+    {
+      "format_name": "digital poltergeist indemnity ledger",
+      "comedy_mechanism": "contrasting a minor software patch note with the psychological horror of a device actively stalking its user",
+      "used_at": "2026-10-07T07:31:30.034322+00:00",
+      "topic": "ChatGPT",
+      "self_reply": true,
+      "tweet_id": "2107735549562040434"
     }
   ]
 }
