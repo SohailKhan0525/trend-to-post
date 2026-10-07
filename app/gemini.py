@@ -631,6 +631,78 @@ Generate one candidate using the mutation method. Prefer original_post when atta
     return _validate_quote_against_source(draft, source)
 
 
+
+def _parse_experiment(text: str) -> QuoteDraft:
+    """Parse the mutation-engine JSON response into a validated draft."""
+    cleaned = _clean_generated_post(text)
+    if not cleaned:
+        raise GeminiError("AI returned an empty experiment response.")
+
+    try:
+        data = json.loads(cleaned)
+    except json.JSONDecodeError as exc:
+        # Be tolerant of a model wrapping otherwise-valid JSON in prose.
+        start = cleaned.find("{")
+        end = cleaned.rfind("}")
+        if start < 0 or end <= start:
+            raise GeminiError("AI returned non-JSON experiment output.") from exc
+        try:
+            data = json.loads(cleaned[start:end + 1])
+        except json.JSONDecodeError as nested_exc:
+            raise GeminiError("AI returned invalid experiment JSON.") from nested_exc
+
+    if not isinstance(data, dict):
+        raise GeminiError("AI experiment response was not a JSON object.")
+
+    should_post = data.get("should_post", True)
+    if isinstance(should_post, str):
+        should_post = should_post.strip().lower() in {"true", "1", "yes"}
+
+    content_type = str(data.get("content_type", "original_post")).strip().lower()
+    if content_type not in {"original_post", "quote_post"}:
+        content_type = "original_post"
+
+    post = data.get("post")
+    if post is None:
+        post = data.get("quote_text", "")
+    post = str(post or "").strip()
+
+    quote_fragment = str(data.get("quote_fragment", "") or "").strip()
+    format_name = str(data.get("format_name", "") or "").strip()
+    comedy_mechanism = str(data.get("comedy_mechanism", "") or "").strip()
+    mutation_stage = str(data.get("mutation_stage", "") or "").strip()
+    structure_signature = str(data.get("structure_signature", "") or "").strip()
+    self_reply = str(data.get("self_reply", "") or "").strip()
+    use_self_reply = data.get("use_self_reply", False)
+
+    if isinstance(use_self_reply, str):
+        use_self_reply = use_self_reply.strip().lower() in {"true", "1", "yes"}
+
+    if content_type == "quote_post" and quote_fragment and post:
+        # If the model supplied the fragment separately but omitted quotation
+        # marks in the post, preserve the requested quote-post contract.
+        quoted_forms = (
+            f'"{quote_fragment}"',
+            f"“{quote_fragment}”",
+            f"‘{quote_fragment}’",
+        )
+        if not any(form in post for form in quoted_forms):
+            post = f'{post} "{quote_fragment}"'.strip()
+
+    return QuoteDraft(
+        bool(should_post),
+        post,
+        quote_fragment,
+        format_name,
+        comedy_mechanism,
+        self_reply,
+        bool(use_self_reply),
+        content_type,
+        mutation_stage,
+        structure_signature,
+    )
+
+
 def _parse_quote_json(text: str) -> QuoteDraft:
     cleaned = _clean_generated_post(text)
     if not cleaned:
