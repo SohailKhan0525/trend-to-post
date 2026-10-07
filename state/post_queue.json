@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-07",
-  "daily_count": 12,
-  "ai_call_count": 10,
-  "last_posted_at": "2026-10-07T13:54:30.535018+00:00",
-  "last_source_tweet_id": "2107645772623720753",
-  "last_tweet_id": "2107831938392441181",
+  "daily_count": 14,
+  "ai_call_count": 11,
+  "last_posted_at": "2026-10-07T15:31:48.295266+00:00",
+  "last_source_tweet_id": "2107795501068468503",
+  "last_tweet_id": "2107856423690412040",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -45,18 +45,11 @@
     "2107360959157436462",
     "2107613388729974839",
     "2107508612058747114",
-    "2107645772623720753"
+    "2107645772623720753",
+    "2107795501068468503"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
-    {
-      "format_name": "prophet accountability audit",
-      "comedy_mechanism": "contrasting solemn safety warnings with playground-tier banter about having built the exact altar everyone is bowing to",
-      "used_at": "2026-10-04T02:31:32.210803+00:00",
-      "topic": "OpenAI",
-      "self_reply": true,
-      "tweet_id": "2106572896625897501"
-    },
     {
       "format_name": "developer trauma confessional taxonomy",
       "comedy_mechanism": "framing a standard feature request prompt as a spiritual intervention where developers are forced to confront their internal emptiness",
@@ -211,9 +204,21 @@
       "content_type": "original_post",
       "mutation_stage": "cross_domain_collision",
       "structure_signature": "archaeological discovery punchline"
+    },
+    {
+      "format_name": "patch note existentialism",
+      "comedy_mechanism": "treating a legendary professional career as an obsessive completionist run of a mediocre live-service game",
+      "used_at": "2026-10-07T15:31:48.295220+00:00",
+      "topic": "football",
+      "self_reply": true,
+      "tweet_id": "2107856422608240682",
+      "content_type": "original_post",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "one-sentence gaming analogy applied to elite sports"
     }
   ],
   "recent_post_fingerprints": [
-    "archaeological discovery punchline"
+    "archaeological discovery punchline",
+    "one-sentence gaming analogy applied to elite sports"
   ]
 }
