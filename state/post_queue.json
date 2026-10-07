@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-07",
-  "daily_count": 14,
-  "ai_call_count": 11,
-  "last_posted_at": "2026-10-07T15:31:48.295266+00:00",
-  "last_source_tweet_id": "2107795501068468503",
-  "last_tweet_id": "2107856423690412040",
+  "daily_count": 16,
+  "ai_call_count": 12,
+  "last_posted_at": "2026-10-07T17:03:44.273130+00:00",
+  "last_source_tweet_id": "2107623610483720463",
+  "last_tweet_id": "2107879559492432337",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -46,18 +46,11 @@
     "2107613388729974839",
     "2107508612058747114",
     "2107645772623720753",
-    "2107795501068468503"
+    "2107795501068468503",
+    "2107623610483720463"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
-    {
-      "format_name": "developer trauma confessional taxonomy",
-      "comedy_mechanism": "framing a standard feature request prompt as a spiritual intervention where developers are forced to confront their internal emptiness",
-      "used_at": "2026-10-04T05:01:43.476236+00:00",
-      "topic": "OpenAI",
-      "self_reply": true,
-      "tweet_id": "2106610693869015197"
-    },
     {
       "format_name": "corporate sermon translation protocol",
       "comedy_mechanism": "juxtaposing heavy-handed executive product jargon with an embarrassingly mundane failure in reality",
@@ -215,10 +208,22 @@
       "content_type": "original_post",
       "mutation_stage": "premise_inversion",
       "structure_signature": "one-sentence gaming analogy applied to elite sports"
+    },
+    {
+      "format_name": "loading bar existentialism",
+      "comedy_mechanism": "contrasting grandiose corporate marketing telemetry with the mundane reality of having nothing built",
+      "used_at": "2026-10-07T17:03:44.273090+00:00",
+      "topic": "OpenAI",
+      "self_reply": true,
+      "tweet_id": "2107879558645244321",
+      "content_type": "original_post",
+      "mutation_stage": "structural_break",
+      "structure_signature": "fake UI progress bar followed by status log"
     }
   ],
   "recent_post_fingerprints": [
     "archaeological discovery punchline",
-    "one-sentence gaming analogy applied to elite sports"
+    "one-sentence gaming analogy applied to elite sports",
+    "fake UI progress bar followed by status log"
   ]
 }
