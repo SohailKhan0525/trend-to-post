@@ -1,10 +1,10 @@
 {
-  "day_key": "2026-10-06",
-  "daily_count": 10,
-  "ai_call_count": 5,
-  "last_posted_at": "2026-10-06T10:01:52.890343+00:00",
-  "last_source_tweet_id": "2107377339311198453",
-  "last_tweet_id": "2107411007932964995",
+  "day_key": "2026-10-07",
+  "daily_count": 2,
+  "ai_call_count": 1,
+  "last_posted_at": "2026-10-07T00:01:54.307859+00:00",
+  "last_source_tweet_id": "2107567930557026653",
+  "last_tweet_id": "2107622406755877100",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -39,7 +39,8 @@
     "2107112781854245256",
     "2107311729768353844",
     "2107248329918644627",
-    "2107377339311198453"
+    "2107377339311198453",
+    "2107567930557026653"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
@@ -178,6 +179,14 @@
       "topic": "ChatGPT",
       "self_reply": true,
       "tweet_id": "2107411006536245495"
+    },
+    {
+      "format_name": "workplace paranoia telemetry",
+      "comedy_mechanism": "contrasting the mundane corporate feature of meeting notes with an oppressive, omniscient entity archiving your professional humiliation",
+      "used_at": "2026-10-07T00:01:54.307822+00:00",
+      "topic": "ChatGPT",
+      "self_reply": true,
+      "tweet_id": "2107622405237539149"
     }
   ]
 }
