@@ -205,8 +205,19 @@ async def post_next(
         # so repeated provider failures cannot bypass the daily guard.
         state["ai_call_count"] += 1
         _save_state(state)
-        draft = generate_quote(payload, state["format_lab"])
-    except (TrendSourceError, GeminiError) as exc:
+        try:
+            draft = generate_quote(payload, state["format_lab"])
+        except GeminiError as exc:
+            skipped = state["skipped_source_tweet_ids"]
+            skipped.append(source.tweet_id)
+            state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+            _save_state(state)
+            print(
+                "AI could not produce a policy-safe candidate after retries; "
+                f"source skipped safely: {exc}"
+            )
+            return False
+    except TrendSourceError as exc:
         raise QueueError(str(exc)) from exc
 
     if not draft.should_quote:
