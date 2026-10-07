@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-07",
-  "daily_count": 18,
-  "ai_call_count": 13,
-  "last_posted_at": "2026-10-07T18:31:38.598500+00:00",
-  "last_source_tweet_id": "2107894039626277339",
-  "last_tweet_id": "2107901681534967873",
+  "daily_count": 20,
+  "ai_call_count": 14,
+  "last_posted_at": "2026-10-07T20:01:55.569394+00:00",
+  "last_source_tweet_id": "2107800195748737042",
+  "last_tweet_id": "2107924401828368655",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -48,18 +48,11 @@
     "2107645772623720753",
     "2107795501068468503",
     "2107623610483720463",
-    "2107894039626277339"
+    "2107894039626277339",
+    "2107800195748737042"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
-    {
-      "format_name": "patch note gaslighting index",
-      "comedy_mechanism": "comparing minor software model updates to shady video game balance patches where developers secretly ruin a mechanic",
-      "used_at": "2026-10-04T10:01:45.389640+00:00",
-      "topic": "Claude AI",
-      "self_reply": true,
-      "tweet_id": "2106686199368708546"
-    },
     {
       "format_name": "civilian tech archeology report",
       "comedy_mechanism": "framing ordinary clueless software consumers as primitive archaeological subjects discovering alien ruins",
@@ -223,12 +216,24 @@
       "content_type": "original_post",
       "mutation_stage": "cross_domain_collision",
       "structure_signature": "archaeological discovery punchline"
+    },
+    {
+      "format_name": "engine crash report artifact",
+      "comedy_mechanism": "",
+      "used_at": "2026-10-07T20:01:55.569352+00:00",
+      "topic": "AI coding",
+      "self_reply": true,
+      "tweet_id": "2107924399772799303",
+      "content_type": "original_post",
+      "mutation_stage": "structural_break",
+      "structure_signature": "fake compiler error log with metadata fields"
     }
   ],
   "recent_post_fingerprints": [
     "archaeological discovery punchline",
     "one-sentence gaming analogy applied to elite sports",
     "fake UI progress bar followed by status log",
-    "archaeological discovery punchline"
+    "archaeological discovery punchline",
+    "fake compiler error log with metadata fields"
   ]
 }
