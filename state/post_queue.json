@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-07",
-  "daily_count": 4,
-  "ai_call_count": 2,
-  "last_posted_at": "2026-10-07T02:31:47.513172+00:00",
-  "last_source_tweet_id": "2107596713791767021",
-  "last_tweet_id": "2107660127050588329",
+  "daily_count": 6,
+  "ai_call_count": 3,
+  "last_posted_at": "2026-10-07T05:01:52.963689+00:00",
+  "last_source_tweet_id": "2107360959157436462",
+  "last_tweet_id": "2107697898507169921",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -41,7 +41,8 @@
     "2107248329918644627",
     "2107377339311198453",
     "2107567930557026653",
-    "2107596713791767021"
+    "2107596713791767021",
+    "2107360959157436462"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
@@ -196,6 +197,14 @@
       "topic": "ChatGPT",
       "self_reply": true,
       "tweet_id": "2107660125695771118"
+    },
+    {
+      "format_name": "astrological usage tariff audit",
+      "comedy_mechanism": "framing a missing corporate feature as an occult pricing tier where you pay with abstract human vitality instead of dollars",
+      "used_at": "2026-10-07T05:01:52.963650+00:00",
+      "topic": "ChatGPT",
+      "self_reply": true,
+      "tweet_id": "2107697896003178552"
     }
   ]
 }
