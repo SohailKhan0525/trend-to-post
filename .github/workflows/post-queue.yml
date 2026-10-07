@@ -1,4 +1,4 @@
-name: Post X Quote
+name: Post X
 
 on:
   workflow_dispatch:
