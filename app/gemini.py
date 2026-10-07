@@ -589,14 +589,19 @@ def generate_quote(source: dict, format_memory: list[dict] | None = None) -> Quo
     try:
         raw_candidates = _cloudflare_candidates(prompt)
         drafts: list[QuoteDraft] = []
+        rejected_candidates = 0
         for raw in raw_candidates:
-            draft = _parse_experiment(raw)
-            if not draft.should_quote:
-                continue
-            draft = _repair_missing_source_quote(draft, source)
-            if not draft.quote_text:
-                continue
-            drafts.append(_validate_quote_against_source(draft, source))
+            try:
+                draft = _parse_experiment(raw)
+                if not draft.should_quote:
+                    continue
+                draft = _repair_missing_source_quote(draft, source)
+                if not draft.quote_text:
+                    continue
+                drafts.append(_validate_quote_against_source(draft, source))
+            except GeminiError as exc:
+                rejected_candidates += 1
+                print(f"Cloudflare candidate rejected: {exc}")
         if drafts:
             return _pick_best_draft(drafts, format_memory)
         cloudflare_error = GeminiError("Cloudflare generated no usable experiment candidates.")
@@ -626,9 +631,31 @@ Generate one candidate using the mutation method. Prefer original_post when atta
         },
     }
 
-    draft = _parse_experiment(_extract_text(_post_json(payload)))
-    draft = _repair_missing_source_quote(draft, source)
-    return _validate_quote_against_source(draft, source)
+    safety_suffix = """
+
+SAFETY RETRY:
+Your previous candidate may have crossed the political/current-affairs boundary.
+Generate a NEW candidate that stays strictly inside AI, technology, software, products,
+gaming, or sports. Do not mention governments, elections, politicians, military conflict,
+geopolitics, parties, campaigns, or current political events. Do not smuggle those topics
+in as metaphors. Keep the mutation inventive and funny.
+"""
+    last_error: GeminiError | None = None
+    for attempt in range(1, 3):
+        try:
+            retry_payload = payload
+            if attempt == 2:
+                retry_payload = dict(payload)
+                retry_payload["contents"] = [{"parts": [{"text": fallback_prompt + safety_suffix}]}]
+            draft = _parse_experiment(_extract_text(_post_json(retry_payload)))
+            draft = _repair_missing_source_quote(draft, source)
+            return _validate_quote_against_source(draft, source)
+        except GeminiError as exc:
+            last_error = exc
+            print(f"Gemini candidate rejected ({attempt}/2): {exc}")
+            if attempt == 1:
+                continue
+            raise last_error
 
 
 
