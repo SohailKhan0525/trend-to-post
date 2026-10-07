@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-07",
-  "daily_count": 10,
-  "ai_call_count": 9,
-  "last_posted_at": "2026-10-07T10:31:36.790884+00:00",
-  "last_source_tweet_id": "2107508612058747114",
-  "last_tweet_id": "2107780877870928052",
+  "daily_count": 12,
+  "ai_call_count": 10,
+  "last_posted_at": "2026-10-07T13:54:30.535018+00:00",
+  "last_source_tweet_id": "2107645772623720753",
+  "last_tweet_id": "2107831938392441181",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -44,18 +44,11 @@
     "2107596713791767021",
     "2107360959157436462",
     "2107613388729974839",
-    "2107508612058747114"
+    "2107508612058747114",
+    "2107645772623720753"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
-    {
-      "format_name": "ai grievance audit",
-      "comedy_mechanism": "framing an absurdly minor software latency complaint as a high-stakes interpersonal betrayal",
-      "used_at": "2026-10-04T00:01:50.740099+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2106535225677250966"
-    },
     {
       "format_name": "prophet accountability audit",
       "comedy_mechanism": "contrasting solemn safety warnings with playground-tier banter about having built the exact altar everyone is bowing to",
@@ -207,7 +200,20 @@
       "topic": "ChatGPT",
       "self_reply": true,
       "tweet_id": "2107780874846748837"
+    },
+    {
+      "format_name": "historical spreadsheet crime scene",
+      "comedy_mechanism": "contrasting ancient historical importance with modern mundane technical incompetence",
+      "used_at": "2026-10-07T13:54:30.534971+00:00",
+      "topic": "football",
+      "self_reply": true,
+      "tweet_id": "2107831937536839925",
+      "content_type": "original_post",
+      "mutation_stage": "cross_domain_collision",
+      "structure_signature": "archaeological discovery punchline"
     }
   ],
-  "recent_post_fingerprints": []
+  "recent_post_fingerprints": [
+    "archaeological discovery punchline"
+  ]
 }
