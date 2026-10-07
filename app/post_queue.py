@@ -16,9 +16,9 @@ from .trend_source import (
 )
 
 STATE_PATH = Path("state/post_queue.json")
-POSTS_PER_DAY = 10
-AI_GENERATIONS_PER_DAY = 10
-MIN_POST_INTERVAL_MINUTES = 144
+POSTS_PER_DAY = 20
+AI_GENERATIONS_PER_DAY = 20
+MIN_POST_INTERVAL_MINUTES = 72
 
 
 class QueueError(RuntimeError):
@@ -32,6 +32,7 @@ def _today() -> str:
 def _new_state() -> dict:
     return {
         "format_lab": [],
+        "recent_post_fingerprints": [],
         "day_key": _today(),
         "daily_count": 0,
         "ai_call_count": 0,
@@ -83,6 +84,13 @@ def _load_state() -> dict:
     state["posted_source_tweet_ids"] = _history(
         state.get("posted_source_tweet_ids", [])
     )
+    fingerprints = state.get("recent_post_fingerprints", [])
+    if not isinstance(fingerprints, list):
+        raise QueueError("State recent_post_fingerprints must be a list.")
+    state["recent_post_fingerprints"] = [
+        str(item).strip() for item in fingerprints[-30:] if str(item).strip()
+    ]
+
     lab = state.get("format_lab", [])
     if not isinstance(lab, list):
         raise QueueError("State format_lab must be a list.")
@@ -208,13 +216,17 @@ async def post_next(
 
     text = draft.quote_text.strip()
     if not text or len(text) > 280:
-        raise QueueError("AI returned invalid quote-post text length.")
+        raise QueueError("AI returned invalid post text length.")
 
-    print(f"Quote text ({len(text)}/280): {text}")
-    print(f"Quote-post source: {source.url}")
+    print(f"Post text ({len(text)}/280): {text}")
+    if draft.content_type == "quote_post":
+        print(f"Quote-post source: {source.url}")
 
     try:
-        tweet = await client.create_tweet(text=text, attachment_url=source.url)
+        if draft.content_type == "quote_post":
+            tweet = await client.create_tweet(text=text, attachment_url=source.url)
+        else:
+            tweet = await client.create_tweet(text=text)
     except Exception as exc:
         raise QueueError(f"X post failed: {exc}") from exc
 
@@ -244,9 +256,16 @@ async def post_next(
             "topic": source.trend,
             "self_reply": self_reply_posted,
             "tweet_id": str(getattr(tweet, "id", "") or ""),
+            "content_type": draft.content_type,
+            "mutation_stage": draft.mutation_stage,
+            "structure_signature": draft.structure_signature,
         }
     )
     state["format_lab"] = lab[-20:]
+
+    fingerprints = state["recent_post_fingerprints"]
+    fingerprints.append(draft.structure_signature[:180])
+    state["recent_post_fingerprints"] = fingerprints[-30:]
 
     posted = state["posted_source_tweet_ids"]
     posted.append(source.tweet_id)
@@ -263,7 +282,7 @@ async def post_next(
     _save_state(state)
 
     print(
-        f"Posted quote #{state['daily_count']}/{POSTS_PER_DAY}; "
+        f"Posted {draft.content_type} #{state['daily_count']}/{POSTS_PER_DAY}; "
         f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
         f" Format={draft.format_name or 'unnamed'}"
     )
