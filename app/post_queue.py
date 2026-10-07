@@ -133,6 +133,9 @@ def _source_dict(source: SourceTweet) -> dict:
         "favorite_count": source.favorite_count,
         "retweet_count": source.retweet_count,
         "reply_count": source.reply_count,
+        "author_followers": source.author_followers,
+        "author_verified": source.author_verified,
+        "author_professional": source.author_professional,
     }
 
 
