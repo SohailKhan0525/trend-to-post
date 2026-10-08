@@ -283,5 +283,78 @@
     "fake system diagnostic log followed by destructive action mandate",
     "bureaucratic penalty declaration ending in a quote fragment followed by a surreal policy rider",
     "legalistic compliance failure declaration ending in a source quote fragment"
-  ]
+  ],
+  "brand_draft_queue": [],
+  "brand_ai_call_count": 0,
+  "brand_format_lab": [],
+  "brand_tag_day_key": "2026-10-08",
+  "brand_tag_queue": [
+    {
+      "handle": "@Ferrari",
+      "name": "Ferrari",
+      "keywords": [
+        "ferrari",
+        "sf90",
+        "296"
+      ],
+      "selected_at": "2026-10-08T15:01:32.440244+00:00",
+      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
+      "status": "manual_approval_required"
+    },
+    {
+      "handle": "@Porsche",
+      "name": "Porsche",
+      "keywords": [
+        "porsche",
+        "911",
+        "taycan",
+        "macan"
+      ],
+      "selected_at": "2026-10-08T15:01:32.440244+00:00",
+      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
+      "status": "manual_approval_required"
+    },
+    {
+      "handle": "@Tesla",
+      "name": "Tesla",
+      "keywords": [
+        "tesla",
+        "model 3",
+        "model s",
+        "model x",
+        "model y",
+        "cybertruck"
+      ],
+      "selected_at": "2026-10-08T15:01:32.440244+00:00",
+      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
+      "status": "manual_approval_required"
+    },
+    {
+      "handle": "@Discord",
+      "name": "Discord",
+      "keywords": [
+        "discord"
+      ],
+      "selected_at": "2026-10-08T15:01:32.440244+00:00",
+      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
+      "status": "manual_approval_required"
+    },
+    {
+      "handle": "@SlackHQ",
+      "name": "Slack",
+      "keywords": [
+        "slack"
+      ],
+      "selected_at": "2026-10-08T15:01:32.440244+00:00",
+      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
+      "status": "manual_approval_required"
+    }
+  ],
+  "brand_tag_cooldowns": {
+    "@Ferrari": "2026-10-12T15:01:32.440244+00:00",
+    "@Porsche": "2026-10-12T15:01:32.440244+00:00",
+    "@Tesla": "2026-10-12T15:01:32.440244+00:00",
+    "@Discord": "2026-10-12T15:01:32.440244+00:00",
+    "@SlackHQ": "2026-10-12T15:01:32.440244+00:00"
+  }
 }
