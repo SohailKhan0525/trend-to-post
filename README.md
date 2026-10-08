@@ -21,8 +21,7 @@ This repository runs an automated, text-first X account focused on AI, technolog
 
 ## Publishing limits
 
-- Maximum 20 automated posts per UTC day.
-- The 20 posts are split into 15 Quote Posts and 5 company-specific ORIGINAL posts.
+- Maximum 20 total daily content slots: 15 automatically published Quote Posts + 5 manually published company posts.
 - Maximum 20 AI generation calls per UTC day across both lanes combined.
 - Minimum 72 minutes between successful automated posting events.
 - Five company content slots are reserved inside the 20/day quota; they are manual posting slots, not extra posts.
