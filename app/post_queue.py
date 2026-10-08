@@ -7,6 +7,7 @@ from pathlib import Path
 
 from twikit import Client
 
+from .brand_targets import ensure_daily_brand_targets
 from .gemini import GeminiError, generate_quote
 from .trend_source import (
     SOURCE_HISTORY_LIMIT,
@@ -41,6 +42,9 @@ def _new_state() -> dict:
         "last_tweet_id": None,
         "posted_source_tweet_ids": [],
         "skipped_source_tweet_ids": [],
+        "brand_tag_day_key": None,
+        "brand_tag_queue": [],
+        "brand_tag_cooldowns": {},
     }
 
 
@@ -178,6 +182,18 @@ async def post_next(
         )
 
     state = _load_state()
+
+    if ensure_daily_brand_targets(state):
+        _save_state(state)
+        targets = ", ".join(
+            f"{item['handle']} ({item['name']})"
+            for item in state.get("brand_tag_queue", [])
+            if isinstance(item, dict)
+        )
+        print(
+            "Brand target queue refreshed: "
+            f"{targets}. Manual approval required; no unsolicited auto-mentions."
+        )
 
     if state["daily_count"] >= POSTS_PER_DAY:
         print(f"Daily post limit reached: {POSTS_PER_DAY}.")
