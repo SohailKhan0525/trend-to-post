@@ -1,10 +1,10 @@
 {
-  "day_key": "2026-10-07",
-  "daily_count": 20,
-  "ai_call_count": 14,
-  "last_posted_at": "2026-10-07T20:01:55.569394+00:00",
-  "last_source_tweet_id": "2107800195748737042",
-  "last_tweet_id": "2107924401828368655",
+  "day_key": "2026-10-08",
+  "daily_count": 2,
+  "ai_call_count": 1,
+  "last_posted_at": "2026-10-08T00:03:06.160170+00:00",
+  "last_source_tweet_id": "2107798352679112940",
+  "last_tweet_id": "2107985096011882630",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -49,18 +49,11 @@
     "2107795501068468503",
     "2107623610483720463",
     "2107894039626277339",
-    "2107800195748737042"
+    "2107800195748737042",
+    "2107798352679112940"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
-    {
-      "format_name": "civilian tech archeology report",
-      "comedy_mechanism": "framing ordinary clueless software consumers as primitive archaeological subjects discovering alien ruins",
-      "used_at": "2026-10-05T00:01:48.515274+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2106897605305507926"
-    },
     {
       "format_name": "sacrificial ledger index",
       "comedy_mechanism": "contrasting a grand civilizational compromise with an aggressively mundane software feature",
@@ -227,6 +220,17 @@
       "content_type": "original_post",
       "mutation_stage": "structural_break",
       "structure_signature": "fake compiler error log with metadata fields"
+    },
+    {
+      "format_name": "eschatological scrabble handicap",
+      "comedy_mechanism": "contrasting grandiose semantic inflation with an arbitrary, petty playground rule for tech vocabulary",
+      "used_at": "2026-10-08T00:03:06.160134+00:00",
+      "topic": "CEO AI",
+      "self_reply": true,
+      "tweet_id": "2107985095122674059",
+      "content_type": "original_post",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "declaration of a fictional bureaucratic game with a disproportionate penalty"
     }
   ],
   "recent_post_fingerprints": [
@@ -234,6 +238,7 @@
     "one-sentence gaming analogy applied to elite sports",
     "fake UI progress bar followed by status log",
     "archaeological discovery punchline",
-    "fake compiler error log with metadata fields"
+    "fake compiler error log with metadata fields",
+    "declaration of a fictional bureaucratic game with a disproportionate penalty"
   ]
 }
