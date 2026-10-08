@@ -16,7 +16,8 @@ This repository runs an automated, text-first X account focused on AI, technolog
 - Keeps political/current-affairs content blocked at both source-selection and output-validation stages.
 - Enforces a separate zero-country output guard; generated quote posts cannot contain country names or common country aliases, including inside the quoted fragment.
 - Creates five rotating famous-company targets per UTC day with a strict four-day cooldown so the same company is not targeted again until eligible.
-- Publishes five company-specific ORIGINAL posts inside the same 20-post daily quota, alongside fifteen Quote Posts.
+- Reserves five company-specific ORIGINAL post slots inside the same 20-content daily quota, alongside fifteen automatically published Quote Posts.
+- The five company posts are generated with their exact @company mentions and written to `state/company_manual_posts.md` for you to publish manually.
 
 ## Publishing limits
 
@@ -24,10 +25,10 @@ This repository runs an automated, text-first X account focused on AI, technolog
 - The 20 posts are split into 15 Quote Posts and 5 company-specific ORIGINAL posts.
 - Maximum 20 AI generation calls per UTC day across both lanes combined.
 - Minimum 72 minutes between successful automated posting events.
-- Company posts are real publishing events; they do not sit in a separate draft quota.
-- Company slots are distributed as posts #4, #8, #12, #16, and #20 when the queue succeeds normally.
+- Five company content slots are reserved inside the 20/day quota; they are manual posting slots, not extra posts.
+- Company slots are distributed as content slots #4, #8, #12, #16, and #20 when generation succeeds normally.
 - There are no automated self-replies.
-- X policy requires automated mentions to be opt-in; the automated company lane therefore does not send unsolicited `@handle` mentions. The target handle remains attached to the queue/state for manual use.
+- The generated company copy includes the exact `@handle`, but the bot never sends that mention to X automatically. You copy it from `state/company_manual_posts.md` and post it yourself.
 
 These are operating limits, not a guarantee of 20 posts every day. X failures, rate limits, unavailable search results, or the AI rejecting a weak source can reduce output.
 
@@ -41,11 +42,11 @@ The creative goal is to make the quote comment worth reacting to: a sharp observ
 
 Five famous companies are selected each UTC day with a four-day cooldown. For each target, the AI writes an ORIGINAL standalone post specifically shaped around that company's products, software, games, or recognizable brand behavior.
 
-The company name is used directly in the copy when natural. The automated lane does not add unsolicited `@mentions`, because X currently prohibits automated mentions sent to users on an unsolicited basis. See the official [X automation rules](https://help.x.com/en/rules-and-policies/x-automation).
+The generated company copy contains the exact `@handle` because you will publish these five posts manually. The bot itself does not transmit those mentions to X. See the official [X automation rules](https://help.x.com/en/rules-and-policies/x-automation).
 
 Example shape:
 
-`BMW needs a button in the M4 that instantly deletes my group chat.`
+`@BMW the M4 needs a button that deletes my group chat.`
 
 The point is specificity and a concrete premise another person can joke about or challenge, not "repost this" or empty engagement bait.
 
@@ -69,14 +70,15 @@ The point is specificity and a concrete premise another person can joke about or
 
 ## Scheduling
 
-Keep the external scheduler sending repository_dispatch with event type `post-next`. The single queue decides whether the next successful slot is a company post or a Quote Post.
+Keep the external scheduler sending repository_dispatch with event type `post-next`. The single queue reserves five manual company-content slots and automatically publishes the other fifteen Quote Post slots. The company copies are stored in `state/company_manual_posts.md`.
 
 ## State
 
 state/post_queue.json stores:
 
-- daily total post and AI-generation counters
-- company-post count and the five company handles used that day
+- daily total content-slot and AI-generation counters
+- company-slot count and the five company handles used that day
+- five manual company post copies in `state/company_manual_posts.md`
 - last successful post metadata
 - bounded source history
 - bounded Quote Post Format Lab memory
