@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-08",
-  "daily_count": 7,
-  "ai_call_count": 10,
-  "last_posted_at": "2026-10-08T06:31:53.537166+00:00",
-  "last_source_tweet_id": "2107829816653427112",
-  "last_tweet_id": "2108082937761870170",
+  "daily_count": 8,
+  "ai_call_count": 11,
+  "last_posted_at": "2026-10-08T10:02:08.819338+00:00",
+  "last_source_tweet_id": "2108123471540871201",
+  "last_tweet_id": "2108135850001482173",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -54,7 +54,8 @@
     "2107898018112647313",
     "2107836407616299371",
     "2107991124312998227",
-    "2107829816653427112"
+    "2107829816653427112",
+    "2108123471540871201"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -64,14 +65,6 @@
     "2107868704994209890"
   ],
   "format_lab": [
-    {
-      "format_name": "admission confessionals",
-      "comedy_mechanism": "contrasting corporate compliance theater with openly admitting the product feature is entirely imaginary",
-      "used_at": "2026-10-06T00:01:50.321071+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107260000670458176"
-    },
     {
       "format_name": "ancestral curse amortization schedule",
       "comedy_mechanism": "framing a software free trial as a generational debt curse that ruins your bloodline",
@@ -253,6 +246,17 @@
       "content_type": "quote_post",
       "mutation_stage": "invented_rule",
       "structure_signature": "bureaucratic mandate ending in a quoted source fragment followed by a surreal policy rider"
+    },
+    {
+      "format_name": "system kernel panic log",
+      "comedy_mechanism": "treating a mundane greeting as a dangerous bios anomaly requiring emergency hardware destruction",
+      "used_at": "2026-10-08T10:02:08.819295+00:00",
+      "topic": "Formula 1",
+      "self_reply": false,
+      "tweet_id": "2108135850001482173",
+      "content_type": "quote_post",
+      "mutation_stage": "structural_break",
+      "structure_signature": "fake system diagnostic log followed by destructive action mandate"
     }
   ],
   "recent_post_fingerprints": [
@@ -265,6 +269,7 @@
     "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience",
     "deadpan social paranoia declaration",
     "geological metaphor applied to game development",
-    "bureaucratic mandate ending in a quoted source fragment followed by a surreal policy rider"
+    "bureaucratic mandate ending in a quoted source fragment followed by a surreal policy rider",
+    "fake system diagnostic log followed by destructive action mandate"
   ]
 }
