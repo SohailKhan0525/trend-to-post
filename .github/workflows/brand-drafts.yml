@@ -1,11 +1,9 @@
-name: Generate Brand Drafts
+name: Generate Brand Drafts (Manual)
 
 on:
   workflow_dispatch:
   repository_dispatch:
     types: [brand-drafts]
-  schedule:
-    - cron: "5 0 * * *"
 
 permissions:
   contents: write
@@ -51,7 +49,7 @@ jobs:
       - name: Run company draft tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
-      - name: Generate five company originals
+      - name: Generate optional company drafts
         id: brand_bot
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
