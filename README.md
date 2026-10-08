@@ -41,7 +41,7 @@ The creative goal is to make the quote comment worth reacting to: a sharp observ
 
 Five famous companies are selected each UTC day with a four-day cooldown. For each target, the AI writes an ORIGINAL standalone post specifically shaped around that company's products, software, games, or recognizable brand behavior.
 
-The company name is used directly in the copy when natural. The automated lane does not add unsolicited `@mentions`, because X currently prohibits automated mentions sent to users on an unsolicited basis. citehttps://help.x.com/en/rules-and-policies/x-automation
+The company name is used directly in the copy when natural. The automated lane does not add unsolicited `@mentions`, because X currently prohibits automated mentions sent to users on an unsolicited basis. See the official [X automation rules](https://help.x.com/en/rules-and-policies/x-automation).
 
 Example shape:
 
