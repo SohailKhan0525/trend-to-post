@@ -24,6 +24,18 @@ class CompanyOriginalValidationTests(unittest.TestCase):
         draft = self._draft("@BMW the M4 needs a button that deletes my group chat.")
         self.assertIs(_validate_original(draft, self.target), draft)
 
+    def test_valid_automated_standalone_company_post(self) -> None:
+        draft = self._draft("BMW needs one ridiculous button on the dashboard.")
+        self.assertIs(_validate_original(draft, self.target, include_handle=False), draft)
+
+    def test_rejects_automated_company_mention(self) -> None:
+        with self.assertRaises(GeminiError):
+            _validate_original(
+                self._draft("@BMW needs one ridiculous button on the dashboard."),
+                self.target,
+                include_handle=False,
+            )
+
     def test_rejects_extra_mention(self) -> None:
         with self.assertRaises(GeminiError):
             _validate_original(
