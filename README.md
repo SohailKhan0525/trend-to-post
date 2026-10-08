@@ -14,6 +14,8 @@ This repository runs an automated, text-first X account focused on AI, technolog
 - Maintains a bounded Format Lab so recent structures are not repeatedly recycled.
 - Does not automate self-replies; each publishing slot is reserved for a single quote post.
 - Keeps political/current-affairs content blocked at both source-selection and output-validation stages.
+- Enforces a separate zero-country output guard; generated quote posts cannot contain country names or common country aliases, including inside the quoted fragment.
+- Creates five rotating famous-company targets per UTC day with a strict four-day cooldown so the same company is not targeted again until eligible.
 
 ## Publishing limits
 
@@ -28,7 +30,11 @@ These are operating limits, not a guarantee of 20 posts every day. X failures, r
 
 The bot is optimized for organic distribution, not artificial trend manipulation.
 
-The creative goal is to make the post worth reacting to on its own: a sharp observation, a surprising framing, a compact invented artifact, a small interaction primitive, or a joke with enough tension that another user wants to add their own take.
+The creative goal is to make the quote comment worth reacting to: a sharp observation, a surprising framing, a compact invented artifact, a small interaction primitive, or a joke with enough tension that another user wants to add their own take.
+
+### Brand targets
+
+X's automation rules prohibit unsolicited automated mentions intended to reach users. The bot therefore generates a five-company daily target queue for manual use instead of automatically @mentioning random companies. A target remains on cooldown for four days after selection. Automated brand mentions can only be considered for an explicit opt-in workflow.
 
 The account is deliberately text-first; image generation is not required by the runtime.
 
@@ -63,5 +69,6 @@ state/post_queue.json stores:
 - bounded source history
 - bounded Format Lab memory
 - recent structure fingerprints
+- daily five-company brand target queue and four-day cooldown records
 
 The research pass behind the current design used primary X automation/ranking material, GitHub Actions security guidance, current Twifork documentation, creator/posting studies, and recent LLM creativity research. It was a broad cross-section rather than a mechanically counted 200 unique websites; low-quality duplicate pages were not treated as 200 independent confirmations.
