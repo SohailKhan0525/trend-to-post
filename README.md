@@ -5,16 +5,14 @@ This repository runs an automated, text-first X account focused on AI, technolog
 ## What it does
 
 - Discovers live conversations with targeted AI/tech/product/gaming/sports searches instead of automatically posting because an X trend is trending.
-- Prefers recent original posts that already show conversation velocity and public engagement.
+- Prefers recent original posts that already show conversation velocity and public engagement, because the account adds a comment to an existing conversation rather than starting a disconnected thread.
 - Gives established/high-signal authors a soft ranking boost using public profile signals such as follower count, verification, and professional bio language.
 - Rejects replies, retweets, quote-posts, sensitive/non-English posts, political/current-affairs topics, recently used sources, and stale posts.
 - Sends the source to the creative engine as untrusted data, never as instructions.
-- The creative engine can produce either:
-  - an original_post that uses the source only as raw material, or
-  - a quote_post with one short verbatim source fragment.
+- The creative engine is locked to quote_post: every successful post attaches the selected source and adds one short, verbatim source fragment plus an original comment.
 - Uses a mutation engine with four modes: premise inversion, cross-domain collision, invented rule, and structural break.
 - Maintains a bounded Format Lab so recent structures are not repeatedly recycled.
-- Optionally posts one self-reply when it adds a genuine second layer to the idea.
+- Does not automate self-replies; each publishing slot is reserved for a single quote post.
 - Keeps political/current-affairs content blocked at both source-selection and output-validation stages.
 
 ## Publishing limits
@@ -22,7 +20,7 @@ This repository runs an automated, text-first X account focused on AI, technolog
 - Maximum 20 total posts per UTC day.
 - Maximum 20 AI generation calls per UTC day.
 - Minimum 72 minutes between successful posting events.
-- Self-replies count toward the 20-post daily limit.
+- Each successful publishing event consumes one post slot; there are no automated self-replies.
 
 These are operating limits, not a guarantee of 20 posts every day. X failures, rate limits, unavailable search results, or the AI rejecting a weak source can reduce output.
 
