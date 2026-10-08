@@ -909,7 +909,10 @@ def _parse_original(text: str) -> OriginalDraft:
         end = cleaned.rfind("}")
         if start < 0 or end <= start:
             raise GeminiError("AI returned non-JSON company-original output.") from exc
-        data = json.loads(cleaned[start:end + 1])
+        try:
+            data = json.loads(cleaned[start:end + 1])
+        except json.JSONDecodeError as nested_exc:
+            raise GeminiError("AI returned invalid company-original JSON.") from nested_exc
 
     if not isinstance(data, dict):
         raise GeminiError("Company-original response was not a JSON object.")
