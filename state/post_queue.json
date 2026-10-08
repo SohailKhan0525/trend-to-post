@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-08",
-  "daily_count": 2,
-  "ai_call_count": 1,
-  "last_posted_at": "2026-10-08T00:03:06.160170+00:00",
-  "last_source_tweet_id": "2107798352679112940",
-  "last_tweet_id": "2107985096011882630",
+  "daily_count": 4,
+  "ai_call_count": 2,
+  "last_posted_at": "2026-10-08T01:32:04.770829+00:00",
+  "last_source_tweet_id": "2107898018112647313",
+  "last_tweet_id": "2108007487660306808",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -50,18 +50,11 @@
     "2107623610483720463",
     "2107894039626277339",
     "2107800195748737042",
-    "2107798352679112940"
+    "2107798352679112940",
+    "2107898018112647313"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
-    {
-      "format_name": "sacrificial ledger index",
-      "comedy_mechanism": "contrasting a grand civilizational compromise with an aggressively mundane software feature",
-      "used_at": "2026-10-05T02:31:31.932524+00:00",
-      "topic": "OpenAI",
-      "self_reply": true,
-      "tweet_id": "2106935283585310968"
-    },
     {
       "format_name": "tech bro actuarial audit",
       "comedy_mechanism": "framing a billionaire's dystopia trade-off as a mundane insurance spreadsheet item",
@@ -231,6 +224,17 @@
       "content_type": "original_post",
       "mutation_stage": "invented_rule",
       "structure_signature": "declaration of a fictional bureaucratic game with a disproportionate penalty"
+    },
+    {
+      "format_name": "domestic entropy tax brackets",
+      "comedy_mechanism": "inventing an absurd bureaucratic household penalty tied to local code generation outputs",
+      "used_at": "2026-10-08T01:32:04.770787+00:00",
+      "topic": "NVIDIA",
+      "self_reply": true,
+      "tweet_id": "2108007485982331064",
+      "content_type": "original_post",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience"
     }
   ],
   "recent_post_fingerprints": [
@@ -239,6 +243,7 @@
     "fake UI progress bar followed by status log",
     "archaeological discovery punchline",
     "fake compiler error log with metadata fields",
-    "declaration of a fictional bureaucratic game with a disproportionate penalty"
+    "declaration of a fictional bureaucratic game with a disproportionate penalty",
+    "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience"
   ]
 }
