@@ -562,11 +562,6 @@ def _pick_best_draft(drafts: list[QuoteDraft], format_memory: list[dict]) -> Quo
         elif draft.mutation_stage == "cross_domain_collision":
             value += 1.5
 
-        if draft.content_type == "original_post":
-            value += 1.5
-        if draft.use_self_reply and draft.self_reply:
-            value += 1.5
-
         value -= sum(1.5 for token in OVERUSED_FORMAT_TOKENS if token in draft.format_name.lower())
 
         if any(token in lowered for token in ("bro", "nah", "lmao", "lol", "😭", "💀", "literally")):
