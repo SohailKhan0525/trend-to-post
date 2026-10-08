@@ -354,7 +354,11 @@ QUOTE OPTIONS:
 
 
 
-def _company_prompt(target: dict, format_memory: list[dict] | None = None) -> str:
+def _company_prompt(
+    target: dict,
+    format_memory: list[dict] | None = None,
+    include_handle: bool = True,
+) -> str:
     recent_formats = format_memory[-12:] if format_memory else []
     memory_text = "\n".join(
         f"- name={item.get('format_name', 'unknown')}; mechanism={item.get('comedy_mechanism', '')}; hook={item.get('hook_type', '')}; signature={item.get('structure_signature', '')}"
@@ -378,6 +382,18 @@ def _company_prompt(target: dict, format_memory: list[dict] | None = None) -> st
         "deadpan_deal": "Propose a ridiculous but harmless bargain involving the product.",
     }[hook_type]
 
+    mention_instruction = (
+        f"Include the exact target handle {handle} exactly ONCE."
+        if include_handle
+        else "AUTOMATED STANDALONE MODE: Do NOT use the target handle or any @mention. "
+             "Refer to the company by its display name when natural. The handle is internal metadata only."
+    )
+    sample_post = (
+        f"{handle} the M4 needs a button that deletes my group chat."
+        if include_handle
+        else "the M4 needs a button that deletes my group chat."
+    )
+
     return f"""You are the ORIGINAL-POST company-reply engine for an experimental X account.
 
 TARGET COMPANY:
@@ -386,7 +402,10 @@ TARGET COMPANY:
 TARGET KEYWORDS:
 {keywords or "none"}
 
-This is a MANUAL-APPROVAL DRAFT, not a quote post. The goal is to write one original X post that gives the target company's social team, employees, builders, or knowledgeable fans an actual reason to reply.
+POSTING MODE:
+{"MANUAL-APPROVAL DRAFT WITH DIRECT COMPANY MENTION" if include_handle else "AUTOMATED STANDALONE POST; NO DIRECT COMPANY MENTION"}
+
+The goal is to write one original X post that makes the target company's social team, employees, builders, or knowledgeable fans want to answer, without relying on empty engagement bait.
 
 HOOK TYPE:
 {hook_type}
@@ -400,13 +419,11 @@ GOOD COMPANY-REPLY BAIT:
 - Product/model names from TARGET KEYWORDS are allowed; do not invent dates, prices, specifications, executives, announcements, or other uncertain facts.
 - Keep the premise harmless and playful.
 
-EXAMPLE SHAPES (DO NOT COPY):
-@BMW the M4 needs a button that deletes my group chat.
-@Nintendo please add a setting that makes one boss fight disappear on command.
-@Figma I need a "someone else touched this file" panic button.
+EXAMPLE SHAPE (DO NOT COPY):
+{sample_post}
 
 STRICT RULES:
-- Include the exact target handle {handle} exactly ONCE.
+- {mention_instruction}
 - No other @mentions.
 - No quote-post source, hashtags, or links.
 - Never ask for reposts, retweets, likes, follows, or "reply if".
@@ -702,7 +719,11 @@ BRAND_BANNED_PHRASES = (
 )
 
 
-def _validate_original(draft: OriginalDraft, target: dict) -> OriginalDraft:
+def _validate_original(
+    draft: OriginalDraft,
+    target: dict,
+    include_handle: bool = True,
+) -> OriginalDraft:
     if not draft.should_post:
         return draft
     post = draft.post_text.strip()
@@ -713,11 +734,14 @@ def _validate_original(draft: OriginalDraft, target: dict) -> OriginalDraft:
         raise GeminiError("Generated company-original is too long.")
     if not handle or not handle.startswith("@"):
         raise GeminiError("Company target handle is invalid.")
-    if post.count(handle) != 1:
-        raise GeminiError("Company-original must contain the target handle exactly once.")
     mentions = re.findall(r"@[A-Za-z0-9_]+", post)
-    if mentions != [handle]:
-        raise GeminiError("Company-original contains an extra @mention.")
+    if include_handle:
+        if post.count(handle) != 1:
+            raise GeminiError("Company-original must contain the target handle exactly once.")
+        if mentions != [handle]:
+            raise GeminiError("Company-original contains an extra @mention.")
+    elif mentions:
+        raise GeminiError("Automated standalone company post must not contain @mentions.")
     lowered = post.lower()
     if "#" in post or "http://" in lowered or "https://" in lowered:
         raise GeminiError("Company-original must not use hashtags or links.")
@@ -756,9 +780,13 @@ def _pick_best_original(drafts: list[OriginalDraft], format_memory: list[dict]) 
     return max(drafts, key=score)
 
 
-def generate_company_original(target: dict, format_memory: list[dict] | None = None) -> OriginalDraft:
+def generate_company_original(
+    target: dict,
+    format_memory: list[dict] | None = None,
+    include_handle: bool = True,
+) -> OriginalDraft:
     format_memory = format_memory or []
-    prompt = _company_prompt(target, format_memory)
+    prompt = _company_prompt(target, format_memory, include_handle)
     cloudflare_error: GeminiError | None = None
 
     try:
@@ -768,7 +796,7 @@ def generate_company_original(target: dict, format_memory: list[dict] | None = N
             try:
                 draft = _parse_original(raw)
                 if draft.should_post:
-                    drafts.append(_validate_original(draft, target))
+                    drafts.append(_validate_original(draft, target, include_handle))
             except GeminiError as exc:
                 print(f"Cloudflare company candidate rejected: {exc}")
         if drafts:
@@ -793,12 +821,12 @@ def generate_company_original(target: dict, format_memory: list[dict] | None = N
     safety_suffix = f"""
 
 SAFETY RETRY:
-Generate a NEW company-specific ORIGINAL POST for {target.get("handle", "")}.
-Keep exactly one target handle and no other @mentions.
+Generate a NEW company-specific ORIGINAL POST for {target.get("name", "")}.
+{"Keep exactly one target handle and no other @mentions." if include_handle else "Use zero @mentions; the company handle is internal metadata only."}
 Do not ask for reposts, retweets, likes, follows, or reply-if behavior.
 No politics, military/geopolitical content, country references, fabricated current facts,
 hashtags, links, or generic engagement questions. Make it playful, specific, and easy
-for the target company's social team to answer.
+for the target company's social team or knowledgeable fans to answer.
 """
     last_error = None
     for attempt in range(1, 3):
@@ -808,7 +836,7 @@ for the target company's social team to answer.
                 "contents": [{"parts": [{"text": prompt + safety_suffix}]}],
             }
             draft = _parse_original(_extract_text(_post_json(retry_payload)))
-            return _validate_original(draft, target)
+            return _validate_original(draft, target, include_handle)
         except GeminiError as exc:
             last_error = exc
             print(f"Gemini company candidate rejected ({attempt}/2): {exc}")
