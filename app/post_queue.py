@@ -244,22 +244,9 @@ async def post_next(
     except Exception as exc:
         raise QueueError(f"X post failed: {exc}") from exc
 
+    # Quote-post-only mode: never spend daily capacity on an automated self-reply.
     self_reply_posted = False
     self_reply_id = ""
-    if draft.use_self_reply and draft.self_reply.strip():
-        if state["daily_count"] + 2 <= POSTS_PER_DAY:
-            try:
-                reply = await client.create_tweet(
-                    text=draft.self_reply.strip(),
-                    reply_to=str(getattr(tweet, "id", "") or ""),
-                )
-                self_reply_posted = True
-                self_reply_id = str(getattr(reply, "id", "") or "")
-                print(f"Posted experimental self-reply: {draft.self_reply.strip()}")
-            except Exception as exc:
-                print(f"Self-reply skipped: {exc}")
-        else:
-            print("Self-reply skipped: daily post cap would be exceeded.")
 
     lab = state["format_lab"]
     lab.append(
@@ -287,7 +274,7 @@ async def post_next(
     state.update(
         {
             "day_key": _today(),
-            "daily_count": int(state["daily_count"]) + (2 if self_reply_posted else 1),
+            "daily_count": int(state["daily_count"]) + 1,
             "last_tweet_id": self_reply_id or str(getattr(tweet, "id", "") or ""),
             "last_posted_at": datetime.now(timezone.utc).isoformat(),
             "last_source_tweet_id": source.tweet_id,
@@ -296,7 +283,7 @@ async def post_next(
     _save_state(state)
 
     print(
-        f"Posted {draft.content_type} #{state['daily_count']}/{POSTS_PER_DAY}; "
+        f"Posted quote_post #{state['daily_count']}/{POSTS_PER_DAY}; "
         f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
         f" Format={draft.format_name or 'unnamed'}"
     )
