@@ -440,7 +440,7 @@ RECENT COMPANY FORMAT LAB:
 RETURN JSON ONLY:
 {{
   "should_post": true,
-  "post": "{handle} ...",
+  "post": "the final company-specific post",
   "target_handle": "{handle}",
   "target_name": "{name}",
   "angle": "why this premise could make the company want to reply",
