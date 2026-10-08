@@ -2,6 +2,8 @@ name: Generate Brand Drafts
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [brand-drafts]
   schedule:
     - cron: "5 0 * * *"
 
