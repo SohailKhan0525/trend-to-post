@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-08",
-  "daily_count": 6,
-  "ai_call_count": 5,
-  "last_posted_at": "2026-10-08T04:31:59.162320+00:00",
-  "last_source_tweet_id": "2107991124312998227",
-  "last_tweet_id": "2108052762273673281",
+  "daily_count": 7,
+  "ai_call_count": 6,
+  "last_posted_at": "2026-10-08T06:31:53.537166+00:00",
+  "last_source_tweet_id": "2107829816653427112",
+  "last_tweet_id": "2108082937761870170",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -53,20 +53,13 @@
     "2107798352679112940",
     "2107898018112647313",
     "2107836407616299371",
-    "2107991124312998227"
+    "2107991124312998227",
+    "2107829816653427112"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014"
   ],
   "format_lab": [
-    {
-      "format_name": "burner lineage telemetry",
-      "comedy_mechanism": "contrasts the trivial nature of a free trial with the dystopian ritual of generating artificial lineage just to bypass a paywall",
-      "used_at": "2026-10-05T10:01:46.304662+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107048591168848165"
-    },
     {
       "format_name": "admission confessionals",
       "comedy_mechanism": "contrasting corporate compliance theater with openly admitting the product feature is entirely imaginary",
@@ -245,6 +238,17 @@
       "content_type": "quote_post",
       "mutation_stage": "premise_inversion",
       "structure_signature": "geological metaphor applied to game development"
+    },
+    {
+      "format_name": "metroidvania health insurance deductible",
+      "comedy_mechanism": "mapping extreme platformer completionist suffering onto boring corporate bureaucratic healthcare terms",
+      "used_at": "2026-10-08T06:31:53.537124+00:00",
+      "topic": "gaming",
+      "self_reply": false,
+      "tweet_id": "2108082937761870170",
+      "content_type": "quote_post",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "bureaucratic mandate ending in a quoted source fragment followed by a surreal policy rider"
     }
   ],
   "recent_post_fingerprints": [
@@ -256,6 +260,7 @@
     "declaration of a fictional bureaucratic game with a disproportionate penalty",
     "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience",
     "deadpan social paranoia declaration",
-    "geological metaphor applied to game development"
+    "geological metaphor applied to game development",
+    "bureaucratic mandate ending in a quoted source fragment followed by a surreal policy rider"
   ]
 }
