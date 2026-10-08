@@ -42,6 +42,7 @@ def _new_state() -> dict:
         "ai_call_count": 0,
         "company_post_count": 0,
         "company_posted_handles": [],
+        "company_manual_posts": [],
         "last_posted_at": None,
         "last_post_type": None,
         "last_company_handle": None,
@@ -117,6 +118,14 @@ def _load_state() -> dict:
     state["company_posted_handles"] = [
         str(handle).strip() for handle in company_handles if str(handle).strip()
     ][:COMPANY_POSTS_PER_DAY]
+
+    manual_posts = state.get("company_manual_posts", [])
+    if not isinstance(manual_posts, list):
+        raise QueueError("State company_manual_posts must be a list.")
+    state["company_manual_posts"] = [
+        item for item in manual_posts[-COMPANY_POSTS_PER_DAY:]
+        if isinstance(item, dict)
+    ]
 
     state["posted_source_tweet_ids"] = _history(
         state.get("posted_source_tweet_ids", [])
@@ -224,6 +233,49 @@ def _interval_ok(state: dict) -> bool:
     return True
 
 
+COMPANY_MANUAL_POSTS_PATH = Path("state/company_manual_posts.md")
+
+
+def _write_company_manual_posts(state: dict) -> None:
+    posts = state.get("company_manual_posts", [])
+    lines = [
+        "# Company Posts — Manual",
+        "",
+        f"UTC date: {state.get('day_key', _today())}",
+        "",
+        "These five company posts are included in the same 20-content daily quota.",
+        "Copy the post text exactly, including the @mention, and publish it manually on X.",
+        "",
+    ]
+
+    if not posts:
+        lines.append("No company posts generated yet.")
+    else:
+        for item in posts:
+            slot = item.get("slot_number", "")
+            name = str(item.get("name", "")).strip()
+            handle = str(item.get("handle", "")).strip()
+            post = str(item.get("post", "")).strip()
+            lines.extend(
+                [
+                    f"## Slot {slot} — {name} {handle}".strip(),
+                    "",
+                    f"> {post}",
+                    "",
+                    f"Format: {item.get('format_name', '')}",
+                    f"Hook: {item.get('hook_type', '')}",
+                    f"Mechanism: {item.get('comedy_mechanism', '')}",
+                    f"Status: {item.get('status', 'ready_for_manual_post')}",
+                    "",
+                ]
+            )
+
+    COMPANY_MANUAL_POSTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    tmp = COMPANY_MANUAL_POSTS_PATH.with_suffix(".tmp")
+    tmp.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    tmp.replace(COMPANY_MANUAL_POSTS_PATH)
+
+
 def _next_company_target(state: dict) -> dict | None:
     posted = {
         str(handle).strip()
@@ -317,7 +369,7 @@ async def post_next(
             draft = generate_company_original(
                 target,
                 state["brand_format_lab"],
-                include_handle=False,
+                include_handle=True,
             )
         except GeminiError as exc:
             target["status"] = "generation_failed"
@@ -339,18 +391,31 @@ async def post_next(
         if not text or len(text) > 280:
             raise QueueError("AI returned invalid company post text length.")
 
-        print(f"Company post text ({len(text)}/280): {text}")
+        print(f"Company post ready for manual posting ({len(text)}/280): {text}")
         print(
             f"Company target: {target_name} ({target_handle}); "
-            "automated @mention disabled."
+            "the @mention is included in the copy for you to post manually."
         )
 
-        try:
-            tweet = await client.create_tweet(text=text)
-        except Exception as exc:
-            raise QueueError(f"X company post failed: {exc}") from exc
-
         now = datetime.now(timezone.utc).isoformat()
+        manual_item = {
+            "slot_number": int(state["daily_count"]) + 1,
+            "handle": target_handle,
+            "name": target_name,
+            "post": text,
+            "angle": draft.angle,
+            "hook_type": draft.hook_type,
+            "format_name": draft.format_name,
+            "comedy_mechanism": draft.comedy_mechanism,
+            "structure_signature": draft.structure_signature,
+            "generated_at": now,
+            "status": "ready_for_manual_post",
+        }
+
+        manual_posts = state["company_manual_posts"]
+        manual_posts.append(manual_item)
+        state["company_manual_posts"] = manual_posts[-COMPANY_POSTS_PER_DAY:]
+
         lab = state["brand_format_lab"]
         lab.append(
             {
@@ -360,7 +425,7 @@ async def post_next(
                 "structure_signature": draft.structure_signature,
                 "used_at": now,
                 "target": target_handle,
-                "tweet_id": str(getattr(tweet, "id", "") or ""),
+                "manual": True,
             }
         )
         state["brand_format_lab"] = lab[-20:]
@@ -372,9 +437,8 @@ async def post_next(
         handles = state["company_posted_handles"]
         handles.append(target_handle)
         state["company_posted_handles"] = handles[-COMPANY_POSTS_PER_DAY:]
-        target["status"] = "auto_published"
-        target["posted_at"] = now
-        target["posted_tweet_id"] = str(getattr(tweet, "id", "") or "")
+        target["status"] = "manual_ready"
+        target["generated_at"] = now
         target.pop("last_error", None)
 
         state.update(
@@ -382,17 +446,16 @@ async def post_next(
                 "day_key": _today(),
                 "daily_count": int(state["daily_count"]) + 1,
                 "company_post_count": int(state["company_post_count"]) + 1,
-                "last_tweet_id": str(getattr(tweet, "id", "") or ""),
-                "last_posted_at": now,
-                "last_post_type": "company_original",
+                "last_post_type": "company_manual",
                 "last_company_handle": target_handle,
             }
         )
+        _write_company_manual_posts(state)
         _save_state(state)
 
         print(
-            f"Posted company_original #{state['company_post_count']}/{COMPANY_POSTS_PER_DAY}; "
-            f"total posts {state['daily_count']}/{POSTS_PER_DAY}; "
+            f"Company manual slot #{state['company_post_count']}/{COMPANY_POSTS_PER_DAY} ready; "
+            f"total daily content slots {state['daily_count']}/{POSTS_PER_DAY}; "
             f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
         )
         return True
