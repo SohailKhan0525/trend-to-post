@@ -16,17 +16,18 @@ This repository runs an automated, text-first X account focused on AI, technolog
 - Keeps political/current-affairs content blocked at both source-selection and output-validation stages.
 - Enforces a separate zero-country output guard; generated quote posts cannot contain country names or common country aliases, including inside the quoted fragment.
 - Creates five rotating famous-company targets per UTC day with a strict four-day cooldown so the same company is not targeted again until eligible.
-- Generates one original, company-specific reply-bait draft for each target and saves them to `state/brand_drafts.md` for manual approval.
+- Publishes five company-specific ORIGINAL posts inside the same 20-post daily quota, alongside fifteen Quote Posts.
 
 ## Publishing limits
 
 - Maximum 20 automated posts per UTC day.
-- Maximum 20 AI generation calls per UTC day for the automated Quote Post lane.
-- Five additional company-original drafts are generated per UTC day for manual approval.
+- The 20 posts are split into 15 Quote Posts and 5 company-specific ORIGINAL posts.
+- Maximum 20 AI generation calls per UTC day across both lanes combined.
 - Minimum 72 minutes between successful automated posting events.
-- Company drafts are not auto-published and do not consume the automated 20-post publishing slots.
-- Each automated publishing event is a single Quote Post; there are no automated self-replies.
-- Run `python -m app brand-drafts` locally or use the daily `Generate Brand Drafts` workflow to refresh the five copy-ready company originals.
+- Company posts are real publishing events; they do not sit in a separate draft quota.
+- Company slots are distributed as posts #4, #8, #12, #16, and #20 when the queue succeeds normally.
+- There are no automated self-replies.
+- X policy requires automated mentions to be opt-in; the automated company lane therefore does not send unsolicited `@handle` mentions. The target handle remains attached to the queue/state for manual use.
 
 These are operating limits, not a guarantee of 20 posts every day. X failures, rate limits, unavailable search results, or the AI rejecting a weak source can reduce output.
 
@@ -36,17 +37,17 @@ The bot is optimized for organic distribution, not artificial trend manipulation
 
 The creative goal is to make the quote comment worth reacting to: a sharp observation, a surprising framing, a compact invented artifact, a small interaction primitive, or a joke with enough tension that another user wants to add their own take.
 
-### Brand targets
+### Company posts
 
-The account has a separate company-reply lane. Five famous companies are selected each UTC day with a four-day cooldown. For each target, the AI writes an ORIGINAL post specifically shaped to give that company's social team, builders, or knowledgeable fans a reason to answer: a playful challenge, absurd product request, specific roast, ridiculous buying condition, or another concrete hook.
+Five famous companies are selected each UTC day with a four-day cooldown. For each target, the AI writes an ORIGINAL standalone post specifically shaped around that company's products, software, games, or recognizable brand behavior.
 
-The target handle is included exactly once in the saved draft, but the bot does not auto-publish unsolicited company mentions. Drafts land in `state/brand_drafts.md` for manual approval. The main automated publishing lane remains Quote Posts only.
+The company name is used directly in the copy when natural. The automated lane does not add unsolicited `@mentions`, because X currently prohibits automated mentions sent to users on an unsolicited basis. citehttps://help.x.com/en/rules-and-policies/x-automation
 
 Example shape:
 
-`@BMW the M4 needs a button that deletes my group chat.`
+`BMW needs a button in the M4 that instantly deletes my group chat.`
 
-The point is specificity and a replyable premise, not "repost this" or empty engagement bait.
+The point is specificity and a concrete premise another person can joke about or challenge, not "repost this" or empty engagement bait.
 
 ## Security
 
@@ -68,18 +69,19 @@ The point is specificity and a replyable premise, not "repost this" or empty eng
 
 ## Scheduling
 
-Keep the external scheduler sending repository_dispatch with event type post-next for the automated Quote Post lane. The `Generate Brand Drafts` workflow also runs once per UTC day and supports manual `workflow_dispatch` runs.
+Keep the external scheduler sending repository_dispatch with event type `post-next`. The single queue decides whether the next successful slot is a company post or a Quote Post.
 
 ## State
 
 state/post_queue.json stores:
 
-- daily post and AI-generation counters
-- last successful post/source
+- daily total post and AI-generation counters
+- company-post count and the five company handles used that day
+- last successful post metadata
 - bounded source history
-- bounded Format Lab memory
+- bounded Quote Post Format Lab memory
 - recent structure fingerprints
-- daily five-company brand target queue and four-day cooldown records
-- daily five-company original drafts, their generation metadata, and the separate company-format lab
+- daily five-company target queue and four-day cooldown records
+- company-format lab memory
 
 The research pass behind the current design used primary X automation/ranking material, GitHub Actions security guidance, current Twifork documentation, creator/posting studies, and recent LLM creativity research. It was a broad cross-section rather than a mechanically counted 200 unique websites; low-quality duplicate pages were not treated as 200 independent confirmations.
