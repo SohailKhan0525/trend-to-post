@@ -7,7 +7,7 @@ from pathlib import Path
 
 from twikit import Client
 
-from .brand_targets import ensure_daily_brand_targets
+from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
 from .gemini import GeminiError, generate_quote
 from .trend_source import (
     SOURCE_HISTORY_LIMIT,
@@ -20,6 +20,7 @@ STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 AI_GENERATIONS_PER_DAY = 20
 MIN_POST_INTERVAL_MINUTES = 72
+BRAND_AI_GENERATIONS_PER_DAY = DAILY_BRAND_TARGETS
 
 
 class QueueError(RuntimeError):
@@ -45,6 +46,10 @@ def _new_state() -> dict:
         "brand_tag_day_key": None,
         "brand_tag_queue": [],
         "brand_tag_cooldowns": {},
+        "brand_draft_day_key": None,
+        "brand_draft_queue": [],
+        "brand_ai_call_count": 0,
+        "brand_format_lab": [],
     }
 
 
@@ -71,6 +76,10 @@ def _load_state() -> dict:
         state["day_key"] = today
         state["daily_count"] = 0
         state["ai_call_count"] = 0
+        state["brand_draft_day_key"] = None
+        state["brand_draft_queue"] = []
+        state["brand_ai_call_count"] = 0
+        state["brand_format_lab"] = []
 
     try:
         state["daily_count"] = int(state.get("daily_count", 0))
@@ -105,6 +114,32 @@ def _load_state() -> dict:
     state["skipped_source_tweet_ids"] = _history(
         state.get("skipped_source_tweet_ids", [])
     )
+
+    brand_drafts = state.get("brand_draft_queue", [])
+    if not isinstance(brand_drafts, list):
+        raise QueueError("State brand_draft_queue must be a list.")
+    state["brand_draft_queue"] = [
+        item for item in brand_drafts[-DAILY_BRAND_TARGETS:]
+        if isinstance(item, dict)
+    ]
+
+    try:
+        state["brand_ai_call_count"] = int(state.get("brand_ai_call_count", 0))
+    except (TypeError, ValueError) as exc:
+        raise QueueError("State brand_ai_call_count must be an integer.") from exc
+    if not 0 <= state["brand_ai_call_count"] <= BRAND_AI_GENERATIONS_PER_DAY:
+        raise QueueError(
+            "State brand_ai_call_count is outside "
+            f"0..{BRAND_AI_GENERATIONS_PER_DAY}."
+        )
+
+    brand_lab = state.get("brand_format_lab", [])
+    if not isinstance(brand_lab, list):
+        raise QueueError("State brand_format_lab must be a list.")
+    state["brand_format_lab"] = [
+        item for item in brand_lab[-20:]
+        if isinstance(item, dict)
+    ]
     return state
 
 
