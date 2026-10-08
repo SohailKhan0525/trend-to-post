@@ -8,8 +8,8 @@ DAILY_BRAND_TARGETS = 5
 BRAND_COOLDOWN_DAYS = 4
 
 # Famous, conversation-friendly companies/products spanning the account's
-# allowed verticals. These feed the daily company-original draft lane.
-# Automatic mentions remain manual-approval only.
+# allowed verticals. Five selected targets are used by the daily company-post slots.
+# Automated @mentions are disabled unless a recipient has explicitly opted in.
 BRAND_POOL = (
     ("@BMW", "BMW", ("bmw", "m4", "m3", "m5", "i4", "i5", "i7", "x5")),
     ("@MercedesBenz", "Mercedes-Benz", ("mercedes", "amg", "maybach")),
@@ -65,7 +65,7 @@ def _parse_iso(value: str | None) -> datetime | None:
 
 
 def ensure_daily_brand_targets(state: dict) -> bool:
-    """Create five rotating manual brand targets with a four-day cooldown."""
+    """Create five rotating brand targets with a four-day cooldown."""
     today = _today()
     existing_day = str(state.get("brand_tag_day_key", "")).strip()
     existing_queue = state.get("brand_tag_queue")
