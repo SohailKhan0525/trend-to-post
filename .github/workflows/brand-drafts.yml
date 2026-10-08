@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: x-brand-drafts
+  group: x-post-quote
   cancel-in-progress: false
 
 jobs:
