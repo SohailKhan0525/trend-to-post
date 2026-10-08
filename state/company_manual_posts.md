@@ -13,3 +13,12 @@ Format: gestural_spec_sheet
 Hook: tiny_challenge
 Mechanism: trading a boring technical requirement for an absurdly physical alternative
 Status: ready_for_manual_post
+
+## Slot 12 — Porsche @Porsche
+
+> @Porsche I will only daily drive a manual 911 if every cup holder is legally required to hold exactly one small roasted chicken at all times.
+
+Format: poultry_ultimatum
+Hook: absurd_buying_condition
+Mechanism: juxtaposing serious sports car ownership standards with a ridiculous grocery constraint
+Status: ready_for_manual_post
