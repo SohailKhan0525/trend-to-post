@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-08",
-  "daily_count": 4,
-  "ai_call_count": 2,
-  "last_posted_at": "2026-10-08T01:32:04.770829+00:00",
-  "last_source_tweet_id": "2107898018112647313",
-  "last_tweet_id": "2108007487660306808",
+  "daily_count": 5,
+  "ai_call_count": 3,
+  "last_posted_at": "2026-10-08T03:01:52.829270+00:00",
+  "last_source_tweet_id": "2107836407616299371",
+  "last_tweet_id": "2108030086427357281",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -51,18 +51,11 @@
     "2107894039626277339",
     "2107800195748737042",
     "2107798352679112940",
-    "2107898018112647313"
+    "2107898018112647313",
+    "2107836407616299371"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
-    {
-      "format_name": "tech bro actuarial audit",
-      "comedy_mechanism": "framing a billionaire's dystopia trade-off as a mundane insurance spreadsheet item",
-      "used_at": "2026-10-05T05:01:45.706672+00:00",
-      "topic": "OpenAI",
-      "self_reply": true,
-      "tweet_id": "2106973090248831346"
-    },
     {
       "format_name": "product roadmap emergency containment protocol",
       "comedy_mechanism": "framing a standard corporate feature consolidation as an emergency containment drill for a structural engineering failure",
@@ -235,6 +228,17 @@
       "content_type": "original_post",
       "mutation_stage": "invented_rule",
       "structure_signature": "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience"
+    },
+    {
+      "format_name": "surreal provenance reverse-engineering",
+      "comedy_mechanism": "inverting the premise so that human authenticity is treated as the synthetic anomaly requiring a detection tool",
+      "used_at": "2026-10-08T03:01:52.829235+00:00",
+      "topic": "Apple",
+      "self_reply": false,
+      "tweet_id": "2108030086427357281",
+      "content_type": "quote_post",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "deadpan social paranoia declaration"
     }
   ],
   "recent_post_fingerprints": [
@@ -244,6 +248,7 @@
     "archaeological discovery punchline",
     "fake compiler error log with metadata fields",
     "declaration of a fictional bureaucratic game with a disproportionate penalty",
-    "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience"
+    "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience",
+    "deadpan social paranoia declaration"
   ]
 }
