@@ -1,7 +1,7 @@
 {
   "day_key": "2026-10-08",
-  "daily_count": 10,
-  "ai_call_count": 15,
+  "daily_count": 11,
+  "ai_call_count": 16,
   "last_posted_at": "2026-10-08T14:01:43.105697+00:00",
   "last_source_tweet_id": "2108054369056809396",
   "last_tweet_id": "2108196140071940102",
@@ -282,11 +282,22 @@
     "bureaucratic mandate ending in a quoted source fragment followed by a surreal policy rider",
     "fake system diagnostic log followed by destructive action mandate",
     "bureaucratic penalty declaration ending in a quote fragment followed by a surreal policy rider",
-    "legalistic compliance failure declaration ending in a source quote fragment"
+    "legalistic compliance failure declaration ending in a source quote fragment",
+    "mention + playful ultimatum + conditional truce"
   ],
   "brand_draft_queue": [],
-  "brand_ai_call_count": 0,
-  "brand_format_lab": [],
+  "brand_ai_call_count": 1,
+  "brand_format_lab": [
+    {
+      "format_name": "gestural_spec_sheet",
+      "comedy_mechanism": "trading a boring technical requirement for an absurdly physical alternative",
+      "hook_type": "tiny_challenge",
+      "structure_signature": "mention + playful ultimatum + conditional truce",
+      "used_at": "2026-10-08T15:31:21.286860+00:00",
+      "target": "@Ferrari",
+      "manual": true
+    }
+  ],
   "brand_tag_day_key": "2026-10-08",
   "brand_tag_queue": [
     {
@@ -299,7 +310,8 @@
       ],
       "selected_at": "2026-10-08T15:01:32.440244+00:00",
       "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
-      "status": "manual_approval_required"
+      "status": "manual_ready",
+      "generated_at": "2026-10-08T15:31:21.286860+00:00"
     },
     {
       "handle": "@Porsche",
@@ -356,5 +368,26 @@
     "@Tesla": "2026-10-12T15:01:32.440244+00:00",
     "@Discord": "2026-10-12T15:01:32.440244+00:00",
     "@SlackHQ": "2026-10-12T15:01:32.440244+00:00"
-  }
+  },
+  "company_post_count": 1,
+  "company_posted_handles": [
+    "@Ferrari"
+  ],
+  "company_manual_posts": [
+    {
+      "slot_number": 11,
+      "handle": "@Ferrari",
+      "name": "Ferrari",
+      "post": "@Ferrari drop an sf90 spec sheet written entirely in dramatic hand gestures and I promise I won't ask about the cupholders again.",
+      "angle": "invites the social team to lean into the brand's theatrical heritage rather than dry corporate specs",
+      "hook_type": "tiny_challenge",
+      "format_name": "gestural_spec_sheet",
+      "comedy_mechanism": "trading a boring technical requirement for an absurdly physical alternative",
+      "structure_signature": "mention + playful ultimatum + conditional truce",
+      "generated_at": "2026-10-08T15:31:21.286860+00:00",
+      "status": "ready_for_manual_post"
+    }
+  ],
+  "last_post_type": "company_manual",
+  "last_company_handle": "@Ferrari"
 }
