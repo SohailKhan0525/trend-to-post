@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-08",
-  "daily_count": 5,
-  "ai_call_count": 3,
-  "last_posted_at": "2026-10-08T03:01:52.829270+00:00",
-  "last_source_tweet_id": "2107836407616299371",
-  "last_tweet_id": "2108030086427357281",
+  "daily_count": 6,
+  "ai_call_count": 4,
+  "last_posted_at": "2026-10-08T04:31:59.162320+00:00",
+  "last_source_tweet_id": "2107991124312998227",
+  "last_tweet_id": "2108052762273673281",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -52,18 +52,11 @@
     "2107800195748737042",
     "2107798352679112940",
     "2107898018112647313",
-    "2107836407616299371"
+    "2107836407616299371",
+    "2107991124312998227"
   ],
   "skipped_source_tweet_ids": [],
   "format_lab": [
-    {
-      "format_name": "product roadmap emergency containment protocol",
-      "comedy_mechanism": "framing a standard corporate feature consolidation as an emergency containment drill for a structural engineering failure",
-      "used_at": "2026-10-05T07:31:29.837534+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107010773176422462"
-    },
     {
       "format_name": "burner lineage telemetry",
       "comedy_mechanism": "contrasts the trivial nature of a free trial with the dystopian ritual of generating artificial lineage just to bypass a paywall",
@@ -239,6 +232,17 @@
       "content_type": "quote_post",
       "mutation_stage": "premise_inversion",
       "structure_signature": "deadpan social paranoia declaration"
+    },
+    {
+      "format_name": "stratigraphic software fantasy",
+      "comedy_mechanism": "treating a scheduled game update as an inevitability of earth science rather than a product launch",
+      "used_at": "2026-10-08T04:31:59.162280+00:00",
+      "topic": "gaming",
+      "self_reply": false,
+      "tweet_id": "2108052762273673281",
+      "content_type": "quote_post",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "geological metaphor applied to game development"
     }
   ],
   "recent_post_fingerprints": [
@@ -249,6 +253,7 @@
     "fake compiler error log with metadata fields",
     "declaration of a fictional bureaucratic game with a disproportionate penalty",
     "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience",
-    "deadpan social paranoia declaration"
+    "deadpan social paranoia declaration",
+    "geological metaphor applied to game development"
   ]
 }
