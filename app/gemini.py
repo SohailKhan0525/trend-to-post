@@ -15,6 +15,7 @@ CLOUDFLARE_MODEL = os.environ.get("CLOUDFLARE_AI_MODEL", "@cf/zai-org/glm-4.7-fl
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1/chat/completions"
 MAX_POST_CHARS = 280
+ORIGINAL_POST_MAX_CHARS = 280
 MAX_API_ATTEMPTS_PER_KEY = 3
 CLOUDFLARE_CANDIDATE_COUNT = 2
 OVERUSED_FORMAT_TOKENS = {
@@ -73,6 +74,24 @@ class QuoteDraft:
         self.content_type = content_type
         self.mutation_stage = mutation_stage
         self.structure_signature = structure_signature
+
+
+class OriginalDraft:
+    __slots__ = ("should_post", "post_text", "angle", "target_handle", "target_name", "format_name", "comedy_mechanism", "structure_signature", "hook_type")
+
+    def __init__(self, should_post: bool, post_text: str, angle: str, target_handle: str,
+                 target_name: str, format_name: str = "", comedy_mechanism: str = "",
+                 structure_signature: str = "", hook_type: str = "") -> None:
+        self.should_post = should_post
+        self.post_text = post_text
+        self.angle = angle
+        self.target_handle = target_handle
+        self.target_name = target_name
+        self.format_name = format_name
+        self.comedy_mechanism = comedy_mechanism
+        self.structure_signature = structure_signature
+        self.hook_type = hook_type
+
 
 
 def _api_keys() -> list[str]:
@@ -334,6 +353,89 @@ QUOTE OPTIONS:
 """
 
 
+
+def _company_prompt(target: dict, format_memory: list[dict] | None = None) -> str:
+    recent_formats = format_memory[-12:] if format_memory else []
+    memory_text = "\n".join(
+        f"- name={item.get('format_name', 'unknown')}; mechanism={item.get('comedy_mechanism', '')}; hook={item.get('hook_type', '')}; signature={item.get('structure_signature', '')}"
+        for item in recent_formats if isinstance(item, dict)
+    ) or "- none yet"
+
+    handle = str(target.get("handle", "")).strip()
+    name = str(target.get("name", "")).strip()
+    keywords = ", ".join(str(x).strip() for x in target.get("keywords", []) if str(x).strip())
+    hook_type = random.choice((
+        "playful_product_demand", "absurd_buying_condition", "specific_product_roast",
+        "tiny_challenge", "brand_inside_joke", "impossible_feature_request", "deadpan_deal",
+    ))
+    hook_instructions = {
+        "playful_product_demand": "Ask for one oddly specific product behavior or feature, phrased as a playful demand.",
+        "absurd_buying_condition": "Invent a funny personal condition for buying or using the product. Make it harmless and specific.",
+        "specific_product_roast": "Roast a recognizable product trait or design choice without unverifiable claims.",
+        "tiny_challenge": "Give the company a tiny, funny challenge their social team could easily answer or joke about.",
+        "brand_inside_joke": "Create a tiny in-group joke about the brand/product without pretending to have insider information.",
+        "impossible_feature_request": "Request a deliberately unnecessary feature that is weirdly compelling.",
+        "deadpan_deal": "Propose a ridiculous but harmless bargain involving the product.",
+    }[hook_type]
+
+    return f"""You are the ORIGINAL-POST company-reply engine for an experimental X account.
+
+TARGET COMPANY:
+{handle} — {name}
+
+TARGET KEYWORDS:
+{keywords or "none"}
+
+This is a MANUAL-APPROVAL DRAFT, not a quote post. The goal is to write one original X post that gives the target company's social team, employees, builders, or knowledgeable fans an actual reason to reply.
+
+HOOK TYPE:
+{hook_type}
+{hook_instructions}
+
+GOOD COMPANY-REPLY BAIT:
+- Make it obviously specific to this company/product.
+- Give the other side something concrete to defend, correct, joke about, accept, or challenge.
+- Be funny, absurd, teasing, challenging, or oddly sincere.
+- Do not rely on an empty "what do you think?" question.
+- Product/model names from TARGET KEYWORDS are allowed; do not invent dates, prices, specifications, executives, announcements, or other uncertain facts.
+- Keep the premise harmless and playful.
+
+EXAMPLE SHAPES (DO NOT COPY):
+@BMW the M4 needs a button that deletes my group chat.
+@Nintendo please add a setting that makes one boss fight disappear on command.
+@Figma I need a "someone else touched this file" panic button.
+
+STRICT RULES:
+- Include the exact target handle {handle} exactly ONCE.
+- No other @mentions.
+- No quote-post source, hashtags, or links.
+- Never ask for reposts, retweets, likes, follows, or "reply if".
+- No giveaway or coordinated-engagement language.
+- No politics, military/geopolitical content, or political/current-affairs events.
+- ZERO country references, including country names, country abbreviations, nationalities, or geopolitical geography.
+- No fabricated facts.
+- No corporate social-media-manager voice.
+- Maximum {ORIGINAL_POST_MAX_CHARS} characters.
+
+RECENT COMPANY FORMAT LAB:
+{memory_text}
+
+RETURN JSON ONLY:
+{{
+  "should_post": true,
+  "post": "{handle} ...",
+  "target_handle": "{handle}",
+  "target_name": "{name}",
+  "angle": "why this premise could make the company want to reply",
+  "hook_type": "{hook_type}",
+  "format_name": "a genuinely new short format name",
+  "comedy_mechanism": "one-line explanation",
+  "structure_signature": "compact description of the structure"
+}}
+"""
+
+
+
 def _quote_options(source_text: str, limit: int = 6) -> list[str]:
     """Return distinctive short source fragments for the model to quote verbatim."""
     stop_words = {
@@ -592,6 +694,129 @@ def _pick_best_draft(drafts: list[QuoteDraft], format_memory: list[dict]) -> Quo
     return max(drafts, key=score)
 
 
+
+BRAND_BANNED_PHRASES = (
+    "repost this", "retweet this", "rt this", "follow me", "like this",
+    "reply if", "follow if", "like if", "retweet if", "what do you think",
+    "thoughts?", "agree?", "giveaway",
+)
+
+
+def _validate_original(draft: OriginalDraft, target: dict) -> OriginalDraft:
+    if not draft.should_post:
+        return draft
+    post = draft.post_text.strip()
+    handle = str(target.get("handle", "")).strip()
+    if not post:
+        raise GeminiError("Generated company-original is empty.")
+    if len(post) > ORIGINAL_POST_MAX_CHARS:
+        raise GeminiError("Generated company-original is too long.")
+    if not handle or not handle.startswith("@"):
+        raise GeminiError("Company target handle is invalid.")
+    if post.count(handle) != 1:
+        raise GeminiError("Company-original must contain the target handle exactly once.")
+    mentions = re.findall(r"@[A-Za-z0-9_]+", post)
+    if mentions != [handle]:
+        raise GeminiError("Company-original contains an extra @mention.")
+    lowered = post.lower()
+    if "#" in post or "http://" in lowered or "https://" in lowered:
+        raise GeminiError("Company-original must not use hashtags or links.")
+    if contains_blocked_country_term(lowered):
+        raise GeminiError("Company-original contained a country reference.")
+    if _contains_blocked_output_term(lowered):
+        raise GeminiError("Company-original contained blocked political/current-affairs content.")
+    if any(phrase in lowered for phrase in BRAND_BANNED_PHRASES):
+        raise GeminiError("Company-original used generic or engagement-farming phrasing.")
+    if not draft.structure_signature:
+        raise GeminiError("Company-original did not provide a structure signature.")
+    draft.target_handle = handle
+    draft.target_name = str(target.get("name", "")).strip()
+    return draft
+
+
+def _pick_best_original(drafts: list[OriginalDraft], format_memory: list[dict]) -> OriginalDraft:
+    recent_names = {str(x.get("format_name", "")).strip().lower() for x in format_memory[-12:] if isinstance(x, dict)}
+    recent_text = " ".join(
+        " ".join(str(x.get(f, "")) for f in ("format_name", "comedy_mechanism", "structure_signature")).lower()
+        for x in format_memory[-12:] if isinstance(x, dict)
+    )
+
+    def score(draft: OriginalDraft) -> float:
+        text = draft.post_text
+        tokens = set(re.findall(r"[a-z]+", draft.structure_signature.lower()))
+        recent_tokens = set(re.findall(r"[a-z]+", recent_text))
+        value = 4.0 if draft.format_name.lower() not in recent_names else 0.0
+        value += max(0.0, 4.0 - 1.25 * len(tokens & recent_tokens))
+        value += 2.0 if draft.hook_type in {"tiny_challenge", "impossible_feature_request", "deadpan_deal", "absurd_buying_condition"} else 0.0
+        value += 1.5 if 100 <= len(text) <= 220 else 0.75 if len(text) <= 260 else 0.0
+        value += 0.5 if "?" in text else 0.0
+        value += 1.25 if any(x in text.lower() for x in ("lol", "lmao", "😭", "💀", "nah")) else 0.0
+        return value
+
+    return max(drafts, key=score)
+
+
+def generate_company_original(target: dict, format_memory: list[dict] | None = None) -> OriginalDraft:
+    format_memory = format_memory or []
+    prompt = _company_prompt(target, format_memory)
+    cloudflare_error: GeminiError | None = None
+
+    try:
+        raw_candidates = _cloudflare_candidates(prompt)
+        drafts = []
+        for raw in raw_candidates:
+            try:
+                draft = _parse_original(raw)
+                if draft.should_post:
+                    drafts.append(_validate_original(draft, target))
+            except GeminiError as exc:
+                print(f"Cloudflare company candidate rejected: {exc}")
+        if drafts:
+            return _pick_best_original(drafts, format_memory)
+        cloudflare_error = GeminiError("Cloudflare generated no usable company-original candidates.")
+    except GeminiError as exc:
+        cloudflare_error = exc
+
+    try:
+        _api_keys()
+    except GeminiError:
+        raise cloudflare_error or GeminiError("Cloudflare company generation failed.")
+
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "temperature": 1.0,
+            "maxOutputTokens": 260,
+            "responseMimeType": "application/json",
+        },
+    }
+    safety_suffix = f"""
+
+SAFETY RETRY:
+Generate a NEW company-specific ORIGINAL POST for {target.get("handle", "")}.
+Keep exactly one target handle and no other @mentions.
+Do not ask for reposts, retweets, likes, follows, or reply-if behavior.
+No politics, military/geopolitical content, country references, fabricated current facts,
+hashtags, links, or generic engagement questions. Make it playful, specific, and easy
+for the target company's social team to answer.
+"""
+    last_error = None
+    for attempt in range(1, 3):
+        try:
+            retry_payload = payload if attempt == 1 else {
+                **payload,
+                "contents": [{"parts": [{"text": prompt + safety_suffix}]}],
+            }
+            draft = _parse_original(_extract_text(_post_json(retry_payload)))
+            return _validate_original(draft, target)
+        except GeminiError as exc:
+            last_error = exc
+            print(f"Gemini company candidate rejected ({attempt}/2): {exc}")
+            if attempt == 2:
+                raise last_error
+
+
+
 def generate_quote(source: dict, format_memory: list[dict] | None = None) -> QuoteDraft:
     format_memory = format_memory or []
     prompt = _prompt(source, format_memory)
@@ -670,6 +895,40 @@ reply-worthy. Never generate a standalone post or self-reply.
                 continue
             raise last_error
 
+
+
+
+def _parse_original(text: str) -> OriginalDraft:
+    cleaned = _clean_generated_post(text)
+    if not cleaned:
+        raise GeminiError("AI returned an empty company-original response.")
+    try:
+        data = json.loads(cleaned)
+    except json.JSONDecodeError as exc:
+        start = cleaned.find("{")
+        end = cleaned.rfind("}")
+        if start < 0 or end <= start:
+            raise GeminiError("AI returned non-JSON company-original output.") from exc
+        data = json.loads(cleaned[start:end + 1])
+
+    if not isinstance(data, dict):
+        raise GeminiError("Company-original response was not a JSON object.")
+
+    should_post = data.get("should_post", True)
+    if isinstance(should_post, str):
+        should_post = should_post.strip().lower() in {"true", "1", "yes"}
+
+    return OriginalDraft(
+        bool(should_post),
+        str(data.get("post", "") or "").strip(),
+        str(data.get("angle", "") or "").strip(),
+        str(data.get("target_handle", "") or "").strip(),
+        str(data.get("target_name", "") or "").strip(),
+        str(data.get("format_name", "") or "").strip(),
+        str(data.get("comedy_mechanism", "") or "").strip(),
+        str(data.get("structure_signature", "") or "").strip(),
+        str(data.get("hook_type", "") or "").strip(),
+    )
 
 
 def _parse_experiment(text: str) -> QuoteDraft:
