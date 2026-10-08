@@ -1,7 +1,7 @@
 {
   "day_key": "2026-10-08",
   "daily_count": 6,
-  "ai_call_count": 4,
+  "ai_call_count": 5,
   "last_posted_at": "2026-10-08T04:31:59.162320+00:00",
   "last_source_tweet_id": "2107991124312998227",
   "last_tweet_id": "2108052762273673281",
@@ -55,7 +55,9 @@
     "2107836407616299371",
     "2107991124312998227"
   ],
-  "skipped_source_tweet_ids": [],
+  "skipped_source_tweet_ids": [
+    "2107878893151511014"
+  ],
   "format_lab": [
     {
       "format_name": "burner lineage telemetry",
