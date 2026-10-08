@@ -321,6 +321,8 @@ async def post_next(
 
     state = _load_state()
 
+    _write_company_manual_posts(state)
+
     if ensure_daily_brand_targets(state):
         _save_state(state)
         targets = ", ".join(
