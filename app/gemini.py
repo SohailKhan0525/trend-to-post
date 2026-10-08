@@ -8,6 +8,8 @@ import time
 import urllib.error
 import urllib.request
 
+from .content_guard import contains_blocked_country_term
+
 MODEL = "gemini-3.5-flash-lite"
 CLOUDFLARE_MODEL = os.environ.get("CLOUDFLARE_AI_MODEL", "@cf/zai-org/glm-4.7-flash")
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
@@ -297,7 +299,8 @@ Human, sharp, compressed, specific, internet-native, deadpan, absurd, skeptical,
 Lowercase, fragments, slang, emojis, and weird punctuation are allowed when they improve the joke.
 Confident enough to invite disagreement without manufacturing controversy.
 Roast products, behaviors, hype, abstractions, or situations — not protected identities or private people.
-No politics, political persuasion, military/geopolitical content, fake facts, or corporate/AI-assistant voice.
+No politics, political persuasion, military/geopolitical content, fake facts, corporate/AI-assistant voice, country names,
+country abbreviations, nationalities, or geopolitical geography. ZERO country references in the generated post, including the quoted fragment.
 
 QUOTE POST RULE:
 When content_type=quote_post, use exactly ONE 2-6 word fragment from QUOTE OPTIONS.
@@ -345,6 +348,8 @@ def _quote_options(source_text: str, limit: int = 6) -> list[str]:
         for index in range(len(tokens) - width + 1):
             fragment = " ".join(tokens[index : index + width]).strip()
             if not fragment or len(fragment) > 90:
+                continue
+            if contains_blocked_country_term(fragment):
                 continue
             window = tokens[index : index + width]
             if any(
@@ -471,6 +476,8 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
             raise GeminiError("Generated self-reply used generic engagement phrasing.")
 
     lowered = draft.quote_text.lower()
+    if contains_blocked_country_term(lowered):
+        raise GeminiError("Generated quote-post contained a country reference.")
     unquoted = re.sub(r'["“‘][^"”’]*["”’]', "", lowered)
     if _contains_blocked_output_term(unquoted):
         raise GeminiError("Generated post contained blocked political/current-affairs content.")
