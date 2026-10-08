@@ -8,7 +8,7 @@ from pathlib import Path
 from twikit import Client
 
 from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
-from .gemini import GeminiError, generate_quote
+from .gemini import GeminiError, generate_company_original, generate_quote
 from .trend_source import (
     SOURCE_HISTORY_LIMIT,
     SourceTweet,
@@ -18,9 +18,11 @@ from .trend_source import (
 
 STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
+COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
+QUOTE_POSTS_PER_DAY = POSTS_PER_DAY - COMPANY_POSTS_PER_DAY
 AI_GENERATIONS_PER_DAY = 20
 MIN_POST_INTERVAL_MINUTES = 72
-BRAND_AI_GENERATIONS_PER_DAY = DAILY_BRAND_TARGETS
+BRAND_AI_GENERATIONS_PER_DAY = COMPANY_POSTS_PER_DAY
 
 
 class QueueError(RuntimeError):
@@ -38,7 +40,11 @@ def _new_state() -> dict:
         "day_key": _today(),
         "daily_count": 0,
         "ai_call_count": 0,
+        "company_post_count": 0,
+        "company_posted_handles": [],
         "last_posted_at": None,
+        "last_post_type": None,
+        "last_company_handle": None,
         "last_source_tweet_id": None,
         "last_tweet_id": None,
         "posted_source_tweet_ids": [],
@@ -76,6 +82,10 @@ def _load_state() -> dict:
         state["day_key"] = today
         state["daily_count"] = 0
         state["ai_call_count"] = 0
+        state["company_post_count"] = 0
+        state["company_posted_handles"] = []
+        state["last_post_type"] = None
+        state["last_company_handle"] = None
         state["brand_draft_day_key"] = None
         state["brand_draft_queue"] = []
         state["brand_ai_call_count"] = 0
@@ -93,6 +103,20 @@ def _load_state() -> dict:
         raise QueueError(
             f"State ai_call_count is outside 0..{AI_GENERATIONS_PER_DAY}."
         )
+    try:
+        state["company_post_count"] = int(state.get("company_post_count", 0))
+    except (TypeError, ValueError) as exc:
+        raise QueueError("State company_post_count must be an integer.") from exc
+    if not 0 <= state["company_post_count"] <= COMPANY_POSTS_PER_DAY:
+        raise QueueError(
+            f"State company_post_count is outside 0..{COMPANY_POSTS_PER_DAY}."
+        )
+    company_handles = state.get("company_posted_handles", [])
+    if not isinstance(company_handles, list):
+        raise QueueError("State company_posted_handles must be a list.")
+    state["company_posted_handles"] = [
+        str(handle).strip() for handle in company_handles if str(handle).strip()
+    ][:COMPANY_POSTS_PER_DAY]
 
     state["posted_source_tweet_ids"] = _history(
         state.get("posted_source_tweet_ids", [])
@@ -200,6 +224,33 @@ def _interval_ok(state: dict) -> bool:
     return True
 
 
+def _next_company_target(state: dict) -> dict | None:
+    posted = {
+        str(handle).strip()
+        for handle in state.get("company_posted_handles", [])
+        if str(handle).strip()
+    }
+    for item in state.get("brand_tag_queue", []):
+        if not isinstance(item, dict):
+            continue
+        handle = str(item.get("handle", "")).strip()
+        name = str(item.get("name", "")).strip()
+        if handle and name and handle not in posted:
+            return item
+    return None
+
+
+def _company_slot_due(state: dict) -> bool:
+    next_number = int(state["daily_count"]) + 1
+    if next_number % 4 == 0:
+        return True
+    expected_company_posts = min(
+        COMPANY_POSTS_PER_DAY,
+        next_number // 4,
+    )
+    return int(state["company_post_count"]) < expected_company_posts
+
+
 async def post_next(
     auth_token: str,
     ct0: str,
@@ -227,7 +278,8 @@ async def post_next(
         )
         print(
             "Brand target queue refreshed: "
-            f"{targets}. Manual approval required; no unsolicited auto-mentions."
+            f"{targets}. Five company slots are reserved inside the daily 20-post quota; "
+            "unsolicited automated @mentions are disabled."
         )
 
     if state["daily_count"] >= POSTS_PER_DAY:
@@ -245,15 +297,114 @@ async def post_next(
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; auth cookies may be expired.")
 
+    if _company_slot_due(state) and state["company_post_count"] < COMPANY_POSTS_PER_DAY:
+        target = _next_company_target(state)
+        if target is None:
+            raise QueueError(
+                "No unused company target is available for the next reserved company slot."
+            )
+
+        target_handle = str(target["handle"]).strip()
+        target_name = str(target["name"]).strip()
+        state["ai_call_count"] += 1
+        state["brand_ai_call_count"] = min(
+            COMPANY_POSTS_PER_DAY,
+            int(state.get("brand_ai_call_count", 0)) + 1,
+        )
+        _save_state(state)
+
+        try:
+            draft = generate_company_original(
+                target,
+                state["brand_format_lab"],
+                include_handle=False,
+            )
+        except GeminiError as exc:
+            target["status"] = "generation_failed"
+            target["last_error"] = str(exc)
+            _save_state(state)
+            print(
+                "Company AI could not produce a policy-safe candidate; "
+                f"target will retry on the next company slot: {target_name} ({target_handle})."
+            )
+            return False
+
+        if not draft.should_post:
+            target["status"] = "generation_rejected"
+            _save_state(state)
+            print(f"Company AI rejected target; retrying later: {target_name}.")
+            return False
+
+        text = draft.post_text.strip()
+        if not text or len(text) > 280:
+            raise QueueError("AI returned invalid company post text length.")
+
+        print(f"Company post text ({len(text)}/280): {text}")
+        print(
+            f"Company target: {target_name} ({target_handle}); "
+            "automated @mention disabled."
+        )
+
+        try:
+            tweet = await client.create_tweet(text=text)
+        except Exception as exc:
+            raise QueueError(f"X company post failed: {exc}") from exc
+
+        now = datetime.now(timezone.utc).isoformat()
+        lab = state["brand_format_lab"]
+        lab.append(
+            {
+                "format_name": draft.format_name or "unnamed company format",
+                "comedy_mechanism": draft.comedy_mechanism,
+                "hook_type": draft.hook_type,
+                "structure_signature": draft.structure_signature,
+                "used_at": now,
+                "target": target_handle,
+                "tweet_id": str(getattr(tweet, "id", "") or ""),
+            }
+        )
+        state["brand_format_lab"] = lab[-20:]
+
+        fingerprints = state["recent_post_fingerprints"]
+        fingerprints.append(draft.structure_signature[:180])
+        state["recent_post_fingerprints"] = fingerprints[-30:]
+
+        handles = state["company_posted_handles"]
+        handles.append(target_handle)
+        state["company_posted_handles"] = handles[-COMPANY_POSTS_PER_DAY:]
+        target["status"] = "auto_published"
+        target["posted_at"] = now
+        target["posted_tweet_id"] = str(getattr(tweet, "id", "") or "")
+        target.pop("last_error", None)
+
+        state.update(
+            {
+                "day_key": _today(),
+                "daily_count": int(state["daily_count"]) + 1,
+                "company_post_count": int(state["company_post_count"]) + 1,
+                "last_tweet_id": str(getattr(tweet, "id", "") or ""),
+                "last_posted_at": now,
+                "last_post_type": "company_original",
+                "last_company_handle": target_handle,
+            }
+        )
+        _save_state(state)
+
+        print(
+            f"Posted company_original #{state['company_post_count']}/{COMPANY_POSTS_PER_DAY}; "
+            f"total posts {state['daily_count']}/{POSTS_PER_DAY}; "
+            f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
+        )
+        return True
+
     used = state["posted_source_tweet_ids"] + state["skipped_source_tweet_ids"]
 
     try:
         source = await find_trending_source(client, used)
         payload = _source_dict(source)
 
-        # Cloudflare is primary; Gemini 3.5 Flash-Lite is the fallback.
-        # Consume the application-level generation budget before calling a provider
-        # so repeated provider failures cannot bypass the daily guard.
+        # Both company originals and quote posts consume the same application-level
+        # AI budget so the daily 20-call ceiling cannot be bypassed by the brand lane.
         state["ai_call_count"] += 1
         _save_state(state)
         try:
@@ -284,31 +435,24 @@ async def post_next(
         raise QueueError("AI returned invalid post text length.")
 
     print(f"Post text ({len(text)}/280): {text}")
-    if draft.content_type == "quote_post":
-        print(f"Quote-post source: {source.url}")
+    print(f"Quote-post source: {source.url}")
 
     try:
-        if draft.content_type == "quote_post":
-            tweet = await client.create_tweet(text=text, attachment_url=source.url)
-        else:
-            tweet = await client.create_tweet(text=text)
+        tweet = await client.create_tweet(text=text, attachment_url=source.url)
     except Exception as exc:
         raise QueueError(f"X post failed: {exc}") from exc
 
-    # Quote-post-only mode: never spend daily capacity on an automated self-reply.
-    self_reply_posted = False
-    self_reply_id = ""
-
+    now = datetime.now(timezone.utc).isoformat()
     lab = state["format_lab"]
     lab.append(
         {
             "format_name": draft.format_name or "unnamed format",
             "comedy_mechanism": draft.comedy_mechanism,
-            "used_at": datetime.now(timezone.utc).isoformat(),
+            "used_at": now,
             "topic": source.trend,
-            "self_reply": self_reply_posted,
+            "self_reply": False,
             "tweet_id": str(getattr(tweet, "id", "") or ""),
-            "content_type": draft.content_type,
+            "content_type": "quote_post",
             "mutation_stage": draft.mutation_stage,
             "structure_signature": draft.structure_signature,
         }
@@ -326,16 +470,21 @@ async def post_next(
         {
             "day_key": _today(),
             "daily_count": int(state["daily_count"]) + 1,
-            "last_tweet_id": self_reply_id or str(getattr(tweet, "id", "") or ""),
-            "last_posted_at": datetime.now(timezone.utc).isoformat(),
+            "last_tweet_id": str(getattr(tweet, "id", "") or ""),
+            "last_posted_at": now,
             "last_source_tweet_id": source.tweet_id,
+            "last_post_type": "quote_post",
+            "last_company_handle": None,
         }
     )
     _save_state(state)
 
+    quote_count = state["daily_count"] - state["company_post_count"]
     print(
-        f"Posted quote_post #{state['daily_count']}/{POSTS_PER_DAY}; "
-        f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
-        f" Format={draft.format_name or 'unnamed'}"
+        f"Posted quote_post #{quote_count}/{QUOTE_POSTS_PER_DAY}; "
+        f"company posts {state['company_post_count']}/{COMPANY_POSTS_PER_DAY}; "
+        f"total posts {state['daily_count']}/{POSTS_PER_DAY}; "
+        f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}. "
+        f"Format={draft.format_name or 'unnamed'}"
     )
     return True
