@@ -8,8 +8,8 @@ DAILY_BRAND_TARGETS = 5
 BRAND_COOLDOWN_DAYS = 4
 
 # Famous, conversation-friendly companies/products spanning the account's
-# allowed verticals. These are targets for a manual queue by default.
-# Automatic mentions require an explicit opt-in workflow.
+# allowed verticals. These feed the daily company-original draft lane.
+# Automatic mentions remain manual-approval only.
 BRAND_POOL = (
     ("@BMW", "BMW", ("bmw", "m4", "m3", "m5", "i4", "i5", "i7", "x5")),
     ("@MercedesBenz", "Mercedes-Benz", ("mercedes", "amg", "maybach")),
