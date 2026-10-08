@@ -16,13 +16,16 @@ This repository runs an automated, text-first X account focused on AI, technolog
 - Keeps political/current-affairs content blocked at both source-selection and output-validation stages.
 - Enforces a separate zero-country output guard; generated quote posts cannot contain country names or common country aliases, including inside the quoted fragment.
 - Creates five rotating famous-company targets per UTC day with a strict four-day cooldown so the same company is not targeted again until eligible.
+- Generates one original, company-specific reply-bait draft for each target and saves them to `state/brand_drafts.md` for manual approval.
 
 ## Publishing limits
 
-- Maximum 20 total posts per UTC day.
-- Maximum 20 AI generation calls per UTC day.
-- Minimum 72 minutes between successful posting events.
-- Each successful publishing event consumes one post slot; there are no automated self-replies.
+- Maximum 20 automated posts per UTC day.
+- Maximum 20 AI generation calls per UTC day for the automated Quote Post lane.
+- Five additional company-original drafts are generated per UTC day for manual approval.
+- Minimum 72 minutes between successful automated posting events.
+- Company drafts are not auto-published and do not consume the automated 20-post publishing slots.
+- Each automated publishing event is a single Quote Post; there are no automated self-replies.
 
 These are operating limits, not a guarantee of 20 posts every day. X failures, rate limits, unavailable search results, or the AI rejecting a weak source can reduce output.
 
@@ -34,9 +37,15 @@ The creative goal is to make the quote comment worth reacting to: a sharp observ
 
 ### Brand targets
 
-X's automation rules prohibit unsolicited automated mentions intended to reach users. The bot therefore generates a five-company daily target queue for manual use instead of automatically @mentioning random companies. A target remains on cooldown for four days after selection. Automated brand mentions can only be considered for an explicit opt-in workflow.
+The account has a separate company-reply lane. Five famous companies are selected each UTC day with a four-day cooldown. For each target, the AI writes an ORIGINAL post specifically shaped to give that company's social team, builders, or knowledgeable fans a reason to answer: a playful challenge, absurd product request, specific roast, ridiculous buying condition, or another concrete hook.
 
-The account is deliberately text-first; image generation is not required by the runtime.
+The target handle is included exactly once in the saved draft, but the bot does not auto-publish unsolicited company mentions. Drafts land in `state/brand_drafts.md` for manual approval. The main automated publishing lane remains Quote Posts only.
+
+Example shape:
+
+`@BMW the M4 needs a button that deletes my group chat.`
+
+The point is specificity and a replyable premise, not "repost this" or empty engagement bait.
 
 ## Security
 
