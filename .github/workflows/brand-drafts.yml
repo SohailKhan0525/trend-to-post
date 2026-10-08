@@ -48,6 +48,9 @@ jobs:
       - name: Validate Python syntax
         run: python -m compileall -q app
 
+      - name: Run company draft tests
+        run: python -m unittest discover -s tests -p "test_*.py"
+
       - name: Generate five company originals
         id: brand_bot
         env:
