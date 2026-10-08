@@ -1,7 +1,7 @@
 {
   "day_key": "2026-10-08",
-  "daily_count": 12,
-  "ai_call_count": 17,
+  "daily_count": 13,
+  "ai_call_count": 18,
   "last_posted_at": "2026-10-08T14:01:43.105697+00:00",
   "last_source_tweet_id": "2108054369056809396",
   "last_tweet_id": "2108196140071940102",
@@ -284,10 +284,11 @@
     "bureaucratic penalty declaration ending in a quote fragment followed by a surreal policy rider",
     "legalistic compliance failure declaration ending in a source quote fragment",
     "mention + playful ultimatum + conditional truce",
-    "mention + conditional commitment + absurd requirement"
+    "mention + conditional commitment + absurd requirement",
+    "mention + feature request + absurd competitive framing"
   ],
   "brand_draft_queue": [],
-  "brand_ai_call_count": 2,
+  "brand_ai_call_count": 3,
   "brand_format_lab": [
     {
       "format_name": "gestural_spec_sheet",
@@ -305,6 +306,15 @@
       "structure_signature": "mention + conditional commitment + absurd requirement",
       "used_at": "2026-10-08T16:01:53.650009+00:00",
       "target": "@Porsche",
+      "manual": true
+    },
+    {
+      "format_name": "windshield_telemetry_challenge",
+      "comedy_mechanism": "treating a mundane vehicle component as high-stakes athletic equipment",
+      "hook_type": "brand_inside_joke",
+      "structure_signature": "mention + feature request + absurd competitive framing",
+      "used_at": "2026-10-08T16:32:04.571990+00:00",
+      "target": "@Tesla",
       "manual": true
     }
   ],
@@ -350,7 +360,8 @@
       ],
       "selected_at": "2026-10-08T15:01:32.440244+00:00",
       "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
-      "status": "manual_approval_required"
+      "status": "manual_ready",
+      "generated_at": "2026-10-08T16:32:04.571990+00:00"
     },
     {
       "handle": "@Discord",
@@ -380,10 +391,11 @@
     "@Discord": "2026-10-12T15:01:32.440244+00:00",
     "@SlackHQ": "2026-10-12T15:01:32.440244+00:00"
   },
-  "company_post_count": 2,
+  "company_post_count": 3,
   "company_posted_handles": [
     "@Ferrari",
-    "@Porsche"
+    "@Porsche",
+    "@Tesla"
   ],
   "company_manual_posts": [
     {
@@ -411,8 +423,21 @@
       "structure_signature": "mention + conditional commitment + absurd requirement",
       "generated_at": "2026-10-08T16:01:53.650009+00:00",
       "status": "ready_for_manual_post"
+    },
+    {
+      "slot_number": 13,
+      "handle": "@Tesla",
+      "name": "Tesla",
+      "post": "@Tesla the Cybertruck needs a dedicated windscreen wiper wipe-count tracker so I can finally prove to my friends that bug splatter speed runs are a legitimate sport.",
+      "angle": "it pokes fun at a well-known vehicle design feature while inventing a ridiculous competitive sport that employees and owners can easily joke about or correct",
+      "hook_type": "brand_inside_joke",
+      "format_name": "windshield_telemetry_challenge",
+      "comedy_mechanism": "treating a mundane vehicle component as high-stakes athletic equipment",
+      "structure_signature": "mention + feature request + absurd competitive framing",
+      "generated_at": "2026-10-08T16:32:04.571990+00:00",
+      "status": "ready_for_manual_post"
     }
   ],
   "last_post_type": "company_manual",
-  "last_company_handle": "@Porsche"
+  "last_company_handle": "@Tesla"
 }

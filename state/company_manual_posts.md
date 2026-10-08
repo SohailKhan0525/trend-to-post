@@ -22,3 +22,12 @@ Format: poultry_ultimatum
 Hook: absurd_buying_condition
 Mechanism: juxtaposing serious sports car ownership standards with a ridiculous grocery constraint
 Status: ready_for_manual_post
+
+## Slot 13 — Tesla @Tesla
+
+> @Tesla the Cybertruck needs a dedicated windscreen wiper wipe-count tracker so I can finally prove to my friends that bug splatter speed runs are a legitimate sport.
+
+Format: windshield_telemetry_challenge
+Hook: brand_inside_joke
+Mechanism: treating a mundane vehicle component as high-stakes athletic equipment
+Status: ready_for_manual_post
