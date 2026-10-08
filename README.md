@@ -68,7 +68,7 @@ The point is specificity and a replyable premise, not "repost this" or empty eng
 
 ## Scheduling
 
-Keep the external scheduler sending repository_dispatch with event type post-next. The workflow also supports manual workflow_dispatch runs.
+Keep the external scheduler sending repository_dispatch with event type post-next for the automated Quote Post lane. The `Generate Brand Drafts` workflow also runs once per UTC day and supports manual `workflow_dispatch` runs.
 
 ## State
 
@@ -80,5 +80,6 @@ state/post_queue.json stores:
 - bounded Format Lab memory
 - recent structure fingerprints
 - daily five-company brand target queue and four-day cooldown records
+- daily five-company original drafts, their generation metadata, and the separate company-format lab
 
 The research pass behind the current design used primary X automation/ranking material, GitHub Actions security guidance, current Twifork documentation, creator/posting studies, and recent LLM creativity research. It was a broad cross-section rather than a mechanically counted 200 unique websites; low-quality duplicate pages were not treated as 200 independent confirmations.
