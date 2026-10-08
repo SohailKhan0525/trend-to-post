@@ -26,6 +26,7 @@ This repository runs an automated, text-first X account focused on AI, technolog
 - Minimum 72 minutes between successful automated posting events.
 - Company drafts are not auto-published and do not consume the automated 20-post publishing slots.
 - Each automated publishing event is a single Quote Post; there are no automated self-replies.
+- Run `python -m app brand-drafts` locally or use the daily `Generate Brand Drafts` workflow to refresh the five copy-ready company originals.
 
 These are operating limits, not a guarantee of 20 posts every day. X failures, rate limits, unavailable search results, or the AI rejecting a weak source can reduce output.
 
