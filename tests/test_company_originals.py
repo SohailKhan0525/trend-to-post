@@ -18,6 +18,12 @@ class CompanyOriginalValidationTests(unittest.TestCase):
             "test mechanism",
             "test structure",
             "tiny_challenge",
+            [
+                {"speaker": "USER", "text": "Please add a tiny panic button."},
+                {"speaker": "AI", "text": "The button is now nervous."},
+                {"speaker": "SYSTEM", "text": "It has submitted its resignation."},
+            ],
+            "a surreal dashboard with a tiny glowing panic button, no text or logos",
         )
 
     def test_valid_company_original(self) -> None:
