@@ -544,8 +544,13 @@ async def _ensure_trend_manual_posts(state: dict, client: Client) -> bool:
             + state.get("skipped_source_tweet_ids", [])
             + state.get("trend_source_ids", [])
         )
+        used_trends = [
+            str(item.get("trend", "")).strip()
+            for item in state.get("trend_manual_posts", [])
+            if isinstance(item, dict) and str(item.get("trend", "")).strip()
+        ]
         try:
-            source = await find_trending_source(client, used)
+            source = await find_trending_source(client, used, used_trends)
         except TrendSourceError as exc:
             print(f"Cannot prepare trend-grounded draft right now: {exc}")
             _write_trend_manual_posts(state)
