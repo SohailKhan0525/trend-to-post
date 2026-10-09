@@ -210,7 +210,11 @@ def _extract_text(payload: dict) -> str:
     return text
 
 
-def _prompt(source: dict, format_memory: list[dict] | None = None) -> str:
+def _prompt(
+    source: dict,
+    format_memory: list[dict] | None = None,
+    emoji_count: int = 3,
+) -> str:
     fragments = _quote_options(str(source["text"]))
     recent_formats = format_memory[-12:] if format_memory else []
 
@@ -219,7 +223,8 @@ def _prompt(source: dict, format_memory: list[dict] | None = None) -> str:
             f"- name={item.get('format_name', 'unknown')}; "
             f"mechanism={item.get('comedy_mechanism', '')}; "
             f"stage={item.get('mutation_stage', '')}; "
-            f"signature={item.get('structure_signature', '')}"
+            f"signature={item.get('structure_signature', '')}; "
+            f"prior_post={item.get('post_text', '')}"
         )
         for item in recent_formats
         if isinstance(item, dict)
@@ -305,7 +310,7 @@ THE METHOD — DO THIS INTERNALLY:
 3. Mutate the idea using the mandatory stage.
 4. Compress it until a smart stranger understands the bit immediately.
 5. Ask whether it feels generic or AI-written. If yes, BREAK IT AGAIN.
-6. Ask whether it resembles a recent format. If yes, mutate again.
+6. Compare the premise, angle, metaphor, punchline mechanism, wording, and structure against every recent item, including prior_post text. Do not just swap nouns or paraphrase an old joke. If any part feels reused, discard the idea and mutate again.
 
 CONTENT TYPE:
 Always use:
@@ -319,15 +324,19 @@ Never use fictional artifacts to imply real statistics or real events.
 
 VOICE:
 Human, sharp, compressed, specific, internet-native, deadpan, absurd, skeptical, playful, slightly unhinged when natural.
-Lowercase, fragments, slang, emojis, and weird punctuation are allowed when they improve the joke.
+Lowercase, fragments, slang, and weird punctuation are allowed when they improve the joke.
 Confident enough to invite disagreement without manufacturing controversy.
 Roast products, behaviors, hype, abstractions, or situations — not protected identities or private people.
 No politics, political persuasion, military/geopolitical content, fake facts, corporate/AI-assistant voice, country names,
 country abbreviations, nationalities, or geopolitical geography. ZERO country references in the generated post, including the quoted fragment.
+Do not add @mentions, hashtags, or URLs in your comment. The original company account will appear only as the attached quote post.
+Emoji palette is STRICTLY limited to 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀.
+Use at least {emoji_count} and at most {emoji_count + 1} distinct emojis from that palette. Never repeat an emoji token.
 
 QUOTE POST RULE:
 When content_type=quote_post, use exactly ONE 2-6 word fragment from QUOTE OPTIONS.
 Preserve those words exactly inside quotation marks. Never quote more than 6 consecutive source words.
+Do not include any @mention, hashtag, URL, or emoji outside the strict palette.
 
 SELF-REPLY:
 Do not generate a self-reply. The quote post must stand alone.
@@ -342,7 +351,7 @@ RETURN JSON ONLY:
 {{
   "should_post": true,
   "content_type": "quote_post",
-  "post": "the final quote-post comment",
+  "post": "the final quote-post comment with the exact required number of distinct allowed emojis",
   "quote_fragment": "the exact 2-6 word source fragment used",
   "format_name": "a genuinely new short format name",
   "comedy_mechanism": "one-line explanation",
