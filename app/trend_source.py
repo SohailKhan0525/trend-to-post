@@ -12,9 +12,9 @@ TWEETS_PER_SEARCH = 15
 MAX_TWEET_AGE = timedelta(hours=18)
 SOURCE_HISTORY_LIMIT = 100
 
-# These are discovery queries, not trend targets. They deliberately cover
-# technical, product, builder, and sports conversations where established
-# professional accounts are likely to participate.
+# Fallback discovery queries for when X's Trends feed is unavailable or has no
+# eligible AI/tech/gaming/sports topics. Official Trends results are preferred
+# for the manual-review lane; neither source is ever used for auto-publishing.
 SIGNAL_SEARCHES = (
     "ChatGPT",
     "OpenAI",
@@ -37,8 +37,8 @@ SIGNAL_SEARCHES = (
 )
 
 
-# Keep the bot focused on the requested subjects. A trend must contain at least
-# one allowed signal, while political/current-affairs signals are explicitly rejected.
+# Keep trend discovery focused on the requested subjects. A source/topic must
+# contain an allowed signal, while political/current-affairs signals are rejected.
 ALLOWED_TOPIC_KEYWORDS = (
     "artificial intelligence",
     "ai",
