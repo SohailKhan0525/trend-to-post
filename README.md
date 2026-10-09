@@ -46,7 +46,7 @@ Five famous companies are selected each UTC day with a four-day cooldown. Each m
 
 You manually publish the caption and its matching PNG. The remaining fifteen original meme posts are automatically published without unsolicited company mentions.
 
-Cloudflare's [FLUX.1 Schnell model](https://developers.cloudflare.com/workers-ai/models/flux-1-schnell/) supplies optional text-free artwork; the final chat layout and text are rendered locally for legibility.
+Cloudflare's [FLUX.1 Schnell model](https://developers.cloudflare.com/workers-ai/models/flux-1-schnell/) supplies optional text-free artwork; the final chat layout and text are rendered locally for legibility. Cloudflare currently lists a 10,000-Neuron daily free allocation, but the caption model and image model share that account pool, so actual capacity depends on text output and image settings. If FLUX runs out of capacity, the bot falls back to its own illustrated background instead of asking the image model to spell text.
 
 ## Security
 
