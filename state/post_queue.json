@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-09",
-  "daily_count": 1,
-  "ai_call_count": 3,
-  "last_posted_at": "2026-10-09T00:31:26.760812+00:00",
-  "last_source_tweet_id": "2108317765153026077",
-  "last_tweet_id": "2108354616085876952",
+  "daily_count": 2,
+  "ai_call_count": 4,
+  "last_posted_at": "2026-10-09T02:31:26.350514+00:00",
+  "last_source_tweet_id": "2108230001157923025",
+  "last_tweet_id": "2108384813581508887",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -58,7 +58,8 @@
     "2108123471540871201",
     "2107897778253009205",
     "2108054369056809396",
-    "2108317765153026077"
+    "2108317765153026077",
+    "2108230001157923025"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -74,14 +75,6 @@
     "2108295649582035208"
   ],
   "format_lab": [
-    {
-      "format_name": "burner lineage telemetry mutation",
-      "comedy_mechanism": "contrasting a minor software free trial sign-up trick with an accidental descent into witness-protection-level persona management",
-      "used_at": "2026-10-06T10:01:52.890292+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107411006536245495"
-    },
     {
       "format_name": "workplace paranoia telemetry",
       "comedy_mechanism": "contrasting the mundane corporate feature of meeting notes with an oppressive, omniscient entity archiving your professional humiliation",
@@ -275,6 +268,17 @@
       "content_type": "quote_post",
       "mutation_stage": "premise_inversion",
       "structure_signature": "speculative future anthropology conclusion derived from commercial audio artifacts"
+    },
+    {
+      "format_name": "cinematic ghosting disclaimer",
+      "comedy_mechanism": "inverting interpersonal failure into a serialized television broadcast format",
+      "used_at": "2026-10-09T02:31:26.350514+00:00",
+      "topic": "Formula 1",
+      "self_reply": false,
+      "tweet_id": "2108384813581508887",
+      "content_type": "quote_post",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "social observation followed by media industry metaphor"
     }
   ],
   "recent_post_fingerprints": [
@@ -294,7 +298,8 @@
     "mention + playful ultimatum + conditional truce",
     "mention + conditional commitment + absurd requirement",
     "mention + feature request + absurd competitive framing",
-    "speculative future anthropology conclusion derived from commercial audio artifacts"
+    "speculative future anthropology conclusion derived from commercial audio artifacts",
+    "social observation followed by media industry metaphor"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
