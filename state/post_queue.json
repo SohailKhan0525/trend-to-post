@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-09",
-  "daily_count": 0,
-  "ai_call_count": 1,
-  "last_posted_at": "2026-10-08T14:01:43.105697+00:00",
-  "last_source_tweet_id": "2108054369056809396",
-  "last_tweet_id": "2108196140071940102",
+  "daily_count": 1,
+  "ai_call_count": 2,
+  "last_posted_at": "2026-10-09T00:31:26.760812+00:00",
+  "last_source_tweet_id": "2108317765153026077",
+  "last_tweet_id": "2108354616085876952",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -57,7 +57,8 @@
     "2107829816653427112",
     "2108123471540871201",
     "2107897778253009205",
-    "2108054369056809396"
+    "2108054369056809396",
+    "2108317765153026077"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -72,14 +73,6 @@
     "2108241133960565158"
   ],
   "format_lab": [
-    {
-      "format_name": "macroeconomic hostage crisis census",
-      "comedy_mechanism": "contrasting massive tech industry valuation hype with an embarrassingly tiny, hyper-specific consumer reality",
-      "used_at": "2026-10-06T07:31:32.408066+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107373170890088674"
-    },
     {
       "format_name": "burner lineage telemetry mutation",
       "comedy_mechanism": "contrasting a minor software free trial sign-up trick with an accidental descent into witness-protection-level persona management",
@@ -270,6 +263,17 @@
       "content_type": "quote_post",
       "mutation_stage": "invented_rule",
       "structure_signature": "legalistic compliance failure declaration ending in a source quote fragment"
+    },
+    {
+      "format_name": "archaeological frequency inversion",
+      "comedy_mechanism": "treating an infinite commercial radio broadcast loop as a literal thermodynamic impossibility that survives the end of the universe",
+      "used_at": "2026-10-09T00:31:26.760812+00:00",
+      "topic": "gaming",
+      "self_reply": false,
+      "tweet_id": "2108354616085876952",
+      "content_type": "quote_post",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "speculative future anthropology conclusion derived from commercial audio artifacts"
     }
   ],
   "recent_post_fingerprints": [
@@ -288,7 +292,8 @@
     "legalistic compliance failure declaration ending in a source quote fragment",
     "mention + playful ultimatum + conditional truce",
     "mention + conditional commitment + absurd requirement",
-    "mention + feature request + absurd competitive framing"
+    "mention + feature request + absurd competitive framing",
+    "speculative future anthropology conclusion derived from commercial audio artifacts"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -408,7 +413,7 @@
       "status": "ready_for_manual_post"
     }
   ],
-  "last_post_type": null,
+  "last_post_type": "quote_post",
   "last_company_handle": null,
   "brand_draft_day_key": null
 }
