@@ -679,7 +679,6 @@ async def post_next(
     state = _load_state()
 
     _write_company_manual_posts(state)
-    _write_trend_manual_posts(state)
 
     if ensure_daily_brand_targets(state):
         _save_state(state)
@@ -713,13 +712,14 @@ async def post_next(
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; auth cookies may be expired.")
 
-    # X's current automation rules prohibit auto-posting about X trending topics.
-    # Prepare four source-grounded text drafts for manual review before invented auto posts.
-    if int(state.get("trend_manual_post_count", 0)) < TREND_MANUAL_POSTS_PER_DAY:
-        if not await _ensure_trend_manual_posts(state, client):
-            _write_trend_manual_posts(state)
-            _save_state(state)
-            return False
+    # Quote current posts from curated official brand accounts. This lane does not
+    # query X's Trending Topics list; each successful item is attached as a real quote-post.
+    if int(state.get("trend_quote_post_count", 0)) < TREND_QUOTE_POSTS_PER_DAY:
+        return await _post_trend_quote(state, client)
+
+    if int(state.get("invented_post_count", 0)) >= ORIGINAL_POSTS_PER_DAY:
+        print(f"Daily invented-original limit reached: {ORIGINAL_POSTS_PER_DAY}.")
+        return False
 
     if state["daily_count"] >= POSTS_PER_DAY:
         print(f"Daily content-slot limit reached: {POSTS_PER_DAY}.")
@@ -797,10 +797,10 @@ async def post_next(
     )
     _save_state(state)
 
-    original_count = state["daily_count"] - state["company_post_count"] - state["trend_manual_post_count"]
+    original_count = int(state.get("invented_post_count", 0))
     print(
         f"Posted invented original #{original_count}/{ORIGINAL_POSTS_PER_DAY}; "
-        f"trend-grounded manual drafts {state['trend_manual_post_count']}/{TREND_MANUAL_POSTS_PER_DAY}; "
+        f"official-brand quote-posts {state.get('trend_quote_post_count', 0)}/{TREND_QUOTE_POSTS_PER_DAY}; "
         f"company manual captions {state['company_post_count']}/{COMPANY_POSTS_PER_DAY}; "
         f"total content slots {state['daily_count']}/{POSTS_PER_DAY}; "
         f"text generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}; "
