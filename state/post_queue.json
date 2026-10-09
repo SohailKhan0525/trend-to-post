@@ -1,7 +1,7 @@
 {
-  "day_key": "2026-10-08",
-  "daily_count": 13,
-  "ai_call_count": 20,
+  "day_key": "2026-10-09",
+  "daily_count": 0,
+  "ai_call_count": 1,
   "last_posted_at": "2026-10-08T14:01:43.105697+00:00",
   "last_source_tweet_id": "2108054369056809396",
   "last_tweet_id": "2108196140071940102",
@@ -68,7 +68,8 @@
     "2108108695876092323",
     "2108053336289333513",
     "2108090260387254738",
-    "2108103824217080163"
+    "2108103824217080163",
+    "2108241133960565158"
   ],
   "format_lab": [
     {
@@ -290,99 +291,65 @@
     "mention + feature request + absurd competitive framing"
   ],
   "brand_draft_queue": [],
-  "brand_ai_call_count": 3,
-  "brand_format_lab": [
-    {
-      "format_name": "gestural_spec_sheet",
-      "comedy_mechanism": "trading a boring technical requirement for an absurdly physical alternative",
-      "hook_type": "tiny_challenge",
-      "structure_signature": "mention + playful ultimatum + conditional truce",
-      "used_at": "2026-10-08T15:31:21.286860+00:00",
-      "target": "@Ferrari",
-      "manual": true
-    },
-    {
-      "format_name": "poultry_ultimatum",
-      "comedy_mechanism": "juxtaposing serious sports car ownership standards with a ridiculous grocery constraint",
-      "hook_type": "absurd_buying_condition",
-      "structure_signature": "mention + conditional commitment + absurd requirement",
-      "used_at": "2026-10-08T16:01:53.650009+00:00",
-      "target": "@Porsche",
-      "manual": true
-    },
-    {
-      "format_name": "windshield_telemetry_challenge",
-      "comedy_mechanism": "treating a mundane vehicle component as high-stakes athletic equipment",
-      "hook_type": "brand_inside_joke",
-      "structure_signature": "mention + feature request + absurd competitive framing",
-      "used_at": "2026-10-08T16:32:04.571990+00:00",
-      "target": "@Tesla",
-      "manual": true
-    }
-  ],
-  "brand_tag_day_key": "2026-10-08",
+  "brand_ai_call_count": 0,
+  "brand_format_lab": [],
+  "brand_tag_day_key": "2026-10-09",
   "brand_tag_queue": [
     {
-      "handle": "@Ferrari",
-      "name": "Ferrari",
+      "handle": "@AnthropicAI",
+      "name": "Anthropic",
       "keywords": [
-        "ferrari",
-        "sf90",
-        "296"
+        "anthropic",
+        "claude"
       ],
-      "selected_at": "2026-10-08T15:01:32.440244+00:00",
-      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
-      "status": "manual_ready",
-      "generated_at": "2026-10-08T15:31:21.286860+00:00"
-    },
-    {
-      "handle": "@Porsche",
-      "name": "Porsche",
-      "keywords": [
-        "porsche",
-        "911",
-        "taycan",
-        "macan"
-      ],
-      "selected_at": "2026-10-08T15:01:32.440244+00:00",
-      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
-      "status": "manual_ready",
-      "generated_at": "2026-10-08T16:01:53.650009+00:00"
-    },
-    {
-      "handle": "@Tesla",
-      "name": "Tesla",
-      "keywords": [
-        "tesla",
-        "model 3",
-        "model s",
-        "model x",
-        "model y",
-        "cybertruck"
-      ],
-      "selected_at": "2026-10-08T15:01:32.440244+00:00",
-      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
-      "status": "manual_ready",
-      "generated_at": "2026-10-08T16:32:04.571990+00:00"
-    },
-    {
-      "handle": "@Discord",
-      "name": "Discord",
-      "keywords": [
-        "discord"
-      ],
-      "selected_at": "2026-10-08T15:01:32.440244+00:00",
-      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
+      "selected_at": "2026-10-09T00:01:28.039615+00:00",
+      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
       "status": "manual_approval_required"
     },
     {
-      "handle": "@SlackHQ",
-      "name": "Slack",
+      "handle": "@Microsoft",
+      "name": "Microsoft",
       "keywords": [
-        "slack"
+        "microsoft",
+        "copilot",
+        "windows",
+        "xbox",
+        "azure"
       ],
-      "selected_at": "2026-10-08T15:01:32.440244+00:00",
-      "eligible_again_at": "2026-10-12T15:01:32.440244+00:00",
+      "selected_at": "2026-10-09T00:01:28.039615+00:00",
+      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
+      "status": "manual_approval_required"
+    },
+    {
+      "handle": "@adidas",
+      "name": "adidas",
+      "keywords": [
+        "adidas",
+        "ultraboost"
+      ],
+      "selected_at": "2026-10-09T00:01:28.039615+00:00",
+      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
+      "status": "manual_approval_required"
+    },
+    {
+      "handle": "@Steam",
+      "name": "Steam",
+      "keywords": [
+        "steam",
+        "steam deck"
+      ],
+      "selected_at": "2026-10-09T00:01:28.039615+00:00",
+      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
+      "status": "manual_approval_required"
+    },
+    {
+      "handle": "@Roblox",
+      "name": "Roblox",
+      "keywords": [
+        "roblox"
+      ],
+      "selected_at": "2026-10-09T00:01:28.039615+00:00",
+      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
       "status": "manual_approval_required"
     }
   ],
@@ -391,14 +358,15 @@
     "@Porsche": "2026-10-12T15:01:32.440244+00:00",
     "@Tesla": "2026-10-12T15:01:32.440244+00:00",
     "@Discord": "2026-10-12T15:01:32.440244+00:00",
-    "@SlackHQ": "2026-10-12T15:01:32.440244+00:00"
+    "@SlackHQ": "2026-10-12T15:01:32.440244+00:00",
+    "@AnthropicAI": "2026-10-13T00:01:28.039615+00:00",
+    "@Microsoft": "2026-10-13T00:01:28.039615+00:00",
+    "@adidas": "2026-10-13T00:01:28.039615+00:00",
+    "@Steam": "2026-10-13T00:01:28.039615+00:00",
+    "@Roblox": "2026-10-13T00:01:28.039615+00:00"
   },
-  "company_post_count": 3,
-  "company_posted_handles": [
-    "@Ferrari",
-    "@Porsche",
-    "@Tesla"
-  ],
+  "company_post_count": 0,
+  "company_posted_handles": [],
   "company_manual_posts": [
     {
       "slot_number": 11,
@@ -440,6 +408,7 @@
       "status": "ready_for_manual_post"
     }
   ],
-  "last_post_type": "company_manual",
-  "last_company_handle": "@Tesla"
+  "last_post_type": null,
+  "last_company_handle": null,
+  "brand_draft_day_key": null
 }

@@ -1,6 +1,6 @@
 # Company Posts — Manual
 
-UTC date: 2026-10-08
+UTC date: 2026-10-09
 
 These five company posts are included in the same 20-content daily quota.
 Copy the post text exactly, including the @mention, and publish it manually on X.
