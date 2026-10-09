@@ -6,9 +6,9 @@ This repository runs an experimental X account focused on AI, technology, major 
 
 - Publishes standalone ORIGINAL text posts, not Quote Posts, replies, or image memes.
 - Uses recent public AI/tech/software/gaming/sports conversations only as optional topical seeds; it does not quote, attach, or mention the source author.
-- Writes compact, funny, specific text posts with a randomized target of 2–5 distinct emojis per automated post (at most one extra when it fits); repeated emoji tokens are rejected.
+- Automatic original posts may use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target is 2–5 distinct emojis per post (at most one extra when it fits); repeats and emojis outside this list are rejected.
 - Favors unusual formats, absurd rules, sharp observations, fictional product behaviour, and punchy one-liners over generic corporate phrasing.
-- Prepares five manually publishable, text-only company-tag captions per UTC day, using varied truths, dares, mini-quests, product challenges, absurd demos, and playful verdicts. They contain the exact `@handle` and at least one emoji; they do not default to purchase offers or repost requests.
+- Prepares five manually publishable, text-only company-tag captions per UTC day. Their formats rotate between conditional “if” lines, “imagine” scenarios, an occasional “I'll buy” condition, choose-one prompts, feature challenges, and other product-specific jokes. Company captions may use ONLY 😂 👀 🥳 🫠; other emojis are rejected.
 - Automatically publishes the other fifteen original text posts without @mentions.
 - Keeps a bounded format memory to avoid repeating recent structures.
 - Rejects political/current-affairs content, country references, fabricated company claims, hashtags, and links.
@@ -16,14 +16,14 @@ This repository runs an experimental X account focused on AI, technology, major 
 
 ## The company-post format
 
-These five captions should give the company something funny to do, admit, choose, or settle—not repeat the same “I'll buy…” line.
+Company captions should not all share one template. The bot rotates formats across the daily batch, such as conditional “if” lines, “imagine...” scenarios, the occasional purchase condition, choose-one questions, absurd product challenges, mock ultimatums, and mini-quests. Truth-or-dare is not used, and company captions never ask for reposts, likes, follows, or boosts.
 
 Example shapes (the bot should invent fresh, company-specific versions):
-- `@BMW truth or dare: truth—admit the M4 has side-quest energy; dare—make its lights blink in morse code 😭`
-- `@Microsoft I dare you to make the next Windows error arrive with a boss-fight health bar 💀`
-- `@Steam settle this under oath: is a game left open on its title screen for 9 hours still gaming? 🎮😭`
+- `@BMW if the M4 can parallel park by itself, I'll forgive my driving 😂`
+- `@Microsoft imagine Windows error messages entering like a final boss with theme music 👀`
+- `@adidas I'll buy the Ultraboost if it can detect when I walk toward the fridge instead of the gym 🫠`
 
-A purchase-condition joke is allowed occasionally, but it must not be the default. No repost, like, follow, or boost requests. These five posts are **manual**: copy the caption from `state/company_manual_posts.md` and publish it yourself. The bot never submits company-tagged captions to X.
+Company captions may use ONLY these emojis: 😂 👀 🥳 🫠. These five posts are **manual**: copy the caption from `state/company_manual_posts.md` and publish it yourself. The bot never submits company-tagged captions to X.
 
 ## Daily limits
 
