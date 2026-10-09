@@ -47,6 +47,16 @@ class OriginalTextValidationTests(unittest.TestCase):
                 minimum_emoji_count=4,
             )
 
+    def test_enforces_maximum_for_one_extra_emoji(self) -> None:
+        with self.assertRaises(GeminiError):
+            _validate_original(
+                draft("software entered goblin mode 😭⚡🎯💀🫠🎮"),
+                {},
+                include_handle=False,
+                minimum_emoji_count=4,
+                maximum_emoji_count=5,
+            )
+
     def test_rejects_country_reference(self) -> None:
         with self.assertRaises(GeminiError):
             _validate_original(
