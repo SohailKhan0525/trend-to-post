@@ -506,6 +506,127 @@ def _ensure_company_manual_posts(state: dict) -> bool:
     )
 
 
+async def _ensure_trend_manual_posts(state: dict, client: Client) -> bool:
+    """Prepare four source-grounded X drafts for manual review; never publish them."""
+    today = _today()
+    if state.get("trend_manual_day_key") != today:
+        state["trend_manual_day_key"] = today
+        state["trend_manual_post_count"] = 0
+        state["trend_manual_posts"] = []
+        state["trend_source_ids"] = []
+
+    while (
+        int(state.get("trend_manual_post_count", 0)) < TREND_MANUAL_POSTS_PER_DAY
+        and int(state.get("daily_count", 0)) < POSTS_PER_DAY
+    ):
+        if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+            print("AI generation budget reached before all trend-grounded drafts were prepared.")
+            _write_trend_manual_posts(state)
+            _save_state(state)
+            return False
+
+        used = (
+            state.get("posted_source_tweet_ids", [])
+            + state.get("skipped_source_tweet_ids", [])
+            + state.get("trend_source_ids", [])
+        )
+        try:
+            source = await find_trending_source(client, used)
+        except TrendSourceError as exc:
+            print(f"Cannot prepare trend-grounded draft right now: {exc}")
+            _write_trend_manual_posts(state)
+            _save_state(state)
+            return False
+
+        payload = _source_dict(source)
+        state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
+        _save_state(state)
+        try:
+            draft = generate_original_text(
+                payload,
+                state["format_lab"],
+                content_mode="trend_manual",
+            )
+        except GeminiError as exc:
+            skipped = state.get("skipped_source_tweet_ids", [])
+            skipped.append(source.tweet_id)
+            state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+            _save_state(state)
+            print(f"Trend-grounded draft rejected; source skipped safely: {exc}")
+            return False
+
+        if not draft.should_post:
+            skipped = state.get("skipped_source_tweet_ids", [])
+            skipped.append(source.tweet_id)
+            state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+            _save_state(state)
+            print("AI declined the trend source; it will not be used for a manual draft.")
+            return False
+
+        text = draft.post_text.strip()
+        if not text or len(text) > 280:
+            skipped = state.get("skipped_source_tweet_ids", [])
+            skipped.append(source.tweet_id)
+            state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+            _save_state(state)
+            print("Trend-grounded draft exceeded the post limit and was discarded.")
+            return False
+
+        now = datetime.now(timezone.utc).isoformat()
+        slot = int(state.get("trend_manual_post_count", 0)) + 1
+        manual_item = {
+            "slot_number": slot,
+            "post": text,
+            "trend": source.trend,
+            "source_tweet_id": source.tweet_id,
+            "source_url": source.url,
+            "source_text": source.text,
+            "angle": draft.angle,
+            "format_name": draft.format_name,
+            "comedy_mechanism": draft.comedy_mechanism,
+            "structure_signature": draft.structure_signature,
+            "generated_at": now,
+            "status": "ready_for_manual_review",
+        }
+        state["trend_manual_posts"] = (
+            state.get("trend_manual_posts", []) + [manual_item]
+        )[-TREND_MANUAL_POSTS_PER_DAY:]
+        source_ids = state.get("trend_source_ids", [])
+        source_ids.append(source.tweet_id)
+        state["trend_source_ids"] = source_ids[-SOURCE_HISTORY_LIMIT:]
+
+        lab = state["format_lab"]
+        lab.append({
+            "format_name": draft.format_name or "unnamed trend draft",
+            "comedy_mechanism": draft.comedy_mechanism,
+            "used_at": now,
+            "topic": source.trend,
+            "tweet_id": None,
+            "content_type": "trend_manual",
+            "content_mode": "trend_manual",
+            "source_tweet_id": source.tweet_id,
+            "post_text": text,
+            "mutation_stage": draft.hook_type,
+            "structure_signature": draft.structure_signature,
+        })
+        state["format_lab"] = lab[-20:]
+
+        fingerprints = state["recent_post_fingerprints"]
+        fingerprints.append(draft.structure_signature[:180])
+        state["recent_post_fingerprints"] = fingerprints[-30:]
+
+        state["trend_manual_post_count"] = slot
+        state["daily_count"] = int(state.get("daily_count", 0)) + 1
+        _write_trend_manual_posts(state)
+        _save_state(state)
+        print(
+            f"Prepared trend-grounded manual draft {slot}/{TREND_MANUAL_POSTS_PER_DAY}: "
+            f"{source.trend!r} from @{source.username}; not published."
+        )
+
+    return int(state.get("trend_manual_post_count", 0)) >= TREND_MANUAL_POSTS_PER_DAY
+
+
 async def post_next(
     auth_token: str,
     ct0: str,
