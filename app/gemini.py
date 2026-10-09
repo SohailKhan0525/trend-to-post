@@ -484,6 +484,8 @@ def _quote_options(source_text: str, limit: int = 6) -> list[str]:
             fragment = " ".join(tokens[index : index + width]).strip()
             if not fragment or len(fragment) > 90:
                 continue
+            if EMOJI_CHAR_PATTERN.search(fragment):
+                continue
             if contains_blocked_country_term(fragment):
                 continue
             window = tokens[index : index + width]
@@ -558,7 +560,12 @@ def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
     )
 
 
-def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraft:
+def _validate_quote_against_source(
+    draft: QuoteDraft,
+    source: dict,
+    minimum_emoji_count: int = 2,
+    maximum_emoji_count: int = 5,
+) -> QuoteDraft:
     if not draft.should_quote:
         return draft
 
@@ -567,6 +574,21 @@ def _validate_quote_against_source(draft: QuoteDraft, source: dict) -> QuoteDraf
         raise GeminiError("Generated post is empty.")
     if len(text) > MAX_POST_CHARS:
         raise GeminiError("Generated post is too long.")
+    if re.search(r"(?<!\\w)@[A-Za-z0-9_]+", text):
+        raise GeminiError("Generated quote-post included an @mention; the source attachment is sufficient.")
+    if re.search(r"(?<!\\w)#[A-Za-z0-9_]+", text):
+        raise GeminiError("Generated quote-post included a hashtag.")
+    if re.search(r"https?://|www\\.", text, re.IGNORECASE):
+        raise GeminiError("Generated quote-post included a URL in the comment.")
+    found_emojis = _found_emojis(text)
+    if _has_unapproved_emoji(text, EMOJI_TOKENS):
+        raise GeminiError("Generated quote-post used an emoji outside the approved palette.")
+    if len(found_emojis) != len(set(found_emojis)):
+        raise GeminiError("Generated quote-post repeated an emoji token.")
+    if not minimum_emoji_count <= len(found_emojis) <= maximum_emoji_count:
+        raise GeminiError(
+            f"Generated quote-post must contain {minimum_emoji_count}-{maximum_emoji_count} distinct approved emojis."
+        )
     # Quote-post-only mode: standalone posts are rejected, never converted.
     if draft.content_type != "quote_post":
         raise GeminiError("Generated candidate was not a quote_post.")
@@ -1125,7 +1147,8 @@ Make the caption playful, specific, and recognizable as the target company's pro
 
 def generate_quote(source: dict, format_memory: list[dict] | None = None) -> QuoteDraft:
     format_memory = format_memory or []
-    prompt = _prompt(source, format_memory)
+    emoji_count = random.choices((2, 3, 4, 5), weights=(3, 3, 2, 1), k=1)[0]
+    prompt = _prompt(source, format_memory, emoji_count)
     cloudflare_error: GeminiError | None = None
 
     try:
@@ -1140,7 +1163,7 @@ def generate_quote(source: dict, format_memory: list[dict] | None = None) -> Quo
                 draft = _repair_missing_source_quote(draft, source)
                 if not draft.quote_text:
                     continue
-                drafts.append(_validate_quote_against_source(draft, source))
+                drafts.append(_validate_quote_against_source(draft, source, emoji_count, emoji_count + 1))
             except GeminiError as exc:
                 rejected_candidates += 1
                 print(f"Cloudflare candidate rejected: {exc}")
@@ -1193,7 +1216,7 @@ reply-worthy. Never generate a standalone post or self-reply.
                 retry_payload["contents"] = [{"parts": [{"text": fallback_prompt + safety_suffix}]}]
             draft = _parse_experiment(_extract_text(_post_json(retry_payload)))
             draft = _repair_missing_source_quote(draft, source)
-            return _validate_quote_against_source(draft, source)
+            return _validate_quote_against_source(draft, source, emoji_count, emoji_count + 1)
         except GeminiError as exc:
             last_error = exc
             print(f"Gemini candidate rejected ({attempt}/2): {exc}")
