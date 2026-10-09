@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-09",
-  "daily_count": 13,
-  "ai_call_count": 18,
-  "last_posted_at": "2026-10-09T13:01:56.772582+00:00",
-  "last_source_tweet_id": "2108273580794384786",
-  "last_tweet_id": "2108543486253257161",
+  "daily_count": 14,
+  "ai_call_count": 19,
+  "last_posted_at": "2026-10-09T15:01:58.536707+00:00",
+  "last_source_tweet_id": "2108361844771439021",
+  "last_tweet_id": "2108573692527890448",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -65,7 +65,8 @@
     "2108252061209088159",
     "2108359225911263511",
     "2108437553615425881",
-    "2108273580794384786"
+    "2108273580794384786",
+    "2108361844771439021"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -84,17 +85,6 @@
     "2108452405746467091"
   ],
   "format_lab": [
-    {
-      "format_name": "patch note existentialism",
-      "comedy_mechanism": "treating a legendary professional career as an obsessive completionist run of a mediocre live-service game",
-      "used_at": "2026-10-07T15:31:48.295220+00:00",
-      "topic": "football",
-      "self_reply": true,
-      "tweet_id": "2107856422608240682",
-      "content_type": "original_post",
-      "mutation_stage": "premise_inversion",
-      "structure_signature": "one-sentence gaming analogy applied to elite sports"
-    },
     {
       "format_name": "loading bar existentialism",
       "comedy_mechanism": "contrasting grandiose corporate marketing telemetry with the mundane reality of having nothing built",
@@ -303,6 +293,17 @@
       "content_type": "original_text",
       "mutation_stage": "deadpan corporate confession",
       "structure_signature": "corporate confession ending in unhinged positive metrics and distinct punchline emojis"
+    },
+    {
+      "format_name": "speedrun tutorial parody",
+      "comedy_mechanism": "contrasting the casual phrase 'easy time save' with completely unhinged and impossible technical prerequisites",
+      "used_at": "2026-10-09T15:01:58.536707+00:00",
+      "topic": "gaming",
+      "self_reply": false,
+      "tweet_id": "2108573692527890448",
+      "content_type": "original_text",
+      "mutation_stage": "exaggeration setup",
+      "structure_signature": "casual intro statement followed by escalating absurd technical demands ending with casual signoff and punchline emojis"
     }
   ],
   "recent_post_fingerprints": [
@@ -334,7 +335,8 @@
     "@Steam + player dilemma + game realization + system punchline",
     "@Roblox + player proposal + developer rejection + escalated absurd payment offer",
     "terminal execution log followed by panic audio output",
-    "corporate confession ending in unhinged positive metrics and distinct punchline emojis"
+    "corporate confession ending in unhinged positive metrics and distinct punchline emojis",
+    "casual intro statement followed by escalating absurd technical demands ending with casual signoff and punchline emojis"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 5,
