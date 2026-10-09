@@ -542,5 +542,10 @@
   ],
   "last_post_type": "original_text",
   "last_company_handle": null,
-  "brand_draft_day_key": null
+  "brand_draft_day_key": null,
+  "trend_manual_post_count": 0,
+  "trend_manual_posts": [],
+  "trend_manual_day_key": null,
+  "trend_source_ids": [],
+  "invented_post_count": 0
 }
