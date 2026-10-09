@@ -1,6 +1,6 @@
 import unittest
 
-from app.gemini import GeminiError, OriginalDraft, _validate_original
+from app.gemini import GeminiError, OriginalDraft, _original_text_prompt, _validate_original
 
 
 def draft(post: str) -> OriginalDraft:
@@ -75,6 +75,66 @@ class OriginalTextValidationTests(unittest.TestCase):
                 draft("software update is here 😭🔥🙂"),
                 {},
                 include_handle=False,
+            )
+
+    def test_trend_prompt_requires_a_real_source_and_manual_review(self) -> None:
+        prompt = _original_text_prompt(
+            {"trend": "NVIDIA RTX", "text": "NVIDIA posted a new RTX driver update."},
+            content_mode="trend_manual",
+        )
+        self.assertIn("REAL X CONVERSATION — MANUAL DRAFT ONLY", prompt)
+        self.assertIn("You MUST build the joke around the supplied recent X post", prompt)
+        self.assertIn("source URL is for human review only", prompt)
+
+    def test_invented_prompt_is_not_trend_based(self) -> None:
+        prompt = _original_text_prompt(
+            {"trend": "AI and strange software behaviour", "text": ""},
+            content_mode="invented",
+        )
+        self.assertIn("INVENTED ORIGINAL — NOT TREND-BASED", prompt)
+        self.assertIn("Invent a genuinely fresh premise", prompt)
+
+    def test_trend_validation_requires_a_source_anchor(self) -> None:
+        source = {
+            "trend": "NVIDIA RTX",
+            "text": "NVIDIA posted a new RTX driver update.",
+        }
+        value = draft("NVIDIA drivers have entered their side quest era 😭🔥")
+        self.assertIs(
+            _validate_original(
+                value,
+                {},
+                include_handle=False,
+                source=source,
+                require_source_link=True,
+            ),
+            value,
+        )
+
+    def test_trend_validation_rejects_an_unrelated_joke(self) -> None:
+        source = {
+            "trend": "NVIDIA RTX",
+            "text": "NVIDIA posted a new RTX driver update.",
+        }
+        with self.assertRaises(GeminiError):
+            _validate_original(
+                draft("my keyboard has developed a retirement plan 😭🔥"),
+                {},
+                include_handle=False,
+                source=source,
+                require_source_link=True,
+            )
+
+    def test_rejects_reused_recent_format(self) -> None:
+        with self.assertRaises(GeminiError):
+            _validate_original(
+                draft("my keyboard has developed a retirement plan 😭🔥"),
+                {},
+                include_handle=False,
+                format_memory=[{
+                    "format_name": "tiny escalation",
+                    "structure_signature": "one-line deadpan escalation",
+                }],
             )
 
     def test_rejects_country_reference(self) -> None:
