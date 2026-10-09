@@ -99,6 +99,15 @@ ALLOWED_TOPIC_KEYWORDS = (
     "champions league",
     "premier league",
     "world cup",
+    "sports",
+    "sport",
+    "nike",
+    "adidas",
+    "spotify",
+    "music",
+    "netflix",
+    "entertainment",
+    "design",
 )
 
 BLOCKED_TOPIC_KEYWORDS = (
@@ -514,6 +523,9 @@ async def find_official_brand_source(
 
         for tweet in results or []:
             if _username(tweet).casefold() != handle.casefold():
+                continue
+            # Preserve the account text-only requirement even when the source tweet embeds media.
+            if getattr(tweet, "media", None):
                 continue
             if not _is_candidate(tweet, now, used_ids, topic, require_views=False):
                 continue
