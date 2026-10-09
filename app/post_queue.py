@@ -646,6 +646,7 @@ async def post_next(
     state = _load_state()
 
     _write_company_manual_posts(state)
+    _write_trend_manual_posts(state)
 
     if ensure_daily_brand_targets(state):
         _save_state(state)
@@ -667,13 +668,11 @@ async def post_next(
             return False
 
     if state["daily_count"] >= POSTS_PER_DAY:
-        print(f"Daily post limit reached: {POSTS_PER_DAY}.")
+        print(f"Daily content-slot limit reached: {POSTS_PER_DAY}.")
         return False
-
     if state["ai_call_count"] >= AI_GENERATIONS_PER_DAY:
         print(f"Daily AI generation limit reached: {AI_GENERATIONS_PER_DAY}.")
         return False
-
     if not _interval_ok(state):
         return False
 
@@ -681,36 +680,40 @@ async def post_next(
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; auth cookies may be expired.")
 
-    used = state["posted_source_tweet_ids"] + state["skipped_source_tweet_ids"]
-
-    try:
-        source = await find_trending_source(client, used)
-        payload = _source_dict(source)
-
-        # Each daily content slot uses one text generation.
-        state["ai_call_count"] += 1
-        _save_state(state)
-        try:
-            draft = generate_original_text(payload, state["format_lab"])
-        except GeminiError as exc:
-            skipped = state["skipped_source_tweet_ids"]
-            skipped.append(source.tweet_id)
-            state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+    # X's current automation rules prohibit auto-posting about X trending topics.
+    # Prepare four source-grounded text drafts for manual review before invented auto posts.
+    if int(state.get("trend_manual_post_count", 0)) < TREND_MANUAL_POSTS_PER_DAY:
+        if not await _ensure_trend_manual_posts(state, client):
+            _write_trend_manual_posts(state)
             _save_state(state)
-            print(
-                "AI could not produce a policy-safe candidate after retries; "
-                f"source skipped safely: {exc}"
-            )
             return False
-    except TrendSourceError as exc:
-        raise QueueError(str(exc)) from exc
+
+    if state["daily_count"] >= POSTS_PER_DAY:
+        print(f"Daily content-slot limit reached: {POSTS_PER_DAY}.")
+        return False
+    if state["ai_call_count"] >= AI_GENERATIONS_PER_DAY:
+        print(f"Daily AI generation limit reached: {AI_GENERATIONS_PER_DAY}.")
+        return False
+    if not _interval_ok(state):
+        return False
+
+    payload = {"trend": random.choice(INVENTED_TOPIC_SEEDS), "text": ""}
+    state["ai_call_count"] = int(state["ai_call_count"]) + 1
+    _save_state(state)
+    try:
+        draft = generate_original_text(
+            payload,
+            state["format_lab"],
+            content_mode="invented",
+        )
+    except GeminiError as exc:
+        _save_state(state)
+        print(f"AI could not produce a valid invented original after retries: {exc}")
+        return False
 
     if not draft.should_post:
-        skipped = state["skipped_source_tweet_ids"]
-        skipped.append(source.tweet_id)
-        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
         _save_state(state)
-        print("AI rejected the topic seed; it is skipped on later runs.")
+        print("AI declined the invented premise; it will be regenerated on a later run.")
         return False
 
     text = draft.post_text.strip()
@@ -731,10 +734,12 @@ async def post_next(
             "format_name": draft.format_name or "unnamed format",
             "comedy_mechanism": draft.comedy_mechanism,
             "used_at": now,
-            "topic": source.trend,
+            "topic": payload["trend"],
             "self_reply": False,
             "tweet_id": str(getattr(tweet, "id", "") or ""),
             "content_type": "original_text",
+            "content_mode": "invented",
+            "post_text": text,
             "mutation_stage": draft.hook_type,
             "structure_signature": draft.structure_signature,
         }
@@ -745,25 +750,24 @@ async def post_next(
     fingerprints.append(draft.structure_signature[:180])
     state["recent_post_fingerprints"] = fingerprints[-30:]
 
-    posted = state["posted_source_tweet_ids"]
-    posted.append(source.tweet_id)
-    state["posted_source_tweet_ids"] = posted[-SOURCE_HISTORY_LIMIT:]
+    state["invented_post_count"] = int(state.get("invented_post_count", 0)) + 1
     state.update(
         {
             "day_key": _today(),
             "daily_count": int(state["daily_count"]) + 1,
             "last_tweet_id": str(getattr(tweet, "id", "") or ""),
             "last_posted_at": now,
-            "last_source_tweet_id": source.tweet_id,
+            "last_source_tweet_id": None,
             "last_post_type": "original_text",
             "last_company_handle": None,
         }
     )
     _save_state(state)
 
-    original_count = state["daily_count"] - state["company_post_count"]
+    original_count = state["daily_count"] - state["company_post_count"] - state["trend_manual_post_count"]
     print(
-        f"Posted original_text #{original_count}/{ORIGINAL_POSTS_PER_DAY}; "
+        f"Posted invented original #{original_count}/{ORIGINAL_POSTS_PER_DAY}; "
+        f"trend-grounded manual drafts {state['trend_manual_post_count']}/{TREND_MANUAL_POSTS_PER_DAY}; "
         f"company manual captions {state['company_post_count']}/{COMPANY_POSTS_PER_DAY}; "
         f"total content slots {state['daily_count']}/{POSTS_PER_DAY}; "
         f"text generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}; "
