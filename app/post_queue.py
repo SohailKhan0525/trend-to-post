@@ -318,6 +318,47 @@ def _write_company_manual_posts(state: dict) -> None:
     tmp.replace(COMPANY_MANUAL_POSTS_PATH)
 
 
+TREND_MANUAL_POSTS_PATH = Path("state/trend_manual_posts.md")
+
+
+def _write_trend_manual_posts(state: dict) -> None:
+    posts = state.get("trend_manual_posts", [])
+    lines = [
+        "# Trend-Grounded Posts — Manual Review",
+        "",
+        f"UTC date: {state.get('day_key', _today())}",
+        "",
+        "These are AI-generated drafts grounded in recent public X conversations.",
+        "Review the source and caption before publishing manually. They are never auto-published.",
+        "Text only: no images, screenshots, hashtags, or links in the caption itself.",
+        "",
+    ]
+    if not posts:
+        lines.append("No trend-grounded drafts generated yet.")
+    else:
+        for item in posts:
+            slot = item.get("slot_number", "")
+            trend = str(item.get("trend", "")).strip() or "recent X conversation"
+            post = str(item.get("post", "")).strip()
+            source_url = str(item.get("source_url", "")).strip()
+            source_text = " ".join(str(item.get("source_text", "")).split())[:500]
+            lines.extend([
+                f"## Trend draft {slot} — {trend}",
+                "",
+                f"> {post}",
+                "",
+                f"Angle: {item.get('angle', '')}",
+                f"Source post: {source_url}",
+                f"Source context: {source_text}",
+                f"Status: {item.get('status', 'ready_for_manual_review')}",
+                "",
+            ])
+    TREND_MANUAL_POSTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    tmp = TREND_MANUAL_POSTS_PATH.with_suffix(".tmp")
+    tmp.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    tmp.replace(TREND_MANUAL_POSTS_PATH)
+
+
 def _next_company_target(state: dict) -> dict | None:
     posted = {
         str(handle).strip()
