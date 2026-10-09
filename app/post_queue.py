@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import json
 import os
+import random
 from datetime import datetime, timezone
 from pathlib import Path
 
 from twikit import Client
 
 from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
-from .gemini import GeminiError, generate_company_original, generate_original_text
+from .gemini import COMPANY_HOOK_TYPES, GeminiError, generate_company_original, generate_original_text
 from .trend_source import (
     SOURCE_HISTORY_LIMIT,
     SourceTweet,
@@ -318,11 +319,25 @@ def _ensure_company_manual_posts(state: dict) -> bool:
         )
         _save_state(state)
 
+        used_hooks = {
+            str(item.get("hook_type", "")).strip()
+            for item in state.get("company_manual_posts", [])
+            if isinstance(item, dict)
+        }
+        available_hooks = [
+            item for item in COMPANY_HOOK_TYPES
+            if item not in used_hooks
+        ]
+        if not available_hooks:
+            available_hooks = list(COMPANY_HOOK_TYPES)
+        hook_type = random.choice(available_hooks)
+
         try:
             draft = generate_company_original(
                 target,
                 state["brand_format_lab"],
                 include_handle=True,
+                hook_type=hook_type,
             )
         except GeminiError as exc:
             target["status"] = "generation_failed"
