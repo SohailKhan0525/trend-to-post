@@ -398,6 +398,7 @@ def _company_prompt(
         f"- Include {handle} exactly once and address the company directly.\n"
         if include_handle else "- Do not include any @mention.\n"
     )
+    target_handle = handle if include_handle else ""
 
     return f"""You write text-only company-tag captions for a human to publish manually on X.
 Never publish these company captions automatically.
@@ -437,7 +438,7 @@ RETURN JSON ONLY:
 {{
   "should_post": true,
   "post": "{prefix}...",
-  "target_handle": "{handle if include_handle else ""}",
+  "target_handle": "{target_handle}",
   "target_name": "{name}",
   "angle": "why the line is funny without a company reply",
   "hook_type": "{hook_type}",
@@ -790,7 +791,7 @@ def generate_original_text(
             try:
                 draft = _parse_original(raw)
                 if draft.should_post:
-                    drafts.append(_validate_original(draft, {}, include_handle=False, minimum_emoji_count=emoji_count))
+                    drafts.append(_validate_original(draft, {}, include_handle=False, minimum_emoji_count=emoji_count, maximum_emoji_count=emoji_count + 1))
             except GeminiError as exc:
                 print(f"Cloudflare original text candidate rejected: {exc}")
         if drafts:
@@ -827,7 +828,7 @@ Include the requested number of distinct emojis from the main prompt. Never repe
                 "contents": [{"parts": [{"text": fallback_prompt + " Make it more specific, stranger and tighter; avoid all previous structures."}]}],
             }
             draft = _parse_original(_extract_text(_post_json(retry_payload)))
-            return _validate_original(draft, {}, include_handle=False, minimum_emoji_count=emoji_count)
+            return _validate_original(draft, {}, include_handle=False, minimum_emoji_count=emoji_count, maximum_emoji_count=emoji_count + 1)
         except GeminiError as exc:
             last_error = exc
             print(f"Gemini original text candidate rejected ({attempt}/2): {exc}")
@@ -841,6 +842,7 @@ def _validate_original(
     target: dict,
     include_handle: bool = True,
     minimum_emoji_count: int | None = None,
+    maximum_emoji_count: int | None = None,
 ) -> OriginalDraft:
     if not draft.should_post:
         return draft
@@ -873,6 +875,10 @@ def _validate_original(
         )
     if len(emojis) != len(set(emojis)):
         raise GeminiError("Generated original post repeats an emoji; use distinct emojis only.")
+    if maximum_emoji_count is not None and len(emojis) > maximum_emoji_count:
+        raise GeminiError(
+            f"Generated original post must contain no more than {maximum_emoji_count} emojis."
+        )
 
     lowered = post.lower()
     if "#" in post or "http://" in lowered or "https://" in lowered:
