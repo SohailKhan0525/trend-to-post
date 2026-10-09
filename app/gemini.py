@@ -969,7 +969,7 @@ def generate_company_original(
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
             "temperature": 1.0,
-            "maxOutputTokens": 260,
+            "maxOutputTokens": 650,
             "responseMimeType": "application/json",
         },
     }
@@ -1232,7 +1232,7 @@ def _cloudflare_candidates(prompt: str) -> list[str]:
             {"role": "user", "content": prompt},
         ],
         "n": CLOUDFLARE_CANDIDATE_COUNT,
-        "max_completion_tokens": 180,
+        "max_completion_tokens": 600,
         "temperature": 1.0,
         "top_p": 0.95,
         "stream": False,
