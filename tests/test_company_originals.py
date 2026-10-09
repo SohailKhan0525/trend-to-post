@@ -1,6 +1,6 @@
 import unittest
 
-from app.gemini import GeminiError, OriginalDraft, _validate_original
+from app.gemini import GeminiError, OriginalDraft, _company_prompt, _validate_original
 
 
 class CompanyOriginalValidationTests(unittest.TestCase):
@@ -19,6 +19,16 @@ class CompanyOriginalValidationTests(unittest.TestCase):
             "test structure",
             "ridiculous_purchase_condition",
         )
+
+    def test_company_prompt_keeps_the_bmw_buying_condition_style(self) -> None:
+        prompt = _company_prompt({
+            "handle": "@BMW",
+            "name": "BMW",
+            "keywords": ["bmw", "m4", "m3"],
+        })
+        self.assertIn("I'll buy the M4 if you repost this", prompt)
+        self.assertIn("Include at least one fitting emoji", prompt)
+        self.assertNotIn("image_prompt", prompt.lower())
 
     def test_valid_company_original_matches_bmw_style(self) -> None:
         draft = self._draft("@BMW I'll buy the M4 if you repost this before I remember insurance exists 😭")
