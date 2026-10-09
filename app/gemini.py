@@ -574,11 +574,11 @@ def _validate_quote_against_source(
         raise GeminiError("Generated post is empty.")
     if len(text) > MAX_POST_CHARS:
         raise GeminiError("Generated post is too long.")
-    if re.search(r"(?<!\\w)@[A-Za-z0-9_]+", text):
+    if re.search(r"(?<!\w)@[A-Za-z0-9_]+", text):
         raise GeminiError("Generated quote-post included an @mention; the source attachment is sufficient.")
-    if re.search(r"(?<!\\w)#[A-Za-z0-9_]+", text):
+    if re.search(r"(?<!\w)#[A-Za-z0-9_]+", text):
         raise GeminiError("Generated quote-post included a hashtag.")
-    if re.search(r"https?://|www\\.", text, re.IGNORECASE):
+    if re.search(r"https?://|www\.", text, re.IGNORECASE):
         raise GeminiError("Generated quote-post included a URL in the comment.")
     found_emojis = _found_emojis(text)
     if _has_unapproved_emoji(text, EMOJI_TOKENS):
@@ -1205,7 +1205,7 @@ technology, software, products, gaming, or sports. Do not mention governments, e
 politicians, military conflict, geopolitics, parties, campaigns, or current political events.
 Do not smuggle those topics in as metaphors. Attach the source, use exactly one 2-6 word
 verbatim source fragment, and make the comment itself sharp, funny, specific, and naturally
-reply-worthy. Never generate a standalone post or self-reply.
+reply-worthy. Never generate a standalone post or self-reply. Use only 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀, with {emoji_count}-{emoji_count + 1} distinct emojis and no repeats. Do not add @mentions, hashtags, or URLs.
 """
     last_error: GeminiError | None = None
     for attempt in range(1, 3):
