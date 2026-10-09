@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: x-post-queue
+  group: x-original-meme-queue
   cancel-in-progress: false
 
 jobs:
@@ -68,7 +68,10 @@ jobs:
       - name: Validate Python syntax
         run: python -m compileall -q app
 
-      - name: Run unified company + quote bot
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Run original meme bot
         id: post_bot
         env:
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
@@ -78,6 +81,17 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: python -m app post
+
+      - name: Upload company meme assets
+        if: always() && steps.post_bot.outcome != 'skipped'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: company-meme-assets
+          path: |
+            state/company_manual_posts.md
+            state/generated/company/
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Commit bot state
         if: always() && steps.post_bot.outcome != 'skipped'
