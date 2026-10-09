@@ -5,11 +5,11 @@ This repository runs an experimental X account focused on AI, technology, major 
 ## What it does
 
 - Publishes standalone ORIGINAL text posts, not Quote Posts, replies, or image memes.
-- Uses recent public AI/tech/software/gaming/sports conversations only as optional topical seeds; it does not quote, attach, or mention the source author.
+- Uses an AI model for every generated caption. Eleven daily originals are invented from broad topic seeds; four more are grounded in real X conversations and queued for manual review with the source link.
 - Automatic original posts may use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target is 2–5 distinct emojis per post (at most one extra when it fits); repeats and emojis outside this list are rejected.
 - Favors unusual formats, absurd rules, sharp observations, fictional product behaviour, and punchy one-liners over generic corporate phrasing.
 - Prepares five manually publishable, text-only company-tag captions per UTC day. Their formats rotate between conditional “if” lines, “imagine” scenarios, an occasional “I'll buy” condition, choose-one prompts, feature challenges, and other product-specific jokes. Company captions may use ONLY 😂 👀 🥳 🫠; other emojis are rejected.
-- Automatically publishes the other fifteen original text posts without @mentions.
+- Automatically publishes eleven invented, text-only original posts without @mentions. Trend-grounded posts are never auto-published.
 - Keeps a bounded format memory to avoid repeating recent structures.
 - Rejects political/current-affairs content, country references, fabricated company claims, hashtags, and links.
 - Does not automatically like, follow, or reply to other accounts.
@@ -25,13 +25,15 @@ Example shapes (the bot should invent fresh, company-specific versions):
 
 Company captions may use ONLY these emojis: 😂 👀 🥳 🫠. These five posts are **manual**: copy the caption from `state/company_manual_posts.md` and publish it yourself. The bot never submits company-tagged captions to X.
 
+- Trend-grounded drafts use X's official Trends data when available, restricted to allowed AI/technology/gaming/sports topics, and otherwise fall back to fresh Top-search conversations. They are manual drafts because X's automation rules prohibit automatically posting about trending topics (https://help.x.com/en/rules-and-policies/x-automation).
+
 ## Daily limits
 
-- **20 total daily content slots**: 15 auto-published text originals + 5 manual company-tagged originals.
-- **20 AI text generations per UTC day** across both lanes.
+- **20 total daily content slots**: 11 auto-published invented originals + 4 manual trend-grounded drafts + 5 manual company-tagged captions.
+- **20 AI text generations per UTC day** across all three lanes: 11 invented originals, 4 trend-grounded drafts, and 5 company captions.
 - Minimum **72 minutes between successful automated X posts**.
 - Five company targets rotate with a four-day cooldown.
-- The first queue run each UTC day prepares all five company captions together and reserves those five slots in the total of 20.
+- The first successful queue run each UTC day prepares five company captions and four trend-grounded manual drafts, reserving nine content slots before it auto-publishes the eleven invented originals.
 - Manual X publishing cannot be detected automatically. The queue reserves those content slots when it generates the captions, even before you manually publish them.
 - These are caps, not a guarantee of twenty completed posts. Search, provider, validation, or X failures can reduce actual output.
 
@@ -52,4 +54,4 @@ The external scheduler should continue sending the existing `post-next` event at
 
 ## State
 
-`state/post_queue.json` stores daily slot and generation counters, company target rotation and cooldowns, recent source IDs, last automated post metadata, and recent format memory. Copy-ready manual company captions are stored in `state/company_manual_posts.md`.
+`state/post_queue.json` stores daily slot and generation counters, company target rotation and cooldowns, recently used source IDs, last automated post metadata, and recent format memory (including prior post text for duplicate checks). Copy-ready manual company captions live in `state/company_manual_posts.md`; the four source-grounded manual drafts live in `state/trend_manual_posts.md`.
