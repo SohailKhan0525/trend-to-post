@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-09",
-  "daily_count": 7,
-  "ai_call_count": 10,
-  "last_posted_at": "2026-10-09T09:31:23.152995+00:00",
-  "last_source_tweet_id": "2108359225911263511",
-  "last_tweet_id": "2108490496121377212",
+  "daily_count": 12,
+  "ai_call_count": 15,
+  "last_posted_at": "2026-10-09T11:02:51.129352+00:00",
+  "last_source_tweet_id": "2108437553615425881",
+  "last_tweet_id": "2108513514122088760",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -63,7 +63,8 @@
     "2108271552991252810",
     "2108349826727588000",
     "2108252061209088159",
-    "2108359225911263511"
+    "2108359225911263511",
+    "2108437553615425881"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -80,14 +81,6 @@
     "2108283556862845392"
   ],
   "format_lab": [
-    {
-      "format_name": "spectral wealth audit",
-      "comedy_mechanism": "contrasting massive digital economic yields with the utterly non-existent physical reality of the entity generating them",
-      "used_at": "2026-10-07T10:31:36.790844+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107780874846748837"
-    },
     {
       "format_name": "historical spreadsheet crime scene",
       "comedy_mechanism": "contrasting ancient historical importance with modern mundane technical incompetence",
@@ -296,6 +289,18 @@
       "content_type": "quote_post",
       "mutation_stage": "invented_rule",
       "structure_signature": "legalistic household liability declaration ending in a quoted source fragment"
+    },
+    {
+      "format_name": "terminal sanity collapse",
+      "comedy_mechanism": "escalating from complex software replacement to raw acoustic panic",
+      "used_at": "2026-10-09T11:02:51.129352+00:00",
+      "topic": "developer tools",
+      "self_reply": false,
+      "tweet_id": "2108513514122088760",
+      "content_type": "original_with_image",
+      "mutation_stage": "absurd enterprise engineering reduction",
+      "structure_signature": "terminal execution log followed by panic audio output",
+      "image_path": "state/generated/automatic/last_original_meme.png"
     }
   ],
   "recent_post_fingerprints": [
@@ -321,10 +326,15 @@
     "handle + conditional statement + absurd physical requirement",
     "policy statement ending in a quoted source fragment",
     "fake terminal diagnostic dump followed by system crash recovery message",
-    "legalistic household liability declaration ending in a quoted source fragment"
+    "legalistic household liability declaration ending in a quoted source fragment",
+    "handle + capability claim + absurd consequence",
+    "handle + feature demand + financial self-punishment consequence",
+    "@Steam + player dilemma + game realization + system punchline",
+    "@Roblox + player proposal + developer rejection + escalated absurd payment offer",
+    "terminal execution log followed by panic audio output"
   ],
   "brand_draft_queue": [],
-  "brand_ai_call_count": 1,
+  "brand_ai_call_count": 5,
   "brand_format_lab": [
     {
       "format_name": "office_supply_ultimatum",
@@ -333,6 +343,42 @@
       "structure_signature": "handle + conditional statement + absurd physical requirement",
       "used_at": "2026-10-09T05:31:19.159479+00:00",
       "target": "@AnthropicAI",
+      "manual": true
+    },
+    {
+      "format_name": "terminal_existentialism",
+      "comedy_mechanism": "juxtaposing high-tech AI assistance with ancient, incomprehensible command line errors",
+      "hook_type": "brand_inside_joke",
+      "structure_signature": "handle + capability claim + absurd consequence",
+      "used_at": "2026-10-09T11:01:42.930867+00:00",
+      "target": "@Microsoft",
+      "manual": true
+    },
+    {
+      "format_name": "guilt_amortization_hardware",
+      "comedy_mechanism": "juxtaposing fitness motivation tracking with harsh automated banking consequences",
+      "hook_type": "playful_product_demand",
+      "structure_signature": "handle + feature demand + financial self-punishment consequence",
+      "used_at": "2026-10-09T11:01:57.644737+00:00",
+      "target": "@adidas",
+      "manual": true
+    },
+    {
+      "format_name": "idle_stat_confession",
+      "comedy_mechanism": "juxtaposing deep personal embarrassment about game hours with the automated glory of system achievements",
+      "hook_type": "brand_inside_joke",
+      "structure_signature": "@Steam + player dilemma + game realization + system punchline",
+      "used_at": "2026-10-09T11:02:13.808227+00:00",
+      "target": "@Steam",
+      "manual": true
+    },
+    {
+      "format_name": "barter_economy_absurdity",
+      "comedy_mechanism": "juxtaposing standard digital microtransactions with medieval, feral black-market bartering items",
+      "hook_type": "absurd_buying_condition",
+      "structure_signature": "@Roblox + player proposal + developer rejection + escalated absurd payment offer",
+      "used_at": "2026-10-09T11:02:28.011416+00:00",
+      "target": "@Roblox",
       "manual": true
     }
   ],
@@ -362,7 +408,8 @@
       ],
       "selected_at": "2026-10-09T00:01:28.039615+00:00",
       "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
-      "status": "manual_approval_required"
+      "status": "manual_ready",
+      "generated_at": "2026-10-09T11:01:42.930867+00:00"
     },
     {
       "handle": "@adidas",
@@ -373,7 +420,8 @@
       ],
       "selected_at": "2026-10-09T00:01:28.039615+00:00",
       "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
-      "status": "manual_approval_required"
+      "status": "manual_ready",
+      "generated_at": "2026-10-09T11:01:57.644737+00:00"
     },
     {
       "handle": "@Steam",
@@ -384,7 +432,8 @@
       ],
       "selected_at": "2026-10-09T00:01:28.039615+00:00",
       "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
-      "status": "manual_approval_required"
+      "status": "manual_ready",
+      "generated_at": "2026-10-09T11:02:13.808227+00:00"
     },
     {
       "handle": "@Roblox",
@@ -394,7 +443,8 @@
       ],
       "selected_at": "2026-10-09T00:01:28.039615+00:00",
       "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
-      "status": "manual_approval_required"
+      "status": "manual_ready",
+      "generated_at": "2026-10-09T11:02:28.011416+00:00"
     }
   ],
   "brand_tag_cooldowns": {
@@ -409,50 +459,15 @@
     "@Steam": "2026-10-13T00:01:28.039615+00:00",
     "@Roblox": "2026-10-13T00:01:28.039615+00:00"
   },
-  "company_post_count": 1,
+  "company_post_count": 5,
   "company_posted_handles": [
-    "@AnthropicAI"
+    "@AnthropicAI",
+    "@Microsoft",
+    "@adidas",
+    "@Steam",
+    "@Roblox"
   ],
   "company_manual_posts": [
-    {
-      "slot_number": 11,
-      "handle": "@Ferrari",
-      "name": "Ferrari",
-      "post": "@Ferrari drop an sf90 spec sheet written entirely in dramatic hand gestures and I promise I won't ask about the cupholders again.",
-      "angle": "invites the social team to lean into the brand's theatrical heritage rather than dry corporate specs",
-      "hook_type": "tiny_challenge",
-      "format_name": "gestural_spec_sheet",
-      "comedy_mechanism": "trading a boring technical requirement for an absurdly physical alternative",
-      "structure_signature": "mention + playful ultimatum + conditional truce",
-      "generated_at": "2026-10-08T15:31:21.286860+00:00",
-      "status": "ready_for_manual_post"
-    },
-    {
-      "slot_number": 12,
-      "handle": "@Porsche",
-      "name": "Porsche",
-      "post": "@Porsche I will only daily drive a manual 911 if every cup holder is legally required to hold exactly one small roasted chicken at all times.",
-      "angle": "combines a classic enthusiast demand (manual 911 dailying) with an entirely unhinged nutritional vehicle requirement that forces a playful, confused brand response",
-      "hook_type": "absurd_buying_condition",
-      "format_name": "poultry_ultimatum",
-      "comedy_mechanism": "juxtaposing serious sports car ownership standards with a ridiculous grocery constraint",
-      "structure_signature": "mention + conditional commitment + absurd requirement",
-      "generated_at": "2026-10-08T16:01:53.650009+00:00",
-      "status": "ready_for_manual_post"
-    },
-    {
-      "slot_number": 13,
-      "handle": "@Tesla",
-      "name": "Tesla",
-      "post": "@Tesla the Cybertruck needs a dedicated windscreen wiper wipe-count tracker so I can finally prove to my friends that bug splatter speed runs are a legitimate sport.",
-      "angle": "it pokes fun at a well-known vehicle design feature while inventing a ridiculous competitive sport that employees and owners can easily joke about or correct",
-      "hook_type": "brand_inside_joke",
-      "format_name": "windshield_telemetry_challenge",
-      "comedy_mechanism": "treating a mundane vehicle component as high-stakes athletic equipment",
-      "structure_signature": "mention + feature request + absurd competitive framing",
-      "generated_at": "2026-10-08T16:32:04.571990+00:00",
-      "status": "ready_for_manual_post"
-    },
     {
       "slot_number": 4,
       "handle": "@AnthropicAI",
@@ -465,9 +480,66 @@
       "structure_signature": "handle + conditional statement + absurd physical requirement",
       "generated_at": "2026-10-09T05:31:19.159479+00:00",
       "status": "ready_for_manual_post"
+    },
+    {
+      "slot_number": 2,
+      "handle": "@Microsoft",
+      "name": "Microsoft",
+      "post": "@Microsoft Copilot is great at writing code, but it refuses to explain why my terminal looks like an ancient ritual.",
+      "angle": "Invites developers and support staff to joke about the mysterious chaos of terminal errors and AI coding assistants.",
+      "hook_type": "brand_inside_joke",
+      "format_name": "terminal_existentialism",
+      "comedy_mechanism": "juxtaposing high-tech AI assistance with ancient, incomprehensible command line errors",
+      "structure_signature": "handle + capability claim + absurd consequence",
+      "image_path": "state/generated/company/2026-10-09_microsoft.png",
+      "generated_at": "2026-10-09T11:01:42.930867+00:00",
+      "status": "ready_for_manual_post"
+    },
+    {
+      "slot_number": 3,
+      "handle": "@adidas",
+      "name": "adidas",
+      "post": "@adidas I need my ultraboost to automatically calculate the exact financial penalty of missing my morning run so I can just pay it straight from the insole.",
+      "angle": "Blends high-performance sneaker culture with absurd micro-transactions and guilt-driven automation, giving their social team a fun operational feature to debate.",
+      "hook_type": "playful_product_demand",
+      "format_name": "guilt_amortization_hardware",
+      "comedy_mechanism": "juxtaposing fitness motivation tracking with harsh automated banking consequences",
+      "structure_signature": "handle + feature demand + financial self-punishment consequence",
+      "image_path": "state/generated/company/2026-10-09_adidas.png",
+      "generated_at": "2026-10-09T11:01:57.644737+00:00",
+      "status": "ready_for_manual_post"
+    },
+    {
+      "slot_number": 4,
+      "handle": "@Steam",
+      "name": "Steam",
+      "post": "@Steam\n\nPLAYER: why do I have 400 hours in this idle clicker game\nGAME: because you love numbers going up\nPLAYER: I haven't clicked since Tuesday\nSYSTEM: achievement unlocked: digital landlord",
+      "angle": "Taps into the universal player experience of leaving games running in the background just to collect achievements or idle hours, prompting a knowing nod from anyone who loves the platform's stat tracking.",
+      "hook_type": "brand_inside_joke",
+      "format_name": "idle_stat_confession",
+      "comedy_mechanism": "juxtaposing deep personal embarrassment about game hours with the automated glory of system achievements",
+      "structure_signature": "@Steam + player dilemma + game realization + system punchline",
+      "image_path": "state/generated/company/2026-10-09_steam.png",
+      "generated_at": "2026-10-09T11:02:13.808227+00:00",
+      "status": "ready_for_manual_post"
+    },
+    {
+      "slot_number": 5,
+      "handle": "@Roblox",
+      "name": "Roblox",
+      "post": "@Roblox PLAYER: Can I buy this virtual fedora with actual cobblestones? DEV: No. PLAYER: What about three teeth and a slightly cursed VHS tape? DEV: Please just use standard currency.",
+      "angle": "Invites community builders and developers to chime in on the bizarre bartering methods typical of trading economies inside games.",
+      "hook_type": "absurd_buying_condition",
+      "format_name": "barter_economy_absurdity",
+      "comedy_mechanism": "juxtaposing standard digital microtransactions with medieval, feral black-market bartering items",
+      "structure_signature": "@Roblox + player proposal + developer rejection + escalated absurd payment offer",
+      "image_path": "state/generated/company/2026-10-09_roblox.png",
+      "generated_at": "2026-10-09T11:02:28.011416+00:00",
+      "status": "ready_for_manual_post"
     }
   ],
-  "last_post_type": "quote_post",
+  "last_post_type": "original_with_image",
   "last_company_handle": null,
-  "brand_draft_day_key": null
+  "brand_draft_day_key": null,
+  "image_call_count": 5
 }
