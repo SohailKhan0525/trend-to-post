@@ -4,12 +4,12 @@ This repository runs an experimental X account focused on AI, technology, major 
 
 ## What it does
 
-- Publishes standalone ORIGINAL text posts, not Quote Posts, replies, or image memes.
-- Uses an AI model for every generated caption. Eleven daily originals are invented from broad topic seeds; four more are grounded in real X conversations and queued for manual review with the source link.
+- Publishes text-only standalone originals and real X Quote Posts; it does not auto-reply or publish images.
+- Uses AI for every authored caption. Eleven daily originals are invented from broad topic seeds; four additional AI captions are automatically published as Quote Posts attached to recent original posts from curated official brand/company accounts.
 - Automatic original posts may use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target is 2–5 distinct emojis per post (at most one extra when it fits); repeats and emojis outside this list are rejected.
 - Favors unusual formats, absurd rules, sharp observations, fictional product behaviour, and punchy one-liners over generic corporate phrasing.
 - Prepares five manually publishable, text-only company-tag captions per UTC day. Their formats rotate between conditional “if” lines, “imagine” scenarios, an occasional “I'll buy” condition, choose-one prompts, feature challenges, and other product-specific jokes. Company captions may use ONLY 😂 👀 🥳 🫠; other emojis are rejected.
-- Automatically publishes eleven invented, text-only original posts without @mentions. Trend-grounded posts are never auto-published.
+- Automatically publishes eleven invented text-only originals plus four text-only AI Quote Posts attached to recent posts from real brand accounts. Quote commentary contains no @mention; X displays the source post as the quote attachment.
 - Keeps a bounded format memory to avoid repeating recent structures.
 - Rejects political/current-affairs content, country references, fabricated company claims, hashtags, and links.
 - Does not automatically like, follow, or reply to other accounts.
@@ -25,23 +25,24 @@ Example shapes (the bot should invent fresh, company-specific versions):
 
 Company captions may use ONLY these emojis: 😂 👀 🥳 🫠. These five posts are **manual**: copy the caption from `state/company_manual_posts.md` and publish it yourself. The bot never submits company-tagged captions to X.
 
-## Trend-grounded drafts and X policy
+## Brand-grounded Quote Posts
 
-The queue checks X's official Trends feed when available, filters to permitted AI, technology, gaming, and sports topics, and searches for recent posts within those topics. If no eligible source post is available from Trends, it falls back to recent Top-search conversations. Each trend-grounded draft includes a source link and is for **manual review and publication only**. X's automation rules prohibit automatically posting about trending topics, so the bot never auto-publishes these drafts (https://help.x.com/en/rules-and-policies/x-automation).
+Four posts each UTC day are automatically published as real X Quote Posts, using `attachment_url` to attach a source post from a curated list of first-party technology, software, gaming, sports, and product brands. The bot searches recent posts directly from those official handles, verifies the author matches the account allowlist, excludes replies/retweets/quote posts and media-bearing posts, and generates an original AI comment grounded in the source. It does **not** query or target X's Trending Topics list. This distinction matters because X's automation rules prohibit automatically posting about trending topics, while they expressly allow automated Quote Posts for entertainment, informational, or novelty purposes when non-spammy and otherwise compliant: https://help.x.com/en/rules-and-policies/x-automation.
 
+The four quotes are automatically published, not left as manual drafts. They do not add an `@mention` to the authored caption; the company appears because its original post is attached. Each source ID is tracked to prevent reuse, and the recent-format memory is used to reduce repeated jokes. Sources with images or video are skipped to preserve the text-only account requirement.
 ## Daily limits
 
-- **20 total daily content slots**: 11 auto-published invented originals + 4 manual trend-grounded drafts + 5 manual company-tagged captions.
-- **20 AI text generations per UTC day** across all three lanes: 11 invented originals, 4 trend-grounded drafts, and 5 company captions.
+- **20 total daily content slots**: 11 auto-published invented originals + 4 auto-published official-brand Quote Posts + 5 manual company-tagged captions.
+- **20 AI text generations per UTC day** across all three lanes: 11 invented originals, 4 official-brand Quote Posts, and 5 company captions.
 - Minimum **72 minutes between successful automated X posts**.
 - Five company targets rotate with a four-day cooldown.
-- The first successful queue run each UTC day prepares five company captions and four trend-grounded manual drafts, reserving nine content slots. Subsequent eligible queue runs publish one invented original at a time, up to eleven successful automatic posts.
+- The first queue run each UTC day prepares five company captions for manual publication. Eligible queue runs then publish the four official-brand Quote Posts first, one per run under the 72-minute interval guard, followed by up to eleven invented originals.
 - Manual X publishing cannot be detected automatically. The queue reserves those content slots when it generates the captions, even before you manually publish them.
 - These are caps, not a guarantee of twenty completed posts. Search, provider, validation, or X failures can reduce actual output.
 
 ## Workflow
 
-The Actions workflow `Post X Text Originals` runs on manual dispatch or the existing `post-next` repository-dispatch event. Each UTC day, the queue prepares five company captions in `state/company_manual_posts.md` and four trend-grounded drafts in `state/trend_manual_posts.md`, with source URLs for human review. It then publishes one invented text-only original when the cooldown and quota allow. Trend-grounded drafts are never auto-published.
+The Actions workflow `Post X Text Originals` runs on manual dispatch or the existing `post-next` repository-dispatch event. Each UTC day, the queue prepares five company captions in `state/company_manual_posts.md` for manual publication. It automatically publishes four AI Quote Posts attached to fresh text-only posts from official company accounts, then publishes invented text-only originals when the cooldown and quota allow. Published quote-post metadata is saved in `state/post_queue.json`.
 
 The external scheduler should continue sending the existing `post-next` event at the desired cadence. The bot itself enforces the 72-minute minimum for posts that it publishes automatically.
 
@@ -56,4 +57,4 @@ The external scheduler should continue sending the existing `post-next` event at
 
 ## State
 
-`state/post_queue.json` stores daily slot and generation counters, company target rotation and cooldowns, recently used source IDs, last automated post metadata, and recent format memory (including prior post text for duplicate checks). Copy-ready manual company captions live in `state/company_manual_posts.md`; the four source-grounded manual drafts live in `state/trend_manual_posts.md`.
+`state/post_queue.json` stores daily slot and generation counters, official-brand source IDs, company target rotation and cooldowns, last automated post metadata, and recent format memory (including prior post text for duplicate checks). Copy-ready manual company captions live in `state/company_manual_posts.md`. The legacy `state/trend_manual_posts.md` file is no longer used for the quote-post lane.
