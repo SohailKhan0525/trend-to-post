@@ -22,6 +22,14 @@ class OriginalTextValidationTests(unittest.TestCase):
         value = draft("my software update asked me to emotionally prepare 😭🔥")
         self.assertIs(_validate_original(value, {}, include_handle=False), value)
 
+    def test_accepts_every_emoji_in_requested_palette(self) -> None:
+        allowed = ("👀", "🔥", "😭", "❤️‍🩹", "😂", "😙", "🥀", "🤣", "🥳", "🫠", "😤", "💀")
+        for emoji in allowed:
+            with self.subTest(emoji=emoji):
+                other = "🔥" if emoji != "🔥" else "😂"
+                value = draft(f"this build has feelings {emoji}{other}")
+                self.assertIs(_validate_original(value, {}, include_handle=False), value)
+
     def test_rejects_a_single_emoji_for_automated_posts(self) -> None:
         with self.assertRaises(GeminiError):
             _validate_original(
