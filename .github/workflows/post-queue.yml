@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: x-original-meme-queue
+  group: x-text-original-queue
   cancel-in-progress: false
 
 jobs:
