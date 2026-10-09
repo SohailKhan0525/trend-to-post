@@ -20,10 +20,21 @@ from .trend_source import (
 STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
-ORIGINAL_POSTS_PER_DAY = POSTS_PER_DAY - COMPANY_POSTS_PER_DAY
+TREND_MANUAL_POSTS_PER_DAY = 4
+ORIGINAL_POSTS_PER_DAY = POSTS_PER_DAY - COMPANY_POSTS_PER_DAY - TREND_MANUAL_POSTS_PER_DAY
 AI_GENERATIONS_PER_DAY = 20
 MIN_POST_INTERVAL_MINUTES = 72
 BRAND_AI_GENERATIONS_PER_DAY = COMPANY_POSTS_PER_DAY
+INVENTED_TOPIC_SEEDS = (
+    "AI and strange software behaviour",
+    "developer tools and coding rituals",
+    "consumer technology and device habits",
+    "gaming and game-design absurdities",
+    "sports culture and ridiculous fan logic",
+    "startups, builders and founder life",
+    "internet culture and digital etiquette",
+    "AI assistants and impossible product features",
+)
 
 
 class QueueError(RuntimeError):
@@ -58,6 +69,11 @@ def _new_state() -> dict:
         "brand_draft_queue": [],
         "brand_ai_call_count": 0,
         "brand_format_lab": [],
+        "trend_manual_post_count": 0,
+        "trend_manual_posts": [],
+        "trend_manual_day_key": None,
+        "trend_source_ids": [],
+        "invented_post_count": 0,
     }
 
 
@@ -93,6 +109,11 @@ def _load_state() -> dict:
         state["brand_draft_queue"] = []
         state["brand_ai_call_count"] = 0
         state["brand_format_lab"] = []
+        state["trend_manual_post_count"] = 0
+        state["trend_manual_posts"] = []
+        state["trend_manual_day_key"] = None
+        state["trend_source_ids"] = []
+        state["invented_post_count"] = 0
 
     try:
         state["daily_count"] = int(state.get("daily_count", 0))
@@ -167,6 +188,24 @@ def _load_state() -> dict:
             "State brand_ai_call_count is outside "
             f"0..{BRAND_AI_GENERATIONS_PER_DAY}."
         )
+
+    try:
+        state["trend_manual_post_count"] = int(state.get("trend_manual_post_count", 0))
+        state["invented_post_count"] = int(state.get("invented_post_count", 0))
+    except (TypeError, ValueError) as exc:
+        raise QueueError("Trend and invented post counters must be integers.") from exc
+    if not 0 <= state["trend_manual_post_count"] <= TREND_MANUAL_POSTS_PER_DAY:
+        raise QueueError(
+            f"State trend_manual_post_count is outside 0..{TREND_MANUAL_POSTS_PER_DAY}."
+        )
+    trend_posts = state.get("trend_manual_posts", [])
+    if not isinstance(trend_posts, list):
+        raise QueueError("State trend_manual_posts must be a list.")
+    state["trend_manual_posts"] = [
+        item for item in trend_posts[-TREND_MANUAL_POSTS_PER_DAY:]
+        if isinstance(item, dict)
+    ]
+    state["trend_source_ids"] = _history(state.get("trend_source_ids", []))
 
     brand_lab = state.get("brand_format_lab", [])
     if not isinstance(brand_lab, list):
