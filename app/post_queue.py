@@ -242,6 +242,7 @@ def _source_dict(source: SourceTweet) -> dict:
         "url": source.url,
         "trend": source.trend,
         "trend_volume": source.trend_volume,
+        "source_type": source.source_type,
         "view_count": source.view_count,
         "favorite_count": source.favorite_count,
         "retweet_count": source.retweet_count,
@@ -341,6 +342,7 @@ def _write_trend_manual_posts(state: dict) -> None:
             trend = str(item.get("trend", "")).strip() or "recent X conversation"
             post = str(item.get("post", "")).strip()
             source_url = str(item.get("source_url", "")).strip()
+            source_type = str(item.get("source_type", "x_top_search")).strip()
             source_text = " ".join(str(item.get("source_text", "")).split())[:500]
             lines.extend([
                 f"## Trend draft {slot} — {trend}",
@@ -348,6 +350,7 @@ def _write_trend_manual_posts(state: dict) -> None:
                 f"> {post}",
                 "",
                 f"Angle: {item.get('angle', '')}",
+                f"Source type: {source_type}",
                 f"Source post: {source_url}",
                 f"Source context: {source_text}",
                 f"Status: {item.get('status', 'ready_for_manual_review')}",
@@ -589,6 +592,7 @@ async def _ensure_trend_manual_posts(state: dict, client: Client) -> bool:
             "slot_number": slot,
             "post": text,
             "trend": source.trend,
+            "source_type": source.source_type,
             "source_tweet_id": source.tweet_id,
             "source_url": source.url,
             "source_text": source.text,
