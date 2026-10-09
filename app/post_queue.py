@@ -306,78 +306,27 @@ def _next_company_target(state: dict) -> dict | None:
     return None
 
 
-def _company_slot_due(state: dict) -> bool:
-    next_number = int(state["daily_count"]) + 1
-    if next_number % 4 == 0:
-        return True
-    expected_company_posts = min(
-        COMPANY_POSTS_PER_DAY,
-        next_number // 4,
-    )
-    return int(state["company_post_count"]) < expected_company_posts
-
-
-async def post_next(
-    auth_token: str,
-    ct0: str,
-    gemini_api_key: str | None = None,
-) -> bool:
-    if not auth_token or not ct0:
-        raise QueueError("X_AUTH_TOKEN and X_CT0 are required.")
-
-    if not (
-        os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
-        and os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
+def _ensure_company_manual_posts(state: dict) -> bool:
+    """Prepare up to five tagged company originals and matching images before auto-posting."""
+    while (
+        int(state.get("company_post_count", 0)) < COMPANY_POSTS_PER_DAY
+        and int(state.get("daily_count", 0)) < POSTS_PER_DAY
     ):
-        raise QueueError(
-            "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are required."
-        )
+        if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+            print("Text-generation budget reached before all company assets were prepared.")
+            return False
+        if int(state.get("image_call_count", 0)) >= IMAGE_GENERATIONS_PER_DAY:
+            print("Image-generation budget reached before all company assets were prepared.")
+            return False
 
-    state = _load_state()
-
-    _write_company_manual_posts(state)
-
-    if ensure_daily_brand_targets(state):
-        _save_state(state)
-        targets = ", ".join(
-            f"{item['handle']} ({item['name']})"
-            for item in state.get("brand_tag_queue", [])
-            if isinstance(item, dict)
-        )
-        print(
-            "Brand target queue refreshed: "
-            f"{targets}. Five company slots are reserved inside the daily 20-post quota; "
-            "company mentions are included in the manual-copy assets, not auto-sent."
-        )
-
-    if state["daily_count"] >= POSTS_PER_DAY:
-        print(f"Daily post limit reached: {POSTS_PER_DAY}.")
-        return False
-
-    if state["ai_call_count"] >= AI_GENERATIONS_PER_DAY:
-        print(f"Daily AI generation limit reached: {AI_GENERATIONS_PER_DAY}.")
-        return False
-
-    if state["image_call_count"] >= IMAGE_GENERATIONS_PER_DAY:
-        print(f"Daily image generation limit reached: {IMAGE_GENERATIONS_PER_DAY}.")
-        return False
-
-    if not _interval_ok(state):
-        return False
-
-    client = _client(auth_token, ct0)
-    if not await client.is_logged_in():
-        raise QueueError("X session is not logged in; auth cookies may be expired.")
-
-    if _company_slot_due(state) and state["company_post_count"] < COMPANY_POSTS_PER_DAY:
         target = _next_company_target(state)
         if target is None:
-            raise QueueError(
-                "No unused company target is available for the next reserved company slot."
-            )
+            print("No unused company target remains for today's manual meme assets.")
+            return False
 
         target_handle = str(target["handle"]).strip()
         target_name = str(target["name"]).strip()
+
         state["ai_call_count"] += 1
         state["brand_ai_call_count"] = min(
             COMPANY_POSTS_PER_DAY,
@@ -395,21 +344,21 @@ async def post_next(
             target["status"] = "generation_failed"
             target["last_error"] = str(exc)
             _save_state(state)
-            print(
-                "Company AI could not produce a policy-safe candidate; "
-                f"target will retry on the next company slot: {target_name} ({target_handle})."
-            )
+            print(f"Company AI failed for {target_name} ({target_handle}): {exc}")
             return False
 
         if not draft.should_post:
             target["status"] = "generation_rejected"
             _save_state(state)
-            print(f"Company AI rejected target; retrying later: {target_name}.")
+            print(f"Company AI rejected target; it will retry later: {target_name}.")
             return False
 
         text = draft.post_text.strip()
         if not text or len(text) > 280:
-            raise QueueError("AI returned invalid company post text length.")
+            target["status"] = "generation_rejected"
+            target["last_error"] = "Invalid company caption length."
+            _save_state(state)
+            return False
 
         image_path = (
             Path("state/generated/company")
@@ -431,15 +380,10 @@ async def post_next(
             print(f"Company meme image failed for {target_name}: {exc}")
             return False
 
-        print(f"Company post ready for manual posting ({len(text)}/280): {text}")
-        print(
-            f"Company target: {target_name} ({target_handle}); "
-            "the @mention is included in the copy for you to post manually."
-        )
-
         now = datetime.now(timezone.utc).isoformat()
+        company_slot = int(state.get("company_post_count", 0)) + 1
         manual_item = {
-            "slot_number": int(state["daily_count"]) + 1,
+            "slot_number": company_slot,
             "handle": target_handle,
             "name": target_name,
             "post": text,
@@ -493,14 +437,74 @@ async def post_next(
         )
         _write_company_manual_posts(state)
         _save_state(state)
-
         print(
-            f"Company manual slot #{state['company_post_count']}/{COMPANY_POSTS_PER_DAY} ready; "
-            f"total daily content slots {state['daily_count']}/{POSTS_PER_DAY}; "
-            f"text generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}; "
-            f"image attempts {state['image_call_count']}/{IMAGE_GENERATIONS_PER_DAY}."
+            f"Prepared company asset {state['company_post_count']}/{COMPANY_POSTS_PER_DAY}: "
+            f"{target_name} ({target_handle})."
         )
-        return True
+
+    return (
+        int(state.get("company_post_count", 0)) >= COMPANY_POSTS_PER_DAY
+        or int(state.get("daily_count", 0)) >= POSTS_PER_DAY
+    )
+
+
+async def post_next(
+    auth_token: str,
+    ct0: str,
+    gemini_api_key: str | None = None,
+) -> bool:
+    if not auth_token or not ct0:
+        raise QueueError("X_AUTH_TOKEN and X_CT0 are required.")
+
+    if not (
+        os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
+        and os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
+    ):
+        raise QueueError(
+            "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are required."
+        )
+
+    state = _load_state()
+
+    _write_company_manual_posts(state)
+
+    if ensure_daily_brand_targets(state):
+        _save_state(state)
+        targets = ", ".join(
+            f"{item['handle']} ({item['name']})"
+            for item in state.get("brand_tag_queue", [])
+            if isinstance(item, dict)
+        )
+        print(
+            "Brand target queue refreshed: "
+            f"{targets}. Five company slots are reserved inside the daily 20-post quota; "
+            "company mentions are included in the manual-copy assets, not auto-sent."
+        )
+
+    if state["company_post_count"] < COMPANY_POSTS_PER_DAY:
+        if not _ensure_company_manual_posts(state):
+            _write_company_manual_posts(state)
+            _save_state(state)
+            return False
+
+    if state["daily_count"] >= POSTS_PER_DAY:
+        print(f"Daily post limit reached: {POSTS_PER_DAY}.")
+        return False
+
+    if state["ai_call_count"] >= AI_GENERATIONS_PER_DAY:
+        print(f"Daily AI generation limit reached: {AI_GENERATIONS_PER_DAY}.")
+        return False
+
+    if state["image_call_count"] >= IMAGE_GENERATIONS_PER_DAY:
+        print(f"Daily image generation limit reached: {IMAGE_GENERATIONS_PER_DAY}.")
+        return False
+
+    if not _interval_ok(state):
+        return False
+
+    client = _client(auth_token, ct0)
+    if not await client.is_logged_in():
+        raise QueueError("X session is not logged in; auth cookies may be expired.")
 
     used = state["posted_source_tweet_ids"] + state["skipped_source_tweet_ids"]
 
