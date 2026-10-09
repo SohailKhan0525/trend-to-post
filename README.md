@@ -39,7 +39,7 @@ Company captions may use ONLY these emojis: 😂 👀 🥳 🫠. These five post
 
 ## Workflow
 
-The Actions workflow `Post X Text Originals` runs on manual dispatch or the existing `post-next` repository-dispatch event. The first run each UTC day generates the five tagged company captions and writes them to `state/company_manual_posts.md`; it then publishes one text-only original if the cooldown and quota allow.
+The Actions workflow `Post X Text Originals` runs on manual dispatch or the existing `post-next` repository-dispatch event. Each UTC day, the queue prepares five company captions in `state/company_manual_posts.md` and four trend-grounded drafts in `state/trend_manual_posts.md`, with source URLs for human review. It then publishes one invented text-only original when the cooldown and quota allow. Trend-grounded drafts are never auto-published.
 
 The external scheduler should continue sending the existing `post-next` event at the desired cadence. The bot itself enforces the 72-minute minimum for posts that it publishes automatically.
 
