@@ -27,7 +27,7 @@ Company captions may use ONLY these emojis: 😂 👀 🥳 🫠. These five post
 
 ## Trend-grounded drafts and X policy
 
-The queue checks X's official Trends feed when available, filters to permitted AI, technology, gaming, and sports topics, and searches for recent posts within those topics. If the Trends feed is unavailable, it falls back to recent Top-search conversations. Each trend-grounded draft includes a source link and is for **manual review and publication only**. X's automation rules prohibit automatically posting about trending topics, so the bot never auto-publishes these drafts (https://help.x.com/en/rules-and-policies/x-automation).
+The queue checks X's official Trends feed when available, filters to permitted AI, technology, gaming, and sports topics, and searches for recent posts within those topics. If no eligible source post is available from Trends, it falls back to recent Top-search conversations. Each trend-grounded draft includes a source link and is for **manual review and publication only**. X's automation rules prohibit automatically posting about trending topics, so the bot never auto-publishes these drafts (https://help.x.com/en/rules-and-policies/x-automation).
 
 ## Daily limits
 
