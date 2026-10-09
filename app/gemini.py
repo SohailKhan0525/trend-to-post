@@ -762,7 +762,7 @@ def _validate_meme_visual(draft: OriginalDraft) -> None:
 
 def _original_meme_prompt(source: dict, format_memory: list[dict] | None = None) -> str:
     recent_formats = format_memory[-12:] if format_memory else []
-    memory_text = "\\n".join(
+    memory_text = "\n".join(
         f"- format={item.get('format_name', '')}; mechanism={item.get('comedy_mechanism', '')}; signature={item.get('structure_signature', '')}"
         for item in recent_formats if isinstance(item, dict)
     ) or "- none yet"
