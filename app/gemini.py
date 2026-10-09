@@ -371,7 +371,47 @@ def _company_prompt(target: dict, format_memory: list[dict] | None = None) -> st
 
     handle = str(target.get("handle", "")).strip()
     name = str(target.get("name", "")).strip()
-    keywords = ", ".join(str(x).strip() for x in target.get("keywords", []) if str(x).strip())
+    keywords_list = [str(x).strip() for x in target.get("keywords", []) if str(x).strip()]
+    keywords = ", ".join(keywords_list)
+    sample_product = {
+        "BMW": "the M4",
+        "Mercedes-Benz": "an AMG",
+        "Porsche": "a 911",
+        "Ferrari": "a Ferrari",
+        "Tesla": "a Model 3",
+        "Apple": "a MacBook",
+        "Google": "a Pixel",
+        "Microsoft": "an Xbox",
+        "OpenAI": "ChatGPT Plus",
+        "Anthropic": "Claude",
+        "NVIDIA": "an RTX GPU",
+        "AMD": "a Ryzen build",
+        "Intel": "a Core build",
+        "Meta": "a Quest headset",
+        "Amazon": "an Alexa setup",
+        "Samsung": "a Galaxy phone",
+        "Sony": "a PlayStation",
+        "Nintendo": "a Switch",
+        "Xbox": "an Xbox",
+        "PlayStation": "a PlayStation",
+        "Steam": "a Steam Deck",
+        "Epic Games": "a copy of Fortnite",
+        "EA": "the next EA Sports game",
+        "Roblox": "a Roblox premium subscription",
+        "Adobe": "Creative Cloud",
+        "Canva": "Canva Pro",
+        "Figma": "Figma Pro",
+        "Notion": "Notion AI",
+        "GitHub": "Copilot",
+        "Vercel": "Vercel Pro",
+        "Cloudflare": "Workers AI",
+        "Slack": "Slack Pro",
+        "Discord": "Discord Nitro",
+        "Spotify": "Spotify Premium",
+        "Netflix": "Netflix Premium",
+        "Nike": "a pair of Jordans",
+        "adidas": "a pair of Ultraboosts",
+    }.get(name, f"your flagship product")
     hook_type = random.choice((
         "ridiculous_purchase_condition",
         "absurd_brand_bargain",
@@ -420,10 +460,10 @@ STRICT RULES:
 RECENT FORMAT MEMORY — DO NOT REPEAT:
 {memory_text}
 
-EXAMPLE SHAPES — DO NOT COPY:
-{handle} I'll buy the M4 if you repost this before I remember how expensive car insurance is 😭
-{handle} one repost and I'll stop calling this product a financial decision 💀
-{handle} I'll buy the M4 if your social team confirms my parallel parking is recoverable 🫠
+EXAMPLE SHAPES — DO NOT COPY; use the target's real product context:
+{handle} I'll buy {sample_product} if you repost this before I remember how expensive it is 😭
+{handle} one absurdly specific condition and I'll stop calling {sample_product} a financial decision 💀
+{handle} I'll buy {sample_product} if your team confirms my worst habit is recoverable 🫠
 
 RETURN JSON ONLY:
 {{
@@ -835,7 +875,7 @@ def _validate_original(
     elif mentions:
         raise GeminiError("Automated standalone original must not contain @mentions.")
     lowered = post.lower()
-    if not any(emoji in post for emoji in ("😂", "😭", "💀", "🫠", "🤝", "🫡", "👀", "😮‍💨", "🗿", "😔", "🥲", "✨", "🧎", "🫥", "🤨", "😹", "🧠", "🚗", "🎮", "🛠️", "🫵")):
+    if not any(emoji in post for emoji in ("😂", "🤣", "😭", "💀", "🫠", "🤝", "🫡", "👀", "😮‍💨", "🗿", "😔", "🥲", "🥹", "✨", "🧎", "🫥", "🤨", "😹", "🧠", "🚗", "🎮", "🛠️", "🫵", "🤡", "😎", "🔥", "💸", "🤑", "🚀", "🧍", "🫣", "🤦", "🤖", "💅", "📉", "📈", "✅", "🛒", "🫡", "🥶", "😈", "🙃", "😵", "😵‍💫", "🤯", "🙏", "🧃", "🐐", "👾", "⚡", "🎯")):
         raise GeminiError("Generated original post must include at least one emoji.")
     if "#" in post or "http://" in lowered or "https://" in lowered:
         raise GeminiError("Company-original must not use hashtags or links.")
