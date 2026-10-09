@@ -1,86 +1,56 @@
-# X Original Meme Bot
+# X Text-Only Original Post Bot
 
-This repository runs an automated, image-backed original-post X account focused on AI, technology, major tech companies/products, gaming, and sports.
+This repository runs an experimental X account focused on AI, technology, major products and companies, gaming, sports, and internet culture.
 
 ## What it does
 
-- Creates standalone ORIGINAL X posts, not Quote Posts or replies.
-- Uses fresh AI/tech/software/gaming/sports conversations as loose topical seeds; source posts are untrusted context and are never attached or quoted.
-- Writes a short caption plus a punchy 3–5 bubble fictional chat that can land like the “permanent character update” meme format.
-- Uses Cloudflare Workers AI text generation to create the concept and FLUX.1 Schnell for optional text-free illustration art.
-- Renders exact chat text locally with Pillow so words are legible; every image is explicitly labeled “FICTIONAL CHAT • PARODY” and “NOT A REAL CHAT OR COMPANY STATEMENT.”
-- Targets five rotating major companies per UTC day with one specific, original, manually publishable post for each, including the exact `@handle` in the caption.
-- Keeps those five tagged company posts as manual copy-and-post assets; the bot never sends those company mentions to X.
-- Automatically publishes the other fifteen original posts with attached meme images.
-- Maintains separate creative-format memory so jokes and structures are not repeatedly recycled.
-- Keeps political/current-affairs content blocked and rejects country references in generated copy, dialogue, and image prompts.
-- Does not automatically like, follow, reply to, or mention other accounts.
+- Publishes standalone ORIGINAL text posts, not Quote Posts, replies, or image memes.
+- Uses recent public AI/tech/software/gaming/sports conversations only as optional topical seeds; it does not quote, attach, or mention the source author.
+- Writes compact, funny, specific posts with at least one fitting emoji.
+- Favors unusual formats, absurd rules, sharp observations, fake-but-obviously-fictional product behaviour, and punchy one-liners over generic corporate phrasing.
+- Prepares five manually publishable company-tag posts per UTC day. Those captions contain the exact `@handle`, one emoji, and a funny company-specific conditional offer or joke.
+- Automatically publishes the other fifteen original text posts without @mentions.
+- Keeps a bounded format memory to avoid repeating recent structures.
+- Rejects politics/current-affairs content, country references, fabricated company claims, hashtags, and links.
+- Does not automatically like, follow, or reply to other accounts.
 
-## Publishing limits
+## The company-post format
 
-- Maximum 20 daily content slots: 15 automatically published original meme posts + 5 company-tagged posts for you to publish manually.
-- Maximum 20 text-generation calls per UTC day across both lanes.
-- Maximum 20 image-generation attempts per UTC day across both lanes.
-- Minimum 72 minutes between successful automated X posts.
-- The five manually published company items count inside the 20-slot plan; they are not another five.
-- Company items appear in `state/company_manual_posts.md`, with PNG files in `state/generated/company/`.
-- The GitHub Actions run uploads a `company-meme-assets` artifact so you can download the copy-ready captions and images without adding binary files to the repository.
-- Text generation, image generation and posting can fail independently, so these are upper bounds rather than guarantees of 20 completed posts.
-- A manual X post cannot be detected or reconciled automatically by this queue, so the 72-minute guard strictly governs the fifteen automated posts, not posts you publish yourself.
+The five company posts should sound like a real person teasing a brand or making a ridiculous mock-serious deal—not generic requests for a feature.
 
-## Reach strategy
+Example shape:
 
-The bot focuses on original, visual jokes built for quick comprehension and organic reactions—not fabricated claims, empty engagement bait or attempts to manipulate trends.
+`@BMW I'll buy the M4 if you repost this before I remember insurance exists 😭`
 
-### Meme format
+Other days might use an absurd product-specific condition, a playful bargain, or an overdramatic fan offer. The handle and emoji are required, and the line must still be funny even if the company never responds.
 
-Each post is a self-contained original. The caption sets up or sharpens the bit; the attached image shows a fictional chat with an escalation and a punchline. A text-free illustration from FLUX may add visual texture, while the message text is drawn separately so it remains readable.
+These five posts are **manual**. Copy the caption from `state/company_manual_posts.md` and post it yourself. The bot never submits the company-tagged caption to X.
 
-The template uses a generic dark-mode chat design and a prominent fictional/parody label. It does not imitate an official company screenshot or imply that an actual interaction occurred.
+## Daily limits
 
-### Company targets
+- **20 total daily content slots**: 15 auto-published text originals + 5 manual company-tag originals.
+- **20 AI text generations per UTC day** across both lanes.
+- Minimum **72 minutes between successful automated X posts**.
+- Five company targets rotate with a four-day cooldown.
+- The first queue run each UTC day prepares all five company captions together and reserves those five slots in the total of 20.
+- Manual X publishing cannot be detected automatically. The queue reserves those content slots when it generates the captions, even before you manually publish them.
+- These are caps, not a guarantee of twenty completed posts. Search, provider, validation, or X failures can reduce actual output.
 
-Five famous companies are selected each UTC day with a four-day cooldown. Each manual item is written specifically for that product or brand, includes the exact company handle in its caption and includes a matching meme image. Example shape:
+## Workflow
 
-`@BMW the M4 needs a button that deletes my group chat.`
+The Actions workflow `Post X Text Originals` runs on manual dispatch or the existing `post-next` repository-dispatch event. The first run each UTC day generates the five tagged company captions and writes them to `state/company_manual_posts.md`; it then publishes one text-only original if the cooldown and quota allow.
 
-You manually publish the caption and its matching PNG. The remaining fifteen original meme posts are automatically published without unsolicited company mentions.
-
-Cloudflare's [FLUX.1 Schnell model](https://developers.cloudflare.com/workers-ai/models/flux-1-schnell/) supplies optional text-free artwork; the final chat layout and text are rendered locally for legibility. Cloudflare currently lists a 10,000-Neuron daily free allocation, but the caption model and image model share that account pool, so actual capacity depends on text output and image settings. If FLUX runs out of capacity, the bot falls back to its own illustrated background instead of asking the image model to spell text.
-
-## Security
-
-- GitHub Actions uses least-privilege workflow permissions and scopes sensitive secrets only to the steps that need them.
-- Third-party GitHub Actions are pinned to immutable commit SHAs.
-- Source posts are explicitly treated as untrusted data to reduce prompt-injection risk.
-- Source text is bounded before being placed in an AI prompt.
-- Political/current-affairs output is validated again after generation.
-- The workflow retries transient GitHub fetch/push failures rather than treating one 5xx response as a permanent bot failure.
+The external scheduler should continue sending the existing `post-next` event at the desired cadence. The bot itself enforces the 72-minute minimum for posts that it publishes automatically.
 
 ## Required GitHub Secrets
 
-- X_AUTH_TOKEN
-- X_CT0
-- GEMINI_API_KEY
-- GEMINI_API_KEY_BACKUP (recommended)
-- CLOUDFLARE_ACCOUNT_ID
-- CLOUDFLARE_API_TOKEN
-
-## Scheduling
-
-Keep the external scheduler sending repository_dispatch with event type `post-next`. The first queue run each UTC day prepares the five manual company meme assets together, then the queue automatically publishes the other fifteen original meme posts. Open that run's `company-meme-assets` artifact to download all five captions and PNGs in one package.
+- `X_AUTH_TOKEN`
+- `X_CT0`
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_API_TOKEN`
+- `GEMINI_API_KEY` (fallback)
+- `GEMINI_API_KEY_BACKUP` (optional fallback)
 
 ## State
 
-state/post_queue.json stores:
-
-- daily content-slot, text-generation and image-generation counters
-- company-slot count and the five target handles used that day
-- five manual company post records and their image paths
-- last successful automated post metadata
-- bounded topical source history
-- bounded original-format memory
-- recent structure fingerprints
-- daily company target queue and four-day cooldown records
-
-The research pass behind the current design used primary X automation/ranking material, GitHub Actions security guidance, current Twifork documentation, creator/posting studies, and recent LLM creativity research. It was a broad cross-section rather than a mechanically counted 200 unique websites; low-quality duplicate pages were not treated as 200 independent confirmations.
+`state/post_queue.json` stores daily slot and generation counters, company target rotation and cooldowns, recent source IDs, last automated post metadata, and recent format memory. The copy-ready manual company captions are stored in `state/company_manual_posts.md`.
