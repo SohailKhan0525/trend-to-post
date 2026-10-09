@@ -295,7 +295,7 @@ def _next_company_target(state: dict) -> dict | None:
 
 
 def _ensure_company_manual_posts(state: dict) -> bool:
-    """Prepare up to five tagged company originals and matching images before auto-posting."""
+    """Prepare up to five tagged text-only company originals before auto-posting."""
     while (
         int(state.get("company_post_count", 0)) < COMPANY_POSTS_PER_DAY
         and int(state.get("daily_count", 0)) < POSTS_PER_DAY
@@ -305,7 +305,7 @@ def _ensure_company_manual_posts(state: dict) -> bool:
             return False
         target = _next_company_target(state)
         if target is None:
-            print("No unused company target remains for today's manual meme assets.")
+            print("No unused company target remains for today's manual company captions.")
             return False
 
         target_handle = str(target["handle"]).strip()
@@ -401,7 +401,7 @@ def _ensure_company_manual_posts(state: dict) -> bool:
         _write_company_manual_posts(state)
         _save_state(state)
         print(
-            f"Prepared company asset {state['company_post_count']}/{COMPANY_POSTS_PER_DAY}: "
+            f"Prepared company caption {state['company_post_count']}/{COMPANY_POSTS_PER_DAY}: "
             f"{target_name} ({target_handle})."
         )
 
@@ -440,7 +440,7 @@ async def post_next(
         )
         print(
             "Brand target queue refreshed: "
-            f"{targets}. Five company assets will be prepared together inside the 20-slot quota; "
+            f"{targets}. Five company captions will be prepared together inside the 20-slot quota; "
             "their @mentions are for your manual posts only."
         )
 
