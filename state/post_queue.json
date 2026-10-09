@@ -349,7 +349,8 @@
       "structure_signature": "company mention + if-condition + developer self-own",
       "used_at": "2026-10-09T11:18:01.720Z",
       "target": "@AnthropicAI",
-      "manual": true
+      "manual": true,
+      "post_text": "@AnthropicAI if Claude can explain why final_final_v12 still exists, I'll finally delete it 😂"
     },
     {
       "format_name": "windows final-boss entrance",
@@ -358,7 +359,8 @@
       "structure_signature": "company mention + imagine scenario + software-game collision",
       "used_at": "2026-10-09T11:18:01.725Z",
       "target": "@Microsoft",
-      "manual": true
+      "manual": true,
+      "post_text": "@Microsoft imagine Windows error messages entering like a final boss with theme music 👀"
     },
     {
       "format_name": "fridge-detector shoes",
@@ -367,7 +369,8 @@
       "structure_signature": "company mention + rare purchase condition + everyday self-own",
       "used_at": "2026-10-09T11:18:01.725Z",
       "target": "@adidas",
-      "manual": true
+      "manual": true,
+      "post_text": "@adidas I'll buy the Ultraboost if it can detect when I walk toward the fridge instead of the gym 🫠"
     },
     {
       "format_name": "steam feature fork",
@@ -376,7 +379,8 @@
       "structure_signature": "company mention + choose-one prompt + gaming utility escalation",
       "used_at": "2026-10-09T11:18:01.725Z",
       "target": "@Steam",
-      "manual": true
+      "manual": true,
+      "post_text": "@Steam pick one: 10-second demos for every game, or download bars with a legally binding ETA? 🥳"
     },
     {
       "format_name": "first-brick achievement",
@@ -385,7 +389,8 @@
       "structure_signature": "company mention + feature request + epic stakes from tiny action",
       "used_at": "2026-10-09T11:18:01.725Z",
       "target": "@Roblox",
-      "manual": true
+      "manual": true,
+      "post_text": "@Roblox add a tiny achievement for placing the first brick: “the council has noticed.” 😂"
     }
   ],
   "brand_tag_day_key": "2026-10-09",
