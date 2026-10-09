@@ -410,8 +410,8 @@ STRICT RULES:
 - The company is the addressee; write directly to it.
 - Keep the post specific to its product or user experience.
 - Include at least one fitting emoji, ideally at the punchline.
-- A playful conditional such as “I'll buy the M4 if…” is encouraged when specific and funny.
-- Avoid generic “please notice me”; the line should still be funny if the company never replies.
+- A playful conditional such as “I'll buy the M4 if you repost this” is allowed as a one-off joke. Keep the premise specific, surprising and playful, not a copied engagement-bait template.
+- The post should still be funny if the company never replies. Vary the condition for each target, and do not use the same “repost” punchline five times.
 - No other @mentions, hashtags, links or quote-post fragments.
 - No politics/current affairs, country references, nationalities or geopolitical geography.
 - No fabricated claims about real announcements, prices, specifications, executives or insider information.
@@ -421,9 +421,9 @@ RECENT FORMAT MEMORY — DO NOT REPEAT:
 {memory_text}
 
 EXAMPLE SHAPES — DO NOT COPY:
-{handle} I'll buy the M4 if you add a button that makes my parking attempts confidential 😭
-{handle} one “skip the tutorial, I have bills” button and I'll defend this product forever 💀
-{handle} I'll subscribe for a year if your app can delete my “final_final_v8” file without asking 🫠
+{handle} I'll buy the M4 if you repost this before I remember how expensive car insurance is 😭
+{handle} one repost and I'll stop calling this product a financial decision 💀
+{handle} I'll buy the M4 if your social team confirms my parallel parking is recoverable 🫠
 
 RETURN JSON ONLY:
 {{
@@ -700,9 +700,8 @@ def _pick_best_draft(drafts: list[QuoteDraft], format_memory: list[dict]) -> Quo
 
 
 BRAND_BANNED_PHRASES = (
-    "repost this", "retweet this", "rt this", "follow me", "like this",
-    "reply if", "follow if", "like if", "retweet if", "what do you think",
-    "thoughts?", "agree?", "giveaway",
+    "follow me", "like this", "reply if", "follow if", "like if",
+    "retweet if", "what do you think", "thoughts?", "agree?", "giveaway",
 )
 
 
