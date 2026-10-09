@@ -358,10 +358,27 @@ QUOTE OPTIONS:
 
 
 
+COMPANY_HOOK_TYPES = (
+    "if_condition",
+    "imagine_scenario",
+    "purchase_condition",
+    "feature_challenge",
+    "choose_one",
+    "absurd_task",
+    "mock_ultimatum",
+    "mini_quest",
+    "conditional_wager",
+    "product_roast",
+    "what_if",
+    "scenario_flip",
+)
+
+
 def _company_prompt(
     target: dict,
     format_memory: list[dict] | None = None,
     include_handle: bool = True,
+    hook_type: str | None = None,
 ) -> str:
     recent_formats = format_memory[-12:] if format_memory else []
     memory_text = "\n".join(
@@ -373,25 +390,20 @@ def _company_prompt(
     name = str(target.get("name", "")).strip()
     keywords_list = [str(x).strip() for x in target.get("keywords", []) if str(x).strip()]
     keywords = ", ".join(keywords_list)
-    hook_type = random.choice((
-        "truth_or_dare", "product_specific_dare", "harmless_brand_challenge",
-        "absurd_demo_request", "choose_your_fate", "product_confession",
-        "mini_quest", "chaotic_feature_challenge", "playful_verdict",
-        "fan_callout", "impossible_but_harmless_task", "buying_condition_rare",
-    ))
+    hook_type = hook_type or random.choice(COMPANY_HOOK_TYPES)
     hook_instructions = {
-        "truth_or_dare": "Use a truth-or-dare format with a funny, harmless, product-specific truth or dare.",
-        "product_specific_dare": "Dare the company to do something funny with a recognizable product or product setting.",
-        "harmless_brand_challenge": "Set one clear, playful challenge for the company to perform.",
-        "absurd_demo_request": "Ask for a ridiculous, clearly fictional demo; do not imply the feature already exists.",
-        "choose_your_fate": "Give the company two absurd but harmless options and make it choose.",
-        "product_confession": "Ask it to confess a funny product habit without alleging real wrongdoing.",
-        "mini_quest": "Give the brand a tiny, silly quest like a game objective.",
-        "chaotic_feature_challenge": "Challenge it to invent an unnecessary but funny feature.",
-        "playful_verdict": "Ask it to settle a specific product debate with a mock-serious verdict.",
-        "fan_callout": "Call out a recognizable product habit playfully and ask the brand to own it.",
-        "impossible_but_harmless_task": "Assign a ridiculous, obviously playful task tied to the product.",
-        "buying_condition_rare": "Use a purchase-condition joke, but never ask for a repost, like, follow or boost.",
+        "if_condition": "Build the joke around a fresh 'if you can do X, then Y' condition tied to this product.",
+        "imagine_scenario": "Start with an imaginative 'imagine...' situation that turns a product habit into an absurd scene.",
+        "purchase_condition": "Occasionally use an 'I'll buy [specific product] if...' line. Make the condition funny, specific and harmless. Do not ask for engagement.",
+        "feature_challenge": "Challenge the company to add one absurd but clearly fictional feature or setting.",
+        "choose_one": "Make the company choose between two funny, specific product outcomes.",
+        "absurd_task": "Give the company one oddly specific, harmless task related to its product.",
+        "mock_ultimatum": "Make a playful ultimatum about a recognizable product quirk, without threats or engagement bait.",
+        "mini_quest": "Frame a tiny, ridiculous product-related request as a video-game quest.",
+        "conditional_wager": "Use a playful 'if X happens, I'll do Y' condition with an unexpected twist; not necessarily a purchase.",
+        "product_roast": "Roast a recognizable product experience in a playful way, then give the company a funny action to take.",
+        "what_if": "Pose a product-specific 'what if...' idea and escalate it into an absurd but readable scenario.",
+        "scenario_flip": "Take an ordinary product feature and imagine it behaving in a completely unexpected but harmless way.",
     }[hook_type]
     prefix = f"{handle} " if include_handle else ""
     handle_rule = (
@@ -407,8 +419,9 @@ TARGET: {name} {f"({handle})" if include_handle else ""}
 PRODUCT KEYWORDS: {keywords or "none"}
 
 VOICE:
-Funny, direct, specific, internet-native, playful and a little unhinged. Make this feel like a dare, truth, challenge, weird task, absurd demo, product confession, mini quest, or verdict—not a marketing request.
-Use a product or habit relevant to this company.
+Funny, direct, specific, internet-native, playful and a little unhinged. These are playful bits, not marketing copy.
+Choose a single distinct angle: an 'if' condition, an 'imagine...' scenario, an occasional 'I'll buy...' condition, a product feature challenge, a choice, a mini-quest, a mock ultimatum, or a product roast.
+Make it relevant to this company's actual product or recognizable user experience.
 
 HOOK:
 {hook_type}
@@ -416,11 +429,11 @@ HOOK:
 
 RULES:
 {handle_rule}- Keep the caption specific to the product or its user experience.
-- Make one clear thing the company is being asked or dared to do, or one funny truth it is asked to admit.
-- Vary the format between truth-or-dare, mini-quest, choose-one, product confession, harmless challenge, absurd demo, feature dare and mock verdict.
-- Do NOT default to “I'll buy…” or an upgrade/purchase condition. That format is rare, not the default, and do not use it more than once in a batch.
+- Do not write truth-or-dare prompts or the two-part truth/dare format.
+- Vary the structure across the day's five captions. The caller supplies a unique hook type for each company in the daily batch; follow that hook rather than falling back to your favourite structure.
+- Do NOT default to “I'll buy…” or an upgrade/purchase condition. Use it only when the selected hook is purchase_condition.
 - Never ask for a repost, like, follow or boost. The joke must work even if the company never responds.
-- Include at least one fitting emoji and do not repeat the same emoji in a caption.
+- Emoji palette for company captions is STRICTLY limited to these four: 😂 👀 🥳 🫠. Use one or more of them naturally; never use any other emoji and never repeat an emoji within the caption.
 - No other @mentions, hashtags, links or quote-post fragments.
 - No politics/current affairs, country references, nationalities or geopolitical geography.
 - No fabricated claims about real announcements, prices, specifications, executives or insider information.
@@ -430,9 +443,9 @@ RECENT FORMAT MEMORY — DO NOT REPEAT:
 {memory_text}
 
 EXAMPLE SHAPES — DO NOT COPY:
-{prefix}truth or dare: tell the truth about your product's side-quest energy; dare—make it blink in morse code 😭
-{prefix}I dare you to add a “pretending I'm qualified” mode to the setup 💀
-{prefix}settle this product argument like you're under oath 🫡
+{prefix}if you can make this product do one completely unnecessary thing, I'll forgive everything 😂
+{prefix}imagine this app gave every tiny error the entrance music of a final boss 👀
+{prefix}pick one: a button that solves the problem or a button that explains why it got worse 🥳
 
 RETURN JSON ONLY:
 {{
@@ -447,7 +460,6 @@ RETURN JSON ONLY:
   "structure_signature": "compact structure fingerprint"
 }}
 """
-
 def _quote_options(source_text: str, limit: int = 6) -> list[str]:
     """Return distinctive short source fragments for the model to quote verbatim."""
     stop_words = {
@@ -713,18 +725,34 @@ BRAND_BANNED_PHRASES = (
 )
 
 
-EMOJI_TOKENS = tuple("""
-😂 🤣 😭 💀 🫠 🤝 🫡 👀 😮‍💨 🗿 😔 🥲 🥹 ✨ 🧎 🫥 🤨 😹 🧠 🚗 🎮 🛠️ 🛠 🫵 🤡 😎 🔥 💸 🤑 🚀 🧍 🫣 🤦 🤖 💅 📉 📈 ✅ 🛒 🥶 😈 🙃 😵 😵‍💫 🤯 🙏 🧃 🐐 👾 ⚡ 🎯 🫶 🧨 🏁 🧩 💻 ⌨️ 🖥️ 📱 🕹️ 🏎️ 🪦 🔧 🧯 🔋 🧪 📦 🧾 💬 🪫 🗣️ 🦆 🦍 🪿 🍿 🥴 👑 🪄 🎲 ⚙️ 🔌 💾 💯 🧿 🐸 🐈 🐈‍⬛ 🐕 🐢 🦖 🐍 🐝 🥑 🍕 🍟 🍜 🍳 ☕ 🧋 🥤 🎧 🎤 🎹 🏆 🥇 🧗 🏋️ ⚽ 🏀 🏈 🚲 ✈️ 🛸 🌚 🌝 🌪️ 🌈 ☄️ 🌋 💥 ❗ ❓ ♻️ 🧬 🧫 🧮 🪙 💳 💰 🧰 🗜️ 🖱️ 🖨️ 🧑‍💻 🥷 🦾 🦿 👁️‍🗨️ 💌 🧸 🧷 🪤 🪜 🧹
-""".split())
+EMOJI_TOKENS = (
+    "👀", "🔥", "😭", "❤️‍🩹", "😂", "😙", "🥀", "🤣", "🥳", "🫠", "😤", "💀",
+)
+COMPANY_EMOJI_TOKENS = ("😂", "👀", "🥳", "🫠")
+EMOJI_CHAR_PATTERN = re.compile(r"[\U0001F000-\U0001FAFF\u2600-\u27BF\u20E3]")
 
 
-def _found_emojis(text: str) -> list[str]:
+def _found_emojis(
+    text: str,
+    allowed_tokens: tuple[str, ...] = EMOJI_TOKENS,
+) -> list[str]:
     pattern = "|".join(
         re.escape(item)
-        for item in sorted(set(EMOJI_TOKENS), key=len, reverse=True)
+        for item in sorted(set(allowed_tokens), key=len, reverse=True)
     )
-    return re.findall(pattern, text)
+    return re.findall(pattern, text) if pattern else []
 
+
+def _has_unapproved_emoji(
+    text: str,
+    allowed_tokens: tuple[str, ...],
+) -> bool:
+    pattern = "|".join(
+        re.escape(item)
+        for item in sorted(set(allowed_tokens), key=len, reverse=True)
+    )
+    remainder = re.sub(pattern, "", text) if pattern else text
+    return bool(EMOJI_CHAR_PATTERN.search(remainder))
 
 def _original_text_prompt(
     source: dict,
@@ -754,7 +782,7 @@ Try unusual post shapes: one-line fake error, imaginary setting, strange rule, d
 Never imply a fictional scenario is a real event or real company announcement.
 No politics/current affairs, countries, nationalities, geopolitical geography, fabricated facts, @mentions, hashtags or URLs.
 No engagement bait like “repost this”, “thoughts?”, “agree?” or “let that sink in”.
-EMOJI RULE: the randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it genuinely improves the joke. Never repeat the same emoji token in one post. Make them feel like part of the punchline, not decoration. Caption maximum {ORIGINAL_POST_MAX_CHARS} characters.
+EMOJI RULE: use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it improves the joke. Never repeat an emoji token in one post, and do not use any emoji outside the list. Make emojis feel like part of the punchline. Caption maximum {ORIGINAL_POST_MAX_CHARS} characters.
 Make the line worth sharing because it is funny, not because it asks for engagement.
 
 RECENT FORMAT MEMORY:
@@ -868,7 +896,10 @@ def _validate_original(
         if minimum_emoji_count is not None
         else (1 if include_handle else 2)
     )
-    emojis = _found_emojis(post)
+    allowed_emojis = COMPANY_EMOJI_TOKENS if include_handle else EMOJI_TOKENS
+    if _has_unapproved_emoji(post, allowed_emojis):
+        raise GeminiError("Generated post used an emoji outside the allowed palette.")
+    emojis = _found_emojis(post, allowed_emojis)
     if len(emojis) < required_emoji_count:
         raise GeminiError(
             f"Generated original post must include at least {required_emoji_count} distinct emojis."
@@ -922,9 +953,10 @@ def generate_company_original(
     target: dict,
     format_memory: list[dict] | None = None,
     include_handle: bool = True,
+    hook_type: str | None = None,
 ) -> OriginalDraft:
     format_memory = format_memory or []
-    prompt = _company_prompt(target, format_memory, include_handle)
+    prompt = _company_prompt(target, format_memory, include_handle, hook_type)
     cloudflare_error: GeminiError | None = None
 
     try:
