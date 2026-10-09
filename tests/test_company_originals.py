@@ -7,7 +7,7 @@ class CompanyOriginalValidationTests(unittest.TestCase):
     def setUp(self) -> None:
         self.target = {"handle": "@BMW", "name": "BMW"}
 
-    def _draft(self, post: str) -> OriginalDraft:
+    def _draft(self, post: str, hook_type: str = "if_condition") -> OriginalDraft:
         return OriginalDraft(
             True,
             post,
@@ -17,7 +17,7 @@ class CompanyOriginalValidationTests(unittest.TestCase):
             "test format",
             "test mechanism",
             "test structure",
-            "if_condition",
+            hook_type,
         )
 
     def test_company_prompt_encourages_varied_challenges(self) -> None:
@@ -40,7 +40,7 @@ class CompanyOriginalValidationTests(unittest.TestCase):
         )
         self.assertIs(_validate_original(draft, self.target), draft)
 
-    def test_valid_product_specific_dare(self) -> None:
+    def test_valid_imagine_scenario_company_caption(self) -> None:
         draft = self._draft("@BMW imagine the M4 has a setting called “I know a shortcut” 👀", "imagine_scenario")
         self.assertIs(_validate_original(draft, self.target), draft)
 
