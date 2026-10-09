@@ -67,6 +67,18 @@ class BrandQuoteTests(unittest.TestCase):
                 with self.assertRaises(GeminiError):
                     _validate_quote_against_source(quote(text), source(), 2, 3)
 
+
+    def test_rejects_reused_format_name(self):
+        draft = quote('the release notes need a boss fight 😂 👀 "AI software feature"')
+        with self.assertRaisesRegex(GeminiError, "repeats a recent format name"):
+            _validate_quote_against_source(
+                draft,
+                source(),
+                2,
+                3,
+                [{"format_name": "fresh format", "post_text": "older joke"}],
+            )
+
     def test_prompt_includes_prior_text_and_strict_no_tag_rules(self):
         prompt = _prompt(
             source(),
