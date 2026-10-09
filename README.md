@@ -6,7 +6,7 @@ This repository runs an experimental X account focused on AI, technology, major 
 
 - Publishes standalone ORIGINAL text posts, not Quote Posts, replies, or image memes.
 - Uses recent public AI/tech/software/gaming/sports conversations only as optional topical seeds; it does not quote, attach, or mention the source author.
-- Writes compact, funny, specific posts with at least one fitting emoji.
+- Writes compact, funny, specific text posts with a randomized mix of 2–5 distinct emojis per automated post; repeated emoji tokens are rejected.
 - Favors unusual formats, absurd rules, sharp observations, fictional product behaviour, and punchy one-liners over generic corporate phrasing.
 - Prepares five manually publishable company-tag posts per UTC day. Those captions contain the exact `@handle`, one emoji, and a funny company-specific conditional offer or joke.
 - Automatically publishes the other fifteen original text posts without @mentions.
