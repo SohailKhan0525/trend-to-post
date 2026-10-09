@@ -151,6 +151,7 @@ class SourceTweet:
     author_followers: int
     author_verified: bool
     author_professional: bool
+    source_type: str = "x_top_search"
 
     @property
     def url(self) -> str:
@@ -302,7 +303,12 @@ def _is_candidate(tweet: object, now: datetime, used_ids: set[str], trend_name: 
     return True
 
 
-def _build_source(tweet: object, trend_name: str, trend_volume: int) -> SourceTweet:
+def _build_source(
+    tweet: object,
+    trend_name: str,
+    trend_volume: int,
+    source_type: str = "x_top_search",
+) -> SourceTweet:
     created_at = _tweet_datetime(tweet)
     if created_at is None:
         raise TrendSourceError("Tweet did not contain a usable creation time.")
@@ -323,67 +329,86 @@ def _build_source(tweet: object, trend_name: str, trend_volume: int) -> SourceTw
         author_followers=author_followers,
         author_verified=author_verified,
         author_professional=author_professional,
+        source_type=source_type,
     )
 
 
 async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -> SourceTweet:
+    """Find an allowed recent X conversation, preferring eligible official Trends topics."""
     used_ids = {str(value).strip() for value in used_source_ids if str(value).strip()}
     now = datetime.now(timezone.utc)
 
-    # X's automation rules prohibit automatically posting because a topic is
-    # trending. Use a rotating set of live subject searches instead and optimize
-    # for high-signal conversations that can earn organic distribution.
+    trend_queries: list[tuple[str, int, str]] = []
+    get_trends = getattr(client, "get_trends", None)
+    if callable(get_trends):
+        try:
+            live_trends = await get_trends("trending", count=50, retry=False)
+            for item in live_trends or []:
+                name = str(getattr(item, "name", "") or "").strip()
+                if not name or not _topic_allowed(name, name):
+                    continue
+                volume = _as_int(getattr(item, "tweets_count", 0))
+                trend_queries.append((name, volume, "x_trend"))
+        except Exception as exc:
+            # Twikit/X occasionally returns no trend payload. Fall back to live topical searches.
+            print(f"Official X Trends unavailable; using recent topical X searches: {exc}")
+
     rotation = int(now.timestamp() // 3600) % len(SIGNAL_SEARCHES)
-    queries = [
-        SIGNAL_SEARCHES[(rotation + offset) % len(SIGNAL_SEARCHES)]
+    fallback_queries = [
+        (SIGNAL_SEARCHES[(rotation + offset) % len(SIGNAL_SEARCHES)], 0, "x_top_search")
         for offset in range(SEARCHES_PER_RUN)
     ]
+    batches: list[list[tuple[str, int, str]]] = []
+    if trend_queries:
+        batches.append(trend_queries[:SEARCHES_PER_RUN])
+    batches.append(fallback_queries)
 
-    candidates: dict[str, SourceTweet] = {}
-    for query in queries:
-        try:
-            results = await client.search_tweet(
-                query,
-                "Top",
-                count=TWEETS_PER_SEARCH,
-            )
-        except Exception as exc:
-            message = str(exc)
-            print(f"Skipping search {query!r}: {message}")
-            if "429" in message or "rate limit" in message.lower():
-                raise TrendSourceError(
-                    "X search is currently rate limited; stopping before more requests."
-                ) from exc
+    for batch_index, queries in enumerate(batches):
+        candidates: dict[str, SourceTweet] = {}
+        for query, volume, source_type in queries:
+            try:
+                results = await client.search_tweet(
+                    query,
+                    "Top",
+                    count=TWEETS_PER_SEARCH,
+                )
+            except Exception as exc:
+                message = str(exc)
+                print(f"Skipping search {query!r}: {message}")
+                if "429" in message or "rate limit" in message.lower():
+                    raise TrendSourceError(
+                        "X search is currently rate limited; stopping before more requests."
+                    ) from exc
+                continue
+
+            for tweet in results:
+                if not _is_candidate(tweet, now, used_ids, query):
+                    continue
+                source = _build_source(tweet, query, volume, source_type)
+                candidates[source.tweet_id] = source
+
+        if not candidates:
             continue
 
-        for tweet in results:
-            if not _is_candidate(tweet, now, used_ids, query):
-                continue
-            source = _build_source(tweet, query, 0)
-            candidates[source.tweet_id] = source
-
-    if not candidates:
-        raise TrendSourceError(
-            "No eligible recent AI, technology, gaming, sports, or major-company "
-            "conversation was found in the current discovery window."
+        ranked = sorted(
+            candidates.values(),
+            key=lambda candidate: candidate.engagement_score,
+            reverse=True,
         )
+        selected = ranked[0]
+        print(
+            "Selected source for manual trend draft: "
+            f"@{selected.username} / {selected.tweet_id} | "
+            f"source_type={selected.source_type} | topic={selected.trend!r} | "
+            f"views={selected.view_count:,} | likes={selected.favorite_count:,} | "
+            f"RTs={selected.retweet_count:,} | replies={selected.reply_count:,} | "
+            f"followers={selected.author_followers:,} | "
+            f"verified={selected.author_verified} | "
+            f"professional={selected.author_professional}"
+        )
+        return selected
 
-    ranked = sorted(
-        candidates.values(),
-        key=lambda candidate: candidate.engagement_score,
-        reverse=True,
+    raise TrendSourceError(
+        "No eligible recent AI, technology, gaming, sports, or major-company "
+        "conversation was found in official allowed trends or current topical searches."
     )
-    selected = ranked[0]
-
-    print(
-        "Selected high-signal source: "
-        f"@{selected.username} / {selected.tweet_id} | "
-        f"query={selected.trend!r} | views={selected.view_count:,} | "
-        f"likes={selected.favorite_count:,} | RTs={selected.retweet_count:,} | "
-        f"replies={selected.reply_count:,} | "
-        f"followers={selected.author_followers:,} | "
-        f"verified={selected.author_verified} | "
-        f"professional={selected.author_professional}"
-    )
-    return selected
-
