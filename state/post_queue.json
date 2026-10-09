@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-09",
-  "daily_count": 6,
-  "ai_call_count": 9,
-  "last_posted_at": "2026-10-09T08:01:53.019828+00:00",
-  "last_source_tweet_id": "2108252061209088159",
-  "last_tweet_id": "2108467972641571304",
+  "daily_count": 7,
+  "ai_call_count": 10,
+  "last_posted_at": "2026-10-09T09:31:23.152995+00:00",
+  "last_source_tweet_id": "2108359225911263511",
+  "last_tweet_id": "2108490496121377212",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -62,7 +62,8 @@
     "2108230001157923025",
     "2108271552991252810",
     "2108349826727588000",
-    "2108252061209088159"
+    "2108252061209088159",
+    "2108359225911263511"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -79,14 +80,6 @@
     "2108283556862845392"
   ],
   "format_lab": [
-    {
-      "format_name": "digital poltergeist indemnity ledger",
-      "comedy_mechanism": "contrasting a minor software patch note with the psychological horror of a device actively stalking its user",
-      "used_at": "2026-10-07T07:31:30.034322+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107735549562040434"
-    },
     {
       "format_name": "spectral wealth audit",
       "comedy_mechanism": "contrasting massive digital economic yields with the utterly non-existent physical reality of the entity generating them",
@@ -292,6 +285,17 @@
       "content_type": "quote_post",
       "mutation_stage": "structural_break",
       "structure_signature": "fake terminal diagnostic dump followed by system crash recovery message"
+    },
+    {
+      "format_name": "fluid dynamics liability mandate",
+      "comedy_mechanism": "mapping advanced physics failure states directly onto basic household chore software",
+      "used_at": "2026-10-09T09:31:23.152995+00:00",
+      "topic": "AI agents",
+      "self_reply": false,
+      "tweet_id": "2108490496121377212",
+      "content_type": "quote_post",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "legalistic household liability declaration ending in a quoted source fragment"
     }
   ],
   "recent_post_fingerprints": [
@@ -316,7 +320,8 @@
     "legalistic corporate infraction paired with an over-animated software feature",
     "handle + conditional statement + absurd physical requirement",
     "policy statement ending in a quoted source fragment",
-    "fake terminal diagnostic dump followed by system crash recovery message"
+    "fake terminal diagnostic dump followed by system crash recovery message",
+    "legalistic household liability declaration ending in a quoted source fragment"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 1,
