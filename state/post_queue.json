@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-09",
-  "daily_count": 5,
-  "ai_call_count": 8,
-  "last_posted_at": "2026-10-09T06:01:41.279433+00:00",
-  "last_source_tweet_id": "2108349826727588000",
-  "last_tweet_id": "2108437724373962899",
+  "daily_count": 6,
+  "ai_call_count": 9,
+  "last_posted_at": "2026-10-09T08:01:53.019828+00:00",
+  "last_source_tweet_id": "2108252061209088159",
+  "last_tweet_id": "2108467972641571304",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -61,7 +61,8 @@
     "2108317765153026077",
     "2108230001157923025",
     "2108271552991252810",
-    "2108349826727588000"
+    "2108349826727588000",
+    "2108252061209088159"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -78,14 +79,6 @@
     "2108283556862845392"
   ],
   "format_lab": [
-    {
-      "format_name": "astrological usage tariff audit",
-      "comedy_mechanism": "framing a missing corporate feature as an occult pricing tier where you pay with abstract human vitality instead of dollars",
-      "used_at": "2026-10-07T05:01:52.963650+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107697896003178552"
-    },
     {
       "format_name": "digital poltergeist indemnity ledger",
       "comedy_mechanism": "contrasting a minor software patch note with the psychological horror of a device actively stalking its user",
@@ -288,6 +281,17 @@
       "content_type": "quote_post",
       "mutation_stage": "invented_rule",
       "structure_signature": "policy statement ending in a quoted source fragment"
+    },
+    {
+      "format_name": "simulated hardware panic log",
+      "comedy_mechanism": "framing software creative tooling as a literal kernel memory fault requiring bizarre text fallbacks",
+      "used_at": "2026-10-09T08:01:53.019828+00:00",
+      "topic": "AI coding",
+      "self_reply": false,
+      "tweet_id": "2108467972641571304",
+      "content_type": "quote_post",
+      "mutation_stage": "structural_break",
+      "structure_signature": "fake terminal diagnostic dump followed by system crash recovery message"
     }
   ],
   "recent_post_fingerprints": [
@@ -311,7 +315,8 @@
     "social observation followed by media industry metaphor",
     "legalistic corporate infraction paired with an over-animated software feature",
     "handle + conditional statement + absurd physical requirement",
-    "policy statement ending in a quoted source fragment"
+    "policy statement ending in a quoted source fragment",
+    "fake terminal diagnostic dump followed by system crash recovery message"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 1,
