@@ -57,6 +57,10 @@ class OriginalTextValidationTests(unittest.TestCase):
                 maximum_emoji_count=5,
             )
 
+    def test_accepts_mending_heart_from_allowlist(self) -> None:
+        value = draft("this build broke my heart 😂❤️‍🩹")
+        self.assertIs(_validate_original(value, {}, include_handle=False), value)
+
     def test_rejects_emoji_outside_allowlist(self) -> None:
         with self.assertRaises(GeminiError):
             _validate_original(
