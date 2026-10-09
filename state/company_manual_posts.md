@@ -5,7 +5,6 @@ UTC date: 2026-10-09
 These five company posts are included in the same 20-content daily quota.
 Copy the text exactly, including the @mention and emoji, and publish it manually on X.
 Text only: no images or generated chat screenshots.
-Company captions use only 😂 👀 🥳 🫠.
 
 ## Slot 1 — Anthropic @AnthropicAI
 
