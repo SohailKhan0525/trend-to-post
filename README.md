@@ -68,7 +68,7 @@ Cloudflare's [FLUX.1 Schnell model](https://developers.cloudflare.com/workers-ai
 
 ## Scheduling
 
-Keep the external scheduler sending repository_dispatch with event type `post-next`. The single queue generates five manual company meme assets and automatically publishes the other fifteen original meme posts. Open the workflow run's `company-meme-assets` artifact to download the five captions and PNGs.
+Keep the external scheduler sending repository_dispatch with event type `post-next`. The first queue run each UTC day prepares the five manual company meme assets together, then the queue automatically publishes the other fifteen original meme posts. Open that run's `company-meme-assets` artifact to download all five captions and PNGs in one package.
 
 ## State
 
