@@ -9,19 +9,19 @@ from pathlib import Path
 from twikit import Client
 
 from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
-from .gemini import COMPANY_HOOK_TYPES, GeminiError, generate_company_original, generate_original_text
+from .gemini import COMPANY_HOOK_TYPES, GeminiError, generate_company_original, generate_original_text, generate_quote
 from .trend_source import (
     SOURCE_HISTORY_LIMIT,
     SourceTweet,
     TrendSourceError,
-    find_trending_source,
+    find_official_brand_source,
 )
 
 STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
-TREND_MANUAL_POSTS_PER_DAY = 4
-ORIGINAL_POSTS_PER_DAY = POSTS_PER_DAY - COMPANY_POSTS_PER_DAY - TREND_MANUAL_POSTS_PER_DAY
+TREND_QUOTE_POSTS_PER_DAY = 4
+ORIGINAL_POSTS_PER_DAY = POSTS_PER_DAY - COMPANY_POSTS_PER_DAY - TREND_QUOTE_POSTS_PER_DAY
 AI_GENERATIONS_PER_DAY = 20
 MIN_POST_INTERVAL_MINUTES = 72
 BRAND_AI_GENERATIONS_PER_DAY = COMPANY_POSTS_PER_DAY
@@ -69,7 +69,10 @@ def _new_state() -> dict:
         "brand_draft_queue": [],
         "brand_ai_call_count": 0,
         "brand_format_lab": [],
-        "trend_manual_post_count": 0,
+        "trend_quote_post_count": 0,
+        "trend_quote_posts": [],
+        "trend_quote_day_key": None,
+        "trend_manual_post_count": 0,  # legacy state compatibility only
         "trend_manual_posts": [],
         "trend_manual_day_key": None,
         "trend_source_ids": [],
@@ -109,6 +112,9 @@ def _load_state() -> dict:
         state["brand_draft_queue"] = []
         state["brand_ai_call_count"] = 0
         state["brand_format_lab"] = []
+        state["trend_quote_post_count"] = 0
+        state["trend_quote_posts"] = []
+        state["trend_quote_day_key"] = None
         state["trend_manual_post_count"] = 0
         state["trend_manual_posts"] = []
         state["trend_manual_day_key"] = None
@@ -190,19 +196,19 @@ def _load_state() -> dict:
         )
 
     try:
-        state["trend_manual_post_count"] = int(state.get("trend_manual_post_count", 0))
+        state["trend_quote_post_count"] = int(state.get("trend_quote_post_count", 0))
         state["invented_post_count"] = int(state.get("invented_post_count", 0))
     except (TypeError, ValueError) as exc:
-        raise QueueError("Trend and invented post counters must be integers.") from exc
-    if not 0 <= state["trend_manual_post_count"] <= TREND_MANUAL_POSTS_PER_DAY:
+        raise QueueError("Trend-quote and invented post counters must be integers.") from exc
+    if not 0 <= state["trend_quote_post_count"] <= TREND_QUOTE_POSTS_PER_DAY:
         raise QueueError(
-            f"State trend_manual_post_count is outside 0..{TREND_MANUAL_POSTS_PER_DAY}."
+            f"State trend_quote_post_count is outside 0..{TREND_QUOTE_POSTS_PER_DAY}."
         )
-    trend_posts = state.get("trend_manual_posts", [])
-    if not isinstance(trend_posts, list):
-        raise QueueError("State trend_manual_posts must be a list.")
-    state["trend_manual_posts"] = [
-        item for item in trend_posts[-TREND_MANUAL_POSTS_PER_DAY:]
+    quote_posts = state.get("trend_quote_posts", [])
+    if not isinstance(quote_posts, list):
+        raise QueueError("State trend_quote_posts must be a list.")
+    state["trend_quote_posts"] = [
+        item for item in quote_posts[-TREND_QUOTE_POSTS_PER_DAY:]
         if isinstance(item, dict)
     ]
     state["trend_source_ids"] = _history(state.get("trend_source_ids", []))
