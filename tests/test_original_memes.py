@@ -3,74 +3,56 @@ import unittest
 from app.gemini import GeminiError, OriginalDraft, _validate_original
 
 
-def sample_draft(
-    post: str,
-    conversation: list[dict] | None = None,
-    image_prompt: str = "surreal glowing keyboard with a tiny confused robot, no text or logos",
-) -> OriginalDraft:
+def draft(post: str) -> OriginalDraft:
     return OriginalDraft(
         True,
         post,
-        "a small absurd escalation",
+        "test angle",
         "",
         "technology culture",
         "tiny escalation",
         "unexpected literalism",
-        "request escalation final system punchline",
-        "fake_support_chat",
-        conversation or [
-            {"speaker": "USER", "text": "Can you make my software less dramatic?"},
-            {"speaker": "AI", "text": "I lowered the drama setting to 98%."},
-            {"speaker": "SYSTEM", "text": "The settings menu has requested a sabbatical."},
-        ],
-        image_prompt,
+        "one-line deadpan escalation",
+        "tiny_error_post",
     )
 
 
-class OriginalMemeValidationTests(unittest.TestCase):
-    def test_valid_standalone_original_has_no_mentions(self) -> None:
-        draft = sample_draft("My software update just asked me to emotionally prepare.")
-        self.assertIs(_validate_original(draft, {}, include_handle=False), draft)
+class OriginalTextValidationTests(unittest.TestCase):
+    def test_valid_text_only_original_has_emoji(self) -> None:
+        value = draft("my software update asked me to emotionally prepare 😭")
+        self.assertIs(_validate_original(value, {}, include_handle=False), value)
 
-    def test_rejects_country_reference_in_dialogue(self) -> None:
-        draft = sample_draft(
-            "My software update has become sentient.",
-            [
-                {"speaker": "USER", "text": "Open settings."},
-                {"speaker": "AI", "text": "Okay."},
-                {"speaker": "SYSTEM", "text": "Greetings from India."},
-            ],
-        )
+    def test_rejects_country_reference(self) -> None:
         with self.assertRaises(GeminiError):
-            _validate_original(draft, {}, include_handle=False)
+            _validate_original(
+                draft("my software update is visiting India 😭"),
+                {},
+                include_handle=False,
+            )
 
-    def test_rejects_missing_punchline_bubbles(self) -> None:
-        draft = sample_draft(
-            "My software update has become sentient.",
-            [{"speaker": "USER", "text": "Open settings."}],
-        )
+    def test_requires_emoji(self) -> None:
         with self.assertRaises(GeminiError):
-            _validate_original(draft, {}, include_handle=False)
+            _validate_original(
+                draft("my software update asked me to emotionally prepare"),
+                {},
+                include_handle=False,
+            )
 
-    def test_rejects_mention_in_image_dialogue(self) -> None:
-        draft = sample_draft(
-            "My software update has become sentient.",
-            [
-                {"speaker": "USER", "text": "Open settings."},
-                {"speaker": "AI", "text": "Ask @OpenAI."},
-                {"speaker": "SYSTEM", "text": "The menu is now on leave."},
-            ],
-        )
+    def test_rejects_mentions_in_automated_original(self) -> None:
         with self.assertRaises(GeminiError):
-            _validate_original(draft, {}, include_handle=False)
+            _validate_original(
+                draft("even @OpenAI couldn't fix my sleep schedule 😭"),
+                {},
+                include_handle=False,
+            )
 
-    def test_rejects_country_in_art_prompt(self) -> None:
-        draft = sample_draft(
-            "My software update has become sentient.",
-            image_prompt="a robot with the skyline of India, no text or logos",
-        )
+    def test_rejects_blocked_political_content(self) -> None:
         with self.assertRaises(GeminiError):
-            _validate_original(draft, {}, include_handle=False)
+            _validate_original(
+                draft("this software needs an election mode 😭"),
+                {},
+                include_handle=False,
+            )
 
 
 if __name__ == "__main__":
