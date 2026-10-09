@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-09",
-  "daily_count": 2,
-  "ai_call_count": 4,
-  "last_posted_at": "2026-10-09T02:31:26.350514+00:00",
-  "last_source_tweet_id": "2108230001157923025",
-  "last_tweet_id": "2108384813581508887",
+  "daily_count": 3,
+  "ai_call_count": 5,
+  "last_posted_at": "2026-10-09T04:01:36.956211+00:00",
+  "last_source_tweet_id": "2108271552991252810",
+  "last_tweet_id": "2108407507232117245",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -59,7 +59,8 @@
     "2107897778253009205",
     "2108054369056809396",
     "2108317765153026077",
-    "2108230001157923025"
+    "2108230001157923025",
+    "2108271552991252810"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -75,14 +76,6 @@
     "2108295649582035208"
   ],
   "format_lab": [
-    {
-      "format_name": "workplace paranoia telemetry",
-      "comedy_mechanism": "contrasting the mundane corporate feature of meeting notes with an oppressive, omniscient entity archiving your professional humiliation",
-      "used_at": "2026-10-07T00:01:54.307822+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107622405237539149"
-    },
     {
       "format_name": "excuse calculus diagnostic",
       "comedy_mechanism": "contrasting world-class mathematical breakthroughs with an intensely low-stakes personal failure of time management",
@@ -279,6 +272,17 @@
       "content_type": "quote_post",
       "mutation_stage": "premise_inversion",
       "structure_signature": "social observation followed by media industry metaphor"
+    },
+    {
+      "format_name": "bureaucratic interface fine",
+      "comedy_mechanism": "inventing an absurd corporate penalty for over-engineering simple data into motion graphics",
+      "used_at": "2026-10-09T04:01:36.956211+00:00",
+      "topic": "Claude AI",
+      "self_reply": false,
+      "tweet_id": "2108407507232117245",
+      "content_type": "quote_post",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "legalistic corporate infraction paired with an over-animated software feature"
     }
   ],
   "recent_post_fingerprints": [
@@ -299,7 +303,8 @@
     "mention + conditional commitment + absurd requirement",
     "mention + feature request + absurd competitive framing",
     "speculative future anthropology conclusion derived from commercial audio artifacts",
-    "social observation followed by media industry metaphor"
+    "social observation followed by media industry metaphor",
+    "legalistic corporate infraction paired with an over-animated software feature"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
