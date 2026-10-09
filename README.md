@@ -25,7 +25,9 @@ Example shapes (the bot should invent fresh, company-specific versions):
 
 Company captions may use ONLY these emojis: 😂 👀 🥳 🫠. These five posts are **manual**: copy the caption from `state/company_manual_posts.md` and publish it yourself. The bot never submits company-tagged captions to X.
 
-- Trend-grounded drafts use X's official Trends data when available, restricted to allowed AI/technology/gaming/sports topics, and otherwise fall back to fresh Top-search conversations. They are manual drafts because X's automation rules prohibit automatically posting about trending topics (https://help.x.com/en/rules-and-policies/x-automation).
+## Trend-grounded drafts and X policy
+
+The queue checks X's official Trends feed when available, filters to permitted AI, technology, gaming, and sports topics, and searches for recent posts within those topics. If the Trends feed is unavailable, it falls back to recent Top-search conversations. Each trend-grounded draft includes a source link and is for **manual review and publication only**. X's automation rules prohibit automatically posting about trending topics, so the bot never auto-publishes these drafts (https://help.x.com/en/rules-and-policies/x-automation).
 
 ## Daily limits
 
@@ -33,7 +35,7 @@ Company captions may use ONLY these emojis: 😂 👀 🥳 🫠. These five post
 - **20 AI text generations per UTC day** across all three lanes: 11 invented originals, 4 trend-grounded drafts, and 5 company captions.
 - Minimum **72 minutes between successful automated X posts**.
 - Five company targets rotate with a four-day cooldown.
-- The first successful queue run each UTC day prepares five company captions and four trend-grounded manual drafts, reserving nine content slots before it auto-publishes the eleven invented originals.
+- The first successful queue run each UTC day prepares five company captions and four trend-grounded manual drafts, reserving nine content slots. Subsequent eligible queue runs publish one invented original at a time, up to eleven successful automatic posts.
 - Manual X publishing cannot be detected automatically. The queue reserves those content slots when it generates the captions, even before you manually publish them.
 - These are caps, not a guarantee of twenty completed posts. Search, provider, validation, or X failures can reduce actual output.
 
