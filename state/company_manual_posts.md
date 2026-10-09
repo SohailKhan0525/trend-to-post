@@ -3,55 +3,50 @@
 UTC date: 2026-10-09
 
 These five company posts are included in the same 20-content daily quota.
-Copy the post text exactly, including the @mention, and publish it manually on X.
-Matching PNG image files are in state/generated/company/ and are included in the workflow artifact.
+Copy the text exactly, including the @mention and emoji, and publish it manually on X.
+Text only: no images or generated chat screenshots.
 
 ## Slot 4 — Anthropic @AnthropicAI
 
-> @AnthropicAI I will only upgrade to the next Claude if typing prompt creates physical origami on my desk matching the output.
+> @AnthropicAI I'll upgrade to Claude if you repost this before I rename one more file final_final_v12 😭
 
-Format: office_supply_ultimatum
-Hook: absurd_buying_condition
-Mechanism: juxtaposing cutting-edge digital AI models with mundane physical office desk labor
+Format: final-file purchase condition
+Hook: ridiculous_purchase_condition
+Mechanism: turns developer file-naming chaos into a mock-serious purchase deal
 Status: ready_for_manual_post
 
 ## Slot 2 — Microsoft @Microsoft
 
-> @Microsoft Copilot is great at writing code, but it refuses to explain why my terminal looks like an ancient ritual.
+> @Microsoft I'll renew Copilot if it can explain why my terminal looks like it received a prophecy instead of an error message 💀
 
-Format: terminal_existentialism
-Hook: brand_inside_joke
-Mechanism: juxtaposing high-tech AI assistance with ancient, incomprehensible command line errors
+Format: terminal prophecy condition
+Hook: product_roast_with_a_condition
+Mechanism: compares cryptic developer errors with grandiose mystical language
 Status: ready_for_manual_post
 
 ## Slot 3 — adidas @adidas
 
-> @adidas I need my ultraboost to automatically calculate the exact financial penalty of missing my morning run so I can just pay it straight from the insole.
+> @adidas I'll buy Ultraboosts if the shoes can invoice me every time I hit snooze 🫠
 
-Format: guilt_amortization_hardware
-Hook: playful_product_demand
-Mechanism: juxtaposing fitness motivation tracking with harsh automated banking consequences
+Format: snooze-button invoice
+Hook: ridiculous_purchase_condition
+Mechanism: turns a familiar fitness failure into a ridiculous automatic purchase condition
 Status: ready_for_manual_post
 
 ## Slot 4 — Steam @Steam
 
-> @Steam
+> @Steam I'll buy a Steam Deck if you repost this before I call 400 hours in an idle game a productivity metric 😭
 
-PLAYER: why do I have 400 hours in this idle clicker game
-GAME: because you love numbers going up
-PLAYER: I haven't clicked since Tuesday
-SYSTEM: achievement unlocked: digital landlord
-
-Format: idle_stat_confession
-Hook: brand_inside_joke
-Mechanism: juxtaposing deep personal embarrassment about game hours with the automated glory of system achievements
+Format: idle-game productivity bargain
+Hook: ridiculous_purchase_condition
+Mechanism: reframes excessive idle-game hours as a delusional productivity KPI
 Status: ready_for_manual_post
 
 ## Slot 5 — Roblox @Roblox
 
-> @Roblox PLAYER: Can I buy this virtual fedora with actual cobblestones? DEV: No. PLAYER: What about three teeth and a slightly cursed VHS tape? DEV: Please just use standard currency.
+> @Roblox I'll buy Robux if you let me pay in three cobblestones and one cursed VHS tape 💀
 
-Format: barter_economy_absurdity
-Hook: absurd_buying_condition
-Mechanism: juxtaposing standard digital microtransactions with medieval, feral black-market bartering items
+Format: cursed barter offer
+Hook: absurd_brand_bargain
+Mechanism: turns digital currency into a ridiculous barter negotiation
 Status: ready_for_manual_post
