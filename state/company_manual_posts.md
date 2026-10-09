@@ -5,48 +5,49 @@ UTC date: 2026-10-09
 These five company posts are included in the same 20-content daily quota.
 Copy the text exactly, including the @mention and emoji, and publish it manually on X.
 Text only: no images or generated chat screenshots.
+Company captions use only 😂 👀 🥳 🫠.
 
 ## Slot 1 — Anthropic @AnthropicAI
 
-> @AnthropicAI truth or dare: truth—admit “final_final_v12” is a human coping mechanism; dare—explain it using only raccoon noises 😭
+> @AnthropicAI if Claude can explain why final_final_v12 still exists, I'll finally delete it 😂
 
-Format: final-file truth or dare
-Hook: truth_or_dare
-Mechanism: pairs a familiar developer habit with a ridiculous performance task
+Format: final-file deletion condition
+Hook: if_condition
+Mechanism: uses one specific dev habit as the condition for ending the joke
 Status: ready_for_manual_post
 
 ## Slot 2 — Microsoft @Microsoft
 
-> @Microsoft I dare you to make the next Windows error arrive with a boss-fight health bar and ominous music 💀
+> @Microsoft imagine Windows error messages entering like a final boss with theme music 👀
 
-Format: operating-system boss fight
-Hook: product_specific_dare
-Mechanism: recasts an error message as a video-game boss introduction
+Format: windows final-boss entrance
+Hook: imagine_scenario
+Mechanism: reframes errors as a theatrical boss encounter
 Status: ready_for_manual_post
 
 ## Slot 3 — adidas @adidas
 
-> @adidas truth or dare: truth—tell me how many snoozes cancel out one run; dare—give the Ultraboost a snooze-button counter 🫠
+> @adidas I'll buy the Ultraboost if it can detect when I walk toward the fridge instead of the gym 🫠
 
-Format: snooze-button trial
-Hook: truth_or_dare
-Mechanism: turns exercise procrastination into a mock athletic measurement
+Format: fridge-detector shoes
+Hook: purchase_condition
+Mechanism: uses a ridiculous product condition to expose everyday fitness procrastination
 Status: ready_for_manual_post
 
 ## Slot 4 — Steam @Steam
 
-> @Steam settle this under oath: if a game is open on the title screen for 9 hours, is that gaming or a screensaver with a salary? 🎮😭
+> @Steam pick one: 10-second demos for every game, or download bars with a legally binding ETA? 🥳
 
-Format: title-screen court case
-Hook: playful_verdict
-Mechanism: treats idle screen time like a legal dispute over whether someone is gaming
+Format: steam feature fork
+Hook: choose_one
+Mechanism: frames two over-specific product wishes as an impossible choice
 Status: ready_for_manual_post
 
 ## Slot 5 — Roblox @Roblox
 
-> @Roblox I dare you to make placing the first brick trigger a dramatic “the council has noticed” announcement 🎲💀
+> @Roblox add a tiny achievement for placing the first brick: “the council has noticed.” 😂
 
-Format: first-brick prophecy
-Hook: chaotic_feature_challenge
-Mechanism: gives an ordinary in-game action a grand, mysterious consequence
+Format: first-brick achievement
+Hook: feature_challenge
+Mechanism: gives an ordinary action an absurdly grand achievement
 Status: ready_for_manual_post
