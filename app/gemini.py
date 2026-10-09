@@ -966,6 +966,8 @@ def generate_company_original(
             try:
                 draft = _parse_original(raw)
                 if draft.should_post:
+                    if hook_type and draft.hook_type != hook_type:
+                        raise GeminiError("Company candidate ignored the selected caption format.")
                     drafts.append(_validate_original(draft, target, include_handle))
             except GeminiError as exc:
                 print(f"Cloudflare company candidate rejected: {exc}")
@@ -995,8 +997,9 @@ Generate a NEW company-specific ORIGINAL POST for {target.get("name", "")}.
 {"Keep exactly one target handle and no other @mentions." if include_handle else "Use zero @mentions; the company handle is internal metadata only."}
 Do not ask for reposts, retweets, likes, follows, or reply-if behavior.
 No politics, military/geopolitical content, country references, fabricated current facts,
-hashtags, links, or fake factual claims. Include one fitting emoji. Make the caption playful,
-specific, and recognizable as the target company's product or community.
+hashtags, links, or fake factual claims. Use only these company emojis: 😂 👀 🥳 🫠; never repeat an emoji.
+Follow the selected hook type {hook_type or "selected company format"} exactly, and do not use the truth-or-dare structure.
+Make the caption playful, specific, and recognizable as the target company's product or community.
 """
     last_error = None
     for attempt in range(1, 3):
@@ -1006,6 +1009,8 @@ specific, and recognizable as the target company's product or community.
                 "contents": [{"parts": [{"text": prompt + safety_suffix}]}],
             }
             draft = _parse_original(_extract_text(_post_json(retry_payload)))
+            if hook_type and draft.hook_type != hook_type:
+                raise GeminiError("Company candidate ignored the selected caption format.")
             return _validate_original(draft, target, include_handle)
         except GeminiError as exc:
             last_error = exc
