@@ -477,8 +477,8 @@ async def post_next(
         )
         print(
             "Brand target queue refreshed: "
-            f"{targets}. Five company slots are reserved inside the daily 20-post quota; "
-            "company mentions are included in the manual-copy assets, not auto-sent."
+            f"{targets}. Five company assets will be prepared together inside the 20-slot quota; "
+            "their @mentions are for your manual posts only."
         )
 
     if state["company_post_count"] < COMPANY_POSTS_PER_DAY:
