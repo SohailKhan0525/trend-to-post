@@ -809,7 +809,7 @@ def generate_original_text(
 SAFETY RETRY:
 Generate a fresh original TEXT-ONLY X post. Do not create an image, chat transcript, thread or quote-post.
 No @mentions, countries, politics, hashtags, URLs, fabricated facts or engagement bait.
-Include at least {emoji_count} distinct emojis and never repeat an emoji in one post. Follow the JSON schema exactly.
+Include the requested number of distinct emojis from the main prompt. Never repeat an emoji in one post. Follow the JSON schema exactly.
 """
     payload = {
         "contents": [{"parts": [{"text": fallback_prompt}]}],
@@ -888,6 +888,8 @@ def _validate_original(
     draft.target_handle = handle
     draft.target_name = str(target.get("name", "")).strip()
     return draft
+
+
 def _pick_best_original(drafts: list[OriginalDraft], format_memory: list[dict]) -> OriginalDraft:
     recent_names = {str(x.get("format_name", "")).strip().lower() for x in format_memory[-12:] if isinstance(x, dict)}
     recent_text = " ".join(
