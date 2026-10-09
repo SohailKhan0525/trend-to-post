@@ -80,14 +80,12 @@ class OriginalDraft:
     __slots__ = (
         "should_post", "post_text", "angle", "target_handle", "target_name",
         "format_name", "comedy_mechanism", "structure_signature", "hook_type",
-        "conversation", "image_prompt",
     )
 
     def __init__(
         self, should_post: bool, post_text: str, angle: str, target_handle: str,
         target_name: str, format_name: str = "", comedy_mechanism: str = "",
         structure_signature: str = "", hook_type: str = "",
-        conversation: list[dict] | None = None, image_prompt: str = "",
     ) -> None:
         self.should_post = should_post
         self.post_text = post_text
@@ -98,8 +96,6 @@ class OriginalDraft:
         self.comedy_mechanism = comedy_mechanism
         self.structure_signature = structure_signature
         self.hook_type = hook_type
-        self.conversation = conversation or []
-        self.image_prompt = image_prompt
 
 
 def _api_keys() -> list[str]:
@@ -1083,16 +1079,6 @@ def _parse_original(text: str) -> OriginalDraft:
     if isinstance(should_post, str):
         should_post = should_post.strip().lower() in {"true", "1", "yes"}
 
-    raw_conversation = data.get("conversation", [])
-    conversation = []
-    if isinstance(raw_conversation, list):
-        for item in raw_conversation:
-            if isinstance(item, dict):
-                conversation.append({
-                    "speaker": str(item.get("speaker", "") or "").strip().upper(),
-                    "text": str(item.get("text", "") or "").strip(),
-                })
-
     return OriginalDraft(
         bool(should_post),
         str(data.get("post", "") or "").strip(),
@@ -1103,8 +1089,6 @@ def _parse_original(text: str) -> OriginalDraft:
         str(data.get("comedy_mechanism", "") or "").strip(),
         str(data.get("structure_signature", "") or "").strip(),
         str(data.get("hook_type", "") or "").strip(),
-        conversation,
-        str(data.get("image_prompt", "") or "").strip(),
     )
 
 
