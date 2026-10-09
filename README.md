@@ -1,6 +1,6 @@
-# X Experimental Culture Bot
+# X Original Meme Bot
 
-This repository runs an automated, text-first X account focused on AI, technology, major tech companies/products, gaming, and sports.
+This repository runs an automated, image-backed original-post X account focused on AI, technology, major tech companies/products, gaming, and sports.
 
 ## What it does
 
@@ -15,7 +15,8 @@ This repository runs an automated, text-first X account focused on AI, technolog
 - Maintains separate creative-format memory so jokes and structures are not repeatedly recycled.
 - Keeps political/current-affairs content blocked and rejects country references in generated copy, dialogue, and image prompts.
 - Does not automatically like, follow, reply to, or mention other accounts.
-\n## Publishing limits
+
+## Publishing limits
 
 - Maximum 20 daily content slots: 15 automatically published original meme posts + 5 company-tagged posts for you to publish manually.
 - Maximum 20 text-generation calls per UTC day across both lanes.
@@ -26,7 +27,8 @@ This repository runs an automated, text-first X account focused on AI, technolog
 - The GitHub Actions run uploads a `company-meme-assets` artifact so you can download the copy-ready captions and images without adding binary files to the repository.
 - Text generation, image generation and posting can fail independently, so these are upper bounds rather than guarantees of 20 completed posts.
 - A manual X post cannot be detected or reconciled automatically by this queue, so the 72-minute guard strictly governs the fifteen automated posts, not posts you publish yourself.
-\n## Reach strategy
+
+## Reach strategy
 
 The bot focuses on original, visual jokes built for quick comprehension and organic reactions—not fabricated claims, empty engagement bait or attempts to manipulate trends.
 
@@ -45,7 +47,8 @@ Five famous companies are selected each UTC day with a four-day cooldown. Each m
 You manually publish the caption and its matching PNG. The remaining fifteen original meme posts are automatically published without unsolicited company mentions.
 
 Cloudflare's [FLUX.1 Schnell model](https://developers.cloudflare.com/workers-ai/models/flux-1-schnell/) supplies optional text-free artwork; the final chat layout and text are rendered locally for legibility.
-\n## Security
+
+## Security
 
 - GitHub Actions uses least-privilege workflow permissions and scopes sensitive secrets only to the steps that need them.
 - Third-party GitHub Actions are pinned to immutable commit SHAs.
