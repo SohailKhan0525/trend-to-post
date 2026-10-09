@@ -1,7 +1,7 @@
 {
   "day_key": "2026-10-09",
-  "daily_count": 3,
-  "ai_call_count": 5,
+  "daily_count": 4,
+  "ai_call_count": 6,
   "last_posted_at": "2026-10-09T04:01:36.956211+00:00",
   "last_source_tweet_id": "2108271552991252810",
   "last_tweet_id": "2108407507232117245",
@@ -304,11 +304,22 @@
     "mention + feature request + absurd competitive framing",
     "speculative future anthropology conclusion derived from commercial audio artifacts",
     "social observation followed by media industry metaphor",
-    "legalistic corporate infraction paired with an over-animated software feature"
+    "legalistic corporate infraction paired with an over-animated software feature",
+    "handle + conditional statement + absurd physical requirement"
   ],
   "brand_draft_queue": [],
-  "brand_ai_call_count": 0,
-  "brand_format_lab": [],
+  "brand_ai_call_count": 1,
+  "brand_format_lab": [
+    {
+      "format_name": "office_supply_ultimatum",
+      "comedy_mechanism": "juxtaposing cutting-edge digital AI models with mundane physical office desk labor",
+      "hook_type": "absurd_buying_condition",
+      "structure_signature": "handle + conditional statement + absurd physical requirement",
+      "used_at": "2026-10-09T05:31:19.159479+00:00",
+      "target": "@AnthropicAI",
+      "manual": true
+    }
+  ],
   "brand_tag_day_key": "2026-10-09",
   "brand_tag_queue": [
     {
@@ -320,7 +331,8 @@
       ],
       "selected_at": "2026-10-09T00:01:28.039615+00:00",
       "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
-      "status": "manual_approval_required"
+      "status": "manual_ready",
+      "generated_at": "2026-10-09T05:31:19.159479+00:00"
     },
     {
       "handle": "@Microsoft",
@@ -381,8 +393,10 @@
     "@Steam": "2026-10-13T00:01:28.039615+00:00",
     "@Roblox": "2026-10-13T00:01:28.039615+00:00"
   },
-  "company_post_count": 0,
-  "company_posted_handles": [],
+  "company_post_count": 1,
+  "company_posted_handles": [
+    "@AnthropicAI"
+  ],
   "company_manual_posts": [
     {
       "slot_number": 11,
@@ -422,9 +436,22 @@
       "structure_signature": "mention + feature request + absurd competitive framing",
       "generated_at": "2026-10-08T16:32:04.571990+00:00",
       "status": "ready_for_manual_post"
+    },
+    {
+      "slot_number": 4,
+      "handle": "@AnthropicAI",
+      "name": "Anthropic",
+      "post": "@AnthropicAI I will only upgrade to the next Claude if typing prompt creates physical origami on my desk matching the output.",
+      "angle": "combines product workflow with an impossible, charmingly absurd physical hardware demand that product teams love to joke about",
+      "hook_type": "absurd_buying_condition",
+      "format_name": "office_supply_ultimatum",
+      "comedy_mechanism": "juxtaposing cutting-edge digital AI models with mundane physical office desk labor",
+      "structure_signature": "handle + conditional statement + absurd physical requirement",
+      "generated_at": "2026-10-09T05:31:19.159479+00:00",
+      "status": "ready_for_manual_post"
     }
   ],
-  "last_post_type": "quote_post",
-  "last_company_handle": null,
+  "last_post_type": "company_manual",
+  "last_company_handle": "@AnthropicAI",
   "brand_draft_day_key": null
 }

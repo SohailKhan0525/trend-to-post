@@ -31,3 +31,12 @@ Format: windshield_telemetry_challenge
 Hook: brand_inside_joke
 Mechanism: treating a mundane vehicle component as high-stakes athletic equipment
 Status: ready_for_manual_post
+
+## Slot 4 — Anthropic @AnthropicAI
+
+> @AnthropicAI I will only upgrade to the next Claude if typing prompt creates physical origami on my desk matching the output.
+
+Format: office_supply_ultimatum
+Hook: absurd_buying_condition
+Mechanism: juxtaposing cutting-edge digital AI models with mundane physical office desk labor
+Status: ready_for_manual_post
