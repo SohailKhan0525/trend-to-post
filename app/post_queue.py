@@ -303,10 +303,6 @@ def _ensure_company_manual_posts(state: dict) -> bool:
         if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
             print("Text-generation budget reached before all company assets were prepared.")
             return False
-        if int(state.get("image_call_count", 0)) >= IMAGE_GENERATIONS_PER_DAY:
-            print("Image-generation budget reached before all company assets were prepared.")
-            return False
-
         target = _next_company_target(state)
         if target is None:
             print("No unused company target remains for today's manual meme assets.")
@@ -462,10 +458,6 @@ async def post_next(
         print(f"Daily AI generation limit reached: {AI_GENERATIONS_PER_DAY}.")
         return False
 
-    if state["image_call_count"] >= IMAGE_GENERATIONS_PER_DAY:
-        print(f"Daily image generation limit reached: {IMAGE_GENERATIONS_PER_DAY}.")
-        return False
-
     if not _interval_ok(state):
         return False
 
@@ -479,7 +471,7 @@ async def post_next(
         source = await find_trending_source(client, used)
         payload = _source_dict(source)
 
-        # Each daily content slot uses one text generation and one image-generation attempt.
+        # Each daily content slot uses one text generation.
         state["ai_call_count"] += 1
         _save_state(state)
         try:
@@ -529,7 +521,6 @@ async def post_next(
             "content_type": "original_text",
             "mutation_stage": draft.hook_type,
             "structure_signature": draft.structure_signature,
-            "image_path": str(image_path),
         }
     )
     state["format_lab"] = lab[-20:]
