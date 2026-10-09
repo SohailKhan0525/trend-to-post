@@ -874,66 +874,6 @@ def _pick_best_original(drafts: list[OriginalDraft], format_memory: list[dict]) 
     return max(drafts, key=score)
 
 
-def generate_original_text(
-    source: dict,
-    format_memory: list[dict] | None = None,
-) -> OriginalDraft:
-    format_memory = format_memory or []
-    prompt = _original_meme_prompt(source, format_memory)
-    cloudflare_error: GeminiError | None = None
-
-    try:
-        raw_candidates = _cloudflare_candidates(prompt)
-        drafts: list[OriginalDraft] = []
-        for raw in raw_candidates:
-            try:
-                draft = _parse_original(raw)
-                if draft.should_post:
-                    drafts.append(_validate_original(draft, {}, include_handle=False))
-            except GeminiError as exc:
-                print(f"Cloudflare original meme candidate rejected: {exc}")
-        if drafts:
-            return _pick_best_original(drafts, format_memory)
-        cloudflare_error = GeminiError("Cloudflare generated no usable original meme candidates.")
-    except GeminiError as exc:
-        cloudflare_error = exc
-
-    try:
-        _api_keys()
-    except GeminiError:
-        raise cloudflare_error or GeminiError("Cloudflare original meme generation failed.")
-
-    fallback_prompt = prompt + """
-
-SAFETY RETRY:
-Generate a fresh standalone original post and 3–5 fictional chat bubbles plus a text-free image prompt.
-Use no @mentions, countries, politics, hashtags, URLs, or fabricated real-world claims. Follow the JSON schema exactly.
-"""
-    payload = {
-        "contents": [{"parts": [{"text": fallback_prompt}]}],
-        "generationConfig": {
-            "temperature": 1.0,
-            "maxOutputTokens": 600,
-            "responseMimeType": "application/json",
-        },
-    }
-    last_error: GeminiError | None = None
-    for attempt in range(1, 3):
-        try:
-            retry_payload = payload if attempt == 1 else {
-                **payload,
-                "contents": [{"parts": [{"text": fallback_prompt + " Make the premise more specific and the final bubble the punchline."}]}],
-            }
-            draft = _parse_original(_extract_text(_post_json(retry_payload)))
-            return _validate_original(draft, {}, include_handle=False)
-        except GeminiError as exc:
-            last_error = exc
-            print(f"Gemini original meme candidate rejected ({attempt}/2): {exc}")
-            if attempt == 2:
-                raise last_error
-    raise last_error or GeminiError("Original meme generation failed.")
-
-
 def generate_company_original(
     target: dict,
     format_memory: list[dict] | None = None,
@@ -979,8 +919,8 @@ Generate a NEW company-specific ORIGINAL POST for {target.get("name", "")}.
 {"Keep exactly one target handle and no other @mentions." if include_handle else "Use zero @mentions; the company handle is internal metadata only."}
 Do not ask for reposts, retweets, likes, follows, or reply-if behavior.
 No politics, military/geopolitical content, country references, fabricated current facts,
-hashtags, links, or generic engagement questions. Make it playful, specific, and easy
-for the target company's social team or knowledgeable fans to answer.
+hashtags, links, or fake factual claims. Include one fitting emoji. Make the caption playful,
+specific, and recognizable as the target company's product or community.
 """
     last_error = None
     for attempt in range(1, 3):
