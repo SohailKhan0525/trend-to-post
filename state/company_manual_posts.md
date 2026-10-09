@@ -8,45 +8,45 @@ Text only: no images or generated chat screenshots.
 
 ## Slot 1 — Anthropic @AnthropicAI
 
-> @AnthropicAI I'll upgrade to Claude if you repost this before I rename one more file final_final_v12 😭
+> @AnthropicAI truth or dare: truth—admit “final_final_v12” is a human coping mechanism; dare—explain it using only raccoon noises 😭
 
-Format: final-file purchase condition
-Hook: ridiculous_purchase_condition
-Mechanism: turns developer file-naming chaos into a mock-serious purchase deal
+Format: final-file truth or dare
+Hook: truth_or_dare
+Mechanism: pairs a familiar developer habit with a ridiculous performance task
 Status: ready_for_manual_post
 
 ## Slot 2 — Microsoft @Microsoft
 
-> @Microsoft I'll renew Copilot if it can explain why my terminal looks like it received a prophecy instead of an error message 💀
+> @Microsoft I dare you to make the next Windows error arrive with a boss-fight health bar and ominous music 💀
 
-Format: terminal prophecy condition
-Hook: product_roast_with_a_condition
-Mechanism: compares cryptic developer errors with grandiose mystical language
+Format: operating-system boss fight
+Hook: product_specific_dare
+Mechanism: recasts an error message as a video-game boss introduction
 Status: ready_for_manual_post
 
 ## Slot 3 — adidas @adidas
 
-> @adidas I'll buy Ultraboosts if the shoes can invoice me every time I hit snooze 🫠
+> @adidas truth or dare: truth—tell me how many snoozes cancel out one run; dare—give the Ultraboost a snooze-button counter 🫠
 
-Format: snooze-button invoice
-Hook: ridiculous_purchase_condition
-Mechanism: turns a familiar fitness failure into a ridiculous automatic purchase condition
+Format: snooze-button trial
+Hook: truth_or_dare
+Mechanism: turns exercise procrastination into a mock athletic measurement
 Status: ready_for_manual_post
 
 ## Slot 4 — Steam @Steam
 
-> @Steam I'll buy a Steam Deck if you repost this before I call 400 hours in an idle game a productivity metric 😭
+> @Steam settle this under oath: if a game is open on the title screen for 9 hours, is that gaming or a screensaver with a salary? 🎮😭
 
-Format: idle-game productivity bargain
-Hook: ridiculous_purchase_condition
-Mechanism: reframes excessive idle-game hours as a delusional productivity KPI
+Format: title-screen court case
+Hook: playful_verdict
+Mechanism: treats idle screen time like a legal dispute over whether someone is gaming
 Status: ready_for_manual_post
 
 ## Slot 5 — Roblox @Roblox
 
-> @Roblox I'll buy Robux if you let me pay in three cobblestones and one cursed VHS tape 💀
+> @Roblox I dare you to make placing the first brick trigger a dramatic “the council has noticed” announcement 🎲💀
 
-Format: cursed barter offer
-Hook: absurd_brand_bargain
-Mechanism: turns digital currency into a ridiculous barter negotiation
+Format: first-brick prophecy
+Hook: chaotic_feature_challenge
+Mechanism: gives an ordinary in-game action a grand, mysterious consequence
 Status: ready_for_manual_post
