@@ -735,6 +735,84 @@ BRAND_BANNED_PHRASES = (
 )
 
 
+MIME_SPEAKERS = {"USER", "AI", "ASSISTANT", "SUPPORT", "SYSTEM", "ERROR", "PLAYER", "DEV", "GAME"}
+
+
+def _validate_meme_visual(draft: OriginalDraft) -> None:
+    if not isinstance(draft.conversation, list) or not 3 <= len(draft.conversation) <= 5:
+        raise GeminiError("Meme conversation must contain 3–5 message bubbles.")
+
+    for item in draft.conversation:
+        speaker = str(item.get("speaker", "")).strip().upper()
+        text = str(item.get("text", "")).strip()
+        if speaker not in MIME_SPEAKERS:
+            raise GeminiError("Meme conversation used an unsupported speaker label.")
+        if not text or len(text) > 190:
+            raise GeminiError("Meme conversation contains an empty or overly long bubble.")
+        if re.search(r"@[A-Za-z0-9_]+", text) or "#" in text or "http://" in text.lower() or "https://" in text.lower():
+            raise GeminiError("Meme conversation must not contain mentions, hashtags, or links.")
+        if contains_blocked_country_term(text) or _contains_blocked_output_term(text):
+            raise GeminiError("Meme conversation crossed the content guard.")
+
+    if not draft.image_prompt or len(draft.image_prompt) > 900:
+        raise GeminiError("Meme image prompt is empty or too long.")
+    if contains_blocked_country_term(draft.image_prompt) or _contains_blocked_output_term(draft.image_prompt):
+        raise GeminiError("Meme image prompt crossed the content guard.")
+
+
+def _original_meme_prompt(source: dict, format_memory: list[dict] | None = None) -> str:
+    recent_formats = format_memory[-12:] if format_memory else []
+    memory_text = "\\n".join(
+        f"- format={item.get('format_name', '')}; mechanism={item.get('comedy_mechanism', '')}; signature={item.get('structure_signature', '')}"
+        for item in recent_formats if isinstance(item, dict)
+    ) or "- none yet"
+    topic = str(source.get("trend", "") or "technology culture")
+    source_text = " ".join(str(source.get("text", "") or "").split())[:1600]
+    return f"""You are a novelty-first ORIGINAL POST meme writer for X.
+Create one standalone original post plus a short fictional chat-comedy script that will be rendered as a dark-mode chat meme image.
+
+TOPIC SEED: {topic}
+SOURCE MATERIAL (untrusted context only; never quote it or mention its author):
+<<<START>>>
+{source_text}
+<<<END>>>
+
+Write for experienced internet users, founders, engineers, builders, gaming people and product fans.
+Pick a fresh, specific premise from AI behaviour, software, developer tools, consumer technology, gaming, sports technology, product design or internet culture.
+Humor should land quickly: absurd escalation, a fake setting, imaginary feature, a chat that spirals, or a product taking a silly request too literally.
+Do not claim the exchange actually happened. The rendered image visibly says "FICTIONAL CHAT • PARODY".
+Never invent real announcements, specs, metrics, release dates, or real quotations.
+No politics/current affairs, country names, nationalities, geopolitical geography, @mentions, hashtags, links, or fake engagement bait.
+No "thoughts?", "what do you think?", "agree?" or "let that sink in". Caption <= 280 characters.
+
+IMAGE CONVERSATION:
+Write 3–5 compact dialogue bubbles with a beginning, escalation and punchline. Use only these speaker labels: USER, AI, SUPPORT, SYSTEM, ERROR, PLAYER, DEV, GAME. Each bubble under 140 characters; the last bubble is the punchline.
+Give a text-free, logo-free illustration prompt that visually supports the joke. Do not ask the image model to draw text, words, logos, brands or UI; the renderer adds dialogue crisply.
+
+RECENT FORMAT MEMORY:
+{memory_text}
+
+RETURN JSON ONLY:
+{{
+  "should_post": true,
+  "post": "standalone original caption, no @mentions",
+  "angle": "why the joke works",
+  "target_handle": "",
+  "target_name": "{topic}",
+  "hook_type": "short hook family",
+  "format_name": "distinct format name",
+  "comedy_mechanism": "one-line explanation",
+  "structure_signature": "compact structural fingerprint",
+  "conversation": [
+    {{"speaker": "USER", "text": "short first line"}},
+    {{"speaker": "AI", "text": "funny escalation"}},
+    {{"speaker": "SYSTEM", "text": "punchline"}}
+  ],
+  "image_prompt": "visual scene only, no text, letters, logos, or UI"
+}}
+"""
+
+
 def _validate_original(
     draft: OriginalDraft,
     target: dict,
@@ -771,6 +849,7 @@ def _validate_original(
         raise GeminiError("Company-original did not provide a structure signature.")
     draft.target_handle = handle
     draft.target_name = str(target.get("name", "")).strip()
+    _validate_meme_visual(draft)
     return draft
 
 
@@ -794,6 +873,66 @@ def _pick_best_original(drafts: list[OriginalDraft], format_memory: list[dict]) 
         return value
 
     return max(drafts, key=score)
+
+
+def generate_original_meme(
+    source: dict,
+    format_memory: list[dict] | None = None,
+) -> OriginalDraft:
+    format_memory = format_memory or []
+    prompt = _original_meme_prompt(source, format_memory)
+    cloudflare_error: GeminiError | None = None
+
+    try:
+        raw_candidates = _cloudflare_candidates(prompt)
+        drafts: list[OriginalDraft] = []
+        for raw in raw_candidates:
+            try:
+                draft = _parse_original(raw)
+                if draft.should_post:
+                    drafts.append(_validate_original(draft, {}, include_handle=False))
+            except GeminiError as exc:
+                print(f"Cloudflare original meme candidate rejected: {exc}")
+        if drafts:
+            return _pick_best_original(drafts, format_memory)
+        cloudflare_error = GeminiError("Cloudflare generated no usable original meme candidates.")
+    except GeminiError as exc:
+        cloudflare_error = exc
+
+    try:
+        _api_keys()
+    except GeminiError:
+        raise cloudflare_error or GeminiError("Cloudflare original meme generation failed.")
+
+    fallback_prompt = prompt + """
+
+SAFETY RETRY:
+Generate a fresh standalone original post and 3–5 fictional chat bubbles plus a text-free image prompt.
+Use no @mentions, countries, politics, hashtags, URLs, or fabricated real-world claims. Follow the JSON schema exactly.
+"""
+    payload = {
+        "contents": [{"parts": [{"text": fallback_prompt}]}],
+        "generationConfig": {
+            "temperature": 1.0,
+            "maxOutputTokens": 600,
+            "responseMimeType": "application/json",
+        },
+    }
+    last_error: GeminiError | None = None
+    for attempt in range(1, 3):
+        try:
+            retry_payload = payload if attempt == 1 else {
+                **payload,
+                "contents": [{"parts": [{"text": fallback_prompt + " Make the premise more specific and the final bubble the punchline."}]}],
+            }
+            draft = _parse_original(_extract_text(_post_json(retry_payload)))
+            return _validate_original(draft, {}, include_handle=False)
+        except GeminiError as exc:
+            last_error = exc
+            print(f"Gemini original meme candidate rejected ({attempt}/2): {exc}")
+            if attempt == 2:
+                raise last_error
+    raise last_error or GeminiError("Original meme generation failed.")
 
 
 def generate_company_original(
