@@ -516,141 +516,148 @@ def _ensure_company_manual_posts(state: dict) -> bool:
     )
 
 
-async def _ensure_trend_manual_posts(state: dict, client: Client) -> bool:
-    """Prepare four source-grounded X drafts for manual review; never publish them."""
+async def _post_trend_quote(state: dict, client: Client) -> bool:
+    """Generate and automatically publish one AI quote-post from an official brand."""
     today = _today()
-    if state.get("trend_manual_day_key") != today:
-        state["trend_manual_day_key"] = today
-        state["trend_manual_post_count"] = 0
-        state["trend_manual_posts"] = []
+    if state.get("trend_quote_day_key") != today:
+        state["trend_quote_day_key"] = today
+        state["trend_quote_post_count"] = 0
+        state["trend_quote_posts"] = []
         state["trend_source_ids"] = []
 
-    while (
-        int(state.get("trend_manual_post_count", 0)) < TREND_MANUAL_POSTS_PER_DAY
-        and int(state.get("daily_count", 0)) < POSTS_PER_DAY
-    ):
-        remaining_trend_drafts = TREND_MANUAL_POSTS_PER_DAY - int(state.get("trend_manual_post_count", 0))
-        remaining_generations = AI_GENERATIONS_PER_DAY - int(state.get("ai_call_count", 0))
-        if remaining_generations < remaining_trend_drafts:
-            print(
-                "Waiting until the next daily generation budget to complete all four "
-                "trend-grounded manual drafts without breaking the 20-generation cap."
-            )
-            _write_trend_manual_posts(state)
-            _save_state(state)
-            return False
-        if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
-            print("AI generation budget reached before all trend-grounded drafts were prepared.")
-            _write_trend_manual_posts(state)
-            _save_state(state)
-            return False
+    if int(state.get("trend_quote_post_count", 0)) >= TREND_QUOTE_POSTS_PER_DAY:
+        return False
+    if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
+        print("Daily content-slot limit reached before the next brand quote-post.")
+        return False
+    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+        print("Daily AI generation limit reached before the next brand quote-post.")
+        return False
 
-        used = (
-            state.get("posted_source_tweet_ids", [])
-            + state.get("skipped_source_tweet_ids", [])
-            + state.get("trend_source_ids", [])
-        )
-        used_trends = [
-            str(item.get("trend", "")).strip()
-            for item in state.get("trend_manual_posts", [])
-            if isinstance(item, dict) and str(item.get("trend", "")).strip()
-        ]
-        try:
-            source = await find_trending_source(client, used, used_trends)
-        except TrendSourceError as exc:
-            print(f"Cannot prepare trend-grounded draft right now: {exc}")
-            _write_trend_manual_posts(state)
-            _save_state(state)
-            return False
+    used = (
+        state.get("posted_source_tweet_ids", [])
+        + state.get("skipped_source_tweet_ids", [])
+        + state.get("trend_source_ids", [])
+    )
+    excluded_handles = [
+        str(item.get("source_username", "")).strip()
+        for item in state.get("trend_quote_posts", [])
+        if isinstance(item, dict) and str(item.get("source_username", "")).strip()
+    ]
 
-        payload = _source_dict(source)
-        state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
+    try:
+        source = await find_official_brand_source(client, used, excluded_handles)
+    except TrendSourceError as exc:
+        print(f"Cannot find an eligible official-brand quote source right now: {exc}")
+        return False
+
+    payload = _source_dict(source)
+    state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
+    _save_state(state)
+    try:
+        draft = generate_quote(payload, state["format_lab"])
+    except GeminiError as exc:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
         _save_state(state)
-        try:
-            draft = generate_original_text(
-                payload,
-                state["format_lab"],
-                content_mode="trend_manual",
-            )
-        except GeminiError as exc:
-            skipped = state.get("skipped_source_tweet_ids", [])
-            skipped.append(source.tweet_id)
-            state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
-            _save_state(state)
-            print(f"Trend-grounded draft rejected; source skipped safely: {exc}")
-            return False
+        print(f"Official-brand quote generation failed; source safely skipped: {exc}")
+        return False
 
-        if not draft.should_post:
-            skipped = state.get("skipped_source_tweet_ids", [])
-            skipped.append(source.tweet_id)
-            state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
-            _save_state(state)
-            print("AI declined the trend source; it will not be used for a manual draft.")
-            return False
-
-        text = draft.post_text.strip()
-        if not text or len(text) > 280:
-            skipped = state.get("skipped_source_tweet_ids", [])
-            skipped.append(source.tweet_id)
-            state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
-            _save_state(state)
-            print("Trend-grounded draft exceeded the post limit and was discarded.")
-            return False
-
-        now = datetime.now(timezone.utc).isoformat()
-        slot = int(state.get("trend_manual_post_count", 0)) + 1
-        manual_item = {
-            "slot_number": slot,
-            "post": text,
-            "trend": source.trend,
-            "source_type": source.source_type,
-            "source_tweet_id": source.tweet_id,
-            "source_url": source.url,
-            "source_text": source.text,
-            "angle": draft.angle,
-            "format_name": draft.format_name,
-            "comedy_mechanism": draft.comedy_mechanism,
-            "structure_signature": draft.structure_signature,
-            "generated_at": now,
-            "status": "ready_for_manual_review",
-        }
-        state["trend_manual_posts"] = (
-            state.get("trend_manual_posts", []) + [manual_item]
-        )[-TREND_MANUAL_POSTS_PER_DAY:]
-        source_ids = state.get("trend_source_ids", [])
-        source_ids.append(source.tweet_id)
-        state["trend_source_ids"] = source_ids[-SOURCE_HISTORY_LIMIT:]
-
-        lab = state["format_lab"]
-        lab.append({
-            "format_name": draft.format_name or "unnamed trend draft",
-            "comedy_mechanism": draft.comedy_mechanism,
-            "used_at": now,
-            "topic": source.trend,
-            "tweet_id": None,
-            "content_type": "trend_manual",
-            "content_mode": "trend_manual",
-            "source_tweet_id": source.tweet_id,
-            "post_text": text,
-            "mutation_stage": draft.hook_type,
-            "structure_signature": draft.structure_signature,
-        })
-        state["format_lab"] = lab[-20:]
-
-        fingerprints = state["recent_post_fingerprints"]
-        fingerprints.append(draft.structure_signature[:180])
-        state["recent_post_fingerprints"] = fingerprints[-30:]
-
-        state["trend_manual_post_count"] = slot
-        state["daily_count"] = int(state.get("daily_count", 0)) + 1
-        _write_trend_manual_posts(state)
+    if not draft.should_quote:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
         _save_state(state)
-        print(
-            f"Prepared trend-grounded manual draft {slot}/{TREND_MANUAL_POSTS_PER_DAY}: "
-            f"{source.trend!r} from @{source.username}; not published."
-        )
+        print("AI declined the official-brand source; no post was published.")
+        return False
 
-    return int(state.get("trend_manual_post_count", 0)) >= TREND_MANUAL_POSTS_PER_DAY
+    text = draft.quote_text.strip()
+    if not text or len(text) > 280:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print("AI quote exceeded the post limit and was discarded.")
+        return False
+
+    print(
+        f"Publishing text-only quote-post ({len(text)}/280) from "
+        f"@{source.username}: {text}"
+    )
+    try:
+        tweet = await client.create_tweet(text=text, attachment_url=source.url)
+    except Exception as exc:
+        raise QueueError(f"X quote-post failed: {exc}") from exc
+
+    now = datetime.now(timezone.utc).isoformat()
+    item = {
+        "slot_number": int(state.get("trend_quote_post_count", 0)) + 1,
+        "post": text,
+        "source_username": source.username,
+        "source_type": source.source_type,
+        "source_tweet_id": source.tweet_id,
+        "source_url": source.url,
+        "source_text": source.text,
+        "topic": source.trend,
+        "format_name": draft.format_name,
+        "comedy_mechanism": draft.comedy_mechanism,
+        "structure_signature": draft.structure_signature,
+        "tweet_id": str(getattr(tweet, "id", "") or ""),
+        "generated_at": now,
+        "status": "published",
+    }
+    state["trend_quote_posts"] = (
+        state.get("trend_quote_posts", []) + [item]
+    )[-TREND_QUOTE_POSTS_PER_DAY:]
+
+    for key in ("trend_source_ids", "posted_source_tweet_ids"):
+        values = state.get(key, [])
+        values.append(source.tweet_id)
+        state[key] = values[-SOURCE_HISTORY_LIMIT:]
+
+    lab = state.get("format_lab", [])
+    lab.append({
+        "format_name": draft.format_name or "unnamed official-brand quote",
+        "comedy_mechanism": draft.comedy_mechanism,
+        "used_at": now,
+        "topic": source.trend,
+        "tweet_id": item["tweet_id"],
+        "content_type": "quote_post",
+        "content_mode": "official_brand_quote",
+        "source_tweet_id": source.tweet_id,
+        "source_username": source.username,
+        "post_text": text,
+        "mutation_stage": draft.mutation_stage,
+        "structure_signature": draft.structure_signature,
+    })
+    state["format_lab"] = lab[-20:]
+
+    fingerprints = state.get("recent_post_fingerprints", [])
+    fingerprints.append(draft.structure_signature[:180])
+    state["recent_post_fingerprints"] = fingerprints[-30:]
+
+    count = int(state.get("trend_quote_post_count", 0)) + 1
+    state.update({
+        "day_key": today,
+        "trend_quote_day_key": today,
+        "trend_quote_post_count": count,
+        "daily_count": int(state.get("daily_count", 0)) + 1,
+        "last_tweet_id": item["tweet_id"],
+        "last_posted_at": now,
+        "last_source_tweet_id": source.tweet_id,
+        "last_post_type": "official_brand_quote",
+        "last_company_handle": None,
+    })
+    _save_state(state)
+    print(
+        f"Published official-brand quote-post {count}/{TREND_QUOTE_POSTS_PER_DAY}; "
+        f"invented originals {state.get('invented_post_count', 0)}/{ORIGINAL_POSTS_PER_DAY}; "
+        f"company captions {state.get('company_post_count', 0)}/{COMPANY_POSTS_PER_DAY}; "
+        f"daily slots {state['daily_count']}/{POSTS_PER_DAY}; "
+        f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
+    )
+    return True
 
 
 async def post_next(
