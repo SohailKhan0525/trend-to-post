@@ -358,7 +358,11 @@ QUOTE OPTIONS:
 
 
 
-def _company_prompt(target: dict, format_memory: list[dict] | None = None) -> str:
+def _company_prompt(
+    target: dict,
+    format_memory: list[dict] | None = None,
+    include_handle: bool = True,
+) -> str:
     recent_formats = format_memory[-12:] if format_memory else []
     memory_text = "\n".join(
         f"- name={item.get('format_name', 'unknown')}; mechanism={item.get('comedy_mechanism', '')}; hook={item.get('hook_type', '')}; signature={item.get('structure_signature', '')}"
@@ -369,85 +373,53 @@ def _company_prompt(target: dict, format_memory: list[dict] | None = None) -> st
     name = str(target.get("name", "")).strip()
     keywords_list = [str(x).strip() for x in target.get("keywords", []) if str(x).strip()]
     keywords = ", ".join(keywords_list)
-    sample_product = {
-        "BMW": "the M4",
-        "Mercedes-Benz": "an AMG",
-        "Porsche": "a 911",
-        "Ferrari": "a Ferrari",
-        "Tesla": "a Model 3",
-        "Apple": "a MacBook",
-        "Google": "a Pixel",
-        "Microsoft": "an Xbox",
-        "OpenAI": "ChatGPT Plus",
-        "Anthropic": "Claude",
-        "NVIDIA": "an RTX GPU",
-        "AMD": "a Ryzen build",
-        "Intel": "a Core build",
-        "Meta": "a Quest headset",
-        "Amazon": "an Alexa setup",
-        "Samsung": "a Galaxy phone",
-        "Sony": "a PlayStation",
-        "Nintendo": "a Switch",
-        "Xbox": "an Xbox",
-        "PlayStation": "a PlayStation",
-        "Steam": "a Steam Deck",
-        "Epic Games": "a copy of Fortnite",
-        "EA": "the next EA Sports game",
-        "Roblox": "a Roblox premium subscription",
-        "Adobe": "Creative Cloud",
-        "Canva": "Canva Pro",
-        "Figma": "Figma Pro",
-        "Notion": "Notion AI",
-        "GitHub": "Copilot",
-        "Vercel": "Vercel Pro",
-        "Cloudflare": "Workers AI",
-        "Slack": "Slack Pro",
-        "Discord": "Discord Nitro",
-        "Spotify": "Spotify Premium",
-        "Netflix": "Netflix Premium",
-        "Nike": "a pair of Jordans",
-        "adidas": "a pair of Ultraboosts",
-    }.get(name, f"your flagship product")
     hook_type = random.choice((
-        "ridiculous_purchase_condition",
-        "absurd_brand_bargain",
-        "specific_product_ultimatum",
-        "chaotic_feature_request",
-        "dramatic_fan_offer",
-        "product_roast_with_a_condition",
+        "truth_or_dare", "product_specific_dare", "harmless_brand_challenge",
+        "absurd_demo_request", "choose_your_fate", "product_confession",
+        "mini_quest", "chaotic_feature_challenge", "playful_verdict",
+        "fan_callout", "impossible_but_harmless_task", "buying_condition_rare",
     ))
     hook_instructions = {
-        "ridiculous_purchase_condition": "Write a mock-serious ‘I'll buy [product] if you…’ joke. A playful repost condition is permitted, but make the wording fresh and absurd.",
-        "absurd_brand_bargain": "Offer a wildly disproportionate but harmless bargain tied to a recognizable product.",
-        "specific_product_ultimatum": "Make a mock-serious ultimatum about this product, with a funny condition attached.",
-        "chaotic_feature_request": "Demand an oddly specific feature that sounds unnecessary, and tie it to a silly bargain if possible.",
-        "dramatic_fan_offer": "Act like a dramatic prospective buyer whose purchase hinges on one funny, harmless condition.",
-        "product_roast_with_a_condition": "Tease a recognizable product experience, then make an absurd conditional offer to the brand.",
+        "truth_or_dare": "Use a truth-or-dare format with a funny, harmless, product-specific truth or dare.",
+        "product_specific_dare": "Dare the company to do something funny with a recognizable product or product setting.",
+        "harmless_brand_challenge": "Set one clear, playful challenge for the company to perform.",
+        "absurd_demo_request": "Ask for a ridiculous, clearly fictional demo; do not imply the feature already exists.",
+        "choose_your_fate": "Give the company two absurd but harmless options and make it choose.",
+        "product_confession": "Ask it to confess a funny product habit without alleging real wrongdoing.",
+        "mini_quest": "Give the brand a tiny, silly quest like a game objective.",
+        "chaotic_feature_challenge": "Challenge it to invent an unnecessary but funny feature.",
+        "playful_verdict": "Ask it to settle a specific product debate with a mock-serious verdict.",
+        "fan_callout": "Call out a recognizable product habit playfully and ask the brand to own it.",
+        "impossible_but_harmless_task": "Assign a ridiculous, obviously playful task tied to the product.",
+        "buying_condition_rare": "Use a purchase-condition joke, but never ask for a repost, like, follow or boost.",
     }[hook_type]
+    prefix = f"{handle} " if include_handle else ""
+    handle_rule = (
+        f"- Include {handle} exactly once and address the company directly.\n"
+        if include_handle else "- Do not include any @mention.\n"
+    )
 
-    return f"""You write TEXT-ONLY company-tag posts for a human to publish manually on X.
-This is not an auto-publication draft. The human copies the caption and posts it themselves.
+    return f"""You write text-only company-tag captions for a human to publish manually on X.
+Never publish these company captions automatically.
 
-TARGET COMPANY:
-{handle} — {name}
+TARGET: {name} {f"({handle})" if include_handle else ""}
+PRODUCT KEYWORDS: {keywords or "none"}
 
-TARGET PRODUCT KEYWORDS:
-{keywords or "none"}
-
-STYLE:
-A short, funny, slightly unhinged direct mention. Use a mock-serious buying condition, ridiculous bargain, product-specific demand or absurd ultimatum. It should sound like a real person playfully negotiating with a famous company—not a marketing team.
+VOICE:
+Funny, direct, specific, internet-native, playful and a little unhinged. Make this feel like a dare, truth, challenge, weird task, absurd demo, product confession, mini quest, or verdict—not a marketing request.
+Use a product or habit relevant to this company.
 
 HOOK:
 {hook_type}
 {hook_instructions}
 
-STRICT RULES:
-- Include the exact handle {handle} exactly ONCE.
-- The company is the addressee; write directly to it.
-- Keep the post specific to its product or user experience.
-- Include at least one fitting emoji, ideally at the punchline.
-- A playful conditional such as “I'll buy the M4 if you repost this” is allowed as a one-off joke. Keep the premise specific, surprising and playful, not a copied engagement-bait template.
-- The post should still be funny if the company never replies. Vary the condition for each target, and do not use the same “repost” punchline five times.
+RULES:
+{handle_rule}- Keep the caption specific to the product or its user experience.
+- Make one clear thing the company is being asked or dared to do, or one funny truth it is asked to admit.
+- Vary the format between truth-or-dare, mini-quest, choose-one, product confession, harmless challenge, absurd demo, feature dare and mock verdict.
+- Do NOT default to “I'll buy…” or an upgrade/purchase condition. That format is rare, not the default, and do not use it more than once in a batch.
+- Never ask for a repost, like, follow or boost. The joke must work even if the company never responds.
+- Include at least one fitting emoji and do not repeat the same emoji in a caption.
 - No other @mentions, hashtags, links or quote-post fragments.
 - No politics/current affairs, country references, nationalities or geopolitical geography.
 - No fabricated claims about real announcements, prices, specifications, executives or insider information.
@@ -456,25 +428,24 @@ STRICT RULES:
 RECENT FORMAT MEMORY — DO NOT REPEAT:
 {memory_text}
 
-EXAMPLE SHAPES — DO NOT COPY; use the target's real product context:
-{handle} I'll buy {sample_product} if you repost this before I remember how expensive it is 😭
-{handle} one absurdly specific condition and I'll stop calling {sample_product} a financial decision 💀
-{handle} I'll buy {sample_product} if your team confirms my worst habit is recoverable 🫠
+EXAMPLE SHAPES — DO NOT COPY:
+{prefix}truth or dare: tell the truth about your product's side-quest energy; dare—make it blink in morse code 😭
+{prefix}I dare you to add a “pretending I'm qualified” mode to the setup 💀
+{prefix}settle this product argument like you're under oath 🫡
 
 RETURN JSON ONLY:
 {{
   "should_post": true,
-  "post": "{handle} ... 😂",
-  "target_handle": "{handle}",
+  "post": "{prefix}...",
+  "target_handle": "{handle if include_handle else ""}",
   "target_name": "{name}",
-  "angle": "why the line is funny even without a company reply",
+  "angle": "why the line is funny without a company reply",
   "hook_type": "{hook_type}",
   "format_name": "short format name",
   "comedy_mechanism": "one-line explanation",
   "structure_signature": "compact structure fingerprint"
 }}
 """
-
 
 def _quote_options(source_text: str, limit: int = 6) -> list[str]:
     """Return distinctive short source fragments for the model to quote verbatim."""
