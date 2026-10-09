@@ -264,7 +264,13 @@ def _topic_allowed(trend: str, text: str) -> bool:
     return any(_keyword_matches(haystack, keyword) for keyword in ALLOWED_TOPIC_KEYWORDS)
 
 
-def _is_candidate(tweet: object, now: datetime, used_ids: set[str], trend_name: str) -> bool:
+def _is_candidate(
+    tweet: object,
+    now: datetime,
+    used_ids: set[str],
+    trend_name: str,
+    require_views: bool = True,
+) -> bool:
     tweet_id = _tweet_id(tweet)
     if not tweet_id or tweet_id in used_ids:
         return False
@@ -294,7 +300,7 @@ def _is_candidate(tweet: object, now: datetime, used_ids: set[str], trend_name: 
     if age < timedelta(minutes=-5) or age > MAX_TWEET_AGE:
         return False
 
-    if _as_int(getattr(tweet, "view_count", 0)) <= 0:
+    if require_views and _as_int(getattr(tweet, "view_count", 0)) <= 0:
         return False
 
     if not _username(tweet):
@@ -509,7 +515,7 @@ async def find_official_brand_source(
         for tweet in results or []:
             if _username(tweet).casefold() != handle.casefold():
                 continue
-            if not _is_candidate(tweet, now, used_ids, topic):
+            if not _is_candidate(tweet, now, used_ids, topic, require_views=False):
                 continue
             source = _build_source(
                 tweet,
