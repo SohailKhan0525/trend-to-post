@@ -429,3 +429,112 @@ async def find_trending_source(
         "No eligible recent AI, technology, gaming, sports, or major-company "
         "conversation was found in official allowed trends or current topical searches."
     )
+
+# A curated set of first-party company accounts. The quote-post lane searches
+# these accounts directly instead of reading or targeting X's Trending Topics.
+OFFICIAL_BRAND_SOURCE_ACCOUNTS = (
+    ("OpenAI", "OpenAI AI software"),
+    ("AnthropicAI", "Anthropic Claude AI software"),
+    ("Google", "Google AI Android technology"),
+    ("Microsoft", "Microsoft AI Windows Xbox software"),
+    ("Apple", "Apple iPhone software technology"),
+    ("NVIDIA", "NVIDIA GPU AI technology"),
+    ("AMD", "AMD GPU technology"),
+    ("Intel", "Intel hardware technology"),
+    ("Meta", "Meta AI technology"),
+    ("Sony", "Sony PlayStation gaming technology"),
+    ("NintendoAmerica", "Nintendo gaming"),
+    ("Xbox", "Xbox gaming technology"),
+    ("PlayStation", "PlayStation gaming technology"),
+    ("Steam", "Steam gaming"),
+    ("EpicGames", "Epic Games gaming technology"),
+    ("Adobe", "Adobe design software"),
+    ("Canva", "Canva design software"),
+    ("Figma", "Figma design software"),
+    ("NotionHQ", "Notion productivity software"),
+    ("GitHub", "GitHub developer software"),
+    ("vercel", "Vercel developer technology"),
+    ("Cloudflare", "Cloudflare software technology"),
+    ("SlackHQ", "Slack workplace software"),
+    ("Discord", "Discord gaming software"),
+    ("Spotify", "Spotify music technology"),
+    ("Netflix", "Netflix entertainment technology"),
+    ("Nike", "Nike sports products"),
+    ("adidas", "adidas sports products"),
+)
+
+
+async def find_official_brand_source(
+    client: Client,
+    used_source_ids: Iterable[str],
+    excluded_handles: Iterable[str] = (),
+) -> SourceTweet:
+    """Select a recent post authored by a curated official brand account.
+
+    It intentionally does not query X's Trends endpoint. Posts are quote-posted
+    only when they are recent, original, English, topic-relevant, and authored
+    by the exact first-party handle from the allowlist.
+    """
+    import random
+
+    used_ids = {str(value).strip() for value in used_source_ids if str(value).strip()}
+    excluded = {str(value).strip().lstrip("@").casefold() for value in excluded_handles if str(value).strip()}
+    eligible = [
+        item for item in OFFICIAL_BRAND_SOURCE_ACCOUNTS
+        if item[0].casefold() not in excluded
+    ]
+    if not eligible:
+        raise TrendSourceError("All official brand source accounts have already been used today.")
+
+    random.shuffle(eligible)
+    now = datetime.now(timezone.utc)
+    candidates: dict[str, SourceTweet] = {}
+    attempted = 0
+
+    for handle, topic in eligible:
+        if attempted >= SEARCHES_PER_RUN:
+            break
+        attempted += 1
+        try:
+            results = await client.search_tweet(f"from:{handle}", "Latest", count=TWEETS_PER_SEARCH)
+        except Exception as exc:
+            message = str(exc)
+            print(f"Skipping official-brand source search for @{handle}: {message}")
+            if "429" in message or "rate limit" in message.lower():
+                raise TrendSourceError(
+                    "X search is currently rate limited; stopping before more requests."
+                ) from exc
+            continue
+
+        for tweet in results or []:
+            if _username(tweet).casefold() != handle.casefold():
+                continue
+            if not _is_candidate(tweet, now, used_ids, topic):
+                continue
+            source = _build_source(
+                tweet,
+                trend_name=f"{topic} — @{handle}",
+                trend_volume=0,
+                source_type="official_brand_post",
+            )
+            candidates[source.tweet_id] = source
+
+    if not candidates:
+        raise TrendSourceError(
+            "No eligible recent post was found from the approved first-party brand accounts."
+        )
+
+    ranked = sorted(
+        candidates.values(),
+        key=lambda candidate: candidate.engagement_score,
+        reverse=True,
+    )
+    selected = ranked[0]
+    print(
+        "Selected official brand source for automatic quote post: "
+        f"@{selected.username}/{selected.tweet_id} | "
+        f"topic={selected.trend!r} | views={selected.view_count:,} | "
+        f"likes={selected.favorite_count:,} | replies={selected.reply_count:,}"
+    )
+    return selected
+
