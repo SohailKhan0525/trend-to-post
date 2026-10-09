@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-09",
-  "daily_count": 4,
-  "ai_call_count": 6,
-  "last_posted_at": "2026-10-09T04:01:36.956211+00:00",
-  "last_source_tweet_id": "2108271552991252810",
-  "last_tweet_id": "2108407507232117245",
+  "daily_count": 5,
+  "ai_call_count": 7,
+  "last_posted_at": "2026-10-09T06:01:41.279433+00:00",
+  "last_source_tweet_id": "2108349826727588000",
+  "last_tweet_id": "2108437724373962899",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -60,7 +60,8 @@
     "2108054369056809396",
     "2108317765153026077",
     "2108230001157923025",
-    "2108271552991252810"
+    "2108271552991252810",
+    "2108349826727588000"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -76,14 +77,6 @@
     "2108295649582035208"
   ],
   "format_lab": [
-    {
-      "format_name": "excuse calculus diagnostic",
-      "comedy_mechanism": "contrasting world-class mathematical breakthroughs with an intensely low-stakes personal failure of time management",
-      "used_at": "2026-10-07T02:31:47.513132+00:00",
-      "topic": "ChatGPT",
-      "self_reply": true,
-      "tweet_id": "2107660125695771118"
-    },
     {
       "format_name": "astrological usage tariff audit",
       "comedy_mechanism": "framing a missing corporate feature as an occult pricing tier where you pay with abstract human vitality instead of dollars",
@@ -283,6 +276,17 @@
       "content_type": "quote_post",
       "mutation_stage": "invented_rule",
       "structure_signature": "legalistic corporate infraction paired with an over-animated software feature"
+    },
+    {
+      "format_name": "onboarding reset penalty",
+      "comedy_mechanism": "mapping mundane corporate bureaucracy onto sudden catastrophic technical friction",
+      "used_at": "2026-10-09T06:01:41.279433+00:00",
+      "topic": "ChatGPT",
+      "self_reply": false,
+      "tweet_id": "2108437724373962899",
+      "content_type": "quote_post",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "policy statement ending in a quoted source fragment"
     }
   ],
   "recent_post_fingerprints": [
@@ -305,7 +309,8 @@
     "speculative future anthropology conclusion derived from commercial audio artifacts",
     "social observation followed by media industry metaphor",
     "legalistic corporate infraction paired with an over-animated software feature",
-    "handle + conditional statement + absurd physical requirement"
+    "handle + conditional statement + absurd physical requirement",
+    "policy statement ending in a quoted source fragment"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 1,
@@ -451,7 +456,7 @@
       "status": "ready_for_manual_post"
     }
   ],
-  "last_post_type": "company_manual",
-  "last_company_handle": "@AnthropicAI",
+  "last_post_type": "quote_post",
+  "last_company_handle": null,
   "brand_draft_day_key": null
 }
