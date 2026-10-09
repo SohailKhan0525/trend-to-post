@@ -8,8 +8,7 @@ from pathlib import Path
 from twikit import Client
 
 from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
-from .gemini import GeminiError, generate_company_original, generate_original_meme
-from .meme_image import render_meme_image
+from .gemini import GeminiError, generate_company_original, generate_original_text
 from .trend_source import (
     SOURCE_HISTORY_LIMIT,
     SourceTweet,
@@ -22,7 +21,6 @@ POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
 ORIGINAL_POSTS_PER_DAY = POSTS_PER_DAY - COMPANY_POSTS_PER_DAY
 AI_GENERATIONS_PER_DAY = 20
-IMAGE_GENERATIONS_PER_DAY = POSTS_PER_DAY
 MIN_POST_INTERVAL_MINUTES = 72
 BRAND_AI_GENERATIONS_PER_DAY = COMPANY_POSTS_PER_DAY
 
@@ -42,7 +40,6 @@ def _new_state() -> dict:
         "day_key": _today(),
         "daily_count": 0,
         "ai_call_count": 0,
-        "image_call_count": 0,
         "company_post_count": 0,
         "company_posted_handles": [],
         "company_manual_posts": [],
@@ -86,7 +83,6 @@ def _load_state() -> dict:
         state["day_key"] = today
         state["daily_count"] = 0
         state["ai_call_count"] = 0
-        state["image_call_count"] = 0
         state["company_post_count"] = 0
         state["company_posted_handles"] = []
         state["company_manual_posts"] = []
@@ -108,14 +104,6 @@ def _load_state() -> dict:
     if not 0 <= state["ai_call_count"] <= AI_GENERATIONS_PER_DAY:
         raise QueueError(
             f"State ai_call_count is outside 0..{AI_GENERATIONS_PER_DAY}."
-        )
-    try:
-        state["image_call_count"] = int(state.get("image_call_count", 0))
-    except (TypeError, ValueError) as exc:
-        raise QueueError("State image_call_count must be an integer.") from exc
-    if not 0 <= state["image_call_count"] <= IMAGE_GENERATIONS_PER_DAY:
-        raise QueueError(
-            f"State image_call_count is outside 0..{IMAGE_GENERATIONS_PER_DAY}."
         )
     try:
         state["company_post_count"] = int(state.get("company_post_count", 0))
@@ -257,8 +245,8 @@ def _write_company_manual_posts(state: dict) -> None:
         f"UTC date: {state.get('day_key', _today())}",
         "",
         "These five company posts are included in the same 20-content daily quota.",
-        "Copy the post text exactly, including the @mention, and publish it manually on X.",
-        "Matching PNG image files are in state/generated/company/ and are included in the workflow artifact.",
+        "Copy the text exactly, including the @mention and emoji, and publish it manually on X.",
+        "Text only: no images or generated chat screenshots.",
         "",
     ]
 
@@ -360,26 +348,6 @@ def _ensure_company_manual_posts(state: dict) -> bool:
             _save_state(state)
             return False
 
-        image_path = (
-            Path("state/generated/company")
-            / f"{_today()}_{target_handle.lstrip('@').lower()}.png"
-        )
-        state["image_call_count"] += 1
-        _save_state(state)
-        try:
-            render_meme_image(
-                draft.conversation,
-                draft.image_prompt,
-                target_name,
-                image_path,
-            )
-        except Exception as exc:
-            target["status"] = "image_render_failed"
-            target["last_error"] = str(exc)
-            _save_state(state)
-            print(f"Company meme image failed for {target_name}: {exc}")
-            return False
-
         now = datetime.now(timezone.utc).isoformat()
         company_slot = int(state.get("company_post_count", 0)) + 1
         manual_item = {
@@ -392,7 +360,6 @@ def _ensure_company_manual_posts(state: dict) -> bool:
             "format_name": draft.format_name,
             "comedy_mechanism": draft.comedy_mechanism,
             "structure_signature": draft.structure_signature,
-            "image_path": str(image_path),
             "generated_at": now,
             "status": "ready_for_manual_post",
         }
@@ -516,7 +483,7 @@ async def post_next(
         state["ai_call_count"] += 1
         _save_state(state)
         try:
-            draft = generate_original_meme(payload, state["format_lab"])
+            draft = generate_original_text(payload, state["format_lab"])
         except GeminiError as exc:
             skipped = state["skipped_source_tweet_ids"]
             skipped.append(source.tweet_id)
@@ -542,33 +509,10 @@ async def post_next(
     if not text or len(text) > 280:
         raise QueueError("AI returned invalid original post text length.")
 
-    image_path = Path("state/generated/automatic/last_original_meme.png")
-    state["image_call_count"] += 1
-    _save_state(state)
-    try:
-        render_meme_image(
-            draft.conversation,
-            draft.image_prompt,
-            draft.target_name or source.trend,
-            image_path,
-        )
-    except Exception as exc:
-        skipped = state["skipped_source_tweet_ids"]
-        skipped.append(source.tweet_id)
-        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
-        _save_state(state)
-        print(f"Could not render original meme image; topic seed skipped safely: {exc}")
-        return False
-
-    print(f"Original post ({len(text)}/280): {text}")
-    print(f"Meme image ready: {image_path}")
+    print(f"Original text-only post ({len(text)}/280): {text}")
 
     try:
-        media_id = await client.upload_media(
-            str(image_path),
-            wait_for_completion=True,
-        )
-        tweet = await client.create_tweet(text=text, media_ids=[media_id])
+        tweet = await client.create_tweet(text=text)
     except Exception as exc:
         raise QueueError(f"X post failed: {exc}") from exc
 
@@ -582,7 +526,7 @@ async def post_next(
             "topic": source.trend,
             "self_reply": False,
             "tweet_id": str(getattr(tweet, "id", "") or ""),
-            "content_type": "original_with_image",
+            "content_type": "original_text",
             "mutation_stage": draft.hook_type,
             "structure_signature": draft.structure_signature,
             "image_path": str(image_path),
@@ -604,7 +548,7 @@ async def post_next(
             "last_tweet_id": str(getattr(tweet, "id", "") or ""),
             "last_posted_at": now,
             "last_source_tweet_id": source.tweet_id,
-            "last_post_type": "original_with_image",
+            "last_post_type": "original_text",
             "last_company_handle": None,
         }
     )
@@ -612,11 +556,10 @@ async def post_next(
 
     original_count = state["daily_count"] - state["company_post_count"]
     print(
-        f"Posted original_with_image #{original_count}/{ORIGINAL_POSTS_PER_DAY}; "
-        f"company manual assets {state['company_post_count']}/{COMPANY_POSTS_PER_DAY}; "
+        f"Posted original_text #{original_count}/{ORIGINAL_POSTS_PER_DAY}; "
+        f"company manual captions {state['company_post_count']}/{COMPANY_POSTS_PER_DAY}; "
         f"total content slots {state['daily_count']}/{POSTS_PER_DAY}; "
         f"text generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}; "
-        f"image attempts {state['image_call_count']}/{IMAGE_GENERATIONS_PER_DAY}. "
         f"Format={draft.format_name or 'unnamed'}"
     )
     return True
