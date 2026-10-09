@@ -712,7 +712,24 @@ BRAND_BANNED_PHRASES = (
 )
 
 
-def _original_text_prompt(source: dict, format_memory: list[dict] | None = None) -> str:
+EMOJI_TOKENS = tuple("""
+😂 🤣 😭 💀 🫠 🤝 🫡 👀 😮‍💨 🗿 😔 🥲 🥹 ✨ 🧎 🫥 🤨 😹 🧠 🚗 🎮 🛠️ 🛠 🫵 🤡 😎 🔥 💸 🤑 🚀 🧍 🫣 🤦 🤖 💅 📉 📈 ✅ 🛒 🥶 😈 🙃 😵 😵‍💫 🤯 🙏 🧃 🐐 👾 ⚡ 🎯 🫶 🧨 🏁 🧩 💻 ⌨️ 🖥️ 📱 🕹️ 🏎️ 🪦 🔧 🧯 🔋 🧪 📦 🧾 💬 🪫 🗣️ 🦆 🦍 🪿 🍿 🥴 👑 🪄 🎲 ⚙️ 🔌 💾 💯 🧿 🐸 🐈 🐈‍⬛ 🐕 🐢 🦖 🐍 🐝 🥑 🍕 🍟 🍜 🍳 ☕ 🧋 🥤 🎧 🎤 🎹 🏆 🥇 🧗 🏋️ ⚽ 🏀 🏈 🚲 ✈️ 🛸 🌚 🌝 🌪️ 🌈 ☄️ 🌋 💥 ❗ ❓ ♻️ 🧬 🧫 🧮 🪙 💳 💰 🧰 🗜️ 🖱️ 🖨️ 🧑‍💻 🥷 🦾 🦿 👁️‍🗨️ 💌 🧸 🧷 🪤 🪜 🧹
+""".split())
+
+
+def _found_emojis(text: str) -> list[str]:
+    pattern = "|".join(
+        re.escape(item)
+        for item in sorted(set(EMOJI_TOKENS), key=len, reverse=True)
+    )
+    return re.findall(pattern, text)
+
+
+def _original_text_prompt(
+    source: dict,
+    format_memory: list[dict] | None = None,
+    emoji_count: int = 3,
+) -> str:
     recent_formats = format_memory[-12:] if format_memory else []
     memory_text = "\n".join(
         f"- format={item.get('format_name', '')}; mechanism={item.get('comedy_mechanism', '')}; signature={item.get('structure_signature', '')}"
@@ -736,7 +753,7 @@ Try unusual post shapes: one-line fake error, imaginary setting, strange rule, d
 Never imply a fictional scenario is a real event or real company announcement.
 No politics/current affairs, countries, nationalities, geopolitical geography, fabricated facts, @mentions, hashtags or URLs.
 No engagement bait like “repost this”, “thoughts?”, “agree?” or “let that sink in”.
-Include at least one fitting emoji; do not stack emojis mechanically. Caption maximum {ORIGINAL_POST_MAX_CHARS} characters.
+EMOJI RULE: the randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it genuinely improves the joke. Never repeat the same emoji token in one post. Make them feel like part of the punchline, not decoration. Caption maximum {ORIGINAL_POST_MAX_CHARS} characters.
 Make the line worth sharing because it is funny, not because it asks for engagement.
 
 RECENT FORMAT MEMORY:
@@ -745,7 +762,7 @@ RECENT FORMAT MEMORY:
 RETURN JSON ONLY:
 {{
   "should_post": true,
-  "post": "one original standalone post containing an emoji",
+  "post": "one original standalone post containing {emoji_count} distinct emojis",
   "angle": "why it might resonate",
   "target_handle": "",
   "target_name": "{topic}",
@@ -762,7 +779,8 @@ def generate_original_text(
     format_memory: list[dict] | None = None,
 ) -> OriginalDraft:
     format_memory = format_memory or []
-    prompt = _original_text_prompt(source, format_memory)
+    emoji_count = random.choices((2, 3, 4, 5), weights=(3, 3, 2, 1), k=1)[0]
+    prompt = _original_text_prompt(source, format_memory, emoji_count)
     cloudflare_error: GeminiError | None = None
 
     try:
@@ -772,7 +790,7 @@ def generate_original_text(
             try:
                 draft = _parse_original(raw)
                 if draft.should_post:
-                    drafts.append(_validate_original(draft, {}, include_handle=False))
+                    drafts.append(_validate_original(draft, {}, include_handle=False, minimum_emoji_count=emoji_count))
             except GeminiError as exc:
                 print(f"Cloudflare original text candidate rejected: {exc}")
         if drafts:
@@ -791,7 +809,7 @@ def generate_original_text(
 SAFETY RETRY:
 Generate a fresh original TEXT-ONLY X post. Do not create an image, chat transcript, thread or quote-post.
 No @mentions, countries, politics, hashtags, URLs, fabricated facts or engagement bait.
-Include one fitting emoji. Follow the JSON schema exactly.
+Include at least {emoji_count} distinct emojis and never repeat an emoji in one post. Follow the JSON schema exactly.
 """
     payload = {
         "contents": [{"parts": [{"text": fallback_prompt}]}],
@@ -809,7 +827,7 @@ Include one fitting emoji. Follow the JSON schema exactly.
                 "contents": [{"parts": [{"text": fallback_prompt + " Make it more specific, stranger and tighter; avoid all previous structures."}]}],
             }
             draft = _parse_original(_extract_text(_post_json(retry_payload)))
-            return _validate_original(draft, {}, include_handle=False)
+            return _validate_original(draft, {}, include_handle=False, minimum_emoji_count=emoji_count)
         except GeminiError as exc:
             last_error = exc
             print(f"Gemini original text candidate rejected ({attempt}/2): {exc}")
@@ -822,6 +840,7 @@ def _validate_original(
     draft: OriginalDraft,
     target: dict,
     include_handle: bool = True,
+    minimum_emoji_count: int | None = None,
 ) -> OriginalDraft:
     if not draft.should_post:
         return draft
@@ -841,9 +860,21 @@ def _validate_original(
             raise GeminiError("Company-original contains an extra @mention.")
     elif mentions:
         raise GeminiError("Automated standalone original must not contain @mentions.")
+
+    required_emoji_count = (
+        minimum_emoji_count
+        if minimum_emoji_count is not None
+        else (1 if include_handle else 2)
+    )
+    emojis = _found_emojis(post)
+    if len(emojis) < required_emoji_count:
+        raise GeminiError(
+            f"Generated original post must include at least {required_emoji_count} distinct emojis."
+        )
+    if len(emojis) != len(set(emojis)):
+        raise GeminiError("Generated original post repeats an emoji; use distinct emojis only.")
+
     lowered = post.lower()
-    if not any(emoji in post for emoji in ("😂", "🤣", "😭", "💀", "🫠", "🤝", "🫡", "👀", "😮‍💨", "🗿", "😔", "🥲", "🥹", "✨", "🧎", "🫥", "🤨", "😹", "🧠", "🚗", "🎮", "🛠️", "🫵", "🤡", "😎", "🔥", "💸", "🤑", "🚀", "🧍", "🫣", "🤦", "🤖", "💅", "📉", "📈", "✅", "🛒", "🫡", "🥶", "😈", "🙃", "😵", "😵‍💫", "🤯", "🙏", "🧃", "🐐", "👾", "⚡", "🎯")):
-        raise GeminiError("Generated original post must include at least one emoji.")
     if "#" in post or "http://" in lowered or "https://" in lowered:
         raise GeminiError("Company-original must not use hashtags or links.")
     if contains_blocked_country_term(lowered):
@@ -857,8 +888,6 @@ def _validate_original(
     draft.target_handle = handle
     draft.target_name = str(target.get("name", "")).strip()
     return draft
-
-
 def _pick_best_original(drafts: list[OriginalDraft], format_memory: list[dict]) -> OriginalDraft:
     recent_names = {str(x.get("format_name", "")).strip().lower() for x in format_memory[-12:] if isinstance(x, dict)}
     recent_text = " ".join(
