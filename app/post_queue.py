@@ -463,6 +463,7 @@ def _ensure_company_manual_posts(state: dict) -> bool:
         lab.append(
             {
                 "format_name": draft.format_name or "unnamed company format",
+                "post_text": text,
                 "comedy_mechanism": draft.comedy_mechanism,
                 "hook_type": draft.hook_type,
                 "structure_signature": draft.structure_signature,
@@ -519,6 +520,16 @@ async def _ensure_trend_manual_posts(state: dict, client: Client) -> bool:
         int(state.get("trend_manual_post_count", 0)) < TREND_MANUAL_POSTS_PER_DAY
         and int(state.get("daily_count", 0)) < POSTS_PER_DAY
     ):
+        remaining_trend_drafts = TREND_MANUAL_POSTS_PER_DAY - int(state.get("trend_manual_post_count", 0))
+        remaining_generations = AI_GENERATIONS_PER_DAY - int(state.get("ai_call_count", 0))
+        if remaining_generations < remaining_trend_drafts:
+            print(
+                "Waiting until the next daily generation budget to complete all four "
+                "trend-grounded manual drafts without breaking the 20-generation cap."
+            )
+            _write_trend_manual_posts(state)
+            _save_state(state)
+            return False
         if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
             print("AI generation budget reached before all trend-grounded drafts were prepared.")
             _write_trend_manual_posts(state)
