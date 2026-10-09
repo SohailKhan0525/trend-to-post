@@ -381,12 +381,12 @@ def _company_prompt(target: dict, format_memory: list[dict] | None = None) -> st
         "product_roast_with_a_condition",
     ))
     hook_instructions = {
-        "ridiculous_purchase_condition": "Make a playful fake buying condition: ‘I'll buy [product] if you [ridiculous, harmless thing].’",
-        "absurd_brand_bargain": "Offer the company a wildly disproportionate but harmless bargain involving a recognizable product.",
-        "specific_product_ultimatum": "Make a mock-serious ultimatum about one specific product feature or behaviour.",
-        "chaotic_feature_request": "Demand an oddly specific feature that sounds unnecessary but is instantly understandable.",
-        "dramatic_fan_offer": "Act like a dramatic prospective customer offering a ridiculous condition for becoming a buyer.",
-        "product_roast_with_a_condition": "Tease a recognizable product experience, then end with a playful condition or demand.",
+        "ridiculous_purchase_condition": "Write a mock-serious ‘I'll buy [product] if you…’ joke. A playful repost condition is permitted, but make the wording fresh and absurd.",
+        "absurd_brand_bargain": "Offer a wildly disproportionate but harmless bargain tied to a recognizable product.",
+        "specific_product_ultimatum": "Make a mock-serious ultimatum about this product, with a funny condition attached.",
+        "chaotic_feature_request": "Demand an oddly specific feature that sounds unnecessary, and tie it to a silly bargain if possible.",
+        "dramatic_fan_offer": "Act like a dramatic prospective buyer whose purchase hinges on one funny, harmless condition.",
+        "product_roast_with_a_condition": "Tease a recognizable product experience, then make an absurd conditional offer to the brand.",
     }[hook_type]
 
     return f"""You write TEXT-ONLY company-tag posts for a human to publish manually on X.
