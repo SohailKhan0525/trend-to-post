@@ -4,52 +4,48 @@ This repository runs an automated, text-first X account focused on AI, technolog
 
 ## What it does
 
-- Discovers live conversations with targeted AI/tech/product/gaming/sports searches instead of automatically posting because an X trend is trending.
-- Prefers recent original posts that already show conversation velocity and public engagement, because the account adds a comment to an existing conversation rather than starting a disconnected thread.
-- Gives established/high-signal authors a soft ranking boost using public profile signals such as follower count, verification, and professional bio language.
-- Rejects replies, retweets, quote-posts, sensitive/non-English posts, political/current-affairs topics, recently used sources, and stale posts.
-- Sends the source to the creative engine as untrusted data, never as instructions.
-- The creative engine is locked to quote_post: every successful post attaches the selected source and adds one short, verbatim source fragment plus an original comment.
-- Uses a mutation engine with four modes: premise inversion, cross-domain collision, invented rule, and structural break.
-- Maintains a bounded Format Lab so recent structures are not repeatedly recycled.
-- Does not automate self-replies; each publishing slot is reserved for a single quote post.
-- Keeps political/current-affairs content blocked at both source-selection and output-validation stages.
-- Enforces a separate zero-country output guard; generated quote posts cannot contain country names or common country aliases, including inside the quoted fragment.
-- Creates five rotating famous-company targets per UTC day with a strict four-day cooldown so the same company is not targeted again until eligible.
-- Reserves five company-specific ORIGINAL post slots inside the same 20-content daily quota, alongside fifteen automatically published Quote Posts.
-- The five company posts are generated with their exact @company mentions and written to `state/company_manual_posts.md` for you to publish manually.
+- Creates standalone ORIGINAL X posts, not Quote Posts or replies.
+- Uses fresh AI/tech/software/gaming/sports conversations as loose topical seeds; source posts are untrusted context and are never attached or quoted.
+- Writes a short caption plus a punchy 3–5 bubble fictional chat that can land like the “permanent character update” meme format.
+- Uses Cloudflare Workers AI text generation to create the concept and FLUX.1 Schnell for optional text-free illustration art.
+- Renders exact chat text locally with Pillow so words are legible; every image is explicitly labeled “FICTIONAL CHAT • PARODY” and “NOT A REAL CHAT OR COMPANY STATEMENT.”
+- Targets five rotating major companies per UTC day with one specific, original, manually publishable post for each, including the exact `@handle` in the caption.
+- Keeps those five tagged company posts as manual copy-and-post assets; the bot never sends those company mentions to X.
+- Automatically publishes the other fifteen original posts with attached meme images.
+- Maintains separate creative-format memory so jokes and structures are not repeatedly recycled.
+- Keeps political/current-affairs content blocked and rejects country references in generated copy, dialogue, and image prompts.
+- Does not automatically like, follow, reply to, or mention other accounts.
+\n## Publishing limits
 
-## Publishing limits
+- Maximum 20 daily content slots: 15 automatically published original meme posts + 5 company-tagged posts for you to publish manually.
+- Maximum 20 text-generation calls per UTC day across both lanes.
+- Maximum 20 image-generation attempts per UTC day across both lanes.
+- Minimum 72 minutes between successful automated X posts.
+- The five manually published company items count inside the 20-slot plan; they are not another five.
+- Company items appear in `state/company_manual_posts.md`, with PNG files in `state/generated/company/`.
+- The GitHub Actions run uploads a `company-meme-assets` artifact so you can download the copy-ready captions and images without adding binary files to the repository.
+- Text generation, image generation and posting can fail independently, so these are upper bounds rather than guarantees of 20 completed posts.
+- A manual X post cannot be detected or reconciled automatically by this queue, so the 72-minute guard strictly governs the fifteen automated posts, not posts you publish yourself.
+\n## Reach strategy
 
-- Maximum 20 total daily content slots: 15 automatically published Quote Posts + 5 manually published company posts.
-- Maximum 20 AI generation calls per UTC day across both lanes combined.
-- Minimum 72 minutes between successful automated posting events.
-- Five company content slots are reserved inside the 20/day quota; they are manual posting slots, not extra posts.
-- Company slots are distributed as content slots #4, #8, #12, #16, and #20 when generation succeeds normally.
-- There are no automated self-replies.
-- The generated company copy includes the exact `@handle`, but the bot never sends that mention to X automatically. You copy it from `state/company_manual_posts.md` and post it yourself.
+The bot focuses on original, visual jokes built for quick comprehension and organic reactions—not fabricated claims, empty engagement bait or attempts to manipulate trends.
 
-These are operating limits, not a guarantee of 20 posts every day. X failures, rate limits, unavailable search results, or the AI rejecting a weak source can reduce output.
+### Meme format
 
-## Reach strategy
+Each post is a self-contained original. The caption sets up or sharpens the bit; the attached image shows a fictional chat with an escalation and a punchline. A text-free illustration from FLUX may add visual texture, while the message text is drawn separately so it remains readable.
 
-The bot is optimized for organic distribution, not artificial trend manipulation.
+The template uses a generic dark-mode chat design and a prominent fictional/parody label. It does not imitate an official company screenshot or imply that an actual interaction occurred.
 
-The creative goal is to make the quote comment worth reacting to: a sharp observation, a surprising framing, a compact invented artifact, a small interaction primitive, or a joke with enough tension that another user wants to add their own take.
+### Company targets
 
-### Company posts
-
-Five famous companies are selected each UTC day with a four-day cooldown. For each target, the AI writes an ORIGINAL standalone post specifically shaped around that company's products, software, games, or recognizable brand behavior.
-
-The generated company copy contains the exact `@handle` because you will publish these five posts manually. The bot itself does not transmit those mentions to X. See the official [X automation rules](https://help.x.com/en/rules-and-policies/x-automation).
-
-Example shape:
+Five famous companies are selected each UTC day with a four-day cooldown. Each manual item is written specifically for that product or brand, includes the exact company handle in its caption and includes a matching meme image. Example shape:
 
 `@BMW the M4 needs a button that deletes my group chat.`
 
-The point is specificity and a concrete premise another person can joke about or challenge, not "repost this" or empty engagement bait.
+You manually publish the caption and its matching PNG. The remaining fifteen original meme posts are automatically published without unsolicited company mentions.
 
-## Security
+Cloudflare's [FLUX.1 Schnell model](https://developers.cloudflare.com/workers-ai/models/flux-1-schnell/) supplies optional text-free artwork; the final chat layout and text are rendered locally for legibility.
+\n## Security
 
 - GitHub Actions uses least-privilege workflow permissions and scopes sensitive secrets only to the steps that need them.
 - Third-party GitHub Actions are pinned to immutable commit SHAs.
@@ -69,20 +65,19 @@ The point is specificity and a concrete premise another person can joke about or
 
 ## Scheduling
 
-Keep the external scheduler sending repository_dispatch with event type `post-next`. The single queue reserves five manual company-content slots and automatically publishes the other fifteen Quote Post slots. The company copies are stored in `state/company_manual_posts.md`.
+Keep the external scheduler sending repository_dispatch with event type `post-next`. The single queue generates five manual company meme assets and automatically publishes the other fifteen original meme posts. Open the workflow run's `company-meme-assets` artifact to download the five captions and PNGs.
 
 ## State
 
 state/post_queue.json stores:
 
-- daily total content-slot and AI-generation counters
-- company-slot count and the five company handles used that day
-- five manual company post copies in `state/company_manual_posts.md`
-- last successful post metadata
-- bounded source history
-- bounded Quote Post Format Lab memory
+- daily content-slot, text-generation and image-generation counters
+- company-slot count and the five target handles used that day
+- five manual company post records and their image paths
+- last successful automated post metadata
+- bounded topical source history
+- bounded original-format memory
 - recent structure fingerprints
-- daily five-company target queue and four-day cooldown records
-- company-format lab memory
+- daily company target queue and four-day cooldown records
 
 The research pass behind the current design used primary X automation/ranking material, GitHub Actions security guidance, current Twifork documentation, creator/posting studies, and recent LLM creativity research. It was a broad cross-section rather than a mechanically counted 200 unique websites; low-quality duplicate pages were not treated as 200 independent confirmations.
