@@ -86,14 +86,14 @@ jobs:
         if: always() && steps.post_bot.outcome != 'skipped'
         shell: bash
         run: |
-          if test -z "$(git status --porcelain -- state/post_queue.json state/company_manual_posts.md)"; then
+          if test -z "$(git status --porcelain -- state/post_queue.json state/company_manual_posts.md state/trend_manual_posts.md)"; then
             echo "No state change."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state/post_queue.json state/company_manual_posts.md
+          git add state/post_queue.json state/company_manual_posts.md state/trend_manual_posts.md
           git commit -m "chore: update unified bot state"
 
           for attempt in 1 2 3 4 5; do
