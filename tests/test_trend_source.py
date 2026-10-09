@@ -16,7 +16,7 @@ class FakeXClient:
 
     async def search_tweet(self, query, search_type, count=20):
         self.searches.append(query)
-        return [self.tweet] if query == "NVIDIA RTX" else []
+        return [self.tweet] if query in {"NVIDIA RTX", "NVIDIA"} else []
 
 
 def make_tweet():
