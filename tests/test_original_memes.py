@@ -57,6 +57,14 @@ class OriginalTextValidationTests(unittest.TestCase):
                 maximum_emoji_count=5,
             )
 
+    def test_rejects_emoji_outside_allowlist(self) -> None:
+        with self.assertRaises(GeminiError):
+            _validate_original(
+                draft("software update is here 😭🔥🙂"),
+                {},
+                include_handle=False,
+            )
+
     def test_rejects_country_reference(self) -> None:
         with self.assertRaises(GeminiError):
             _validate_original(
