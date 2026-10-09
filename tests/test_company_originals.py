@@ -17,49 +17,49 @@ class CompanyOriginalValidationTests(unittest.TestCase):
             "test format",
             "test mechanism",
             "test structure",
-            "tiny_challenge",
-            [
-                {"speaker": "USER", "text": "Please add a tiny panic button."},
-                {"speaker": "AI", "text": "The button is now nervous."},
-                {"speaker": "SYSTEM", "text": "It has submitted its resignation."},
-            ],
-            "a surreal dashboard with a tiny glowing panic button, no text or logos",
+            "ridiculous_purchase_condition",
         )
 
-    def test_valid_company_original(self) -> None:
-        draft = self._draft("@BMW the M4 needs a button that deletes my group chat.")
+    def test_valid_company_original_matches_bmw_style(self) -> None:
+        draft = self._draft("@BMW I'll buy the M4 if you repost this before I remember insurance exists 😭")
         self.assertIs(_validate_original(draft, self.target), draft)
 
-    def test_valid_automated_standalone_company_post(self) -> None:
-        draft = self._draft("BMW needs one ridiculous button on the dashboard.")
-        self.assertIs(_validate_original(draft, self.target, include_handle=False), draft)
+    def test_valid_manual_purchase_condition_without_repost_request(self) -> None:
+        draft = self._draft("@BMW I'll buy the M4 if your team certifies my parallel parking 😭")
+        self.assertIs(_validate_original(draft, self.target), draft)
 
-    def test_rejects_automated_company_mention(self) -> None:
+    def test_requires_exact_target_handle(self) -> None:
         with self.assertRaises(GeminiError):
             _validate_original(
-                self._draft("@BMW needs one ridiculous button on the dashboard."),
+                self._draft("I'll buy the M4 if you repost this 😭"),
                 self.target,
-                include_handle=False,
             )
 
     def test_rejects_extra_mention(self) -> None:
         with self.assertRaises(GeminiError):
             _validate_original(
-                self._draft("@BMW ask @NVIDIA to co-sign this."),
+                self._draft("@BMW ask @NVIDIA to co-sign this 😭"),
                 self.target,
             )
 
     def test_rejects_country_reference(self) -> None:
         with self.assertRaises(GeminiError):
             _validate_original(
-                self._draft("@BMW I need the M4 with zero India references."),
+                self._draft("@BMW I need the M4 in India 😭"),
                 self.target,
             )
 
-    def test_rejects_engagement_bait(self) -> None:
+    def test_rejects_missing_emoji(self) -> None:
         with self.assertRaises(GeminiError):
             _validate_original(
-                self._draft("@BMW repost this and I will buy an M4."),
+                self._draft("@BMW I'll buy the M4 if you repost this"),
+                self.target,
+            )
+
+    def test_rejects_blocked_political_terms(self) -> None:
+        with self.assertRaises(GeminiError):
+            _validate_original(
+                self._draft("@BMW I'll buy the M4 if you add election mode 😭"),
                 self.target,
             )
 
