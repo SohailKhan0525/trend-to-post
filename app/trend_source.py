@@ -333,9 +333,14 @@ def _build_source(
     )
 
 
-async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -> SourceTweet:
+async def find_trending_source(
+    client: Client,
+    used_source_ids: Iterable[str],
+    excluded_trend_names: Iterable[str] = (),
+) -> SourceTweet:
     """Find an allowed recent X conversation, preferring eligible official Trends topics."""
     used_ids = {str(value).strip() for value in used_source_ids if str(value).strip()}
+    excluded_names = {" ".join(str(value).casefold().split()) for value in excluded_trend_names if str(value).strip()}
     now = datetime.now(timezone.utc)
 
     trend_queries: list[tuple[str, int, str]] = []
@@ -345,7 +350,11 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
             live_trends = await get_trends("trending", count=50, retry=False)
             for item in live_trends or []:
                 name = str(getattr(item, "name", "") or "").strip()
-                if not name or not _topic_allowed(name, name):
+                if (
+                    not name
+                    or " ".join(name.casefold().split()) in excluded_names
+                    or not _topic_allowed(name, name)
+                ):
                     continue
                 volume = _as_int(getattr(item, "tweets_count", 0))
                 trend_queries.append((name, volume, "x_trend"))
@@ -354,9 +363,17 @@ async def find_trending_source(client: Client, used_source_ids: Iterable[str]) -
             print(f"Official X Trends unavailable; using recent topical X searches: {exc}")
 
     rotation = int(now.timestamp() // 3600) % len(SIGNAL_SEARCHES)
+    available_fallbacks = [
+        SIGNAL_SEARCHES[(rotation + offset) % len(SIGNAL_SEARCHES)]
+        for offset in range(len(SIGNAL_SEARCHES))
+        if " ".join(SIGNAL_SEARCHES[(rotation + offset) % len(SIGNAL_SEARCHES)].casefold().split())
+        not in excluded_names
+    ]
+    if not available_fallbacks:
+        available_fallbacks = list(SIGNAL_SEARCHES)
     fallback_queries = [
-        (SIGNAL_SEARCHES[(rotation + offset) % len(SIGNAL_SEARCHES)], 0, "x_top_search")
-        for offset in range(SEARCHES_PER_RUN)
+        (query, 0, "x_top_search")
+        for query in available_fallbacks[:SEARCHES_PER_RUN]
     ]
     batches: list[list[tuple[str, int, str]]] = []
     if trend_queries:
