@@ -1,4 +1,4 @@
-name: Post X Originals
+name: Post X Text Originals
 
 on:
   workflow_dispatch:
@@ -81,17 +81,6 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: python -m app post
-
-      - name: Upload company meme assets
-        if: always() && steps.post_bot.outcome != 'skipped'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: company-meme-assets
-          path: |
-            state/company_manual_posts.md
-            state/generated/company/
-          if-no-files-found: warn
-          retention-days: 7
 
       - name: Commit bot state
         if: always() && steps.post_bot.outcome != 'skipped'
