@@ -565,6 +565,7 @@ def _validate_quote_against_source(
     source: dict,
     minimum_emoji_count: int = 2,
     maximum_emoji_count: int = 5,
+    format_memory: list[dict] | None = None,
 ) -> QuoteDraft:
     if not draft.should_quote:
         return draft
@@ -642,6 +643,45 @@ def _validate_quote_against_source(
         raise GeminiError("Generated post used generic engagement or corporate phrasing.")
     if not draft.structure_signature:
         raise GeminiError("Generated post did not provide a structure signature.")
+
+    recent_formats = [
+        item for item in (format_memory or [])[-12:]
+        if isinstance(item, dict)
+    ]
+    normalized_name = " ".join(draft.format_name.casefold().split())
+    normalized_signature = " ".join(draft.structure_signature.casefold().split())
+    authored_comment = re.sub(r'["“‘][^"”’]*["”’]', "", text).casefold()
+    current_post_words = set(re.findall(r"[a-z0-9]+", authored_comment))
+    current_signature_words = set(re.findall(r"[a-z0-9]+", normalized_signature))
+    ignored_signature_words = {
+        "with", "from", "that", "this", "then", "when", "your", "post",
+        "quote", "ends", "ending", "followed", "and", "source",
+    }
+    for item in recent_formats:
+        old_name = " ".join(str(item.get("format_name", "")).casefold().split())
+        old_signature = " ".join(str(item.get("structure_signature", "")).casefold().split())
+        if normalized_name and old_name == normalized_name:
+            raise GeminiError("Generated quote-post repeats a recent format name.")
+        if normalized_signature and old_signature == normalized_signature:
+            raise GeminiError("Generated quote-post repeats a recent structure signature.")
+
+        old_signature_words = set(re.findall(r"[a-z0-9]+", old_signature))
+        left = current_signature_words - ignored_signature_words
+        right = old_signature_words - ignored_signature_words
+        if len(left) >= 4 and len(right) >= 4:
+            overlap = len(left & right) / max(1, len(left | right))
+            if overlap >= 0.78:
+                raise GeminiError("Generated quote-post is too structurally similar to a recent post.")
+
+        old_comment = re.sub(
+            r'["“‘][^"”’]*["”’]', "",
+            str(item.get("post_text", "")).casefold(),
+        )
+        old_post_words = set(re.findall(r"[a-z0-9]+", old_comment))
+        if len(current_post_words | old_post_words) >= 8:
+            overlap = len(current_post_words & old_post_words) / len(current_post_words | old_post_words)
+            if overlap >= 0.82:
+                raise GeminiError("Generated quote-post is a near-duplicate of a recent post.")
 
     return draft
 
@@ -1163,7 +1203,7 @@ def generate_quote(source: dict, format_memory: list[dict] | None = None) -> Quo
                 draft = _repair_missing_source_quote(draft, source)
                 if not draft.quote_text:
                     continue
-                drafts.append(_validate_quote_against_source(draft, source, emoji_count, emoji_count + 1))
+                drafts.append(_validate_quote_against_source(draft, source, emoji_count, emoji_count + 1, format_memory))
             except GeminiError as exc:
                 rejected_candidates += 1
                 print(f"Cloudflare candidate rejected: {exc}")
@@ -1216,7 +1256,7 @@ reply-worthy. Never generate a standalone post or self-reply. Use only 👀 🔥
                 retry_payload["contents"] = [{"parts": [{"text": fallback_prompt + safety_suffix}]}]
             draft = _parse_experiment(_extract_text(_post_json(retry_payload)))
             draft = _repair_missing_source_quote(draft, source)
-            return _validate_quote_against_source(draft, source, emoji_count, emoji_count + 1)
+            return _validate_quote_against_source(draft, source, emoji_count, emoji_count + 1, format_memory)
         except GeminiError as exc:
             last_error = exc
             print(f"Gemini candidate rejected ({attempt}/2): {exc}")
