@@ -77,11 +77,18 @@ class QuoteDraft:
 
 
 class OriginalDraft:
-    __slots__ = ("should_post", "post_text", "angle", "target_handle", "target_name", "format_name", "comedy_mechanism", "structure_signature", "hook_type")
+    __slots__ = (
+        "should_post", "post_text", "angle", "target_handle", "target_name",
+        "format_name", "comedy_mechanism", "structure_signature", "hook_type",
+        "conversation", "image_prompt",
+    )
 
-    def __init__(self, should_post: bool, post_text: str, angle: str, target_handle: str,
-                 target_name: str, format_name: str = "", comedy_mechanism: str = "",
-                 structure_signature: str = "", hook_type: str = "") -> None:
+    def __init__(
+        self, should_post: bool, post_text: str, angle: str, target_handle: str,
+        target_name: str, format_name: str = "", comedy_mechanism: str = "",
+        structure_signature: str = "", hook_type: str = "",
+        conversation: list[dict] | None = None, image_prompt: str = "",
+    ) -> None:
         self.should_post = should_post
         self.post_text = post_text
         self.angle = angle
@@ -91,7 +98,8 @@ class OriginalDraft:
         self.comedy_mechanism = comedy_mechanism
         self.structure_signature = structure_signature
         self.hook_type = hook_type
-
+        self.conversation = conversation or []
+        self.image_prompt = image_prompt
 
 
 def _api_keys() -> list[str]:
@@ -433,6 +441,8 @@ STRICT RULES:
 - No fabricated facts.
 - No corporate social-media-manager voice.
 - Maximum {ORIGINAL_POST_MAX_CHARS} characters.
+- Create 3–5 short fictional chat bubbles that end in a strong punchline. Use only USER, AI, SUPPORT, SYSTEM, ERROR, PLAYER, DEV, GAME as speaker labels. This is parody, not an alleged real transcript.
+- Create a text-free, logo-free image_prompt for an illustration that visually supports the joke. The renderer adds all readable text.
 
 RECENT COMPANY FORMAT LAB:
 {memory_text}
@@ -447,7 +457,13 @@ RETURN JSON ONLY:
   "hook_type": "{hook_type}",
   "format_name": "a genuinely new short format name",
   "comedy_mechanism": "one-line explanation",
-  "structure_signature": "compact description of the structure"
+  "structure_signature": "compact description of the structure",
+  "conversation": [
+    {{"speaker": "USER", "text": "short message"}},
+    {{"speaker": "AI", "text": "funny escalation"}},
+    {{"speaker": "SYSTEM", "text": "punchline"}}
+  ],
+  "image_prompt": "text-free, logo-free illustration prompt"
 }}
 """
 
@@ -732,16 +748,16 @@ def _validate_original(
         raise GeminiError("Generated company-original is empty.")
     if len(post) > ORIGINAL_POST_MAX_CHARS:
         raise GeminiError("Generated company-original is too long.")
-    if not handle or not handle.startswith("@"):
-        raise GeminiError("Company target handle is invalid.")
     mentions = re.findall(r"@[A-Za-z0-9_]+", post)
     if include_handle:
+        if not handle or not handle.startswith("@"):
+            raise GeminiError("Company target handle is invalid.")
         if post.count(handle) != 1:
             raise GeminiError("Company-original must contain the target handle exactly once.")
         if mentions != [handle]:
             raise GeminiError("Company-original contains an extra @mention.")
     elif mentions:
-        raise GeminiError("Automated standalone company post must not contain @mentions.")
+        raise GeminiError("Automated standalone original must not contain @mentions.")
     lowered = post.lower()
     if "#" in post or "http://" in lowered or "https://" in lowered:
         raise GeminiError("Company-original must not use hashtags or links.")
@@ -949,6 +965,16 @@ def _parse_original(text: str) -> OriginalDraft:
     if isinstance(should_post, str):
         should_post = should_post.strip().lower() in {"true", "1", "yes"}
 
+    raw_conversation = data.get("conversation", [])
+    conversation = []
+    if isinstance(raw_conversation, list):
+        for item in raw_conversation:
+            if isinstance(item, dict):
+                conversation.append({
+                    "speaker": str(item.get("speaker", "") or "").strip().upper(),
+                    "text": str(item.get("text", "") or "").strip(),
+                })
+
     return OriginalDraft(
         bool(should_post),
         str(data.get("post", "") or "").strip(),
@@ -959,6 +985,8 @@ def _parse_original(text: str) -> OriginalDraft:
         str(data.get("comedy_mechanism", "") or "").strip(),
         str(data.get("structure_signature", "") or "").strip(),
         str(data.get("hook_type", "") or "").strip(),
+        conversation,
+        str(data.get("image_prompt", "") or "").strip(),
     )
 
 
