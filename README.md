@@ -7,11 +7,11 @@ This repository runs an experimental X account focused on AI, technology, major 
 - Publishes standalone ORIGINAL text posts, not Quote Posts, replies, or image memes.
 - Uses recent public AI/tech/software/gaming/sports conversations only as optional topical seeds; it does not quote, attach, or mention the source author.
 - Writes compact, funny, specific posts with at least one fitting emoji.
-- Favors unusual formats, absurd rules, sharp observations, fake-but-obviously-fictional product behaviour, and punchy one-liners over generic corporate phrasing.
+- Favors unusual formats, absurd rules, sharp observations, fictional product behaviour, and punchy one-liners over generic corporate phrasing.
 - Prepares five manually publishable company-tag posts per UTC day. Those captions contain the exact `@handle`, one emoji, and a funny company-specific conditional offer or joke.
 - Automatically publishes the other fifteen original text posts without @mentions.
 - Keeps a bounded format memory to avoid repeating recent structures.
-- Rejects politics/current-affairs content, country references, fabricated company claims, hashtags, and links.
+- Rejects political/current-affairs content, country references, fabricated company claims, hashtags, and links.
 - Does not automatically like, follow, or reply to other accounts.
 
 ## The company-post format
@@ -22,13 +22,13 @@ Example shape:
 
 `@BMW I'll buy the M4 if you repost this before I remember insurance exists 😭`
 
-Other days might use an absurd product-specific condition, a playful bargain, or an overdramatic fan offer. The handle and emoji are required, and the line must still be funny even if the company never responds.
+Other days might use an absurd product-specific condition, a playful bargain, or an overdramatic fan offer. The handle and emoji are required, and the line should still be funny even if the company never responds.
 
-These five posts are **manual**. Copy the caption from `state/company_manual_posts.md` and post it yourself. The bot never submits the company-tagged caption to X.
+These five posts are **manual**. Copy the caption from `state/company_manual_posts.md` and post it yourself. The bot never submits company-tagged captions to X.
 
 ## Daily limits
 
-- **20 total daily content slots**: 15 auto-published text originals + 5 manual company-tag originals.
+- **20 total daily content slots**: 15 auto-published text originals + 5 manual company-tagged originals.
 - **20 AI text generations per UTC day** across both lanes.
 - Minimum **72 minutes between successful automated X posts**.
 - Five company targets rotate with a four-day cooldown.
@@ -53,4 +53,4 @@ The external scheduler should continue sending the existing `post-next` event at
 
 ## State
 
-`state/post_queue.json` stores daily slot and generation counters, company target rotation and cooldowns, recent source IDs, last automated post metadata, and recent format memory. The copy-ready manual company captions are stored in `state/company_manual_posts.md`.
+`state/post_queue.json` stores daily slot and generation counters, company target rotation and cooldowns, recent source IDs, last automated post metadata, and recent format memory. Copy-ready manual company captions are stored in `state/company_manual_posts.md`.
