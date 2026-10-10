@@ -10,10 +10,17 @@ from twikit import Client
 
 from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
 from .gemini import COMPANY_HOOK_TYPES, GeminiError, generate_company_original, generate_original_text, generate_quote
+from .person_images import (
+    PersonImageError,
+    attribution_reply,
+    download_image_bytes,
+    find_licensed_person_image,
+)
 from .trend_source import (
     SOURCE_HISTORY_LIMIT,
     SourceTweet,
     TrendSourceError,
+    find_ai_tech_source,
     find_official_brand_source,
 )
 
