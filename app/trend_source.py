@@ -578,6 +578,27 @@ async def find_official_brand_source(
 
 
 
+# A source must contain a concrete AI/technology signal in its own text;
+# broad legacy topic keywords (sports, entertainment, etc.) are insufficient.
+AI_TECH_TOPIC_KEYWORDS = (
+    "artificial intelligence", "machine learning", "large language model",
+    "foundation model", "chatgpt", "openai", "claude", "anthropic", "gemini",
+    "deepmind", "llm", "llms", "copilot", "ai", "software", "developer tools",
+    "coding", "programming", "github", "cloud computing", "cloud", "data center",
+    "gpu", "cpu", "graphics card", "processor", "semiconductor", "chip",
+    "api", "open source", "robotics", "neural network", "inference",
+    "cybersecurity", "cyber security", "microsoft", "nvidia", "amd", "intel",
+    "apple", "google", "meta", "aws", "azure", "android", "iphone", "macbook",
+    "software engineering", "database", "python", "javascript", "linux",
+)
+
+
+def _ai_tech_topic_allowed(text: str) -> bool:
+    if not text or any(_keyword_matches(text, term) for term in BLOCKED_TOPIC_KEYWORDS):
+        return False
+    return any(_keyword_matches(text, term) for term in AI_TECH_TOPIC_KEYWORDS)
+
+
 # This lane discovers text-only AI/technology conversation through direct
 # keyword searches. It intentionally never reads X's Trending Topics endpoint.
 AI_TECH_SIGNAL_SEARCHES = (
@@ -639,7 +660,7 @@ async def find_ai_tech_source(
             if getattr(tweet, "media", None):
                 continue
             text = str(getattr(tweet, "text", "") or "").strip()
-            if not _topic_allowed("", text):
+            if not _ai_tech_topic_allowed(text):
                 continue
             if not _is_candidate(tweet, now, used_ids, query, require_views=False):
                 continue
