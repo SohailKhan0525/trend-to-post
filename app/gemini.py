@@ -575,7 +575,7 @@ def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
 
 
 def _normalize_quote_emojis(draft: QuoteDraft, emoji_count: int) -> QuoteDraft:
-    """Keep only distinct approved emoji tokens and fill the requested count."""
+    """Keep one source fragment intact while normalizing distinct approved emojis."""
     if not draft.should_quote or not draft.quote_text.strip():
         return draft
 
@@ -584,21 +584,30 @@ def _normalize_quote_emojis(draft: QuoteDraft, emoji_count: int) -> QuoteDraft:
         if token not in found and len(found) < emoji_count:
             found.append(token)
 
+    # The quote fragment is canonicalized by _repair_missing_source_quote.
+    # Keep it aside while trimming so a long model answer cannot cut it off.
+    match = re.search(r'"([^"\\n]+)"', draft.quote_text)
+    quoted_fragment = f'"{match.group(1)}"' if match else ""
+    body = draft.quote_text
+    if match:
+        body = body[:match.start()] + " " + body[match.end():]
+
     pattern = "|".join(
         re.escape(item) for item in sorted(EMOJI_TOKENS, key=len, reverse=True)
     )
-    text = re.sub(pattern, " ", draft.quote_text)
-    text = EMOJI_CHAR_PATTERN.sub("", text)
-    text = re.sub(r"[\u200d\ufe0e\ufe0f\u20e3]", "", text)
-    text = re.sub(r"\s+", " ", text).strip()
+    body = re.sub(pattern, " ", body)
+    body = EMOJI_CHAR_PATTERN.sub("", body)
+    body = re.sub(r"[\u200d\ufe0e\ufe0f\u20e3]", "", body)
+    body = re.sub(r"\s+", " ", body).strip()
 
     remaining = [item for item in EMOJI_TOKENS if item not in found]
     random.shuffle(remaining)
     found.extend(remaining[: max(0, emoji_count - len(found))])
     emoji_suffix = " ".join(found[:emoji_count])
-    budget = max(0, MAX_POST_CHARS - len(emoji_suffix) - (1 if text else 0))
-    text = text[:budget].rstrip()
-    text = f"{text} {emoji_suffix}".strip()
+    fixed_suffix = " ".join(part for part in (quoted_fragment, emoji_suffix) if part)
+    budget = max(0, MAX_POST_CHARS - len(fixed_suffix) - (1 if body else 0))
+    body = body[:budget].rstrip()
+    text = " ".join(part for part in (body, fixed_suffix) if part).strip()
 
     return QuoteDraft(
         draft.should_quote, text, draft.angle, draft.format_name,
