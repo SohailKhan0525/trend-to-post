@@ -99,7 +99,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("Never repeat an emoji token", prompt)
 
     def test_person_prompt_rejects_long_caption(self) -> None:
-        long_caption = "This is a very long description of a person and the entire story goes on and on without getting to the point 👀💀"
+        long_caption = "This is an unnecessarily long photo caption with a lot of extra words that continues explaining the setup instead of getting to the funny question and keeps going even after the point is already clear to every reader 👀💀"
         with self.assertRaisesRegex(GeminiError, "no longer than 120 characters"):
             _validate_original(
                 draft(long_caption),
