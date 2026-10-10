@@ -498,7 +498,9 @@ def _quote_options(source_text: str, limit: int = 6) -> list[str]:
                 continue
             if EMOJI_CHAR_PATTERN.search(fragment):
                 continue
-            if contains_blocked_country_term(fragment):
+            if any(mark in fragment for mark in ('"', "“", "”", "‘", "’")):
+                continue
+            if contains_blocked_country_term(fragment) or _contains_blocked_output_term(fragment):
                 continue
             window = tokens[index : index + width]
             if any(
@@ -546,28 +548,61 @@ def _source_fragment(source_text: str) -> str | None:
 
 
 def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
-    if not draft.should_quote or draft.content_type != "quote_post":
+    """Enforce exactly one safe, verbatim source fragment before validation.
+
+    Do not trust a model-supplied quote_fragment: it can be invented, contain
+    nested quotation marks, or make the validator misread the real source quote.
+    The source is attached by the caller, so the normalizer owns this fragment.
+    """
+    if not draft.should_quote or not draft.quote_text.strip():
         return draft
-    if not draft.quote_text:
-        return QuoteDraft(False, "", draft.angle)
 
     fragment = _source_fragment(str(source["text"]))
     if not fragment:
         return QuoteDraft(False, "", draft.angle)
 
-    text = draft.quote_text.strip()
-    quoted = f'"{fragment}"'
-    if quoted not in text and f"“{fragment}”" not in text and f"‘{fragment}’" not in text:
-        text = f'{text} "{fragment}"'.strip()
-
-    if len(text) > MAX_POST_CHARS:
-        suffix = f' "{fragment}"'
-        budget = max(0, MAX_POST_CHARS - len(suffix))
-        text = f"{text[:budget].rstrip()}{suffix}".strip()
+    # Remove model-provided quote punctuation and append one canonical fragment.
+    text = re.sub(r'["“”‘’]', "", draft.quote_text).strip()
+    text = re.sub(r"\s+", " ", text)
+    suffix = f' "{fragment}"'
+    budget = max(0, MAX_POST_CHARS - len(suffix))
+    text = f"{text[:budget].rstrip()}{suffix}".strip()
 
     return QuoteDraft(
         True, text, draft.angle, draft.format_name, draft.comedy_mechanism,
-        draft.self_reply, draft.use_self_reply, draft.content_type,
+        "", False, "quote_post", draft.mutation_stage, draft.structure_signature,
+    )
+
+
+def _normalize_quote_emojis(draft: QuoteDraft, emoji_count: int) -> QuoteDraft:
+    """Keep only distinct approved emoji tokens and fill the requested count."""
+    if not draft.should_quote or not draft.quote_text.strip():
+        return draft
+
+    found: list[str] = []
+    for token in _found_emojis(draft.quote_text):
+        if token not in found and len(found) < emoji_count:
+            found.append(token)
+
+    pattern = "|".join(
+        re.escape(item) for item in sorted(EMOJI_TOKENS, key=len, reverse=True)
+    )
+    text = re.sub(pattern, " ", draft.quote_text)
+    text = EMOJI_CHAR_PATTERN.sub("", text)
+    text = re.sub(r"[\u200d\ufe0e\ufe0f\u20e3]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+
+    remaining = [item for item in EMOJI_TOKENS if item not in found]
+    random.shuffle(remaining)
+    found.extend(remaining[: max(0, emoji_count - len(found))])
+    emoji_suffix = " ".join(found[:emoji_count])
+    budget = max(0, MAX_POST_CHARS - len(emoji_suffix) - (1 if text else 0))
+    text = text[:budget].rstrip()
+    text = f"{text} {emoji_suffix}".strip()
+
+    return QuoteDraft(
+        draft.should_quote, text, draft.angle, draft.format_name,
+        draft.comedy_mechanism, "", False, "quote_post",
         draft.mutation_stage, draft.structure_signature,
     )
 
@@ -1250,6 +1285,7 @@ def generate_quote(
                 draft = _repair_missing_source_quote(draft, source)
                 if not draft.quote_text:
                     continue
+                draft = _normalize_quote_emojis(draft, emoji_count)
                 drafts.append(_validate_quote_against_source(draft, source, emoji_count, emoji_count + 1, format_memory))
             except GeminiError as exc:
                 rejected_candidates += 1
@@ -1309,6 +1345,7 @@ distinct emojis and no repeats. Do not add @mentions, hashtags, or URLs.
                 retry_payload["contents"] = [{"parts": [{"text": fallback_prompt + safety_suffix}]}]
             draft = _parse_experiment(_extract_text(_post_json(retry_payload)))
             draft = _repair_missing_source_quote(draft, source)
+            draft = _normalize_quote_emojis(draft, emoji_count)
             return _validate_quote_against_source(draft, source, emoji_count, emoji_count + 1, format_memory)
         except GeminiError as exc:
             last_error = exc
@@ -1382,9 +1419,9 @@ def _parse_experiment(text: str) -> QuoteDraft:
     if isinstance(should_post, str):
         should_post = should_post.strip().lower() in {"true", "1", "yes"}
 
-    content_type = str(data.get("content_type", "quote_post")).strip().lower()
-    if content_type not in {"quote_post", "original_post"}:
-        content_type = "quote_post"
+    # The publishing call always attaches an X source URL; treat the authored
+    # text as a quote-post comment even if the model mislabels its JSON output.
+    content_type = "quote_post"
 
     post = data.get("post")
     if post is None:
@@ -1398,17 +1435,6 @@ def _parse_experiment(text: str) -> QuoteDraft:
     structure_signature = str(data.get("structure_signature", "") or "").strip()
     self_reply = ""
     use_self_reply = False
-
-    if content_type == "quote_post" and quote_fragment and post:
-        # If the model supplied the fragment separately but omitted quotation
-        # marks in the post, preserve the requested quote-post contract.
-        quoted_forms = (
-            f'"{quote_fragment}"',
-            f"“{quote_fragment}”",
-            f"‘{quote_fragment}’",
-        )
-        if not any(form in post for form in quoted_forms):
-            post = f'{post} "{quote_fragment}"'.strip()
 
     return QuoteDraft(
         bool(should_post),
@@ -1460,6 +1486,7 @@ def _cloudflare_candidates(prompt: str) -> list[str]:
         ],
         "n": CLOUDFLARE_CANDIDATE_COUNT,
         "max_completion_tokens": 600,
+        "chat_template_kwargs": {"enable_thinking": False},
         "temperature": 1.0,
         "top_p": 0.95,
         "stream": False,
