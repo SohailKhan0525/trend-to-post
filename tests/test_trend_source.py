@@ -2,7 +2,7 @@ import unittest
 from datetime import datetime, timezone
 from types import SimpleNamespace
 
-from app.trend_source import find_official_brand_source, find_trending_source
+from app.trend_source import find_ai_tech_source, find_official_brand_source, find_trending_source
 
 
 class FakeXClient:
@@ -42,6 +42,21 @@ def make_tweet():
         retweet_count=70,
         reply_count=30,
     )
+
+
+class FakeAIClient:
+    def __init__(self, tweet):
+        self.tweet = tweet
+        self.searches = []
+        self.trend_calls = 0
+
+    async def get_trends(self, category, count=20, retry=True):
+        self.trend_calls += 1
+        raise AssertionError("The AI/tech quote lane must not read X Trends.")
+
+    async def search_tweet(self, query, search_type, count=20):
+        self.searches.append((query, search_type))
+        return [self.tweet]
 
 
 class FakeOfficialBrandClient:
@@ -88,6 +103,19 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(source.source_type, "x_top_search")
         self.assertNotIn("election debate", client.searches)
 
+
+    async def test_ai_tech_source_uses_latest_keyword_searches_not_trends(self):
+        tweet = make_tweet()
+        client = FakeAIClient(tweet)
+
+        source = await find_ai_tech_source(client, [])
+
+        self.assertEqual(source.source_type, "ai_tech_search")
+        self.assertTrue(source.url.startswith("https://x.com/"))
+        self.assertTrue(client.searches)
+        self.assertTrue(all(kind == "Latest" for _, kind in client.searches))
+        self.assertEqual(client.trend_calls, 0)
+        self.assertIn("NVIDIA", source.text)
 
     async def test_uses_real_official_brand_posts_without_querying_trends(self):
         tweet = make_tweet()
