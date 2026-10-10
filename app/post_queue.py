@@ -782,7 +782,9 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
             if isinstance(item, dict)
         ]
     )
-    active_handles = await _find_active_x_person_handles(client, recent_subjects)
+    active_handles = await _find_active_x_person_handles(
+        client, recent_subjects, max_active=12, max_checks=24
+    )
     if not active_handles:
         print("Person-photo lane found no verified active X people this run.")
         return False

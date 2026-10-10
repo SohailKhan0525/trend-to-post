@@ -12,7 +12,7 @@ from urllib.request import Request, urlopen
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
 USER_AGENT = "TrendToPostBot/1.0 (licensed-photo discovery; educational use)"
 MAX_IMAGE_BYTES = 6 * 1024 * 1024
-MAX_SUBJECT_SEARCHES = 8
+MAX_SUBJECT_SEARCHES = 12
 ALLOWED_IMAGE_MIMES = {"image/jpeg", "image/png", "image/webp"}
 
 # Candidate people are known public-facing AI/technology leaders, engineers,
@@ -210,14 +210,18 @@ def find_licensed_person_image(
         if searched >= MAX_SUBJECT_SEARCHES:
             break
         searched += 1
+        search_names = tuple(dict.fromkeys((person[0], person[1], *person[4])))
+        search_query = " OR ".join(f'"{name}"' for name in search_names if name)
         params = {
             "action": "query",
             "format": "json",
             "formatversion": "2",
             "generator": "search",
             "gsrnamespace": "6",
-            "gsrsearch": f'("{person[0]}" OR "{person[1]}") portrait',
-            "gsrlimit": "20",
+            # Do not require the word "portrait": Commons captions/titles often
+            # omit it even when the result is a usable photograph.
+            "gsrsearch": f"({search_query})",
+            "gsrlimit": "30",
             "prop": "imageinfo",
             "iiprop": "url|mime|size|extmetadata",
             "iiurlwidth": "1600",
