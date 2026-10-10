@@ -11,6 +11,7 @@ from twikit import Client
 from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
 from .gemini import COMPANY_HOOK_TYPES, GeminiError, generate_company_original, generate_original_text, generate_quote
 from .person_images import (
+    PERSON_SUBJECTS,
     PersonImageError,
     attribution_reply,
     download_image_bytes,
@@ -686,6 +687,52 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
     return True
 
 
+async def _find_active_x_person_handles(
+    client: Client,
+    excluded_subjects: list[str],
+    max_active: int = 6,
+    max_checks: int = 12,
+) -> list[str]:
+    """Return handles that currently have discoverable original posts on X."""
+    excluded = {str(value).casefold().strip() for value in excluded_subjects}
+    people = [
+        item for item in PERSON_SUBJECTS
+        if item[1].casefold() not in excluded and item[0].casefold() not in excluded
+    ]
+    random.shuffle(people)
+    active: list[str] = []
+
+    for person in people[:max_checks]:
+        handle = person[3]
+        try:
+            results = await client.search_tweet(f"from:{handle}", "Latest", count=5)
+        except Exception as exc:
+            print(f"Could not verify @{handle} on X for photo lane: {exc}")
+            message = str(exc).lower()
+            if "429" in message or "rate limit" in message:
+                break
+            continue
+
+        found = False
+        for tweet in results or []:
+            user = getattr(tweet, "user", None)
+            actual_handle = str(getattr(user, "screen_name", "") or "").lstrip("@").casefold()
+            if actual_handle != handle.casefold():
+                continue
+            if getattr(tweet, "in_reply_to", None) or getattr(tweet, "retweeted_tweet", None):
+                continue
+            text = str(getattr(tweet, "text", "") or "").strip()
+            if text:
+                found = True
+                break
+        if found:
+            active.append(handle)
+            if len(active) >= max_active:
+                break
+
+    return active
+
+
 async def _post_person_photo(state: dict, client: Client) -> bool:
     """Publish a source-licensed real-person photo with a varied audience prompt."""
     today = _today()
@@ -714,14 +761,20 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
             if isinstance(item, dict)
         ]
     )
+    active_handles = await _find_active_x_person_handles(client, recent_subjects)
+    if not active_handles:
+        print("Person-photo lane found no verified active X people this run.")
+        return False
+
     try:
         image = find_licensed_person_image(
             used_file_titles=used_titles,
             excluded_subjects=recent_subjects,
+            eligible_x_handles=active_handles,
         )
         image_bytes = download_image_bytes(image)
     except PersonImageError as exc:
-        print(f"Person-photo lane could not find/download a vetted photo: {exc}")
+        print(f"Person-photo lane could not find/download a vetted photo for active X people: {exc}")
         failed_title = str(locals().get("image", {}).get("title", "")).strip()
         if failed_title:
             state["skipped_person_image_titles"] = (
