@@ -721,8 +721,29 @@ async def _find_active_x_person_handles(
                 continue
             if getattr(tweet, "in_reply_to", None) or getattr(tweet, "retweeted_tweet", None):
                 continue
+            # A live handle is not enough by itself: confirm the profile display
+            # name matches the curated public figure so a recycled handle cannot
+            # attach the wrong person's name to a photo.
+            actual_name = "".join(
+                ch.casefold()
+                for ch in str(getattr(user, "name", "") or "")
+                if ch.isalnum()
+            )
+            expected_names = (person[0], person[1], *person[4])
+            name_matches = False
+            for expected in expected_names:
+                normalized = "".join(ch.casefold() for ch in expected if ch.isalnum())
+                if not normalized:
+                    continue
+                if normalized == actual_name or (
+                    len(normalized) >= 6 and normalized in actual_name
+                ) or (
+                    len(actual_name) >= 6 and actual_name in normalized
+                ):
+                    name_matches = True
+                    break
             text = str(getattr(tweet, "text", "") or "").strip()
-            if text:
+            if text and name_matches:
                 found = True
                 break
         if found:
