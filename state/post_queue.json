@@ -1,7 +1,7 @@
 {
-  "day_key": "2026-10-09",
-  "daily_count": 15,
-  "ai_call_count": 20,
+  "day_key": "2026-10-10",
+  "daily_count": 5,
+  "ai_call_count": 6,
   "last_posted_at": "2026-10-09T16:31:35.366403+00:00",
   "last_source_tweet_id": "2108343405583704229",
   "last_tweet_id": "2108596244742316309",
@@ -83,7 +83,8 @@
     "2108295649582035208",
     "2108283556862845392",
     "2108401845563806150",
-    "2108452405746467091"
+    "2108452405746467091",
+    "2108593894376296873"
   ],
   "format_lab": [
     {
@@ -308,11 +309,6 @@
     }
   ],
   "recent_post_fingerprints": [
-    "one-sentence gaming analogy applied to elite sports",
-    "fake UI progress bar followed by status log",
-    "archaeological discovery punchline",
-    "fake compiler error log with metadata fields",
-    "declaration of a fictional bureaucratic game with a disproportionate penalty",
     "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience",
     "deadpan social paranoia declaration",
     "geological metaphor applied to game development",
@@ -337,125 +333,134 @@
     "terminal execution log followed by panic audio output",
     "corporate confession ending in unhinged positive metrics and distinct punchline emojis",
     "casual intro statement followed by escalating absurd technical demands ending with casual signoff and punchline emojis",
-    "patch notes label followed by developer update and punchline emojis"
+    "patch notes label followed by developer update and punchline emojis",
+    "@Sony pick one: [option_a] or [option_b] [emoji]",
+    "i'll buy [x] if [y] [emoji]",
+    "@Samsung [absurd physical task] [emoji]",
+    "@Xbox imagine [x] by [y] [emoji]",
+    "@BMW [absurd ultimatum about design] 😂"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 5,
   "brand_format_lab": [
     {
-      "format_name": "final-file deletion condition",
-      "comedy_mechanism": "uses one specific dev habit as the condition for ending the joke",
-      "hook_type": "if_condition",
-      "structure_signature": "company mention + if-condition + developer self-own",
-      "used_at": "2026-10-09T11:18:01.720Z",
-      "target": "@AnthropicAI",
-      "manual": true,
-      "post_text": "@AnthropicAI if Claude can explain why final_final_v12 still exists, I'll finally delete it 😂"
-    },
-    {
-      "format_name": "windows final-boss entrance",
-      "comedy_mechanism": "reframes errors as a theatrical boss encounter",
-      "hook_type": "imagine_scenario",
-      "structure_signature": "company mention + imagine scenario + software-game collision",
-      "used_at": "2026-10-09T11:18:01.725Z",
-      "target": "@Microsoft",
-      "manual": true,
-      "post_text": "@Microsoft imagine Windows error messages entering like a final boss with theme music 👀"
-    },
-    {
-      "format_name": "fridge-detector shoes",
-      "comedy_mechanism": "uses a ridiculous product condition to expose everyday fitness procrastination",
-      "hook_type": "purchase_condition",
-      "structure_signature": "company mention + rare purchase condition + everyday self-own",
-      "used_at": "2026-10-09T11:18:01.725Z",
-      "target": "@adidas",
-      "manual": true,
-      "post_text": "@adidas I'll buy the Ultraboost if it can detect when I walk toward the fridge instead of the gym 🫠"
-    },
-    {
-      "format_name": "steam feature fork",
-      "comedy_mechanism": "frames two over-specific product wishes as an impossible choice",
+      "format_name": "choose_one_binary",
+      "post_text": "@Sony pick one: your next console starts a live applause track every time you die in a tutorial, or it aggressively clears your save file for being too cowardly 😂",
+      "comedy_mechanism": "forced dilemma featuring exaggerated consequences for normal gaming behavior",
       "hook_type": "choose_one",
-      "structure_signature": "company mention + choose-one prompt + gaming utility escalation",
-      "used_at": "2026-10-09T11:18:01.725Z",
-      "target": "@Steam",
-      "manual": true,
-      "post_text": "@Steam pick one: 10-second demos for every game, or download bars with a legally binding ETA? 🥳"
+      "structure_signature": "@Sony pick one: [option_a] or [option_b] [emoji]",
+      "used_at": "2026-10-10T06:31:26.246769+00:00",
+      "target": "@Sony",
+      "manual": true
     },
     {
-      "format_name": "first-brick achievement",
-      "comedy_mechanism": "gives an ordinary action an absurdly grand achievement",
-      "hook_type": "feature_challenge",
-      "structure_signature": "company mention + feature request + epic stakes from tiny action",
-      "used_at": "2026-10-09T11:18:01.725Z",
-      "target": "@Roblox",
-      "manual": true,
-      "post_text": "@Roblox add a tiny achievement for placing the first brick: “the council has noticed.” 😂"
+      "format_name": "purchase_condition",
+      "post_text": "I'll buy every enterprise tier @Cloudflare if the dashboard suddenly starts narrating my DDoS blocks like an overly dramatic sports commentator 😂",
+      "comedy_mechanism": "absurd financial threat tied to a mundane product feature",
+      "hook_type": "purchase_condition",
+      "structure_signature": "i'll buy [x] if [y] [emoji]",
+      "used_at": "2026-10-10T06:31:44.769299+00:00",
+      "target": "@Cloudflare",
+      "manual": true
+    },
+    {
+      "format_name": "absurd_task_origami",
+      "post_text": "@Samsung fold a Galaxy into a functional origami swan and send it back to me through the mail 😂",
+      "comedy_mechanism": "giving the brand an impossible, harmless manual craft project",
+      "hook_type": "absurd_task",
+      "structure_signature": "@Samsung [absurd physical task] [emoji]",
+      "used_at": "2026-10-10T06:31:59.037700+00:00",
+      "target": "@Samsung",
+      "manual": true
+    },
+    {
+      "format_name": "scenario_flip_physical_download",
+      "post_text": "@Xbox imagine if Game Pass loaded every new indie game by launching it directly at my face through the screen at 90mph 😂",
+      "comedy_mechanism": "escalating digital convenience into a literal physical hazard",
+      "hook_type": "scenario_flip",
+      "structure_signature": "@Xbox imagine [x] by [y] [emoji]",
+      "used_at": "2026-10-10T06:32:14.720528+00:00",
+      "target": "@Xbox",
+      "manual": true
+    },
+    {
+      "format_name": "mock_ultimatum_grille",
+      "post_text": "@BMW you have exactly ten minutes to explain why my front grille needs its own zip code or I'm turning this M4 into a greenhouse 😂",
+      "comedy_mechanism": "escalating a polarizing aesthetic design choice into an absurd domestic ultimatum",
+      "hook_type": "mock_ultimatum",
+      "structure_signature": "@BMW [absurd ultimatum about design] 😂",
+      "used_at": "2026-10-10T06:32:49.808077+00:00",
+      "target": "@BMW",
+      "manual": true
     }
   ],
-  "brand_tag_day_key": "2026-10-09",
+  "brand_tag_day_key": "2026-10-10",
   "brand_tag_queue": [
     {
-      "handle": "@AnthropicAI",
-      "name": "Anthropic",
+      "handle": "@Sony",
+      "name": "Sony",
       "keywords": [
-        "anthropic",
-        "claude"
+        "sony",
+        "playstation",
+        "ps5"
       ],
-      "selected_at": "2026-10-09T00:01:28.039615+00:00",
-      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
+      "selected_at": "2026-10-10T06:31:09.478055+00:00",
+      "eligible_again_at": "2026-10-14T06:31:09.478055+00:00",
       "status": "manual_ready",
-      "generated_at": "2026-10-09T05:31:19.159479+00:00"
+      "generated_at": "2026-10-10T06:31:26.246769+00:00"
     },
     {
-      "handle": "@Microsoft",
-      "name": "Microsoft",
+      "handle": "@Cloudflare",
+      "name": "Cloudflare",
       "keywords": [
-        "microsoft",
-        "copilot",
-        "windows",
+        "cloudflare"
+      ],
+      "selected_at": "2026-10-10T06:31:09.478055+00:00",
+      "eligible_again_at": "2026-10-14T06:31:09.478055+00:00",
+      "status": "manual_ready",
+      "generated_at": "2026-10-10T06:31:44.769299+00:00"
+    },
+    {
+      "handle": "@Samsung",
+      "name": "Samsung",
+      "keywords": [
+        "samsung",
+        "galaxy"
+      ],
+      "selected_at": "2026-10-10T06:31:09.478055+00:00",
+      "eligible_again_at": "2026-10-14T06:31:09.478055+00:00",
+      "status": "manual_ready",
+      "generated_at": "2026-10-10T06:31:59.037700+00:00"
+    },
+    {
+      "handle": "@Xbox",
+      "name": "Xbox",
+      "keywords": [
         "xbox",
-        "azure"
+        "game pass"
       ],
-      "selected_at": "2026-10-09T00:01:28.039615+00:00",
-      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
+      "selected_at": "2026-10-10T06:31:09.478055+00:00",
+      "eligible_again_at": "2026-10-14T06:31:09.478055+00:00",
       "status": "manual_ready",
-      "generated_at": "2026-10-09T11:01:42.930867+00:00"
+      "generated_at": "2026-10-10T06:32:14.720528+00:00"
     },
     {
-      "handle": "@adidas",
-      "name": "adidas",
+      "handle": "@BMW",
+      "name": "BMW",
       "keywords": [
-        "adidas",
-        "ultraboost"
+        "bmw",
+        "m4",
+        "m3",
+        "m5",
+        "i4",
+        "i5",
+        "i7",
+        "x5"
       ],
-      "selected_at": "2026-10-09T00:01:28.039615+00:00",
-      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
+      "selected_at": "2026-10-10T06:31:09.478055+00:00",
+      "eligible_again_at": "2026-10-14T06:31:09.478055+00:00",
       "status": "manual_ready",
-      "generated_at": "2026-10-09T11:01:57.644737+00:00"
-    },
-    {
-      "handle": "@Steam",
-      "name": "Steam",
-      "keywords": [
-        "steam",
-        "steam deck"
-      ],
-      "selected_at": "2026-10-09T00:01:28.039615+00:00",
-      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
-      "status": "manual_ready",
-      "generated_at": "2026-10-09T11:02:13.808227+00:00"
-    },
-    {
-      "handle": "@Roblox",
-      "name": "Roblox",
-      "keywords": [
-        "roblox"
-      ],
-      "selected_at": "2026-10-09T00:01:28.039615+00:00",
-      "eligible_again_at": "2026-10-13T00:01:28.039615+00:00",
-      "status": "manual_ready",
-      "generated_at": "2026-10-09T11:02:28.011416+00:00"
+      "generated_at": "2026-10-10T06:32:49.808077+00:00"
     }
   ],
   "brand_tag_cooldowns": {
@@ -468,89 +473,97 @@
     "@Microsoft": "2026-10-13T00:01:28.039615+00:00",
     "@adidas": "2026-10-13T00:01:28.039615+00:00",
     "@Steam": "2026-10-13T00:01:28.039615+00:00",
-    "@Roblox": "2026-10-13T00:01:28.039615+00:00"
+    "@Roblox": "2026-10-13T00:01:28.039615+00:00",
+    "@Sony": "2026-10-14T06:31:09.478055+00:00",
+    "@Cloudflare": "2026-10-14T06:31:09.478055+00:00",
+    "@Samsung": "2026-10-14T06:31:09.478055+00:00",
+    "@Xbox": "2026-10-14T06:31:09.478055+00:00",
+    "@BMW": "2026-10-14T06:31:09.478055+00:00"
   },
   "company_post_count": 5,
   "company_posted_handles": [
-    "@AnthropicAI",
-    "@Microsoft",
-    "@adidas",
-    "@Steam",
-    "@Roblox"
+    "@Sony",
+    "@Cloudflare",
+    "@Samsung",
+    "@Xbox",
+    "@BMW"
   ],
   "company_manual_posts": [
     {
       "slot_number": 1,
-      "handle": "@AnthropicAI",
-      "name": "Anthropic",
-      "post": "@AnthropicAI if Claude can explain why final_final_v12 still exists, I'll finally delete it 😂",
-      "angle": "makes a familiar developer file-naming problem into a funny conditional ultimatum",
-      "hook_type": "if_condition",
-      "format_name": "final-file deletion condition",
-      "comedy_mechanism": "uses one specific dev habit as the condition for ending the joke",
-      "structure_signature": "company mention + if-condition + developer self-own",
-      "generated_at": "2026-10-09T11:18:01.720Z",
+      "handle": "@Sony",
+      "name": "Sony",
+      "post": "@Sony pick one: your next console starts a live applause track every time you die in a tutorial, or it aggressively clears your save file for being too cowardly 😂",
+      "angle": "forces an absurd choice about gaming pain points that works entirely as a standalone joke",
+      "hook_type": "choose_one",
+      "format_name": "choose_one_binary",
+      "comedy_mechanism": "forced dilemma featuring exaggerated consequences for normal gaming behavior",
+      "structure_signature": "@Sony pick one: [option_a] or [option_b] [emoji]",
+      "generated_at": "2026-10-10T06:31:26.246769+00:00",
       "status": "ready_for_manual_post"
     },
     {
       "slot_number": 2,
-      "handle": "@Microsoft",
-      "name": "Microsoft",
-      "post": "@Microsoft imagine Windows error messages entering like a final boss with theme music 👀",
-      "angle": "turns a familiar software annoyance into an overdramatic game entrance",
-      "hook_type": "imagine_scenario",
-      "format_name": "windows final-boss entrance",
-      "comedy_mechanism": "reframes errors as a theatrical boss encounter",
-      "structure_signature": "company mention + imagine scenario + software-game collision",
-      "generated_at": "2026-10-09T11:18:01.725Z",
+      "handle": "@Cloudflare",
+      "name": "Cloudflare",
+      "post": "I'll buy every enterprise tier @Cloudflare if the dashboard suddenly starts narrating my DDoS blocks like an overly dramatic sports commentator 😂",
+      "angle": "making enterprise web security sound like a Sunday night football broadcast",
+      "hook_type": "purchase_condition",
+      "format_name": "purchase_condition",
+      "comedy_mechanism": "absurd financial threat tied to a mundane product feature",
+      "structure_signature": "i'll buy [x] if [y] [emoji]",
+      "generated_at": "2026-10-10T06:31:44.769299+00:00",
       "status": "ready_for_manual_post"
     },
     {
       "slot_number": 3,
-      "handle": "@adidas",
-      "name": "adidas",
-      "post": "@adidas I'll buy the Ultraboost if it can detect when I walk toward the fridge instead of the gym 🫠",
-      "angle": "connects running-shoe ambition with the far more common refrigerator side quest",
-      "hook_type": "purchase_condition",
-      "format_name": "fridge-detector shoes",
-      "comedy_mechanism": "uses a ridiculous product condition to expose everyday fitness procrastination",
-      "structure_signature": "company mention + rare purchase condition + everyday self-own",
-      "generated_at": "2026-10-09T11:18:01.725Z",
+      "handle": "@Samsung",
+      "name": "Samsung",
+      "post": "@Samsung fold a Galaxy into a functional origami swan and send it back to me through the mail 😂",
+      "angle": "demanding an impossible physical transformation of a phone as a playful absurd task",
+      "hook_type": "absurd_task",
+      "format_name": "absurd_task_origami",
+      "comedy_mechanism": "giving the brand an impossible, harmless manual craft project",
+      "structure_signature": "@Samsung [absurd physical task] [emoji]",
+      "generated_at": "2026-10-10T06:31:59.037700+00:00",
       "status": "ready_for_manual_post"
     },
     {
       "slot_number": 4,
-      "handle": "@Steam",
-      "name": "Steam",
-      "post": "@Steam pick one: 10-second demos for every game, or download bars with a legally binding ETA? 🥳",
-      "angle": "offers two absurd but plausible quality-of-life ideas for game discovery and downloads",
-      "hook_type": "choose_one",
-      "format_name": "steam feature fork",
-      "comedy_mechanism": "frames two over-specific product wishes as an impossible choice",
-      "structure_signature": "company mention + choose-one prompt + gaming utility escalation",
-      "generated_at": "2026-10-09T11:18:01.725Z",
+      "handle": "@Xbox",
+      "name": "Xbox",
+      "post": "@Xbox imagine if Game Pass loaded every new indie game by launching it directly at my face through the screen at 90mph 😂",
+      "angle": "absurdly aggressive product delivery behavior for digital downloads",
+      "hook_type": "scenario_flip",
+      "format_name": "scenario_flip_physical_download",
+      "comedy_mechanism": "escalating digital convenience into a literal physical hazard",
+      "structure_signature": "@Xbox imagine [x] by [y] [emoji]",
+      "generated_at": "2026-10-10T06:32:14.720528+00:00",
       "status": "ready_for_manual_post"
     },
     {
       "slot_number": 5,
-      "handle": "@Roblox",
-      "name": "Roblox",
-      "post": "@Roblox add a tiny achievement for placing the first brick: “the council has noticed.” 😂",
-      "angle": "turns the smallest building action into a ridiculously high-stakes game moment",
-      "hook_type": "feature_challenge",
-      "format_name": "first-brick achievement",
-      "comedy_mechanism": "gives an ordinary action an absurdly grand achievement",
-      "structure_signature": "company mention + feature request + epic stakes from tiny action",
-      "generated_at": "2026-10-09T11:18:01.725Z",
+      "handle": "@BMW",
+      "name": "BMW",
+      "post": "@BMW you have exactly ten minutes to explain why my front grille needs its own zip code or I'm turning this M4 into a greenhouse 😂",
+      "angle": "playful fake ultimatum about the aggressively large kidney grille design on modern models",
+      "hook_type": "mock_ultimatum",
+      "format_name": "mock_ultimatum_grille",
+      "comedy_mechanism": "escalating a polarizing aesthetic design choice into an absurd domestic ultimatum",
+      "structure_signature": "@BMW [absurd ultimatum about design] 😂",
+      "generated_at": "2026-10-10T06:32:49.808077+00:00",
       "status": "ready_for_manual_post"
     }
   ],
-  "last_post_type": "original_text",
-  "last_company_handle": null,
+  "last_post_type": "company_manual",
+  "last_company_handle": "@BMW",
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
   "trend_manual_posts": [],
   "trend_manual_day_key": null,
   "trend_source_ids": [],
-  "invented_post_count": 0
+  "invented_post_count": 0,
+  "trend_quote_post_count": 0,
+  "trend_quote_posts": [],
+  "trend_quote_day_key": "2026-10-10"
 }

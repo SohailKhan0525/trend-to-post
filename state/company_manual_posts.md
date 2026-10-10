@@ -1,52 +1,52 @@
 # Company Posts — Manual
 
-UTC date: 2026-10-09
+UTC date: 2026-10-10
 
 These five company posts are included in the same 20-content daily quota.
 Copy the text exactly, including the @mention and emoji, and publish it manually on X.
 Text only: no images or generated chat screenshots.
 
-## Slot 1 — Anthropic @AnthropicAI
+## Slot 1 — Sony @Sony
 
-> @AnthropicAI if Claude can explain why final_final_v12 still exists, I'll finally delete it 😂
+> @Sony pick one: your next console starts a live applause track every time you die in a tutorial, or it aggressively clears your save file for being too cowardly 😂
 
-Format: final-file deletion condition
-Hook: if_condition
-Mechanism: uses one specific dev habit as the condition for ending the joke
-Status: ready_for_manual_post
-
-## Slot 2 — Microsoft @Microsoft
-
-> @Microsoft imagine Windows error messages entering like a final boss with theme music 👀
-
-Format: windows final-boss entrance
-Hook: imagine_scenario
-Mechanism: reframes errors as a theatrical boss encounter
-Status: ready_for_manual_post
-
-## Slot 3 — adidas @adidas
-
-> @adidas I'll buy the Ultraboost if it can detect when I walk toward the fridge instead of the gym 🫠
-
-Format: fridge-detector shoes
-Hook: purchase_condition
-Mechanism: uses a ridiculous product condition to expose everyday fitness procrastination
-Status: ready_for_manual_post
-
-## Slot 4 — Steam @Steam
-
-> @Steam pick one: 10-second demos for every game, or download bars with a legally binding ETA? 🥳
-
-Format: steam feature fork
+Format: choose_one_binary
 Hook: choose_one
-Mechanism: frames two over-specific product wishes as an impossible choice
+Mechanism: forced dilemma featuring exaggerated consequences for normal gaming behavior
 Status: ready_for_manual_post
 
-## Slot 5 — Roblox @Roblox
+## Slot 2 — Cloudflare @Cloudflare
 
-> @Roblox add a tiny achievement for placing the first brick: “the council has noticed.” 😂
+> I'll buy every enterprise tier @Cloudflare if the dashboard suddenly starts narrating my DDoS blocks like an overly dramatic sports commentator 😂
 
-Format: first-brick achievement
-Hook: feature_challenge
-Mechanism: gives an ordinary action an absurdly grand achievement
+Format: purchase_condition
+Hook: purchase_condition
+Mechanism: absurd financial threat tied to a mundane product feature
+Status: ready_for_manual_post
+
+## Slot 3 — Samsung @Samsung
+
+> @Samsung fold a Galaxy into a functional origami swan and send it back to me through the mail 😂
+
+Format: absurd_task_origami
+Hook: absurd_task
+Mechanism: giving the brand an impossible, harmless manual craft project
+Status: ready_for_manual_post
+
+## Slot 4 — Xbox @Xbox
+
+> @Xbox imagine if Game Pass loaded every new indie game by launching it directly at my face through the screen at 90mph 😂
+
+Format: scenario_flip_physical_download
+Hook: scenario_flip
+Mechanism: escalating digital convenience into a literal physical hazard
+Status: ready_for_manual_post
+
+## Slot 5 — BMW @BMW
+
+> @BMW you have exactly ten minutes to explain why my front grille needs its own zip code or I'm turning this M4 into a greenhouse 😂
+
+Format: mock_ultimatum_grille
+Hook: mock_ultimatum
+Mechanism: escalating a polarizing aesthetic design choice into an absurd domestic ultimatum
 Status: ready_for_manual_post
