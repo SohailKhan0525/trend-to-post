@@ -618,6 +618,9 @@ async def find_ai_tech_source(
             # The authored quote commentary is text-only; avoid sourcing an image/video post.
             if getattr(tweet, "media", None):
                 continue
+            text = str(getattr(tweet, "text", "") or "").strip()
+            if not _topic_allowed("", text):
+                continue
             if not _is_candidate(tweet, now, used_ids, query, require_views=False):
                 continue
             source = _build_source(
