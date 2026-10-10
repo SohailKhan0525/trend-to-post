@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-10",
-  "daily_count": 6,
-  "ai_call_count": 11,
-  "last_posted_at": "2026-10-10T11:02:10.015816+00:00",
-  "last_source_tweet_id": "2108834019592847668",
-  "last_tweet_id": "2108875729912123573",
+  "daily_count": 7,
+  "ai_call_count": 12,
+  "last_posted_at": "2026-10-10T14:01:45.648699+00:00",
+  "last_source_tweet_id": null,
+  "last_tweet_id": "2108920926826099085",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -91,17 +91,6 @@
     "2108696873510850758"
   ],
   "format_lab": [
-    {
-      "format_name": "engine crash report artifact",
-      "comedy_mechanism": "",
-      "used_at": "2026-10-07T20:01:55.569352+00:00",
-      "topic": "AI coding",
-      "self_reply": true,
-      "tweet_id": "2107924399772799303",
-      "content_type": "original_post",
-      "mutation_stage": "structural_break",
-      "structure_signature": "fake compiler error log with metadata fields"
-    },
     {
       "format_name": "eschatological scrabble handicap",
       "comedy_mechanism": "contrasting grandiose semantic inflation with an arbitrary, petty playground rule for tech vocabulary",
@@ -313,10 +302,21 @@
       "post_text": "mandatory git blame arbitration court now sentencing every AI coworker to permanent documentation duty after reading \"your project now into the competition! ￼\" 💀 👀 😭 🫠 🔥 😤 \"your project now into the competition!\" \"changes concurrently. Submit your project now\"",
       "mutation_stage": "invented_rule",
       "structure_signature": "legalistic penalty declaration ending in a quote fragment followed by distinct emoji cluster"
+    },
+    {
+      "format_name": "library guilt speed-interrogation",
+      "comedy_mechanism": "contrasting massive digital excess with absurdly specific trivial usage under pressure",
+      "used_at": "2026-10-10T14:01:45.648699+00:00",
+      "topic": "Gabe Newell",
+      "tweet_id": "2108920926826099085",
+      "content_type": "photo_prompt",
+      "content_mode": "licensed_person_photo",
+      "post_text": "you have thirty seconds to explain to Gabe Newell why your backlog has three hundred unplayed indie roguelikes while you only play twenty minutes of pinball 💀 🫠",
+      "mutation_stage": "countdown interrogation",
+      "structure_signature": "time limit setup followed by frantic hobby contradiction and punchline emojis"
     }
   ],
   "recent_post_fingerprints": [
-    "deadpan social paranoia declaration",
     "geological metaphor applied to game development",
     "bureaucratic mandate ending in a quoted source fragment followed by a surreal policy rider",
     "fake system diagnostic log followed by destructive action mandate",
@@ -345,7 +345,8 @@
     "@Samsung [absurd physical task] [emoji]",
     "@Xbox imagine [x] by [y] [emoji]",
     "@BMW [absurd ultimatum about design] 😂",
-    "legalistic penalty declaration ending in a quote fragment followed by distinct emoji cluster"
+    "legalistic penalty declaration ending in a quote fragment followed by distinct emoji cluster",
+    "time limit setup followed by frantic hobby contradiction and punchline emojis"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 5,
@@ -562,7 +563,7 @@
       "status": "ready_for_manual_post"
     }
   ],
-  "last_post_type": "official_brand_quote",
+  "last_post_type": "person_photo_prompt",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -591,5 +592,39 @@
       "status": "published"
     }
   ],
-  "trend_quote_day_key": "2026-10-10"
+  "trend_quote_day_key": "2026-10-10",
+  "person_photo_title_history": [
+    "File:Gabe Newell - 2002 (cropped).jpg"
+  ],
+  "person_photo_subject_history": [
+    "Gabe Newell"
+  ],
+  "skipped_person_image_titles": [],
+  "ai_tech_source_ids": [],
+  "person_photo_post_count": 1,
+  "ai_tech_quote_post_count": 0,
+  "next_lane_index": 2,
+  "person_photo_posts": [
+    {
+      "slot_number": 1,
+      "subject": "Gabe Newell",
+      "post": "you have thirty seconds to explain to Gabe Newell why your backlog has three hundred unplayed indie roguelikes while you only play twenty minutes of pinball 💀 🫠",
+      "image_title": "File:Gabe Newell - 2002 (cropped).jpg",
+      "image_source_url": "https://commons.wikimedia.org/wiki/File:Gabe_Newell_-_2002_(cropped).jpg",
+      "license_name": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "image_artist": "jon jordan",
+      "needs_attribution": true,
+      "attribution_status": "posted",
+      "tweet_id": "2108920926826099085",
+      "format_name": "library guilt speed-interrogation",
+      "comedy_mechanism": "contrasting massive digital excess with absurdly specific trivial usage under pressure",
+      "structure_signature": "time limit setup followed by frantic hobby contradiction and punchline emojis",
+      "generated_at": "2026-10-10T14:01:45.648699+00:00",
+      "status": "published",
+      "attribution_reply_id": "2108920927841059316"
+    }
+  ],
+  "ai_tech_quote_posts": [],
+  "person_photo_day_key": "2026-10-10"
 }
