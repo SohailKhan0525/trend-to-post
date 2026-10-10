@@ -196,7 +196,10 @@ def find_licensed_person_image(
         item for item in PERSON_SUBJECTS
         if item[1].casefold() not in excluded
         and item[0].casefold() not in excluded
-        and (not eligible or item[3].casefold() in eligible)
+        and (
+            eligible_x_handles is None
+            or item[3].casefold() in eligible
+        )
     ]
     if eligible_x_handles is not None and not subjects:
         raise PersonImageError("No active X people remain after applying today's exclusions.")
