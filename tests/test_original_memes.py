@@ -92,7 +92,7 @@ class OriginalTextValidationTests(unittest.TestCase):
             content_mode="person_prompt",
         )
         self.assertIn("REAL-PERSON PHOTO PROMPT", prompt)
-        self.assertIn("existing, real photograph", prompt)
+        self.assertIn("existing, real photo", prompt)
         self.assertIn("3 words with Tibo", prompt)
         self.assertIn("never over 16 words or 120 characters", prompt)
         self.assertIn("Do not claim they said, did, endorsed, or believe anything", prompt)
