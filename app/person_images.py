@@ -20,7 +20,7 @@ ALLOWED_IMAGE_MIMES = {"image/jpeg", "image/png", "image/webp"}
 # queue verifies that the handle has recent posts on X. Tuple fields:
 # (full search name, short display name, topic, X handle without @, aliases)
 PERSON_SUBJECTS = (
-    ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo",)),
+    ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo Sottiaux",)),
     ("Sam Altman", "Sam Altman", "AI", "sama", ()),
     ("Greg Brockman", "Greg Brockman", "AI engineering", "gdb", ()),
     ("Mira Murati", "Mira Murati", "AI engineering", "miramurati", ()),
@@ -50,7 +50,7 @@ PERSON_SUBJECTS = (
     ("DHH", "DHH", "software builder", "dhh", ("David Heinemeier Hansson",)),
     ("Tobi Lutke", "Tobi Lutke", "technology founder", "tobi", ("Tobi Lütke",)),
     ("Paul Graham", "Paul Graham", "startup founder", "paulg", ()),
-    ("Theo Browne", "Theo", "developer creator", "theo", ("Theo",)),
+    ("Theo Browne", "Theo", "developer creator", "theo", ("Theo Browne",)),
     ("Linus Torvalds", "Linus Torvalds", "software", "Linus__Torvalds", ()),
 )
 
@@ -142,7 +142,7 @@ def _candidate_from_page(page: dict, person: tuple) -> dict | None:
         return None
 
     description = _metadata_value(metadata, "ImageDescription")
-    names_to_match = (person[0], person[1], *person[4])
+    names_to_match = (person[0], *person[4])
     if not any(_person_matches(name, title, description) for name in names_to_match):
         return None
 
