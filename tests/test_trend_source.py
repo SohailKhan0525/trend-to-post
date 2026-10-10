@@ -2,7 +2,7 @@ import unittest
 from datetime import datetime, timezone
 from types import SimpleNamespace
 
-from app.trend_source import find_ai_tech_source, find_official_brand_source, find_trending_source
+from app.trend_source import _ai_tech_topic_allowed, find_ai_tech_source, find_official_brand_source, find_trending_source
 
 
 class FakeXClient:
@@ -103,6 +103,12 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(source.source_type, "x_top_search")
         self.assertNotIn("election debate", client.searches)
 
+
+    def test_ai_tech_topic_filter_requires_a_real_tech_signal(self):
+        self.assertTrue(_ai_tech_topic_allowed("NVIDIA RTX drivers need a software update"))
+        self.assertTrue(_ai_tech_topic_allowed("Our new AI model writes Python code"))
+        self.assertFalse(_ai_tech_topic_allowed("What a brilliant football match"))
+        self.assertFalse(_ai_tech_topic_allowed("Election debate about technology"))
 
     async def test_ai_tech_source_uses_latest_keyword_searches_not_trends(self):
         tweet = make_tweet()
