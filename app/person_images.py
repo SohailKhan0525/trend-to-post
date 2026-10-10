@@ -50,7 +50,7 @@ PERSON_SUBJECTS = (
     ("DHH", "DHH", "software builder", "dhh", ("David Heinemeier Hansson",)),
     ("Tobi Lutke", "Tobi Lutke", "technology founder", "tobi", ("Tobi Lütke",)),
     ("Paul Graham", "Paul Graham", "startup founder", "paulg", ()),
-    ("Theo Browne", "Theo", "developer creator", "theo", ("Theo")),
+    ("Theo Browne", "Theo", "developer creator", "theo", ("Theo",)),
     ("Linus Torvalds", "Linus Torvalds", "software", "Linus__Torvalds", ()),
 )
 
