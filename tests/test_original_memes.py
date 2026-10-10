@@ -95,7 +95,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("existing, real photograph", prompt)
         self.assertIn("3 words with Tibo", prompt)
         self.assertIn("never over 16 words or 120 characters", prompt)
-        self.assertIn("Do not claim they actually said, did, endorsed, or believe anything", prompt)
+        self.assertIn("Do not claim they said, did, endorsed, or believe anything", prompt)
         self.assertIn("Never repeat an emoji token", prompt)
 
     def test_person_prompt_rejects_long_caption(self) -> None:
