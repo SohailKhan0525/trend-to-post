@@ -1,6 +1,7 @@
 import os
 import unittest
 from unittest.mock import AsyncMock, patch
+from types import SimpleNamespace
 
 from app import post_queue
 
@@ -21,6 +22,47 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             + post_queue.AI_TECH_QUOTE_POSTS_PER_DAY,
             post_queue.POSTS_PER_DAY,
         )
+
+    async def test_person_photo_lane_only_uses_a_matching_active_x_profile(self):
+        person = ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo",))
+
+        class PersonSearchClient:
+            async def search_tweet(self, query, search_type, count=5):
+                self.query = query
+                user = SimpleNamespace(screen_name="thsottiaux", name="Tibo")
+                return [
+                    SimpleNamespace(
+                        user=user,
+                        in_reply_to=None,
+                        retweeted_tweet=None,
+                        text="Codex is shipping.",
+                    )
+                ]
+
+        with patch.object(post_queue, "PERSON_SUBJECTS", (person,)):
+            result = await post_queue._find_active_x_person_handles(PersonSearchClient(), [])
+
+        self.assertEqual(result, ["thsottiaux"])
+
+    async def test_person_photo_lane_rejects_handle_with_wrong_profile_name(self):
+        person = ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo",))
+
+        class WrongProfileClient:
+            async def search_tweet(self, query, search_type, count=5):
+                user = SimpleNamespace(screen_name="thsottiaux", name="Someone Else")
+                return [
+                    SimpleNamespace(
+                        user=user,
+                        in_reply_to=None,
+                        retweeted_tweet=None,
+                        text="Unrelated account content.",
+                    )
+                ]
+
+        with patch.object(post_queue, "PERSON_SUBJECTS", (person,)):
+            result = await post_queue._find_active_x_person_handles(WrongProfileClient(), [])
+
+        self.assertEqual(result, [])
 
     async def test_failed_lane_does_not_block_next_eligible_lane(self):
         state = post_queue._new_state()

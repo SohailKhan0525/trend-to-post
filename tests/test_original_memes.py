@@ -92,10 +92,32 @@ class OriginalTextValidationTests(unittest.TestCase):
             content_mode="person_prompt",
         )
         self.assertIn("REAL-PERSON PHOTO PROMPT", prompt)
-        self.assertIn("existing, real photograph", prompt)
-        self.assertIn("three words", prompt)
-        self.assertIn("Do not claim they actually said, did, endorsed, or believe anything", prompt)
+        self.assertIn("existing, real photo", prompt)
+        self.assertIn("3 words with Tibo", prompt)
+        self.assertIn("never over 16 words or 120 characters", prompt)
+        self.assertIn("Do not claim they said, did, endorsed, or believe anything", prompt)
         self.assertIn("Never repeat an emoji token", prompt)
+
+    def test_person_prompt_rejects_long_caption(self) -> None:
+        long_caption = "This is an unnecessarily long photo caption with a lot of extra words that continues explaining the setup instead of getting to the funny question and keeps going even after the point is already clear to every reader 👀💀"
+        with self.assertRaisesRegex(GeminiError, "no longer than 120 characters"):
+            _validate_original(
+                draft(long_caption),
+                {},
+                include_handle=False,
+                maximum_char_count=120,
+                maximum_word_count=16,
+            )
+
+    def test_person_prompt_rejects_too_many_words(self) -> None:
+        with self.assertRaisesRegex(GeminiError, "no more than 16 words"):
+            _validate_original(
+                draft("You are sitting right next to Tibo today and have an entire paragraph to tell him about Codex 👀💀"),
+                {},
+                include_handle=False,
+                maximum_char_count=120,
+                maximum_word_count=16,
+            )
 
     def test_invented_prompt_is_not_trend_based(self) -> None:
         prompt = _original_text_prompt(
