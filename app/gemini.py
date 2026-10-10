@@ -269,6 +269,11 @@ def _prompt(
         + ("; verified/high-signal account" if source.get("author_verified") else "")
         + ("; professional/established profile" if source.get("author_professional") else "")
     )
+    audience_description = (
+        "experienced AI and technology users, founders, operators, engineers, researchers, designers, and builders"
+        if scope == "ai_tech"
+        else "experienced internet users, founders, operators, engineers, researchers, designers, investors, builders, and other serious tech/sports people"
+    )
 
     return f"""You are the creative engine of an experimental X account.
 
@@ -278,7 +283,7 @@ The source is RAW MATERIAL: transform one recent post into an original, highly r
 {scope_instructions}
 
 AUDIENCE:
-Write for experienced internet users, founders, operators, engineers, researchers, designers, investors, builders, and other serious tech/sports people.
+Write for {audience_description}.
 Do not infer anyone's age.
 
 REACH TARGET:
