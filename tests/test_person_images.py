@@ -37,11 +37,11 @@ class PersonImageLicenseTests(unittest.TestCase):
         tibo = next(person for person in PERSON_SUBJECTS if person[3] == "thsottiaux")
         self.assertEqual(tibo[0], "Thibault Sottiaux")
         self.assertEqual(tibo[1], "Tibo")
-        self.assertIn("Tibo", tibo[4])
+        self.assertIn("Tibo Sottiaux", tibo[4])
 
     def test_candidate_matches_tibo_alias_while_searching_full_name(self):
         page = {
-            "title": "File:Tibo speaking about Codex.jpg",
+            "title": "File:Tibo Sottiaux speaking about Codex.jpg",
             "imageinfo": [{
                 "thumburl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/tibo.jpg",
                 "thumbmime": "image/jpeg",
@@ -50,7 +50,7 @@ class PersonImageLicenseTests(unittest.TestCase):
                 "width": 2400,
                 "descriptionurl": "https://commons.wikimedia.org/wiki/File:Tibo.jpg",
                 "extmetadata": {
-                    "ImageDescription": {"value": "Tibo speaking at an AI engineering event"},
+                    "ImageDescription": {"value": "Tibo Sottiaux speaking at an AI engineering event"},
                     "LicenseShortName": {"value": "CC BY 4.0"},
                     "UsageTerms": {"value": "CC BY 4.0"},
                     "LicenseUrl": {"value": "https://creativecommons.org/licenses/by/4.0/"},
