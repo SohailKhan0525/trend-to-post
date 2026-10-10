@@ -7,7 +7,7 @@ This repository runs an experimental X account focused on AI, technology, major 
 The bot has **20 automatically published main-post slots per UTC day**:
 
 - **4 official-company Quote Posts** — the existing lane is preserved. It attaches a recent eligible text-only post from a curated first-party company account and adds an AI-written comment.
-- **8 real-person photo prompts** — the bot finds and downloads an existing, real photograph of a public-facing person, checks the source/license metadata, writes a funny prompt in the style of “You are sitting next to this person and get three words… what do you say?”, and attaches that real photo. It does **not** generate images.
+- **8 short real-person photo prompts** — captions stay like the example image: one short line, usually 7–12 words and capped at 120 characters. The list includes AI/tech CEOs **and** active X engineers, researchers, product builders, and team members such as Tibo (@thsottiaux). Before selecting a person, the queue checks for recent posts from their exact X handle and verifies the profile display name. It then looks for an existing, real portrait with a suitable reuse license and attaches that photo. It does **not** generate images.
 - **8 AI/technology Quote Posts** — the bot finds recent text-only X posts about AI and technology using direct keyword searches (not X's Trends feed), then publishes a humorous AI-written text comment as a real Quote Post. No AI-generated meme images are used.
 
 The five old manually prepared company captions and the eleven invented standalone text originals are no longer part of the active daily queue. Legacy state fields remain only for backward compatibility; those lanes are not selected for new posts.
@@ -18,7 +18,7 @@ The person-photo lane uses the Wikimedia Commons API and downloads only existing
 
 For a license that requires attribution, the bot posts a self-reply with creator credit, the license, and the original Commons file page. If that reply fails after the photo post publishes, the main post is still recorded and the attribution failure is logged in the post_queue state JSON; check it before manually retrying the credit.
 
-The search catalog rotates public-facing people from AI/technology, gaming, sports, and entertainment. Only photos with a reusable license are candidates. If no suitable image is found, the bot skips that lane attempt and tries another eligible lane instead of downloading an arbitrary Google Images result. The bot never scrapes Google Images and never assumes that an image is reusable merely because it is publicly visible.
+The candidate catalog prioritizes public-facing people across AI/technology leadership, research, coding tools, and product teams—not just CEOs. The active X account is verified before searching for a licensed photograph, and the profile-name check helps prevent mismatching a real person to a recycled or unrelated handle. Only photos with a reusable license are candidates. If no suitable image is found, the bot skips that lane attempt and tries another eligible lane instead of downloading an arbitrary Google Images result. The bot never scrapes Google Images and never assumes that an image is reusable merely because it is publicly visible.
 
 ## Emoji and caption rules
 
