@@ -15,39 +15,43 @@ MAX_IMAGE_BYTES = 6 * 1024 * 1024
 MAX_SUBJECT_SEARCHES = 8
 ALLOWED_IMAGE_MIMES = {"image/jpeg", "image/png", "image/webp"}
 
-# Public-facing people across AI/tech, gaming, sport and internet culture.
-# Wikimedia Commons is used because its file pages expose reuse-license metadata.
+# Candidate people are known public-facing AI/technology leaders, engineers,
+# researchers, and builders with an X handle. Before looking for a photo, the
+# queue verifies that the handle has recent posts on X. Tuple fields:
+# (full search name, short display name, topic, X handle without @, aliases)
 PERSON_SUBJECTS = (
-    ("Sam Altman", "AI"),
-    ("Jensen Huang", "AI hardware"),
-    ("Satya Nadella", "technology"),
-    ("Sundar Pichai", "technology"),
-    ("Tim Cook", "technology"),
-    ("Lisa Su", "AI hardware"),
-    ("Mark Zuckerberg", "technology"),
-    ("Elon Musk", "technology"),
-    ("Linus Torvalds", "software"),
-    ("Gabe Newell", "gaming"),
-    ("Phil Spencer", "gaming"),
-    ("Hideo Kojima", "gaming"),
-    ("Shigeru Miyamoto", "gaming"),
-    ("Todd Howard", "gaming"),
-    ("Marques Brownlee", "technology creator"),
-    ("Linus Sebastian", "technology creator"),
-    ("MrBeast", "internet creator"),
-    ("Cristiano Ronaldo", "sport"),
-    ("Lionel Messi", "sport"),
-    ("LeBron James", "sport"),
-    ("Stephen Curry", "sport"),
-    ("Serena Williams", "sport"),
-    ("Roger Federer", "sport"),
-    ("Taylor Swift", "music"),
-    ("Keanu Reeves", "entertainment"),
-    ("Ryan Reynolds", "entertainment"),
-    ("Zendaya", "entertainment"),
-    ("Tom Holland", "entertainment"),
-    ("Dwayne Johnson", "entertainment"),
-    ("Pedro Pascal", "entertainment"),
+    ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo",)),
+    ("Sam Altman", "Sam Altman", "AI", "sama", ()),
+    ("Greg Brockman", "Greg Brockman", "AI engineering", "gdb", ()),
+    ("Mira Murati", "Mira Murati", "AI engineering", "miramurati", ()),
+    ("Andrej Karpathy", "Andrej Karpathy", "AI research", "karpathy", ()),
+    ("Alexandr Wang", "Alexandr Wang", "AI", "alexandr_wang", ()),
+    ("Noam Brown", "Noam Brown", "AI research", "polynoamial", ()),
+    ("Ilya Sutskever", "Ilya Sutskever", "AI research", "ilyasut", ()),
+    ("John Schulman", "John Schulman", "AI research", "johnschulman2", ()),
+    ("Dario Amodei", "Dario Amodei", "AI research", "DarioAmodei", ()),
+    ("Amanda Askell", "Amanda Askell", "AI alignment", "AmandaAskell", ()),
+    ("Boris Cherny", "Boris Cherny", "coding tools", "bcherny", ()),
+    ("Mitchell Hashimoto", "Mitchell Hashimoto", "developer tools", "mitchellh", ()),
+    ("Guillermo Rauch", "Guillermo Rauch", "developer tools", "rauchg", ()),
+    ("Pieter Levels", "Pieter Levels", "indie software", "levelsio", ()),
+    ("Simon Willison", "Simon Willison", "AI / software", "simonw", ()),
+    ("Andrew Ng", "Andrew Ng", "AI research", "AndrewYNg", ()),
+    ("Fei-Fei Li", "Fei-Fei Li", "AI research", "drfeifei", ()),
+    ("Yann LeCun", "Yann LeCun", "AI research", "ylecun", ()),
+    ("Demis Hassabis", "Demis Hassabis", "AI research", "demishassabis", ()),
+    ("Jensen Huang", "Jensen Huang", "AI hardware", "jensenhuang", ()),
+    ("Lisa Su", "Lisa Su", "AI hardware", "LisaSu", ()),
+    ("Satya Nadella", "Satya Nadella", "technology", "satyanadella", ()),
+    ("Sundar Pichai", "Sundar Pichai", "technology", "sundarpichai", ()),
+    ("Tim Cook", "Tim Cook", "technology", "tim_cook", ()),
+    ("Marques Brownlee", "Marques Brownlee", "technology creator", "MKBHD", ()),
+    ("Harrison Chase", "Harrison Chase", "AI developer tools", "hwchase17", ()),
+    ("DHH", "DHH", "software builder", "dhh", ("David Heinemeier Hansson",)),
+    ("Tobi Lutke", "Tobi Lutke", "technology founder", "tobi", ("Tobi Lütke",)),
+    ("Paul Graham", "Paul Graham", "startup founder", "paulg", ()),
+    ("Theo Browne", "Theo", "developer creator", "theo", ("Theo")),
+    ("Linus Torvalds", "Linus Torvalds", "software", "Linus__Torvalds", ()),
 )
 
 
@@ -115,7 +119,7 @@ def _metadata_value(metadata: dict, key: str) -> str:
     return _clean_html(item)
 
 
-def _candidate_from_page(page: dict, person: tuple[str, str]) -> dict | None:
+def _candidate_from_page(page: dict, person: tuple) -> dict | None:
     title = str(page.get("title", "")).strip()
     infos = page.get("imageinfo") or []
     if not title.startswith("File:") or not infos or not isinstance(infos[0], dict):
@@ -138,7 +142,8 @@ def _candidate_from_page(page: dict, person: tuple[str, str]) -> dict | None:
         return None
 
     description = _metadata_value(metadata, "ImageDescription")
-    if not _person_matches(person[0], title, description):
+    names_to_match = (person[0], person[1], *person[4])
+    if not any(_person_matches(name, title, description) for name in names_to_match):
         return None
 
     artist = (
@@ -154,8 +159,10 @@ def _candidate_from_page(page: dict, person: tuple[str, str]) -> dict | None:
         file_page_url = "https://commons.wikimedia.org/wiki/" + quote(title.replace(" ", "_"), safe=":/()")
     license_url = _metadata_value(metadata, "LicenseUrl")
     return {
-        "subject": person[0],
-        "category": person[1],
+        "subject": person[1],
+        "search_name": person[0],
+        "category": person[2],
+        "x_handle": person[3],
         "title": title,
         "description": description or title.removeprefix("File:"),
         "thumbnail_url": thumbnail_url,
@@ -171,6 +178,7 @@ def _candidate_from_page(page: dict, person: tuple[str, str]) -> dict | None:
 def find_licensed_person_image(
     used_file_titles: list[str] | tuple[str, ...] = (),
     excluded_subjects: list[str] | tuple[str, ...] = (),
+    eligible_x_handles: list[str] | tuple[str, ...] | None = None,
 ) -> dict:
     """Discover a real portrait on Wikimedia Commons and verify its reuse license.
 
@@ -179,7 +187,19 @@ def find_licensed_person_image(
     """
     used_titles = {str(value).casefold().strip() for value in used_file_titles}
     excluded = {str(value).casefold().strip() for value in excluded_subjects}
-    subjects = [item for item in PERSON_SUBJECTS if item[0].casefold() not in excluded]
+    eligible = {
+        str(value).casefold().lstrip("@").strip()
+        for value in (eligible_x_handles or [])
+        if str(value).strip()
+    }
+    subjects = [
+        item for item in PERSON_SUBJECTS
+        if item[1].casefold() not in excluded
+        and item[0].casefold() not in excluded
+        and (not eligible or item[3].casefold() in eligible)
+    ]
+    if eligible_x_handles is not None and not subjects:
+        raise PersonImageError("No active X people remain after applying today's exclusions.")
     random.shuffle(subjects)
     searched = 0
 
@@ -193,7 +213,7 @@ def find_licensed_person_image(
             "formatversion": "2",
             "generator": "search",
             "gsrnamespace": "6",
-            "gsrsearch": f'"{person[0]}" portrait',
+            "gsrsearch": f'("{person[0]}" OR "{person[1]}") portrait',
             "gsrlimit": "20",
             "prop": "imageinfo",
             "iiprop": "url|mime|size|extmetadata",
