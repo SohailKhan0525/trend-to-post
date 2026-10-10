@@ -1,6 +1,7 @@
 import unittest
 
 from app.person_images import (
+    PERSON_SUBJECTS,
     _candidate_from_page,
     _license_allowed,
     _needs_attribution,
@@ -30,6 +31,39 @@ def commons_page(license_name="CC BY 4.0", artist="Alice Example"):
 
 
 class PersonImageLicenseTests(unittest.TestCase):
+    def test_every_person_candidate_has_an_x_handle(self):
+        self.assertTrue(PERSON_SUBJECTS)
+        self.assertTrue(all(person[3].strip() for person in PERSON_SUBJECTS))
+        tibo = next(person for person in PERSON_SUBJECTS if person[3] == "thsottiaux")
+        self.assertEqual(tibo[0], "Thibault Sottiaux")
+        self.assertEqual(tibo[1], "Tibo")
+        self.assertIn("Tibo", tibo[4])
+
+    def test_candidate_matches_tibo_alias_while_searching_full_name(self):
+        page = {
+            "title": "File:Tibo speaking about Codex.jpg",
+            "imageinfo": [{
+                "thumburl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/tibo.jpg",
+                "thumbmime": "image/jpeg",
+                "mime": "image/jpeg",
+                "thumbwidth": 1600,
+                "width": 2400,
+                "descriptionurl": "https://commons.wikimedia.org/wiki/File:Tibo.jpg",
+                "extmetadata": {
+                    "ImageDescription": {"value": "Tibo speaking at an AI engineering event"},
+                    "LicenseShortName": {"value": "CC BY 4.0"},
+                    "UsageTerms": {"value": "CC BY 4.0"},
+                    "LicenseUrl": {"value": "https://creativecommons.org/licenses/by/4.0/"},
+                    "Artist": {"value": "Alice Example"},
+                },
+            }],
+        }
+        tibo = next(person for person in PERSON_SUBJECTS if person[3] == "thsottiaux")
+        result = _candidate_from_page(page, tibo)
+        self.assertIsNotNone(result)
+        self.assertEqual(result["subject"], "Tibo")
+        self.assertEqual(result["x_handle"], "thsottiaux")
+
     def test_allows_public_domain_and_attribution_licenses(self):
         self.assertTrue(_license_allowed("Public domain"))
         self.assertTrue(_license_allowed("CC0 1.0 Universal"))
@@ -43,7 +77,7 @@ class PersonImageLicenseTests(unittest.TestCase):
         self.assertFalse(_license_allowed("Fair use"))
 
     def test_only_returns_a_vetted_subject_match_with_license_metadata(self):
-        result = _candidate_from_page(commons_page(), ("Sam Altman", "AI"))
+        result = _candidate_from_page(commons_page(), ("Sam Altman", "Sam Altman", "AI", "sama", ()))
         self.assertIsNotNone(result)
         self.assertEqual(result["subject"], "Sam Altman")
         self.assertEqual(result["mime"], "image/jpeg")
@@ -51,7 +85,7 @@ class PersonImageLicenseTests(unittest.TestCase):
         self.assertTrue(result["needs_attribution"])
 
     def test_rejects_photo_with_no_attribution_when_license_requires_it(self):
-        result = _candidate_from_page(commons_page(artist=""), ("Sam Altman", "AI"))
+        result = _candidate_from_page(commons_page(artist=""), ("Sam Altman", "Sam Altman", "AI", "sama", ()))
         self.assertIsNone(result)
 
     def test_public_domain_does_not_force_a_credit_reply(self):
