@@ -8,6 +8,8 @@ from typing import Iterable
 from twikit import Client
 
 SEARCHES_PER_RUN = 5
+OFFICIAL_BRAND_SEARCHES_PER_RUN = 10
+AI_TECH_SEARCHES_PER_RUN = 8
 TWEETS_PER_SEARCH = 15
 MAX_TWEET_AGE = timedelta(hours=18)
 SOURCE_HISTORY_LIMIT = 100
@@ -527,7 +529,7 @@ async def find_official_brand_source(
     attempted = 0
 
     for handle, topic in eligible:
-        if attempted >= SEARCHES_PER_RUN:
+        if attempted >= OFFICIAL_BRAND_SEARCHES_PER_RUN:
             break
         attempted += 1
         try:
@@ -641,7 +643,7 @@ async def find_ai_tech_source(
     now = datetime.now(timezone.utc)
     candidates: dict[str, SourceTweet] = {}
 
-    for query in queries[:SEARCHES_PER_RUN]:
+    for query in queries[:AI_TECH_SEARCHES_PER_RUN]:
         try:
             results = await client.search_tweet(query, "Latest", count=TWEETS_PER_SEARCH)
         except Exception as exc:
