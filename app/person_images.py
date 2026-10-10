@@ -82,7 +82,8 @@ def _get_json(url: str) -> dict[str, Any]:
 def _license_allowed(short_name: str, usage_terms: str = "") -> bool:
     value = " ".join(f"{short_name} {usage_terms}".casefold().split())
     if not value or any(term in value for term in (
-        "noncommercial", "non-commercial", "no derivatives", "no-derivatives",
+        "noncommercial", "non-commercial", "cc by-nc", "cc-by-nc", "by-nc",
+        "no derivatives", "no-derivatives", "cc by-nd", "cc-by-nd", "by-nd",
         "fair use", "all rights reserved", "permission required",
     )):
         return False
