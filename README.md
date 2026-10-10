@@ -1,60 +1,54 @@
-# X Text-Only Original Post Bot
+# X AI, Tech, Photo-Prompt and Quote-Post Bot
 
-This repository runs an experimental X account focused on AI, technology, major products and companies, gaming, sports, and internet culture.
+This repository runs an experimental X account focused on AI, technology, major products and companies, gaming, sports culture, and internet culture.
 
-## What it does
+## Daily publishing plan
 
-- Publishes text-only standalone originals and real X Quote Posts; it does not auto-reply or publish images.
-- Uses AI for every authored caption. Eleven daily originals are invented from broad topic seeds; four additional AI captions are automatically published as Quote Posts attached to recent original posts from curated official brand/company accounts.
-- Automatic original posts may use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target is 2–5 distinct emojis per post (at most one extra when it fits); repeats and emojis outside this list are rejected.
-- Favors unusual formats, absurd rules, sharp observations, fictional product behaviour, and punchy one-liners over generic corporate phrasing.
-- Prepares five manually publishable, text-only company-tag captions per UTC day. Their formats rotate between conditional “if” lines, “imagine” scenarios, an occasional “I'll buy” condition, choose-one prompts, feature challenges, and other product-specific jokes. Company captions may use ONLY 😂 👀 🥳 🫠; other emojis are rejected.
-- Automatically publishes eleven invented text-only originals plus four text-only AI Quote Posts attached to recent posts from real brand accounts. Quote commentary contains no @mention; X displays the source post as the quote attachment.
-- Keeps a bounded format memory to avoid repeating recent structures.
-- Rejects political/current-affairs content, country references, fabricated company claims, hashtags, and links.
-- Does not automatically like, follow, or reply to other accounts.
+The bot has **20 automatically published main-post slots per UTC day**:
 
-## The company-post format
+- **4 official-company Quote Posts** — the existing lane is preserved. It attaches a recent eligible text-only post from a curated first-party company account and adds an AI-written comment.
+- **8 real-person photo prompts** — the bot finds and downloads an existing, real photograph of a public-facing person, checks the source/license metadata, writes a funny prompt in the style of “You are sitting next to this person and get three words… what do you say?”, and attaches that real photo. It does **not** generate images.
+- **8 AI/technology Quote Posts** — the bot finds recent text-only X posts about AI and technology using direct keyword searches (not X's Trends feed), then publishes a humorous AI-written text comment as a real Quote Post. No AI-generated meme images are used.
 
-Company captions should not all share one template. The bot rotates formats across the daily batch, such as conditional “if” lines, “imagine...” scenarios, the occasional purchase condition, choose-one questions, absurd product challenges, mock ultimatums, and mini-quests. Truth-or-dare is not used, and company captions never ask for reposts, likes, follows, or boosts.
+The five old manually prepared company captions and the eleven invented standalone text originals are no longer part of the active daily queue. Legacy state fields remain only for backward compatibility; those lanes are not selected for new posts.
 
-Example shapes (the bot should invent fresh, company-specific versions):
-- `@BMW if the M4 can parallel park by itself, I'll forgive my driving 😂`
-- `@Microsoft imagine Windows error messages entering like a final boss with theme music 👀`
-- `@adidas I'll buy the Ultraboost if it can detect when I walk toward the fridge instead of the gym 🫠`
+## Real-photo sourcing and licenses
 
-Company captions may use ONLY these emojis: 😂 👀 🥳 🫠. These five posts are **manual**: copy the caption from `state/company_manual_posts.md` and publish it yourself. The bot never submits company-tagged captions to X.
+The person-photo lane uses the Wikimedia Commons API and downloads only existing image files with machine-readable reuse terms. It accepts public-domain/CC0 images and attribution/share-alike Creative Commons licenses, while rejecting non-commercial, no-derivatives, fair-use, all-rights-reserved, and missing-license candidates. It also checks that the file metadata matches the chosen subject and accepts only common raster image formats.
 
-## Brand-grounded Quote Posts
+For a license that requires attribution, the bot posts a self-reply with creator credit, the license, and the original Commons file page. If that reply fails after the photo post publishes, the main post is still recorded and the attribution failure is logged in the post_queue state JSON; check it before manually retrying the credit.
 
-Four posts each UTC day are automatically published as real X Quote Posts, using `attachment_url` to attach a source post from a curated list of first-party technology, software, gaming, sports, and product brands. The bot searches recent posts directly from those official handles, verifies the author matches the account allowlist, excludes replies/retweets/quote posts and media-bearing posts, and generates an original AI comment grounded in the source. It does **not** query or target X's Trending Topics list. This distinction matters because X's automation rules prohibit automatically posting about trending topics, while they expressly allow automated Quote Posts for entertainment, informational, or novelty purposes when non-spammy and otherwise compliant: https://help.x.com/en/rules-and-policies/x-automation.
+The search catalog rotates public-facing people from AI/technology, gaming, sports, and entertainment. Only photos with a reusable license are candidates. If no suitable image is found, the bot skips that lane attempt and tries another eligible lane instead of downloading an arbitrary Google Images result. The bot never scrapes Google Images and never assumes that an image is reusable merely because it is publicly visible.
 
-The four quotes are automatically published, not left as manual drafts. They do not add an `@mention` to the authored caption; the company appears because its original post is attached. Each source ID is tracked to prevent reuse, and the recent-format memory is used to reduce repeated jokes. Sources with images or video are skipped to preserve the text-only account requirement.
-## Daily limits
+## Emoji and caption rules
 
-- **20 total daily content slots**: 11 auto-published invented originals + 4 auto-published official-brand Quote Posts + 5 manual company-tagged captions.
-- **20 AI text generations per UTC day** across all three lanes: 11 invented originals, 4 official-brand Quote Posts, and 5 company captions.
-- Minimum **72 minutes between successful automated X posts**.
-- Five company targets rotate with a four-day cooldown.
-- The first queue run each UTC day prepares five company captions for manual publication. Eligible queue runs then publish the four official-brand Quote Posts first, one per run under the 72-minute interval guard, followed by up to eleven invented originals.
-- Manual X publishing cannot be detected automatically. The queue reserves those content slots when it generates the captions, even before you manually publish them.
-- These are caps, not a guarantee of twenty completed posts. Search, provider, validation, or X failures can reduce actual output.
+Automated authored captions and quote-post comments may use **only** these emojis:
 
-## Workflow
+👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀
 
-The Actions workflow `Post X Text Originals` runs on manual dispatch or the existing `post-next` repository-dispatch event. Each UTC day, the queue prepares five company captions in `state/company_manual_posts.md` for manual publication. It automatically publishes four AI Quote Posts attached to fresh text-only posts from official company accounts, then publishes invented text-only originals when the cooldown and quota allow. Published quote-post metadata is saved in `state/post_queue.json`.
+The number of emojis is randomized per caption (normally 2–5, with at most one extra when it fits). Repeated emoji tokens and emojis outside the approved palette are rejected. The prompt generator and validators also reject @mentions, hashtags, URLs, country references, blocked political/current-affairs content, and recent-format duplicates.
 
-The external scheduler should continue sending the existing `post-next` event at the desired cadence. The bot itself enforces the 72-minute minimum for posts that it publishes automatically.
+The AI/technology Quote Post lane is restricted to AI, models, AI labs, software, developer tools, coding, computing hardware, chips, cloud, apps, robotics, data, and digital product behavior. It intentionally does not quote unrelated sports/entertainment content. It uses direct latest-post keyword searches and never calls X's Trending Topics endpoint.
+
+## Queue and workflow behavior
+
+The publishing workflow is .github/workflows/post-queue.yml. It runs on manual dispatch or the existing post-next repository-dispatch event. Every run checks credentials, compiles the Python application, runs the full unit-test suite, and only then attempts one new main post.
+
+The queue rotates between the three lanes so a temporary image search, source search, or generation failure in one lane does not block all other content types. It publishes at most one new main post per dispatch and enforces a **72-minute minimum between successful main posts**. A required photo-attribution reply is sent immediately after its photo post and does not consume another main-post slot.
+
+The queue tracks daily counters, prior source IDs, photo file titles, recently used person names, format memory, attribution status, and last-post metadata in the post_queue state JSON. Up to 40 generation attempts are allowed per UTC day so transient provider/source failures do not immediately consume the entire 20-post plan. These are caps, not guarantees: provider errors, unavailable eligible content, X restrictions, or expired authentication can reduce the number published.
+
+The Validate Bot workflow checks Python syntax and unit tests on pushes/pull requests. Changes should not be deployed until that workflow passes.
 
 ## Required GitHub Secrets
 
-- `X_AUTH_TOKEN`
-- `X_CT0`
-- `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_API_TOKEN`
-- `GEMINI_API_KEY` (fallback)
-- `GEMINI_API_KEY_BACKUP` (optional fallback)
+- X_AUTH_TOKEN
+- X_CT0
+- CLOUDFLARE_ACCOUNT_ID
+- CLOUDFLARE_API_TOKEN
+- GEMINI_API_KEY (fallback)
+- GEMINI_API_KEY_BACKUP (optional fallback)
 
-## State
+## Important platform note
 
-`state/post_queue.json` stores daily slot and generation counters, official-brand source IDs, company target rotation and cooldowns, last automated post metadata, and recent format memory (including prior post text for duplicate checks). Copy-ready manual company captions live in `state/company_manual_posts.md`. The legacy `state/trend_manual_posts.md` file is no longer used for the quote-post lane.
+This repository currently publishes through Twikit using an authenticated X session. X can restrict automated or scripted website interactions, and X's automation policy may require API-based automation for a compliant production bot. Review current X rules and use an approved API-based publishing integration where required: https://help.x.com/en/rules-and-policies/x-automation.

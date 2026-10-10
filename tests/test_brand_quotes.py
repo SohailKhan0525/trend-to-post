@@ -79,6 +79,19 @@ class BrandQuoteTests(unittest.TestCase):
                 [{"format_name": "fresh format", "post_text": "older joke"}],
             )
 
+    def test_ai_tech_prompt_restricts_new_quote_lane_to_tech_and_ai(self):
+        prompt = _prompt(source(), [], emoji_count=3, scope="ai_tech")
+        self.assertIn("SCOPE: AI AND TECHNOLOGY ONLY", prompt)
+        self.assertIn("artificial intelligence", prompt)
+        self.assertNotIn("sports moment", prompt)
+        self.assertIn("Never repeat an emoji token", prompt)
+        self.assertIn("Do not add @mentions, hashtags, or URLs", prompt)
+
+    def test_rejects_invalid_quote_scope(self):
+        from app.gemini import generate_quote
+        with self.assertRaisesRegex(GeminiError, "Unsupported quote-post scope"):
+            generate_quote(source(), [], scope="everything")
+
     def test_prompt_includes_prior_text_and_strict_no_tag_rules(self):
         prompt = _prompt(
             source(),

@@ -10,10 +10,17 @@ from twikit import Client
 
 from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
 from .gemini import COMPANY_HOOK_TYPES, GeminiError, generate_company_original, generate_original_text, generate_quote
+from .person_images import (
+    PersonImageError,
+    attribution_reply,
+    download_image_bytes,
+    find_licensed_person_image,
+)
 from .trend_source import (
     SOURCE_HISTORY_LIMIT,
     SourceTweet,
     TrendSourceError,
+    find_ai_tech_source,
     find_official_brand_source,
 )
 
@@ -21,8 +28,12 @@ STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
 TREND_QUOTE_POSTS_PER_DAY = 4
-ORIGINAL_POSTS_PER_DAY = POSTS_PER_DAY - COMPANY_POSTS_PER_DAY - TREND_QUOTE_POSTS_PER_DAY
-AI_GENERATIONS_PER_DAY = 20
+PERSON_PHOTO_POSTS_PER_DAY = 8
+AI_TECH_QUOTE_POSTS_PER_DAY = 8
+# Allow retries across flaky source searches/provider responses without changing
+# the hard cap of twenty successfully published main posts.
+AI_GENERATIONS_PER_DAY = 40
+ORIGINAL_POSTS_PER_DAY = 11  # legacy state compatibility only
 MIN_POST_INTERVAL_MINUTES = 72
 BRAND_AI_GENERATIONS_PER_DAY = COMPANY_POSTS_PER_DAY
 INVENTED_TOPIC_SEEDS = (
@@ -76,7 +87,18 @@ def _new_state() -> dict:
         "trend_manual_posts": [],
         "trend_manual_day_key": None,
         "trend_source_ids": [],
-        "invented_post_count": 0,
+        "invented_post_count": 0,  # legacy state compatibility only
+        "person_photo_day_key": None,
+        "person_photo_post_count": 0,
+        "person_photo_posts": [],
+        "person_photo_title_history": [],
+        "person_photo_subject_history": [],
+        "skipped_person_image_titles": [],
+        "ai_tech_quote_day_key": None,
+        "ai_tech_quote_post_count": 0,
+        "ai_tech_quote_posts": [],
+        "ai_tech_source_ids": [],
+        "next_lane_index": 0,
     }
 
 
@@ -120,6 +142,15 @@ def _load_state() -> dict:
         state["trend_manual_day_key"] = None
         state["trend_source_ids"] = []
         state["invented_post_count"] = 0
+        state["person_photo_day_key"] = None
+        state["person_photo_post_count"] = 0
+        state["person_photo_posts"] = []
+        state["ai_tech_quote_day_key"] = None
+        state["ai_tech_quote_post_count"] = 0
+        state["ai_tech_quote_posts"] = []
+        state["ai_tech_source_ids"] = []
+        state["skipped_person_image_titles"] = []
+        state["next_lane_index"] = 0
 
     try:
         state["daily_count"] = int(state.get("daily_count", 0))
@@ -212,6 +243,44 @@ def _load_state() -> dict:
         if isinstance(item, dict)
     ]
     state["trend_source_ids"] = _history(state.get("trend_source_ids", []))
+    state["person_photo_title_history"] = _history(
+        state.get("person_photo_title_history", [])
+    )
+    state["person_photo_subject_history"] = _history(
+        state.get("person_photo_subject_history", [])
+    )
+    state["skipped_person_image_titles"] = _history(
+        state.get("skipped_person_image_titles", [])
+    )
+    state["ai_tech_source_ids"] = _history(state.get("ai_tech_source_ids", []))
+    try:
+        state["person_photo_post_count"] = int(state.get("person_photo_post_count", 0))
+        state["ai_tech_quote_post_count"] = int(state.get("ai_tech_quote_post_count", 0))
+        state["next_lane_index"] = int(state.get("next_lane_index", 0)) % 3
+    except (TypeError, ValueError) as exc:
+        raise QueueError("Visual/AI-tech lane counters must be integers.") from exc
+    if not 0 <= state["person_photo_post_count"] <= PERSON_PHOTO_POSTS_PER_DAY:
+        raise QueueError(
+            f"State person_photo_post_count is outside 0..{PERSON_PHOTO_POSTS_PER_DAY}."
+        )
+    if not 0 <= state["ai_tech_quote_post_count"] <= AI_TECH_QUOTE_POSTS_PER_DAY:
+        raise QueueError(
+            f"State ai_tech_quote_post_count is outside 0..{AI_TECH_QUOTE_POSTS_PER_DAY}."
+        )
+    photo_posts = state.get("person_photo_posts", [])
+    if not isinstance(photo_posts, list):
+        raise QueueError("State person_photo_posts must be a list.")
+    state["person_photo_posts"] = [
+        item for item in photo_posts[-PERSON_PHOTO_POSTS_PER_DAY:]
+        if isinstance(item, dict)
+    ]
+    ai_tech_posts = state.get("ai_tech_quote_posts", [])
+    if not isinstance(ai_tech_posts, list):
+        raise QueueError("State ai_tech_quote_posts must be a list.")
+    state["ai_tech_quote_posts"] = [
+        item for item in ai_tech_posts[-AI_TECH_QUOTE_POSTS_PER_DAY:]
+        if isinstance(item, dict)
+    ]
 
     brand_lab = state.get("brand_format_lab", [])
     if not isinstance(brand_lab, list):
@@ -617,6 +686,333 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
     return True
 
 
+async def _post_person_photo(state: dict, client: Client) -> bool:
+    """Publish a source-licensed real-person photo with a varied audience prompt."""
+    today = _today()
+    if state.get("person_photo_day_key") != today:
+        state["person_photo_day_key"] = today
+        state["person_photo_post_count"] = 0
+        state["person_photo_posts"] = []
+
+    if int(state.get("person_photo_post_count", 0)) >= PERSON_PHOTO_POSTS_PER_DAY:
+        return False
+    if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
+        return False
+    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+        print("AI generation-attempt budget reached before the next person-photo post.")
+        return False
+
+    used_titles = (
+        state.get("person_photo_title_history", [])
+        + state.get("skipped_person_image_titles", [])
+    )
+    recent_subjects = (
+        state.get("person_photo_subject_history", [])[-16:]
+        + [
+            str(item.get("subject", "")).strip()
+            for item in state.get("person_photo_posts", [])
+            if isinstance(item, dict)
+        ]
+    )
+    try:
+        image = find_licensed_person_image(
+            used_file_titles=used_titles,
+            excluded_subjects=recent_subjects,
+        )
+        image_bytes = download_image_bytes(image)
+    except PersonImageError as exc:
+        print(f"Person-photo lane could not find/download a vetted photo: {exc}")
+        failed_title = str(locals().get("image", {}).get("title", "")).strip()
+        if failed_title:
+            state["skipped_person_image_titles"] = (
+                state.get("skipped_person_image_titles", []) + [failed_title]
+            )[-SOURCE_HISTORY_LIMIT:]
+            _save_state(state)
+        return False
+
+    payload = {
+        "trend": str(image.get("subject", "")).strip(),
+        "text": str(image.get("description", "")).strip()[:1200],
+    }
+    state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
+    _save_state(state)
+    try:
+        draft = generate_original_text(
+            payload,
+            state["format_lab"],
+            content_mode="person_prompt",
+        )
+    except GeminiError as exc:
+        state["skipped_person_image_titles"] = (
+            state.get("skipped_person_image_titles", []) + [image["title"]]
+        )[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print(f"Person-photo caption rejected; no post published: {exc}")
+        return False
+
+    text = draft.post_text.strip()
+    if not draft.should_post or not text or len(text) > 280:
+        state["skipped_person_image_titles"] = (
+            state.get("skipped_person_image_titles", []) + [image["title"]]
+        )[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print("Person-photo caption failed validation; no post published.")
+        return False
+
+    try:
+        media_id = await client.upload_media(
+            image_bytes,
+            media_type=str(image["mime"]),
+        )
+        try:
+            await client.create_media_metadata(
+                media_id,
+                alt_text=f"Real photo of {image['subject']}. Source: Wikimedia Commons.",
+            )
+        except Exception as exc:
+            # Alt text is helpful but not a prerequisite for publishing the vetted photo.
+            print(f"Could not set photo alt text; continuing: {exc}")
+        tweet = await client.create_tweet(text=text, media_ids=[media_id])
+    except Exception as exc:
+        state["skipped_person_image_titles"] = (
+            state.get("skipped_person_image_titles", []) + [image["title"]]
+        )[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        raise QueueError(f"X person-photo upload or post failed: {exc}") from exc
+
+    tweet_id = str(getattr(tweet, "id", "") or "")
+    if not tweet_id:
+        raise QueueError(
+            "X accepted the photo post but returned no tweet ID; inspect the account before retrying."
+        )
+
+    now = datetime.now(timezone.utc).isoformat()
+    item = {
+        "slot_number": int(state.get("person_photo_post_count", 0)) + 1,
+        "subject": image["subject"],
+        "post": text,
+        "image_title": image["title"],
+        "image_source_url": image["file_page_url"],
+        "license_name": image["license_name"],
+        "license_url": image.get("license_url", ""),
+        "image_artist": image.get("artist", ""),
+        "needs_attribution": bool(image.get("needs_attribution")),
+        "attribution_status": "pending" if image.get("needs_attribution") else "not_required",
+        "tweet_id": tweet_id,
+        "format_name": draft.format_name,
+        "comedy_mechanism": draft.comedy_mechanism,
+        "structure_signature": draft.structure_signature,
+        "generated_at": now,
+        "status": "published",
+    }
+    state["person_photo_posts"] = (
+        state.get("person_photo_posts", []) + [item]
+    )[-PERSON_PHOTO_POSTS_PER_DAY:]
+    state["person_photo_title_history"] = (
+        state.get("person_photo_title_history", []) + [image["title"]]
+    )[-SOURCE_HISTORY_LIMIT:]
+    state["person_photo_subject_history"] = (
+        state.get("person_photo_subject_history", []) + [image["subject"]]
+    )[-SOURCE_HISTORY_LIMIT:]
+
+    lab = state.get("format_lab", [])
+    lab.append({
+        "format_name": draft.format_name or "unnamed person-photo prompt",
+        "comedy_mechanism": draft.comedy_mechanism,
+        "used_at": now,
+        "topic": image["subject"],
+        "tweet_id": tweet_id,
+        "content_type": "photo_prompt",
+        "content_mode": "licensed_person_photo",
+        "post_text": text,
+        "mutation_stage": draft.hook_type,
+        "structure_signature": draft.structure_signature,
+    })
+    state["format_lab"] = lab[-20:]
+    fingerprints = state.get("recent_post_fingerprints", [])
+    fingerprints.append(draft.structure_signature[:180])
+    state["recent_post_fingerprints"] = fingerprints[-30:]
+
+    state.update({
+        "day_key": today,
+        "person_photo_day_key": today,
+        "person_photo_post_count": int(state.get("person_photo_post_count", 0)) + 1,
+        "daily_count": int(state.get("daily_count", 0)) + 1,
+        "last_tweet_id": tweet_id,
+        "last_posted_at": now,
+        "last_source_tweet_id": None,
+        "last_post_type": "person_photo_prompt",
+        "last_company_handle": None,
+    })
+    _save_state(state)
+
+    # Attribution is a separate self-reply only for licenses that require it.
+    # The parent post and counters are committed first so a reply failure cannot
+    # cause the same image/caption to be published again on the next queue run.
+    if image.get("needs_attribution"):
+        try:
+            reply = await client.create_tweet(
+                text=attribution_reply(image),
+                reply_to=tweet_id,
+            )
+            item["attribution_reply_id"] = str(getattr(reply, "id", "") or "")
+            item["attribution_status"] = "posted"
+        except Exception as exc:
+            item["attribution_status"] = "failed"
+            item["attribution_error"] = str(exc)[:300]
+            print(f"Photo is published, but required credit reply failed: {exc}")
+        _save_state(state)
+
+    print(
+        f"Published licensed real-person photo prompt "
+        f"{state['person_photo_post_count']}/{PERSON_PHOTO_POSTS_PER_DAY}: "
+        f"{image['subject']} | daily slots {state['daily_count']}/{POSTS_PER_DAY}."
+    )
+    return True
+
+
+async def _post_ai_tech_quote(state: dict, client: Client) -> bool:
+    """Publish a text-only AI/technology Quote Post with a validated funny comment."""
+    today = _today()
+    if state.get("ai_tech_quote_day_key") != today:
+        state["ai_tech_quote_day_key"] = today
+        state["ai_tech_quote_post_count"] = 0
+        state["ai_tech_quote_posts"] = []
+        state["ai_tech_source_ids"] = []
+
+    if int(state.get("ai_tech_quote_post_count", 0)) >= AI_TECH_QUOTE_POSTS_PER_DAY:
+        return False
+    if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
+        return False
+    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+        print("AI generation-attempt budget reached before the next AI/tech quote-post.")
+        return False
+
+    used = (
+        state.get("posted_source_tweet_ids", [])
+        + state.get("skipped_source_tweet_ids", [])
+        + state.get("trend_source_ids", [])
+        + state.get("ai_tech_source_ids", [])
+    )
+    excluded_handles = [
+        str(item.get("source_username", "")).strip()
+        for key in ("trend_quote_posts", "ai_tech_quote_posts")
+        for item in state.get(key, [])
+        if isinstance(item, dict) and str(item.get("source_username", "")).strip()
+    ]
+    try:
+        source = await find_ai_tech_source(client, used, excluded_handles)
+    except TrendSourceError as exc:
+        print(f"No eligible AI/tech quote source found right now: {exc}")
+        return False
+
+    payload = _source_dict(source)
+    state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
+    _save_state(state)
+    try:
+        draft = generate_quote(payload, state["format_lab"], scope="ai_tech")
+    except GeminiError as exc:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print(f"AI/tech quote generation failed; source safely skipped: {exc}")
+        return False
+
+    if not draft.should_quote:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print("AI declined the AI/tech source; no post was published.")
+        return False
+
+    text = draft.quote_text.strip()
+    if not text or len(text) > 280:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print("AI/tech quote exceeded the post limit and was discarded.")
+        return False
+
+    print(
+        f"Publishing AI/tech text-only Quote Post ({len(text)}/280) from "
+        f"@{source.username}: {text}"
+    )
+    try:
+        tweet = await client.create_tweet(text=text, attachment_url=source.url)
+    except Exception as exc:
+        raise QueueError(f"X AI/tech Quote Post failed: {exc}") from exc
+
+    tweet_id = str(getattr(tweet, "id", "") or "")
+    now = datetime.now(timezone.utc).isoformat()
+    item = {
+        "slot_number": int(state.get("ai_tech_quote_post_count", 0)) + 1,
+        "post": text,
+        "source_username": source.username,
+        "source_type": source.source_type,
+        "source_tweet_id": source.tweet_id,
+        "source_url": source.url,
+        "source_text": source.text,
+        "topic": source.trend,
+        "format_name": draft.format_name,
+        "comedy_mechanism": draft.comedy_mechanism,
+        "structure_signature": draft.structure_signature,
+        "tweet_id": tweet_id,
+        "generated_at": now,
+        "status": "published",
+    }
+    state["ai_tech_quote_posts"] = (
+        state.get("ai_tech_quote_posts", []) + [item]
+    )[-AI_TECH_QUOTE_POSTS_PER_DAY:]
+    for key in ("ai_tech_source_ids", "posted_source_tweet_ids"):
+        values = state.get(key, [])
+        values.append(source.tweet_id)
+        state[key] = values[-SOURCE_HISTORY_LIMIT:]
+
+    lab = state.get("format_lab", [])
+    lab.append({
+        "format_name": draft.format_name or "unnamed AI/tech quote",
+        "comedy_mechanism": draft.comedy_mechanism,
+        "used_at": now,
+        "topic": source.trend,
+        "tweet_id": tweet_id,
+        "content_type": "quote_post",
+        "content_mode": "ai_tech_quote",
+        "source_tweet_id": source.tweet_id,
+        "source_username": source.username,
+        "post_text": text,
+        "mutation_stage": draft.mutation_stage,
+        "structure_signature": draft.structure_signature,
+    })
+    state["format_lab"] = lab[-20:]
+    fingerprints = state.get("recent_post_fingerprints", [])
+    fingerprints.append(draft.structure_signature[:180])
+    state["recent_post_fingerprints"] = fingerprints[-30:]
+
+    state.update({
+        "day_key": today,
+        "ai_tech_quote_day_key": today,
+        "ai_tech_quote_post_count": int(state.get("ai_tech_quote_post_count", 0)) + 1,
+        "daily_count": int(state.get("daily_count", 0)) + 1,
+        "last_tweet_id": tweet_id,
+        "last_posted_at": now,
+        "last_source_tweet_id": source.tweet_id,
+        "last_post_type": "ai_tech_quote",
+        "last_company_handle": None,
+    })
+    _save_state(state)
+    print(
+        f"Published AI/tech Quote Post {state['ai_tech_quote_post_count']}/{AI_TECH_QUOTE_POSTS_PER_DAY}; "
+        f"official-company quotes {state.get('trend_quote_post_count', 0)}/{TREND_QUOTE_POSTS_PER_DAY}; "
+        f"photo prompts {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}; "
+        f"daily slots {state['daily_count']}/{POSTS_PER_DAY}; "
+        f"generation attempts {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
+    )
+    return True
+
+
 async def post_next(
     auth_token: str,
     ct0: str,
@@ -634,33 +1030,11 @@ async def post_next(
         )
 
     state = _load_state()
-
-    _write_company_manual_posts(state)
-
-    if ensure_daily_brand_targets(state):
-        _save_state(state)
-        targets = ", ".join(
-            f"{item['handle']} ({item['name']})"
-            for item in state.get("brand_tag_queue", [])
-            if isinstance(item, dict)
-        )
-        print(
-            "Brand target queue refreshed: "
-            f"{targets}. Five company captions will be prepared together inside the 20-slot quota; "
-            "their @mentions are for your manual posts only."
-        )
-
-    if state["company_post_count"] < COMPANY_POSTS_PER_DAY:
-        if not _ensure_company_manual_posts(state):
-            _write_company_manual_posts(state)
-            _save_state(state)
-            return False
-
-    if state["daily_count"] >= POSTS_PER_DAY:
+    if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
         print(f"Daily content-slot limit reached: {POSTS_PER_DAY}.")
         return False
-    if state["ai_call_count"] >= AI_GENERATIONS_PER_DAY:
-        print(f"Daily AI generation limit reached: {AI_GENERATIONS_PER_DAY}.")
+    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+        print(f"Daily generation-attempt budget reached: {AI_GENERATIONS_PER_DAY}.")
         return False
     if not _interval_ok(state):
         return False
@@ -669,98 +1043,54 @@ async def post_next(
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; auth cookies may be expired.")
 
-    # Quote current posts from curated official brand accounts. This lane does not
-    # query X's Trending Topics list; each successful item is attached as a real quote-post.
-    if int(state.get("trend_quote_post_count", 0)) < TREND_QUOTE_POSTS_PER_DAY:
-        return await _post_trend_quote(state, client)
-
-    if int(state.get("invented_post_count", 0)) >= ORIGINAL_POSTS_PER_DAY:
-        print(f"Daily invented-original limit reached: {ORIGINAL_POSTS_PER_DAY}.")
-        return False
-
-    if state["daily_count"] >= POSTS_PER_DAY:
-        print(f"Daily content-slot limit reached: {POSTS_PER_DAY}.")
-        return False
-    if state["ai_call_count"] >= AI_GENERATIONS_PER_DAY:
-        print(f"Daily AI generation limit reached: {AI_GENERATIONS_PER_DAY}.")
-        return False
-    if not _interval_ok(state):
-        return False
-
-    payload = {"trend": random.choice(INVENTED_TOPIC_SEEDS), "text": ""}
-    state["ai_call_count"] = int(state["ai_call_count"]) + 1
-    _save_state(state)
-    try:
-        draft = generate_original_text(
-            payload,
-            state["format_lab"],
-            content_mode="invented",
+    # One successful main post per queue run. Rotate among the three eligible
+    # lanes so a temporary image/source failure does not block every other lane.
+    lanes = (
+        ("official_company_quote", "trend_quote_post_count", TREND_QUOTE_POSTS_PER_DAY, _post_trend_quote),
+        ("person_photo_prompt", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_person_photo),
+        ("ai_tech_quote", "ai_tech_quote_post_count", AI_TECH_QUOTE_POSTS_PER_DAY, _post_ai_tech_quote),
+    )
+    start = int(state.get("next_lane_index", 0)) % len(lanes)
+    eligible = [
+        (index, lane)
+        for offset in range(len(lanes))
+        for index in [(start + offset) % len(lanes)]
+        for lane in [lanes[index]]
+        if int(state.get(lane[1], 0)) < lane[2]
+    ]
+    if not eligible:
+        print(
+            "Daily content plan complete: "
+            f"company quotes {state.get('trend_quote_post_count', 0)}/{TREND_QUOTE_POSTS_PER_DAY}, "
+            f"real-photo prompts {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}, "
+            f"AI/tech quotes {state.get('ai_tech_quote_post_count', 0)}/{AI_TECH_QUOTE_POSTS_PER_DAY}."
         )
-    except GeminiError as exc:
-        _save_state(state)
-        print(f"AI could not produce a valid invented original after retries: {exc}")
         return False
 
-    if not draft.should_post:
+    last_error = None
+    for index, lane in eligible:
+        lane_name, _, _, publisher = lane
+        state["next_lane_index"] = (index + 1) % len(lanes)
         _save_state(state)
-        print("AI declined the invented premise; it will be regenerated on a later run.")
-        return False
+        print(f"Queue attempting lane: {lane_name}.")
+        try:
+            if await publisher(state, client):
+                return True
+        except QueueError:
+            # A publish call with uncertain outcome must not silently fall through
+            # and create a second main post in the same dispatch.
+            raise
+        except Exception as exc:
+            last_error = exc
+            print(f"Lane {lane_name} failed safely; trying the next eligible lane: {exc}")
 
-    text = draft.post_text.strip()
-    if not text or len(text) > 280:
-        raise QueueError("AI returned invalid original post text length.")
+        if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
+            return False
+        if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+            break
 
-    print(f"Original text-only post ({len(text)}/280): {text}")
-
-    try:
-        tweet = await client.create_tweet(text=text)
-    except Exception as exc:
-        raise QueueError(f"X post failed: {exc}") from exc
-
-    now = datetime.now(timezone.utc).isoformat()
-    lab = state["format_lab"]
-    lab.append(
-        {
-            "format_name": draft.format_name or "unnamed format",
-            "comedy_mechanism": draft.comedy_mechanism,
-            "used_at": now,
-            "topic": payload["trend"],
-            "self_reply": False,
-            "tweet_id": str(getattr(tweet, "id", "") or ""),
-            "content_type": "original_text",
-            "content_mode": "invented",
-            "post_text": text,
-            "mutation_stage": draft.hook_type,
-            "structure_signature": draft.structure_signature,
-        }
-    )
-    state["format_lab"] = lab[-20:]
-
-    fingerprints = state["recent_post_fingerprints"]
-    fingerprints.append(draft.structure_signature[:180])
-    state["recent_post_fingerprints"] = fingerprints[-30:]
-
-    state["invented_post_count"] = int(state.get("invented_post_count", 0)) + 1
-    state.update(
-        {
-            "day_key": _today(),
-            "daily_count": int(state["daily_count"]) + 1,
-            "last_tweet_id": str(getattr(tweet, "id", "") or ""),
-            "last_posted_at": now,
-            "last_source_tweet_id": None,
-            "last_post_type": "original_text",
-            "last_company_handle": None,
-        }
-    )
-    _save_state(state)
-
-    original_count = int(state.get("invented_post_count", 0))
-    print(
-        f"Posted invented original #{original_count}/{ORIGINAL_POSTS_PER_DAY}; "
-        f"official-brand quote-posts {state.get('trend_quote_post_count', 0)}/{TREND_QUOTE_POSTS_PER_DAY}; "
-        f"company manual captions {state['company_post_count']}/{COMPANY_POSTS_PER_DAY}; "
-        f"total content slots {state['daily_count']}/{POSTS_PER_DAY}; "
-        f"text generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}; "
-        f"Format={draft.format_name or 'unnamed'}"
-    )
-    return True
+    if last_error is not None:
+        print(f"No lane published a post during this dispatch; last error: {last_error}")
+    else:
+        print("No lane had eligible source material to publish during this dispatch.")
+    return False

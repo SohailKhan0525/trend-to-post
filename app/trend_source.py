@@ -44,6 +44,9 @@ ALLOWED_TOPIC_KEYWORDS = (
     "ai",
     "machine learning",
     "llm",
+    "llms",
+    "large language model",
+    "foundation model",
     "chatgpt",
     "openai",
     "claude",
@@ -71,6 +74,23 @@ ALLOWED_TOPIC_KEYWORDS = (
     "ios",
     "technology",
     "tech",
+    "developer",
+    "coding",
+    "programming",
+    "github",
+    "cloud computing",
+    "cloud",
+    "data center",
+    "gpu",
+    "cpu",
+    "graphics card",
+    "processor",
+    "api",
+    "open source",
+    "robotics",
+    "neural network",
+    "inference",
+    "cybersecurity",
     "software",
     "hardware",
     "robot",
@@ -556,3 +576,117 @@ async def find_official_brand_source(
     )
     return selected
 
+
+
+# A source must contain a concrete AI/technology signal in its own text;
+# broad legacy topic keywords (sports, entertainment, etc.) are insufficient.
+AI_TECH_TOPIC_KEYWORDS = (
+    "artificial intelligence", "machine learning", "large language model",
+    "foundation model", "chatgpt", "openai", "claude", "anthropic", "gemini",
+    "deepmind", "llm", "llms", "copilot", "ai", "software", "developer tools",
+    "coding", "programming", "github", "cloud computing", "cloud", "data center",
+    "gpu", "cpu", "graphics card", "processor", "semiconductor", "chip",
+    "api", "open source", "robotics", "neural network", "inference",
+    "cybersecurity", "cyber security", "microsoft", "nvidia", "amd", "intel",
+    "apple", "google", "meta", "aws", "azure", "android", "iphone", "macbook",
+    "software engineering", "database", "python", "javascript", "linux",
+)
+
+
+def _ai_tech_topic_allowed(text: str) -> bool:
+    if not text or any(_keyword_matches(text, term) for term in BLOCKED_TOPIC_KEYWORDS):
+        return False
+    return any(_keyword_matches(text, term) for term in AI_TECH_TOPIC_KEYWORDS)
+
+
+# This lane discovers text-only AI/technology conversation through direct
+# keyword searches. It intentionally never reads X's Trending Topics endpoint.
+AI_TECH_SIGNAL_SEARCHES = (
+    "ChatGPT",
+    "OpenAI AI",
+    "Claude AI",
+    "Gemini AI",
+    "AI agents",
+    "AI coding",
+    "LLM",
+    "machine learning",
+    "AI model",
+    "artificial intelligence",
+    "NVIDIA AI",
+    "GPU computing",
+    "developer tools",
+    "coding assistant",
+    "open source AI",
+    "AI infrastructure",
+    "robotics software",
+    "cloud computing",
+)
+
+
+async def find_ai_tech_source(
+    client: Client,
+    used_source_ids: Iterable[str],
+    excluded_usernames: Iterable[str] = (),
+) -> SourceTweet:
+    """Find a recent, original, text-only AI/technology post for a quote-post."""
+    import random
+
+    used_ids = {str(value).strip() for value in used_source_ids if str(value).strip()}
+    excluded = {
+        str(value).strip().lstrip("@").casefold()
+        for value in excluded_usernames if str(value).strip()
+    }
+    queries = list(AI_TECH_SIGNAL_SEARCHES)
+    random.shuffle(queries)
+    now = datetime.now(timezone.utc)
+    candidates: dict[str, SourceTweet] = {}
+
+    for query in queries[:SEARCHES_PER_RUN]:
+        try:
+            results = await client.search_tweet(query, "Latest", count=TWEETS_PER_SEARCH)
+        except Exception as exc:
+            message = str(exc)
+            print(f"Skipping AI/tech search {query!r}: {message}")
+            if "429" in message or "rate limit" in message.lower():
+                raise TrendSourceError(
+                    "X search is currently rate limited; stopping before more requests."
+                ) from exc
+            continue
+
+        for tweet in results or []:
+            if _username(tweet).casefold() in excluded:
+                continue
+            # The authored quote commentary is text-only; avoid sourcing an image/video post.
+            if getattr(tweet, "media", None):
+                continue
+            text = str(getattr(tweet, "text", "") or "").strip()
+            if not _ai_tech_topic_allowed(text):
+                continue
+            if not _is_candidate(tweet, now, used_ids, query, require_views=False):
+                continue
+            source = _build_source(
+                tweet,
+                trend_name=f"AI/technology: {query}",
+                trend_volume=0,
+                source_type="ai_tech_search",
+            )
+            candidates[source.tweet_id] = source
+
+    if not candidates:
+        raise TrendSourceError(
+            "No eligible recent text-only AI/technology post was found in direct keyword searches."
+        )
+
+    ranked = sorted(
+        candidates.values(),
+        key=lambda candidate: candidate.engagement_score,
+        reverse=True,
+    )
+    selected = ranked[0]
+    print(
+        "Selected AI/technology source for automatic quote-post: "
+        f"@{selected.username}/{selected.tweet_id} | "
+        f"query={selected.trend!r} | views={selected.view_count:,} | "
+        f"likes={selected.favorite_count:,} | replies={selected.reply_count:,}"
+    )
+    return selected

@@ -86,6 +86,17 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("You MUST build the joke around the supplied recent X post", prompt)
         self.assertIn("source URL is for human review only", prompt)
 
+    def test_person_photo_prompt_uses_real_photo_and_screenshot_style(self) -> None:
+        prompt = _original_text_prompt(
+            {"trend": "Sam Altman", "text": "Sam Altman speaking at an event"},
+            content_mode="person_prompt",
+        )
+        self.assertIn("REAL-PERSON PHOTO PROMPT", prompt)
+        self.assertIn("existing, real photograph", prompt)
+        self.assertIn("three words", prompt)
+        self.assertIn("Do not claim they actually said, did, endorsed, or believe anything", prompt)
+        self.assertIn("Never repeat an emoji token", prompt)
+
     def test_invented_prompt_is_not_trend_based(self) -> None:
         prompt = _original_text_prompt(
             {"trend": "AI and strange software behaviour", "text": ""},
