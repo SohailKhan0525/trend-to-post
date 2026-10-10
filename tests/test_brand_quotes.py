@@ -3,8 +3,14 @@ import unittest
 from app.gemini import (
     GeminiError,
     QuoteDraft,
+    _normalize_quote_emojis,
+    _parse_experiment,
     _prompt,
+    _repair_missing_source_quote,
     _validate_quote_against_source,
+    _found_emojis,
+    _has_unapproved_emoji,
+    EMOJI_TOKENS,
 )
 
 
@@ -42,6 +48,41 @@ class BrandQuoteTests(unittest.TestCase):
         draft = quote('the release notes need a boss fight 😂 👀 "AI software feature"')
         result = _validate_quote_against_source(draft, source(), 2, 3)
         self.assertTrue(result.should_quote)
+
+    def test_repair_discards_untrusted_model_quote_fragment(self):
+        draft = quote('the release notes need a boss fight 😂 👀 "invented fake words"')
+        repaired = _repair_missing_source_quote(draft, source())
+        self.assertNotIn('"invented fake words"', repaired.quote_text)
+        quoted = repaired.quote_text.split('"')
+        self.assertEqual(len(quoted), 3)
+        self.assertIn(quoted[1], source()["text"])
+        self.assertGreaterEqual(len(quoted[1].split()), 2)
+        self.assertLessEqual(len(quoted[1].split()), 6)
+
+    def test_emoji_normalizer_removes_unapproved_and_duplicate_tokens(self):
+        draft = quote('the release notes need a boss fight 😎 😂 😂')
+        normalized = _normalize_quote_emojis(draft, 3)
+        found = _found_emojis(normalized.quote_text)
+        self.assertEqual(len(found), 3)
+        self.assertEqual(len(found), len(set(found)))
+        self.assertFalse(_has_unapproved_emoji(normalized.quote_text, EMOJI_TOKENS))
+
+    def test_parser_does_not_trust_model_quote_fragment_or_post_type(self):
+        import json
+        from app.gemini import _parse_experiment
+
+        raw = json.dumps({
+            "should_post": True,
+            "content_type": "original_post",
+            "post": "the release notes need a boss fight 😂 👀",
+            "quote_fragment": "invented fake words",
+            "format_name": "fresh format",
+            "comedy_mechanism": "unexpected escalation",
+            "structure_signature": "distinct signature",
+        })
+        draft = _parse_experiment(raw)
+        self.assertEqual(draft.content_type, "quote_post")
+        self.assertNotIn("invented fake words", draft.quote_text)
 
     def test_rejects_mentions_in_the_authored_comment(self):
         draft = quote('@OpenAI the release notes need a boss fight 😂 👀 "AI software feature"')
