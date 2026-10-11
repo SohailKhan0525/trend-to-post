@@ -990,7 +990,12 @@ async def _post_ai_tech_quote(state: dict, client: Client) -> bool:
         if isinstance(item, dict) and str(item.get("source_username", "")).strip()
     ]
     try:
-        source = await find_trending_source(client, used, state.get("ai_tech_trend_names_used", []))
+        source = await find_trending_source(
+            client,
+            used,
+            state.get("ai_tech_trend_names_used", []),
+            ai_tech_only=True,
+        )
         if not _ai_tech_topic_allowed(source.text):
             print(f"Skipping X Trends source outside AI/technology scope: {source.trend!r}")
             return False
