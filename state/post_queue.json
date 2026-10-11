@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-11",
-  "daily_count": 3,
+  "daily_count": 4,
   "ai_call_count": 17,
-  "last_posted_at": "2026-10-11T07:31:35.835838+00:00",
-  "last_source_tweet_id": "2109128211426619733",
-  "last_tweet_id": "2109185126496117152",
+  "last_posted_at": "2026-10-11T09:01:24.353938+00:00",
+  "last_source_tweet_id": "2108965844931768440",
+  "last_tweet_id": "2108965844931768440",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -71,7 +71,8 @@
     "2108834019592847668",
     "2109138421255950485",
     "2109162084508561563",
-    "2109128211426619733"
+    "2109128211426619733",
+    "2108965844931768440"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -454,16 +455,34 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "ai_tech_quote",
+  "last_post_type": "official_brand_repost",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
   "trend_manual_posts": [],
   "trend_manual_day_key": null,
-  "trend_source_ids": [],
+  "trend_source_ids": [
+    "2108965844931768440"
+  ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 0,
-  "trend_quote_posts": [],
+  "trend_quote_post_count": 1,
+  "trend_quote_posts": [
+    {
+      "slot_number": 1,
+      "content_type": "native_repost",
+      "post": null,
+      "source_username": "github",
+      "source_type": "official_brand_post",
+      "source_tweet_id": "2108965844931768440",
+      "source_url": "https://x.com/github/status/2108965844931768440",
+      "source_text": "In a new survey of 1,039 GitHub users conducted by GitHub and the Yale Program on Climate Change Communication, we found:\n• 80% were interested in tools for writing more energy-efficient code\n• 78% wanted to learn best practices for reducing software’s environmental footprint",
+      "topic": "GitHub developer software — @GitHub",
+      "tweet_id": "2108965844931768440",
+      "reposted_tweet_id": "2108965844931768440",
+      "reposted_at": "2026-10-11T09:01:24.353938+00:00",
+      "status": "reposted"
+    }
+  ],
   "trend_quote_day_key": "2026-10-11",
   "person_photo_title_history": [
     "File:Gabe Newell - 2002 (cropped).jpg"
@@ -479,7 +498,7 @@
   ],
   "person_photo_post_count": 0,
   "ai_tech_quote_post_count": 3,
-  "next_lane_index": 0,
+  "next_lane_index": 1,
   "person_photo_posts": [],
   "ai_tech_quote_posts": [
     {
