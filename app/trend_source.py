@@ -160,6 +160,14 @@ BLOCKED_TOPIC_KEYWORDS = (
     "war",
     "military",
     "geopolitics",
+    # User explicitly forbids festivals, holiday posts, and seasonal celebrations.
+    "festival", "festivals", "holiday", "holidays", "celebration", "celebrations",
+    "diwali", "deepavali", "holi", "eid", "ramadan", "christmas", "xmas", "easter",
+    "halloween", "thanksgiving", "valentine", "valentines day", "new year", "lunar new year",
+    "chinese new year", "hanukkah", "chanukah", "kwanzaa", "navratri", "durga puja",
+    "ganesh chaturthi", "pongal", "onam", "baisakhi", "raksha bandhan", "janmashtami",
+    "independence day", "republic day", "labour day", "memorial day", "black friday",
+    "cyber monday", "prime day", "seasonal greetings", "festive season",
 )
 
 
