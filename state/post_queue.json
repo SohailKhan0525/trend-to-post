@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-11",
-  "daily_count": 4,
-  "ai_call_count": 17,
-  "last_posted_at": "2026-10-11T09:01:24.353938+00:00",
-  "last_source_tweet_id": "2108965844931768440",
-  "last_tweet_id": "2108965844931768440",
+  "daily_count": 5,
+  "ai_call_count": 18,
+  "last_posted_at": "2026-10-11T10:31:25.682860+00:00",
+  "last_source_tweet_id": "2109223745856348497",
+  "last_tweet_id": "2109230382520664076",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -72,7 +72,8 @@
     "2109138421255950485",
     "2109162084508561563",
     "2109128211426619733",
-    "2108965844931768440"
+    "2108965844931768440",
+    "2109223745856348497"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -97,17 +98,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "stratigraphic software fantasy",
-      "comedy_mechanism": "treating a scheduled game update as an inevitability of earth science rather than a product launch",
-      "used_at": "2026-10-08T04:31:59.162280+00:00",
-      "topic": "gaming",
-      "self_reply": false,
-      "tweet_id": "2108052762273673281",
-      "content_type": "quote_post",
-      "mutation_stage": "premise_inversion",
-      "structure_signature": "geological metaphor applied to game development"
-    },
     {
       "format_name": "metroidvania health insurance deductible",
       "comedy_mechanism": "mapping extreme platformer completionist suffering onto boring corporate bureaucratic healthcare terms",
@@ -329,10 +319,23 @@
       "post_text": "Filing all infrastructure as 'defensive agglomeration of pre-fixes' to dodge antitrust, \"it's AI, robotics, DePIN, computing, privacy\" 😂 😙",
       "mutation_stage": "structural_break",
       "structure_signature": "mock legal justification for platform stacking ending in emoji"
+    },
+    {
+      "format_name": "vibe liability upcharge",
+      "comedy_mechanism": "interpreting humanities pedagogy as a tangible production risk multiplier",
+      "used_at": "2026-10-11T10:31:25.682860+00:00",
+      "topic": "AI/technology: machine learning",
+      "tweet_id": "2109230382520664076",
+      "content_type": "quote_post",
+      "content_mode": "ai_tech_quote",
+      "source_tweet_id": "2109223745856348497",
+      "source_username": "hsu_steve",
+      "post_text": "hallucination insurance premium adjusted to 200% of base salary for artistic interpretation department 🥀 🔥 😭",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "insurance logic applied to philosophical expertise"
     }
   ],
   "recent_post_fingerprints": [
-    "bureaucratic penalty declaration ending in a quote fragment followed by a surreal policy rider",
     "legalistic compliance failure declaration ending in a source quote fragment",
     "company mention + if-condition + developer self-own",
     "company mention + imagine scenario + software-game collision",
@@ -361,7 +364,8 @@
     "time limit setup followed by frantic hobby contradiction and punchline emojis",
     "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm.",
     "absurd contractual accusation with emoji encoded sarcasm",
-    "mock legal justification for platform stacking ending in emoji"
+    "mock legal justification for platform stacking ending in emoji",
+    "insurance logic applied to philosophical expertise"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -455,7 +459,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "official_brand_repost",
+  "last_post_type": "ai_tech_quote",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -494,11 +498,12 @@
   "ai_tech_source_ids": [
     "2109138421255950485",
     "2109162084508561563",
-    "2109128211426619733"
+    "2109128211426619733",
+    "2109223745856348497"
   ],
   "person_photo_post_count": 0,
-  "ai_tech_quote_post_count": 3,
-  "next_lane_index": 1,
+  "ai_tech_quote_post_count": 4,
+  "next_lane_index": 0,
   "person_photo_posts": [],
   "ai_tech_quote_posts": [
     {
@@ -547,6 +552,22 @@
       "structure_signature": "mock legal justification for platform stacking ending in emoji",
       "tweet_id": "2109185126496117152",
       "generated_at": "2026-10-11T07:31:35.835838+00:00",
+      "status": "published"
+    },
+    {
+      "slot_number": 4,
+      "post": "hallucination insurance premium adjusted to 200% of base salary for artistic interpretation department 🥀 🔥 😭",
+      "source_username": "hsu_steve",
+      "source_type": "ai_tech_search",
+      "source_tweet_id": "2109223745856348497",
+      "source_url": "https://x.com/hsu_steve/status/2109223745856348497",
+      "source_text": "Michael I. Jordan, machine learning demigod, UC Berkeley \n\n... the young people who work at these companies operate in a world [Silicon Valley, Berkeley, etc.] where these kinds of discussions are commonplace. Many of them aren’t really engineers; they come from the humanities,",
+      "topic": "AI/technology: machine learning",
+      "format_name": "vibe liability upcharge",
+      "comedy_mechanism": "interpreting humanities pedagogy as a tangible production risk multiplier",
+      "structure_signature": "insurance logic applied to philosophical expertise",
+      "tweet_id": "2109230382520664076",
+      "generated_at": "2026-10-11T10:31:25.682860+00:00",
       "status": "published"
     }
   ],
