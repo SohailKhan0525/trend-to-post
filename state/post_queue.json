@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-11",
-  "daily_count": 2,
-  "ai_call_count": 16,
-  "last_posted_at": "2026-10-11T06:01:48.298452+00:00",
-  "last_source_tweet_id": "2109162084508561563",
-  "last_tweet_id": "2109162529431679203",
+  "daily_count": 3,
+  "ai_call_count": 17,
+  "last_posted_at": "2026-10-11T07:31:35.835838+00:00",
+  "last_source_tweet_id": "2109128211426619733",
+  "last_tweet_id": "2109185126496117152",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -70,7 +70,8 @@
     "2108343405583704229",
     "2108834019592847668",
     "2109138421255950485",
-    "2109162084508561563"
+    "2109162084508561563",
+    "2109128211426619733"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -95,17 +96,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "surreal provenance reverse-engineering",
-      "comedy_mechanism": "inverting the premise so that human authenticity is treated as the synthetic anomaly requiring a detection tool",
-      "used_at": "2026-10-08T03:01:52.829235+00:00",
-      "topic": "Apple",
-      "self_reply": false,
-      "tweet_id": "2108030086427357281",
-      "content_type": "quote_post",
-      "mutation_stage": "premise_inversion",
-      "structure_signature": "deadpan social paranoia declaration"
-    },
     {
       "format_name": "stratigraphic software fantasy",
       "comedy_mechanism": "treating a scheduled game update as an inevitability of earth science rather than a product launch",
@@ -324,10 +314,23 @@
       "post_text": "triggered this violation? prevented the news industry from developing \"industry from developing a sustainable business\" 👀 🥀 🤣",
       "mutation_stage": "premise_inversion",
       "structure_signature": "absurd contractual accusation with emoji encoded sarcasm"
+    },
+    {
+      "format_name": "jargon tax evasion clause",
+      "comedy_mechanism": "reinterpreting innovation clusters as an Orwellian language loophole",
+      "used_at": "2026-10-11T07:31:35.835838+00:00",
+      "topic": "AI/technology: robotics software",
+      "tweet_id": "2109185126496117152",
+      "content_type": "quote_post",
+      "content_mode": "ai_tech_quote",
+      "source_tweet_id": "2109128211426619733",
+      "source_username": "TheCrypticWolf1",
+      "post_text": "Filing all infrastructure as 'defensive agglomeration of pre-fixes' to dodge antitrust, \"it's AI, robotics, DePIN, computing, privacy\" 😂 😙",
+      "mutation_stage": "structural_break",
+      "structure_signature": "mock legal justification for platform stacking ending in emoji"
     }
   ],
   "recent_post_fingerprints": [
-    "fake system diagnostic log followed by destructive action mandate",
     "bureaucratic penalty declaration ending in a quote fragment followed by a surreal policy rider",
     "legalistic compliance failure declaration ending in a source quote fragment",
     "company mention + if-condition + developer self-own",
@@ -356,7 +359,8 @@
     "legalistic penalty declaration ending in a quote fragment followed by distinct emoji cluster",
     "time limit setup followed by frantic hobby contradiction and punchline emojis",
     "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm.",
-    "absurd contractual accusation with emoji encoded sarcasm"
+    "absurd contractual accusation with emoji encoded sarcasm",
+    "mock legal justification for platform stacking ending in emoji"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -470,10 +474,11 @@
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [
     "2109138421255950485",
-    "2109162084508561563"
+    "2109162084508561563",
+    "2109128211426619733"
   ],
   "person_photo_post_count": 0,
-  "ai_tech_quote_post_count": 2,
+  "ai_tech_quote_post_count": 3,
   "next_lane_index": 0,
   "person_photo_posts": [],
   "ai_tech_quote_posts": [
@@ -507,6 +512,22 @@
       "structure_signature": "absurd contractual accusation with emoji encoded sarcasm",
       "tweet_id": "2109162529431679203",
       "generated_at": "2026-10-11T06:01:48.298452+00:00",
+      "status": "published"
+    },
+    {
+      "slot_number": 3,
+      "post": "Filing all infrastructure as 'defensive agglomeration of pre-fixes' to dodge antitrust, \"it's AI, robotics, DePIN, computing, privacy\" 😂 😙",
+      "source_username": "TheCrypticWolf1",
+      "source_type": "ai_tech_search",
+      "source_tweet_id": "2109128211426619733",
+      "source_url": "https://x.com/TheCrypticWolf1/status/2109128211426619733",
+      "source_text": "If you ask me what part of crypto I’m watching closest right now, it's AI, robotics, DePIN, computing, privacy and financial infrastructure.\n\nWhat interests me is that these projects aren’t necessarily competing. They’re building different pieces of the puzzle.\n\n$SLC - Silencio",
+      "topic": "AI/technology: robotics software",
+      "format_name": "jargon tax evasion clause",
+      "comedy_mechanism": "reinterpreting innovation clusters as an Orwellian language loophole",
+      "structure_signature": "mock legal justification for platform stacking ending in emoji",
+      "tweet_id": "2109185126496117152",
+      "generated_at": "2026-10-11T07:31:35.835838+00:00",
       "status": "published"
     }
   ],
