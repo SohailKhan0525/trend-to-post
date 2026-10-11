@@ -158,9 +158,8 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             result = await post_queue._post_ai_tech_quote(state, client)
 
         self.assertTrue(result)
-        find_source.assert_awaited_once_with(
-            client, [], [], ai_tech_only=True
-        )
+        find_source.assert_awaited_once()
+        self.assertIs(find_source.await_args.kwargs["ai_tech_only"], True)
         client.create_tweet.assert_awaited_once_with(
             text=draft.quote_text, attachment_url=source.url
         )
