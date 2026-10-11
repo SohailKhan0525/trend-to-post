@@ -43,6 +43,13 @@ BANNED_STYLE_PHRASES = (
     "thoughts?",
     "agree?",
     "let that sink in",
+    "bro really said",
+    "bro said",
+    "really said",
+    "like saying",
+    "like he said",
+    "like she said",
+    "the quote",
 )
 RETRYABLE_HTTP_CODES = {408, 429, 500, 502, 503, 504}
 
@@ -216,7 +223,6 @@ def _prompt(
     emoji_count: int = 3,
     scope: str = "general",
 ) -> str:
-    fragments = _quote_options(str(source["text"]))
     recent_formats = format_memory[-12:] if format_memory else []
 
     memory_text = "\n".join(
@@ -251,7 +257,6 @@ def _prompt(
         "structural_break": "BREAK THE NORMAL POST SHAPE. Build a tiny artifact such as a fake UI state, rule card, receipt, warning, scoreboard, or other newly invented micro-format.",
     }[mutation_stage]
 
-    options = "\n".join(f'- "{item}"' for item in fragments) or "- none"
     source_text = str(source["text"]).replace("\x00", " ").strip()[:4000]
     scope_instructions = (
         "SCOPE: AI AND TECHNOLOGY ONLY. Stay within artificial intelligence, AI labs and models, software, developer tools, coding, computing hardware, chips, cloud, apps, robotics, data, and digital product behavior. Do not use gaming, sports, entertainment, music, or general lifestyle topics as the joke's subject."
@@ -325,8 +330,12 @@ THE METHOD — DO THIS INTERNALLY:
 6. Compare the premise, angle, metaphor, punchline mechanism, wording, and structure against every recent item, including prior_post text. Do not just swap nouns or paraphrase an old joke. If any part feels reused, discard the idea and mutate again.
 
 CONTENT TYPE:
-Always use:
-- quote_post: attach the source and naturally use exactly one short verbatim fragment.
+Always use quote_post so X attaches the original source post.
+The authored comment must stand on its own as an original funny meme, reaction, absurd observation, or compact joke.
+
+Do not quote the source, repeat its words, or write a paraphrase that merely restates it.
+Do not write commentary in the form "bro really said ...", "X said ...", or a source phrase followed by an explanation.
+Do not put any phrase in quotation marks. The quote-post is the X attachment format, NOT a request to quote words in the comment.
 Never output original_post.
 
 STRUCTURAL BREAK:
@@ -340,21 +349,23 @@ Lowercase, fragments, slang, and weird punctuation are allowed when they improve
 Confident enough to invite disagreement without manufacturing controversy.
 Roast products, behaviors, hype, abstractions, or situations — not protected identities or private people.
 No politics, political persuasion, military/geopolitical content, fake facts, corporate/AI-assistant voice, country names,
-country abbreviations, nationalities, or geopolitical geography. ZERO country references in the generated post, including the quoted fragment.
+country abbreviations, nationalities, or geopolitical geography. ZERO country references in the generated comment.
 Do not add @mentions, hashtags, or URLs in your comment. The original company account will appear only as the attached quote post.
 Emoji palette is STRICTLY limited to 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀.
 Use at least {emoji_count} and at most {emoji_count + 1} distinct emojis from that palette. Never repeat an emoji token.
 
-QUOTE POST RULE:
-When content_type=quote_post, use exactly ONE 2-6 word fragment from QUOTE OPTIONS.
-Preserve those words exactly inside quotation marks. Never quote more than 6 consecutive source words.
-Do not include any @mention, hashtag, URL, or emoji outside the strict palette.
+QUOTE POST COMMENT RULE:
+- The source post is attached separately by X.
+- Write only an original funny meme/reaction. Make the joke about the situation or implication, not the source's exact wording.
+- Absolutely no double quotation marks or curly quotation marks, and do not enclose any words in single quotes.
+- Never use a quote-and-explain structure, dialogue attribution, or "bro really said" / "X said" style.
+- Do not copy any consecutive phrase from the source. No @mentions, hashtags, URLs, or emojis outside the strict palette.
 
 SELF-REPLY:
 Do not generate a self-reply. The quote post must stand alone.
 
 MAIN POST:
-Maximum {MAX_POST_CHARS} characters including the one quoted source fragment.
+Maximum {MAX_POST_CHARS} characters. The authored meme/comment is separate from the attached original post.
 
 BANNED FORMULA:
 Do not default to generic scaffolds like "X is the new Y", "this is basically...", "bro really...", "nobody is talking about...", or empty engagement questions.
@@ -364,7 +375,6 @@ RETURN JSON ONLY:
   "should_post": true,
   "content_type": "quote_post",
   "post": "the final quote-post comment with the exact required number of distinct allowed emojis",
-  "quote_fragment": "the exact 2-6 word source fragment used",
   "format_name": "a genuinely new short format name",
   "comedy_mechanism": "one-line explanation",
   "mutation_stage": "the chosen stage",
@@ -372,9 +382,7 @@ RETURN JSON ONLY:
   "self_reply": "",
   "use_self_reply": false
 }}
-
-QUOTE OPTIONS:
-{options}
+ 
 """
 
 
@@ -547,27 +555,15 @@ def _source_fragment(source_text: str) -> str | None:
     return options[0] if options else None
 
 
-def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
-    """Enforce exactly one safe, verbatim source fragment before validation.
-
-    Do not trust a model-supplied quote_fragment: it can be invented, contain
-    nested quotation marks, or make the validator misread the real source quote.
-    The source is attached by the caller, so the normalizer owns this fragment.
-    """
+def _sanitize_quote_comment(draft: QuoteDraft, source: dict) -> QuoteDraft:
+    """Normalize quote-post commentary as standalone meme text, never a source quote."""
     if not draft.should_quote or not draft.quote_text.strip():
         return draft
 
-    fragment = _source_fragment(str(source["text"]))
-    if not fragment:
-        return QuoteDraft(False, "", draft.angle)
-
-    # Remove model-provided quote punctuation and append one canonical fragment.
-    text = re.sub(r'["“”‘’]', "", draft.quote_text).strip()
-    text = re.sub(r"\s+", " ", text)
-    suffix = f' "{fragment}"'
-    budget = max(0, MAX_POST_CHARS - len(suffix))
-    text = f"{text[:budget].rstrip()}{suffix}".strip()
-
+    # Curly/double quote punctuation invites the bad quote-and-explain format.
+    # Strip it defensively; the validator rejects any quote marks that survive.
+    text = re.sub(r'["“”‘’]', "", draft.quote_text)
+    text = re.sub(r"\s+", " ", text).strip()
     return QuoteDraft(
         True, text, draft.angle, draft.format_name, draft.comedy_mechanism,
         "", False, "quote_post", draft.mutation_stage, draft.structure_signature,
@@ -575,7 +571,7 @@ def _repair_missing_source_quote(draft: QuoteDraft, source: dict) -> QuoteDraft:
 
 
 def _normalize_quote_emojis(draft: QuoteDraft, emoji_count: int) -> QuoteDraft:
-    """Keep one source fragment intact while normalizing distinct approved emojis."""
+    """Normalize distinct approved emojis without preserving or appending source quotes."""
     if not draft.should_quote or not draft.quote_text.strip():
         return draft
 
@@ -584,18 +580,10 @@ def _normalize_quote_emojis(draft: QuoteDraft, emoji_count: int) -> QuoteDraft:
         if token not in found and len(found) < emoji_count:
             found.append(token)
 
-    # The quote fragment is canonicalized by _repair_missing_source_quote.
-    # Keep it aside while trimming so a long model answer cannot cut it off.
-    match = re.search(r'"([^"\\n]+)"', draft.quote_text)
-    quoted_fragment = f'"{match.group(1)}"' if match else ""
-    body = draft.quote_text
-    if match:
-        body = body[:match.start()] + " " + body[match.end():]
-
     pattern = "|".join(
         re.escape(item) for item in sorted(EMOJI_TOKENS, key=len, reverse=True)
     )
-    body = re.sub(pattern, " ", body)
+    body = re.sub(pattern, " ", draft.quote_text)
     body = EMOJI_CHAR_PATTERN.sub("", body)
     body = re.sub(r"[\u200d\ufe0e\ufe0f\u20e3]", "", body)
     body = re.sub(r"\s+", " ", body).strip()
@@ -604,15 +592,32 @@ def _normalize_quote_emojis(draft: QuoteDraft, emoji_count: int) -> QuoteDraft:
     random.shuffle(remaining)
     found.extend(remaining[: max(0, emoji_count - len(found))])
     emoji_suffix = " ".join(found[:emoji_count])
-    fixed_suffix = " ".join(part for part in (quoted_fragment, emoji_suffix) if part)
-    budget = max(0, MAX_POST_CHARS - len(fixed_suffix) - (1 if body else 0))
+    budget = max(0, MAX_POST_CHARS - len(emoji_suffix) - (1 if body else 0))
     body = body[:budget].rstrip()
-    text = " ".join(part for part in (body, fixed_suffix) if part).strip()
+    text = " ".join(part for part in (body, emoji_suffix) if part).strip()
 
     return QuoteDraft(
         draft.should_quote, text, draft.angle, draft.format_name,
         draft.comedy_mechanism, "", False, "quote_post",
         draft.mutation_stage, draft.structure_signature,
+    )
+
+
+def _contains_source_phrase(post_text: str, source_text: str, min_words: int = 3) -> bool:
+    """Reject copied consecutive source wording in the authored quote-post comment."""
+    post_words = re.findall(r"[a-z0-9]+", post_text.casefold())
+    source_words = re.findall(r"[a-z0-9]+", source_text.casefold())
+    if len(post_words) < min_words or len(source_words) < min_words:
+        return False
+    post_phrases = {
+        tuple(post_words[i:i + width])
+        for width in range(min_words, min(8, len(post_words)) + 1)
+        for i in range(0, len(post_words) - width + 1)
+    }
+    return any(
+        tuple(source_words[i:i + width]) in post_phrases
+        for width in range(min_words, min(8, len(source_words)) + 1)
+        for i in range(0, len(source_words) - width + 1)
     )
 
 
@@ -653,35 +658,11 @@ def _validate_quote_against_source(
     if draft.use_self_reply or draft.self_reply.strip():
         raise GeminiError("Generated candidate attempted to add a self-reply.")
 
-    if draft.content_type == "quote_post":
-        source_text = str(source["text"])
-        fragments = []
-        for left_mark, right_mark in (('"', '"'), ("“", "”"), ("‘", "’")):
-            start = 0
-            while True:
-                left = text.find(left_mark, start)
-                if left < 0:
-                    break
-                right = text.find(right_mark, left + 1)
-                if right < 0:
-                    break
-                fragment = text[left + 1:right].strip()
-                if fragment:
-                    fragments.append(fragment)
-                start = right + 1
-
-        valid_fragments = [
-            fragment
-            for fragment in fragments
-            if fragment in source_text and 2 <= len(fragment.split()) <= 6
-        ]
-        if len(valid_fragments) > 1:
-            raise GeminiError("Generated quote-post used multiple source fragments.")
-        if not valid_fragments:
-            repaired = _repair_missing_source_quote(draft, source)
-            if repaired.quote_text == text:
-                raise GeminiError("Generated quote-post contains no valid source fragment.")
-            draft = repaired
+    if re.search(r'["“”‘’]', text) or re.search(r"(?<![A-Za-z0-9])'|'(?![A-Za-z0-9])", text):
+        raise GeminiError("Generated quote-post comment must not contain quotation marks.")
+    source_text = str(source.get("text", "") or "")
+    if _contains_source_phrase(text, source_text, min_words=3):
+        raise GeminiError("Generated quote-post repeated wording from the source; write a standalone meme instead.")
 
     if draft.self_reply:
         if _contains_blocked_output_term(draft.self_reply):
@@ -692,8 +673,7 @@ def _validate_quote_against_source(
     lowered = draft.quote_text.lower()
     if contains_blocked_country_term(lowered):
         raise GeminiError("Generated quote-post contained a country reference.")
-    # Check the complete quote comment, including the verbatim source fragment.
-    # Political/current-affairs and festival content is disallowed even when quoted.
+    # The source post is attached separately; validate only the authored meme comment.
     if _contains_blocked_output_term(lowered):
         raise GeminiError("Generated post contained blocked political/current-affairs content.")
     if any(phrase in lowered for phrase in BANNED_STYLE_PHRASES):
@@ -707,7 +687,7 @@ def _validate_quote_against_source(
     ]
     normalized_name = " ".join(draft.format_name.casefold().split())
     normalized_signature = " ".join(draft.structure_signature.casefold().split())
-    authored_comment = re.sub(r'["“‘][^"”’]*["”’]', "", text).casefold()
+    authored_comment = text.casefold()
     current_post_words = set(re.findall(r"[a-z0-9]+", authored_comment))
     current_signature_words = set(re.findall(r"[a-z0-9]+", normalized_signature))
     ignored_signature_words = {
@@ -730,10 +710,7 @@ def _validate_quote_against_source(
             if overlap >= 0.78:
                 raise GeminiError("Generated quote-post is too structurally similar to a recent post.")
 
-        old_comment = re.sub(
-            r'["“‘][^"”’]*["”’]', "",
-            str(item.get("post_text", "")).casefold(),
-        )
+        old_comment = str(item.get("post_text", "")).casefold()
         old_post_words = set(re.findall(r"[a-z0-9]+", old_comment))
         if len(current_post_words | old_post_words) >= 8:
             overlap = len(current_post_words & old_post_words) / len(current_post_words | old_post_words)
@@ -1294,7 +1271,7 @@ def generate_quote(
                 draft = _parse_experiment(raw)
                 if not draft.should_quote:
                     continue
-                draft = _repair_missing_source_quote(draft, source)
+                draft = _sanitize_quote_comment(draft, source)
                 if not draft.quote_text:
                     continue
                 draft = _normalize_quote_emojis(draft, emoji_count)
@@ -1356,7 +1333,7 @@ distinct emojis and no repeats. Do not add @mentions, hashtags, or URLs.
                 retry_payload = dict(payload)
                 retry_payload["contents"] = [{"parts": [{"text": fallback_prompt + safety_suffix}]}]
             draft = _parse_experiment(_extract_text(_post_json(retry_payload)))
-            draft = _repair_missing_source_quote(draft, source)
+            draft = _sanitize_quote_comment(draft, source)
             draft = _normalize_quote_emojis(draft, emoji_count)
             return _validate_quote_against_source(draft, source, emoji_count, emoji_count + 1, format_memory)
         except GeminiError as exc:

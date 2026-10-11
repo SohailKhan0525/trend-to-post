@@ -1,4 +1,4 @@
-# X AI, Tech, Photo-Prompt and Repost Bot
+# X AI, Tech, Photo-Prompt and Quote-Post Bot
 
 This repository runs an experimental X account focused on AI, technology, major products and companies, gaming, sports culture, and internet culture.
 
@@ -6,9 +6,9 @@ This repository runs an experimental X account focused on AI, technology, major 
 
 The bot has **20 automatically published main-post slots per UTC day**:
 
-- **4 official-company native reposts** — the queue selects a recent eligible text-only post from a curated first-party company account and reposts it as-is. It does not add a caption or quote commentary.
+- **4 official-company Quote Posts** — attach a recent eligible text-only post from a curated first-party company account and add an AI-written meme-style comment. The comment is original text, not a direct quote from the source.
 - **8 short real-person photo prompts** — captions stay like the example image: one short line, usually 7–12 words and capped at 120 characters. The list includes AI/tech CEOs **and** active X engineers, researchers, product builders, and team members such as Tibo (@thsottiaux). Before selecting a person, the queue checks for recent posts from their exact X handle and verifies the profile display name. It then looks for an existing, real portrait with a suitable reuse license and attaches that photo. It does **not** generate images.
-- **8 AI/technology native reposts** — the bot finds recent text-only X posts about AI and technology using direct keyword searches (not X's Trends feed), then reposts the selected source unchanged. No AI-written comment, quote-post text, or AI-generated meme image is added.
+- **8 AI/technology Quote Posts** — the bot finds recent text-only X posts about AI and technology using direct keyword searches (not X's Trends feed), then publishes an original, funny meme-style comment as a Quote Post. The comment must not repeat source wording or use quotation marks. No AI-generated meme images are used.
 
 The five old manually prepared company captions and the eleven invented standalone text originals are no longer part of the active daily queue. Legacy state fields remain only for backward compatibility; those lanes are not selected for new posts.
 
@@ -22,21 +22,21 @@ The candidate catalog prioritizes public-facing people across AI/technology lead
 
 ## Emoji and caption rules
 
-Automated authored captions may use **only** these emojis. Native reposts add no emoji or extra text:
+Automated authored captions and quote-post comments may use **only** these emojis. Quote-post comments are standalone jokes: they must not copy the source's words or put phrases in quotation marks.
 
 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀
 
 The number of emojis is randomized per caption (normally 2–5, with at most one extra when it fits). Repeated emoji tokens and emojis outside the approved palette are rejected. The prompt generator and validators also reject @mentions, hashtags, URLs, country references, blocked political/current-affairs content, and recent-format duplicates.
 
-The AI/technology repost lane is restricted to AI, models, AI labs, software, developer tools, coding, computing hardware, chips, cloud, apps, robotics, data, and digital product behavior. It intentionally does not repost unrelated sports/entertainment content. It uses direct latest-post keyword searches and never calls X's Trending Topics endpoint.
+The AI/technology Quote Post lane is restricted to AI, models, AI labs, software, developer tools, coding, computing hardware, chips, cloud, apps, robotics, data, and digital product behavior. It intentionally does not quote unrelated sports/entertainment content. It uses direct latest-post keyword searches and never calls X's Trending Topics endpoint.
 
 ## Queue and workflow behavior
 
-The publishing workflow is .github/workflows/post-queue.yml. It runs on manual dispatch or the existing post-next repository-dispatch event. Every run checks credentials, compiles the Python application, runs the full unit-test suite, and only then attempts one main post. Source-post lanes use X's native repost action, not quote-post creation.
+The publishing workflow is .github/workflows/post-queue.yml. It runs on manual dispatch or the existing post-next repository-dispatch event. Every run checks credentials, compiles the Python application, runs the full unit-test suite, and only then attempts one new main post.
 
 The queue rotates between the three lanes so a temporary image search, source search, or generation failure in one lane does not block all other content types. It publishes at most one new main post per dispatch and enforces a **72-minute minimum between successful main posts**. A required photo-attribution reply is sent immediately after its photo post and does not consume another main-post slot.
 
-The queue tracks daily counters, prior source IDs, photo file titles, recently used person names, attribution status, and last-post metadata in the post_queue state JSON. The existing quote-named counter fields are retained internally for state-file compatibility. Up to 40 generation attempts are allowed per UTC day so transient provider/source failures do not immediately consume the entire 20-post plan. These are caps, not guarantees: provider errors, unavailable eligible content, X restrictions, or expired authentication can reduce the number published.
+The queue tracks daily counters, prior source IDs, photo file titles, recently used person names, format memory, attribution status, and last-post metadata in the post_queue state JSON. Up to 40 generation attempts are allowed per UTC day so transient provider/source failures do not immediately consume the entire 20-post plan. These are caps, not guarantees: provider errors, unavailable eligible content, X restrictions, or expired authentication can reduce the number published.
 
 The Validate Bot workflow checks Python syntax and unit tests on pushes/pull requests. Changes should not be deployed until that workflow passes.
 
