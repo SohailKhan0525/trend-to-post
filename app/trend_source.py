@@ -578,7 +578,7 @@ async def find_official_brand_source(
     )
     selected = ranked[0]
     print(
-        "Selected official brand source for automatic native repost: 
+        "Selected official brand source for automatic native repost: "
         f"@{selected.username}/{selected.tweet_id} | "
         f"topic={selected.trend!r} | views={selected.view_count:,} | "
         f"likes={selected.favorite_count:,} | replies={selected.reply_count:,}"
@@ -693,7 +693,7 @@ async def find_ai_tech_source(
     )
     selected = ranked[0]
     print(
-        "Selected AI/technology source for automatic native repost: 
+        "Selected AI/technology source for automatic native repost: "
         f"@{selected.username}/{selected.tweet_id} | "
         f"query={selected.trend!r} | views={selected.view_count:,} | "
         f"likes={selected.favorite_count:,} | replies={selected.reply_count:,}"
