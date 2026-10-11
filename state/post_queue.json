@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-11",
-  "daily_count": 6,
-  "ai_call_count": 19,
-  "last_posted_at": "2026-10-11T12:01:47.086855+00:00",
-  "last_source_tweet_id": "2109200685917147551",
-  "last_tweet_id": "2109253120194646496",
+  "daily_count": 7,
+  "ai_call_count": 20,
+  "last_posted_at": "2026-10-11T13:31:13.427015+00:00",
+  "last_source_tweet_id": "2109011085709689314",
+  "last_tweet_id": "2109275629560725942",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -74,7 +74,8 @@
     "2109128211426619733",
     "2108965844931768440",
     "2109223745856348497",
-    "2109200685917147551"
+    "2109200685917147551",
+    "2109011085709689314"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -99,17 +100,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "system kernel panic log",
-      "comedy_mechanism": "treating a mundane greeting as a dangerous bios anomaly requiring emergency hardware destruction",
-      "used_at": "2026-10-08T10:02:08.819295+00:00",
-      "topic": "Formula 1",
-      "self_reply": false,
-      "tweet_id": "2108135850001482173",
-      "content_type": "quote_post",
-      "mutation_stage": "structural_break",
-      "structure_signature": "fake system diagnostic log followed by destructive action mandate"
-    },
     {
       "format_name": "arbitrary cognitive tariff",
       "comedy_mechanism": "inventing an absurd bureaucratic tax on excessive AI utility",
@@ -337,10 +327,23 @@
       "post_text": "turns out Ive been performing extreme poverty rituals instead of debugging in ramen deficits 🔥 😭 😤",
       "mutation_stage": "structural_break",
       "structure_signature": "code error fragmentation followed by absurdly specific 'poverty ration' comparison."
+    },
+    {
+      "format_name": "sports tech lat penalty clause",
+      "comedy_mechanism": "applying server uptime latency metrics to human attention spans and timeouts",
+      "used_at": "2026-10-11T13:31:13.427015+00:00",
+      "topic": "NFL on FOX One",
+      "tweet_id": "2109275629560725942",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2109011085709689314",
+      "source_username": "NFL",
+      "post_text": "implementation latency matches emotional investment in saturday afternoon sporting events strict penalty ratio 💀 🥀",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "tech contract label followed by sarcastic behavioral penalty logic"
     }
   ],
   "recent_post_fingerprints": [
-    "company mention + if-condition + developer self-own",
     "company mention + imagine scenario + software-game collision",
     "company mention + rare purchase condition + everyday self-own",
     "speculative future anthropology conclusion derived from commercial audio artifacts",
@@ -369,7 +372,8 @@
     "absurd contractual accusation with emoji encoded sarcasm",
     "mock legal justification for platform stacking ending in emoji",
     "insurance logic applied to philosophical expertise",
-    "code error fragmentation followed by absurdly specific 'poverty ration' comparison."
+    "code error fragmentation followed by absurdly specific 'poverty ration' comparison.",
+    "tech contract label followed by sarcastic behavioral penalty logic"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -463,17 +467,18 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "ai_tech_quote",
+  "last_post_type": "x_trends_quote",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
   "trend_manual_posts": [],
   "trend_manual_day_key": null,
   "trend_source_ids": [
-    "2108965844931768440"
+    "2108965844931768440",
+    "2109011085709689314"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 1,
+  "trend_quote_post_count": 2,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -489,6 +494,22 @@
       "reposted_tweet_id": "2108965844931768440",
       "reposted_at": "2026-10-11T09:01:24.353938+00:00",
       "status": "reposted"
+    },
+    {
+      "slot_number": 2,
+      "post": "implementation latency matches emotional investment in saturday afternoon sporting events strict penalty ratio 💀 🥀",
+      "source_username": "NFL",
+      "source_type": "x_trend",
+      "source_tweet_id": "2109011085709689314",
+      "source_url": "https://x.com/NFL/status/2109011085709689314",
+      "source_text": "NFC West showdown tomorrow 🍿\n\n@SFvsSEA – Sunday 4:25pm ET on FOX/FOX One\nStream on @NFLPlus https://t.co/kcRDYSvZsR",
+      "topic": "NFL on FOX One",
+      "format_name": "sports tech lat penalty clause",
+      "comedy_mechanism": "applying server uptime latency metrics to human attention spans and timeouts",
+      "structure_signature": "tech contract label followed by sarcastic behavioral penalty logic",
+      "tweet_id": "2109275629560725942",
+      "generated_at": "2026-10-11T13:31:13.427015+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-11",
@@ -508,7 +529,7 @@
   ],
   "person_photo_post_count": 0,
   "ai_tech_quote_post_count": 5,
-  "next_lane_index": 0,
+  "next_lane_index": 1,
   "person_photo_posts": [],
   "ai_tech_quote_posts": [
     {
@@ -593,5 +614,8 @@
     }
   ],
   "person_photo_day_key": "2026-10-11",
-  "ai_tech_quote_day_key": "2026-10-11"
+  "ai_tech_quote_day_key": "2026-10-11",
+  "trend_names_used": [
+    "NFL on FOX One"
+  ]
 }
