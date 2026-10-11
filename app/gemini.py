@@ -695,7 +695,7 @@ def _validate_quote_against_source(
     unquoted = re.sub(r'["“‘][^"”’]*["”’]', "", lowered)
     if _contains_blocked_output_term(unquoted):
         raise GeminiError("Generated post contained blocked political/current-affairs content.")
-    if any(phrase in unquoted for phrase in BANNED_STYLE_PHRASES):
+    if any(phrase in lowered for phrase in BANNED_STYLE_PHRASES):
         raise GeminiError("Generated post used generic engagement or corporate phrasing.")
     if not draft.structure_signature:
         raise GeminiError("Generated post did not provide a structure signature.")
