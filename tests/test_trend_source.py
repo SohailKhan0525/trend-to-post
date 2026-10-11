@@ -2,7 +2,7 @@ import unittest
 from datetime import datetime, timezone
 from types import SimpleNamespace
 
-from app.trend_source import _ai_tech_topic_allowed, find_ai_tech_source, find_official_brand_source, find_trending_source
+from app.trend_source import TrendSourceError, _ai_tech_topic_allowed, find_ai_tech_source, find_official_brand_source, find_trending_source
 
 
 class FakeXClient:
@@ -98,7 +98,7 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         ]
         client = FakeXClient(trends, make_tweet())
 
-        with self.assertRaisesRegex(Exception, "no eligible topics"):
+        with self.assertRaisesRegex(TrendSourceError, "no eligible topics"):
             await find_trending_source(client, [])
 
         self.assertEqual(client.searches, [])
