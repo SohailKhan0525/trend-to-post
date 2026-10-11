@@ -4,15 +4,17 @@ import html
 import json
 import random
 import re
+import time
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, quote
 from urllib.request import Request, urlopen
 
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
-USER_AGENT = "TrendToPostBot/1.0 (licensed-photo discovery; educational use)"
+USER_AGENT = "TrendToPostBot/1.0 (https://github.com/SohailKhan0525/trend-to-post; Wikimedia Commons licensed-photo discovery)"
 MAX_IMAGE_BYTES = 6 * 1024 * 1024
 MAX_SUBJECT_SEARCHES = 12
+SUBJECTS_PER_COMMONS_REQUEST = 4
 ALLOWED_IMAGE_MIMES = {"image/jpeg", "image/png", "image/webp"}
 
 # Candidate people are known public-facing AI/technology leaders, engineers,
@@ -67,11 +69,27 @@ def _clean_html(value: object) -> str:
 
 def _get_json(url: str) -> dict[str, Any]:
     request = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
-    try:
-        with urlopen(request, timeout=8) as response:
-            payload = response.read(3 * 1024 * 1024 + 1)
-    except (HTTPError, URLError, TimeoutError) as exc:
-        raise PersonImageError(f"Wikimedia Commons request failed: {exc}") from exc
+    payload = b""
+    for attempt in range(2):
+        try:
+            with urlopen(request, timeout=8) as response:
+                payload = response.read(3 * 1024 * 1024 + 1)
+            break
+        except HTTPError as exc:
+            if exc.code == 429 and attempt == 0:
+                try:
+                    retry_after = float(exc.headers.get("Retry-After", "3"))
+                except (TypeError, ValueError):
+                    retry_after = 3.0
+                delay = min(max(retry_after, 1.0), 15.0)
+                print(f"Wikimedia Commons rate limited; retrying once after {delay:.0f}s.")
+                time.sleep(delay)
+                continue
+            raise PersonImageError(f"Wikimedia Commons request failed: HTTP Error {exc.code}: {exc.reason}") from exc
+        except (URLError, TimeoutError) as exc:
+            raise PersonImageError(f"Wikimedia Commons request failed: {exc}") from exc
+    if not payload:
+        raise PersonImageError("Wikimedia Commons returned an empty response.")
     if len(payload) > 3 * 1024 * 1024:
         raise PersonImageError("Wikimedia Commons returned an unexpectedly large response.")
     try:
@@ -204,14 +222,18 @@ def find_licensed_person_image(
     if eligible_x_handles is not None and not subjects:
         raise PersonImageError("No active X people remain after applying today's exclusions.")
     random.shuffle(subjects)
-    searched = 0
+    subjects = subjects[:MAX_SUBJECT_SEARCHES]
 
-    for person in subjects:
-        if searched >= MAX_SUBJECT_SEARCHES:
-            break
-        searched += 1
-        search_names = tuple(dict.fromkeys((person[0], person[1], *person[4])))
-        search_query = " OR ".join(f'"{name}"' for name in search_names if name)
+    # Search several verified-active subjects per request. This cuts Commons
+    # API traffic substantially compared with one request per person, which
+    # was causing the photo lane to hit HTTP 429 before finding a usable image.
+    for offset in range(0, len(subjects), SUBJECTS_PER_COMMONS_REQUEST):
+        batch = subjects[offset:offset + SUBJECTS_PER_COMMONS_REQUEST]
+        search_names = []
+        for person in batch:
+            search_names.extend((person[0], person[1], *person[4]))
+        search_names = list(dict.fromkeys(name for name in search_names if name))
+        search_query = " OR ".join(f'"{name}"' for name in search_names)
         params = {
             "action": "query",
             "format": "json",
@@ -230,7 +252,11 @@ def find_licensed_person_image(
         try:
             data = _get_json(COMMONS_API + "?" + urlencode(params))
         except PersonImageError as exc:
-            print(f"Skipping Commons subject search for {person[0]}: {exc}")
+            print(f"Skipping Commons subject batch {[person[0] for person in batch]}: {exc}")
+            # Once Commons is still rate-limiting after the one Retry-After
+            # retry, stop issuing requests in this run rather than amplifying it.
+            if "429" in str(exc):
+                break
             continue
 
         pages = data.get("query", {}).get("pages", [])
@@ -240,9 +266,10 @@ def find_licensed_person_image(
         for page in pages:
             if not isinstance(page, dict):
                 continue
-            candidate = _candidate_from_page(page, person)
-            if candidate and candidate["title"].casefold() not in used_titles:
-                candidates.append(candidate)
+            for person in batch:
+                candidate = _candidate_from_page(page, person)
+                if candidate and candidate["title"].casefold() not in used_titles:
+                    candidates.append(candidate)
         if candidates:
             return random.choice(candidates)
 
