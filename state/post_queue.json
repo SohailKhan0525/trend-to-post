@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-11",
-  "daily_count": 1,
-  "ai_call_count": 15,
-  "last_posted_at": "2026-10-11T04:26:28.189325+00:00",
-  "last_source_tweet_id": "2109138421255950485",
-  "last_tweet_id": "2109138537698439299",
+  "daily_count": 2,
+  "ai_call_count": 16,
+  "last_posted_at": "2026-10-11T06:01:48.298452+00:00",
+  "last_source_tweet_id": "2109162084508561563",
+  "last_tweet_id": "2109162529431679203",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -69,7 +69,8 @@
     "2108361844771439021",
     "2108343405583704229",
     "2108834019592847668",
-    "2109138421255950485"
+    "2109138421255950485",
+    "2109162084508561563"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -94,17 +95,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "domestic entropy tax brackets",
-      "comedy_mechanism": "inventing an absurd bureaucratic household penalty tied to local code generation outputs",
-      "used_at": "2026-10-08T01:32:04.770787+00:00",
-      "topic": "NVIDIA",
-      "self_reply": true,
-      "tweet_id": "2108007485982331064",
-      "content_type": "original_post",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "conditional legal obligation pairing high-parameter AI output with mundane household inconvenience"
-    },
     {
       "format_name": "surreal provenance reverse-engineering",
       "comedy_mechanism": "inverting the premise so that human authenticity is treated as the synthetic anomaly requiring a detection tool",
@@ -320,10 +310,23 @@
       "post_text": "founding engineer checklist: neural weights updated ready to redefine aesthetic reality? \"Dandiya Night look without stepping out?\" 🥀 💀 🔥",
       "mutation_stage": "invented_rule",
       "structure_signature": "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm."
+    },
+    {
+      "format_name": "revenue stream intangible asset seizure",
+      "comedy_mechanism": "interpreting creative strategy as a literal government confiscation of intangible capital",
+      "used_at": "2026-10-11T06:01:48.298452+00:00",
+      "topic": "AI/technology: AI model",
+      "tweet_id": "2109162529431679203",
+      "content_type": "quote_post",
+      "content_mode": "ai_tech_quote",
+      "source_tweet_id": "2109162084508561563",
+      "source_username": "ProSyn",
+      "post_text": "triggered this violation? prevented the news industry from developing \"industry from developing a sustainable business\" 👀 🥀 🤣",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "absurd contractual accusation with emoji encoded sarcasm"
     }
   ],
   "recent_post_fingerprints": [
-    "bureaucratic mandate ending in a quoted source fragment followed by a surreal policy rider",
     "fake system diagnostic log followed by destructive action mandate",
     "bureaucratic penalty declaration ending in a quote fragment followed by a surreal policy rider",
     "legalistic compliance failure declaration ending in a source quote fragment",
@@ -352,7 +355,8 @@
     "@BMW [absurd ultimatum about design] 😂",
     "legalistic penalty declaration ending in a quote fragment followed by distinct emoji cluster",
     "time limit setup followed by frantic hobby contradiction and punchline emojis",
-    "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm."
+    "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm.",
+    "absurd contractual accusation with emoji encoded sarcasm"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -465,10 +469,11 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [
-    "2109138421255950485"
+    "2109138421255950485",
+    "2109162084508561563"
   ],
   "person_photo_post_count": 0,
-  "ai_tech_quote_post_count": 1,
+  "ai_tech_quote_post_count": 2,
   "next_lane_index": 0,
   "person_photo_posts": [],
   "ai_tech_quote_posts": [
@@ -486,6 +491,22 @@
       "structure_signature": "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm.",
       "tweet_id": "2109138537698439299",
       "generated_at": "2026-10-11T04:26:28.189325+00:00",
+      "status": "published"
+    },
+    {
+      "slot_number": 2,
+      "post": "triggered this violation? prevented the news industry from developing \"industry from developing a sustainable business\" 👀 🥀 🤣",
+      "source_username": "ProSyn",
+      "source_type": "ai_tech_search",
+      "source_tweet_id": "2109162084508561563",
+      "source_url": "https://x.com/ProSyn/status/2109162084508561563",
+      "source_text": "Big Tech’s oligopolistic dominance has prevented the news industry from developing a sustainable business model for the digital age—a crisis that AI is exacerbating, argues @perfilcom’s Agustino Fontevecchia. https://t.co/LY1o1jENgD",
+      "topic": "AI/technology: AI model",
+      "format_name": "revenue stream intangible asset seizure",
+      "comedy_mechanism": "interpreting creative strategy as a literal government confiscation of intangible capital",
+      "structure_signature": "absurd contractual accusation with emoji encoded sarcasm",
+      "tweet_id": "2109162529431679203",
+      "generated_at": "2026-10-11T06:01:48.298452+00:00",
       "status": "published"
     }
   ],
