@@ -6,9 +6,9 @@ This repository runs an experimental X account focused on AI, technology, major 
 
 The bot has **20 automatically published main-post slots per UTC day**:
 
-- **4 official-company Quote Posts** — attach a recent eligible text-only post from a curated first-party company account and add an AI-written meme-style comment. The comment is original text, not a direct quote from the source.
+- **4 X Trends Quote Posts** — choose a recent eligible topic from X's live Trends feed, find a recent post about it, and attach it with an original AI-written meme-style comment. No source wording or quotation marks in the comment.
 - **8 short real-person photo prompts** — captions stay like the example image: one short line, usually 7–12 words and capped at 120 characters. The list includes AI/tech CEOs **and** active X engineers, researchers, product builders, and team members such as Tibo (@thsottiaux). Before selecting a person, the queue checks for recent posts from their exact X handle and verifies the profile display name. It then looks for an existing, real portrait with a suitable reuse license and attaches that photo. It does **not** generate images.
-- **8 AI/technology Quote Posts** — the bot finds recent text-only X posts about AI and technology using direct keyword searches (not X's Trends feed), then publishes an original, funny meme-style comment as a Quote Post. The comment must not repeat source wording or use quotation marks. No AI-generated meme images are used.
+- **8 AI/technology Quote Posts** — prioritize eligible AI/technology topics from X's live Trends feed, find a recent post about each, and publish an original funny meme-style comment as a Quote Post. If X Trends is unavailable, the lane safely skips rather than silently substituting keyword searches. No AI-generated meme images are used.
 
 The five old manually prepared company captions and the eleven invented standalone text originals are no longer part of the active daily queue. Legacy state fields remain only for backward compatibility; those lanes are not selected for new posts.
 
@@ -28,7 +28,7 @@ Automated authored captions and quote-post comments may use **only** these emoji
 
 The number of emojis is randomized per caption (normally 2–5, with at most one extra when it fits). Repeated emoji tokens and emojis outside the approved palette are rejected. The prompt generator and validators also reject @mentions, hashtags, URLs, country references, blocked political/current-affairs content, and recent-format duplicates.
 
-The AI/technology Quote Post lane is restricted to AI, models, AI labs, software, developer tools, coding, computing hardware, chips, cloud, apps, robotics, data, and digital product behavior. It intentionally does not quote unrelated sports/entertainment content. It uses direct latest-post keyword searches and never calls X's Trending Topics endpoint.
+The AI/technology Quote Post lane is restricted to AI, models, AI labs, software, developer tools, coding, computing hardware, chips, cloud, apps, robotics, data, and digital product behavior. It only uses topics found in X's live Trends feed and never silently substitutes direct keyword searches.
 
 ## Queue and workflow behavior
 
