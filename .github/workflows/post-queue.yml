@@ -165,9 +165,9 @@ jobs:
               f"- Last post type: {state.get('last_post_type') or 'none recorded'}",
               "",
           ]
-          print("\\n".join(lines))
+          print("\n".join(lines))
           summary_path = os.environ.get("GITHUB_STEP_SUMMARY", "")
           if summary_path:
               with open(summary_path, "a", encoding="utf-8") as summary:
-                  summary.write("\\n".join(lines))
+                  summary.write("\n".join(lines))
           PY
