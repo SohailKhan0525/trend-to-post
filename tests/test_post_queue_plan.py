@@ -24,6 +24,17 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             post_queue.POSTS_PER_DAY,
         )
 
+    def test_post_interval_allows_twenty_hourly_slots(self):
+        self.assertLessEqual(post_queue.MIN_POST_INTERVAL_MINUTES, 60)
+        self.assertGreater(post_queue.MIN_POST_INTERVAL_MINUTES, 0)
+
+    def test_workflow_has_a_scheduled_fallback(self):
+        from pathlib import Path
+
+        workflow = Path(".github/workflows/post-queue.yml").read_text(encoding="utf-8")
+        self.assertIn('schedule:', workflow)
+        self.assertIn('cron: "*/30 * * * *"', workflow)
+
     async def test_person_photo_lane_only_uses_a_matching_active_x_profile(self):
         person = ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo",))
 
