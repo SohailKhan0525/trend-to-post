@@ -37,7 +37,10 @@ AI_TECH_QUOTE_POSTS_PER_DAY = 8
 # the hard cap of twenty successfully published main posts.
 AI_GENERATIONS_PER_DAY = 40
 ORIGINAL_POSTS_PER_DAY = 11  # legacy state compatibility only
-MIN_POST_INTERVAL_MINUTES = 72
+# The external dispatcher and scheduled fallback both run every 30 minutes.
+# A 58-minute guard allows one successful post per hour despite event overlap,
+# leaving enough time to complete the 20-slot daily plan without duplicate posts.
+MIN_POST_INTERVAL_MINUTES = 58
 BRAND_AI_GENERATIONS_PER_DAY = COMPANY_POSTS_PER_DAY
 INVENTED_TOPIC_SEEDS = (
     "AI and strange software behaviour",
@@ -987,7 +990,12 @@ async def _post_ai_tech_quote(state: dict, client: Client) -> bool:
         if isinstance(item, dict) and str(item.get("source_username", "")).strip()
     ]
     try:
-        source = await find_trending_source(client, used, state.get("ai_tech_trend_names_used", []))
+        source = await find_trending_source(
+            client,
+            used,
+            state.get("ai_tech_trend_names_used", []),
+            ai_tech_only=True,
+        )
         if not _ai_tech_topic_allowed(source.text):
             print(f"Skipping X Trends source outside AI/technology scope: {source.trend!r}")
             return False

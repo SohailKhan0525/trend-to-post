@@ -24,6 +24,18 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             post_queue.POSTS_PER_DAY,
         )
 
+    def test_post_interval_allows_twenty_hourly_slots(self):
+        self.assertLessEqual(post_queue.MIN_POST_INTERVAL_MINUTES, 60)
+        self.assertGreater(post_queue.MIN_POST_INTERVAL_MINUTES, 0)
+
+    def test_workflow_has_a_scheduled_fallback(self):
+        from pathlib import Path
+
+        workflow = Path(".github/workflows/post-queue.yml").read_text(encoding="utf-8")
+        self.assertIn('schedule:', workflow)
+        self.assertIn('cron: "*/30 * * * *"', workflow)
+        self.assertIn('Report daily queue progress', workflow)
+
     async def test_person_photo_lane_only_uses_a_matching_active_x_profile(self):
         person = ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo",))
 
@@ -139,7 +151,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             retweet=AsyncMock(),
         )
         with (
-            patch.object(post_queue, "find_trending_source", new=AsyncMock(return_value=source)),
+            patch.object(post_queue, "find_trending_source", new=AsyncMock(return_value=source)) as find_source,
             patch.object(post_queue, "_ai_tech_topic_allowed", return_value=True),
             patch.object(post_queue, "generate_quote", return_value=draft),
             patch.object(post_queue, "_save_state"),
@@ -147,6 +159,8 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             result = await post_queue._post_ai_tech_quote(state, client)
 
         self.assertTrue(result)
+        find_source.assert_awaited_once()
+        self.assertIs(find_source.await_args.kwargs["ai_tech_only"], True)
         client.create_tweet.assert_awaited_once_with(
             text=draft.quote_text, attachment_url=source.url
         )

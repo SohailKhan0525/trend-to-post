@@ -90,6 +90,18 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(source.source_type, "x_trend")
         self.assertIn("NVIDIA RTX", client.searches)
 
+    async def test_ai_tech_trend_lane_filters_topics_before_ranking(self):
+        trends = [
+            SimpleNamespace(name="NBA finals", tweets_count=500000),
+            SimpleNamespace(name="NVIDIA RTX", tweets_count=12000),
+        ]
+        client = FakeXClient(trends, make_tweet())
+
+        source = await find_trending_source(client, [], ai_tech_only=True)
+
+        self.assertEqual(source.trend, "NVIDIA RTX")
+        self.assertEqual(client.searches, ["NVIDIA RTX"])
+
     async def test_rejects_unrelated_or_political_trend_names_without_fallback(self):
         # Ineligible X Trends must not silently switch to generic keyword searches.
         trends = [
