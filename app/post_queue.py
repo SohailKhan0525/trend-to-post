@@ -687,7 +687,7 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
     })
     _save_state(state)
     print(
-        f"Published X Trends quote-post {count}/{TREND_QUOTE_POSTS_PER_DAY}; 
+        f"Published X Trends quote-post {count}/{TREND_QUOTE_POSTS_PER_DAY}; "
         f"invented originals {state.get('invented_post_count', 0)}/{ORIGINAL_POSTS_PER_DAY}; "
         f"company captions {state.get('company_post_count', 0)}/{COMPANY_POSTS_PER_DAY}; "
         f"daily slots {state['daily_count']}/{POSTS_PER_DAY}; "
