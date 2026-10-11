@@ -448,7 +448,7 @@ async def find_trending_source(
         )
         selected = ranked[0]
         print(
-            Selected source for X Trends quote-post: 
+            f"Selected source for X Trends quote-post: "
             f"@{selected.username} / {selected.tweet_id} | "
             f"source_type={selected.source_type} | topic={selected.trend!r} | "
             f"views={selected.view_count:,} | likes={selected.favorite_count:,} | "
