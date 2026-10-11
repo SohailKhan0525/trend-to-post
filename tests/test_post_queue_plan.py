@@ -95,7 +95,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             retweet=AsyncMock(),
         )
         with (
-            patch.object(post_queue, "find_official_brand_source", new=AsyncMock(return_value=source)),
+            patch.object(post_queue, "find_trending_source", new=AsyncMock(return_value=source)),
             patch.object(post_queue, "generate_quote", return_value=draft),
             patch.object(post_queue, "_save_state"),
         ):
@@ -107,7 +107,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         )
         client.retweet.assert_not_awaited()
         self.assertEqual(state["trend_quote_posts"][-1]["status"], "published")
-        self.assertEqual(state["last_post_type"], "official_brand_quote")
+        self.assertEqual(state["last_post_type"], "x_trends_quote")
 
     async def test_ai_tech_lane_publishes_a_quote_post_with_original_commentary(self):
         from datetime import datetime, timezone
@@ -139,7 +139,8 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             retweet=AsyncMock(),
         )
         with (
-            patch.object(post_queue, "find_ai_tech_source", new=AsyncMock(return_value=source)),
+            patch.object(post_queue, "find_trending_source", new=AsyncMock(return_value=source)),
+            patch.object(post_queue, "_ai_tech_topic_allowed", return_value=True),
             patch.object(post_queue, "generate_quote", return_value=draft),
             patch.object(post_queue, "_save_state"),
         ):

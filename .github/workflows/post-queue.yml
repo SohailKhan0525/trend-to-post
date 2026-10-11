@@ -1,4 +1,4 @@
-name: Post X Photo Prompts and Quote Posts
+name: Post X Trends Quote Posts and Photo Prompts
 
 on:
   workflow_dispatch:
@@ -71,7 +71,7 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
-      - name: Publish one queued photo prompt or text Quote Post
+      - name: Publish one queued photo prompt or X Trends Quote Post
         id: post_bot
         env:
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}

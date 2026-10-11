@@ -382,7 +382,7 @@ async def find_trending_source(
     used_source_ids: Iterable[str],
     excluded_trend_names: Iterable[str] = (),
 ) -> SourceTweet:
-    """Find an allowed recent X conversation, preferring eligible official Trends topics."""
+    """Find a recent post for an eligible topic from X Trends only."""
     used_ids = {str(value).strip() for value in used_source_ids if str(value).strip()}
     excluded_names = {" ".join(str(value).casefold().split()) for value in excluded_trend_names if str(value).strip()}
     now = datetime.now(timezone.utc)
@@ -406,23 +406,13 @@ async def find_trending_source(
             # Twikit/X occasionally returns no trend payload. Fall back to live topical searches.
             print(f"Official X Trends unavailable; using recent topical X searches: {exc}")
 
-    rotation = int(now.timestamp() // 3600) % len(SIGNAL_SEARCHES)
-    available_fallbacks = [
-        SIGNAL_SEARCHES[(rotation + offset) % len(SIGNAL_SEARCHES)]
-        for offset in range(len(SIGNAL_SEARCHES))
-        if " ".join(SIGNAL_SEARCHES[(rotation + offset) % len(SIGNAL_SEARCHES)].casefold().split())
-        not in excluded_names
-    ]
-    if not available_fallbacks:
-        available_fallbacks = list(SIGNAL_SEARCHES)
-    fallback_queries = [
-        (query, 0, "x_top_search")
-        for query in available_fallbacks[:SEARCHES_PER_RUN]
-    ]
-    batches: list[list[tuple[str, int, str]]] = []
-    if trend_queries:
-        batches.append(trend_queries[:SEARCHES_PER_RUN])
-    batches.append(fallback_queries)
+    # This lane must be trend-led: never silently switch to generic keyword searches.
+    if not trend_queries:
+        raise TrendSourceError(
+            "X Trends is unavailable or has no eligible topics; skipping rather than using keyword-search fallback."
+        )
+
+    batches: list[list[tuple[str, int, str]]] = [trend_queries[:SEARCHES_PER_RUN]]
 
     for batch_index, queries in enumerate(batches):
         candidates: dict[str, SourceTweet] = {}
@@ -430,7 +420,7 @@ async def find_trending_source(
             try:
                 results = await client.search_tweet(
                     query,
-                    "Top",
+                    "Latest" if source_type == "x_trend" else "Top",
                     count=TWEETS_PER_SEARCH,
                 )
             except Exception as exc:
@@ -458,7 +448,7 @@ async def find_trending_source(
         )
         selected = ranked[0]
         print(
-            "Selected source for manual trend draft: "
+            Selected source for X Trends quote-post: 
             f"@{selected.username} / {selected.tweet_id} | "
             f"source_type={selected.source_type} | topic={selected.trend!r} | "
             f"views={selected.view_count:,} | likes={selected.favorite_count:,} | "
