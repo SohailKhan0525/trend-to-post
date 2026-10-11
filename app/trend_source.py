@@ -474,7 +474,7 @@ async def find_trending_source(
         "conversation was found in official allowed trends or current topical searches."
     )
 
-# A curated set of first-party company accounts. The quote-post lane searches
+# A curated set of first-party company accounts. The repost lane searches
 # these accounts directly instead of reading or targeting X's Trending Topics.
 OFFICIAL_BRAND_SOURCE_ACCOUNTS = (
     ("OpenAI", "OpenAI AI software"),
@@ -515,9 +515,9 @@ async def find_official_brand_source(
 ) -> SourceTweet:
     """Select a recent post authored by a curated official brand account.
 
-    It intentionally does not query X's Trends endpoint. Posts are quote-posted
-    only when they are recent, original, English, topic-relevant, and authored
-    by the exact first-party handle from the allowlist.
+    It intentionally does not query X's Trends endpoint. Posts are natively
+    reposted only when recent, original, English, topic-relevant, text-only,
+    and authored by the exact first-party handle from the allowlist.
     """
     import random
 
@@ -578,7 +578,7 @@ async def find_official_brand_source(
     )
     selected = ranked[0]
     print(
-        "Selected official brand source for automatic quote post: "
+        "Selected official brand source for automatic native repost: "
         f"@{selected.username}/{selected.tweet_id} | "
         f"topic={selected.trend!r} | views={selected.view_count:,} | "
         f"likes={selected.favorite_count:,} | replies={selected.reply_count:,}"
@@ -609,7 +609,7 @@ def _ai_tech_topic_allowed(text: str) -> bool:
 
 
 # This lane discovers text-only AI/technology conversation through direct
-# keyword searches. It intentionally never reads X's Trending Topics endpoint.
+# keyword searches and natively reposts the source without adding commentary.
 AI_TECH_SIGNAL_SEARCHES = (
     "ChatGPT",
     "OpenAI AI",
@@ -637,7 +637,7 @@ async def find_ai_tech_source(
     used_source_ids: Iterable[str],
     excluded_usernames: Iterable[str] = (),
 ) -> SourceTweet:
-    """Find a recent, original, text-only AI/technology post for a quote-post."""
+    """Find a recent, original, text-only AI/technology post for a native repost."""
     import random
 
     used_ids = {str(value).strip() for value in used_source_ids if str(value).strip()}
@@ -693,7 +693,7 @@ async def find_ai_tech_source(
     )
     selected = ranked[0]
     print(
-        "Selected AI/technology source for automatic quote-post: "
+        "Selected AI/technology source for automatic native repost: "
         f"@{selected.username}/{selected.tweet_id} | "
         f"query={selected.trend!r} | views={selected.view_count:,} | "
         f"likes={selected.favorite_count:,} | replies={selected.reply_count:,}"
