@@ -4,6 +4,7 @@ from unittest.mock import AsyncMock, patch
 from types import SimpleNamespace
 
 from app import post_queue
+from app.gemini import QuoteDraft
 
 
 class FakeClient:
@@ -84,7 +85,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             author_professional=True,
             source_type="official_brand_post",
         )
-        draft = post_queue.QuoteDraft(
+        draft = QuoteDraft(
             True, "release day just spawned a final boss 😂 👀",
             "meme-style observation", "release boss fight", "absurd escalation",
             "", False, "quote_post", "invented_rule", "new structure signature",
@@ -128,7 +129,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             author_professional=True,
             source_type="ai_tech_search",
         )
-        draft = post_queue.QuoteDraft(
+        draft = QuoteDraft(
             True, "the launch notes need a training montage 😂 👀",
             "meme-style observation", "training montage", "absurd escalation",
             "", False, "quote_post", "invented_rule", "new tech structure",
