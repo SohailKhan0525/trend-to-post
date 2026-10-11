@@ -109,6 +109,8 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(_ai_tech_topic_allowed("Our new AI model writes Python code"))
         self.assertFalse(_ai_tech_topic_allowed("What a brilliant football match"))
         self.assertFalse(_ai_tech_topic_allowed("Election debate about technology"))
+        self.assertFalse(_ai_tech_topic_allowed("AI launch special for Diwali festival"))
+        self.assertFalse(_ai_tech_topic_allowed("ChatGPT holiday celebration announcement"))
 
     async def test_ai_tech_source_uses_latest_keyword_searches_not_trends(self):
         tweet = make_tweet()
