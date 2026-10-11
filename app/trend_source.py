@@ -430,7 +430,7 @@ async def find_trending_source(
             try:
                 results = await client.search_tweet(
                     query,
-                    "Top",
+                    "Latest" if source_type == "x_trend" else "Top",
                     count=TWEETS_PER_SEARCH,
                 )
             except Exception as exc:
@@ -458,7 +458,7 @@ async def find_trending_source(
         )
         selected = ranked[0]
         print(
-            "Selected source for manual trend draft: "
+            Selected source for X Trends quote-post: 
             f"@{selected.username} / {selected.tweet_id} | "
             f"source_type={selected.source_type} | topic={selected.trend!r} | "
             f"views={selected.view_count:,} | likes={selected.favorite_count:,} | "
