@@ -92,7 +92,7 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_ai_tech_trend_lane_filters_topics_before_ranking(self):
         trends = [
-            SimpleNamespace(name="basketball finals", tweets_count=500000),
+            SimpleNamespace(name="NBA finals", tweets_count=500000),
             SimpleNamespace(name="NVIDIA RTX", tweets_count=12000),
         ]
         client = FakeXClient(trends, make_tweet())
