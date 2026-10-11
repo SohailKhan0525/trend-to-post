@@ -12,14 +12,14 @@ class FakeClient:
 
 
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
-    def test_daily_plan_is_four_company_quotes_eight_photo_prompts_eight_ai_tech_quotes(self):
-        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 4)
+    def test_daily_plan_is_four_company_reposts_eight_photo_prompts_eight_ai_tech_reposts(self):
+        self.assertEqual(post_queue.OFFICIAL_BRAND_REPOSTS_PER_DAY, 4)
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 8)
-        self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 8)
+        self.assertEqual(post_queue.AI_TECH_REPOSTS_PER_DAY, 8)
         self.assertEqual(
-            post_queue.TREND_QUOTE_POSTS_PER_DAY
+            post_queue.OFFICIAL_BRAND_REPOSTS_PER_DAY
             + post_queue.PERSON_PHOTO_POSTS_PER_DAY
-            + post_queue.AI_TECH_QUOTE_POSTS_PER_DAY,
+            + post_queue.AI_TECH_REPOSTS_PER_DAY,
             post_queue.POSTS_PER_DAY,
         )
 
@@ -64,6 +64,82 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(result, [])
 
+    async def test_official_company_lane_uses_native_repost_without_commentary(self):
+        from datetime import datetime, timezone
+
+        state = post_queue._new_state()
+        source = post_queue.SourceTweet(
+            tweet_id="1111111111111111111",
+            text="We shipped a new feature.",
+            username="OpenAI",
+            created_at=datetime.now(timezone.utc),
+            trend="OpenAI AI software",
+            trend_volume=0,
+            view_count=1000,
+            favorite_count=20,
+            retweet_count=5,
+            reply_count=4,
+            author_followers=100000,
+            author_verified=True,
+            author_professional=True,
+            source_type="official_brand_post",
+        )
+        client = SimpleNamespace(
+            retweet=AsyncMock(return_value=SimpleNamespace(is_success=True)),
+            create_tweet=AsyncMock(),
+        )
+        with (
+            patch.object(post_queue, "find_official_brand_source", new=AsyncMock(return_value=source)),
+            patch.object(post_queue, "_save_state"),
+        ):
+            result = await post_queue._post_official_brand_repost(state, client)
+
+        self.assertTrue(result)
+        client.retweet.assert_awaited_once_with(source.tweet_id)
+        client.create_tweet.assert_not_awaited()
+        self.assertEqual(state["ai_call_count"], 0)
+        self.assertEqual(state["trend_quote_posts"][-1]["content_type"], "native_repost")
+        self.assertIsNone(state["trend_quote_posts"][-1]["post"])
+        self.assertEqual(state["last_post_type"], "official_brand_repost")
+
+    async def test_ai_tech_lane_uses_native_repost_without_commentary(self):
+        from datetime import datetime, timezone
+
+        state = post_queue._new_state()
+        source = post_queue.SourceTweet(
+            tweet_id="2222222222222222222",
+            text="A new AI model just shipped.",
+            username="exampledev",
+            created_at=datetime.now(timezone.utc),
+            trend="AI/technology: OpenAI AI",
+            trend_volume=0,
+            view_count=1000,
+            favorite_count=20,
+            retweet_count=5,
+            reply_count=4,
+            author_followers=10000,
+            author_verified=False,
+            author_professional=True,
+            source_type="ai_tech_search",
+        )
+        client = SimpleNamespace(
+            retweet=AsyncMock(return_value=SimpleNamespace(is_success=True)),
+            create_tweet=AsyncMock(),
+        )
+        with (
+            patch.object(post_queue, "find_ai_tech_source", new=AsyncMock(return_value=source)),
+            patch.object(post_queue, "_save_state"),
+        ):
+            result = await post_queue._post_ai_tech_repost(state, client)
+
+        self.assertTrue(result)
+        client.retweet.assert_awaited_once_with(source.tweet_id)
+        client.create_tweet.assert_not_awaited()
+        self.assertEqual(state["ai_call_count"], 0)
+        self.assertEqual(state["ai_tech_quote_posts"][-1]["content_type"], "native_repost")
+        self.assertIsNone(state["ai_tech_quote_posts"][-1]["post"])
+        self.assertEqual(state["last_post_type"], "ai_tech_repost")
+
     async def test_failed_lane_does_not_block_next_eligible_lane(self):
         state = post_queue._new_state()
         with (
@@ -75,9 +151,9 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             patch.object(post_queue, "_save_state"),
             patch.object(post_queue, "_client", return_value=FakeClient()),
             patch.object(post_queue, "_interval_ok", return_value=True),
-            patch.object(post_queue, "_post_trend_quote", new=AsyncMock(return_value=False)) as brand,
+            patch.object(post_queue, "_post_official_brand_repost", new=AsyncMock(return_value=False)) as brand,
             patch.object(post_queue, "_post_person_photo", new=AsyncMock(return_value=True)) as photo,
-            patch.object(post_queue, "_post_ai_tech_quote", new=AsyncMock(return_value=False)) as ai_tech,
+            patch.object(post_queue, "_post_ai_tech_repost", new=AsyncMock(return_value=False)) as ai_tech,
         ):
             result = await post_queue.post_next("auth", "ct0")
         self.assertTrue(result)
