@@ -30,6 +30,14 @@ BLOCKED_OUTPUT_TERMS = (
     "politician", "politics", "political", "vote", "voting", "ballot", "campaign",
     "democrat", "republican", "labour", "conservative party", "liberal party",
     "maga", "war", "military", "geopolitics",
+    # User explicitly forbids festivals, holiday posts, and seasonal celebrations.
+    "festival", "festivals", "holiday", "holidays", "celebration", "celebrations",
+    "diwali", "deepavali", "holi", "eid", "ramadan", "christmas", "xmas", "easter",
+    "halloween", "thanksgiving", "valentine", "valentines day", "new year", "lunar new year",
+    "chinese new year", "hanukkah", "chanukah", "kwanzaa", "navratri", "durga puja",
+    "ganesh chaturthi", "pongal", "onam", "baisakhi", "raksha bandhan", "janmashtami",
+    "independence day", "republic day", "labour day", "memorial day", "black friday",
+    "cyber monday", "prime day", "seasonal greetings", "festive season",
 )
 BANNED_STYLE_PHRASES = (
     "this highlights",
@@ -339,7 +347,7 @@ Human, sharp, compressed, specific, internet-native, deadpan, absurd, skeptical,
 Lowercase, fragments, slang, and weird punctuation are allowed when they improve the joke.
 Confident enough to invite disagreement without manufacturing controversy.
 Roast products, behaviors, hype, abstractions, or situations — not protected identities or private people.
-No politics, political persuasion, military/geopolitical content, fake facts, corporate/AI-assistant voice, country names,
+No politics, political persuasion, military/geopolitical content, festivals, holidays, seasonal celebrations, fake facts, corporate/AI-assistant voice, country names,
 country abbreviations, nationalities, or geopolitical geography. ZERO country references in the generated post, including the quoted fragment.
 Do not add @mentions, hashtags, or URLs in your comment. The original company account will appear only as the attached quote post.
 Emoji palette is STRICTLY limited to 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀.
@@ -1340,7 +1348,7 @@ Generate one candidate using the mutation method. The source attachment is manda
 SAFETY RETRY:
 Your previous candidate may have crossed the political/current-affairs boundary or violated
 the quote-post-only contract. Generate a NEW QUOTE POST that stays strictly inside {scope_safety}.
-Do not mention governments, elections, politicians, military conflict, geopolitics, parties,
+Do not mention governments, elections, politicians, military conflict, geopolitics, parties, festivals, holidays, or seasonal celebrations,
 campaigns, or current political events. Do not smuggle those topics in as metaphors.
 Attach the source, use exactly one 2-6 word verbatim source fragment, and make the comment
 itself sharp, funny, specific, and naturally reply-worthy. Never generate a standalone post
