@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-11",
-  "daily_count": 5,
-  "ai_call_count": 18,
-  "last_posted_at": "2026-10-11T10:31:25.682860+00:00",
-  "last_source_tweet_id": "2109223745856348497",
-  "last_tweet_id": "2109230382520664076",
+  "daily_count": 6,
+  "ai_call_count": 19,
+  "last_posted_at": "2026-10-11T12:01:47.086855+00:00",
+  "last_source_tweet_id": "2109200685917147551",
+  "last_tweet_id": "2109253120194646496",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -73,7 +73,8 @@
     "2109162084508561563",
     "2109128211426619733",
     "2108965844931768440",
-    "2109223745856348497"
+    "2109223745856348497",
+    "2109200685917147551"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -98,17 +99,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "metroidvania health insurance deductible",
-      "comedy_mechanism": "mapping extreme platformer completionist suffering onto boring corporate bureaucratic healthcare terms",
-      "used_at": "2026-10-08T06:31:53.537124+00:00",
-      "topic": "gaming",
-      "self_reply": false,
-      "tweet_id": "2108082937761870170",
-      "content_type": "quote_post",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "bureaucratic mandate ending in a quoted source fragment followed by a surreal policy rider"
-    },
     {
       "format_name": "system kernel panic log",
       "comedy_mechanism": "treating a mundane greeting as a dangerous bios anomaly requiring emergency hardware destruction",
@@ -333,10 +323,23 @@
       "post_text": "hallucination insurance premium adjusted to 200% of base salary for artistic interpretation department 🥀 🔥 😭",
       "mutation_stage": "premise_inversion",
       "structure_signature": "insurance logic applied to philosophical expertise"
+    },
+    {
+      "format_name": "dev poverty myths",
+      "comedy_mechanism": "recontextualizing standard kitchen staples as emergency rations for a broken checkout phase.",
+      "used_at": "2026-10-11T12:01:47.086855+00:00",
+      "topic": "AI/technology: coding assistant",
+      "tweet_id": "2109253120194646496",
+      "content_type": "quote_post",
+      "content_mode": "ai_tech_quote",
+      "source_tweet_id": "2109200685917147551",
+      "source_username": "DanushkaStanley",
+      "post_text": "turns out Ive been performing extreme poverty rituals instead of debugging in ramen deficits 🔥 😭 😤",
+      "mutation_stage": "structural_break",
+      "structure_signature": "code error fragmentation followed by absurdly specific 'poverty ration' comparison."
     }
   ],
   "recent_post_fingerprints": [
-    "legalistic compliance failure declaration ending in a source quote fragment",
     "company mention + if-condition + developer self-own",
     "company mention + imagine scenario + software-game collision",
     "company mention + rare purchase condition + everyday self-own",
@@ -365,7 +368,8 @@
     "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm.",
     "absurd contractual accusation with emoji encoded sarcasm",
     "mock legal justification for platform stacking ending in emoji",
-    "insurance logic applied to philosophical expertise"
+    "insurance logic applied to philosophical expertise",
+    "code error fragmentation followed by absurdly specific 'poverty ration' comparison."
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -499,10 +503,11 @@
     "2109138421255950485",
     "2109162084508561563",
     "2109128211426619733",
-    "2109223745856348497"
+    "2109223745856348497",
+    "2109200685917147551"
   ],
   "person_photo_post_count": 0,
-  "ai_tech_quote_post_count": 4,
+  "ai_tech_quote_post_count": 5,
   "next_lane_index": 0,
   "person_photo_posts": [],
   "ai_tech_quote_posts": [
@@ -568,6 +573,22 @@
       "structure_signature": "insurance logic applied to philosophical expertise",
       "tweet_id": "2109230382520664076",
       "generated_at": "2026-10-11T10:31:25.682860+00:00",
+      "status": "published"
+    },
+    {
+      "slot_number": 5,
+      "post": "turns out Ive been performing extreme poverty rituals instead of debugging in ramen deficits 🔥 😭 😤",
+      "source_username": "DanushkaStanley",
+      "source_type": "ai_tech_search",
+      "source_tweet_id": "2109200685917147551",
+      "source_url": "https://x.com/DanushkaStanley/status/2109200685917147551",
+      "source_text": "Vibe coding tips, next\n\nwhen something breaks, give your AI assistant the exact error, what you expected and the steps to reproduce it. Ask it to explain the likely cause before changing code. “Fix it” alone leaves too much room for guessing. Also check it has access to see local",
+      "topic": "AI/technology: coding assistant",
+      "format_name": "dev poverty myths",
+      "comedy_mechanism": "recontextualizing standard kitchen staples as emergency rations for a broken checkout phase.",
+      "structure_signature": "code error fragmentation followed by absurdly specific 'poverty ration' comparison.",
+      "tweet_id": "2109253120194646496",
+      "generated_at": "2026-10-11T12:01:47.086855+00:00",
       "status": "published"
     }
   ],
