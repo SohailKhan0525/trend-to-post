@@ -2,7 +2,7 @@ import unittest
 from datetime import datetime, timezone
 from types import SimpleNamespace
 
-from app.trend_source import _ai_tech_topic_allowed, find_ai_tech_source, find_official_brand_source, find_trending_source
+from app.trend_source import TrendSourceError, _ai_tech_topic_allowed, find_ai_tech_source, find_official_brand_source, find_trending_source
 
 
 class FakeXClient:
@@ -90,18 +90,18 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(source.source_type, "x_trend")
         self.assertIn("NVIDIA RTX", client.searches)
 
-    async def test_rejects_unrelated_or_political_trend_names(self):
-        # Political trends are ignored; the finder then falls back to topic searches.
+    async def test_rejects_unrelated_or_political_trend_names_without_fallback(self):
+        # Ineligible X Trends must not silently switch to generic keyword searches.
         trends = [
             SimpleNamespace(name="election debate", tweets_count=50000),
             SimpleNamespace(name="celebrity gossip", tweets_count=30000),
         ]
         client = FakeXClient(trends, make_tweet())
 
-        source = await find_trending_source(client, [])
+        with self.assertRaisesRegex(TrendSourceError, "no eligible topics"):
+            await find_trending_source(client, [])
 
-        self.assertEqual(source.source_type, "x_top_search")
-        self.assertNotIn("election debate", client.searches)
+        self.assertEqual(client.searches, [])
 
 
     def test_ai_tech_topic_filter_requires_a_real_tech_signal(self):
