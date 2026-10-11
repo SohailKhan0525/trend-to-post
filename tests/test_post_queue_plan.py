@@ -34,6 +34,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         workflow = Path(".github/workflows/post-queue.yml").read_text(encoding="utf-8")
         self.assertIn('schedule:', workflow)
         self.assertIn('cron: "*/30 * * * *"', workflow)
+        self.assertIn('Report daily queue progress', workflow)
 
     async def test_person_photo_lane_only_uses_a_matching_active_x_profile(self):
         person = ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo",))
