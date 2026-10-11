@@ -381,8 +381,15 @@ async def find_trending_source(
     client: Client,
     used_source_ids: Iterable[str],
     excluded_trend_names: Iterable[str] = (),
+    *,
+    ai_tech_only: bool = False,
 ) -> SourceTweet:
-    """Find a recent post for an eligible topic from X Trends only."""
+    """Find a recent post for an eligible topic from X Trends only.
+
+    When ``ai_tech_only`` is enabled, filter the Trends topics and source posts
+    before ranking. Filtering only after ranking can let a popular sports or
+    gaming post hide an eligible AI/technology source in the same Trends feed.
+    """
     used_ids = {str(value).strip() for value in used_source_ids if str(value).strip()}
     excluded_names = {" ".join(str(value).casefold().split()) for value in excluded_trend_names if str(value).strip()}
     now = datetime.now(timezone.utc)
@@ -398,6 +405,7 @@ async def find_trending_source(
                     not name
                     or " ".join(name.casefold().split()) in excluded_names
                     or not _topic_allowed(name, name)
+                    or (ai_tech_only and not _ai_tech_topic_allowed(name))
                 ):
                     continue
                 volume = _as_int(getattr(item, "tweets_count", 0))
@@ -434,6 +442,8 @@ async def find_trending_source(
 
             for tweet in results:
                 if not _is_candidate(tweet, now, used_ids, query):
+                    continue
+                if ai_tech_only and not _ai_tech_topic_allowed(str(getattr(tweet, "text", "") or "")):
                     continue
                 source = _build_source(tweet, query, volume, source_type)
                 candidates[source.tweet_id] = source
