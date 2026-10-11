@@ -1,5 +1,7 @@
 import unittest
+from unittest.mock import patch
 
+from app import person_images
 from app.person_images import (
     PERSON_SUBJECTS,
     _candidate_from_page,
@@ -31,6 +33,24 @@ def commons_page(license_name="CC BY 4.0", artist="Alice Example"):
 
 
 class PersonImageLicenseTests(unittest.TestCase):
+    def test_search_batches_multiple_active_people_to_reduce_commons_requests(self):
+        people = (
+            ("Sam Altman", "Sam Altman", "AI", "sama", ()),
+            ("Greg Brockman", "Greg Brockman", "AI engineering", "gdb", ()),
+            ("Mira Murati", "Mira Murati", "AI engineering", "miramurati", ()),
+            ("Andrej Karpathy", "Andrej Karpathy", "AI research", "karpathy", ()),
+        )
+        with (
+            patch.object(person_images, "PERSON_SUBJECTS", people),
+            patch.object(person_images, "_get_json", return_value={"query": {"pages": [commons_page()]}}) as get_json,
+        ):
+            result = person_images.find_licensed_person_image(
+                eligible_x_handles=[person[3] for person in people]
+            )
+
+        self.assertEqual(result["subject"], "Sam Altman")
+        get_json.assert_called_once()
+
     def test_every_person_candidate_has_an_x_handle(self):
         self.assertTrue(PERSON_SUBJECTS)
         self.assertTrue(all(person[3].strip() for person in PERSON_SUBJECTS))
