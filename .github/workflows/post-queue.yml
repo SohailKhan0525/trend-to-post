@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [post-next]
+  # Keep the queue moving even if the external repository_dispatch sender stalls.
+  schedule:
+    - cron: "*/30 * * * *"
 
 permissions:
   contents: write
