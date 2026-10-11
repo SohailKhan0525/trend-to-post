@@ -133,6 +133,13 @@ ALLOWED_TOPIC_KEYWORDS = (
 )
 
 BLOCKED_TOPIC_KEYWORDS = (
+    # Hard block holidays/festivals and religious/cultural observances in source text.
+    "festival", "festivals", "festive", "festivities", "holiday", "holidays",
+    "celebration", "celebrations", "christmas", "halloween", "diwali", "holi",
+    "eid", "ramadan", "hanukkah", "thanksgiving", "new year", "lunar new year",
+    "chinese new year", "easter", "valentines day", "valentine's day", "navratri",
+    "durga puja", "ganesh chaturthi", "pongal", "onam", "raksha bandhan",
+    "janmashtami", "baisakhi", "vesak", "passover", "kwanzaa",
     "election",
     "elections",
     "president",
