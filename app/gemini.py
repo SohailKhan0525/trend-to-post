@@ -14,7 +14,7 @@ MODEL = "gemini-3.5-flash-lite"
 CLOUDFLARE_MODEL = os.environ.get("CLOUDFLARE_AI_MODEL", "@cf/zai-org/glm-4.7-flash")
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1/chat/completions"
-MAX_POST_CHARS = 280
+MAX_POST_CHARS = 220
 ORIGINAL_POST_MAX_CHARS = 280
 MAX_API_ATTEMPTS_PER_KEY = 3
 CLOUDFLARE_CANDIDATE_COUNT = 2
@@ -789,9 +789,11 @@ def _clean_generated_post(text: str) -> str:
 def _pick_best_draft(drafts: list[QuoteDraft], format_memory: list[dict]) -> QuoteDraft:
     recent_text = " ".join(
         " ".join(
-            str(item.get(field, ""))
-            for field in ("format_name", "comedy_mechanism", "structure_signature")
-        ).lower().split()
+            " ".join(
+                str(item.get(field, ""))
+                for field in ("format_name", "comedy_mechanism", "structure_signature")
+            ).lower().split()
+        )
         for item in format_memory[-12:]
         if isinstance(item, dict)
     )
