@@ -32,9 +32,9 @@ The AI/technology Quote Post lane is restricted to AI, models, AI labs, software
 
 ## Queue and workflow behavior
 
-The publishing workflow is .github/workflows/post-queue.yml. It runs on manual dispatch or the existing post-next repository-dispatch event. Every run checks credentials, compiles the Python application, runs the full unit-test suite, and only then attempts one new main post.
+The publishing workflow is .github/workflows/post-queue.yml. It runs on a 30-minute GitHub Actions schedule, manual dispatch, or the existing post-next repository-dispatch event. The schedule is a fallback if the external dispatcher stops; concurrency and the post interval guard prevent overlapping events from publishing duplicates. Every run checks credentials, compiles the Python application, runs the full unit-test suite, and only then attempts one new main post.
 
-The queue rotates between the three lanes so a temporary image search, source search, or generation failure in one lane does not block all other content types. It publishes at most one new main post per dispatch and enforces a **72-minute minimum between successful main posts**. A required photo-attribution reply is sent immediately after its photo post and does not consume another main-post slot.
+The queue rotates between the three lanes so a temporary image search, source search, or generation failure in one lane does not block all other content types. It publishes at most one new main post per dispatch and enforces a **58-minute minimum between successful main posts**. With the 30-minute schedule, the next eligible run is normally about 60 minutes after the last post, so the cadence can support 20 daily slots. A required photo-attribution reply is sent immediately after its photo post and does not consume another main-post slot.
 
 The queue tracks daily counters, prior source IDs, photo file titles, recently used person names, format memory, attribution status, and last-post metadata in the post_queue state JSON. Up to 40 generation attempts are allowed per UTC day so transient provider/source failures do not immediately consume the entire 20-post plan. These are caps, not guarantees: provider errors, unavailable eligible content, X restrictions, or expired authentication can reduce the number published.
 
