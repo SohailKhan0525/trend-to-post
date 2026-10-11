@@ -23,6 +23,8 @@ from .trend_source import (
     TrendSourceError,
     find_ai_tech_source,
     find_official_brand_source,
+    find_trending_source,
+    _ai_tech_topic_allowed,
 )
 
 STATE_PATH = Path("state/post_queue.json")
@@ -142,6 +144,7 @@ def _load_state() -> dict:
         state["trend_manual_posts"] = []
         state["trend_manual_day_key"] = None
         state["trend_source_ids"] = []
+        state["trend_names_used"] = []
         state["invented_post_count"] = 0
         state["person_photo_day_key"] = None
         state["person_photo_post_count"] = 0
@@ -150,6 +153,7 @@ def _load_state() -> dict:
         state["ai_tech_quote_post_count"] = 0
         state["ai_tech_quote_posts"] = []
         state["ai_tech_source_ids"] = []
+        state["ai_tech_trend_names_used"] = []
         state["skipped_person_image_titles"] = []
         state["next_lane_index"] = 0
 
@@ -544,13 +548,14 @@ def _ensure_company_manual_posts(state: dict) -> bool:
 
 
 async def _post_trend_quote(state: dict, client: Client) -> bool:
-    """Generate and automatically publish one AI quote-post from an official brand."""
+    """Publish an original meme-style quote-post sourced from X Trends."""
     today = _today()
     if state.get("trend_quote_day_key") != today:
         state["trend_quote_day_key"] = today
         state["trend_quote_post_count"] = 0
         state["trend_quote_posts"] = []
         state["trend_source_ids"] = []
+        state["trend_names_used"] = []
 
     if int(state.get("trend_quote_post_count", 0)) >= TREND_QUOTE_POSTS_PER_DAY:
         return False
@@ -573,9 +578,9 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
     ]
 
     try:
-        source = await find_official_brand_source(client, used, excluded_handles)
+        source = await find_trending_source(client, used, state.get("trend_names_used", []))
     except TrendSourceError as exc:
-        print(f"Cannot find an eligible official-brand quote source right now: {exc}")
+        print(f"Cannot find an eligible X Trends quote source right now: {exc}")
         return False
 
     payload = _source_dict(source)
@@ -609,13 +614,13 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
         return False
 
     print(
-        f"Publishing text-only quote-post ({len(text)}/280) from "
-        f"@{source.username}: {text}"
+        f"Publishing X Trends quote-post ({len(text)}/280) for "
+        f"{source.trend!r} from @{source.username}: {text}"
     )
     try:
         tweet = await client.create_tweet(text=text, attachment_url=source.url)
     except Exception as exc:
-        raise QueueError(f"X quote-post failed: {exc}") from exc
+        raise QueueError(f"X Trends quote-post failed: {exc}") from exc
 
     now = datetime.now(timezone.utc).isoformat()
     item = {
@@ -634,6 +639,10 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
         "generated_at": now,
         "status": "published",
     }
+    used_trend_names = state.get("trend_names_used", [])
+    used_trend_names.append(source.trend)
+    state["trend_names_used"] = used_trend_names[-SOURCE_HISTORY_LIMIT:]
+
     state["trend_quote_posts"] = (
         state.get("trend_quote_posts", []) + [item]
     )[-TREND_QUOTE_POSTS_PER_DAY:]
@@ -645,13 +654,13 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
 
     lab = state.get("format_lab", [])
     lab.append({
-        "format_name": draft.format_name or "unnamed official-brand quote",
+        "format_name": draft.format_name or "unnamed X Trends quote",
         "comedy_mechanism": draft.comedy_mechanism,
         "used_at": now,
         "topic": source.trend,
         "tweet_id": item["tweet_id"],
         "content_type": "quote_post",
-        "content_mode": "official_brand_quote",
+        "content_mode": "x_trends_quote",
         "source_tweet_id": source.tweet_id,
         "source_username": source.username,
         "post_text": text,
@@ -673,12 +682,12 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
         "last_tweet_id": item["tweet_id"],
         "last_posted_at": now,
         "last_source_tweet_id": source.tweet_id,
-        "last_post_type": "official_brand_quote",
+        "last_post_type": "x_trends_quote",
         "last_company_handle": None,
     })
     _save_state(state)
     print(
-        f"Published official-brand quote-post {count}/{TREND_QUOTE_POSTS_PER_DAY}; "
+        f"Published X Trends quote-post {count}/{TREND_QUOTE_POSTS_PER_DAY}; 
         f"invented originals {state.get('invented_post_count', 0)}/{ORIGINAL_POSTS_PER_DAY}; "
         f"company captions {state.get('company_post_count', 0)}/{COMPANY_POSTS_PER_DAY}; "
         f"daily slots {state['daily_count']}/{POSTS_PER_DAY}; "
@@ -955,6 +964,7 @@ async def _post_ai_tech_quote(state: dict, client: Client) -> bool:
         state["ai_tech_quote_post_count"] = 0
         state["ai_tech_quote_posts"] = []
         state["ai_tech_source_ids"] = []
+        state["ai_tech_trend_names_used"] = []
 
     if int(state.get("ai_tech_quote_post_count", 0)) >= AI_TECH_QUOTE_POSTS_PER_DAY:
         return False
@@ -977,7 +987,10 @@ async def _post_ai_tech_quote(state: dict, client: Client) -> bool:
         if isinstance(item, dict) and str(item.get("source_username", "")).strip()
     ]
     try:
-        source = await find_ai_tech_source(client, used, excluded_handles)
+        source = await find_trending_source(client, used, state.get("ai_tech_trend_names_used", []))
+        if not _ai_tech_topic_allowed(source.text):
+            print(f"Skipping X Trends source outside AI/technology scope: {source.trend!r}")
+            return False
     except TrendSourceError as exc:
         print(f"No eligible AI/tech quote source found right now: {exc}")
         return False
@@ -1039,6 +1052,10 @@ async def _post_ai_tech_quote(state: dict, client: Client) -> bool:
         "generated_at": now,
         "status": "published",
     }
+    used_trend_names = state.get("ai_tech_trend_names_used", [])
+    used_trend_names.append(source.trend)
+    state["ai_tech_trend_names_used"] = used_trend_names[-SOURCE_HISTORY_LIMIT:]
+
     state["ai_tech_quote_posts"] = (
         state.get("ai_tech_quote_posts", []) + [item]
     )[-AI_TECH_QUOTE_POSTS_PER_DAY:]
