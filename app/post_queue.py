@@ -9,7 +9,7 @@ from pathlib import Path
 from twikit import Client
 
 from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
-from .gemini import COMPANY_HOOK_TYPES, GeminiError, generate_company_original, generate_original_text
+from .gemini import COMPANY_HOOK_TYPES, GeminiError, generate_company_original, generate_original_text, generate_quote
 from .person_images import (
     PERSON_SUBJECTS,
     PersonImageError,
@@ -28,12 +28,9 @@ from .trend_source import (
 STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
-# The persisted state keys retain their historical *quote* names for compatibility.
-OFFICIAL_BRAND_REPOSTS_PER_DAY = 4
-TREND_QUOTE_POSTS_PER_DAY = OFFICIAL_BRAND_REPOSTS_PER_DAY  # legacy state-key limit
+TREND_QUOTE_POSTS_PER_DAY = 4
 PERSON_PHOTO_POSTS_PER_DAY = 8
-AI_TECH_REPOSTS_PER_DAY = 8
-AI_TECH_QUOTE_POSTS_PER_DAY = AI_TECH_REPOSTS_PER_DAY  # legacy state-key limit
+AI_TECH_QUOTE_POSTS_PER_DAY = 8
 # Allow retries across flaky source searches/provider responses without changing
 # the hard cap of twenty successfully published main posts.
 AI_GENERATIONS_PER_DAY = 40
@@ -546,21 +543,8 @@ def _ensure_company_manual_posts(state: dict) -> bool:
     )
 
 
-async def _publish_native_repost(client: Client, source: SourceTweet, lane_name: str) -> None:
-    """Repost a source post natively without creating a quote-post or adding text."""
-    try:
-        response = await client.retweet(source.tweet_id)
-        if getattr(response, "is_success", True) is False:
-            status = getattr(response, "status_code", "unknown")
-            raise QueueError(f"X rejected {lane_name} native repost with HTTP {status}.")
-    except QueueError:
-        raise
-    except Exception as exc:
-        raise QueueError(f"X {lane_name} native repost failed: {exc}") from exc
-
-
-async def _post_official_brand_repost(state: dict, client: Client) -> bool:
-    """Natively repost one eligible recent post from a curated official brand."""
+async def _post_trend_quote(state: dict, client: Client) -> bool:
+    """Generate and automatically publish one AI quote-post from an official brand."""
     today = _today()
     if state.get("trend_quote_day_key") != today:
         state["trend_quote_day_key"] = today
@@ -568,10 +552,13 @@ async def _post_official_brand_repost(state: dict, client: Client) -> bool:
         state["trend_quote_posts"] = []
         state["trend_source_ids"] = []
 
-    if int(state.get("trend_quote_post_count", 0)) >= OFFICIAL_BRAND_REPOSTS_PER_DAY:
+    if int(state.get("trend_quote_post_count", 0)) >= TREND_QUOTE_POSTS_PER_DAY:
         return False
     if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
-        print("Daily content-slot limit reached before the next official-brand repost.")
+        print("Daily content-slot limit reached before the next brand quote-post.")
+        return False
+    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+        print("Daily AI generation limit reached before the next brand quote-post.")
         return False
 
     used = (
@@ -588,56 +575,114 @@ async def _post_official_brand_repost(state: dict, client: Client) -> bool:
     try:
         source = await find_official_brand_source(client, used, excluded_handles)
     except TrendSourceError as exc:
-        print(f"Cannot find an eligible official-brand repost source right now: {exc}")
+        print(f"Cannot find an eligible official-brand quote source right now: {exc}")
         return False
 
-    print(f"Native-reposting official-brand post from @{source.username}: {source.url}")
-    await _publish_native_repost(client, source, "official-brand")
+    payload = _source_dict(source)
+    state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
+    _save_state(state)
+    try:
+        draft = generate_quote(payload, state["format_lab"])
+    except GeminiError as exc:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print(f"Official-brand quote generation failed; source safely skipped: {exc}")
+        return False
+
+    if not draft.should_quote:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print("AI declined the official-brand source; no post was published.")
+        return False
+
+    text = draft.quote_text.strip()
+    if not text or len(text) > 280:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print("AI quote exceeded the post limit and was discarded.")
+        return False
+
+    print(
+        f"Publishing text-only quote-post ({len(text)}/280) from "
+        f"@{source.username}: {text}"
+    )
+    try:
+        tweet = await client.create_tweet(text=text, attachment_url=source.url)
+    except Exception as exc:
+        raise QueueError(f"X quote-post failed: {exc}") from exc
 
     now = datetime.now(timezone.utc).isoformat()
-    count = int(state.get("trend_quote_post_count", 0)) + 1
     item = {
-        "slot_number": count,
-        "content_type": "native_repost",
-        "post": None,
+        "slot_number": int(state.get("trend_quote_post_count", 0)) + 1,
+        "post": text,
         "source_username": source.username,
         "source_type": source.source_type,
         "source_tweet_id": source.tweet_id,
         "source_url": source.url,
         "source_text": source.text,
         "topic": source.trend,
-        # X's native repost references the source tweet; it creates no authored quote tweet.
-        "tweet_id": source.tweet_id,
-        "reposted_tweet_id": source.tweet_id,
-        "reposted_at": now,
-        "status": "reposted",
+        "format_name": draft.format_name,
+        "comedy_mechanism": draft.comedy_mechanism,
+        "structure_signature": draft.structure_signature,
+        "tweet_id": str(getattr(tweet, "id", "") or ""),
+        "generated_at": now,
+        "status": "published",
     }
     state["trend_quote_posts"] = (
         state.get("trend_quote_posts", []) + [item]
-    )[-OFFICIAL_BRAND_REPOSTS_PER_DAY:]
+    )[-TREND_QUOTE_POSTS_PER_DAY:]
 
     for key in ("trend_source_ids", "posted_source_tweet_ids"):
         values = state.get(key, [])
         values.append(source.tweet_id)
         state[key] = values[-SOURCE_HISTORY_LIMIT:]
 
+    lab = state.get("format_lab", [])
+    lab.append({
+        "format_name": draft.format_name or "unnamed official-brand quote",
+        "comedy_mechanism": draft.comedy_mechanism,
+        "used_at": now,
+        "topic": source.trend,
+        "tweet_id": item["tweet_id"],
+        "content_type": "quote_post",
+        "content_mode": "official_brand_quote",
+        "source_tweet_id": source.tweet_id,
+        "source_username": source.username,
+        "post_text": text,
+        "mutation_stage": draft.mutation_stage,
+        "structure_signature": draft.structure_signature,
+    })
+    state["format_lab"] = lab[-20:]
+
+    fingerprints = state.get("recent_post_fingerprints", [])
+    fingerprints.append(draft.structure_signature[:180])
+    state["recent_post_fingerprints"] = fingerprints[-30:]
+
+    count = int(state.get("trend_quote_post_count", 0)) + 1
     state.update({
         "day_key": today,
         "trend_quote_day_key": today,
         "trend_quote_post_count": count,
         "daily_count": int(state.get("daily_count", 0)) + 1,
-        "last_tweet_id": source.tweet_id,
+        "last_tweet_id": item["tweet_id"],
         "last_posted_at": now,
         "last_source_tweet_id": source.tweet_id,
-        "last_post_type": "official_brand_repost",
+        "last_post_type": "official_brand_quote",
         "last_company_handle": None,
     })
     _save_state(state)
     print(
-        f"Published official-brand native repost {count}/{OFFICIAL_BRAND_REPOSTS_PER_DAY}; "
-        f"photo prompts {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}; "
-        f"AI/tech reposts {state.get('ai_tech_quote_post_count', 0)}/{AI_TECH_REPOSTS_PER_DAY}; "
-        f"daily slots {state['daily_count']}/{POSTS_PER_DAY}."
+        f"Published official-brand quote-post {count}/{TREND_QUOTE_POSTS_PER_DAY}; "
+        f"invented originals {state.get('invented_post_count', 0)}/{ORIGINAL_POSTS_PER_DAY}; "
+        f"company captions {state.get('company_post_count', 0)}/{COMPANY_POSTS_PER_DAY}; "
+        f"daily slots {state['daily_count']}/{POSTS_PER_DAY}; "
+        f"AI generations {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
     )
     return True
 
@@ -902,8 +947,8 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
     return True
 
 
-async def _post_ai_tech_repost(state: dict, client: Client) -> bool:
-    """Natively repost a recent AI/technology post unchanged, with no added text."""
+async def _post_ai_tech_quote(state: dict, client: Client) -> bool:
+    """Publish a text-only AI/technology Quote Post with a validated funny comment."""
     today = _today()
     if state.get("ai_tech_quote_day_key") != today:
         state["ai_tech_quote_day_key"] = today
@@ -911,9 +956,12 @@ async def _post_ai_tech_repost(state: dict, client: Client) -> bool:
         state["ai_tech_quote_posts"] = []
         state["ai_tech_source_ids"] = []
 
-    if int(state.get("ai_tech_quote_post_count", 0)) >= AI_TECH_REPOSTS_PER_DAY:
+    if int(state.get("ai_tech_quote_post_count", 0)) >= AI_TECH_QUOTE_POSTS_PER_DAY:
         return False
     if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
+        return False
+    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+        print("AI generation-attempt budget reached before the next AI/tech quote-post.")
         return False
 
     used = (
@@ -931,55 +979,112 @@ async def _post_ai_tech_repost(state: dict, client: Client) -> bool:
     try:
         source = await find_ai_tech_source(client, used, excluded_handles)
     except TrendSourceError as exc:
-        print(f"No eligible AI/tech repost source found right now: {exc}")
+        print(f"No eligible AI/tech quote source found right now: {exc}")
         return False
 
-    print(f"Native-reposting AI/tech post from @{source.username}: {source.url}")
-    await _publish_native_repost(client, source, "AI/tech")
+    payload = _source_dict(source)
+    state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
+    _save_state(state)
+    try:
+        draft = generate_quote(payload, state["format_lab"], scope="ai_tech")
+    except GeminiError as exc:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print(f"AI/tech quote generation failed; source safely skipped: {exc}")
+        return False
 
-    tweet_id = source.tweet_id
+    if not draft.should_quote:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print("AI declined the AI/tech source; no post was published.")
+        return False
+
+    text = draft.quote_text.strip()
+    if not text or len(text) > 280:
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print("AI/tech quote exceeded the post limit and was discarded.")
+        return False
+
+    print(
+        f"Publishing AI/tech text-only Quote Post ({len(text)}/280) from "
+        f"@{source.username}: {text}"
+    )
+    try:
+        tweet = await client.create_tweet(text=text, attachment_url=source.url)
+    except Exception as exc:
+        raise QueueError(f"X AI/tech Quote Post failed: {exc}") from exc
+
+    tweet_id = str(getattr(tweet, "id", "") or "")
     now = datetime.now(timezone.utc).isoformat()
-    count = int(state.get("ai_tech_quote_post_count", 0)) + 1
     item = {
-        "slot_number": count,
-        "content_type": "native_repost",
-        "post": None,
+        "slot_number": int(state.get("ai_tech_quote_post_count", 0)) + 1,
+        "post": text,
         "source_username": source.username,
         "source_type": source.source_type,
         "source_tweet_id": source.tweet_id,
         "source_url": source.url,
         "source_text": source.text,
         "topic": source.trend,
+        "format_name": draft.format_name,
+        "comedy_mechanism": draft.comedy_mechanism,
+        "structure_signature": draft.structure_signature,
         "tweet_id": tweet_id,
-        "reposted_tweet_id": tweet_id,
-        "reposted_at": now,
-        "status": "reposted",
+        "generated_at": now,
+        "status": "published",
     }
     state["ai_tech_quote_posts"] = (
         state.get("ai_tech_quote_posts", []) + [item]
-    )[-AI_TECH_REPOSTS_PER_DAY:]
+    )[-AI_TECH_QUOTE_POSTS_PER_DAY:]
     for key in ("ai_tech_source_ids", "posted_source_tweet_ids"):
         values = state.get(key, [])
         values.append(source.tweet_id)
         state[key] = values[-SOURCE_HISTORY_LIMIT:]
 
+    lab = state.get("format_lab", [])
+    lab.append({
+        "format_name": draft.format_name or "unnamed AI/tech quote",
+        "comedy_mechanism": draft.comedy_mechanism,
+        "used_at": now,
+        "topic": source.trend,
+        "tweet_id": tweet_id,
+        "content_type": "quote_post",
+        "content_mode": "ai_tech_quote",
+        "source_tweet_id": source.tweet_id,
+        "source_username": source.username,
+        "post_text": text,
+        "mutation_stage": draft.mutation_stage,
+        "structure_signature": draft.structure_signature,
+    })
+    state["format_lab"] = lab[-20:]
+    fingerprints = state.get("recent_post_fingerprints", [])
+    fingerprints.append(draft.structure_signature[:180])
+    state["recent_post_fingerprints"] = fingerprints[-30:]
+
     state.update({
         "day_key": today,
         "ai_tech_quote_day_key": today,
-        "ai_tech_quote_post_count": count,
+        "ai_tech_quote_post_count": int(state.get("ai_tech_quote_post_count", 0)) + 1,
         "daily_count": int(state.get("daily_count", 0)) + 1,
         "last_tweet_id": tweet_id,
         "last_posted_at": now,
         "last_source_tweet_id": source.tweet_id,
-        "last_post_type": "ai_tech_repost",
+        "last_post_type": "ai_tech_quote",
         "last_company_handle": None,
     })
     _save_state(state)
     print(
-        f"Published AI/tech native repost {count}/{AI_TECH_REPOSTS_PER_DAY}; "
-        f"official-company reposts {state.get('trend_quote_post_count', 0)}/{OFFICIAL_BRAND_REPOSTS_PER_DAY}; "
+        f"Published AI/tech Quote Post {state['ai_tech_quote_post_count']}/{AI_TECH_QUOTE_POSTS_PER_DAY}; "
+        f"official-company quotes {state.get('trend_quote_post_count', 0)}/{TREND_QUOTE_POSTS_PER_DAY}; "
         f"photo prompts {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}; "
-        f"daily slots {state['daily_count']}/{POSTS_PER_DAY}."
+        f"daily slots {state['daily_count']}/{POSTS_PER_DAY}; "
+        f"generation attempts {state['ai_call_count']}/{AI_GENERATIONS_PER_DAY}."
     )
     return True
 
@@ -1004,6 +1109,9 @@ async def post_next(
     if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
         print(f"Daily content-slot limit reached: {POSTS_PER_DAY}.")
         return False
+    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+        print(f"Daily generation-attempt budget reached: {AI_GENERATIONS_PER_DAY}.")
+        return False
     if not _interval_ok(state):
         return False
 
@@ -1014,9 +1122,9 @@ async def post_next(
     # One successful main post per queue run. Rotate among the three eligible
     # lanes so a temporary image/source failure does not block every other lane.
     lanes = (
-        ("official_company_repost", "trend_quote_post_count", OFFICIAL_BRAND_REPOSTS_PER_DAY, _post_official_brand_repost),
+        ("official_company_quote", "trend_quote_post_count", TREND_QUOTE_POSTS_PER_DAY, _post_trend_quote),
         ("person_photo_prompt", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_person_photo),
-        ("ai_tech_repost", "ai_tech_quote_post_count", AI_TECH_REPOSTS_PER_DAY, _post_ai_tech_repost),
+        ("ai_tech_quote", "ai_tech_quote_post_count", AI_TECH_QUOTE_POSTS_PER_DAY, _post_ai_tech_quote),
     )
     start = int(state.get("next_lane_index", 0)) % len(lanes)
     eligible = [
@@ -1029,9 +1137,9 @@ async def post_next(
     if not eligible:
         print(
             "Daily content plan complete: "
-            f"official-company reposts {state.get('trend_quote_post_count', 0)}/{OFFICIAL_BRAND_REPOSTS_PER_DAY}, "
+            f"company quotes {state.get('trend_quote_post_count', 0)}/{TREND_QUOTE_POSTS_PER_DAY}, "
             f"real-photo prompts {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}, "
-            f"AI/tech reposts {state.get('ai_tech_quote_post_count', 0)}/{AI_TECH_REPOSTS_PER_DAY}."
+            f"AI/tech quotes {state.get('ai_tech_quote_post_count', 0)}/{AI_TECH_QUOTE_POSTS_PER_DAY}."
         )
         return False
 
@@ -1054,6 +1162,9 @@ async def post_next(
 
         if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
             return False
+        if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+            break
+
     if last_error is not None:
         print(f"No lane published a post during this dispatch; last error: {last_error}")
     else:
