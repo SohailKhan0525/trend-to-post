@@ -423,7 +423,7 @@ async def find_trending_source(
             print(
                 f"X Trends returned {trend_items_seen} topic(s); "
                 f"{len(trend_queries)} eligible for "
-                f"{'AI/technology' if ai_tech_only else 'general non-sensitive'} quote-posting "
+                "AI/technology X Trends quote-posting "
                 f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)."
             )
         except Exception as exc:
