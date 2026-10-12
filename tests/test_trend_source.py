@@ -184,7 +184,7 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         source = await find_trending_source(client, [], ai_tech_only=True)
 
         self.assertEqual(source.trend, "Cursor")
-        self.assertEqual(len(client.searches), 6)
+        self.assertEqual(len(client.searches), 10)
 
     def test_ai_tech_topic_filter_requires_a_real_tech_signal(self):
         self.assertTrue(_ai_tech_topic_allowed("NVIDIA RTX drivers need a software update"))
