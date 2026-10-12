@@ -374,13 +374,16 @@ def _is_candidate(
     used_ids: set[str],
     trend_name: str,
     require_views: bool = True,
+    validate_trend_relevance: bool = True,
 ) -> bool:
     tweet_id = _tweet_id(tweet)
     if not tweet_id or tweet_id in used_ids:
         return False
 
     text = str(getattr(tweet, "text", "") or "").strip()
-    if not text or not _topic_allowed(trend_name, text):
+    if not text:
+        return False
+    if validate_trend_relevance and not _topic_allowed(trend_name, text):
         return False
 
     if getattr(tweet, "in_reply_to", None):
@@ -805,7 +808,10 @@ async def find_ai_tech_source(
             text = str(getattr(tweet, "text", "") or "").strip()
             if not _ai_tech_topic_allowed(text):
                 continue
-            if not _is_candidate(tweet, now, used_ids, query, require_views=False):
+            if not _is_candidate(
+                tweet, now, used_ids, query, require_views=False,
+                validate_trend_relevance=False,
+            ):
                 continue
             source = _build_source(
                 tweet,
