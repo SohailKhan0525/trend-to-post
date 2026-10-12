@@ -592,7 +592,21 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
     try:
         source = await find_trending_source(client, used, state.get("trend_names_used", []))
     except TrendSourceError as exc:
-        print(f"Cannot find an eligible X Trends quote source right now: {exc}")
+        print(f"Cannot find an eligible AI/technology X Trends quote source right now: {exc}")
+        return False
+
+    # Defense in depth: never quote a non-tech trend or unrelated source text,
+    # even if a future source provider or test double returns an invalid item.
+    if (
+        source.source_type != "x_trend"
+        or not _ai_tech_topic_allowed(source.trend)
+        or not _ai_tech_topic_allowed(source.text)
+    ):
+        skipped = state.get("skipped_source_tweet_ids", [])
+        skipped.append(source.tweet_id)
+        state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
+        _save_state(state)
+        print("Rejected source because it was not an AI/technology post under an actual X Trend.")
         return False
 
     payload = _source_dict(source)
@@ -605,7 +619,7 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
         skipped.append(source.tweet_id)
         state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
         _save_state(state)
-        print(f"Official-brand quote generation failed; source safely skipped: {exc}")
+        print(f"AI/technology X Trends quote generation failed; source safely skipped: {exc}")
         return False
 
     if not draft.should_quote:
@@ -613,7 +627,7 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
         skipped.append(source.tweet_id)
         state["skipped_source_tweet_ids"] = skipped[-SOURCE_HISTORY_LIMIT:]
         _save_state(state)
-        print("AI declined the official-brand source; no post was published.")
+        print("AI declined the AI/technology X Trends source; no post was published.")
         return False
 
     text = draft.quote_text.strip()
@@ -626,7 +640,7 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
         return False
 
     print(
-        f"Publishing X Trends quote-post ({len(text)}/280) for "
+        f"Publishing AI/technology X Trends quote-post ({len(text)}/280) for "
         f"{source.trend!r} from @{source.username}: {text}"
     )
     try:
@@ -666,7 +680,7 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
 
     lab = state.get("format_lab", [])
     lab.append({
-        "format_name": draft.format_name or "unnamed X Trends quote",
+        "format_name": draft.format_name or "unnamed AI/technology X Trends quote",
         "comedy_mechanism": draft.comedy_mechanism,
         "used_at": now,
         "topic": source.trend,
