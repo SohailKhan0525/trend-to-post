@@ -666,7 +666,9 @@ async def find_trending_source(
             for tweet in results:
                 if not _is_candidate(
                     tweet, now, used_ids, query,
-                    validate_trend_relevance=not ai_tech_only,
+                    validate_trend_relevance=(
+                        not ai_tech_only or _ai_tech_topic_allowed(query)
+                    ),
                 ):
                     continue
                 if ai_tech_only and not _ai_tech_topic_allowed(str(getattr(tweet, "text", "") or "")):
