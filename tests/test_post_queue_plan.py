@@ -35,6 +35,8 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn('schedule:', workflow)
         self.assertIn('cron: "*/30 * * * *"', workflow)
         self.assertIn('Report daily queue progress', workflow)
+        self.assertIn('Fail visibly when no post was published', workflow)
+        self.assertIn("steps.post_bot.outputs.skip_reason != 'interval_guard'", workflow)
 
     async def test_person_photo_lane_only_uses_a_matching_active_x_profile(self):
         person = ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo",))

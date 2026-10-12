@@ -296,10 +296,19 @@ def _keyword_matches(text: str, keyword: str) -> bool:
 
 
 def _topic_allowed(trend: str, text: str) -> bool:
-    haystack = f"{trend} {text}"
-    if any(_keyword_matches(haystack, keyword) for keyword in BLOCKED_TOPIC_KEYWORDS):
+    """Allow genuine non-sensitive X Trends topics without requiring a tech keyword.
+
+    The first quote-post lane is sourced from X's actual Trends feed. Requiring
+    a hard-coded allowlist here was rejecting ordinary live trends and leaving
+    the queue empty. AI/technology posts still use the stricter topic filter.
+    """
+    haystack = f"{trend} {text}".strip()
+    if not trend.strip():
         return False
-    return any(_keyword_matches(haystack, keyword) for keyword in ALLOWED_TOPIC_KEYWORDS)
+    return not any(
+        _keyword_matches(haystack, keyword)
+        for keyword in BLOCKED_TOPIC_KEYWORDS
+    )
 
 
 def _is_candidate(
@@ -395,29 +404,53 @@ async def find_trending_source(
     now = datetime.now(timezone.utc)
 
     trend_queries: list[tuple[str, int, str]] = []
+    trend_items_seen = 0
+    trend_fetch_error = ""
+    excluded_by_scope = 0
+    excluded_by_blocklist = 0
     get_trends = getattr(client, "get_trends", None)
     if callable(get_trends):
         try:
-            live_trends = await get_trends("trending", count=50, retry=False)
-            for item in live_trends or []:
+            live_trends = list(await get_trends("trending", count=50, retry=False) or [])
+            trend_items_seen = len(live_trends)
+            for item in live_trends:
                 name = str(getattr(item, "name", "") or "").strip()
-                if (
-                    not name
-                    or " ".join(name.casefold().split()) in excluded_names
-                    or not _topic_allowed(name, name)
-                    or (ai_tech_only and not _ai_tech_topic_allowed(name))
-                ):
+                if not name or " ".join(name.casefold().split()) in excluded_names:
+                    continue
+                if not _topic_allowed(name, name):
+                    excluded_by_blocklist += 1
+                    continue
+                if ai_tech_only and not _ai_tech_topic_allowed(name):
+                    excluded_by_scope += 1
                     continue
                 volume = _as_int(getattr(item, "tweets_count", 0))
                 trend_queries.append((name, volume, "x_trend"))
+            print(
+                f"X Trends returned {trend_items_seen} topic(s); "
+                f"{len(trend_queries)} eligible for "
+                f"{'AI/technology' if ai_tech_only else 'general non-sensitive'} quote-posting "
+                f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)."
+            )
         except Exception as exc:
-            # Twikit/X occasionally returns no trend payload. Fall back to live topical searches.
-            print(f"Official X Trends unavailable; using recent topical X searches: {exc}")
+            trend_fetch_error = str(exc)
+            print(
+                "Official X Trends request failed; no generic-search fallback will be used: "
+                f"{exc}"
+            )
 
-    # This lane must be trend-led: never silently switch to generic keyword searches.
+    # Never silently switch from actual X Trends to generic keyword searches.
     if not trend_queries:
+        if trend_fetch_error:
+            reason = f"X Trends request failed ({trend_fetch_error})"
+        elif trend_items_seen == 0:
+            reason = "X Trends returned no topics"
+        else:
+            reason = (
+                f"X Trends returned {trend_items_seen} topics but none were eligible "
+                f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)"
+            )
         raise TrendSourceError(
-            "X Trends is unavailable or has no eligible topics; skipping rather than using keyword-search fallback."
+            f"{reason}; no eligible topics, skipping rather than using keyword-search fallback."
         )
 
     batches: list[list[tuple[str, int, str]]] = [trend_queries[:SEARCHES_PER_RUN]]

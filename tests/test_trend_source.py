@@ -102,11 +102,20 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(source.trend, "NVIDIA RTX")
         self.assertEqual(client.searches, ["NVIDIA RTX"])
 
-    async def test_rejects_unrelated_or_political_trend_names_without_fallback(self):
-        # Ineligible X Trends must not silently switch to generic keyword searches.
+    async def test_allows_a_real_nonpolitical_trend_without_tech_keyword(self):
+        trend = SimpleNamespace(name="celebrity gossip", tweets_count=30000)
+        client = FakeXClient([trend], make_tweet())
+
+        source = await find_trending_source(client, [])
+
+        self.assertEqual(source.trend, "celebrity gossip")
+        self.assertEqual(source.source_type, "x_trend")
+        self.assertEqual(client.searches, ["celebrity gossip"])
+
+    async def test_rejects_political_trends_without_generic_search_fallback(self):
         trends = [
             SimpleNamespace(name="election debate", tweets_count=50000),
-            SimpleNamespace(name="celebrity gossip", tweets_count=30000),
+            SimpleNamespace(name="parliament", tweets_count=30000),
         ]
         client = FakeXClient(trends, make_tweet())
 
@@ -114,7 +123,6 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
             await find_trending_source(client, [])
 
         self.assertEqual(client.searches, [])
-
 
     def test_ai_tech_topic_filter_requires_a_real_tech_signal(self):
         self.assertTrue(_ai_tech_topic_allowed("NVIDIA RTX drivers need a software update"))
