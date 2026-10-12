@@ -81,13 +81,13 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(result, [])
 
-    async def test_official_company_lane_publishes_a_quote_post_with_original_commentary(self):
+    async def test_ai_technology_x_trends_lane_publishes_a_quote_post_with_original_commentary(self):
         from datetime import datetime, timezone
 
         state = post_queue._new_state()
         source = post_queue.SourceTweet(
             tweet_id="1111111111111111111",
-            text="We shipped a new feature.",
+            text="We shipped a new AI software feature.",
             username="OpenAI",
             created_at=datetime.now(timezone.utc),
             trend="OpenAI AI software",
@@ -99,7 +99,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             author_followers=100000,
             author_verified=True,
             author_professional=True,
-            source_type="official_brand_post",
+            source_type="x_trend",
         )
         draft = QuoteDraft(
             True, "release day just spawned a final boss 😂 👀",
