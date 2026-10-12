@@ -1,4 +1,4 @@
-name: Post X Trends Quote Posts and Photo Prompts
+name: Post AI and Technology X Trends Quote Posts
 
 on:
   workflow_dispatch:
@@ -74,7 +74,7 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
-      - name: Publish one queued photo prompt or X Trends Quote Post
+      - name: Publish one AI/technology X Trends Quote Post
         id: post_bot
         env:
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
@@ -169,9 +169,7 @@ jobs:
               "",
               f"- UTC date: {state.get('day_key', 'unknown')}",
               f"- Main posts published: {state.get('daily_count', 0)}/20",
-              f"- X Trends quote posts: {state.get('trend_quote_post_count', 0)}/4",
-              f"- Licensed photo prompts: {state.get('person_photo_post_count', 0)}/8",
-              f"- AI/technology quote posts: {state.get('ai_tech_quote_post_count', 0)}/8",
+              f"- AI/technology X Trends quote posts: {state.get('trend_quote_post_count', 0)}/20",
               f"- Generation attempts: {state.get('ai_call_count', 0)}/40",
               f"- Last successful post: {state.get('last_posted_at') or 'none recorded'}",
               f"- Last post type: {state.get('last_post_type') or 'none recorded'}",
