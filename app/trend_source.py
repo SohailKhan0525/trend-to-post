@@ -524,13 +524,22 @@ async def find_trending_source(
 
                 if _topic_blocked(name):
                     excluded_by_blocklist += 1
-                    if len(blocked_trend_examples) < 12:
+                    if len(blocked_trend_examples) < 20:
                         blocked_trend_examples.append(name)
                     continue
-                if ai_tech_only and not _ai_tech_topic_allowed(name):
+                domain_context = str(getattr(item, "domain_context", "") or "")
+                grouped_trends = getattr(item, "grouped_trends", None) or []
+                grouped_names = [
+                    str(group.get("name", "") if isinstance(group, dict) else group).strip()
+                    for group in grouped_trends
+                ]
+                topic_context = " ".join([name, domain_context, *grouped_names])
+                if ai_tech_only and not _ai_tech_topic_allowed(topic_context):
                     excluded_by_scope += 1
-                    if len(out_of_scope_examples) < 12:
-                        out_of_scope_examples.append(name)
+                    if len(out_of_scope_examples) < 20:
+                        out_of_scope_examples.append(
+                            f"{name} [context={domain_context}; grouped={', '.join(grouped_names[:4])}]"
+                        )
                     continue
                 if not ai_tech_only and not _topic_allowed(name, name):
                     excluded_by_scope += 1
@@ -573,13 +582,22 @@ async def find_trending_source(
 
                     if _topic_blocked(name):
                         excluded_by_blocklist += 1
-                        if len(blocked_trend_examples) < 12:
+                        if len(blocked_trend_examples) < 20:
                             blocked_trend_examples.append(name)
                         continue
-                    if ai_tech_only and not _ai_tech_topic_allowed(name):
+                    domain_context = str(getattr(item, "domain_context", "") or "")
+                    grouped_trends = getattr(item, "grouped_trends", None) or []
+                    grouped_names = [
+                        str(group.get("name", "") if isinstance(group, dict) else group).strip()
+                        for group in grouped_trends
+                    ]
+                    topic_context = " ".join([name, domain_context, *grouped_names])
+                    if ai_tech_only and not _ai_tech_topic_allowed(topic_context):
                         excluded_by_scope += 1
-                        if len(out_of_scope_examples) < 12:
-                            out_of_scope_examples.append(name)
+                        if len(out_of_scope_examples) < 20:
+                            out_of_scope_examples.append(
+                                f"{name} [context={domain_context}; grouped={', '.join(grouped_names[:4])}]"
+                            )
                         continue
                     if not ai_tech_only and not _topic_allowed(name, name):
                         excluded_by_scope += 1
@@ -603,7 +621,7 @@ async def find_trending_source(
         if blocked_trend_examples:
             print("Blocked X Trends topic examples: " + " | ".join(blocked_trend_examples))
         if out_of_scope_examples:
-            print("Out-of-scope X Trends topic examples: " + " | ".join(out_of_scope_examples))
+            print("Out-of-scope X Trends topic examples (with X context): " + " | ".join(out_of_scope_examples))
         if trend_queries:
             print("Eligible X Trends topics to scan: " + " | ".join(name for name, _, _ in trend_queries[:SEARCHES_PER_RUN]))
         if trend_fetch_errors and not trend_queries:
@@ -646,7 +664,12 @@ async def find_trending_source(
                 continue
 
             for tweet in results:
-                if not _is_candidate(tweet, now, used_ids, query):
+                if not _is_candidate(
+                    tweet, now, used_ids, query,
+                    validate_trend_relevance=(
+                        not ai_tech_only or _ai_tech_topic_allowed(query)
+                    ),
+                ):
                     continue
                 if ai_tech_only and not _ai_tech_topic_allowed(str(getattr(tweet, "text", "") or "")):
                     continue
@@ -798,7 +821,12 @@ AI_TECH_TOPIC_KEYWORDS = (
     "foundation model", "chatgpt", "openai", "claude", "anthropic", "gemini",
     "deepmind", "deepseek", "mistral", "llama", "perplexity", "hugging face",
     "cursor", "windsurf", "replit", "lovable", "vibe coding", "claude code",
-    "gpt-5", "gpt5", "gemini 3", "openai devday",
+    "gpt-5", "gpt5", "gpt-4", "gpt4", "gpt-4o", "gpt-4.1", "o1", "o3", "o4",
+    "gemini 3", "gemini pro", "gemini flash", "gemini ultra", "openai devday",
+    "claude sonnet", "claude opus", "claude haiku", "llama 4", "qwen", "kimi",
+    "grok", "xai", "cohere", "command r", "amazon nova", "microsoft phi",
+    "microsoft ai", "microsoft research", "copilot studio", "github copilot",
+    "azure ai", "azure openai", "ai studio", "ai model", "ai models",
     "llm", "llms", "copilot", "ai", "ai agent", "agentic",
     "multiagent", "multi-agent", "ai-native", "ai infrastructure",
     "ai supercomputing", "physical ai", "software", "developer tools",
@@ -808,13 +836,13 @@ AI_TECH_TOPIC_KEYWORDS = (
     "tensor core", "semiconductor", "chip", "api", "open source", "robotics",
     "neural network", "inference", "cybersecurity", "cyber security",
     "ai security", "digital provenance", "quantum computing", "post-quantum",
-    "microsoft", "windows", "copilot+", "nvidia", "amd", "intel", "apple",
-    "google", "meta", "xai", "grok", "cohere", "qwen", "kimi", "llama",
-    "ibm", "oracle", "salesforce", "sap", "qualcomm", "broadcom", "arm",
+    "technology", "technologies", "tech", "computer", "computing", "microsoft", "windows", "copilot+", "nvidia", "amd", "intel", "apple",
+    "google", "meta", "xai", "grok", "cohere", "qwen", "kimi", "llama", "minimax", "zhipu", "glm-4", "ai21",
+    "ibm", "oracle", "salesforce", "sap", "qualcomm", "broadcom", "arm", "dell", "hp", "lenovo", "cisco", "vmware", "servicenow", "atlassian",
     "tsmc", "asml", "aws", "azure", "github copilot", "microsoft copilot",
     "microsoft azure", "google cloud", "google ai studio", "vertex ai",
     "amazon bedrock", "anthropic api", "openai api", "android", "iphone",
-    "macbook", "software engineering", "database",
+    "macbook", "software engineering", "database", "techcrunch", "arxiv", "huggingface", "pytorch", "tensorflow", "llamaindex", "langchain", "ollama", "vllm", "mlops", "agentic ai", "generative ai", "genai", "deep learning", "computer vision", "natural language processing",
     "web development", "web developer", "typescript", "react", "next js",
     "kubernetes", "docker", "vector database", "retrieval augmented generation",
     "fine tuning", "transformer model", "python", "javascript", "linux",

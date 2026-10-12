@@ -154,6 +154,27 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(client.explore_calls, 1)
         self.assertIn("Microsoft Copilot", client.searches)
 
+    async def test_uses_x_native_trend_domain_context_and_grouped_topics(self):
+        tweet = make_tweet()
+        tweet.text = "Microsoft Copilot added a new developer workflow today"
+        contextual_trend = SimpleNamespace(
+            name="New feature",
+            tweets_count=12000,
+            domain_context="Technology · Trending",
+            grouped_trends=["Microsoft Copilot", "AI tools"],
+        )
+        client = FakeXClient(
+            [SimpleNamespace(name="celebrity gossip", tweets_count=30000)],
+            tweet,
+            explore_trends=[contextual_trend],
+        )
+
+        source = await find_trending_source(client, [], ai_tech_only=True)
+
+        self.assertEqual(source.trend, "New feature")
+        self.assertEqual(source.source_type, "x_trend")
+        self.assertIn("New feature", client.searches)
+
     async def test_finds_tech_trend_from_regional_x_trends_when_explore_has_none(self):
         tweet = make_tweet()
         tweet.text = "Cursor AI shipped a coding workflow update"
