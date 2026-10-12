@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-12",
-  "daily_count": 6,
-  "ai_call_count": 6,
-  "last_posted_at": "2026-10-12T20:31:22.911904+00:00",
-  "last_source_tweet_id": "2109742711607587200",
-  "last_tweet_id": "2109743753661759914",
+  "daily_count": 7,
+  "ai_call_count": 7,
+  "last_posted_at": "2026-10-12T21:31:20.664966+00:00",
+  "last_source_tweet_id": "2109756187143004415",
+  "last_tweet_id": "2109758843685052905",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -81,7 +81,8 @@
     "2109698332293775639",
     "2109710305702072804",
     "2109726365406908531",
-    "2109742711607587200"
+    "2109742711607587200",
+    "2109756187143004415"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -106,17 +107,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "simulated hardware panic log",
-      "comedy_mechanism": "framing software creative tooling as a literal kernel memory fault requiring bizarre text fallbacks",
-      "used_at": "2026-10-09T08:01:53.019828+00:00",
-      "topic": "AI coding",
-      "self_reply": false,
-      "tweet_id": "2108467972641571304",
-      "content_type": "quote_post",
-      "mutation_stage": "structural_break",
-      "structure_signature": "fake terminal diagnostic dump followed by system crash recovery message"
-    },
     {
       "format_name": "fluid dynamics liability mandate",
       "comedy_mechanism": "mapping advanced physics failure states directly onto basic household chore software",
@@ -365,10 +355,23 @@
       "post_text": "hubris liability clause 4: we simultaneously own the means of distribution and the minds of the consumers (racketeering?) 💀 🥀 🫠",
       "mutation_stage": "premise_inversion",
       "structure_signature": "insurance/law label + escalation of absurd capability + emoji encoded skepticism"
+    },
+    {
+      "format_name": "efficiency landlord clause",
+      "comedy_mechanism": "reinterpreting hardware performance metrics as oppressive rent extraction and debt.",
+      "used_at": "2026-10-12T21:31:20.664966+00:00",
+      "topic": "Maia 300 — Technology · Trending",
+      "tweet_id": "2109758843685052905",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2109756187143004415",
+      "source_username": "TweakTown",
+      "post_text": "efficiency landlord clause: rent paid in watts and trust debt 💀 🥀",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "impersonal noun phrase contract + emotional poverty metaphor."
     }
   ],
   "recent_post_fingerprints": [
-    "policy statement ending in a quoted source fragment",
     "fake terminal diagnostic dump followed by system crash recovery message",
     "legalistic household liability declaration ending in a quoted source fragment",
     "handle + capability claim + absurd consequence",
@@ -397,7 +400,8 @@
     "bureaucratic category label followed by total collapse punchline",
     "system_process filename prefixed with emotional metrics and impact stats",
     "metric_label with escalating euphemisms for failure terminating in emoji cluster",
-    "insurance/law label + escalation of absurd capability + emoji encoded skepticism"
+    "insurance/law label + escalation of absurd capability + emoji encoded skepticism",
+    "impersonal noun phrase contract + emotional poverty metaphor."
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -503,10 +507,11 @@
     "2109698332293775639",
     "2109710305702072804",
     "2109726365406908531",
-    "2109742711607587200"
+    "2109742711607587200",
+    "2109756187143004415"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 6,
+  "trend_quote_post_count": 7,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -603,6 +608,22 @@
       "tweet_id": "2109743753661759914",
       "generated_at": "2026-10-12T20:31:22.911904+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 7,
+      "post": "efficiency landlord clause: rent paid in watts and trust debt 💀 🥀",
+      "source_username": "TweakTown",
+      "source_type": "x_trend",
+      "source_tweet_id": "2109756187143004415",
+      "source_url": "https://x.com/TweakTown/status/2109756187143004415",
+      "source_text": ".@Microsoft is positioning its Maia 300 AI chip as a way to rely less on @NVIDIA, claiming 40% more performance per megawatt, though no independent customers have tested that figure. 🧠⚙️ https://t.co/f0iPHCwJhb https://t.co/Jhb2zHkeji",
+      "topic": "Maia 300 — Technology · Trending",
+      "format_name": "efficiency landlord clause",
+      "comedy_mechanism": "reinterpreting hardware performance metrics as oppressive rent extraction and debt.",
+      "structure_signature": "impersonal noun phrase contract + emotional poverty metaphor.",
+      "tweet_id": "2109758843685052905",
+      "generated_at": "2026-10-12T21:31:20.664966+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-12",
@@ -627,7 +648,8 @@
     "Muse Wonder — Technology · Trending",
     "Maia 300 — Technology · Trending",
     "OpenAI and Anthropic",
-    "Anthropic and OpenAI"
+    "Anthropic and OpenAI",
+    "Maia 300 — Technology · Trending"
   ],
   "ai_tech_trend_names_used": []
 }
