@@ -296,19 +296,14 @@ def _keyword_matches(text: str, keyword: str) -> bool:
 
 
 def _topic_allowed(trend: str, text: str) -> bool:
-    """Allow genuine non-sensitive X Trends topics without requiring a tech keyword.
+    """Require both the actual X trend and its source post to be AI/technology.
 
-    The first quote-post lane is sourced from X's actual Trends feed. Requiring
-    a hard-coded allowlist here was rejecting ordinary live trends and leaving
-    the queue empty. AI/technology posts still use the stricter topic filter.
+    A tech-related trend name must never make an unrelated source post eligible.
+    The queue intentionally has no generic keyword-search fallback.
     """
-    haystack = f"{trend} {text}".strip()
-    if not trend.strip():
+    if not trend.strip() or not text.strip():
         return False
-    return not any(
-        _keyword_matches(haystack, keyword)
-        for keyword in BLOCKED_TOPIC_KEYWORDS
-    )
+    return _ai_tech_topic_allowed(trend) and _ai_tech_topic_allowed(text)
 
 
 def _is_candidate(
@@ -503,8 +498,7 @@ async def find_trending_source(
         return selected
 
     raise TrendSourceError(
-        "No eligible recent AI, technology, gaming, sports, or major-company "
-        "conversation was found in official allowed trends or current topical searches."
+        "No eligible recent AI/technology source post was found under the current X Trends topics."
     )
 
 # A curated set of first-party company accounts. The quote-post lane searches
