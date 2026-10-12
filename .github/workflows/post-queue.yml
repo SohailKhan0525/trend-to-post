@@ -91,10 +91,11 @@ jobs:
           steps.post_bot.outputs.published != 'true' &&
           steps.post_bot.outputs.skip_reason != 'interval_guard' &&
           steps.post_bot.outputs.skip_reason != 'daily_cap' &&
-          steps.post_bot.outputs.skip_reason != 'daily_plan_complete'
+          steps.post_bot.outputs.skip_reason != 'daily_plan_complete' &&
+          steps.post_bot.outputs.skip_reason != 'no_eligible_source'
         shell: bash
         run: |
-          echo "::error title=No X post published::All eligible lanes failed to find a safe source. See the Publish step logs for the exact reason."
+          echo "::error title=Posting step failed::The queue encountered an unexpected failure. See the Publish step logs for details."
           exit 1
 
       - name: Commit bot state
@@ -151,6 +152,9 @@ jobs:
 
       - name: Report daily queue progress
         if: always()
+        env:
+          POST_PUBLISHED: ${{ steps.post_bot.outputs.published }}
+          POST_SKIP_REASON: ${{ steps.post_bot.outputs.skip_reason }}
         shell: bash
         run: |
           python - <<'PY'
@@ -169,6 +173,8 @@ jobs:
               "",
               f"- UTC date: {state.get('day_key', 'unknown')}",
               f"- Main posts published: {state.get('daily_count', 0)}/20",
+              f"- This run published a post: {os.environ.get('POST_PUBLISHED', 'unknown')}",
+              f"- This run skip reason: {os.environ.get('POST_SKIP_REASON', 'unknown')}",
               f"- AI/technology X Trends quote posts: {state.get('trend_quote_post_count', 0)}/20",
               f"- Generation attempts: {state.get('ai_call_count', 0)}/40",
               f"- Last successful post: {state.get('last_posted_at') or 'none recorded'}",
