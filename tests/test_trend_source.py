@@ -137,6 +137,8 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
     def test_ai_tech_topic_filter_requires_a_real_tech_signal(self):
         self.assertTrue(_ai_tech_topic_allowed("NVIDIA RTX drivers need a software update"))
         self.assertTrue(_ai_tech_topic_allowed("Our new AI model writes Python code"))
+        self.assertTrue(_ai_tech_topic_allowed("Software development"))
+        self.assertTrue(_ai_tech_topic_allowed("Software engineering trends"))
         self.assertFalse(_ai_tech_topic_allowed("What a brilliant football match"))
         self.assertFalse(_ai_tech_topic_allowed("Election debate about technology"))
         self.assertFalse(_ai_tech_topic_allowed("NVIDIA launch tied to Diwali festivities"))
