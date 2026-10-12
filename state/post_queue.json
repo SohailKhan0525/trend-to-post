@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-12",
-  "daily_count": 5,
-  "ai_call_count": 5,
-  "last_posted_at": "2026-10-12T19:31:32.144019+00:00",
-  "last_source_tweet_id": "2109726365406908531",
-  "last_tweet_id": "2109728692792389789",
+  "daily_count": 6,
+  "ai_call_count": 6,
+  "last_posted_at": "2026-10-12T20:31:22.911904+00:00",
+  "last_source_tweet_id": "2109742711607587200",
+  "last_tweet_id": "2109743753661759914",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -80,7 +80,8 @@
     "2109675234752069805",
     "2109698332293775639",
     "2109710305702072804",
-    "2109726365406908531"
+    "2109726365406908531",
+    "2109742711607587200"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -105,17 +106,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "onboarding reset penalty",
-      "comedy_mechanism": "mapping mundane corporate bureaucracy onto sudden catastrophic technical friction",
-      "used_at": "2026-10-09T06:01:41.279433+00:00",
-      "topic": "ChatGPT",
-      "self_reply": false,
-      "tweet_id": "2108437724373962899",
-      "content_type": "quote_post",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "policy statement ending in a quoted source fragment"
-    },
     {
       "format_name": "simulated hardware panic log",
       "comedy_mechanism": "framing software creative tooling as a literal kernel memory fault requiring bizarre text fallbacks",
@@ -361,10 +351,23 @@
       "post_text": "benchmark opacity index 5: data augmentation takes another vacation 💀 🥀 😤",
       "mutation_stage": "structural_break",
       "structure_signature": "metric_label with escalating euphemisms for failure terminating in emoji cluster"
+    },
+    {
+      "format_name": "hubris liability clause",
+      "comedy_mechanism": "reversing triumphant product features into legally dubious grievances ending in a sarcastic question mark",
+      "used_at": "2026-10-12T20:31:22.911904+00:00",
+      "topic": "Anthropic and OpenAI",
+      "tweet_id": "2109743753661759914",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2109742711607587200",
+      "source_username": "StockMarketNerd",
+      "post_text": "hubris liability clause 4: we simultaneously own the means of distribution and the minds of the consumers (racketeering?) 💀 🥀 🫠",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "insurance/law label + escalation of absurd capability + emoji encoded skepticism"
     }
   ],
   "recent_post_fingerprints": [
-    "company mention + choose-one prompt + gaming utility escalation",
     "policy statement ending in a quoted source fragment",
     "fake terminal diagnostic dump followed by system crash recovery message",
     "legalistic household liability declaration ending in a quoted source fragment",
@@ -393,7 +396,8 @@
     "conceptual app name followed by a specific, paranoid cost query and emotional distress emojis.",
     "bureaucratic category label followed by total collapse punchline",
     "system_process filename prefixed with emotional metrics and impact stats",
-    "metric_label with escalating euphemisms for failure terminating in emoji cluster"
+    "metric_label with escalating euphemisms for failure terminating in emoji cluster",
+    "insurance/law label + escalation of absurd capability + emoji encoded skepticism"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -498,10 +502,11 @@
     "2109675234752069805",
     "2109698332293775639",
     "2109710305702072804",
-    "2109726365406908531"
+    "2109726365406908531",
+    "2109742711607587200"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 5,
+  "trend_quote_post_count": 6,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -582,6 +587,22 @@
       "tweet_id": "2109728692792389789",
       "generated_at": "2026-10-12T19:31:32.144019+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 6,
+      "post": "hubris liability clause 4: we simultaneously own the means of distribution and the minds of the consumers (racketeering?) 💀 🥀 🫠",
+      "source_username": "StockMarketNerd",
+      "source_type": "x_trend",
+      "source_tweet_id": "2109742711607587200",
+      "source_url": "https://x.com/StockMarketNerd/status/2109742711607587200",
+      "source_text": "$META thinks they’ve now caught up to OpenAI and Anthropic on models.\n\nSo… \n\nHistorically successful consumer agent launch… Leading the next-gen consumer hardware space… Built in distribution to half the planet… Best-in-class models progressing faster than other leaders.",
+      "topic": "Anthropic and OpenAI",
+      "format_name": "hubris liability clause",
+      "comedy_mechanism": "reversing triumphant product features into legally dubious grievances ending in a sarcastic question mark",
+      "structure_signature": "insurance/law label + escalation of absurd capability + emoji encoded skepticism",
+      "tweet_id": "2109743753661759914",
+      "generated_at": "2026-10-12T20:31:22.911904+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-12",
@@ -605,7 +626,8 @@
     "Satya Nadella — Technology · Trending",
     "Muse Wonder — Technology · Trending",
     "Maia 300 — Technology · Trending",
-    "OpenAI and Anthropic"
+    "OpenAI and Anthropic",
+    "Anthropic and OpenAI"
   ],
   "ai_tech_trend_names_used": []
 }
