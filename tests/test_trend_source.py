@@ -102,15 +102,25 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(source.trend, "NVIDIA RTX")
         self.assertEqual(client.searches, ["NVIDIA RTX"])
 
-    async def test_allows_a_real_nonpolitical_trend_without_tech_keyword(self):
+    async def test_rejects_non_tech_x_trends_without_generic_search_fallback(self):
         trend = SimpleNamespace(name="celebrity gossip", tweets_count=30000)
         client = FakeXClient([trend], make_tweet())
 
-        source = await find_trending_source(client, [])
+        with self.assertRaisesRegex(TrendSourceError, "no eligible topics"):
+            await find_trending_source(client, [])
 
-        self.assertEqual(source.trend, "celebrity gossip")
-        self.assertEqual(source.source_type, "x_trend")
-        self.assertEqual(client.searches, ["celebrity gossip"])
+        self.assertEqual(client.searches, [])
+
+    async def test_rejects_non_tech_source_post_even_under_tech_trend(self):
+        trend = SimpleNamespace(name="AI agents", tweets_count=30000)
+        tweet = make_tweet()
+        tweet.text = "The more you grow, the more you need wisdom for family and relationships."
+        client = FakeXClient([trend], tweet)
+
+        with self.assertRaisesRegex(TrendSourceError, "No eligible recent AI/technology source"):
+            await find_trending_source(client, [])
+
+        self.assertEqual(client.searches, ["AI agents"])
 
     async def test_rejects_political_trends_without_generic_search_fallback(self):
         trends = [
