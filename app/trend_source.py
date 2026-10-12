@@ -454,6 +454,88 @@ def _build_source(
     )
 
 
+def _trend_attribute(item: object, field: str, default: object = None) -> object:
+    """Read a field from Twifork objects and mapping-shaped API/test responses."""
+    if isinstance(item, dict):
+        return item.get(field, default)
+    return getattr(item, field, default)
+
+
+def _trend_context(item: object) -> tuple[str, list[str]]:
+    """Normalize native X trend metadata across Twifork object/API shapes."""
+    metadata = _trend_attribute(item, "trend_metadata", {}) or {}
+    domain_context = str(
+        _trend_attribute(item, "domain_context", "")
+        or _trend_attribute(metadata, "domain_context", "")
+        or ""
+    ).strip()
+    grouped = _trend_attribute(item, "grouped_trends", None)
+    if grouped is None:
+        grouped = _trend_attribute(item, "groupedTrends", [])
+    grouped_names: list[str] = []
+    for group in grouped or []:
+        if isinstance(group, str):
+            group_name = group
+        else:
+            group_name = str(_trend_attribute(group, "name", "") or "")
+        group_name = group_name.strip()
+        if group_name:
+            grouped_names.append(group_name)
+    return domain_context, grouped_names
+
+
+def _trend_search_candidates(
+    name: str,
+    domain_context: str,
+    grouped_names: list[str],
+    *,
+    ai_tech_only: bool,
+) -> list[tuple[str, str, bool]]:
+    """Return real X trend queries and their safe topic labels.
+
+    When a generic X headline is categorized/grouped as technology, search its
+    concrete grouped topic first. Only use a generic headline on its own when
+    X explicitly supplies a technology context; that case gets an additional
+    source-to-headline relevance check before it can be selected.
+    """
+    if not ai_tech_only:
+        return [(name, name, False)] if _topic_allowed(name, name) else []
+
+    topic_context = " ".join([name, domain_context, *grouped_names])
+    if not _ai_tech_topic_allowed(topic_context):
+        return []
+
+    if _ai_tech_topic_allowed(name):
+        return [(name, name, False)]
+
+    eligible_groups = [
+        group for group in grouped_names if _ai_tech_topic_allowed(group)
+    ]
+    if eligible_groups:
+        return [(group, group, False) for group in eligible_groups]
+
+    if domain_context and _ai_tech_topic_allowed(domain_context):
+        return [(name, f"{name} — {domain_context}", True)]
+    return []
+
+
+def _mentions_topic_term(text: str, topic: str) -> bool:
+    """Require a generic contextual headline to overlap the source post."""
+    stop_words = {
+        "about", "after", "again", "from", "have", "into", "more", "over",
+        "with", "this", "that", "your", "their", "official", "latest", "new",
+        "today", "trend", "trends", "trending", "news", "what", "when", "where",
+        "which", "while", "will", "would",
+    }
+    terms = [
+        term for term in "".join(
+            char.lower() if char.isalnum() else " " for char in topic
+        ).split()
+        if len(term) >= 4 and term not in stop_words
+    ]
+    return bool(terms) and any(_keyword_matches(text, term) for term in terms)
+
+
 async def find_trending_source(
     client: Client,
     used_source_ids: Iterable[str],
@@ -472,6 +554,9 @@ async def find_trending_source(
     now = datetime.now(timezone.utc)
 
     trend_queries: list[tuple[str, int, str]] = []
+    trend_labels_by_query: dict[str, str] = {}
+    context_only_queries: set[str] = set()
+    seen_query_names: set[str] = set()
     trend_items_seen = 0
     trend_fetch_errors: list[str] = []
     excluded_by_scope = 0
@@ -527,31 +612,39 @@ async def find_trending_source(
                     if len(blocked_trend_examples) < 20:
                         blocked_trend_examples.append(name)
                     continue
-                domain_context = str(getattr(item, "domain_context", "") or "")
-                grouped_trends = getattr(item, "grouped_trends", None) or []
-                grouped_names = [
-                    str(group.get("name", "") if isinstance(group, dict) else group).strip()
-                    for group in grouped_trends
-                ]
-                topic_context = " ".join([name, domain_context, *grouped_names])
-                if ai_tech_only and not _ai_tech_topic_allowed(topic_context):
+                domain_context, grouped_names = _trend_context(item)
+                query_candidates = _trend_search_candidates(
+                    name,
+                    domain_context,
+                    grouped_names,
+                    ai_tech_only=ai_tech_only,
+                )
+                if not query_candidates:
                     excluded_by_scope += 1
                     if len(out_of_scope_examples) < 20:
-                        out_of_scope_examples.append(
-                            f"{name} [context={domain_context}; grouped={', '.join(grouped_names[:4])}]"
-                        )
-                    continue
-                if not ai_tech_only and not _topic_allowed(name, name):
-                    excluded_by_scope += 1
-                    if len(out_of_scope_examples) < 12:
-                        out_of_scope_examples.append(name)
+                        if ai_tech_only:
+                            out_of_scope_examples.append(
+                                f"{name} [context={domain_context}; grouped={', '.join(grouped_names[:4])}]"
+                            )
+                        elif len(out_of_scope_examples) < 12:
+                            out_of_scope_examples.append(name)
                     continue
 
                 volume = _as_int(
                     getattr(item, "tweets_count", None)
                     or getattr(item, "tweet_volume", 0)
                 )
-                trend_queries.append((name, volume, "x_trend"))
+                for query, trend_label, context_only in query_candidates:
+                    normalized_query = " ".join(query.casefold().split())
+                    if not normalized_query or normalized_query in excluded_names:
+                        continue
+                    if normalized_query in seen_query_names:
+                        continue
+                    seen_query_names.add(normalized_query)
+                    trend_queries.append((query, volume, "x_trend"))
+                    trend_labels_by_query[normalized_query] = trend_label
+                    if context_only:
+                        context_only_queries.add(normalized_query)
 
         # Read actual X location-based trend lists as well. These are still
         # ranked X Trends, not search suggestions or invented topics.
@@ -560,11 +653,13 @@ async def find_trending_source(
             for location_name, woeid in PLACE_TREND_LOCATIONS:
                 try:
                     place_result = await get_place_trends(woeid)
-                    place_items = list(
-                        getattr(place_result, "trends", None)
-                        or (place_result if isinstance(place_result, (list, tuple)) else [])
-                        or []
-                    )
+                    if isinstance(place_result, dict):
+                        raw_place_items = place_result.get("trends", [])
+                    else:
+                        raw_place_items = getattr(place_result, "trends", None)
+                        if raw_place_items is None and isinstance(place_result, (list, tuple)):
+                            raw_place_items = place_result
+                    place_items = list(raw_place_items or [])
                 except Exception as exc:
                     trend_fetch_errors.append(f"{location_name} place trends: {exc}")
                     print(f"X Trends location {location_name!r} failed: {exc}")
@@ -585,31 +680,39 @@ async def find_trending_source(
                         if len(blocked_trend_examples) < 20:
                             blocked_trend_examples.append(name)
                         continue
-                    domain_context = str(getattr(item, "domain_context", "") or "")
-                    grouped_trends = getattr(item, "grouped_trends", None) or []
-                    grouped_names = [
-                        str(group.get("name", "") if isinstance(group, dict) else group).strip()
-                        for group in grouped_trends
-                    ]
-                    topic_context = " ".join([name, domain_context, *grouped_names])
-                    if ai_tech_only and not _ai_tech_topic_allowed(topic_context):
+                    domain_context, grouped_names = _trend_context(item)
+                    query_candidates = _trend_search_candidates(
+                        name,
+                        domain_context,
+                        grouped_names,
+                        ai_tech_only=ai_tech_only,
+                    )
+                    if not query_candidates:
                         excluded_by_scope += 1
                         if len(out_of_scope_examples) < 20:
-                            out_of_scope_examples.append(
-                                f"{name} [context={domain_context}; grouped={', '.join(grouped_names[:4])}]"
-                            )
-                        continue
-                    if not ai_tech_only and not _topic_allowed(name, name):
-                        excluded_by_scope += 1
-                        if len(out_of_scope_examples) < 12:
-                            out_of_scope_examples.append(name)
+                            if ai_tech_only:
+                                out_of_scope_examples.append(
+                                    f"{name} [context={domain_context}; grouped={', '.join(grouped_names[:4])}]"
+                                )
+                            elif len(out_of_scope_examples) < 12:
+                                out_of_scope_examples.append(name)
                         continue
 
                     volume = _as_int(
                         getattr(item, "tweet_volume", None)
                         or getattr(item, "tweets_count", 0)
                     )
-                    trend_queries.append((name, volume, "x_trend"))
+                    for query, trend_label, context_only in query_candidates:
+                        normalized_query = " ".join(query.casefold().split())
+                        if not normalized_query or normalized_query in excluded_names:
+                            continue
+                        if normalized_query in seen_query_names:
+                            continue
+                        seen_query_names.add(normalized_query)
+                        trend_queries.append((query, volume, "x_trend"))
+                        trend_labels_by_query[normalized_query] = trend_label
+                        if context_only:
+                            context_only_queries.add(normalized_query)
                 print(f"X location Trends {location_name!r} returned {len(place_items)} entries.")
 
         print(
@@ -663,6 +766,7 @@ async def find_trending_source(
                     ) from exc
                 continue
 
+            normalized_query = " ".join(query.casefold().split())
             for tweet in results:
                 if not _is_candidate(
                     tweet, now, used_ids, query,
@@ -671,9 +775,21 @@ async def find_trending_source(
                     ),
                 ):
                     continue
-                if ai_tech_only and not _ai_tech_topic_allowed(str(getattr(tweet, "text", "") or "")):
+                tweet_text = str(getattr(tweet, "text", "") or "")
+                if ai_tech_only and not _ai_tech_topic_allowed(tweet_text):
                     continue
-                source = _build_source(tweet, query, volume, source_type)
+                if (
+                    ai_tech_only
+                    and normalized_query in context_only_queries
+                    and not _mentions_topic_term(tweet_text, query)
+                ):
+                    continue
+                source = _build_source(
+                    tweet,
+                    trend_labels_by_query.get(normalized_query, query),
+                    volume,
+                    source_type,
+                )
                 candidates[source.tweet_id] = source
 
         if not candidates:

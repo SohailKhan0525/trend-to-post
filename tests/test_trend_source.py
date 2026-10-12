@@ -171,9 +171,10 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
 
         source = await find_trending_source(client, [], ai_tech_only=True)
 
-        self.assertEqual(source.trend, "New feature")
+        self.assertEqual(source.trend, "Microsoft Copilot")
         self.assertEqual(source.source_type, "x_trend")
-        self.assertIn("New feature", client.searches)
+        self.assertIn("Microsoft Copilot", client.searches)
+        self.assertNotIn("New feature", client.searches)
 
     async def test_finds_tech_trend_from_regional_x_trends_when_explore_has_none(self):
         tweet = make_tweet()
@@ -189,6 +190,57 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(source.trend, "Cursor AI")
         self.assertEqual(source.source_type, "x_trend")
+        self.assertIn(1, client.place_trend_calls)
+        self.assertIn("Cursor AI", client.searches)
+
+    async def test_context_only_generic_trend_requires_headline_relevance(self):
+        trend = SimpleNamespace(
+            name="New feature",
+            tweets_count=12000,
+            domain_context="Technology · Trending",
+            grouped_trends=[],
+        )
+        tweet = make_tweet()
+        tweet.text = "OpenAI shipped a new feature for developers today"
+        client = FakeXClient([trend], tweet, explore_trends=[trend])
+
+        source = await find_trending_source(client, [], ai_tech_only=True)
+
+        self.assertEqual(source.trend, "New feature — Technology · Trending")
+        self.assertIn("New feature", client.searches)
+
+    async def test_context_only_generic_trend_rejects_unrelated_ai_post(self):
+        trend = SimpleNamespace(
+            name="New feature",
+            tweets_count=12000,
+            domain_context="Technology · Trending",
+            grouped_trends=[],
+        )
+        tweet = make_tweet()
+        tweet.text = "OpenAI discussed a different release unrelated to the headline"
+        client = FakeXClient([trend], tweet, explore_trends=[trend])
+
+        with self.assertRaisesRegex(TrendSourceError, "No eligible recent AI/technology source"):
+            await find_trending_source(client, [], ai_tech_only=True)
+
+    async def test_reads_place_trends_from_twifork_mapping_response(self):
+        tweet = make_tweet()
+        tweet.text = "Cursor AI shipped a coding workflow update"
+        regional_trend = SimpleNamespace(name="Cursor AI", tweet_volume=18000)
+
+        class MappingPlaceClient(FakeXClient):
+            async def get_place_trends(self, woeid):
+                self.place_trend_calls.append(woeid)
+                return {"trends": [regional_trend]} if woeid == 1 else {"trends": []}
+
+        client = MappingPlaceClient(
+            [SimpleNamespace(name="celebrity gossip", tweets_count=30000)],
+            tweet,
+        )
+
+        source = await find_trending_source(client, [], ai_tech_only=True)
+
+        self.assertEqual(source.trend, "Cursor AI")
         self.assertIn(1, client.place_trend_calls)
         self.assertIn("Cursor AI", client.searches)
 

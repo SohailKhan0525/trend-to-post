@@ -590,7 +590,9 @@ async def _post_trend_quote(state: dict, client: Client) -> bool:
     ]
 
     try:
-        source = await find_trending_source(client, used, state.get("trend_names_used", []))
+        source = await find_trending_source(
+            client, used, state.get("trend_names_used", []), ai_tech_only=True
+        )
     except TrendSourceError as exc:
         print(f"Cannot find an eligible AI/technology X Trends quote source right now: {exc}")
         return False

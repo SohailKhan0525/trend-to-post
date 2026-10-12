@@ -112,13 +112,18 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             create_tweet=AsyncMock(return_value=SimpleNamespace(id="3333333333333333333")),
             retweet=AsyncMock(),
         )
+        source_finder = AsyncMock(return_value=source)
         with (
-            patch.object(post_queue, "find_trending_source", new=AsyncMock(return_value=source)),
+            patch.object(post_queue, "find_trending_source", new=source_finder),
             patch.object(post_queue, "generate_quote", return_value=draft),
             patch.object(post_queue, "_save_state"),
         ):
             result = await post_queue._post_trend_quote(state, client)
 
+        source_finder.assert_awaited_once()
+        self.assertEqual(source_finder.await_args.args[0], client)
+        self.assertEqual(source_finder.await_args.args[1], [])
+        self.assertTrue(source_finder.await_args.kwargs["ai_tech_only"])
         self.assertTrue(result)
         client.create_tweet.assert_awaited_once_with(
             text=draft.quote_text, attachment_url=source.url
