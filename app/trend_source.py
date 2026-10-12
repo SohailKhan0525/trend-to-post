@@ -8,6 +8,14 @@ from typing import Iterable
 from twikit import Client
 
 SEARCHES_PER_RUN = 10
+# X's Explore tabs are often dominated by entertainment/politics. Add genuine
+# regional X Trends lists to improve AI/technology coverage without falling
+# back to generic keyword search.
+PLACE_TREND_LOCATIONS = (
+    ("Worldwide", 1),
+    ("United States", 23424977),
+    ("India", 23424848),
+)
 OFFICIAL_BRAND_SEARCHES_PER_RUN = 10
 AI_TECH_SEARCHES_PER_RUN = 8
 TWEETS_PER_SEARCH = 15
@@ -513,11 +521,64 @@ async def find_trending_source(
                         out_of_scope_examples.append(name)
                     continue
 
-                volume = _as_int(getattr(item, "tweets_count", 0))
+                volume = _as_int(
+                    getattr(item, "tweets_count", None)
+                    or getattr(item, "tweet_volume", 0)
+                )
                 trend_queries.append((name, volume, "x_trend"))
 
+        # Read actual X location-based trend lists as well. These are still
+        # ranked X Trends, not search suggestions or invented topics.
+        get_place_trends = getattr(client, "get_place_trends", None)
+        if callable(get_place_trends):
+            for location_name, woeid in PLACE_TREND_LOCATIONS:
+                try:
+                    place_result = await get_place_trends(woeid)
+                    place_items = list(
+                        getattr(place_result, "trends", None)
+                        or (place_result if isinstance(place_result, (list, tuple)) else [])
+                        or []
+                    )
+                except Exception as exc:
+                    trend_fetch_errors.append(f"{location_name} place trends: {exc}")
+                    print(f"X Trends location {location_name!r} failed: {exc}")
+                    continue
+
+                trend_items_seen += len(place_items)
+                for item in place_items:
+                    name = str(getattr(item, "name", "") or "").strip()
+                    normalized_name = " ".join(name.casefold().split())
+                    if not name or normalized_name in excluded_names:
+                        continue
+                    if normalized_name in seen_trend_names:
+                        continue
+                    seen_trend_names.add(normalized_name)
+
+                    if _topic_blocked(name):
+                        excluded_by_blocklist += 1
+                        if len(blocked_trend_examples) < 12:
+                            blocked_trend_examples.append(name)
+                        continue
+                    if ai_tech_only and not _ai_tech_topic_allowed(name):
+                        excluded_by_scope += 1
+                        if len(out_of_scope_examples) < 12:
+                            out_of_scope_examples.append(name)
+                        continue
+                    if not ai_tech_only and not _topic_allowed(name, name):
+                        excluded_by_scope += 1
+                        if len(out_of_scope_examples) < 12:
+                            out_of_scope_examples.append(name)
+                        continue
+
+                    volume = _as_int(
+                        getattr(item, "tweet_volume", None)
+                        or getattr(item, "tweets_count", 0)
+                    )
+                    trend_queries.append((name, volume, "x_trend"))
+                print(f"X location Trends {location_name!r} returned {len(place_items)} entries.")
+
         print(
-            f"X Trends tabs returned {trend_items_seen} topic entries; "
+            f"X Trends sources returned {trend_items_seen} topic entries; "
             f"{len(trend_queries)} eligible for "
             "AI/technology X Trends quote-posting "
             f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)."
@@ -544,7 +605,7 @@ async def find_trending_source(
                 f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)"
             )
         raise TrendSourceError(
-            f"{reason}; no eligible topics, skipping rather than using keyword-search fallback."
+            f"{reason}; no eligible topics in Explore or regional X Trends, skipping rather than using keyword-search fallback."
         )
 
     batches: list[list[tuple[str, int, str]]] = [trend_queries[:SEARCHES_PER_RUN]]

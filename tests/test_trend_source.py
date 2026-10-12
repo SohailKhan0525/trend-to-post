@@ -6,16 +6,22 @@ from app.trend_source import TrendSourceError, _ai_tech_topic_allowed, find_ai_t
 
 
 class FakeXClient:
-    def __init__(self, trend_results, tweet, trends_by_category=None):
+    def __init__(self, trend_results, tweet, trends_by_category=None, trends_by_place=None):
         self.trend_results = trend_results
         self.trends_by_category = trends_by_category or {}
+        self.trends_by_place = trends_by_place or {}
         self.tweet = tweet
         self.searches = []
         self.trend_categories = []
+        self.place_trend_calls = []
 
     async def get_trends(self, category, count=20, retry=True):
         self.trend_categories.append(category)
         return self.trends_by_category.get(category, self.trend_results)
+
+    async def get_place_trends(self, woeid):
+        self.place_trend_calls.append(woeid)
+        return SimpleNamespace(trends=self.trends_by_place.get(woeid, []))
 
     async def search_tweet(self, query, search_type, count=20):
         self.searches.append(query)
@@ -125,6 +131,23 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(source.trend, "Software development")
         self.assertEqual(client.trend_categories, ["trending", "for-you", "news"])
         self.assertEqual(client.searches, ["Software development"])
+
+    async def test_finds_tech_trend_from_regional_x_trends_when_explore_has_none(self):
+        tweet = make_tweet()
+        tweet.text = "Cursor AI shipped a coding workflow update"
+        regional_trend = SimpleNamespace(name="Cursor AI", tweet_volume=18000)
+        client = FakeXClient(
+            [SimpleNamespace(name="celebrity gossip", tweets_count=30000)],
+            tweet,
+            trends_by_place={1: [regional_trend]},
+        )
+
+        source = await find_trending_source(client, [], ai_tech_only=True)
+
+        self.assertEqual(source.trend, "Cursor AI")
+        self.assertEqual(source.source_type, "x_trend")
+        self.assertIn(1, client.place_trend_calls)
+        self.assertIn("Cursor AI", client.searches)
 
     async def test_rejects_non_tech_x_trends_without_generic_search_fallback(self):
         trend = SimpleNamespace(name="celebrity gossip", tweets_count=30000)
