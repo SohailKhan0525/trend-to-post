@@ -116,6 +116,10 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
             },
         )
 
+        tweet = make_tweet()
+        tweet.text = "Software development has entered its side quest era"
+        client.tweet = tweet
+
         source = await find_trending_source(client, [], ai_tech_only=True)
 
         self.assertEqual(source.trend, "Software development")
@@ -174,12 +178,13 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
             )
         ]
         tweet = make_tweet()
+        tweet.text = "Cursor just fixed the bug that ruined my whole afternoon."
         client = FakeXClient(trends, tweet)
 
         source = await find_trending_source(client, [], ai_tech_only=True)
 
-        self.assertIn(source.trend, {"Cursor", "RTX", "Kubernetes", "DeepSeek", "Software development"})
-        self.assertEqual(len(client.searches), 10)
+        self.assertEqual(source.trend, "Cursor")
+        self.assertEqual(len(client.searches), 6)
 
     def test_ai_tech_topic_filter_requires_a_real_tech_signal(self):
         self.assertTrue(_ai_tech_topic_allowed("NVIDIA RTX drivers need a software update"))
