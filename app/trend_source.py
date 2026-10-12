@@ -353,9 +353,6 @@ def _topic_allowed(trend: str, text: str) -> bool:
         return False
     if not _ai_tech_topic_allowed(trend) or _topic_blocked(text):
         return False
-    if _ai_tech_topic_allowed(text):
-        return True
-
     stop_words = {
         "about", "after", "again", "from", "have", "into", "more", "over",
         "with", "this", "that", "your", "their", "official", "latest",
