@@ -30,9 +30,9 @@ from .trend_source import (
 STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
-TREND_QUOTE_POSTS_PER_DAY = 4
-PERSON_PHOTO_POSTS_PER_DAY = 8
-AI_TECH_QUOTE_POSTS_PER_DAY = 8
+TREND_QUOTE_POSTS_PER_DAY = 20
+PERSON_PHOTO_POSTS_PER_DAY = 0
+AI_TECH_QUOTE_POSTS_PER_DAY = 0
 # Allow retries across flaky source searches/provider responses without changing
 # the hard cap of twenty successfully published main posts.
 AI_GENERATIONS_PER_DAY = 40
@@ -1158,8 +1158,9 @@ async def post_next(
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; auth cookies may be expired.")
 
-    # One successful main post per queue run. Rotate among the three eligible
-    # lanes so a temporary image/source failure does not block every other lane.
+    # This account now publishes only quote posts sourced from actual X Trends.
+    # The other legacy lanes remain disabled so no direct-search or image prompt
+    # can be published accidentally.
     lanes = (
         ("x_trends_quote", "trend_quote_post_count", TREND_QUOTE_POSTS_PER_DAY, _post_trend_quote),
         ("person_photo_prompt", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_person_photo),
