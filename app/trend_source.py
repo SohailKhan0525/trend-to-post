@@ -465,6 +465,8 @@ async def find_trending_source(
     trend_fetch_errors: list[str] = []
     excluded_by_scope = 0
     excluded_by_blocklist = 0
+    out_of_scope_examples: list[str] = []
+    blocked_trend_examples: list[str] = []
     get_trends = getattr(client, "get_trends", None)
     if callable(get_trends):
         # X exposes separate Explore tabs. The general Trending tab alone often
@@ -494,12 +496,18 @@ async def find_trending_source(
 
                 if _topic_blocked(name):
                     excluded_by_blocklist += 1
+                    if len(blocked_trend_examples) < 12:
+                        blocked_trend_examples.append(name)
                     continue
                 if ai_tech_only and not _ai_tech_topic_allowed(name):
                     excluded_by_scope += 1
+                    if len(out_of_scope_examples) < 12:
+                        out_of_scope_examples.append(name)
                     continue
                 if not ai_tech_only and not _topic_allowed(name, name):
                     excluded_by_scope += 1
+                    if len(out_of_scope_examples) < 12:
+                        out_of_scope_examples.append(name)
                     continue
 
                 volume = _as_int(getattr(item, "tweets_count", 0))
@@ -511,6 +519,12 @@ async def find_trending_source(
             "AI/technology X Trends quote-posting "
             f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)."
         )
+        if blocked_trend_examples:
+            print("Blocked X Trends topic examples: " + " | ".join(blocked_trend_examples))
+        if out_of_scope_examples:
+            print("Out-of-scope X Trends topic examples: " + " | ".join(out_of_scope_examples))
+        if trend_queries:
+            print("Eligible X Trends topics to scan: " + " | ".join(name for name, _, _ in trend_queries[:SEARCHES_PER_RUN]))
         if trend_fetch_errors and not trend_queries:
             print("X Trends category errors: " + " | ".join(trend_fetch_errors))
 
