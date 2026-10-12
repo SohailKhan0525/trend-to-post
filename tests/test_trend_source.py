@@ -217,7 +217,7 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
             grouped_trends=[],
         )
         tweet = make_tweet()
-        tweet.text = "OpenAI discussed a different release unrelated to this feature"
+        tweet.text = "OpenAI discussed a different release unrelated to the headline"
         client = FakeXClient([trend], tweet, explore_trends=[trend])
 
         with self.assertRaisesRegex(TrendSourceError, "No eligible recent AI/technology source"):
