@@ -37,6 +37,8 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn('Report daily queue progress', workflow)
         self.assertIn('Fail visibly when no post was published', workflow)
         self.assertIn("steps.post_bot.outputs.skip_reason != 'interval_guard'", workflow)
+        self.assertIn("steps.post_bot.outputs.skip_reason != 'no_eligible_source'", workflow)
+        self.assertIn("POST_SKIP_REASON", workflow)
         self.assertIn("AI/technology X Trends quote posts", workflow)
         self.assertNotIn("Publish one queued photo prompt", workflow)
 
