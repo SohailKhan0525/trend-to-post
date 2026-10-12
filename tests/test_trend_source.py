@@ -6,13 +6,16 @@ from app.trend_source import TrendSourceError, _ai_tech_topic_allowed, find_ai_t
 
 
 class FakeXClient:
-    def __init__(self, trend_results, tweet):
+    def __init__(self, trend_results, tweet, trends_by_category=None):
         self.trend_results = trend_results
+        self.trends_by_category = trends_by_category or {}
         self.tweet = tweet
         self.searches = []
+        self.trend_categories = []
 
     async def get_trends(self, category, count=20, retry=True):
-        return self.trend_results
+        self.trend_categories.append(category)
+        return self.trends_by_category.get(category, self.trend_results)
 
     async def search_tweet(self, query, search_type, count=20):
         self.searches.append(query)
@@ -101,6 +104,23 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(source.trend, "NVIDIA RTX")
         self.assertEqual(client.searches, ["NVIDIA RTX"])
+
+    async def test_discovers_tech_topics_from_for_you_and_news_trends_tabs(self):
+        client = FakeXClient(
+            [SimpleNamespace(name="NBA finals", tweets_count=500000)],
+            make_tweet(),
+            trends_by_category={
+                "trending": [SimpleNamespace(name="NBA finals", tweets_count=500000)],
+                "for-you": [SimpleNamespace(name="Software development", tweets_count=22000)],
+                "news": [SimpleNamespace(name="Election debate", tweets_count=40000)],
+            },
+        )
+
+        source = await find_trending_source(client, [], ai_tech_only=True)
+
+        self.assertEqual(source.trend, "Software development")
+        self.assertEqual(client.trend_categories, ["trending", "for-you", "news"])
+        self.assertEqual(client.searches, ["Software development"])
 
     async def test_rejects_non_tech_x_trends_without_generic_search_fallback(self):
         trend = SimpleNamespace(name="celebrity gossip", tweets_count=30000)
