@@ -485,17 +485,34 @@ async def find_trending_source(
         # account's For You trends and X's News trends. Every source still comes
         # from X's own Trends endpoint; there is no generic-search fallback.
         seen_trend_names: set[str] = set()
+        trend_sources: list[tuple[str, list[object]]] = []
+
+        # twifork 2.4.0 adds get_explore_page() specifically for the modern
+        # Explore timeline. The category endpoints can omit trends that appear
+        # on Explore, so query both APIs and deduplicate the real trend objects.
+        get_explore_page = getattr(client, "get_explore_page", None)
+        if callable(get_explore_page):
+            try:
+                explore_trends = list(await get_explore_page() or [])
+                trend_sources.append(("Explore page", explore_trends))
+                print(f"X Explore page returned {len(explore_trends)} trend entries.")
+            except Exception as exc:
+                trend_fetch_errors.append(f"Explore page: {exc}")
+                print(f"X Explore page failed: {exc}")
+
         for category in ("trending", "for-you", "news"):
             try:
                 live_trends = list(
                     await get_trends(category, count=50, retry=False) or []
                 )
+                trend_sources.append((category, live_trends))
             except Exception as exc:
                 trend_fetch_errors.append(f"{category}: {exc}")
                 print(f"X Trends category {category!r} failed: {exc}")
-                continue
 
+        for source_label, live_trends in trend_sources:
             trend_items_seen += len(live_trends)
+            print(f"X Trends source {source_label!r} returned {len(live_trends)} entries.")
             for item in live_trends:
                 name = str(getattr(item, "name", "") or "").strip()
                 normalized_name = " ".join(name.casefold().split())
@@ -597,11 +614,11 @@ async def find_trending_source(
         if trend_fetch_errors and trend_items_seen == 0:
             reason = "All X Trends categories failed (" + " | ".join(trend_fetch_errors) + ")"
         elif trend_items_seen == 0:
-            reason = "X Trends returned no topics across trending, for-you, and news tabs"
+            reason = "X Trends returned no topics across Explore, category tabs, and regional trends"
         else:
             reason = (
                 f"X Trends returned {trend_items_seen} topic entries across trending, "
-                f"for-you, and news tabs but none were eligible "
+                f"Explore page, category tabs, and regional trends but none were eligible "
                 f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)"
             )
         raise TrendSourceError(
@@ -791,8 +808,13 @@ AI_TECH_TOPIC_KEYWORDS = (
     "tensor core", "semiconductor", "chip", "api", "open source", "robotics",
     "neural network", "inference", "cybersecurity", "cyber security",
     "ai security", "digital provenance", "quantum computing", "post-quantum",
-    "microsoft", "nvidia", "amd", "intel", "apple", "google", "meta", "aws",
-    "azure", "android", "iphone", "macbook", "software engineering", "database",
+    "microsoft", "windows", "copilot+", "nvidia", "amd", "intel", "apple",
+    "google", "meta", "xai", "grok", "cohere", "qwen", "kimi", "llama",
+    "ibm", "oracle", "salesforce", "sap", "qualcomm", "broadcom", "arm",
+    "tsmc", "asml", "aws", "azure", "github copilot", "microsoft copilot",
+    "microsoft azure", "google cloud", "google ai studio", "vertex ai",
+    "amazon bedrock", "anthropic api", "openai api", "android", "iphone",
+    "macbook", "software engineering", "database",
     "web development", "web developer", "typescript", "react", "next js",
     "kubernetes", "docker", "vector database", "retrieval augmented generation",
     "fine tuning", "transformer model", "python", "javascript", "linux",
