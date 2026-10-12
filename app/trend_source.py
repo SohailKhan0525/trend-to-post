@@ -301,6 +301,11 @@ def _keyword_matches(text: str, keyword: str) -> bool:
     return any(haystack[i : i + width] == needle for i in range(len(haystack) - width + 1))
 
 
+def _topic_blocked(text: str) -> bool:
+    """Reject sensitive/off-scope terms before considering a trend eligible."""
+    return any(_keyword_matches(text, keyword) for keyword in BLOCKED_TOPIC_KEYWORDS)
+
+
 def _topic_allowed(trend: str, text: str) -> bool:
     """Require both the actual X trend and its source post to be AI/technology.
 
@@ -406,48 +411,68 @@ async def find_trending_source(
 
     trend_queries: list[tuple[str, int, str]] = []
     trend_items_seen = 0
-    trend_fetch_error = ""
+    trend_fetch_errors: list[str] = []
     excluded_by_scope = 0
     excluded_by_blocklist = 0
     get_trends = getattr(client, "get_trends", None)
     if callable(get_trends):
-        try:
-            live_trends = list(await get_trends("trending", count=50, retry=False) or [])
-            trend_items_seen = len(live_trends)
+        # X exposes separate Explore tabs. The general Trending tab alone often
+        # contains no technology topics, so also inspect the authenticated
+        # account's For You trends and X's News trends. Every source still comes
+        # from X's own Trends endpoint; there is no generic-search fallback.
+        seen_trend_names: set[str] = set()
+        for category in ("trending", "for-you", "news"):
+            try:
+                live_trends = list(
+                    await get_trends(category, count=50, retry=False) or []
+                )
+            except Exception as exc:
+                trend_fetch_errors.append(f"{category}: {exc}")
+                print(f"X Trends category {category!r} failed: {exc}")
+                continue
+
+            trend_items_seen += len(live_trends)
             for item in live_trends:
                 name = str(getattr(item, "name", "") or "").strip()
-                if not name or " ".join(name.casefold().split()) in excluded_names:
+                normalized_name = " ".join(name.casefold().split())
+                if not name or normalized_name in excluded_names:
                     continue
-                if not _topic_allowed(name, name):
+                if normalized_name in seen_trend_names:
+                    continue
+                seen_trend_names.add(normalized_name)
+
+                if _topic_blocked(name):
                     excluded_by_blocklist += 1
                     continue
                 if ai_tech_only and not _ai_tech_topic_allowed(name):
                     excluded_by_scope += 1
                     continue
+                if not ai_tech_only and not _topic_allowed(name, name):
+                    excluded_by_scope += 1
+                    continue
+
                 volume = _as_int(getattr(item, "tweets_count", 0))
                 trend_queries.append((name, volume, "x_trend"))
-            print(
-                f"X Trends returned {trend_items_seen} topic(s); "
-                f"{len(trend_queries)} eligible for "
-                "AI/technology X Trends quote-posting "
-                f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)."
-            )
-        except Exception as exc:
-            trend_fetch_error = str(exc)
-            print(
-                "Official X Trends request failed; no generic-search fallback will be used: "
-                f"{exc}"
-            )
+
+        print(
+            f"X Trends tabs returned {trend_items_seen} topic entries; "
+            f"{len(trend_queries)} eligible for "
+            "AI/technology X Trends quote-posting "
+            f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)."
+        )
+        if trend_fetch_errors and not trend_queries:
+            print("X Trends category errors: " + " | ".join(trend_fetch_errors))
 
     # Never silently switch from actual X Trends to generic keyword searches.
     if not trend_queries:
-        if trend_fetch_error:
-            reason = f"X Trends request failed ({trend_fetch_error})"
+        if trend_fetch_errors and trend_items_seen == 0:
+            reason = "All X Trends categories failed (" + " | ".join(trend_fetch_errors) + ")"
         elif trend_items_seen == 0:
-            reason = "X Trends returned no topics"
+            reason = "X Trends returned no topics across trending, for-you, and news tabs"
         else:
             reason = (
-                f"X Trends returned {trend_items_seen} topics but none were eligible "
+                f"X Trends returned {trend_items_seen} topic entries across trending, "
+                f"for-you, and news tabs but none were eligible "
                 f"({excluded_by_blocklist} blocked, {excluded_by_scope} outside AI/tech scope)"
             )
         raise TrendSourceError(
