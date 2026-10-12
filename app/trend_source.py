@@ -704,17 +704,24 @@ async def find_official_brand_source(
 AI_TECH_TOPIC_KEYWORDS = (
     "artificial intelligence", "machine learning", "large language model",
     "foundation model", "chatgpt", "openai", "claude", "anthropic", "gemini",
-    "deepmind", "llm", "llms", "copilot", "ai", "ai agent", "agentic",
+    "deepmind", "deepseek", "mistral", "llama", "perplexity", "hugging face",
+    "cursor", "windsurf", "replit", "lovable", "vibe coding", "claude code",
+    "gpt-5", "gpt5", "gemini 3", "openai devday",
+    "llm", "llms", "copilot", "ai", "ai agent", "agentic",
     "multiagent", "multi-agent", "ai-native", "ai infrastructure",
     "ai supercomputing", "physical ai", "software", "developer tools",
     "coding", "programming", "github", "cloud computing", "confidential computing",
     "edge computing", "cloud", "data center", "gpu", "cpu", "graphics card",
-    "processor", "semiconductor", "chip", "api", "open source", "robotics",
+    "processor", "rtx", "geforce", "radeon", "blackwell", "cuda",
+    "tensor core", "semiconductor", "chip", "api", "open source", "robotics",
     "neural network", "inference", "cybersecurity", "cyber security",
     "ai security", "digital provenance", "quantum computing", "post-quantum",
     "microsoft", "nvidia", "amd", "intel", "apple", "google", "meta", "aws",
     "azure", "android", "iphone", "macbook", "software engineering", "database",
-    "python", "javascript", "linux", "6g", "5g", "model security",
+    "web development", "web developer", "typescript", "react", "next js",
+    "kubernetes", "docker", "vector database", "retrieval augmented generation",
+    "fine tuning", "transformer model", "python", "javascript", "linux",
+    "6g", "5g", "model security",
 )
 
 
