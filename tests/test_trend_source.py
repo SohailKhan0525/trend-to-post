@@ -6,14 +6,20 @@ from app.trend_source import TrendSourceError, _ai_tech_topic_allowed, find_ai_t
 
 
 class FakeXClient:
-    def __init__(self, trend_results, tweet, trends_by_category=None, trends_by_place=None):
+    def __init__(self, trend_results, tweet, trends_by_category=None, trends_by_place=None, explore_trends=None):
         self.trend_results = trend_results
         self.trends_by_category = trends_by_category or {}
         self.trends_by_place = trends_by_place or {}
+        self.explore_trends = explore_trends
         self.tweet = tweet
         self.searches = []
         self.trend_categories = []
+        self.explore_calls = 0
         self.place_trend_calls = []
+
+    async def get_explore_page(self):
+        self.explore_calls += 1
+        return self.explore_trends or []
 
     async def get_trends(self, category, count=20, retry=True):
         self.trend_categories.append(category)
@@ -131,6 +137,22 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(source.trend, "Software development")
         self.assertEqual(client.trend_categories, ["trending", "for-you", "news"])
         self.assertEqual(client.searches, ["Software development"])
+
+    async def test_discovers_tech_trend_from_modern_explore_page(self):
+        tweet = make_tweet()
+        tweet.text = "Microsoft Copilot added a new developer workflow"
+        client = FakeXClient(
+            [SimpleNamespace(name="celebrity gossip", tweets_count=30000)],
+            tweet,
+            explore_trends=[SimpleNamespace(name="Microsoft Copilot", tweets_count=42000)],
+        )
+
+        source = await find_trending_source(client, [], ai_tech_only=True)
+
+        self.assertEqual(source.trend, "Microsoft Copilot")
+        self.assertEqual(source.source_type, "x_trend")
+        self.assertEqual(client.explore_calls, 1)
+        self.assertIn("Microsoft Copilot", client.searches)
 
     async def test_finds_tech_trend_from_regional_x_trends_when_explore_has_none(self):
         tweet = make_tweet()
