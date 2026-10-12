@@ -41,6 +41,15 @@ ORIGINAL_POSTS_PER_DAY = 11  # legacy state compatibility only
 # A 58-minute guard allows one successful post per hour despite event overlap,
 # leaving enough time to complete the 20-slot daily plan without duplicate posts.
 MIN_POST_INTERVAL_MINUTES = 58
+
+
+def _set_workflow_output(name: str, value: str) -> None:
+    """Write a safe scalar output when running inside GitHub Actions."""
+    output_path = os.environ.get("GITHUB_OUTPUT", "").strip()
+    if not output_path:
+        return
+    with open(output_path, "a", encoding="utf-8") as output:
+        output.write(f"{name}={value}\n")
 BRAND_AI_GENERATIONS_PER_DAY = COMPANY_POSTS_PER_DAY
 INVENTED_TOPIC_SEEDS = (
     "AI and strange software behaviour",
@@ -1130,14 +1139,19 @@ async def post_next(
             "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are required."
         )
 
+    _set_workflow_output("published", "false")
+    _set_workflow_output("skip_reason", "not_started")
     state = _load_state()
     if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
         print(f"Daily content-slot limit reached: {POSTS_PER_DAY}.")
+        _set_workflow_output("skip_reason", "daily_cap")
         return False
     if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
         print(f"Daily generation-attempt budget reached: {AI_GENERATIONS_PER_DAY}.")
+        _set_workflow_output("skip_reason", "generation_budget")
         return False
     if not _interval_ok(state):
+        _set_workflow_output("skip_reason", "interval_guard")
         return False
 
     client = _client(auth_token, ct0)
@@ -1147,7 +1161,7 @@ async def post_next(
     # One successful main post per queue run. Rotate among the three eligible
     # lanes so a temporary image/source failure does not block every other lane.
     lanes = (
-        ("official_company_quote", "trend_quote_post_count", TREND_QUOTE_POSTS_PER_DAY, _post_trend_quote),
+        ("x_trends_quote", "trend_quote_post_count", TREND_QUOTE_POSTS_PER_DAY, _post_trend_quote),
         ("person_photo_prompt", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_person_photo),
         ("ai_tech_quote", "ai_tech_quote_post_count", AI_TECH_QUOTE_POSTS_PER_DAY, _post_ai_tech_quote),
     )
@@ -1166,6 +1180,7 @@ async def post_next(
             f"real-photo prompts {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}, "
             f"AI/tech quotes {state.get('ai_tech_quote_post_count', 0)}/{AI_TECH_QUOTE_POSTS_PER_DAY}."
         )
+        _set_workflow_output("skip_reason", "daily_plan_complete")
         return False
 
     last_error = None
@@ -1176,6 +1191,8 @@ async def post_next(
         print(f"Queue attempting lane: {lane_name}.")
         try:
             if await publisher(state, client):
+                _set_workflow_output("published", "true")
+                _set_workflow_output("skip_reason", "published")
                 return True
         except QueueError:
             # A publish call with uncertain outcome must not silently fall through
@@ -1194,4 +1211,5 @@ async def post_next(
         print(f"No lane published a post during this dispatch; last error: {last_error}")
     else:
         print("No lane had eligible source material to publish during this dispatch.")
+    _set_workflow_output("skip_reason", "no_eligible_source")
     return False
