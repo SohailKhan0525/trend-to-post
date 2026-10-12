@@ -619,13 +619,17 @@ async def find_official_brand_source(
 AI_TECH_TOPIC_KEYWORDS = (
     "artificial intelligence", "machine learning", "large language model",
     "foundation model", "chatgpt", "openai", "claude", "anthropic", "gemini",
-    "deepmind", "llm", "llms", "copilot", "ai", "software", "developer tools",
-    "coding", "programming", "github", "cloud computing", "cloud", "data center",
-    "gpu", "cpu", "graphics card", "processor", "semiconductor", "chip",
-    "api", "open source", "robotics", "neural network", "inference",
-    "cybersecurity", "cyber security", "microsoft", "nvidia", "amd", "intel",
-    "apple", "google", "meta", "aws", "azure", "android", "iphone", "macbook",
-    "software engineering", "database", "python", "javascript", "linux",
+    "deepmind", "llm", "llms", "copilot", "ai", "ai agent", "agentic",
+    "multiagent", "multi-agent", "ai-native", "ai infrastructure",
+    "ai supercomputing", "physical ai", "software", "developer tools",
+    "coding", "programming", "github", "cloud computing", "confidential computing",
+    "edge computing", "cloud", "data center", "gpu", "cpu", "graphics card",
+    "processor", "semiconductor", "chip", "api", "open source", "robotics",
+    "neural network", "inference", "cybersecurity", "cyber security",
+    "ai security", "digital provenance", "quantum computing", "post-quantum",
+    "microsoft", "nvidia", "amd", "intel", "apple", "google", "meta", "aws",
+    "azure", "android", "iphone", "macbook", "software engineering", "database",
+    "python", "javascript", "linux", "6g", "5g", "model security",
 )
 
 
