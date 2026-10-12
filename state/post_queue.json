@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-12",
-  "daily_count": 1,
-  "ai_call_count": 1,
-  "last_posted_at": "2026-10-12T10:31:23.519871+00:00",
-  "last_source_tweet_id": "2109589105667354709",
-  "last_tweet_id": "2109592761162711458",
+  "daily_count": 2,
+  "ai_call_count": 2,
+  "last_posted_at": "2026-10-12T16:28:03.726185+00:00",
+  "last_source_tweet_id": "2109675234752069805",
+  "last_tweet_id": "2109682519964803399",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -76,7 +76,8 @@
     "2109223745856348497",
     "2109200685917147551",
     "2109011085709689314",
-    "2109589105667354709"
+    "2109589105667354709",
+    "2109675234752069805"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -101,17 +102,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "global dependency tithe scoreboard",
-      "comedy_mechanism": "inventing an absurd international licensing tax on complaining about tech magnates based on hardware origins",
-      "used_at": "2026-10-08T14:01:43.105656+00:00",
-      "topic": "Gemini AI",
-      "self_reply": false,
-      "tweet_id": "2108196140071940102",
-      "content_type": "quote_post",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "legalistic compliance failure declaration ending in a source quote fragment"
-    },
     {
       "format_name": "archaeological frequency inversion",
       "comedy_mechanism": "treating an infinite commercial radio broadcast loop as a literal thermodynamic impossibility that survives the end of the universe",
@@ -345,10 +335,23 @@
       "post_text": "operational risk scale 1 = forgetting your password 2 = urgent email in inbox 3 = family member asks about markets 👀 🤣 💀",
       "mutation_stage": "invented_rule",
       "structure_signature": "scale labels with escalating chaos levels and emoji coded terror"
+    },
+    {
+      "format_name": "turing test friction cost calculator",
+      "comedy_mechanism": "applying fintech-style risk calibration metrics to the temporal cost of synthetic identity crises.",
+      "used_at": "2026-10-12T16:28:03.726185+00:00",
+      "topic": "Satya Nadella — Technology · Trending",
+      "tweet_id": "2109682519964803399",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2109675234752069805",
+      "source_username": "TheRundownAI",
+      "post_text": "turing test friction cost calculator: wait, how long does the fundamental identity crisis before the self overwrite finishes? 💀 😤 🥀",
+      "mutation_stage": "fractal risk calibration",
+      "structure_signature": "conceptual app name followed by a specific, paranoid cost query and emotional distress emojis."
     }
   ],
   "recent_post_fingerprints": [
-    "company mention + rare purchase condition + everyday self-own",
     "speculative future anthropology conclusion derived from commercial audio artifacts",
     "social observation followed by media industry metaphor",
     "legalistic corporate infraction paired with an over-animated software feature",
@@ -377,7 +380,8 @@
     "insurance logic applied to philosophical expertise",
     "code error fragmentation followed by absurdly specific 'poverty ration' comparison.",
     "tech contract label followed by sarcastic behavioral penalty logic",
-    "scale labels with escalating chaos levels and emoji coded terror"
+    "scale labels with escalating chaos levels and emoji coded terror",
+    "conceptual app name followed by a specific, paranoid cost query and emotional distress emojis."
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -478,10 +482,11 @@
   "trend_manual_posts": [],
   "trend_manual_day_key": null,
   "trend_source_ids": [
-    "2109589105667354709"
+    "2109589105667354709",
+    "2109675234752069805"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 1,
+  "trend_quote_post_count": 2,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -497,6 +502,22 @@
       "structure_signature": "scale labels with escalating chaos levels and emoji coded terror",
       "tweet_id": "2109592761162711458",
       "generated_at": "2026-10-12T10:31:23.519871+00:00",
+      "status": "published"
+    },
+    {
+      "slot_number": 2,
+      "post": "turing test friction cost calculator: wait, how long does the fundamental identity crisis before the self overwrite finishes? 💀 😤 🥀",
+      "source_username": "TheRundownAI",
+      "source_type": "x_trend",
+      "source_tweet_id": "2109675234752069805",
+      "source_url": "https://x.com/TheRundownAI/status/2109675234752069805",
+      "source_text": "NEW: Microsoft introduced its new Maia 300 chip, with Satya Nadella calling it the \"biggest bet yet on our own silicon.\"\n\nThe company says it gets 40% more AI work out of the same power than top chips today, and it will start running Microsoft's AI in 2027. https://t.co/iE8ySMgrhx",
+      "topic": "Satya Nadella — Technology · Trending",
+      "format_name": "turing test friction cost calculator",
+      "comedy_mechanism": "applying fintech-style risk calibration metrics to the temporal cost of synthetic identity crises.",
+      "structure_signature": "conceptual app name followed by a specific, paranoid cost query and emotional distress emojis.",
+      "tweet_id": "2109682519964803399",
+      "generated_at": "2026-10-12T16:28:03.726185+00:00",
       "status": "published"
     }
   ],
@@ -517,7 +538,8 @@
   "person_photo_day_key": "2026-10-12",
   "ai_tech_quote_day_key": null,
   "trend_names_used": [
-    "YOU CAN SEE EVERYTHING"
+    "YOU CAN SEE EVERYTHING",
+    "Satya Nadella — Technology · Trending"
   ],
   "ai_tech_trend_names_used": []
 }
