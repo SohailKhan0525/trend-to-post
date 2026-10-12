@@ -358,15 +358,16 @@ def _topic_allowed(trend: str, text: str) -> bool:
 
     stop_words = {
         "about", "after", "again", "from", "have", "into", "more", "over",
-        "software", "technology", "computer", "developer", "development",
-        "engineering", "update", "latest", "official", "launch", "release",
+        "with", "this", "that", "your", "their", "official", "latest",
     }
     trend_terms = [
         word for word in "".join(
             char.lower() if char.isalnum() else " " for char in trend
         ).split()
-        if len(word) >= 4 and word not in stop_words
+        if len(word) >= 3 and word not in stop_words
     ]
+    if not trend_terms:
+        return _ai_tech_topic_allowed(text)
     return any(_keyword_matches(text, term) for term in trend_terms)
 
 
