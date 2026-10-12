@@ -85,6 +85,18 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: python -m app post
 
+      - name: Fail visibly when no post was published
+        if: >-
+          steps.post_bot.outcome == 'success' &&
+          steps.post_bot.outputs.published != 'true' &&
+          steps.post_bot.outputs.skip_reason != 'interval_guard' &&
+          steps.post_bot.outputs.skip_reason != 'daily_cap' &&
+          steps.post_bot.outputs.skip_reason != 'daily_plan_complete'
+        shell: bash
+        run: |
+          echo "::error title=No X post published::All eligible lanes failed to find a safe source. See the Publish step logs for the exact reason."
+          exit 1
+
       - name: Commit bot state
         if: always() && steps.post_bot.outcome != 'skipped'
         shell: bash
