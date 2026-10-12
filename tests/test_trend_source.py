@@ -154,6 +154,33 @@ class TrendSourceTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(client.searches, [])
 
+    async def test_accepts_trend_relevant_product_post_without_generic_ai_keyword(self):
+        trend = SimpleNamespace(name="Cursor AI", tweets_count=22000)
+        tweet = make_tweet()
+        tweet.text = "Cursor just fixed the bug that ruined my whole afternoon."
+        client = FakeXClient([trend], tweet)
+
+        source = await find_trending_source(client, [], ai_tech_only=True)
+
+        self.assertEqual(source.trend, "Cursor AI")
+        self.assertIn("Cursor", source.text)
+
+    async def test_checks_more_than_five_eligible_topics_before_giving_up(self):
+        trends = [
+            SimpleNamespace(name=name, tweets_count=10000)
+            for name in (
+                "OpenAI", "Claude AI", "Gemini AI", "NVIDIA", "GitHub",
+                "Cursor", "RTX", "Kubernetes", "DeepSeek", "Software development",
+            )
+        ]
+        tweet = make_tweet()
+        client = FakeXClient(trends, tweet)
+
+        source = await find_trending_source(client, [], ai_tech_only=True)
+
+        self.assertIn(source.trend, {"Cursor", "RTX", "Kubernetes", "DeepSeek", "Software development"})
+        self.assertEqual(len(client.searches), 10)
+
     def test_ai_tech_topic_filter_requires_a_real_tech_signal(self):
         self.assertTrue(_ai_tech_topic_allowed("NVIDIA RTX drivers need a software update"))
         self.assertTrue(_ai_tech_topic_allowed("Our new AI model writes Python code"))
