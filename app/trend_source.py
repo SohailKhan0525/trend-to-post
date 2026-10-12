@@ -7,7 +7,7 @@ from typing import Iterable
 
 from twikit import Client
 
-SEARCHES_PER_RUN = 5
+SEARCHES_PER_RUN = 10
 OFFICIAL_BRAND_SEARCHES_PER_RUN = 10
 AI_TECH_SEARCHES_PER_RUN = 8
 TWEETS_PER_SEARCH = 15
@@ -39,8 +39,8 @@ SIGNAL_SEARCHES = (
 )
 
 
-# Keep trend discovery focused on the requested subjects. A source/topic must
-# contain an allowed signal, while political/current-affairs signals are rejected.
+# Keep trend discovery focused on AI and technology. A trend must contain
+# a recognized tech signal; political/current-affairs signals are rejected.
 ALLOWED_TOPIC_KEYWORDS = (
     "artificial intelligence",
     "ai",
@@ -56,6 +56,21 @@ ALLOWED_TOPIC_KEYWORDS = (
     "gemini",
     "google",
     "deepmind",
+    "deepseek",
+    "mistral",
+    "llama",
+    "perplexity",
+    "hugging face",
+    "cursor",
+    "windsurf",
+    "replit",
+    "lovable",
+    "vibe coding",
+    "claude code",
+    "gpt-5",
+    "gpt5",
+    "gemini 3",
+    "openai devday",
     "microsoft",
     "copilot",
     "apple",
@@ -79,6 +94,20 @@ ALLOWED_TOPIC_KEYWORDS = (
     "developer",
     "coding",
     "programming",
+    "web development",
+    "web developer",
+    "typescript",
+    "javascript",
+    "python",
+    "react",
+    "next js",
+    "kubernetes",
+    "docker",
+    "database",
+    "vector database",
+    "retrieval augmented generation",
+    "fine tuning",
+    "transformer model",
     "github",
     "cloud computing",
     "cloud",
@@ -86,6 +115,12 @@ ALLOWED_TOPIC_KEYWORDS = (
     "gpu",
     "cpu",
     "graphics card",
+    "rtx",
+    "geforce",
+    "radeon",
+    "blackwell",
+    "cuda",
+    "tensor core",
     "processor",
     "api",
     "open source",
@@ -307,14 +342,32 @@ def _topic_blocked(text: str) -> bool:
 
 
 def _topic_allowed(trend: str, text: str) -> bool:
-    """Require both the actual X trend and its source post to be AI/technology.
+    """Require a genuine tech trend and a source post relevant to that trend.
 
-    A tech-related trend name must never make an unrelated source post eligible.
-    The queue intentionally has no generic keyword-search fallback.
+    Source text may discuss a specific product or tool without spelling out a
+    generic label such as "software" or "AI". In that case, require it to name
+    a distinctive term from the already-validated trend. Never accept a source
+    that contains blocked political, sensitive, or cultural terms.
     """
     if not trend.strip() or not text.strip():
         return False
-    return _ai_tech_topic_allowed(trend) and _ai_tech_topic_allowed(text)
+    if not _ai_tech_topic_allowed(trend) or _topic_blocked(text):
+        return False
+    if _ai_tech_topic_allowed(text):
+        return True
+
+    stop_words = {
+        "about", "after", "again", "from", "have", "into", "more", "over",
+        "software", "technology", "computer", "developer", "development",
+        "engineering", "update", "latest", "official", "launch", "release",
+    }
+    trend_terms = [
+        word for word in "".join(
+            char.lower() if char.isalnum() else " " for char in trend
+        ).split()
+        if len(word) >= 4 and word not in stop_words
+    ]
+    return any(_keyword_matches(text, term) for term in trend_terms)
 
 
 def _is_candidate(
