@@ -132,6 +132,25 @@ def _person_matches(name: str, title: str, description: str) -> bool:
     return bool(words) and all(re.search(rf"\b{re.escape(word)}\b", haystack) for word in words)
 
 
+def _portrait_score(title: str, description: str) -> int:
+    """Prefer genuine person photographs over graphics or incidental appearances."""
+    text = " ".join(f"{title} {description}".casefold().split())
+    disqualifiers = (
+        "logo", "poster", "banner", "infographic", "illustration", "drawing",
+        "painting", "caricature", "cartoon", "screenshot", "meme", "graphic",
+        "book cover", "statue", "wax figure", "sculpture", "monument",
+        "death mask", "comic", "collage", "group photo", "vector",
+    )
+    if any(term in text for term in disqualifiers):
+        return -100
+    preferred = (
+        "portrait", "headshot", "close-up", "close up", "photograph", "photo",
+        "speaking", "interview", "keynote", "on stage", "at a conference",
+        "press conference", "in conversation", "profile picture",
+    )
+    return sum(3 if term in text else 0 for term in preferred)
+
+
 def _metadata_value(metadata: dict, key: str) -> str:
     item = metadata.get(key, {})
     if isinstance(item, dict):
@@ -162,6 +181,8 @@ def _candidate_from_page(page: dict, person: tuple) -> dict | None:
         return None
 
     description = _metadata_value(metadata, "ImageDescription")
+    if _portrait_score(title, description) < 0:
+        return None
     names_to_match = (person[0], *person[4])
     if not any(_person_matches(name, title, description) for name in names_to_match):
         return None
@@ -273,7 +294,12 @@ def find_licensed_person_image(
                 if candidate and candidate["title"].casefold() not in used_titles:
                     candidates.append(candidate)
         if candidates:
-            return random.choice(candidates)
+            best_score = max(_portrait_score(item["title"], item["description"]) for item in candidates)
+            best_candidates = [
+                item for item in candidates
+                if _portrait_score(item["title"], item["description"]) == best_score
+            ]
+            return random.choice(best_candidates)
 
     raise PersonImageError(
         "No unused real-person portrait with suitable, machine-readable reuse terms "
