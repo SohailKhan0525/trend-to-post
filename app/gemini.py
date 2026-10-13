@@ -1128,7 +1128,15 @@ def _validate_original(
         opener, question = sections
         if opener[:1] in {'"', "'", "“"} or opener[-1:] in {'"', "'", "”"} or question[:1] in {'"', "'", "“"} or question[-1:] in {'"', "'", "”'}:
             raise GeminiError("Developer post must not wrap the post in quotation marks.")
-        if not re.match(r"^(Devs be honest|Developers be honest|Vibecoders be honest|Founders be honest|Coders be honest|AI builders be honest)\\.{2,}$", opener.strip(), re.IGNORECASE):
+        opener_clean = opener.strip()
+        opener_prefixes = ("Devs be honest", "Developers be honest", "Vibecoders be honest", "Founders be honest", "Coders be honest", "AI builders be honest")
+        if not any(
+            opener_clean.startswith(prefix)
+            and len(opener_clean[len(prefix):]) >= 2
+            and set(opener_clean[len(prefix):]) == {"."}
+            for prefix in opener_prefixes
+        ):
+            raise GeminiError("Developer post opener does not match the requested format.")
             raise GeminiError("Developer post opener does not match the requested format.")
         if "?" not in question:
             raise GeminiError("Developer post second section must be a question.")
