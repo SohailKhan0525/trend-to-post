@@ -62,6 +62,14 @@ class PersonImageLicenseTests(unittest.TestCase):
         self.assertEqual(elon[0], "Elon Musk")
         self.assertEqual(elon[1], "Elon Musk")
 
+    def test_portrait_search_rejects_graphics_and_prefers_person_photos(self):
+        self.assertLess(person_images._portrait_score("File:Elon Musk fan poster.jpg", "Poster featuring Elon Musk"), 0)
+        self.assertLess(person_images._portrait_score("File:Sam Altman illustration.png", "Illustration of Sam Altman"), 0)
+        self.assertGreater(
+            person_images._portrait_score("File:Sam Altman portrait.jpg", "Sam Altman speaking at a conference"),
+            person_images._portrait_score("File:Sam Altman.jpg", "Sam Altman"),
+        )
+
     def test_candidate_matches_tibo_alias_while_searching_full_name(self):
         page = {
             "title": "File:Tibo Sottiaux speaking about Codex.jpg",
