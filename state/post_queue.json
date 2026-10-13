@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-13",
-  "daily_count": 15,
-  "ai_call_count": 15,
-  "last_posted_at": "2026-10-13T14:31:33.082663+00:00",
+  "daily_count": 16,
+  "ai_call_count": 16,
+  "last_posted_at": "2026-10-13T15:31:30.485882+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2110015587711885517",
+  "last_tweet_id": "2110030676078817523",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -121,20 +121,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "corporate resilience denial tiers",
-      "comedy_mechanism": "inventing fake severity levels that use bureaucratic euphemisms for resource theft",
-      "used_at": "2026-10-12T19:31:32.144019+00:00",
-      "topic": "OpenAI and Anthropic",
-      "tweet_id": "2109728692792389789",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109726365406908531",
-      "source_username": "CoinGapeMedia",
-      "post_text": "benchmark opacity index 5: data augmentation takes another vacation 💀 🥀 😤",
-      "mutation_stage": "structural_break",
-      "structure_signature": "metric_label with escalating euphemisms for failure terminating in emoji cluster"
-    },
     {
       "format_name": "hubris liability clause",
       "comedy_mechanism": "reversing triumphant product features into legally dubious grievances ending in a sarcastic question mark",
@@ -394,10 +380,21 @@
       "post_text": "Devs be honest... if you had to explain your full company architecture to a six-year-old, what three sentences would you leave out? 🫠💀",
       "mutation_stage": "short structure label",
       "structure_signature": "vibecoder opener + forced simplification constraint + knowledge deletion question"
+    },
+    {
+      "format_name": "infrastructure arsonist interrogation",
+      "comedy_mechanism": "inverts the fear of AI replacement into a perverse relief-seeking desire to offload responsibility for a specific hated file",
+      "used_at": "2026-10-13T15:31:30.485882+00:00",
+      "topic": "developer community",
+      "tweet_id": "2110030676078817523",
+      "content_type": "developer_prompt",
+      "content_mode": "developer_original_text_only",
+      "post_text": "Devs be honest... if you could replace your whole stack with a single internal AI agent, what one file would you burn to the ground first? 😂🔥",
+      "mutation_stage": "vibecoder opener",
+      "structure_signature": "opener + singular empathy (replace stack) + specific hostile impulse (burn file) + emoji cluster"
     }
   ],
   "recent_post_fingerprints": [
-    "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm.",
     "absurd contractual accusation with emoji encoded sarcasm",
     "mock legal justification for platform stacking ending in emoji",
     "insurance logic applied to philosophical expertise",
@@ -426,7 +423,8 @@
     "runtime_error statement + humanist resignation metric + emotional overload emoji cluster",
     "opener + scarcity inversion hypothetical",
     "nervous intimate opener + hypothetical interrogation",
-    "vibecoder opener + forced simplification constraint + knowledge deletion question"
+    "vibecoder opener + forced simplification constraint + knowledge deletion question",
+    "opener + singular empathy (replace stack) + specific hostile impulse (burn file) + emoji cluster"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -745,7 +743,7 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 3,
+  "person_photo_post_count": 4,
   "ai_tech_quote_post_count": 0,
   "next_lane_index": 2,
   "person_photo_posts": [
@@ -789,6 +787,20 @@
       "comedy_mechanism": "treats the rarefied goal of simplification as an impossible resource optimization problem—what parts of the corporate 'system' are extraneous waste code?",
       "structure_signature": "vibecoder opener + forced simplification constraint + knowledge deletion question",
       "generated_at": "2026-10-13T14:31:33.082663+00:00",
+      "status": "published_text_only"
+    },
+    {
+      "slot_number": 4,
+      "subject": "developer community",
+      "post": "Devs be honest... if you could replace your whole stack with a single internal AI agent, what one file would you burn to the ground first? 😂🔥",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2110030676078817523",
+      "format_name": "infrastructure arsonist interrogation",
+      "comedy_mechanism": "inverts the fear of AI replacement into a perverse relief-seeking desire to offload responsibility for a specific hated file",
+      "structure_signature": "opener + singular empathy (replace stack) + specific hostile impulse (burn file) + emoji cluster",
+      "generated_at": "2026-10-13T15:31:30.485882+00:00",
       "status": "published_text_only"
     }
   ],
