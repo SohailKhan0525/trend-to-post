@@ -42,10 +42,14 @@ class OriginalTextValidationTests(unittest.TestCase):
             content_mode="developer_prompt",
         )
         self.assertIn("Devs be honest...", prompt)
-        self.assertIn("ChatGPT were free forever", prompt)
+        self.assertIn("two content lines separated by one blank line", prompt)
+        self.assertIn("What would you do if you were sitting beside @elonmusk?", prompt)
+        self.assertIn("No quotation marks around the post", prompt)
+        self.assertIn("at most ONE emoji", prompt)
         self.assertIn("Include the exact handle @thsottiaux exactly once", prompt)
         self.assertIn("without an @mention", prompt)
         self.assertIn("NVIDIA's CEO", prompt)
+        self.assertIn("Use no emoji unless it genuinely improves the question", prompt)
         self.assertIn("Never make every post a tag", prompt)
         self.assertIn("No fake diagnostics", prompt)
 
