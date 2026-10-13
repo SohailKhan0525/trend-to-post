@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-13",
-  "daily_count": 10,
-  "ai_call_count": 10,
-  "last_posted_at": "2026-10-13T09:31:40.852892+00:00",
-  "last_source_tweet_id": "2109939381133853106",
-  "last_tweet_id": "2109940122242392303",
+  "daily_count": 11,
+  "ai_call_count": 11,
+  "last_posted_at": "2026-10-13T10:31:37.181803+00:00",
+  "last_source_tweet_id": "2109954950637769058",
+  "last_tweet_id": "2109955206092124564",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -94,7 +94,8 @@
     "2109886346395627680",
     "2109905301738496048",
     "2109903580136140953",
-    "2109939381133853106"
+    "2109939381133853106",
+    "2109954950637769058"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -119,20 +120,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "sports tech lat penalty clause",
-      "comedy_mechanism": "applying server uptime latency metrics to human attention spans and timeouts",
-      "used_at": "2026-10-11T13:31:13.427015+00:00",
-      "topic": "NFL on FOX One",
-      "tweet_id": "2109275629560725942",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109011085709689314",
-      "source_username": "NFL",
-      "post_text": "implementation latency matches emotional investment in saturday afternoon sporting events strict penalty ratio 💀 🥀",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "tech contract label followed by sarcastic behavioral penalty logic"
-    },
     {
       "format_name": "fractal risk calibration",
       "comedy_mechanism": "escalating threats using nominal software metrics to measure emotional terror",
@@ -398,10 +385,23 @@
       "post_text": "neural bundle synergies protocol: paying a single utility bill to rent a mind, a cursor, and an audience simultaneously 💀 ❤️‍🩹",
       "mutation_stage": "invented_rule",
       "structure_signature": "noun phrase category header + unexpected triple-convergence setup + compact severity emoji cluster"
+    },
+    {
+      "format_name": "survival tier lottery.exe",
+      "comedy_mechanism": "inverting the hardware competition into a gambling metaphor where the 'rank' is survival through corporate abstractions",
+      "used_at": "2026-10-13T10:31:37.181803+00:00",
+      "topic": "Maia 300 — Technology · Trending",
+      "tweet_id": "2109955206092124564",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2109954950637769058",
+      "source_username": "TheRundownAI",
+      "post_text": "maia 300 rank up shop.exe: surviving the executive briefing roulette wheel just to get the marketing gloss version of the roadmap 💀 😭",
+      "mutation_stage": "cross_domain_collision",
+      "structure_signature": "system_process label + punishment gambling sim + emoji cluster"
     }
   ],
   "recent_post_fingerprints": [
-    "@Samsung [absurd physical task] [emoji]",
     "@Xbox imagine [x] by [y] [emoji]",
     "@BMW [absurd ultimatum about design] 😂",
     "legalistic penalty declaration ending in a quote fragment followed by distinct emoji cluster",
@@ -430,7 +430,8 @@
     "system_process filename + illicit_surveillance_verbs + financial_guilt_emoji_cluster",
     "system_process filename + emotional poverty metaphor + emoji cluster",
     "sysproc filename + personal competency failure + emoji cluster",
-    "noun phrase category header + unexpected triple-convergence setup + compact severity emoji cluster"
+    "noun phrase category header + unexpected triple-convergence setup + compact severity emoji cluster",
+    "system_process label + punishment gambling sim + emoji cluster"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -540,10 +541,11 @@
     "2109886346395627680",
     "2109905301738496048",
     "2109903580136140953",
-    "2109939381133853106"
+    "2109939381133853106",
+    "2109954950637769058"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 10,
+  "trend_quote_post_count": 11,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -704,6 +706,22 @@
       "tweet_id": "2109940122242392303",
       "generated_at": "2026-10-13T09:31:40.852892+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 11,
+      "post": "maia 300 rank up shop.exe: surviving the executive briefing roulette wheel just to get the marketing gloss version of the roadmap 💀 😭",
+      "source_username": "TheRundownAI",
+      "source_type": "x_trend",
+      "source_tweet_id": "2109954950637769058",
+      "source_url": "https://x.com/TheRundownAI/status/2109954950637769058",
+      "source_text": "Top stories in AI today:\n\n- Meta’s Muse Wonder lands at the frontier\n- Andrej Karpathy sketches AI’s ‘sharp funnel’\n- Put Meta’s new Muse Wonder to work\n- Microsoft’s Maia 300 takes aim at Nvidia https://t.co/SpJmTKfs96",
+      "topic": "Maia 300 — Technology · Trending",
+      "format_name": "survival tier lottery.exe",
+      "comedy_mechanism": "inverting the hardware competition into a gambling metaphor where the 'rank' is survival through corporate abstractions",
+      "structure_signature": "system_process label + punishment gambling sim + emoji cluster",
+      "tweet_id": "2109955206092124564",
+      "generated_at": "2026-10-13T10:31:37.181803+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-13",
@@ -732,7 +750,8 @@
     "Alexandr Wang — Technology · Trending",
     "Alexandr Wang — Technology · Trending",
     "Alexandr Wang — Technology · Trending",
-    "X Premium — Technology · Trending"
+    "X Premium — Technology · Trending",
+    "Maia 300 — Technology · Trending"
   ],
   "ai_tech_trend_names_used": []
 }
