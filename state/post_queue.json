@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-13",
-  "daily_count": 13,
-  "ai_call_count": 13,
-  "last_posted_at": "2026-10-13T12:31:31.243084+00:00",
+  "daily_count": 14,
+  "ai_call_count": 14,
+  "last_posted_at": "2026-10-13T13:31:28.542731+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2109985380967555539",
+  "last_tweet_id": "2110000468940456327",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -121,20 +121,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "scam affidavit interruption",
-      "comedy_mechanism": "subverting formal billing logs with pseudolegal existential threats",
-      "used_at": "2026-10-12T17:31:20.328056+00:00",
-      "topic": "Muse Wonder — Technology · Trending",
-      "tweet_id": "2109698444394963179",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109698332293775639",
-      "source_username": "Techmeme",
-      "post_text": "called in a server migration claim for the quantum textbook version of debugging the universe 👀 🥀 🔥",
-      "mutation_stage": "cross_domain_collision",
-      "structure_signature": "bureaucratic category label followed by total collapse punchline"
-    },
     {
       "format_name": "token efficiency watchdog.exe",
       "comedy_mechanism": "humans.exe is crashing due to efficiency gains.",
@@ -398,10 +384,21 @@
       "post_text": "Coders be honest...\nWhat would you build if compute cost nothing? 🔥😭",
       "mutation_stage": "honest opener",
       "structure_signature": "opener + scarcity inversion hypothetical"
+    },
+    {
+      "format_name": "meme_dependency_introspection.exe",
+      "comedy_mechanism": "combines 'be honest' intimacy with '30 seconds' high-stakes panic, framing AI tools as something we need to interrogate rather than just use.",
+      "used_at": "2026-10-13T13:31:28.542731+00:00",
+      "topic": "developer community",
+      "tweet_id": "2110000468940456327",
+      "content_type": "developer_prompt",
+      "content_mode": "developer_original_text_only",
+      "post_text": "Devs be honest... if you had 30 seconds with the person who built your favorite AI tool, what would you ask? 😭🔥",
+      "mutation_stage": "short structure label",
+      "structure_signature": "nervous intimate opener + hypothetical interrogation"
     }
   ],
   "recent_post_fingerprints": [
-    "legalistic penalty declaration ending in a quote fragment followed by distinct emoji cluster",
     "time limit setup followed by frantic hobby contradiction and punchline emojis",
     "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm.",
     "absurd contractual accusation with emoji encoded sarcasm",
@@ -430,7 +427,8 @@
     "noun phrase category header + unexpected triple-convergence setup + compact severity emoji cluster",
     "system_process label + punishment gambling sim + emoji cluster",
     "runtime_error statement + humanist resignation metric + emotional overload emoji cluster",
-    "opener + scarcity inversion hypothetical"
+    "opener + scarcity inversion hypothetical",
+    "nervous intimate opener + hypothetical interrogation"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -749,7 +747,7 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 1,
+  "person_photo_post_count": 2,
   "ai_tech_quote_post_count": 0,
   "next_lane_index": 2,
   "person_photo_posts": [
@@ -765,6 +763,20 @@
       "comedy_mechanism": "uses resource abundance as a proxy for desire, exposing what engineers actually crave when constraints disappear.",
       "structure_signature": "opener + scarcity inversion hypothetical",
       "generated_at": "2026-10-13T12:31:31.243084+00:00",
+      "status": "published_text_only"
+    },
+    {
+      "slot_number": 2,
+      "subject": "developer community",
+      "post": "Devs be honest... if you had 30 seconds with the person who built your favorite AI tool, what would you ask? 😭🔥",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2110000468940456327",
+      "format_name": "meme_dependency_introspection.exe",
+      "comedy_mechanism": "combines 'be honest' intimacy with '30 seconds' high-stakes panic, framing AI tools as something we need to interrogate rather than just use.",
+      "structure_signature": "nervous intimate opener + hypothetical interrogation",
+      "generated_at": "2026-10-13T13:31:28.542731+00:00",
       "status": "published_text_only"
     }
   ],
