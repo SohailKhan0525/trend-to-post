@@ -633,7 +633,7 @@ BANNED_DEBUG_LABEL_PREFIX = re.compile(
     r"^\s*(?:"
     r"[a-z][a-z0-9]*(?:_[a-z0-9]+)+(?:\s+[a-z][a-z0-9]*(?:\.[a-z0-9]{1,8})?)?"
     r"|[a-z][a-z0-9_-]*\.(?:exe|dll|log|json|py)"
-    r"|(?:diagnostic|system|error|status|warning|trace|debug|symptom|eligibility|verification|exception|traceback|runtime|segmentation|assertion|typeerror|valueerror|attributeerror|indexerror|null.pointer|stack.trace|fatal|panic|invalid.operation|index\s+out\s+of\s+bounds|out\s+of\s+bounds|attempting\s+to\s+use)"
+    r"|(?:diagnostic|system|error|status|warning|trace|debug|symptom|eligibility|verification|exception|traceback|runtime|segmentation|assertion|typeerror|valueerror|attributeerror|indexerror|null.pointer|stack.trace|fatal|panic|invalid.operation|index\s+out\s+of\s+bounds|out\s+of\s+bounds|attempting\s+to\s+use[^:\n]{0,100})"
     r"(?:[\s_-]+[a-z0-9_.-]+){0,5}"
     r")\s*:",
     re.IGNORECASE,
@@ -1035,7 +1035,9 @@ def generate_original_text(
 
 SAFETY RETRY:
 Generate a fresh original TEXT-ONLY X post. Do not create an image, chat transcript, thread or quote-post.
-No @mentions, countries, politics, hashtags, URLs, fabricated facts or engagement bait.
+No countries, politics, hashtags, URLs, fabricated facts or engagement bait.
+If this is developer_prompt mode and an exact handle was supplied, include that handle exactly once and no other @mention; otherwise use no @mentions.
+Never start with an error, diagnostic, log, terminal, variable-name or executable-style label. Do not use snake_case or .exe/.log/.json headers.
 Include the requested number of distinct emojis from the main prompt. Never repeat an emoji in one post. Follow the JSON schema exactly.
 """
     payload = {
