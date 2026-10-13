@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-13",
-  "daily_count": 19,
-  "ai_call_count": 22,
-  "last_posted_at": "2026-10-13T18:50:20.434154+00:00",
+  "daily_count": 20,
+  "ai_call_count": 23,
+  "last_posted_at": "2026-10-13T21:01:43.787434+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2110080714053923102",
+  "last_tweet_id": "2110113779262574807",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -121,20 +121,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "semantic energy deficit ledger",
-      "comedy_mechanism": "financial accounting logic applied to processing corporate abundance as a personal consumption cost",
-      "used_at": "2026-10-12T23:31:21.087577+00:00",
-      "topic": "Muse Wonder Full — Technology · Trending",
-      "tweet_id": "2109789044523814934",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109787265111363854",
-      "source_username": "Geiger_Capital",
-      "post_text": "token consumption tax: counting the jargon triage load to deduct available empathy from bank account 💀 ❤️‍🩹",
-      "mutation_stage": "cross_domain_collision",
-      "structure_signature": "noun phrase category header + calculated wear and tear metric + emotional grief emoji"
-    },
     {
       "format_name": "celestial horoscope collision",
       "comedy_mechanism": "mapping algorithmic financial astrology to ancient mysticism",
@@ -386,10 +372,21 @@
       "post_text": "Founders be honest....\n\nWhat is the exact moment a pitch deck stops being a business plan and becomes a work of historical fiction?",
       "mutation_stage": "hypothetical founder dilemma",
       "structure_signature": "opener + blank line + creative fiction comparison question"
+    },
+    {
+      "format_name": "interview_exhaustion_nod",
+      "comedy_mechanism": "contrasting the polite ritual of customer discovery with the internal desire to escape",
+      "used_at": "2026-10-13T21:01:43.787434+00:00",
+      "topic": "developer community",
+      "tweet_id": "2110113779262574807",
+      "content_type": "developer_prompt",
+      "content_mode": "developer_original_text_only",
+      "post_text": "Founders be honest....\n\nAt what point during the user interview do you stop listening to feedback and just nod until they leave? 👀",
+      "mutation_stage": "honest founder question",
+      "structure_signature": "founders_opener_plus_interview_hypothetical"
     }
   ],
   "recent_post_fingerprints": [
-    "code error fragmentation followed by absurdly specific 'poverty ration' comparison.",
     "tech contract label followed by sarcastic behavioral penalty logic",
     "scale labels with escalating chaos levels and emoji coded terror",
     "conceptual app name followed by a specific, paranoid cost query and emotional distress emojis.",
@@ -418,7 +415,8 @@
     "opener + singular empathy (replace stack) + specific hostile impulse (burn file) + emoji cluster",
     "natural opener + specific misanthropic intent + emoji cluster",
     "opener + absurd legal consequence hypothetical + dual emoji cluster",
-    "opener + blank line + creative fiction comparison question"
+    "opener + blank line + creative fiction comparison question",
+    "founders_opener_plus_interview_hypothetical"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -737,7 +735,7 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 7,
+  "person_photo_post_count": 8,
   "ai_tech_quote_post_count": 0,
   "next_lane_index": 2,
   "person_photo_posts": [
@@ -837,6 +835,20 @@
       "comedy_mechanism": "contrasts the dry corporate terminology of a business plan with the creative writing of fantasy literature",
       "structure_signature": "opener + blank line + creative fiction comparison question",
       "generated_at": "2026-10-13T18:50:20.434154+00:00",
+      "status": "published_text_only"
+    },
+    {
+      "slot_number": 8,
+      "subject": "developer community",
+      "post": "Founders be honest....\n\nAt what point during the user interview do you stop listening to feedback and just nod until they leave? 👀",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2110113779262574807",
+      "format_name": "interview_exhaustion_nod",
+      "comedy_mechanism": "contrasting the polite ritual of customer discovery with the internal desire to escape",
+      "structure_signature": "founders_opener_plus_interview_hypothetical",
+      "generated_at": "2026-10-13T21:01:43.787434+00:00",
       "status": "published_text_only"
     }
   ],
