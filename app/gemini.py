@@ -930,7 +930,7 @@ Do not claim they said, did, endorsed, or believe anything. No private details. 
         )
         mode_instructions = f"""CONTENT MODE: SHORT DEVELOPER-COMMUNITY ORIGINAL.
 Write exactly two lines, with no brackets or explanatory notes. Line one must be a natural opener such as "Devs be honest...", "Developers be honest...", "Vibecoders be honest...", "Founders be honest...", "Coders be honest...", or "AI builders be honest...".
-Line two must be one direct, conversational hypothetical question about software, AI, building, founders, or meeting a public developer/tech leader. Most posts should refer to the person or role in plain text WITHOUT an @mention; use an @mention only occasionally when the source explicitly supplies a verified handle. Never make every post a tag.
+Line two must be one direct, conversational hypothetical question about software, AI, building, founders, or meeting a public developer/tech leader. Most posts should refer to the person or role in plain text without an @mention; use an @mention only occasionally when the source explicitly supplies a verified handle. Never make every post a tag.
 Examples of the vibe (vary the person, role, question and wording; do not copy every time):
 - "What would you do if ChatGPT were free forever? 👀💀"
 - "What would you build if compute cost nothing? 🔥😭"
