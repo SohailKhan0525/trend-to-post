@@ -906,6 +906,17 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
         print("Person-photo caption failed validation; no post published.")
         return False
 
+    # Reserve the mention budget before the network publish call. If X accepts
+    # the post but the response times out, the next run must still count it.
+    if mention_handle:
+        mention_record = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "handle": mention_handle,
+            "tweet_id": "pending",
+        }
+        state["mention_post_timestamps"] = (recent_mentions + [mention_record])[-2:]
+        _save_state(state)
+
     try:
         media_id = await client.upload_media(
             image_bytes,
@@ -981,13 +992,10 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
     state["recent_post_fingerprints"] = fingerprints[-30:]
 
     if mention_handle:
-        state["mention_post_timestamps"] = (
-            state.get("mention_post_timestamps", []) + [{
-                "timestamp": now,
-                "handle": mention_handle,
-                "tweet_id": tweet_id,
-            }]
-        )[-2:]
+        for mention_record in reversed(state.get("mention_post_timestamps", [])):
+            if mention_record.get("handle") == mention_handle and mention_record.get("tweet_id") == "pending":
+                mention_record["tweet_id"] = tweet_id
+                break
 
     state.update({
         "day_key": today,
