@@ -23,6 +23,7 @@ ALLOWED_IMAGE_MIMES = {"image/jpeg", "image/png", "image/webp"}
 # (full search name, short display name, topic, X handle without @, aliases)
 PERSON_SUBJECTS = (
     ("Thibault Sottiaux", "Tibo", "Codex / AI engineering", "thsottiaux", ("Tibo Sottiaux",)),
+    ("Poteto", "Poteto", "Grok / AI engineering", "poteto", ("poteto",)),
     ("Sam Altman", "Sam Altman", "AI", "sama", ()),
     ("Greg Brockman", "Greg Brockman", "AI engineering", "gdb", ()),
     ("Mira Murati", "Mira Murati", "AI engineering", "miramurati", ()),
