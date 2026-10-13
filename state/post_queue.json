@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-13",
-  "daily_count": 12,
-  "ai_call_count": 12,
-  "last_posted_at": "2026-10-13T11:31:30.878015+00:00",
-  "last_source_tweet_id": "2109967628441694331",
-  "last_tweet_id": "2109970279506071588",
+  "daily_count": 13,
+  "ai_call_count": 13,
+  "last_posted_at": "2026-10-13T12:31:31.243084+00:00",
+  "last_source_tweet_id": null,
+  "last_tweet_id": "2109985380967555539",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -121,20 +121,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "turing test friction cost calculator",
-      "comedy_mechanism": "applying fintech-style risk calibration metrics to the temporal cost of synthetic identity crises.",
-      "used_at": "2026-10-12T16:28:03.726185+00:00",
-      "topic": "Satya Nadella — Technology · Trending",
-      "tweet_id": "2109682519964803399",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109675234752069805",
-      "source_username": "TheRundownAI",
-      "post_text": "turing test friction cost calculator: wait, how long does the fundamental identity crisis before the self overwrite finishes? 💀 😤 🥀",
-      "mutation_stage": "fractal risk calibration",
-      "structure_signature": "conceptual app name followed by a specific, paranoid cost query and emotional distress emojis."
-    },
     {
       "format_name": "scam affidavit interruption",
       "comedy_mechanism": "subverting formal billing logs with pseudolegal existential threats",
@@ -400,10 +386,21 @@
       "post_text": "index out of bounds: attempting to use a mind in the context of a calculator 💀 🔥",
       "mutation_stage": "structural_break",
       "structure_signature": "runtime_error statement + humanist resignation metric + emotional overload emoji cluster"
+    },
+    {
+      "format_name": "infinite compute hedonism check",
+      "comedy_mechanism": "uses resource abundance as a proxy for desire, exposing what engineers actually crave when constraints disappear.",
+      "used_at": "2026-10-13T12:31:31.243084+00:00",
+      "topic": "developer community",
+      "tweet_id": "2109985380967555539",
+      "content_type": "developer_prompt",
+      "content_mode": "developer_original_text_only",
+      "post_text": "Coders be honest...\nWhat would you build if compute cost nothing? 🔥😭",
+      "mutation_stage": "honest opener",
+      "structure_signature": "opener + scarcity inversion hypothetical"
     }
   ],
   "recent_post_fingerprints": [
-    "@BMW [absurd ultimatum about design] 😂",
     "legalistic penalty declaration ending in a quote fragment followed by distinct emoji cluster",
     "time limit setup followed by frantic hobby contradiction and punchline emojis",
     "inspecific software term followed by existential risk declaration ending in emoji encoded sarcasm.",
@@ -432,7 +429,8 @@
     "sysproc filename + personal competency failure + emoji cluster",
     "noun phrase category header + unexpected triple-convergence setup + compact severity emoji cluster",
     "system_process label + punishment gambling sim + emoji cluster",
-    "runtime_error statement + humanist resignation metric + emotional overload emoji cluster"
+    "runtime_error statement + humanist resignation metric + emotional overload emoji cluster",
+    "opener + scarcity inversion hypothetical"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -526,7 +524,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "x_trends_quote",
+  "last_post_type": "developer_original",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -751,12 +749,27 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 0,
+  "person_photo_post_count": 1,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
-  "person_photo_posts": [],
+  "next_lane_index": 2,
+  "person_photo_posts": [
+    {
+      "slot_number": 1,
+      "subject": "developer community",
+      "post": "Coders be honest...\nWhat would you build if compute cost nothing? 🔥😭",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2109985380967555539",
+      "format_name": "infinite compute hedonism check",
+      "comedy_mechanism": "uses resource abundance as a proxy for desire, exposing what engineers actually crave when constraints disappear.",
+      "structure_signature": "opener + scarcity inversion hypothetical",
+      "generated_at": "2026-10-13T12:31:31.243084+00:00",
+      "status": "published_text_only"
+    }
+  ],
   "ai_tech_quote_posts": [],
-  "person_photo_day_key": null,
+  "person_photo_day_key": "2026-10-13",
   "ai_tech_quote_day_key": null,
   "trend_names_used": [
     "Palantir — Technology · Trending",
