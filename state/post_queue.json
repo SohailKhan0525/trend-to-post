@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-13",
-  "daily_count": 11,
-  "ai_call_count": 11,
-  "last_posted_at": "2026-10-13T10:31:37.181803+00:00",
-  "last_source_tweet_id": "2109954950637769058",
-  "last_tweet_id": "2109955206092124564",
+  "daily_count": 12,
+  "ai_call_count": 12,
+  "last_posted_at": "2026-10-13T11:31:30.878015+00:00",
+  "last_source_tweet_id": "2109967628441694331",
+  "last_tweet_id": "2109970279506071588",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -95,7 +95,8 @@
     "2109905301738496048",
     "2109903580136140953",
     "2109939381133853106",
-    "2109954950637769058"
+    "2109954950637769058",
+    "2109967628441694331"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -120,20 +121,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "fractal risk calibration",
-      "comedy_mechanism": "escalating threats using nominal software metrics to measure emotional terror",
-      "used_at": "2026-10-12T10:31:23.519871+00:00",
-      "topic": "YOU CAN SEE EVERYTHING",
-      "tweet_id": "2109592761162711458",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109589105667354709",
-      "source_username": "Akintola_steve",
-      "post_text": "operational risk scale 1 = forgetting your password 2 = urgent email in inbox 3 = family member asks about markets 👀 🤣 💀",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "scale labels with escalating chaos levels and emoji coded terror"
-    },
     {
       "format_name": "turing test friction cost calculator",
       "comedy_mechanism": "applying fintech-style risk calibration metrics to the temporal cost of synthetic identity crises.",
@@ -399,10 +386,23 @@
       "post_text": "maia 300 rank up shop.exe: surviving the executive briefing roulette wheel just to get the marketing gloss version of the roadmap 💀 😭",
       "mutation_stage": "cross_domain_collision",
       "structure_signature": "system_process label + punishment gambling sim + emoji cluster"
+    },
+    {
+      "format_name": "segmentation_fault_grief_leak",
+      "comedy_mechanism": "inflates a corporate hierarchy upgrade into a fatal error requiring a system reboot.",
+      "used_at": "2026-10-13T11:31:30.878015+00:00",
+      "topic": "Cursor Ultra",
+      "tweet_id": "2109970279506071588",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2109967628441694331",
+      "source_username": "vikktorrrre",
+      "post_text": "index out of bounds: attempting to use a mind in the context of a calculator 💀 🔥",
+      "mutation_stage": "structural_break",
+      "structure_signature": "runtime_error statement + humanist resignation metric + emotional overload emoji cluster"
     }
   ],
   "recent_post_fingerprints": [
-    "@Xbox imagine [x] by [y] [emoji]",
     "@BMW [absurd ultimatum about design] 😂",
     "legalistic penalty declaration ending in a quote fragment followed by distinct emoji cluster",
     "time limit setup followed by frantic hobby contradiction and punchline emojis",
@@ -431,7 +431,8 @@
     "system_process filename + emotional poverty metaphor + emoji cluster",
     "sysproc filename + personal competency failure + emoji cluster",
     "noun phrase category header + unexpected triple-convergence setup + compact severity emoji cluster",
-    "system_process label + punishment gambling sim + emoji cluster"
+    "system_process label + punishment gambling sim + emoji cluster",
+    "runtime_error statement + humanist resignation metric + emotional overload emoji cluster"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -542,10 +543,11 @@
     "2109905301738496048",
     "2109903580136140953",
     "2109939381133853106",
-    "2109954950637769058"
+    "2109954950637769058",
+    "2109967628441694331"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 11,
+  "trend_quote_post_count": 12,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -722,6 +724,22 @@
       "tweet_id": "2109955206092124564",
       "generated_at": "2026-10-13T10:31:37.181803+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 12,
+      "post": "index out of bounds: attempting to use a mind in the context of a calculator 💀 🔥",
+      "source_username": "vikktorrrre",
+      "source_type": "x_trend",
+      "source_tweet_id": "2109967628441694331",
+      "source_url": "https://x.com/vikktorrrre/status/2109967628441694331",
+      "source_text": "Introducing: 𝕏Pass\n\na one subscription that gives your access to 𝕏Premium, Grok, Cursor and Grok Bot.\n\nHere's what each tier gets you:\n\n- Premium $8: X Premium, Grok Lite, Grok API, Cursor\n\n- Plus $30: Premium+, SuperGrok, Grok Bot, Cursor cloud agents\n\n- Super $100: SuperGrok https://t.co/J8G7XekOI3",
+      "topic": "Cursor Ultra",
+      "format_name": "segmentation_fault_grief_leak",
+      "comedy_mechanism": "inflates a corporate hierarchy upgrade into a fatal error requiring a system reboot.",
+      "structure_signature": "runtime_error statement + humanist resignation metric + emotional overload emoji cluster",
+      "tweet_id": "2109970279506071588",
+      "generated_at": "2026-10-13T11:31:30.878015+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-13",
@@ -751,7 +769,8 @@
     "Alexandr Wang — Technology · Trending",
     "Alexandr Wang — Technology · Trending",
     "X Premium — Technology · Trending",
-    "Maia 300 — Technology · Trending"
+    "Maia 300 — Technology · Trending",
+    "Cursor Ultra"
   ],
   "ai_tech_trend_names_used": []
 }
