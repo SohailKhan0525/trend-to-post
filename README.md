@@ -15,13 +15,17 @@ The Trends portion can publish fewer than 12 if X does not surface enough eligib
 
 ## Images and licenses
 
+Images are sourced from Wikimedia Commons only after checking file metadata, subject match, dimensions, and machine-readable reuse terms. Public-domain/CC0 and suitable Creative Commons licenses are accepted; restrictive, non-commercial, no-derivatives, and missing-license images are rejected. Where attribution is required, the bot posts a separate credit reply with the creator, license, and source file page.
+
+Google Images results are not automatically reusable, so the bot does not scrape and repost arbitrary Google Images files. AI-generated photorealistic depictions of identifiable real people are also avoided; a verified existing photo is less likely to misrepresent a developer. If no safe portrait is available, the queue falls back to a text-only developer original rather than losing that post slot.
+
 ## Emoji and caption rules
 
 Automated authored captions and quote-post comments may use **only** these emojis. Quote-post comments are standalone jokes: they must not copy the source's words or put phrases in quotation marks.
 
 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀
 
-The number of emojis is randomized per caption (normally 2–5, with at most one extra when it fits). Repeated emoji tokens and emojis outside the approved palette are rejected. The prompt generator and validators also reject @mentions, hashtags, URLs, country references, blocked political/current-affairs content, and recent-format duplicates.
+The number of emojis is randomized per caption (normally 2–5 for quote-posts and 2–3 for developer originals, with at most one extra when it fits). Repeated emoji tokens and emojis outside the approved palette are rejected. Quote-posts reject @mentions; developer originals may contain one verified @mention only when the rolling 48-hour budget has room. Hashtags, URLs, country references, blocked political/current-affairs content, fake error/log-style openers, and recent-format duplicates are rejected.
 
 The AI/technology Quote Post lane is restricted to AI, models, AI labs, software, developer tools, coding, computing hardware, chips, cloud, apps, robotics, data, and digital product behavior. It only uses topics found in X's live Trends feed and never silently substitutes direct keyword searches.
 
