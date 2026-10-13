@@ -1041,6 +1041,7 @@ def generate_original_text(
                         require_source_link=content_mode == "trend_manual",
                         maximum_char_count=180 if content_mode == "developer_prompt" else (120 if content_mode == "person_prompt" else None),
                         maximum_word_count=28 if content_mode == "developer_prompt" else (16 if content_mode == "person_prompt" else None),
+                        require_blank_line_format=content_mode == "developer_prompt",
                     ))
             except GeminiError as exc:
                 print(f"Cloudflare original text candidate rejected: {exc}")
@@ -1091,6 +1092,7 @@ Include the requested number of distinct emojis from the main prompt. Never repe
                         require_source_link=content_mode == "trend_manual",
                         maximum_char_count=180 if content_mode in {"person_prompt", "developer_prompt"} else None,
                         maximum_word_count=28 if content_mode == "developer_prompt" else (16 if content_mode == "person_prompt" else None),
+                        require_blank_line_format=content_mode == "developer_prompt",
                     )
         except GeminiError as exc:
             last_error = exc
@@ -1111,6 +1113,7 @@ def _validate_original(
     require_source_link: bool = False,
     maximum_char_count: int | None = None,
     maximum_word_count: int | None = None,
+    require_blank_line_format: bool = False,
 ) -> OriginalDraft:
     if not draft.should_post:
         return draft
@@ -1118,6 +1121,17 @@ def _validate_original(
     handle = str(target.get("handle", "")).strip()
     if not post:
         raise GeminiError("Generated company-original is empty.")
+    if require_blank_line_format:
+        sections = post.split("\\n\\n")
+        if len(sections) != 2 or any("\\n" in section for section in sections):
+            raise GeminiError("Developer post must have an opener, one blank line, then one question.")
+        opener, question = sections
+        if opener[:1] in {'"', "'", "“"} or opener[-1:] in {'"', "'", "”"} or question[:1] in {'"', "'", "“"} or question[-1:] in {'"', "'", "”'}:
+            raise GeminiError("Developer post must not wrap the post in quotation marks.")
+        if not re.match(r"^(Devs be honest|Developers be honest|Vibecoders be honest|Founders be honest|Coders be honest|AI builders be honest)\\.{2,}$", opener.strip(), re.IGNORECASE):
+            raise GeminiError("Developer post opener does not match the requested format.")
+        if "?" not in question:
+            raise GeminiError("Developer post second section must be a question.")
     if _has_banned_debug_label(post):
         raise GeminiError("Generated original uses a banned fake diagnostic/log/error opener.")
     if len(post) > ORIGINAL_POST_MAX_CHARS:
