@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-13",
-  "daily_count": 4,
-  "ai_call_count": 4,
-  "last_posted_at": "2026-10-13T03:31:53.596639+00:00",
-  "last_source_tweet_id": "2109843126261350747",
-  "last_tweet_id": "2109849578875027754",
+  "daily_count": 5,
+  "ai_call_count": 5,
+  "last_posted_at": "2026-10-13T04:31:32.701953+00:00",
+  "last_source_tweet_id": "2109861564165812264",
+  "last_tweet_id": "2109864590678913372",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -88,7 +88,8 @@
     "2109799400008753518",
     "2109818908521693554",
     "2109830597975630114",
-    "2109843126261350747"
+    "2109843126261350747",
+    "2109861564165812264"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -113,18 +114,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "library guilt speed-interrogation",
-      "comedy_mechanism": "contrasting massive digital excess with absurdly specific trivial usage under pressure",
-      "used_at": "2026-10-10T14:01:45.648699+00:00",
-      "topic": "Gabe Newell",
-      "tweet_id": "2108920926826099085",
-      "content_type": "photo_prompt",
-      "content_mode": "licensed_person_photo",
-      "post_text": "you have thirty seconds to explain to Gabe Newell why your backlog has three hundred unplayed indie roguelikes while you only play twenty minutes of pinball 💀 🫠",
-      "mutation_stage": "countdown interrogation",
-      "structure_signature": "time limit setup followed by frantic hobby contradiction and punchline emojis"
-    },
     {
       "format_name": "software licensing hypothesis",
       "comedy_mechanism": "reversing promotional marketing into a contractual liability statement regarding creative autonomy and hallucination risk.",
@@ -390,10 +379,23 @@
       "post_text": "debt maturity treadmill: future payout queue starts now 💀 🥀 🔥",
       "mutation_stage": "structural_break",
       "structure_signature": "bureaucratic category header + forced queue action + emoji cluster"
+    },
+    {
+      "format_name": "unhinged soft-skills competency matrix",
+      "comedy_mechanism": "corporate human-resources taxonomy inverted to diagnose shared psychopathy between competitors",
+      "used_at": "2026-10-13T04:31:32.701953+00:00",
+      "topic": "OpenAI and Anthropic",
+      "tweet_id": "2109864590678913372",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2109861564165812264",
+      "source_username": "batwood011",
+      "post_text": "approval_slippage_level_1: we share the same toxic perfectionism grief loop 💀 👀",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "vertical competency file name + arbitrary output metric + shared emotion terminus"
     }
   ],
   "recent_post_fingerprints": [
-    "terminal execution log followed by panic audio output",
     "corporate confession ending in unhinged positive metrics and distinct punchline emojis",
     "casual intro statement followed by escalating absurd technical demands ending with casual signoff and punchline emojis",
     "patch notes label followed by developer update and punchline emojis",
@@ -422,7 +424,8 @@
     "absurd historical analogy for current speculative behavior",
     "system_process filename followed by maliciously specific and emotionally resonant failure cause.",
     "system_process filename + empathy-deficit cost calculation + emoji encoded satirical penalty",
-    "bureaucratic category header + forced queue action + emoji cluster"
+    "bureaucratic category header + forced queue action + emoji cluster",
+    "vertical competency file name + arbitrary output metric + shared emotion terminus"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -526,10 +529,11 @@
     "2109799400008753518",
     "2109818908521693554",
     "2109830597975630114",
-    "2109843126261350747"
+    "2109843126261350747",
+    "2109861564165812264"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 4,
+  "trend_quote_post_count": 5,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -594,6 +598,22 @@
       "tweet_id": "2109849578875027754",
       "generated_at": "2026-10-13T03:31:53.596639+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 5,
+      "post": "approval_slippage_level_1: we share the same toxic perfectionism grief loop 💀 👀",
+      "source_username": "batwood011",
+      "source_type": "x_trend",
+      "source_tweet_id": "2109861564165812264",
+      "source_url": "https://x.com/batwood011/status/2109861564165812264",
+      "source_text": "It's taste all the way down.\n\nOpenAI and Anthropic have exquisite taste.",
+      "topic": "OpenAI and Anthropic",
+      "format_name": "unhinged soft-skills competency matrix",
+      "comedy_mechanism": "corporate human-resources taxonomy inverted to diagnose shared psychopathy between competitors",
+      "structure_signature": "vertical competency file name + arbitrary output metric + shared emotion terminus",
+      "tweet_id": "2109864590678913372",
+      "generated_at": "2026-10-13T04:31:32.701953+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-13",
@@ -616,7 +636,8 @@
     "Palantir — Technology · Trending",
     "X Premium — Technology · Trending",
     "Zuck — Technology · Trending",
-    "HCL Tech"
+    "HCL Tech",
+    "OpenAI and Anthropic"
   ],
   "ai_tech_trend_names_used": []
 }
