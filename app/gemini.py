@@ -640,10 +640,13 @@ BANNED_DEBUG_LABEL_PREFIX = re.compile(
 )
 
 def _has_banned_debug_label(text: str) -> bool:
-    """True for fake log/diagnostic headers used as a meme template."""
+    """True if any line starts with a fake log/diagnostic header."""
     stripped = str(text or "").strip()
-    first_line = stripped.splitlines()[0] if stripped else ""
-    return bool(BANNED_DEBUG_LABEL_PREFIX.match(first_line))
+    return any(
+        BANNED_DEBUG_LABEL_PREFIX.match(line.strip())
+        for line in stripped.splitlines()
+        if line.strip()
+    )
 
 def _validate_quote_against_source(
     draft: QuoteDraft,
