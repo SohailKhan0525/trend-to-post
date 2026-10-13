@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock, patch
 from types import SimpleNamespace
 
 from app import post_queue
-from app.gemini import QuoteDraft
+from app.gemini import OriginalDraft, QuoteDraft
 
 
 class FakeClient:
@@ -144,6 +144,35 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         client.retweet.assert_not_awaited()
         self.assertEqual(state["trend_quote_posts"][-1]["status"], "published")
         self.assertEqual(state["last_post_type"], "x_trends_quote")
+
+    async def test_text_only_developer_fallback_publishes_when_no_photo_is_available(self):
+        state = post_queue._new_state()
+        draft = OriginalDraft(
+            True,
+            "Devs be honest...\nWhat would you build if compute cost nothing? 👀💀",
+            "developer hypothetical",
+            "",
+            "developer community",
+            "free compute question",
+            "relatable trade-off",
+            "two-line community opener plus hypothetical",
+            "developer_prompt",
+        )
+        client = SimpleNamespace(
+            create_tweet=AsyncMock(return_value=SimpleNamespace(id="4444444444444444444"))
+        )
+        with (
+            patch.object(post_queue, "generate_original_text", return_value=draft),
+            patch.object(post_queue, "_save_state"),
+        ):
+            result = await post_queue._post_developer_original_text_only(state, client)
+
+        self.assertTrue(result)
+        client.create_tweet.assert_awaited_once_with(text=draft.post_text)
+        self.assertEqual(state["person_photo_post_count"], 1)
+        self.assertEqual(state["daily_count"], 1)
+        self.assertEqual(state["last_post_type"], "developer_original")
+        self.assertEqual(state["person_photo_posts"][-1]["status"], "published_text_only")
 
     async def test_post_queue_enables_original_developer_prompt_lane(self):
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 8)
