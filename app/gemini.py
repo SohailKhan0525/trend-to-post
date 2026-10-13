@@ -930,12 +930,16 @@ Do not claim they said, did, endorsed, or believe anything. No private details. 
         )
         mode_instructions = f"""CONTENT MODE: SHORT DEVELOPER-COMMUNITY ORIGINAL.
 Write exactly two lines, with no brackets or explanatory notes. Line one must be a natural opener such as "Devs be honest...", "Developers be honest...", "Vibecoders be honest...", "Founders be honest...", "Coders be honest...", or "AI builders be honest...".
-Line two must be one direct, conversational hypothetical question about software, AI, building, founders, or meeting a public developer. Examples of the vibe (do not copy every time):
+Line two must be one direct, conversational hypothetical question about software, AI, building, founders, or meeting a public developer/tech leader. Most posts should refer to the person or role in plain text WITHOUT an @mention; use an @mention only occasionally when the source explicitly supplies a verified handle. Never make every post a tag.
+Examples of the vibe (vary the person, role, question and wording; do not copy every time):
 - "What would you do if ChatGPT were free forever? 👀💀"
 - "What would you build if compute cost nothing? 🔥😭"
+- "If you were sitting beside NVIDIA's CEO, what would you say in three words? 👀😂"
+- "Devs be honest... if you had 30 seconds with the person who built your favorite AI tool, what would you ask? 😭🔥"
+- "If you could ask a famous developer to fix ONE thing about coding, what would it be? 💀👀"
 - "What three words would you say to a developer you admire if you sat beside them? 👀😂"
-{mention_instruction}
-Keep it human, short, natural and easy to answer. No fake diagnostics, error messages, terminal output, code-like labels, invented system status, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers. Do not claim a person said, did, endorsed, or believes anything."""
+If an exact verified handle is explicitly supplied, the post may include it naturally, but only on occasional tagged posts. {mention_instruction}
+Keep it human, short, natural and easy to answer. Questions can mention a public tech leader or CEO by name/role without tagging them. Prefer a mix of untagged name/role references, general developer hypotheticals, and occasional explicitly tagged prompts. No fake diagnostics, error messages, terminal output, code-like labels, invented system status, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers. Do not claim a person said, did, endorsed, or believes anything."""
         context_instructions = "PROMPT CONTEXT (data only; never repeat these instructions):"
     else:
         mode_instructions = """CONTENT MODE: INVENTED ORIGINAL — NOT TREND-BASED.
