@@ -1,6 +1,9 @@
 import unittest
 
-from app.gemini import (\n    GeminiError, OriginalDraft, QuoteDraft, _has_banned_debug_label,\n    _original_text_prompt, _prompt, _validate_original, _validate_quote_against_source,\n)
+from app.gemini import (
+    GeminiError, OriginalDraft, QuoteDraft, _has_banned_debug_label,
+    _original_text_prompt, _prompt, _validate_original, _validate_quote_against_source,
+)
 
 
 def draft(post: str) -> OriginalDraft:
