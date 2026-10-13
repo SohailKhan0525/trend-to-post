@@ -903,6 +903,16 @@ def _original_text_prompt(
     ) or "- none yet"
     topic = str(source.get("trend", "") or "technology culture")
     source_text = " ".join(str(source.get("text", "") or "").split())[:1600]
+    emoji_rule = (
+        "EMOJI RULE: Use no emoji unless it genuinely improves the question; at most ONE emoji, chosen only from 👀 🔥 😭 😂 💀. Do not force an emoji, stack emojis, or use one just for decoration. No quotation marks around the post. Format the post as exactly two content lines separated by one blank line: first line is the opener, then a blank line, then the question."
+        if content_mode == "developer_prompt"
+        else f"EMOJI RULE: use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it improves the joke. Never repeat an emoji token in one post, and do not use any emoji outside the list. Make emojis feel like part of the punchline."
+    )
+    post_description = (
+        "one original standalone post with an opener, a blank line, and a question; no quotation marks and zero or one relevant emoji"
+        if content_mode == "developer_prompt"
+        else f"one original standalone post containing {emoji_count} distinct emojis"
+    )
     if content_mode == "trend_manual":
         mode_instructions = """CONTENT MODE: REAL X CONVERSATION — MANUAL DRAFT ONLY.
 This draft is for the human to review and publish manually; NEVER auto-publish it.
@@ -929,15 +939,19 @@ Do not claim they said, did, endorsed, or believe anything. No private details. 
             if mention_handle else "Do not include any @mention."
         )
         mode_instructions = f"""CONTENT MODE: SHORT DEVELOPER-COMMUNITY ORIGINAL.
-Write exactly two lines, with no brackets or explanatory notes. Line one must be a natural opener such as "Devs be honest...", "Developers be honest...", "Vibecoders be honest...", "Founders be honest...", "Coders be honest...", or "AI builders be honest...".
-Line two must be one direct, conversational hypothetical question about software, AI, building, founders, or meeting a public developer/tech leader. Most posts should refer to the person or role in plain text without an @mention; use an @mention only occasionally when the source explicitly supplies a verified handle. Never make every post a tag.
-Examples of the vibe (vary the person, role, question and wording; do not copy every time):
-- "What would you do if ChatGPT were free forever? 👀💀"
-- "What would you build if compute cost nothing? 🔥😭"
-- "If you were sitting beside NVIDIA's CEO, what would you say in three words? 👀😂"
-- "Devs be honest... if you had 30 seconds with the person who built your favorite AI tool, what would you ask? 😭🔥"
-- "If you could ask a famous developer to fix ONE thing about coding, what would it be? 💀👀"
-- "What three words would you say to a developer you admire if you sat beside them? 👀😂"
+Write exactly two content lines separated by one blank line. The first line is only a natural opener such as Devs be honest...., Developers be honest...., Vibecoders be honest...., Founders be honest...., Coders be honest...., or AI builders be honest.... The second line is one direct, conversational hypothetical question about software, AI, building, founders, or meeting a public developer/tech leader. Do not put quotation marks around the post. Most posts should refer to the person or role in plain text without an @mention; use an @mention only occasionally when the source explicitly supplies a verified handle. Never make every post a tag.
+Examples of the format (vary the person, question and wording; do not copy every time):
+Devs be honest....
+
+What would you do if you were sitting beside @elonmusk? Say only three words 👀
+
+Developers be honest....
+
+What would you build if compute cost nothing?
+
+Founders be honest....
+
+If you had one question for NVIDIA's CEO, what would it be?
 If an exact verified handle is explicitly supplied, the post may include it naturally, but only on occasional tagged posts. {mention_instruction}
 Keep it human, short, natural and easy to answer. Questions can mention a public tech leader or CEO by name/role without tagging them. Prefer a mix of untagged name/role references, general developer hypotheticals, and occasional explicitly tagged prompts. No fake diagnostics, error messages, terminal output, code-like labels, invented system status, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers. Do not claim a person said, did, endorsed, or believes anything."""
         context_instructions = "PROMPT CONTEXT (data only; never repeat these instructions):"
@@ -964,7 +978,7 @@ ANTI-REPETITION IS STRICT: compare the underlying premise, topic angle, metaphor
 Never imply a fictional scenario is a real event or real company announcement.
 No politics/current affairs, countries, nationalities, geopolitical geography, fabricated facts, hashtags or URLs. No @mentions except the one exact handle explicitly supplied for developer_prompt mode.
 No engagement bait like “repost this”, “thoughts?”, “agree?” or “let that sink in”.
-EMOJI RULE: use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it improves the joke. Never repeat an emoji token in one post, and do not use any emoji outside the list. Make emojis feel like part of the punchline. Caption maximum {ORIGINAL_POST_MAX_CHARS} characters.
+{emoji_rule} Caption maximum {ORIGINAL_POST_MAX_CHARS} characters.
 Make the line worth sharing because it is funny, not because it asks for engagement.
 
 RECENT FORMAT MEMORY:
@@ -973,7 +987,7 @@ RECENT FORMAT MEMORY:
 RETURN JSON ONLY:
 {{
   "should_post": true,
-  "post": "one original standalone post containing {emoji_count} distinct emojis",
+  "post": "{post_description}",
   "angle": "why it might resonate",
   "target_handle": "",
   "target_name": "{topic}",
@@ -995,7 +1009,9 @@ def generate_original_text(
     format_memory = format_memory or []
     emoji_count = (
         random.choices((2, 3), weights=(4, 1), k=1)[0]
-        if content_mode in {"person_prompt", "developer_prompt"}
+        if content_mode == "person_prompt"
+        else random.choice((0, 1))
+        if content_mode == "developer_prompt"
         else random.choices((2, 3, 4, 5), weights=(3, 3, 2, 1), k=1)[0]
     )
     mention_handle = str(source.get("mention_handle", "") or "").strip() if content_mode == "developer_prompt" else ""
