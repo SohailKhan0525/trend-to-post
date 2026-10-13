@@ -1122,8 +1122,8 @@ def _validate_original(
     if not post:
         raise GeminiError("Generated company-original is empty.")
     if require_blank_line_format:
-        sections = post.split("\\n\\n")
-        if len(sections) != 2 or any("\\n" in section for section in sections):
+        sections = post.split("\n\n")
+        if len(sections) != 2 or any("\n" in section for section in sections):
             raise GeminiError("Developer post must have an opener, one blank line, then one question.")
         opener, question = sections
         if opener[:1] in {'"', "'", "“"} or opener[-1:] in {'"', "'", "”"} or question[:1] in {'"', "'", "“"} or question[-1:] in {'"', "'", "”'}:
