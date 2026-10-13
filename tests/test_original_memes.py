@@ -28,6 +28,7 @@ class OriginalTextValidationTests(unittest.TestCase):
             "error_status: retry failed 💀🔥",
             "attempting to use a mind in the context of a calculator: 💀🔥",
             "Traceback: the developer has feelings 😭🔥",
+            "Devs be honest...\nindex out of bounds: attempting to use a mind in a calculator 💀🔥",
         )
         for post in examples:
             with self.subTest(post=post):
