@@ -54,7 +54,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("No fake diagnostics", prompt)
 
     def test_developer_prompt_enforces_opener_blank_line_question_and_optional_emoji(self) -> None:
-        valid = draft("Devs be honest....\\n\\nWhat would you build if compute cost nothing?")
+        valid = draft("Devs be honest....\n\nWhat would you build if compute cost nothing?")
         self.assertIs(
             _validate_original(
                 valid,
@@ -69,10 +69,10 @@ class OriginalTextValidationTests(unittest.TestCase):
 
     def test_developer_prompt_rejects_quotes_bad_line_breaks_and_emoji_stacking(self) -> None:
         invalid_posts = (
-            '"Devs be honest....\\n\\nWhat would you build if compute cost nothing?"',
-            "Devs be honest....\\nWhat would you build if compute cost nothing?",
-            "Devs be honest....\\n\\nWhat would you build if compute cost nothing? 👀🔥",
-            "Random opener....\\n\\nWhat would you build if compute cost nothing?",
+            '"Devs be honest....\n\nWhat would you build if compute cost nothing?"',
+            "Devs be honest....\nWhat would you build if compute cost nothing?",
+            "Devs be honest....\n\nWhat would you build if compute cost nothing? 👀🔥",
+            "Random opener....\n\nWhat would you build if compute cost nothing?",
         )
         for post in invalid_posts:
             with self.subTest(post=post):
