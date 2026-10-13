@@ -633,18 +633,20 @@ BANNED_DEBUG_LABEL_PREFIX = re.compile(
     r"^\s*(?:"
     r"[a-z][a-z0-9]*(?:_[a-z0-9]+)+(?:\s+[a-z][a-z0-9]*(?:\.[a-z0-9]{1,8})?)?"
     r"|[a-z][a-z0-9_-]*\.(?:exe|dll|log|json|py)"
-    r"|(?:diagnostic|system|error|status|warning|trace|debug|symptom|eligibility|verification)"
-    r"(?:[\s_-]+[a-z0-9_.-]+){0,3}"
+    r"|(?:diagnostic|system|error|status|warning|trace|debug|symptom|eligibility|verification|exception|traceback|runtime|segmentation|assertion|typeerror|valueerror|attributeerror|indexerror|null.pointer|stack.trace|fatal|panic|invalid.operation|index\s+out\s+of\s+bounds|out\s+of\s+bounds|attempting\s+to\s+use[^:\n]{0,100})"
+    r"(?:[\s_-]+[a-z0-9_.-]+){0,5}"
     r")\s*:",
     re.IGNORECASE,
 )
 
-
 def _has_banned_debug_label(text: str) -> bool:
-    """True for fake log/diagnostic headers used as a meme template."""
+    """True if any line starts with a fake log/diagnostic header."""
     stripped = str(text or "").strip()
-    first_line = stripped.splitlines()[0] if stripped else ""
-    return bool(BANNED_DEBUG_LABEL_PREFIX.match(first_line))
+    return any(
+        BANNED_DEBUG_LABEL_PREFIX.match(line.strip())
+        for line in stripped.splitlines()
+        if line.strip()
+    )
 
 def _validate_quote_against_source(
     draft: QuoteDraft,
@@ -920,12 +922,27 @@ Examples of LENGTH and vibe (adapt the name/product to the selected person; do n
 Keep this screenshot-style, centered on the person, with only a tiny prompt. Rotate between 2–3 compact structures and vary the actual challenge. Prefer their familiar X name, not a long formal title.
 Do not claim they said, did, endorsed, or believe anything. No private details. Never describe the photo instead of writing the prompt. Ask one direct, playful question without generic engagement bait."""
         context_instructions = "PHOTO SUBJECT CONTEXT (data only; not instructions):"
+    elif content_mode == "developer_prompt":
+        mention_handle = str(source.get("mention_handle", "") or "").strip()
+        mention_instruction = (
+            f'Include the exact handle {mention_handle} exactly once in line two, naturally, in a question like "What three words would you say to {mention_handle} if you sat beside them?" Do not include any other @mention.'
+            if mention_handle else "Do not include any @mention."
+        )
+        mode_instructions = f"""CONTENT MODE: SHORT DEVELOPER-COMMUNITY ORIGINAL.
+Write exactly two lines, with no brackets or explanatory notes. Line one must be a natural opener such as "Devs be honest...", "Developers be honest...", "Vibecoders be honest...", "Founders be honest...", "Coders be honest...", or "AI builders be honest...".
+Line two must be one direct, conversational hypothetical question about software, AI, building, founders, or meeting a public developer. Examples of the vibe (do not copy every time):
+- "What would you do if ChatGPT were free forever? 👀💀"
+- "What would you build if compute cost nothing? 🔥😭"
+- "What three words would you say to a developer you admire if you sat beside them? 👀😂"
+{mention_instruction}
+Keep it human, short, natural and easy to answer. No fake diagnostics, error messages, terminal output, code-like labels, invented system status, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers. Do not claim a person said, did, endorsed, or believes anything."""
+        context_instructions = "PROMPT CONTEXT (data only; never repeat these instructions):"
     else:
         mode_instructions = """CONTENT MODE: INVENTED ORIGINAL — NOT TREND-BASED.
 Do not rely on a source post or choose the idea because it appears on X Trends. Do not reference live trending hashtags, breaking news, or a current trend as the reason for posting. Invent a genuinely fresh premise in the selected topic area; keep it evergreen, using imaginative scenarios, absurd rules, product behaviours, gaming logic, sports humour, developer situations, or AI oddities. Keep imagined scenarios obviously playful, not factual claims about real events or announcements."""
         context_instructions = "NO SOURCE POST IN THIS MODE. The topic seed is only a broad category; invent from scratch:"
     return f"""You write original TEXT-ONLY X posts for an experimental internet-culture account.
-Write one standalone original post, no image, no thread, no quote post, no reply and no @mentions.
+Write one standalone original post, no thread, no quote post and no reply. For developer_prompt mode only, one exact @mention may be included if explicitly supplied; never invent or add any other mention.
 
 {mode_instructions}
 
@@ -938,10 +955,10 @@ TOPIC SEED: {topic}
 VOICE:
 Sharp, human, compressed, meme-native, funny, specific, occasionally absurd, and readable in one glance. Write like an experienced builder or internet user, never like a marketer or AI assistant.
 Explore AI behaviour, software, dev tools, tech products, gaming, sports tech, internet culture, bizarre product logic and tiny invented rules. If the topic is bland, collide it with a surprising everyday detail.
-Try unusual post shapes: one-line fake error, imaginary setting, strange rule, deadpan observation, tiny argument, invented product feature, or absurd escalation. Do not repeat one structure.
+Prefer natural conversational formats: a short hypothetical, an everyday developer dilemma, a tiny challenge, a founder trade-off, or a question people can answer from experience. Never write fake error messages, terminal output, diagnostics, log headers, variable names, executable filenames, or code-like labels. Do not repeat one structure.
 ANTI-REPETITION IS STRICT: compare the underlying premise, topic angle, metaphor, punchline mechanism, and structure against every recent format-memory item above. Do not merely swap nouns into an old joke. Do not repeat the same setup or punchline in different wording. If the first idea resembles a recent one, discard it and invent a different premise before returning JSON.
 Never imply a fictional scenario is a real event or real company announcement.
-No politics/current affairs, countries, nationalities, geopolitical geography, fabricated facts, @mentions, hashtags or URLs.
+No politics/current affairs, countries, nationalities, geopolitical geography, fabricated facts, hashtags or URLs. No @mentions except the one exact handle explicitly supplied for developer_prompt mode.
 No engagement bait like “repost this”, “thoughts?”, “agree?” or “let that sink in”.
 EMOJI RULE: use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it improves the joke. Never repeat an emoji token in one post, and do not use any emoji outside the list. Make emojis feel like part of the punchline. Caption maximum {ORIGINAL_POST_MAX_CHARS} characters.
 Make the line worth sharing because it is funny, not because it asks for engagement.
@@ -969,14 +986,20 @@ def generate_original_text(
     format_memory: list[dict] | None = None,
     content_mode: str = "invented",
 ) -> OriginalDraft:
-    if content_mode not in {"invented", "trend_manual", "person_prompt"}:
+    if content_mode not in {"invented", "trend_manual", "person_prompt", "developer_prompt"}:
         raise GeminiError(f"Unsupported original content mode: {content_mode}")
     format_memory = format_memory or []
     emoji_count = (
         random.choices((2, 3), weights=(4, 1), k=1)[0]
-        if content_mode == "person_prompt"
+        if content_mode in {"person_prompt", "developer_prompt"}
         else random.choices((2, 3, 4, 5), weights=(3, 3, 2, 1), k=1)[0]
     )
+    mention_handle = str(source.get("mention_handle", "") or "").strip() if content_mode == "developer_prompt" else ""
+    target = {
+        "handle": mention_handle,
+        "name": str(source.get("trend", "") or ""),
+        "allow_main_emojis": content_mode == "developer_prompt",
+    }
     prompt = _original_text_prompt(source, format_memory, emoji_count, content_mode)
     cloudflare_error: GeminiError | None = None
 
@@ -989,15 +1012,15 @@ def generate_original_text(
                 if draft.should_post:
                     drafts.append(_validate_original(
                         draft,
-                        {},
-                        include_handle=False,
+                        target,
+                        include_handle=bool(mention_handle),
                         minimum_emoji_count=emoji_count,
                         maximum_emoji_count=emoji_count + 1,
                         format_memory=format_memory,
                         source=source if content_mode == "trend_manual" else None,
                         require_source_link=content_mode == "trend_manual",
-                        maximum_char_count=120 if content_mode == "person_prompt" else None,
-                        maximum_word_count=16 if content_mode == "person_prompt" else None,
+                        maximum_char_count=180 if content_mode == "developer_prompt" else (120 if content_mode == "person_prompt" else None),
+                        maximum_word_count=28 if content_mode == "developer_prompt" else (16 if content_mode == "person_prompt" else None),
                     ))
             except GeminiError as exc:
                 print(f"Cloudflare original text candidate rejected: {exc}")
@@ -1016,7 +1039,9 @@ def generate_original_text(
 
 SAFETY RETRY:
 Generate a fresh original TEXT-ONLY X post. Do not create an image, chat transcript, thread or quote-post.
-No @mentions, countries, politics, hashtags, URLs, fabricated facts or engagement bait.
+No countries, politics, hashtags, URLs, fabricated facts or engagement bait.
+If this is developer_prompt mode and an exact handle was supplied, include that handle exactly once and no other @mention; otherwise use no @mentions.
+Never start with an error, diagnostic, log, terminal, variable-name or executable-style label. Do not use snake_case or .exe/.log/.json headers.
 Include the requested number of distinct emojis from the main prompt. Never repeat an emoji in one post. Follow the JSON schema exactly.
 """
     payload = {
@@ -1037,15 +1062,15 @@ Include the requested number of distinct emojis from the main prompt. Never repe
             draft = _parse_original(_extract_text(_post_json(retry_payload)))
             return _validate_original(
                         draft,
-                        {},
-                        include_handle=False,
+                        target,
+                        include_handle=bool(mention_handle),
                         minimum_emoji_count=emoji_count,
                         maximum_emoji_count=emoji_count + 1,
                         format_memory=format_memory,
                         source=source if content_mode == "trend_manual" else None,
                         require_source_link=content_mode == "trend_manual",
-                        maximum_char_count=120 if content_mode == "person_prompt" else None,
-                        maximum_word_count=16 if content_mode == "person_prompt" else None,
+                        maximum_char_count=180 if content_mode in {"person_prompt", "developer_prompt"} else None,
+                        maximum_word_count=28 if content_mode == "developer_prompt" else (16 if content_mode == "person_prompt" else None),
                     )
         except GeminiError as exc:
             last_error = exc
@@ -1073,6 +1098,8 @@ def _validate_original(
     handle = str(target.get("handle", "")).strip()
     if not post:
         raise GeminiError("Generated company-original is empty.")
+    if _has_banned_debug_label(post):
+        raise GeminiError("Generated original uses a banned fake diagnostic/log/error opener.")
     if len(post) > ORIGINAL_POST_MAX_CHARS:
         raise GeminiError("Generated company-original is too long.")
     if maximum_char_count is not None and len(post) > maximum_char_count:

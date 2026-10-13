@@ -21,6 +21,38 @@ def draft(post: str) -> OriginalDraft:
 
 
 class OriginalTextValidationTests(unittest.TestCase):
+    def test_bans_fake_error_and_machine_log_openers(self) -> None:
+        examples = (
+            "index out of bounds: attempting to use a mind in the context of a calculator 💀🔥",
+            "symptom_eligibility verification.exe: user requires higher api tier 😭🥀",
+            "error_status: retry failed 💀🔥",
+            "attempting to use a mind in the context of a calculator: 💀🔥",
+            "Traceback: the developer has feelings 😭🔥",
+            "Devs be honest...\nindex out of bounds: attempting to use a mind in a calculator 💀🔥",
+        )
+        for post in examples:
+            with self.subTest(post=post):
+                self.assertTrue(_has_banned_debug_label(post))
+                with self.assertRaises(GeminiError):
+                    _validate_original(draft(post), {}, include_handle=False)
+
+    def test_developer_prompt_mode_has_natural_two_line_examples_and_optional_single_tag(self) -> None:
+        prompt = _original_text_prompt(
+            {"trend": "Tibo", "text": "Real photo of Tibo", "mention_handle": "@thsottiaux"},
+            content_mode="developer_prompt",
+        )
+        self.assertIn("Devs be honest...", prompt)
+        self.assertIn("ChatGPT were free forever", prompt)
+        self.assertIn("Include the exact handle @thsottiaux exactly once", prompt)
+        self.assertIn("No fake diagnostics", prompt)
+
+    def test_developer_prompt_without_handle_forbids_mentions(self) -> None:
+        prompt = _original_text_prompt(
+            {"trend": "Sam Altman", "text": "licensed portrait"},
+            content_mode="developer_prompt",
+        )
+        self.assertIn("Do not include any @mention", prompt)
+
     def test_valid_text_only_original_has_two_distinct_emojis(self) -> None:
         value = draft("my software update asked me to emotionally prepare 😭🔥")
         self.assertIs(_validate_original(value, {}, include_handle=False), value)

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import os
 import random
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from twikit import Client
@@ -30,8 +30,8 @@ from .trend_source import (
 STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
-TREND_QUOTE_POSTS_PER_DAY = 20
-PERSON_PHOTO_POSTS_PER_DAY = 0
+TREND_QUOTE_POSTS_PER_DAY = 12
+PERSON_PHOTO_POSTS_PER_DAY = 8
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
 # Allow retries across flaky source searches/provider responses without changing
 # the hard cap of twenty successfully published main posts.
@@ -106,6 +106,7 @@ def _new_state() -> dict:
         "person_photo_day_key": None,
         "person_photo_post_count": 0,
         "person_photo_posts": [],
+        "mention_post_timestamps": [],
         "person_photo_title_history": [],
         "person_photo_subject_history": [],
         "skipped_person_image_titles": [],
@@ -116,6 +117,27 @@ def _new_state() -> dict:
         "next_lane_index": 0,
     }
 
+
+
+def _active_mention_posts(state: dict, now: datetime | None = None) -> list[dict]:
+    """Return mention-post records still inside the rolling 48-hour limit."""
+    current = now or datetime.now(timezone.utc)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=timezone.utc)
+    active: list[dict] = []
+    for item in state.get("mention_post_timestamps", []):
+        if not isinstance(item, dict):
+            continue
+        try:
+            timestamp = datetime.fromisoformat(str(item.get("timestamp", "")))
+            if timestamp.tzinfo is None:
+                timestamp = timestamp.replace(tzinfo=timezone.utc)
+            age = current.astimezone(timezone.utc) - timestamp.astimezone(timezone.utc)
+        except (TypeError, ValueError):
+            continue
+        if age < timedelta(hours=48):
+            active.append(item)
+    return active
 
 def _history(value: object) -> list[str]:
     if not isinstance(value, list):
@@ -791,6 +813,105 @@ async def _find_active_x_person_handles(
     return active
 
 
+async def _post_developer_original_text_only(state: dict, client: Client) -> bool:
+    """Fallback to a text-only developer prompt when no safe photo is available."""
+    today = _today()
+    if int(state.get("person_photo_post_count", 0)) >= PERSON_PHOTO_POSTS_PER_DAY:
+        return False
+    if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
+        return False
+    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+        print("AI generation-attempt budget reached before text-only developer original.")
+        return False
+
+    payload = {
+        "trend": "developer community",
+        "text": "Evergreen questions about software, AI tools, building, and founder life.",
+        "mention_handle": "",
+    }
+    state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
+    _save_state(state)
+    try:
+        draft = generate_original_text(
+            payload,
+            state.get("format_lab", []),
+            content_mode="developer_prompt",
+        )
+    except GeminiError as exc:
+        print(f"Text-only developer original generation failed: {exc}")
+        return False
+
+    text = draft.post_text.strip()
+    if not draft.should_post or not text or len(text) > 180:
+        print("Text-only developer original failed validation; no post published.")
+        return False
+
+    try:
+        tweet = await client.create_tweet(text=text)
+    except Exception as exc:
+        raise QueueError(f"Text-only developer original post failed: {exc}") from exc
+
+    tweet_id = str(getattr(tweet, "id", "") or "")
+    if not tweet_id:
+        raise QueueError(
+            "X accepted the text-only developer original but returned no tweet ID; inspect the account before retrying."
+        )
+
+    now = datetime.now(timezone.utc).isoformat()
+    item = {
+        "slot_number": int(state.get("person_photo_post_count", 0)) + 1,
+        "subject": "developer community",
+        "post": text,
+        "image_title": "",
+        "image_source_url": "",
+        "license_name": "",
+        "tweet_id": tweet_id,
+        "format_name": draft.format_name,
+        "comedy_mechanism": draft.comedy_mechanism,
+        "structure_signature": draft.structure_signature,
+        "generated_at": now,
+        "status": "published_text_only",
+    }
+    state["person_photo_posts"] = (
+        state.get("person_photo_posts", []) + [item]
+    )[-PERSON_PHOTO_POSTS_PER_DAY:]
+    lab = state.get("format_lab", [])
+    lab.append({
+        "format_name": draft.format_name or "developer community question",
+        "comedy_mechanism": draft.comedy_mechanism,
+        "used_at": now,
+        "topic": "developer community",
+        "tweet_id": tweet_id,
+        "content_type": "developer_prompt",
+        "content_mode": "developer_original_text_only",
+        "post_text": text,
+        "mutation_stage": draft.hook_type,
+        "structure_signature": draft.structure_signature,
+    })
+    state["format_lab"] = lab[-20:]
+    fingerprints = state.get("recent_post_fingerprints", [])
+    fingerprints.append(draft.structure_signature[:180])
+    state["recent_post_fingerprints"] = fingerprints[-30:]
+    state.update({
+        "day_key": today,
+        "person_photo_day_key": today,
+        "person_photo_post_count": int(state.get("person_photo_post_count", 0)) + 1,
+        "daily_count": int(state.get("daily_count", 0)) + 1,
+        "last_tweet_id": tweet_id,
+        "last_posted_at": now,
+        "last_source_tweet_id": None,
+        "last_post_type": "developer_original",
+        "last_company_handle": None,
+    })
+    _save_state(state)
+    print(
+        f"Published text-only developer original "
+        f"{state['person_photo_post_count']}/{PERSON_PHOTO_POSTS_PER_DAY}; "
+        f"daily slots {state['daily_count']}/{POSTS_PER_DAY}."
+    )
+    return True
+
+
 async def _post_person_photo(state: dict, client: Client) -> bool:
     """Publish a source-licensed real-person photo with a varied audience prompt."""
     today = _today()
@@ -823,8 +944,8 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
         client, recent_subjects, max_active=12, max_checks=24
     )
     if not active_handles:
-        print("Person-photo lane found no verified active X people this run.")
-        return False
+        print("No verified active X person found for a licensed portrait; falling back to a text-only developer original.")
+        return await _post_developer_original_text_only(state, client)
 
     try:
         image = find_licensed_person_image(
@@ -841,11 +962,23 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
                 state.get("skipped_person_image_titles", []) + [failed_title]
             )[-SOURCE_HISTORY_LIMIT:]
             _save_state(state)
-        return False
+        return await _post_developer_original_text_only(state, client)
+
+    recent_mentions = _active_mention_posts(state)
+    state["mention_post_timestamps"] = recent_mentions[-2:]
+
+    # Mention only the pictured, verified-active account, and at most twice in
+    # any rolling 48-hour window. Most posts intentionally have no @mention.
+    mention_handle = ""
+    if len(recent_mentions) < 2 and random.random() < 0.45:
+        candidate_handle = str(image.get("x_handle", "")).strip().lstrip("@")
+        if candidate_handle and candidate_handle.casefold() in {h.casefold() for h in active_handles}:
+            mention_handle = "@" + candidate_handle
 
     payload = {
         "trend": str(image.get("subject", "")).strip(),
         "text": str(image.get("description", "")).strip()[:1200],
+        "mention_handle": mention_handle,
     }
     state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
     _save_state(state)
@@ -853,15 +986,15 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
         draft = generate_original_text(
             payload,
             state["format_lab"],
-            content_mode="person_prompt",
+            content_mode="developer_prompt",
         )
     except GeminiError as exc:
         state["skipped_person_image_titles"] = (
             state.get("skipped_person_image_titles", []) + [image["title"]]
         )[-SOURCE_HISTORY_LIMIT:]
         _save_state(state)
-        print(f"Person-photo caption rejected; no post published: {exc}")
-        return False
+        print(f"Photo-caption generation failed; trying a text-only developer original: {exc}")
+        return await _post_developer_original_text_only(state, client)
 
     text = draft.post_text.strip()
     if not draft.should_post or not text or len(text) > 280:
@@ -869,8 +1002,19 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
             state.get("skipped_person_image_titles", []) + [image["title"]]
         )[-SOURCE_HISTORY_LIMIT:]
         _save_state(state)
-        print("Person-photo caption failed validation; no post published.")
-        return False
+        print("Photo-caption validation failed; trying a text-only developer original.")
+        return await _post_developer_original_text_only(state, client)
+
+    # Reserve the mention budget before the network publish call. If X accepts
+    # the post but the response times out, the next run must still count it.
+    if mention_handle:
+        mention_record = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "handle": mention_handle,
+            "tweet_id": "pending",
+        }
+        state["mention_post_timestamps"] = (recent_mentions + [mention_record])[-2:]
+        _save_state(state)
 
     try:
         media_id = await client.upload_media(
@@ -945,6 +1089,12 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
     fingerprints = state.get("recent_post_fingerprints", [])
     fingerprints.append(draft.structure_signature[:180])
     state["recent_post_fingerprints"] = fingerprints[-30:]
+
+    if mention_handle:
+        for mention_record in reversed(state.get("mention_post_timestamps", [])):
+            if mention_record.get("handle") == mention_handle and mention_record.get("tweet_id") == "pending":
+                mention_record["tweet_id"] = tweet_id
+                break
 
     state.update({
         "day_key": today,
@@ -1174,9 +1324,8 @@ async def post_next(
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; auth cookies may be expired.")
 
-    # This account now publishes only quote posts sourced from actual X Trends.
-    # The other legacy lanes remain disabled so no direct-search or image prompt
-    # can be published accidentally.
+    # Daily plan: 12 actual X Trends quote-posts plus 8 short developer-community
+    # originals, using a verified reusable real portrait.
     lanes = (
         ("x_trends_quote", "trend_quote_post_count", TREND_QUOTE_POSTS_PER_DAY, _post_trend_quote),
         ("person_photo_prompt", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_person_photo),
@@ -1193,8 +1342,8 @@ async def post_next(
     if not eligible:
         print(
             "Daily content plan complete: "
-            f"company quotes {state.get('trend_quote_post_count', 0)}/{TREND_QUOTE_POSTS_PER_DAY}, "
-            f"real-photo prompts {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}, "
+            f"X Trends quote-posts {state.get('trend_quote_post_count', 0)}/{TREND_QUOTE_POSTS_PER_DAY}, "
+            f"developer originals {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}, "
             f"AI/tech quotes {state.get('ai_tech_quote_post_count', 0)}/{AI_TECH_QUOTE_POSTS_PER_DAY}."
         )
         _set_workflow_output("skip_reason", "daily_plan_complete")
