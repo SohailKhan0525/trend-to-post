@@ -1126,7 +1126,7 @@ def _validate_original(
         if len(sections) != 2 or any("\n" in section for section in sections):
             raise GeminiError("Developer post must have an opener, one blank line, then one question.")
         opener, question = sections
-        if opener[:1] in {'"', "'", "“"} or opener[-1:] in {'"', "'", "”"} or question[:1] in {'"', "'", "“"} or question[-1:] in {'"', "'", "”'}:
+        if post.startswith(('"', "'", "“")) or post.endswith(('"', "'", "”")):
             raise GeminiError("Developer post must not wrap the post in quotation marks.")
         opener_clean = opener.strip()
         opener_prefixes = ("Devs be honest", "Developers be honest", "Vibecoders be honest", "Founders be honest", "Coders be honest", "AI builders be honest")
