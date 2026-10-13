@@ -53,6 +53,39 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("Never make every post a tag", prompt)
         self.assertIn("No fake diagnostics", prompt)
 
+    def test_developer_prompt_enforces_opener_blank_line_question_and_optional_emoji(self) -> None:
+        valid = draft("Devs be honest....\\n\\nWhat would you build if compute cost nothing?")
+        self.assertIs(
+            _validate_original(
+                valid,
+                {},
+                include_handle=False,
+                minimum_emoji_count=0,
+                maximum_emoji_count=1,
+                require_blank_line_format=True,
+            ),
+            valid,
+        )
+
+    def test_developer_prompt_rejects_quotes_bad_line_breaks_and_emoji_stacking(self) -> None:
+        invalid_posts = (
+            '"Devs be honest....\\n\\nWhat would you build if compute cost nothing?"',
+            "Devs be honest....\\nWhat would you build if compute cost nothing?",
+            "Devs be honest....\\n\\nWhat would you build if compute cost nothing? 👀🔥",
+            "Random opener....\\n\\nWhat would you build if compute cost nothing?",
+        )
+        for post in invalid_posts:
+            with self.subTest(post=post):
+                with self.assertRaises(GeminiError):
+                    _validate_original(
+                        draft(post),
+                        {},
+                        include_handle=False,
+                        minimum_emoji_count=0,
+                        maximum_emoji_count=1,
+                        require_blank_line_format=True,
+                    )
+
     def test_developer_prompt_without_handle_forbids_mentions(self) -> None:
         prompt = _original_text_prompt(
             {"trend": "Sam Altman", "text": "licensed portrait"},
