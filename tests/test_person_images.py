@@ -58,6 +58,9 @@ class PersonImageLicenseTests(unittest.TestCase):
         self.assertEqual(tibo[0], "Thibault Sottiaux")
         self.assertEqual(tibo[1], "Tibo")
         self.assertIn("Tibo Sottiaux", tibo[4])
+        elon = next(person for person in PERSON_SUBJECTS if person[3] == "elonmusk")
+        self.assertEqual(elon[0], "Elon Musk")
+        self.assertEqual(elon[1], "Elon Musk")
 
     def test_candidate_matches_tibo_alias_while_searching_full_name(self):
         page = {
