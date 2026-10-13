@@ -1,6 +1,6 @@
 import unittest
 
-from app.gemini import GeminiError, OriginalDraft, _original_text_prompt, _validate_original
+from app.gemini import (\n    GeminiError, OriginalDraft, QuoteDraft, _has_banned_debug_label,\n    _original_text_prompt, _prompt, _validate_original, _validate_quote_against_source,\n)
 
 
 def draft(post: str) -> OriginalDraft:
@@ -197,3 +197,53 @@ class OriginalTextValidationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BannedDebugLabelFormatTests(unittest.TestCase):
+    BAD_POST = (
+        "symptom_eligibility verification.exe: user requires higher api tier "
+        "to process own trauma 💀🥀🔥❤️‍🩹"
+    )
+
+    def test_rejects_the_exact_banned_diagnostic_executable_opener(self) -> None:
+        self.assertTrue(_has_banned_debug_label(self.BAD_POST))
+        draft = QuoteDraft(
+            True, self.BAD_POST, "test angle", "diagnostic label",
+            "fake system-message format", "", False, "quote_post",
+            "invented_rule", "diagnostic label followed by punchline",
+        )
+        with self.assertRaisesRegex(GeminiError, "banned fake diagnostic"):
+            _validate_quote_against_source(
+                draft,
+                {"text": "A developer shipped a new AI coding feature today."},
+                minimum_emoji_count=4,
+                maximum_emoji_count=4,
+            )
+
+    def test_rejects_variants_of_fake_system_headers(self) -> None:
+        for post in (
+            "error_status: build is emotionally unavailable 💀🔥",
+            "verification.exe: the deploy has entered witness protection 😭🥀",
+            "diagnostic report: my GPU needs a vacation 😂🫠",
+            "eligibility_check: access denied by the vibes 💀👀",
+        ):
+            with self.subTest(post=post):
+                self.assertTrue(_has_banned_debug_label(post))
+
+    def test_does_not_ban_normal_human_tech_jokes(self) -> None:
+        for post in (
+            "my GPU has the work ethic of a sleepy cat 💀🔥",
+            "the build passed but the vibes failed 😭😂",
+            "system design is just choosing which problem gets a chair 👀🥀",
+        ):
+            with self.subTest(post=post):
+                self.assertFalse(_has_banned_debug_label(post))
+
+    def test_quote_prompt_explicitly_bans_fake_diagnostic_formats(self) -> None:
+        prompt = _prompt(
+            {"trend": "AI tools", "text": "A developer shared an AI coding tool update."},
+            scope="ai_tech",
+        )
+        self.assertIn("HARD-BANNED FORMAT — NEVER USE", prompt)
+        self.assertIn("symptom_eligibility verification.exe:", prompt)
+
