@@ -630,11 +630,11 @@ def _contains_source_phrase(post_text: str, source_text: str, min_words: int = 3
 # Ban pseudo-system/debug label openers that make jokes read like generated logs.
 # Keep this structural rather than banning ordinary words like "system" in prose.
 BANNED_DEBUG_LABEL_PREFIX = re.compile(
-    r"^\\s*(?:"
-    r"[a-z][a-z0-9]*(?:_[a-z0-9]+)+(?:\\s+[a-z][a-z0-9]*(?:\\.[a-z0-9]{1,8})?)?"
+    r"^\s*(?:"
+    r"[a-z][a-z0-9]*(?:_[a-z0-9]+)+(?:\s+[a-z][a-z0-9]*(?:\.[a-z0-9]{1,8})?)?"
     r"|(?:diagnostic|system|error|status|warning|trace|debug|symptom|eligibility)"
-    r"(?:[\\s_-]+[a-z0-9_.-]+){0,3}"
-    r")\\s*:",
+    r"(?:[\s_-]+[a-z0-9_.-]+){0,3}"
+    r")\s*:",
     re.IGNORECASE,
 )
 
