@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-13",
-  "daily_count": 8,
-  "ai_call_count": 8,
-  "last_posted_at": "2026-10-13T07:31:22.589933+00:00",
-  "last_source_tweet_id": "2109905301738496048",
-  "last_tweet_id": "2109909846820868502",
+  "daily_count": 9,
+  "ai_call_count": 9,
+  "last_posted_at": "2026-10-13T08:31:20.670940+00:00",
+  "last_source_tweet_id": "2109903580136140953",
+  "last_tweet_id": "2109924938282828032",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -92,7 +92,8 @@
     "2109861564165812264",
     "2109875658809585719",
     "2109886346395627680",
-    "2109905301738496048"
+    "2109905301738496048",
+    "2109903580136140953"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -117,20 +118,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "vibe liability upcharge",
-      "comedy_mechanism": "interpreting humanities pedagogy as a tangible production risk multiplier",
-      "used_at": "2026-10-11T10:31:25.682860+00:00",
-      "topic": "AI/technology: machine learning",
-      "tweet_id": "2109230382520664076",
-      "content_type": "quote_post",
-      "content_mode": "ai_tech_quote",
-      "source_tweet_id": "2109223745856348497",
-      "source_username": "hsu_steve",
-      "post_text": "hallucination insurance premium adjusted to 200% of base salary for artistic interpretation department 🥀 🔥 😭",
-      "mutation_stage": "premise_inversion",
-      "structure_signature": "insurance logic applied to philosophical expertise"
-    },
     {
       "format_name": "dev poverty myths",
       "comedy_mechanism": "recontextualizing standard kitchen staples as emergency rations for a broken checkout phase.",
@@ -396,10 +383,23 @@
       "post_text": "stream noise volume tax: rent paid in delayed client launches 💀 ❤️‍🩹",
       "mutation_stage": "invented_rule",
       "structure_signature": "system_process filename + emotional poverty metaphor + emoji cluster"
+    },
+    {
+      "format_name": "api_gatekeeper_syndrome",
+      "comedy_mechanism": "inverting the technical 'limit' into a bureaucratic psychological screening test the user is failing.",
+      "used_at": "2026-10-13T08:31:20.670940+00:00",
+      "topic": "Alexandr Wang — Technology · Trending",
+      "tweet_id": "2109924938282828032",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2109903580136140953",
+      "source_username": "AmrTawfik160",
+      "post_text": "symptom_eligibility_verification.exe: user requires higher api tier to process own trauma 💀 🥀 🔥 ❤️‍🩹",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "sysproc filename + personal competency failure + emoji cluster"
     }
   ],
   "recent_post_fingerprints": [
-    "@Sony pick one: [option_a] or [option_b] [emoji]",
     "i'll buy [x] if [y] [emoji]",
     "@Samsung [absurd physical task] [emoji]",
     "@Xbox imagine [x] by [y] [emoji]",
@@ -428,7 +428,8 @@
     "vertical competency file name + arbitrary output metric + shared emotion terminus",
     "system_process filename + catastrophic escalation + emoji cluster",
     "system_process filename + illicit_surveillance_verbs + financial_guilt_emoji_cluster",
-    "system_process filename + emotional poverty metaphor + emoji cluster"
+    "system_process filename + emotional poverty metaphor + emoji cluster",
+    "sysproc filename + personal competency failure + emoji cluster"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -536,10 +537,11 @@
     "2109861564165812264",
     "2109875658809585719",
     "2109886346395627680",
-    "2109905301738496048"
+    "2109905301738496048",
+    "2109903580136140953"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 8,
+  "trend_quote_post_count": 9,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -668,6 +670,22 @@
       "tweet_id": "2109909846820868502",
       "generated_at": "2026-10-13T07:31:22.589933+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 9,
+      "post": "symptom_eligibility_verification.exe: user requires higher api tier to process own trauma 💀 🥀 🔥 ❤️‍🩹",
+      "source_username": "AmrTawfik160",
+      "source_type": "x_trend",
+      "source_tweet_id": "2109903580136140953",
+      "source_url": "https://x.com/AmrTawfik160/status/2109903580136140953",
+      "source_text": "the muse wonder you see in the charts isn't the one you get\n\ntop scores are muse wonder full, which only runs inside muse code\n\nhitting muse code limits early? meta's alexandr wang said it's a bug in how limits are counted, resets coming\n\nso take a task you did last week, run it",
+      "topic": "Alexandr Wang — Technology · Trending",
+      "format_name": "api_gatekeeper_syndrome",
+      "comedy_mechanism": "inverting the technical 'limit' into a bureaucratic psychological screening test the user is failing.",
+      "structure_signature": "sysproc filename + personal competency failure + emoji cluster",
+      "tweet_id": "2109924938282828032",
+      "generated_at": "2026-10-13T08:31:20.670940+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-13",
@@ -692,6 +710,7 @@
     "Zuck — Technology · Trending",
     "HCL Tech",
     "OpenAI and Anthropic",
+    "Alexandr Wang — Technology · Trending",
     "Alexandr Wang — Technology · Trending",
     "Alexandr Wang — Technology · Trending",
     "Alexandr Wang — Technology · Trending"
