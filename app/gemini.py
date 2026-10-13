@@ -370,6 +370,11 @@ Maximum {MAX_POST_CHARS} characters. The authored meme/comment is separate from 
 BANNED FORMULA:
 Do not default to generic scaffolds like "X is the new Y", "this is basically...", "bro really...", "nobody is talking about...", or empty engagement questions.
 
+HARD-BANNED FORMAT — NEVER USE:
+Do not start the post with a fake diagnostic, log, command, error, status, system, eligibility, symptom, verification, or executable label followed by a colon.
+Never write code-like headers such as symptom_eligibility verification.exe: or error_status:.
+No fake terminal output, variable_name labels, .exe/.log/.json headers, or machine-generated incident-report framing. The joke must read like a natural human post, not a generated system message.
+
 RETURN JSON ONLY:
 {{
   "should_post": true,
@@ -621,6 +626,26 @@ def _contains_source_phrase(post_text: str, source_text: str, min_words: int = 3
     )
 
 
+
+# Ban pseudo-system/debug label openers that make jokes read like generated logs.
+# Keep this structural rather than banning ordinary words like "system" in prose.
+BANNED_DEBUG_LABEL_PREFIX = re.compile(
+    r"^\s*(?:"
+    r"[a-z][a-z0-9]*(?:_[a-z0-9]+)+(?:\s+[a-z][a-z0-9]*(?:\.[a-z0-9]{1,8})?)?"
+    r"|[a-z][a-z0-9_-]*\.(?:exe|dll|log|json|py)"
+    r"|(?:diagnostic|system|error|status|warning|trace|debug|symptom|eligibility|verification)"
+    r"(?:[\s_-]+[a-z0-9_.-]+){0,3}"
+    r")\s*:",
+    re.IGNORECASE,
+)
+
+
+def _has_banned_debug_label(text: str) -> bool:
+    """True for fake log/diagnostic headers used as a meme template."""
+    stripped = str(text or "").strip()
+    first_line = stripped.splitlines()[0] if stripped else ""
+    return bool(BANNED_DEBUG_LABEL_PREFIX.match(first_line))
+
 def _validate_quote_against_source(
     draft: QuoteDraft,
     source: dict,
@@ -636,6 +661,8 @@ def _validate_quote_against_source(
         raise GeminiError("Generated post is empty.")
     if len(text) > MAX_POST_CHARS:
         raise GeminiError("Generated post is too long.")
+    if _has_banned_debug_label(text):
+        raise GeminiError("Generated post uses a banned fake diagnostic/log-label opener.")
     if re.search(r"(?<!\w)@[A-Za-z0-9_]+", text):
         raise GeminiError("Generated quote-post included an @mention; the source attachment is sufficient.")
     if re.search(r"(?<!\w)#[A-Za-z0-9_]+", text):
@@ -1316,8 +1343,9 @@ Generate one candidate using the mutation method. The source attachment is manda
     safety_suffix = f"""
 
 SAFETY RETRY:
-Your previous candidate may have crossed the political/current-affairs boundary or violated
-the quote-post-only contract. Generate a NEW QUOTE POST that stays strictly inside {scope_safety}.
+Your previous candidate may have crossed the political/current-affairs boundary, violated
+the quote-post-only contract, or used a banned fake diagnostic/log-label opener. Generate a NEW QUOTE POST that stays strictly inside {scope_safety}.
+Hard ban: do not begin with a pseudo-system label, snake_case diagnostic, executable filename, log/error/status header, or any label followed by a colon. Never use formats like symptom_eligibility verification.exe:. Write natural human meme commentary only.
 Do not mention governments, elections, politicians, military conflict, geopolitics, parties,
 campaigns, or current political events. Do not smuggle those topics in as metaphors.
 Attach the source, use exactly one 2-6 word verbatim source fragment, and make the comment
