@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-13",
-  "daily_count": 16,
-  "ai_call_count": 16,
-  "last_posted_at": "2026-10-13T15:31:30.485882+00:00",
+  "daily_count": 17,
+  "ai_call_count": 17,
+  "last_posted_at": "2026-10-13T16:31:29.800550+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2110030676078817523",
+  "last_tweet_id": "2110045772939133102",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -121,20 +121,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "hubris liability clause",
-      "comedy_mechanism": "reversing triumphant product features into legally dubious grievances ending in a sarcastic question mark",
-      "used_at": "2026-10-12T20:31:22.911904+00:00",
-      "topic": "Anthropic and OpenAI",
-      "tweet_id": "2109743753661759914",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109742711607587200",
-      "source_username": "StockMarketNerd",
-      "post_text": "hubris liability clause 4: we simultaneously own the means of distribution and the minds of the consumers (racketeering?) 💀 🥀 🫠",
-      "mutation_stage": "premise_inversion",
-      "structure_signature": "insurance/law label + escalation of absurd capability + emoji encoded skepticism"
-    },
     {
       "format_name": "efficiency landlord clause",
       "comedy_mechanism": "reinterpreting hardware performance metrics as oppressive rent extraction and debt.",
@@ -392,10 +378,21 @@
       "post_text": "Devs be honest... if you could replace your whole stack with a single internal AI agent, what one file would you burn to the ground first? 😂🔥",
       "mutation_stage": "vibecoder opener",
       "structure_signature": "opener + singular empathy (replace stack) + specific hostile impulse (burn file) + emoji cluster"
+    },
+    {
+      "format_name": "malicious utility delivery.exe",
+      "comedy_mechanism": "Normalizing corporate malice by shifting malicious intent from 'security risk' to 'annoying a bad boss,' validating the rage.",
+      "used_at": "2026-10-13T16:31:29.800550+00:00",
+      "topic": "developer community",
+      "tweet_id": "2110045772939133102",
+      "content_type": "developer_prompt",
+      "content_mode": "developer_original_text_only",
+      "post_text": "Devs be honest... if you could introduce one malicious backdoor specifically to annoy your PM, what would it do? 😂🔥👀",
+      "mutation_stage": "short structure label",
+      "structure_signature": "natural opener + specific misanthropic intent + emoji cluster"
     }
   ],
   "recent_post_fingerprints": [
-    "absurd contractual accusation with emoji encoded sarcasm",
     "mock legal justification for platform stacking ending in emoji",
     "insurance logic applied to philosophical expertise",
     "code error fragmentation followed by absurdly specific 'poverty ration' comparison.",
@@ -424,7 +421,8 @@
     "opener + scarcity inversion hypothetical",
     "nervous intimate opener + hypothetical interrogation",
     "vibecoder opener + forced simplification constraint + knowledge deletion question",
-    "opener + singular empathy (replace stack) + specific hostile impulse (burn file) + emoji cluster"
+    "opener + singular empathy (replace stack) + specific hostile impulse (burn file) + emoji cluster",
+    "natural opener + specific misanthropic intent + emoji cluster"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -743,7 +741,7 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 4,
+  "person_photo_post_count": 5,
   "ai_tech_quote_post_count": 0,
   "next_lane_index": 2,
   "person_photo_posts": [
@@ -801,6 +799,20 @@
       "comedy_mechanism": "inverts the fear of AI replacement into a perverse relief-seeking desire to offload responsibility for a specific hated file",
       "structure_signature": "opener + singular empathy (replace stack) + specific hostile impulse (burn file) + emoji cluster",
       "generated_at": "2026-10-13T15:31:30.485882+00:00",
+      "status": "published_text_only"
+    },
+    {
+      "slot_number": 5,
+      "subject": "developer community",
+      "post": "Devs be honest... if you could introduce one malicious backdoor specifically to annoy your PM, what would it do? 😂🔥👀",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2110045772939133102",
+      "format_name": "malicious utility delivery.exe",
+      "comedy_mechanism": "Normalizing corporate malice by shifting malicious intent from 'security risk' to 'annoying a bad boss,' validating the rage.",
+      "structure_signature": "natural opener + specific misanthropic intent + emoji cluster",
+      "generated_at": "2026-10-13T16:31:29.800550+00:00",
       "status": "published_text_only"
     }
   ],
