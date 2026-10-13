@@ -13,9 +13,9 @@ class FakeClient:
 
 
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
-    def test_daily_plan_is_twenty_ai_tech_x_trends_quote_posts_only(self):
-        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 20)
-        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 0)
+    def test_daily_plan_is_twelve_trend_quotes_plus_eight_developer_originals(self):
+        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 12)
+        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 8)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(
             post_queue.TREND_QUOTE_POSTS_PER_DAY
@@ -23,6 +23,19 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             + post_queue.AI_TECH_QUOTE_POSTS_PER_DAY,
             post_queue.POSTS_PER_DAY,
         )
+
+    def test_mention_posts_are_limited_to_two_in_rolling_48_hours(self):
+        from datetime import datetime, timedelta, timezone
+
+        now = datetime(2026, 10, 13, 12, 0, tzinfo=timezone.utc)
+        state = {"mention_post_timestamps": [
+            {"timestamp": (now - timedelta(hours=49)).isoformat(), "handle": "@old"},
+            {"timestamp": (now - timedelta(hours=24)).isoformat(), "handle": "@one"},
+            {"timestamp": (now - timedelta(hours=1)).isoformat(), "handle": "@two"},
+        ]}
+        active = post_queue._active_mention_posts(state, now)
+        self.assertEqual([item["handle"] for item in active], ["@one", "@two"])
+        self.assertEqual(len(active), 2)
 
     def test_post_interval_allows_twenty_hourly_slots(self):
         self.assertLessEqual(post_queue.MIN_POST_INTERVAL_MINUTES, 60)
@@ -132,10 +145,10 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(state["trend_quote_posts"][-1]["status"], "published")
         self.assertEqual(state["last_post_type"], "x_trends_quote")
 
-    async def test_post_queue_disables_non_trend_lanes(self):
-        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 0)
+    async def test_post_queue_enables_original_developer_prompt_lane(self):
+        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 8)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, post_queue.POSTS_PER_DAY)
+        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 12)
 
     async def test_queue_stops_when_twenty_main_posts_are_complete(self):
         state = post_queue._new_state()
