@@ -4,19 +4,16 @@ This repository runs an experimental X account focused on AI and technology: AI 
 
 ## Daily publishing plan
 
-The active queue targets **up to 20 AI/technology X Trends quote posts per UTC day**. Each post must be based on an actual topic returned by X's Explore/Trends views or X's location-based Trends lists. The bot finds a recent, original post related to that trend and attaches an original AI-written meme-style comment.
+The queue has **20 main-post slots per UTC day**, split into two formats:
 
-The queue does **not** substitute ordinary keyword-search results, invented topics, sports, entertainment, politics, or cultural trends when X has no eligible AI/technology trend. In that case, it skips the run rather than publishing something unrelated. This strict source rule means 20 posts is a daily target/cap, not a guarantee: the available X Trends feed must contain enough eligible topics and source posts.
+- **12 AI/technology X Trends quote-posts** — each is anchored to a real topic from X Explore/Trends, with original commentary attached to a recent relevant post. No unrelated trend or generic keyword-search fallback is allowed.
+- **8 developer-community originals** — short, two-line prompts such as “Devs be honest…” followed by a relatable hypothetical: what you would build if ChatGPT were free forever, what you would ask a developer if you sat beside them, or a founder/developer trade-off. The post uses a real, reusable photo discovered through Wikimedia Commons, with license checks and attribution where required.
 
-Only the `x_trends_quote` lane is active. The legacy photo-prompt and direct AI/technology keyword-search lanes remain disabled; their code/state fields are retained only for compatibility.
+The Trends portion can publish fewer than 12 if X does not surface enough eligible AI/technology trends. The eight original prompts are a separate lane, so an empty Trends feed no longer means the whole queue has nothing to publish.
 
-## Disabled legacy photo lane
+**Mention cap:** no more than two original posts with an @mention in any rolling 48-hour period. Each tagged post can mention only the verified account pictured in its attached photo. The state file records timestamps so the cap survives workflow runs.
 
-The photo-prompt lane is currently disabled and cannot publish through the active queue. Its implementation uses the Wikimedia Commons API and downloads only existing image files with machine-readable reuse terms. It accepts public-domain/CC0 images and attribution/share-alike Creative Commons licenses, while rejecting non-commercial, no-derivatives, fair-use, all-rights-reserved, and missing-license candidates. It also checks that the file metadata matches the chosen subject and accepts only common raster image formats.
-
-For a license that requires attribution, the bot posts a self-reply with creator credit, the license, and the original Commons file page. If that reply fails after the photo post publishes, the main post is still recorded and the attribution failure is logged in the post_queue state JSON; check it before manually retrying the credit.
-
-The candidate catalog prioritizes public-facing people across AI/technology leadership, research, coding tools, and product teams—not just CEOs. The active X account is verified before searching for a licensed photograph, and the profile-name check helps prevent mismatching a real person to a recycled or unrelated handle. Only photos with a reusable license are candidates. If no suitable image is found, the bot skips that lane attempt and tries another eligible lane instead of downloading an arbitrary Google Images result. The bot never scrapes Google Images and never assumes that an image is reusable merely because it is publicly visible.
+## Images and licenses
 
 ## Emoji and caption rules
 
@@ -32,9 +29,9 @@ The AI/technology Quote Post lane is restricted to AI, models, AI labs, software
 
 The publishing workflow is .github/workflows/post-queue.yml. It runs on a 30-minute GitHub Actions schedule, manual dispatch, or the existing post-next repository-dispatch event. The schedule is a fallback if the external dispatcher stops; concurrency and the post interval guard prevent overlapping events from publishing duplicates. Every run checks credentials, compiles the Python application, runs the full unit-test suite, and only then attempts one new main post.
 
-The active queue has one publishing lane: actual AI/technology X Trends quote posts. It publishes at most one new main post per dispatch and enforces a **58-minute minimum between successful main posts**. The workflow runs every 30 minutes; interval guards avoid duplicate posts from overlapping/manual dispatches. Native trend context and grouped-topic metadata are used to classify and search relevant trend topics. Regional Trends responses are read from the mapping shape returned by Twifork. These sources remain X Trends—not ordinary keyword-search fallback.
+The queue rotates between 12 AI/technology X Trends quote-posts and 8 developer-community original prompts. It publishes at most one new main post per dispatch and enforces a **58-minute minimum between successful main posts**. The workflow runs every 30 minutes; interval guards avoid duplicate posts from overlapping/manual dispatches. Native trend context and grouped-topic metadata classify relevant trend topics. Developer prompts use existing, licensed Commons portraits rather than scraping Google Images or inventing photorealistic images of real people.
 
-The queue tracks daily counters, previous source IDs, format memory, and last-post metadata in the post_queue state JSON. Up to 40 generation attempts are allowed per UTC day so transient provider/source failures do not immediately consume the daily plan. Twenty posts is a cap and target, not a guarantee: X needs to surface enough relevant trends and eligible source posts, and authentication/provider restrictions can also reduce publishing. When no relevant X trend exists, the lane skips rather than posting unrelated content.
+The queue tracks daily counters, previous source IDs, format memory, and last-post metadata in the post_queue state JSON. Up to 40 generation attempts are allowed per UTC day so transient provider/source failures do not immediately consume the daily plan. Twenty posts is the daily cap and target, not a guarantee: X needs to surface enough relevant trends and eligible source posts, and authentication/provider restrictions can reduce publishing. When no relevant X trend exists, the quote lane skips and the developer-original lane may still publish. No more than two original posts with @mentions are allowed in any rolling 48-hour period.
 
 The Validate Bot workflow checks Python syntax and unit tests on pushes/pull requests. Changes should not be deployed until that workflow passes.
 
