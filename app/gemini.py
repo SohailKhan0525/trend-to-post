@@ -632,7 +632,7 @@ def _contains_source_phrase(post_text: str, source_text: str, min_words: int = 3
 BANNED_DEBUG_LABEL_PREFIX = re.compile(
     r"^\s*(?:"
     r"[a-z][a-z0-9]*(?:_[a-z0-9]+)+(?:\s+[a-z][a-z0-9]*(?:\.[a-z0-9]{1,8})?)?"
-    r"|[a-z][a-z0-9_-]*\\.(?:exe|dll|log|json|py)"
+    r"|[a-z][a-z0-9_-]*\.(?:exe|dll|log|json|py)"
     r"|(?:diagnostic|system|error|status|warning|trace|debug|symptom|eligibility|verification)"
     r"(?:[\s_-]+[a-z0-9_.-]+){0,3}"
     r")\s*:",
