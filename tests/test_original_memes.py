@@ -44,6 +44,9 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("Devs be honest...", prompt)
         self.assertIn("ChatGPT were free forever", prompt)
         self.assertIn("Include the exact handle @thsottiaux exactly once", prompt)
+        self.assertIn("without an @mention", prompt)
+        self.assertIn("NVIDIA's CEO", prompt)
+        self.assertIn("Never make every post a tag", prompt)
         self.assertIn("No fake diagnostics", prompt)
 
     def test_developer_prompt_without_handle_forbids_mentions(self) -> None:
