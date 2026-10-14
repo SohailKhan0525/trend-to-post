@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 15,
-  "ai_call_count": 20,
-  "last_posted_at": "2026-10-14T14:31:37.102562+00:00",
-  "last_source_tweet_id": "2110377587826622674",
-  "last_tweet_id": "2110377991838523646",
+  "daily_count": 16,
+  "ai_call_count": 21,
+  "last_posted_at": "2026-10-14T15:31:29.491695+00:00",
+  "last_source_tweet_id": null,
+  "last_tweet_id": "2110393059821392103",
   "posted_source_tweet_ids": [
     "2105460699229241646",
     "2105751638439084119",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "infrastructure arsonist interrogation",
-      "comedy_mechanism": "inverts the fear of AI replacement into a perverse relief-seeking desire to offload responsibility for a specific hated file",
-      "used_at": "2026-10-13T15:31:30.485882+00:00",
-      "topic": "developer community",
-      "tweet_id": "2110030676078817523",
-      "content_type": "developer_prompt",
-      "content_mode": "developer_original_text_only",
-      "post_text": "Devs be honest... if you could replace your whole stack with a single internal AI agent, what one file would you burn to the ground first? 😂🔥",
-      "mutation_stage": "vibecoder opener",
-      "structure_signature": "opener + singular empathy (replace stack) + specific hostile impulse (burn file) + emoji cluster"
-    },
     {
       "format_name": "malicious utility delivery.exe",
       "comedy_mechanism": "Normalizing corporate malice by shifting malicious intent from 'security risk' to 'annoying a bad boss,' validating the rage.",
@@ -389,10 +377,21 @@
       "post_text": "this is the launch day realization that you finally finished the mystery box game 😤 🔥 😂",
       "mutation_stage": "invented_rule",
       "structure_signature": "occasional absurdist trivialization of high stakes real-world events using a single distinct gaming analogy"
+    },
+    {
+      "format_name": "morbid productivity comparison",
+      "comedy_mechanism": "leverages hyperbole to validate common burnout experiences with dark humor",
+      "used_at": "2026-10-14T15:31:29.491695+00:00",
+      "topic": "developer community",
+      "tweet_id": "2110393059821392103",
+      "content_type": "developer_prompt",
+      "content_mode": "developer_original_text_only",
+      "post_text": "Caffeine Addiction or Sleep Deprivation?\n\nDevelopers be honest...\n\nWhich one are you hoping kills you first?",
+      "mutation_stage": "short structure label",
+      "structure_signature": "high stakes trade-off + guilt trigger question"
     }
   ],
   "recent_post_fingerprints": [
-    "system_process filename + catastrophic escalation + emoji cluster",
     "system_process filename + illicit_surveillance_verbs + financial_guilt_emoji_cluster",
     "system_process filename + emotional poverty metaphor + emoji cluster",
     "sysproc filename + personal competency failure + emoji cluster",
@@ -421,7 +420,8 @@
     "coders_opener_plus_sensory_cloud_dilemma",
     "benign aphorism + reassurance + emoji cluster",
     "headline + opener + embarrassing code question",
-    "occasional absurdist trivialization of high stakes real-world events using a single distinct gaming analogy"
+    "occasional absurdist trivialization of high stakes real-world events using a single distinct gaming analogy",
+    "high stakes trade-off + guilt trigger question"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -515,7 +515,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "x_trends_quote",
+  "last_post_type": "developer_original",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -706,9 +706,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 5,
+  "person_photo_post_count": 6,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 2,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -778,6 +778,20 @@
       "comedy_mechanism": "contrasts the expectation of professional competence with the reality of chaotic self-sabotage",
       "structure_signature": "headline + opener + embarrassing code question",
       "generated_at": "2026-10-14T13:31:36.588973+00:00",
+      "status": "published_text_only"
+    },
+    {
+      "slot_number": 6,
+      "subject": "developer community",
+      "post": "Caffeine Addiction or Sleep Deprivation?\n\nDevelopers be honest...\n\nWhich one are you hoping kills you first?",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2110393059821392103",
+      "format_name": "morbid productivity comparison",
+      "comedy_mechanism": "leverages hyperbole to validate common burnout experiences with dark humor",
+      "structure_signature": "high stakes trade-off + guilt trigger question",
+      "generated_at": "2026-10-14T15:31:29.491695+00:00",
       "status": "published_text_only"
     }
   ],
