@@ -50,7 +50,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("at most ONE emoji", prompt)
         self.assertIn("Include the exact handle @thsottiaux exactly once", prompt)
         self.assertIn("without an @mention", prompt)
-        self.assertIn("NVIDIA's CEO", prompt)
+        self.assertIn("Cursor or VS Code?", prompt)
         self.assertIn("Use no emoji unless it genuinely improves the question", prompt)
         self.assertIn("Never make every post a tag", prompt)
         self.assertIn("No fake diagnostics", prompt)
