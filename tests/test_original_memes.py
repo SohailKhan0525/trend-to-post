@@ -46,7 +46,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("ChatGPT Dot or Grok Bot?", prompt)
         self.assertIn("No question, no third line", prompt)
         self.assertIn("ChatGPT Dot or Grok Bot?", prompt)
-        self.assertIn("Never include an @mention in comparison-meme mode", prompt)
+        self.assertIn("Never include an @mention.", prompt)
         self.assertIn("No question, no third line", prompt)
         self.assertIn("Never include an @mention", prompt)
         self.assertIn("The text describes the image", prompt)
