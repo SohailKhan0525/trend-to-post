@@ -13,9 +13,9 @@ class FakeClient:
 
 
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
-    def test_daily_plan_is_twelve_trend_quotes_plus_eight_developer_originals(self):
-        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 12)
-        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 8)
+    def test_daily_plan_is_ten_trend_quotes_plus_ten_comparison_memes(self):
+        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 10)
+        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 10)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(
             post_queue.TREND_QUOTE_POSTS_PER_DAY
@@ -175,9 +175,9 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(state["person_photo_posts"][-1]["status"], "published_text_only")
 
     async def test_post_queue_enables_original_developer_prompt_lane(self):
-        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 8)
+        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 10)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 12)
+        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 10)
 
     async def test_queue_stops_when_twenty_main_posts_are_complete(self):
         state = post_queue._new_state()
