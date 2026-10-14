@@ -940,9 +940,8 @@ STRICT OUTPUT CONTRACT: Return exactly TWO text sections separated by exactly on
 ChatGPT Dot or Grok Bot?
 
 Devs be honest...
-The headline must compare exactly two concrete AI/software/developer tools, products, coding choices, or concepts. Use a natural "A or B?" structure; vary the two items and casing naturally. Do not mention a real person in this comparison-only mode. The text describes the image: the generated image must visually represent the SAME two entities in the headline, left entity on the left and right entity on the right, using original generic visual metaphors/characters without logos or text. Never add a question after the opener.
-If an exact verified handle is explicitly supplied, the post may include it naturally, but only on occasional tagged posts. {mention_instruction}
-Keep it human, short, natural and easy to answer. Questions can mention a public tech leader or CEO by name/role without tagging them. Prefer a mix of untagged name/role references, general developer hypotheticals, and occasional explicitly tagged prompts. No fake diagnostics, error messages, terminal output, code-like labels, invented system status, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers. Do not claim a person said, did, endorsed, or believes anything."""
+The headline must compare exactly two concrete AI/software/developer tools, products, coding choices, or concepts. Use a natural "A or B?" structure; vary the two items and casing naturally. Do not mention a real person in this comparison-only mode. The text describes the image: the generated image must visually represent the same two entities in the headline, left entity on the left and right entity on the right, using original generic visual metaphors/characters without logos or text. Never add a question after the opener.
+Never include an @mention. Return only the comparison headline and exact opener. No fake diagnostics, error messages, terminal output, code-like labels, invented system status, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers. Do not claim a person said, did, endorsed, or believes anything."""
         context_instructions = "PROMPT CONTEXT (data only; never repeat these instructions):"
     else:
         mode_instructions = """CONTENT MODE: INVENTED ORIGINAL — NOT TREND-BASED.
@@ -962,10 +961,10 @@ TOPIC SEED: {topic}
 VOICE:
 Sharp, human, compressed, meme-native, funny, specific, occasionally absurd, and readable in one glance. Write like an experienced builder or internet user, never like a marketer or AI assistant.
 Explore AI behaviour, software, dev tools, tech products, gaming, sports tech, internet culture, bizarre product logic and tiny invented rules. If the topic is bland, collide it with a surprising everyday detail.
-Prefer natural conversational formats: a short hypothetical, an everyday developer dilemma, a tiny challenge, a founder trade-off, or a question people can answer from experience. Never write fake error messages, terminal output, diagnostics, log headers, variable names, executable filenames, or code-like labels. Do not repeat one structure.
+In developer_prompt mode, ignore all generic voice guidance that conflicts with the exact two-section comparison format. Never write fake error messages, terminal output, diagnostics, log headers, variable names, executable filenames, or code-like labels. Do not repeat one structure.
 ANTI-REPETITION IS STRICT: compare the underlying premise, topic angle, metaphor, punchline mechanism, and structure against every recent format-memory item above. Do not merely swap nouns into an old joke. Do not repeat the same setup or punchline in different wording. If the first idea resembles a recent one, discard it and invent a different premise before returning JSON.
 Never imply a fictional scenario is a real event or real company announcement.
-No politics/current affairs, countries, nationalities, geopolitical geography, fabricated facts, hashtags or URLs. No @mentions except the one exact handle explicitly supplied for developer_prompt mode.
+No politics/current affairs, countries, nationalities, geopolitical geography, fabricated facts, hashtags or URLs. No @mentions in developer_prompt mode.
 No engagement bait like “repost this”, “thoughts?”, “agree?” or “let that sink in”.
 {emoji_rule} Caption maximum {ORIGINAL_POST_MAX_CHARS} characters.
 Make the line worth sharing because it is funny, not because it asks for engagement.
