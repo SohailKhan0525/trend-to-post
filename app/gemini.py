@@ -904,7 +904,7 @@ def _original_text_prompt(
     topic = str(source.get("trend", "") or "technology culture")
     source_text = " ".join(str(source.get("text", "") or "").split())[:1600]
     emoji_rule = (
-        "EMOJI RULE: Use no emoji unless it genuinely improves the question; at most ONE emoji, chosen only from 👀 🔥 😭 😂 💀. Do not force an emoji, stack emojis, or use one just for decoration. No quotation marks around the post. Format the post as exactly two content sections separated by one blank line: headline, then opener."
+        "EMOJI RULE: absolutely no emojis in developer comparison mode. Format the post as exactly two content sections separated by one blank line: headline, then opener."
         if content_mode == "developer_prompt"
         else f"EMOJI RULE: use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it improves the joke. Never repeat an emoji token in one post, and do not use any emoji outside the list. Make emojis feel like part of the punchline."
     )
@@ -949,7 +949,7 @@ Keep it human, short, natural and easy to answer. Questions can mention a public
 Do not rely on a source post or choose the idea because it appears on X Trends. Do not reference live trending hashtags, breaking news, or a current trend as the reason for posting. Invent a genuinely fresh premise in the selected topic area; keep it evergreen, using imaginative scenarios, absurd rules, product behaviours, gaming logic, sports humour, developer situations, or AI oddities. Keep imagined scenarios obviously playful, not factual claims about real events or announcements."""
         context_instructions = "NO SOURCE POST IN THIS MODE. The topic seed is only a broad category; invent from scratch:"
     return f"""You write original TEXT-ONLY X posts for an experimental internet-culture account.
-Write one standalone original post, no thread, no quote post and no reply. For developer_prompt mode only, one exact @mention may be included if explicitly supplied; never invent or add any other mention.
+Write one standalone original post, no thread, no quote post and no reply. For developer_prompt mode, follow its strict output contract exactly and never include an @mention.
 
 {mode_instructions}
 
@@ -1052,7 +1052,7 @@ Generate a fresh original TEXT-ONLY X post. Do not create an image, chat transcr
 No countries, politics, hashtags, URLs, fabricated facts or engagement bait.
 If this is developer_prompt mode and an exact handle was supplied, include that handle exactly once and no other @mention; otherwise use no @mentions.
 Never start with an error, diagnostic, log, terminal, variable-name or executable-style label. Do not use snake_case or .exe/.log/.json headers.
-Include the requested number of distinct emojis from the main prompt. Never repeat an emoji in one post. Follow the JSON schema exactly.
+For developer_prompt mode, include no emojis and return exactly the two required sections. Follow the JSON schema exactly.
 """
     payload = {
         "contents": [{"parts": [{"text": fallback_prompt}]}],
