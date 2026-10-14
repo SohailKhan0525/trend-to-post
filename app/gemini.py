@@ -904,7 +904,7 @@ def _original_text_prompt(
     topic = str(source.get("trend", "") or "technology culture")
     source_text = " ".join(str(source.get("text", "") or "").split())[:1600]
     emoji_rule = (
-        "EMOJI RULE: Use no emoji unless it genuinely improves the question; at most ONE emoji, chosen only from 👀 🔥 😭 😂 💀. Do not force an emoji, stack emojis, or use one just for decoration. No quotation marks around the post. Format the post as exactly two content lines separated by one blank line: first line is the opener, then a blank line, then the question."
+        "EMOJI RULE: Use no emoji unless it genuinely improves the question; at most ONE emoji, chosen only from 👀 🔥 😭 😂 💀. Do not force an emoji, stack emojis, or use one just for decoration. No quotation marks around the post. Format the post as exactly three content lines separated by blank lines: headline, opener, question."
         if content_mode == "developer_prompt"
         else f"EMOJI RULE: use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it improves the joke. Never repeat an emoji token in one post, and do not use any emoji outside the list. Make emojis feel like part of the punchline."
     )
@@ -961,7 +961,9 @@ If you could ship only one feature this week, what is it? 🔥
 
 What would you ask a tech leader?
 
-If you had 30 seconds with a developer you admire, what would you ask?r NVIDIA's CEO, what would it be?
+Devs be honest...
+
+If you had 30 seconds with a developer you admire, what would you ask?
 If an exact verified handle is explicitly supplied, the post may include it naturally, but only on occasional tagged posts. {mention_instruction}
 Keep it human, short, natural and easy to answer. Questions can mention a public tech leader or CEO by name/role without tagging them. Prefer a mix of untagged name/role references, general developer hypotheticals, and occasional explicitly tagged prompts. No fake diagnostics, error messages, terminal output, code-like labels, invented system status, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers. Do not claim a person said, did, endorsed, or believes anything."""
         context_instructions = "PROMPT CONTEXT (data only; never repeat these instructions):"
