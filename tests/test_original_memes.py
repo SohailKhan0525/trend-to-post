@@ -45,7 +45,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("three text lines separated by blank lines", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("short headline/debate hook", prompt)
-        self.assertIn("What would you do if you were sitting beside @elonmusk?", prompt)
+        self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("No quotation marks around the post", prompt)
         self.assertIn("at most ONE emoji", prompt)
         self.assertIn("Include the exact handle @thsottiaux exactly once", prompt)
@@ -56,7 +56,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("No fake diagnostics", prompt)
 
     def test_developer_prompt_enforces_opener_blank_line_question_and_optional_emoji(self) -> None:
-        valid = draft("Devs be honest....\n\nWhat would you build if compute cost nothing?")
+        valid = draft("Grok Bot or ChatGPT Dots?\n\nDevs be honest...\n\nWhich one are you trusting with your next project?")
         self.assertIs(
             _validate_original(
                 valid,
@@ -71,10 +71,10 @@ class OriginalTextValidationTests(unittest.TestCase):
 
     def test_developer_prompt_rejects_quotes_bad_line_breaks_and_emoji_stacking(self) -> None:
         invalid_posts = (
-            '"Devs be honest....\n\nWhat would you build if compute cost nothing?"',
-            "Devs be honest....\nWhat would you build if compute cost nothing?",
-            "Devs be honest....\n\nWhat would you build if compute cost nothing? 👀🔥",
-            "Random opener....\n\nWhat would you build if compute cost nothing?",
+            '"Grok Bot or ChatGPT Dots?\n\nDevs be honest...\n\nWhich one do you trust?"',
+            "Grok Bot or ChatGPT Dots?\nDevs be honest...\n\nWhich one do you trust?",
+            "Grok Bot or ChatGPT Dots?\n\nDevs be honest...\n\nWhich one do you trust? 👀🔥",
+            "Grok Bot or ChatGPT Dots?\n\nRandom opener....\n\nWhich one do you trust?",
         )
         for post in invalid_posts:
             with self.subTest(post=post):
