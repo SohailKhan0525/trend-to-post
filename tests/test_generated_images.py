@@ -6,6 +6,8 @@ from unittest.mock import patch
 
 from app.generated_images import GeneratedImageError, PNG_SIGNATURE, generate_comparison_image
 
+JPEG_SIGNATURE = bytes.fromhex("ffd8ff")
+
 
 class GeneratedComparisonImageTests(unittest.TestCase):
     def test_requires_cloudflare_credentials(self):
