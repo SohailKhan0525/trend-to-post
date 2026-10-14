@@ -32,6 +32,7 @@ STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
 TREND_QUOTE_POSTS_PER_DAY = 10
+LEGACY_TREND_QUOTE_POSTS_PER_DAY = 12  # tolerate state from the previous daily cap
 PERSON_PHOTO_POSTS_PER_DAY = 10
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
 # Allow retries across flaky source searches/provider responses without changing
@@ -271,9 +272,9 @@ def _load_state() -> dict:
         state["invented_post_count"] = int(state.get("invented_post_count", 0))
     except (TypeError, ValueError) as exc:
         raise QueueError("Trend-quote and invented post counters must be integers.") from exc
-    if not 0 <= state["trend_quote_post_count"] <= TREND_QUOTE_POSTS_PER_DAY:
+    if not 0 <= state["trend_quote_post_count"] <= LEGACY_TREND_QUOTE_POSTS_PER_DAY:
         raise QueueError(
-            f"State trend_quote_post_count is outside 0..{TREND_QUOTE_POSTS_PER_DAY}."
+            f"State trend_quote_post_count is outside 0..{LEGACY_TREND_QUOTE_POSTS_PER_DAY}."
         )
     quote_posts = state.get("trend_quote_posts", [])
     if not isinstance(quote_posts, list):
