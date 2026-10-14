@@ -21,18 +21,23 @@ def generate_comparison_image(headline: str, question: str) -> bytes:
     if not account_id or not token:
         raise GeneratedImageError("Cloudflare image generation credentials are missing.")
 
-    # Treat model-written copy as visual context only; explicitly prohibit rendering it.
-    subject = " ".join(f"{headline} {question}".split())[:500]
+    # Use only the two compared entities as visual grounding; post copy is never rendered.
+    subject = " ".join(str(headline).split())[:240]
     prompt = (
-        "Create a polished, playful, high-quality 3D editorial illustration for a "
-        "software developer social-media comparison meme. Visual concept: " + subject + ". "
-        "Depict two clearly distinct, original, charming characters or objects side by side, "
-        "with expressive shapes, tactile materials, studio lighting, a simple split-color "
-        "background, and a balanced composition. The image must communicate the comparison "
-        "visually without any words. Absolutely no text, letters, typography, captions, "
-        "logos, brand marks, watermarks, labels, UI, signs, symbols resembling letters, "
-        "or text overlays anywhere. Do not depict real people. Avoid copying trademarked "
-        "mascots; use original generic characters. Image only, landscape 4:3 composition."
+        "Create one polished, playful, high-quality 3D editorial illustration for a "
+        "software developer comparison meme. The exact comparison headline is context only: "
+        + subject + ". "
+        "Identify the TWO entities named in that headline and depict a faithful, recognizable "
+        "visual metaphor for each one: the first named entity must appear only on the LEFT, "
+        "and the second named entity must appear only on the RIGHT. Make the two sides clearly "
+        "different and semantically matched to those exact entities, not generic unrelated "
+        "characters. Use original, charming 3D characters or objects, tactile materials, "
+        "expressive shapes, studio lighting, and a clean split-color background. Never render "
+        "the headline or any other supplied text into the image. ABSOLUTELY NO TEXT, no letters, "
+        "typography, captions, logos, brand marks, watermarks, labels, UI, signs, readable "
+        "symbols, or text overlays anywhere. Do not depict real people. Do not imitate official "
+        "trademarked mascots; use original visual metaphors specific to the two named entities. "
+        "Image only, landscape 4:3 composition."
     )
     url = (
         "https://api.cloudflare.com/client/v4/accounts/"
