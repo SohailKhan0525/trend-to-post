@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 5,
-  "ai_call_count": 5,
-  "last_posted_at": "2026-10-14T04:01:39.206563+00:00",
-  "last_source_tweet_id": "2110041281489490065",
-  "last_tweet_id": "2110219456119005684",
+  "daily_count": 6,
+  "ai_call_count": 7,
+  "last_posted_at": "2026-10-14T05:01:52.326257+00:00",
+  "last_source_tweet_id": "2110234258078155236",
+  "last_tweet_id": "2110234610592276616",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -99,7 +99,8 @@
     "2109967628441694331",
     "2110116414602547268",
     "2110158753634934940",
-    "2110041281489490065"
+    "2110041281489490065",
+    "2110234258078155236"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -124,20 +125,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "grindset denial terminal",
-      "comedy_mechanism": "inventing a bureaucratic process name for organizational momentum that sounds like a tax you can't avoid",
-      "used_at": "2026-10-13T05:31:28.402146+00:00",
-      "topic": "Alexandr Wang — Technology · Trending",
-      "tweet_id": "2109879672192536926",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109875658809585719",
-      "source_username": "rdominguezibar",
-      "post_text": "exit_rigidity_penalty_calc.exe: the company is impossible to stop during a quarter three existential loop 💀 🥀 🤣 🔥",
-      "mutation_stage": "structural_break",
-      "structure_signature": "system_process filename + catastrophic escalation + emoji cluster"
-    },
     {
       "format_name": "sweaty_upskirt_tech_sector.exe",
       "comedy_mechanism": "applies a brutal, voyeuristic architectural critique to the act of paying massive salaries, framing it as a predatory data capture on the body of the researcher rather than a business transaction",
@@ -383,10 +370,23 @@
       "post_text": "we are three model releases away from git push deploying straight into an existential crisis 😭 🔥",
       "mutation_stage": "structural_break",
       "structure_signature": "timeline warning with escalating dread"
+    },
+    {
+      "format_name": "historical_anachronism_clash",
+      "comedy_mechanism": "applies primitive medieval village panic to modern smart-home appliance saturation",
+      "used_at": "2026-10-14T05:01:52.326257+00:00",
+      "topic": "HomeView — Technology · Trending",
+      "tweet_id": "2110234610592276616",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110234258078155236",
+      "source_username": "91mobiles",
+      "post_text": "medieval peasants would burn down the village square if they saw a glowing rectangle telling them to drink more water while cooking a pancake 😭 🥀 😂 🔥",
+      "mutation_stage": "cross_domain_collision",
+      "structure_signature": "historical panic subject + modern smart home absurd consequence + exact 5 distinct emojis"
     }
   ],
   "recent_post_fingerprints": [
-    "metric_label with escalating euphemisms for failure terminating in emoji cluster",
     "insurance/law label + escalation of absurd capability + emoji encoded skepticism",
     "impersonal noun phrase contract + emotional poverty metaphor.",
     "inventory grade inference predicting hidden execution stressors for data growth",
@@ -415,7 +415,8 @@
     "founders opener + arrival milestone hypothetical",
     "narrative question + financial stakes escalation",
     "coders_be_honest_plus_tab_hoarding_question",
-    "timeline warning with escalating dread"
+    "timeline warning with escalating dread",
+    "historical panic subject + modern smart home absurd consequence + exact 5 distinct emojis"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -518,10 +519,11 @@
   "trend_source_ids": [
     "2110116414602547268",
     "2110158753634934940",
-    "2110041281489490065"
+    "2110041281489490065",
+    "2110234258078155236"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 3,
+  "trend_quote_post_count": 4,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -569,6 +571,22 @@
       "structure_signature": "timeline warning with escalating dread",
       "tweet_id": "2110219456119005684",
       "generated_at": "2026-10-14T04:01:39.206563+00:00",
+      "status": "published"
+    },
+    {
+      "slot_number": 4,
+      "post": "medieval peasants would burn down the village square if they saw a glowing rectangle telling them to drink more water while cooking a pancake 😭 🥀 😂 🔥",
+      "source_username": "91mobiles",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110234258078155236",
+      "source_url": "https://x.com/91mobiles/status/2110234258078155236",
+      "source_text": "Apple HomeView launches in India with Siri AI and a 7-inch display under Rs 40,000\n\nApple's new HomeView smart display is now available for pre-order in India for Rs 39,900, with sales starting November 13th.\n\n- Features a 7-inch Liquid Retina display &amp; new Siri AI.\n- Facial",
+      "topic": "HomeView — Technology · Trending",
+      "format_name": "historical_anachronism_clash",
+      "comedy_mechanism": "applies primitive medieval village panic to modern smart-home appliance saturation",
+      "structure_signature": "historical panic subject + modern smart home absurd consequence + exact 5 distinct emojis",
+      "tweet_id": "2110234610592276616",
+      "generated_at": "2026-10-14T05:01:52.326257+00:00",
       "status": "published"
     }
   ],
@@ -620,7 +638,8 @@
   "trend_names_used": [
     "OpenAI Engineer Arrested for Planting Hidden Recording Device in Executive Room",
     "OpenAI in Early Talks to Acquire Trail of Bits Cybersecurity Firm",
-    "Google Launches Gemini 4 Argon AI Model Globally"
+    "Google Launches Gemini 4 Argon AI Model Globally",
+    "HomeView — Technology · Trending"
   ],
   "ai_tech_trend_names_used": []
 }
