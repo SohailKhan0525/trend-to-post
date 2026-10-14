@@ -904,12 +904,12 @@ def _original_text_prompt(
     topic = str(source.get("trend", "") or "technology culture")
     source_text = " ".join(str(source.get("text", "") or "").split())[:1600]
     emoji_rule = (
-        "EMOJI RULE: Use no emoji unless it genuinely improves the question; at most ONE emoji, chosen only from 👀 🔥 😭 😂 💀. Do not force an emoji, stack emojis, or use one just for decoration. No quotation marks around the post. Format the post as exactly three content lines separated by blank lines: headline, opener, question."
+        "EMOJI RULE: Use no emoji unless it genuinely improves the question; at most ONE emoji, chosen only from 👀 🔥 😭 😂 💀. Do not force an emoji, stack emojis, or use one just for decoration. No quotation marks around the post. Format the post as exactly two content sections separated by one blank line: headline, then opener."
         if content_mode == "developer_prompt"
         else f"EMOJI RULE: use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it improves the joke. Never repeat an emoji token in one post, and do not use any emoji outside the list. Make emojis feel like part of the punchline."
     )
     post_description = (
-        "one original standalone post with a short headline, a blank line, a Devs be honest opener, a blank line, and a question; no quotation marks and zero or one relevant emoji"
+        "one original standalone post containing only a comparison headline, one blank line, and exactly Devs be honest...; no question, no emoji, no quotes"
         if content_mode == "developer_prompt"
         else f"one original standalone post containing {emoji_count} distinct emojis"
     )
@@ -1120,14 +1120,8 @@ def _validate_original(
         if post.startswith(('"', "'", "“")) or post.endswith(('"', "'", "”")):
             raise GeminiError("Developer post must not wrap the post in quotation marks.")
         opener_clean = opener.strip()
-        opener_prefixes = ("Devs be honest", "Developers be honest", "Vibecoders be honest", "Founders be honest", "Coders be honest", "AI builders be honest")
-        if not any(
-            opener_clean.startswith(prefix)
-            and len(opener_clean[len(prefix):]) >= 2
-            and set(opener_clean[len(prefix):]) == {"."}
-            for prefix in opener_prefixes
-        ):
-            raise GeminiError("Developer post opener does not match the requested format.")
+        if opener_clean != "Devs be honest...":
+            raise GeminiError("Developer comparison opener must be exactly 'Devs be honest...'.")
             raise GeminiError("Developer post opener does not match the requested format.")
         if re.search(r"(?<!\w)@[A-Za-z0-9_]+|#|https?://|[“”\"']", post):
             raise GeminiError("Developer comparison post contains forbidden mentions, links, hashtags or quotes.")
