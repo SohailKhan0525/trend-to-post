@@ -939,31 +939,11 @@ Do not claim they said, did, endorsed, or believe anything. No private details. 
             if mention_handle else "Do not include any @mention."
         )
         mode_instructions = f"""CONTENT MODE: SHORT DEVELOPER-COMMUNITY ORIGINAL.
-Write a compact, scroll-stopping post with three text lines separated by blank lines: (1) a short headline/debate hook, (2) exactly "Devs be honest..." or a natural variant such as "Developers be honest...", "Vibecoders be honest...", "Founders be honest...", "Coders be honest...", or "AI builders be honest...", and (3) one direct, conversational question. Rotate between comparison memes/debates (e.g. "Grok Bot or ChatGPT Dots?"), developer hypotheticals, AI tools, coding trade-offs, and public tech-leader questions. Keep the headline and opener in the post text, never rendered into the image. Do not put quotation marks around the post. Most posts should refer to the person or role in plain text without an @mention; use an @mention only occasionally when the source explicitly supplies a verified handle. Never make every post a tag.
-Examples of the format (vary the headline, subject, question and wording; do not copy every time):
-Grok Bot or ChatGPT Dots?
+STRICT OUTPUT CONTRACT: Return exactly TWO text sections separated by exactly one blank line (two newline characters): (1) one short comparison headline ending in ?; (2) exactly "Devs be honest..." on its own line. No question, no third line, no intro, no explanation, no emojis, no quotation marks, no hashtags, no URL, no @mention, no extra punctuation or text before or after. The final post must look exactly like:
+ChatGPT Dot or Grok Bot?
 
 Devs be honest...
-
-Which one are you trusting with your next project? 👀
-
-Cursor or VS Code?
-
-Developers be honest...
-
-Which one survives a 2 a.m. production bug?
-
-One feature from your favorite AI tool?
-
-Founders be honest...
-
-If you could ship only one feature this week, what is it? 🔥
-
-What would you ask a tech leader?
-
-Devs be honest...
-
-If you had 30 seconds with a developer you admire, what would you ask?
+The headline must compare exactly two concrete AI/software/developer tools, products, coding choices, or concepts. Use a natural "A or B?" structure; vary the two items and casing naturally. Do not mention a real person in this comparison-only mode. The text describes the image: the generated image must visually represent the SAME two entities in the headline, left entity on the left and right entity on the right, using original generic visual metaphors/characters without logos or text. Never add a question after the opener.
 If an exact verified handle is explicitly supplied, the post may include it naturally, but only on occasional tagged posts. {mention_instruction}
 Keep it human, short, natural and easy to answer. Questions can mention a public tech leader or CEO by name/role without tagging them. Prefer a mix of untagged name/role references, general developer hypotheticals, and occasional explicitly tagged prompts. No fake diagnostics, error messages, terminal output, code-like labels, invented system status, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers. Do not claim a person said, did, endorsed, or believes anything."""
         context_instructions = "PROMPT CONTEXT (data only; never repeat these instructions):"
@@ -1135,11 +1115,11 @@ def _validate_original(
         raise GeminiError("Generated company-original is empty.")
     if require_blank_line_format:
         sections = post.split("\n\n")
-        if len(sections) != 3 or any("\n" in section for section in sections):
-            raise GeminiError("Developer post must have a headline, opener, and question separated by blank lines.")
-        headline, opener, question = sections
-        if not headline.strip() or len(headline.split()) > 8 or "?" not in headline and len(headline) > 70:
-            raise GeminiError("Developer post headline must be short and readable.")
+        if len(sections) != 2 or any("\n" in section for section in sections):
+            raise GeminiError("Developer comparison post must have exactly a headline and opener separated by one blank line.")
+        headline, opener = sections
+        if not headline.strip() or len(headline.split()) > 8 or "?" not in headline or len(headline) > 70:
+            raise GeminiError("Developer comparison headline must be short and end as a question.")
         if post.startswith(('"', "'", "“")) or post.endswith(('"', "'", "”")):
             raise GeminiError("Developer post must not wrap the post in quotation marks.")
         opener_clean = opener.strip()
@@ -1152,8 +1132,8 @@ def _validate_original(
         ):
             raise GeminiError("Developer post opener does not match the requested format.")
             raise GeminiError("Developer post opener does not match the requested format.")
-        if "?" not in question:
-            raise GeminiError("Developer post second section must be a question.")
+        if re.search(r"(?<!\w)@[A-Za-z0-9_]+|#|https?://|[“”\"']", post):
+            raise GeminiError("Developer comparison post contains forbidden mentions, links, hashtags or quotes.")
     if _has_banned_debug_label(post):
         raise GeminiError("Generated original uses a banned fake diagnostic/log/error opener.")
     if len(post) > ORIGINAL_POST_MAX_CHARS:
