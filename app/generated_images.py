@@ -35,7 +35,7 @@ def generate_comparison_image(headline: str, question: str) -> bytes:
         "expressive shapes, studio lighting, and a clean split-color background. Never render "
         "the headline or any other supplied text into the image. ABSOLUTELY NO TEXT, no letters, "
         "typography, captions, logos, brand marks, watermarks, labels, UI, signs, readable "
-        "symbols, or text overlays anywhere. Do not depict real people. Do not imitate official "
+        "symbols, and no text overlays whatsoever. Do not depict real people. Do not imitate official "
         "trademarked mascots; use original visual metaphors specific to the two named entities. "
         "Image only, landscape 4:3 composition."
     )
