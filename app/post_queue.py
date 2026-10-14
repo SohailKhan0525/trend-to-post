@@ -941,7 +941,7 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
         if not draft.should_post or not post_text or len(post_text) > 280:
             raise GeminiError("Comparison meme text failed validation.")
         lines = [line.strip() for line in post_text.splitlines() if line.strip()]
-        if len(lines) != 2 or post_text.count("\\n\\n") != 1:
+        if len(lines) != 2 or post_text.count("\n\n") != 1:
             raise GeminiError("Comparison meme must contain exactly two sections separated by one blank line.")
         if not lines[0].endswith("?") or not any(token in lines[0].casefold() for token in (" or ", " vs ", " versus ")):
             raise GeminiError("Comparison headline must compare two clear choices and end with a question mark.")
