@@ -956,7 +956,10 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
         return False
 
     try:
-        media_id = await client.upload_media(image_bytes, media_type="image/png")
+        image_media_type = (
+            "image/jpeg" if image_bytes.startswith(b"\\xff\\xd8\\xff") else "image/png"
+        )
+        media_id = await client.upload_media(image_bytes, media_type=image_media_type)
         try:
             await client.create_media_metadata(media_id, alt_text="Original text-free illustration comparing developer tools.")
         except Exception as exc:
