@@ -42,7 +42,9 @@ class OriginalTextValidationTests(unittest.TestCase):
             content_mode="developer_prompt",
         )
         self.assertIn("Devs be honest...", prompt)
-        self.assertIn("two content lines separated by one blank line", prompt)
+        self.assertIn("three text lines separated by blank lines", prompt)
+        self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
+        self.assertIn("short headline/debate hook", prompt)
         self.assertIn("What would you do if you were sitting beside @elonmusk?", prompt)
         self.assertIn("No quotation marks around the post", prompt)
         self.assertIn("at most ONE emoji", prompt)
