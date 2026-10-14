@@ -52,7 +52,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("The text describes the image", prompt)
         self.assertIn("ChatGPT Dot or Grok Bot?", prompt)
         self.assertIn("no extra punctuation or text before or after", prompt)
-        self.assertIn("same two entities in the headline", prompt)
+        self.assertIn("the same two entities in the headline", prompt)
         self.assertIn("No fake diagnostics", prompt)
 
     def test_developer_prompt_enforces_exact_two_sections(self) -> None:
