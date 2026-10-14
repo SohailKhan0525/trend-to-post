@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 7,
-  "ai_call_count": 9,
-  "last_posted_at": "2026-10-14T06:02:01.905106+00:00",
-  "last_source_tweet_id": "2110248978810122266",
-  "last_tweet_id": "2110249750117392686",
+  "daily_count": 8,
+  "ai_call_count": 11,
+  "last_posted_at": "2026-10-14T07:01:48.886867+00:00",
+  "last_source_tweet_id": "2110264223016354022",
+  "last_tweet_id": "2110264795308097841",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -101,7 +101,8 @@
     "2110158753634934940",
     "2110041281489490065",
     "2110234258078155236",
-    "2110248978810122266"
+    "2110248978810122266",
+    "2110264223016354022"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -126,20 +127,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "sustainable_frenzy_levy.exe",
-      "comedy_mechanism": "applies a fiscal sustainability metaphor to the cost of perpetual launch velocity",
-      "used_at": "2026-10-13T07:31:22.589933+00:00",
-      "topic": "Alexandr Wang — Technology · Trending",
-      "tweet_id": "2109909846820868502",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109905301738496048",
-      "source_username": "Overlap_Tech",
-      "post_text": "stream noise volume tax: rent paid in delayed client launches 💀 ❤️‍🩹",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "system_process filename + emotional poverty metaphor + emoji cluster"
-    },
     {
       "format_name": "api_gatekeeper_syndrome",
       "comedy_mechanism": "inverting the technical 'limit' into a bureaucratic psychological screening test the user is failing.",
@@ -385,10 +372,23 @@
       "post_text": "pilot just hit alt tab to check the wifi password 💀 🫠 🔥",
       "mutation_stage": "structural_break",
       "structure_signature": "micro input action frame with multi-emoji punctuation"
+    },
+    {
+      "format_name": "data archaeology tag",
+      "comedy_mechanism": "frames futuristic promises as the actual trash of a previous timeline, validating current rejection of them",
+      "used_at": "2026-10-14T07:01:48.886867+00:00",
+      "topic": "HomeView — Technology · Trending",
+      "tweet_id": "2110264795308097841",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110264223016354022",
+      "source_username": "RVCJ_FB",
+      "post_text": "futurism is just data archaeology for the failed future 👀 🔥 🥀",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "compact poetic observation assigning value to discarded technology"
     }
   ],
   "recent_post_fingerprints": [
-    "impersonal noun phrase contract + emotional poverty metaphor.",
     "inventory grade inference predicting hidden execution stressors for data growth",
     "noun phrase category header + calculated wear and tear metric + emotional grief emoji",
     "absurd historical analogy for current speculative behavior",
@@ -417,7 +417,8 @@
     "coders_be_honest_plus_tab_hoarding_question",
     "timeline warning with escalating dread",
     "historical panic subject + modern smart home absurd consequence + exact 5 distinct emojis",
-    "micro input action frame with multi-emoji punctuation"
+    "micro input action frame with multi-emoji punctuation",
+    "compact poetic observation assigning value to discarded technology"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -522,10 +523,11 @@
     "2110158753634934940",
     "2110041281489490065",
     "2110234258078155236",
-    "2110248978810122266"
+    "2110248978810122266",
+    "2110264223016354022"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 5,
+  "trend_quote_post_count": 6,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -606,6 +608,22 @@
       "tweet_id": "2110249750117392686",
       "generated_at": "2026-10-14T06:02:01.905106+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 6,
+      "post": "futurism is just data archaeology for the failed future 👀 🔥 🥀",
+      "source_username": "RVCJ_FB",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110264223016354022",
+      "source_url": "https://x.com/RVCJ_FB/status/2110264223016354022",
+      "source_text": "Apple has launched Homeview! https://t.co/wJNlouQGwx",
+      "topic": "HomeView — Technology · Trending",
+      "format_name": "data archaeology tag",
+      "comedy_mechanism": "frames futuristic promises as the actual trash of a previous timeline, validating current rejection of them",
+      "structure_signature": "compact poetic observation assigning value to discarded technology",
+      "tweet_id": "2110264795308097841",
+      "generated_at": "2026-10-14T07:01:48.886867+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-14",
@@ -658,7 +676,8 @@
     "OpenAI in Early Talks to Acquire Trail of Bits Cybersecurity Firm",
     "Google Launches Gemini 4 Argon AI Model Globally",
     "HomeView — Technology · Trending",
-    "AI-2030"
+    "AI-2030",
+    "HomeView — Technology · Trending"
   ],
   "ai_tech_trend_names_used": []
 }
