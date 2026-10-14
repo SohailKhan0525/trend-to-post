@@ -28,8 +28,8 @@ class GeneratedComparisonImageTests(unittest.TestCase):
         payload = json.loads(request.data)
         self.assertIn("no text", payload["prompt"].lower())
         self.assertIn("no text overlays", payload["prompt"].lower())
-        self.assertEqual(payload["width"], 1024)
-        self.assertEqual(payload["height"], 768)
+        self.assertEqual(payload["steps"], 4)
+        self.assertEqual(set(payload), {"prompt", "steps"})
 
     def test_decodes_json_base64_png_response(self):
         class Response:
@@ -42,7 +42,18 @@ class GeneratedComparisonImageTests(unittest.TestCase):
             with patch("app.generated_images.urllib.request.urlopen", return_value=Response()):
                 self.assertTrue(generate_comparison_image("A or B?", "Which?").startswith(PNG_SIGNATURE))
 
-    def test_rejects_non_png_response(self):
+    def test_accepts_documented_jpeg_response(self):
+        class Response:
+            headers = {"Content-Type": "application/json"}
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def read(self, limit):
+                return json.dumps({"result": {"image": base64.b64encode(JPEG_SIGNATURE + b"jpeg").decode()}}).encode()
+        with patch.dict(os.environ, {"CLOUDFLARE_ACCOUNT_ID": "account", "CLOUDFLARE_API_TOKEN": "token"}):
+            with patch("app.generated_images.urllib.request.urlopen", return_value=Response()):
+                self.assertTrue(generate_comparison_image("A or B?", "").startswith(JPEG_SIGNATURE))
+
+    def test_rejects_non_image_response(self):
         class Response:
             headers = {"Content-Type": "image/jpeg"}
             def __enter__(self): return self
