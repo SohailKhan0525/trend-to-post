@@ -941,16 +941,15 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
         if not draft.should_post or not post_text or len(post_text) > 280:
             raise GeminiError("Comparison meme text failed validation.")
         lines = [line.strip() for line in post_text.splitlines() if line.strip()]
-        if len(lines) != 3:
-            raise GeminiError("Comparison meme must have a headline, opener, and question.")
-        if not any(token in lines[0].casefold() for token in (" or ", " vs ", " versus ")):
-            raise GeminiError("Comparison headline must compare two clear choices.")
-        if not any(opener in lines[1].casefold() for opener in (
-            "devs be honest", "developers be honest", "vibecoders be honest",
-            "founders be honest", "coders be honest", "ai builders be honest",
-        )):
-            raise GeminiError("Comparison meme is missing the community opener.")
-        image_bytes = generate_comparison_image(lines[0], lines[2])
+        if len(lines) != 2 or post_text.count("\\n\\n") != 1:
+            raise GeminiError("Comparison meme must contain exactly two sections separated by one blank line.")
+        if not lines[0].endswith("?") or not any(token in lines[0].casefold() for token in (" or ", " vs ", " versus ")):
+            raise GeminiError("Comparison headline must compare two clear choices and end with a question mark.")
+        if lines[1] != "Devs be honest...":
+            raise GeminiError("Comparison opener must be exactly 'Devs be honest...'.")
+        if any(mark in post_text for mark in ('"', "'", "“", "”", "@", "#", "http://", "https://")):
+            raise GeminiError("Comparison post contains forbidden extra text, quote marks, mentions, tags or links.")
+        image_bytes = generate_comparison_image(lines[0], "")
     except (GeminiError, GeneratedImageError) as exc:
         print(f"Comparison meme generation skipped safely: {exc}")
         return False
@@ -1020,9 +1019,9 @@ async def _post_person_photo(state: dict, client: Client) -> bool:
         print("AI generation-attempt budget reached before the next person-photo post.")
         return False
 
-    # Comparison-first format: most original slots use original generated characters.
-    if random.random() < 0.7 and await _post_comparison_meme(state, client):
-        return True
+    # This lane is strictly comparison-meme-only. If text/image generation fails,
+    # skip this dispatch rather than publishing a mismatched or text-only fallback.
+    return await _post_comparison_meme(state, client)
 
     used_titles = (
         state.get("person_photo_title_history", [])
