@@ -909,7 +909,7 @@ def _original_text_prompt(
         else f"EMOJI RULE: use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it improves the joke. Never repeat an emoji token in one post, and do not use any emoji outside the list. Make emojis feel like part of the punchline."
     )
     post_description = (
-        "one original standalone post with an opener, a blank line, and a question; no quotation marks and zero or one relevant emoji"
+        "one original standalone post with a short headline, a blank line, a Devs be honest opener, a blank line, and a question; no quotation marks and zero or one relevant emoji"
         if content_mode == "developer_prompt"
         else f"one original standalone post containing {emoji_count} distinct emojis"
     )
@@ -939,19 +939,29 @@ Do not claim they said, did, endorsed, or believe anything. No private details. 
             if mention_handle else "Do not include any @mention."
         )
         mode_instructions = f"""CONTENT MODE: SHORT DEVELOPER-COMMUNITY ORIGINAL.
-Write exactly two content lines separated by one blank line. The first line is only a natural opener such as Devs be honest...., Developers be honest...., Vibecoders be honest...., Founders be honest...., Coders be honest...., or AI builders be honest.... The second line is one direct, conversational hypothetical question about software, AI, building, founders, or meeting a public developer/tech leader. Do not put quotation marks around the post. Most posts should refer to the person or role in plain text without an @mention; use an @mention only occasionally when the source explicitly supplies a verified handle. Never make every post a tag.
-Examples of the format (vary the person, question and wording; do not copy every time):
-Devs be honest....
+Write a compact, scroll-stopping post with three text lines separated by blank lines: (1) a short headline/debate hook, (2) exactly "Devs be honest..." or a natural variant such as "Developers be honest...", "Vibecoders be honest...", "Founders be honest...", "Coders be honest...", or "AI builders be honest...", and (3) one direct, conversational question. Rotate between comparison memes/debates (e.g. "Grok Bot or ChatGPT Dots?"), developer hypotheticals, AI tools, coding trade-offs, and public tech-leader questions. Keep the headline and opener in the post text, never rendered into the image. Do not put quotation marks around the post. Most posts should refer to the person or role in plain text without an @mention; use an @mention only occasionally when the source explicitly supplies a verified handle. Never make every post a tag.
+Examples of the format (vary the headline, subject, question and wording; do not copy every time):
+Grok Bot or ChatGPT Dots?
 
-What would you do if you were sitting beside @elonmusk? Say only three words 👀
+Devs be honest...
 
-Developers be honest....
+Which one are you trusting with your next project? 👀
 
-What would you build if compute cost nothing?
+Cursor or VS Code?
 
-Founders be honest....
+Developers be honest...
 
-If you had one question for NVIDIA's CEO, what would it be?
+Which one survives a 2 a.m. production bug?
+
+One feature from your favorite AI tool?
+
+Founders be honest...
+
+If you could ship only one feature this week, what is it? 🔥
+
+What would you ask a tech leader?
+
+If you had 30 seconds with a developer you admire, what would you ask?r NVIDIA's CEO, what would it be?
 If an exact verified handle is explicitly supplied, the post may include it naturally, but only on occasional tagged posts. {mention_instruction}
 Keep it human, short, natural and easy to answer. Questions can mention a public tech leader or CEO by name/role without tagging them. Prefer a mix of untagged name/role references, general developer hypotheticals, and occasional explicitly tagged prompts. No fake diagnostics, error messages, terminal output, code-like labels, invented system status, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers. Do not claim a person said, did, endorsed, or believes anything."""
         context_instructions = "PROMPT CONTEXT (data only; never repeat these instructions):"
@@ -1123,9 +1133,11 @@ def _validate_original(
         raise GeminiError("Generated company-original is empty.")
     if require_blank_line_format:
         sections = post.split("\n\n")
-        if len(sections) != 2 or any("\n" in section for section in sections):
-            raise GeminiError("Developer post must have an opener, one blank line, then one question.")
-        opener, question = sections
+        if len(sections) != 3 or any("\n" in section for section in sections):
+            raise GeminiError("Developer post must have a headline, opener, and question separated by blank lines.")
+        headline, opener, question = sections
+        if not headline.strip() or len(headline.split()) > 8 or "?" not in headline and len(headline) > 70:
+            raise GeminiError("Developer post headline must be short and readable.")
         if post.startswith(('"', "'", "“")) or post.endswith(('"', "'", "”")):
             raise GeminiError("Developer post must not wrap the post in quotation marks.")
         opener_clean = opener.strip()
