@@ -45,7 +45,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("exactly TWO text sections separated by exactly one blank line", prompt)
         self.assertIn("ChatGPT Dot or Grok Bot?", prompt)
         self.assertIn("No question, no third line", prompt)
-        self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
+        self.assertIn("ChatGPT Dot or Grok Bot?", prompt)
         self.assertIn("Never include an @mention in comparison-meme mode", prompt)
         self.assertIn("No question, no third line", prompt)
         self.assertIn("Never include an @mention", prompt)
