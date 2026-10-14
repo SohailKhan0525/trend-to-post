@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 12,
-  "ai_call_count": 17,
-  "last_posted_at": "2026-10-14T11:31:33.987837+00:00",
-  "last_source_tweet_id": null,
-  "last_tweet_id": "2110332680818532380",
+  "daily_count": 13,
+  "ai_call_count": 18,
+  "last_posted_at": "2026-10-14T12:31:32.800167+00:00",
+  "last_source_tweet_id": "2110253016267792862",
+  "last_tweet_id": "2110347774806180279",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -104,7 +104,8 @@
     "2110248978810122266",
     "2110264223016354022",
     "2110279509970722927",
-    "2110136831106760874"
+    "2110136831106760874",
+    "2110253016267792862"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -129,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "infinite compute hedonism check",
-      "comedy_mechanism": "uses resource abundance as a proxy for desire, exposing what engineers actually crave when constraints disappear.",
-      "used_at": "2026-10-13T12:31:31.243084+00:00",
-      "topic": "developer community",
-      "tweet_id": "2109985380967555539",
-      "content_type": "developer_prompt",
-      "content_mode": "developer_original_text_only",
-      "post_text": "Coders be honest...\nWhat would you build if compute cost nothing? 🔥😭",
-      "mutation_stage": "honest opener",
-      "structure_signature": "opener + scarcity inversion hypothetical"
-    },
     {
       "format_name": "meme_dependency_introspection.exe",
       "comedy_mechanism": "combines 'be honest' intimacy with '30 seconds' high-stakes panic, framing AI tools as something we need to interrogate rather than just use.",
@@ -384,10 +373,23 @@
       "post_text": "Coders be honest....\n\nWhat is the longest you have ever stared at a passing cloud trying to remember if you set it to local or production?",
       "mutation_stage": "hypothetical burnout dilemma",
       "structure_signature": "coders_opener_plus_sensory_cloud_dilemma"
+    },
+    {
+      "format_name": "eternal surveillance baseline",
+      "comedy_mechanism": "inverting paranoia into a mundane, non-sensationalized structural habit",
+      "used_at": "2026-10-14T12:31:32.800167+00:00",
+      "topic": "OpenAI Engineer Arrested for Planting Hidden Recorder in Conference Room",
+      "tweet_id": "2110347774806180279",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110253016267792862",
+      "source_username": "MOSSADil",
+      "post_text": "the best way to prevent espionage is to assume every room has a pre-installed bug 🔥 😂",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "benign aphorism + reassurance + emoji cluster"
     }
   ],
   "recent_post_fingerprints": [
-    "system_process filename + empathy-deficit cost calculation + emoji encoded satirical penalty",
     "bureaucratic category header + forced queue action + emoji cluster",
     "vertical competency file name + arbitrary output metric + shared emotion terminus",
     "system_process filename + catastrophic escalation + emoji cluster",
@@ -416,7 +418,8 @@
     "ordinary action + absurd subversion + 5 emojis",
     "guilt_open + empty_line + yes_or_no_with_moral_twist",
     "threatened hardware compromise",
-    "coders_opener_plus_sensory_cloud_dilemma"
+    "coders_opener_plus_sensory_cloud_dilemma",
+    "benign aphorism + reassurance + emoji cluster"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -510,7 +513,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_original",
+  "last_post_type": "x_trends_quote",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -524,10 +527,11 @@
     "2110248978810122266",
     "2110264223016354022",
     "2110279509970722927",
-    "2110136831106760874"
+    "2110136831106760874",
+    "2110253016267792862"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 8,
+  "trend_quote_post_count": 9,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -656,6 +660,22 @@
       "tweet_id": "2110310075403485297",
       "generated_at": "2026-10-14T10:01:44.509235+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 9,
+      "post": "the best way to prevent espionage is to assume every room has a pre-installed bug 🔥 😂",
+      "source_username": "MOSSADil",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110253016267792862",
+      "source_url": "https://x.com/MOSSADil/status/2110253016267792862",
+      "source_text": "🚨 OPENAI ENGINEER ARRESTED FOR ALLEGEDLY PLANTING LISTENING DEVICE IN EXECUTIVE MEETING ROOM\nA Saudi OpenAI engineer, Abdulrahman Alfozan, 35, has been arrested and charged after a sophisticated recording device was allegedly discovered hidden behind a TV in an executive https://t.co/OxSikAorCp",
+      "topic": "OpenAI Engineer Arrested for Planting Hidden Recorder in Conference Room",
+      "format_name": "eternal surveillance baseline",
+      "comedy_mechanism": "inverting paranoia into a mundane, non-sensationalized structural habit",
+      "structure_signature": "benign aphorism + reassurance + emoji cluster",
+      "tweet_id": "2110347774806180279",
+      "generated_at": "2026-10-14T12:31:32.800167+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-14",
@@ -669,7 +689,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 4,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 2,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -739,7 +759,8 @@
     "AI-2030",
     "HomeView — Technology · Trending",
     "HomeView — Technology · Trending",
-    "OpenAI Engineer Arrested for Planting Spy Device in Office"
+    "OpenAI Engineer Arrested for Planting Spy Device in Office",
+    "OpenAI Engineer Arrested for Planting Hidden Recorder in Conference Room"
   ],
   "ai_tech_trend_names_used": []
 }
