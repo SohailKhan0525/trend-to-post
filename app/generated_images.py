@@ -11,6 +11,7 @@ class GeneratedImageError(RuntimeError):
 
 
 MAX_IMAGE_BYTES = 6 * 1024 * 1024
+JPEG_SIGNATURES = (b"\xff\xd8\xff",)
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
 
@@ -46,8 +47,6 @@ def generate_comparison_image(headline: str, question: str) -> bytes:
     )
     payload = json.dumps({
         "prompt": prompt,
-        "width": 1024,
-        "height": 768,
         "steps": 4,
     }).encode("utf-8")
     request = urllib.request.Request(
@@ -65,6 +64,15 @@ def generate_comparison_image(headline: str, question: str) -> bytes:
         with urllib.request.urlopen(request, timeout=90) as response:
             data = response.read(MAX_IMAGE_BYTES + 1)
             content_type = response.headers.get("Content-Type", "").lower()
+    except urllib.error.HTTPError as exc:
+        try:
+            detail = exc.read(1200).decode("utf-8", errors="replace")
+        except Exception:
+            detail = ""
+        raise GeneratedImageError(
+            f"Cloudflare image generation failed: HTTP {exc.code}"
+            + (f" - {detail}" if detail else "")
+        ) from exc
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
         raise GeneratedImageError(f"Cloudflare image generation failed: {exc}") from exc
 
@@ -82,6 +90,9 @@ def generate_comparison_image(headline: str, question: str) -> bytes:
                 data = base64.b64decode(response_data, validate=True)
         except (ValueError, TypeError, json.JSONDecodeError) as exc:
             raise GeneratedImageError("Image model returned an invalid JSON image response.") from exc
-    if not data.startswith(PNG_SIGNATURE):
-        raise GeneratedImageError("Image model response was not a PNG; refusing to publish it.")
+    # FLUX.1 schnell returns base64 JPEG in result.image.
+    if not (data.startswith(JPEG_SIGNATURES) or data.startswith(PNG_SIGNATURE)):
+        raise GeneratedImageError(
+            "Image model response was neither a JPEG nor PNG; refusing to publish it."
+        )
     return data
