@@ -31,8 +31,8 @@ from .trend_source import (
 STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
-TREND_QUOTE_POSTS_PER_DAY = 12
-PERSON_PHOTO_POSTS_PER_DAY = 8
+TREND_QUOTE_POSTS_PER_DAY = 10
+PERSON_PHOTO_POSTS_PER_DAY = 10
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
 # Allow retries across flaky source searches/provider responses without changing
 # the hard cap of twenty successfully published main posts.
