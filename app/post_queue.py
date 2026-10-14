@@ -957,7 +957,7 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
 
     try:
         image_media_type = (
-            "image/jpeg" if image_bytes.startswith(b"\\xff\\xd8\\xff") else "image/png"
+            "image/jpeg" if image_bytes.startswith(bytes.fromhex("ffd8ff")) else "image/png"
         )
         media_id = await client.upload_media(image_bytes, media_type=image_media_type)
         try:
