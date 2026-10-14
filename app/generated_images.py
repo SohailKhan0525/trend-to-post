@@ -22,23 +22,49 @@ def generate_comparison_image(headline: str, question: str) -> bytes:
     if not account_id or not token:
         raise GeneratedImageError("Cloudflare image generation credentials are missing.")
 
-    # Use only the two compared entities as visual grounding; post copy is never rendered.
-    subject = " ".join(str(headline).split())[:240]
+    # Never pass the full headline/question to the image model: models often copy it into the image.
+    # Give the model only the two short concepts, and describe the visual treatment separately.
+    parts = str(headline).strip().rstrip("?!.").split(" or ", 1)
+    if len(parts) != 2:
+        parts = str(headline).strip().rstrip("?!.").split(" vs ", 1)
+    if len(parts) == 2:
+        left_entity = " ".join(parts[0].split())[:100]
+        right_entity = " ".join(parts[1].split())[:100]
+    else:
+        left_entity, right_entity = "first concept", "second concept"
+
+    is_dark_light = (
+        "dark mode" in left_entity.lower() and "light mode" in right_entity.lower()
+    ) or (
+        "light mode" in left_entity.lower() and "dark mode" in right_entity.lower()
+    )
+    if is_dark_light:
+        left_visual = (
+            "a modern smartphone displaying a beautiful dark-mode app interface, "
+            "near-black and charcoal surfaces with subtle cool highlights"
+        )
+        right_visual = (
+            "a modern smartphone displaying a beautiful light-mode app interface, "
+            "clean white surfaces with soft neutral borders and gentle highlights"
+        )
+    else:
+        left_visual = f"an immediately recognizable visual representation of {left_entity}"
+        right_visual = f"an immediately recognizable visual representation of {right_entity}"
+
     prompt = (
         "Create one polished, playful, high-quality 3D editorial illustration for a "
-        "software developer comparison meme. The exact comparison headline is context only: "
-        + subject + ". "
-        "Identify the TWO entities named in that headline and depict a faithful, recognizable "
-        "visual metaphor for each one: the first named entity must appear only on the LEFT, "
-        "and the second named entity must appear only on the RIGHT. Make the two sides clearly "
-        "different and semantically matched to those exact entities, not generic unrelated "
-        "characters. Use original, charming 3D characters or objects, tactile materials, "
-        "expressive shapes, studio lighting, and a clean split-color background. Never render "
-        "the headline or any other supplied text into the image. ABSOLUTELY NO TEXT, no letters, "
-        "typography, captions, logos, brand marks, watermarks, labels, UI, signs, readable "
-        "symbols, and no text overlays whatsoever. Do not depict real people. Do not imitate official "
-        "trademarked mascots; use original visual metaphors specific to the two named entities. "
-        "Image only, landscape 4:3 composition."
+        "software developer comparison meme. This is an IMAGE ONLY, not a poster or social-media "
+        "graphic. Show exactly two clearly recognizable subjects in a balanced side-by-side "
+        "composition: LEFT side: " + left_visual + "; RIGHT side: " + right_visual + ". "
+        "The concepts are visual guidance only. Do not write or print their names. "
+        "Use a simple diagonal split-color studio background, attractive materials, clean "
+        "composition, and soft cinematic lighting. No screenshot of a social media post. "
+        "ABSOLUTELY NO TEXT OF ANY KIND: no headline, no question, no letters, no words, no "
+        "numbers, no typography, no captions, no logos, no brand marks, no watermarks, no labels, "
+        "no signs, no UI chrome, no badges, no alt-text markers, and no text overlays. "
+        "If text would otherwise appear, leave that area completely blank. Do not depict real people. "
+        "Use original generic objects/characters only when they make the compared concepts clearer. "
+        "Landscape 4:3 composition."
     )
     url = (
         "https://api.cloudflare.com/client/v4/accounts/"
