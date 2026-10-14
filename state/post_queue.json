@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 6,
-  "ai_call_count": 7,
-  "last_posted_at": "2026-10-14T05:01:52.326257+00:00",
-  "last_source_tweet_id": "2110234258078155236",
-  "last_tweet_id": "2110234610592276616",
+  "daily_count": 7,
+  "ai_call_count": 9,
+  "last_posted_at": "2026-10-14T06:02:01.905106+00:00",
+  "last_source_tweet_id": "2110248978810122266",
+  "last_tweet_id": "2110249750117392686",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -100,7 +100,8 @@
     "2110116414602547268",
     "2110158753634934940",
     "2110041281489490065",
-    "2110234258078155236"
+    "2110234258078155236",
+    "2110248978810122266"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -125,20 +126,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "sweaty_upskirt_tech_sector.exe",
-      "comedy_mechanism": "applies a brutal, voyeuristic architectural critique to the act of paying massive salaries, framing it as a predatory data capture on the body of the researcher rather than a business transaction",
-      "used_at": "2026-10-13T06:31:27.544009+00:00",
-      "topic": "Alexandr Wang — Technology · Trending",
-      "tweet_id": "2109894767891169792",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109886346395627680",
-      "source_username": "AItechscarlett",
-      "post_text": "sweaty upskirt_tech_sector.exe: capital is just hormonal redistribution disguised as equity 💀 😭 ❤️‍🩹 🔥",
-      "mutation_stage": "cross_domain_collision",
-      "structure_signature": "system_process filename + illicit_surveillance_verbs + financial_guilt_emoji_cluster"
-    },
     {
       "format_name": "sustainable_frenzy_levy.exe",
       "comedy_mechanism": "applies a fiscal sustainability metaphor to the cost of perpetual launch velocity",
@@ -384,10 +371,23 @@
       "post_text": "medieval peasants would burn down the village square if they saw a glowing rectangle telling them to drink more water while cooking a pancake 😭 🥀 😂 🔥",
       "mutation_stage": "cross_domain_collision",
       "structure_signature": "historical panic subject + modern smart home absurd consequence + exact 5 distinct emojis"
+    },
+    {
+      "format_name": "cockpit_keybinding_panic",
+      "comedy_mechanism": "absurdly downplaying a high-stakes emergency as a routine technical user error",
+      "used_at": "2026-10-14T06:02:01.905106+00:00",
+      "topic": "AI-2030",
+      "tweet_id": "2110249750117392686",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110248978810122266",
+      "source_username": "republic",
+      "post_text": "pilot just hit alt tab to check the wifi password 💀 🫠 🔥",
+      "mutation_stage": "structural_break",
+      "structure_signature": "micro input action frame with multi-emoji punctuation"
     }
   ],
   "recent_post_fingerprints": [
-    "insurance/law label + escalation of absurd capability + emoji encoded skepticism",
     "impersonal noun phrase contract + emotional poverty metaphor.",
     "inventory grade inference predicting hidden execution stressors for data growth",
     "noun phrase category header + calculated wear and tear metric + emotional grief emoji",
@@ -416,7 +416,8 @@
     "narrative question + financial stakes escalation",
     "coders_be_honest_plus_tab_hoarding_question",
     "timeline warning with escalating dread",
-    "historical panic subject + modern smart home absurd consequence + exact 5 distinct emojis"
+    "historical panic subject + modern smart home absurd consequence + exact 5 distinct emojis",
+    "micro input action frame with multi-emoji punctuation"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -520,10 +521,11 @@
     "2110116414602547268",
     "2110158753634934940",
     "2110041281489490065",
-    "2110234258078155236"
+    "2110234258078155236",
+    "2110248978810122266"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 4,
+  "trend_quote_post_count": 5,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -588,6 +590,22 @@
       "tweet_id": "2110234610592276616",
       "generated_at": "2026-10-14T05:01:52.326257+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 5,
+      "post": "pilot just hit alt tab to check the wifi password 💀 🫠 🔥",
+      "source_username": "republic",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110248978810122266",
+      "source_url": "https://x.com/republic/status/2110248978810122266",
+      "source_text": "#BREAKING | Air India flight Flight AI 2030, makes emergency landing at Jaipur airport following a hijack threat. Security agencies are on alert as teams inspect the aircraft.\n\nTune in to LIVE TV for all the fastest #BREAKING alerts - https://t.co/enHc4R2D40\n\n#AirIndia https://t.co/Qq8wZROSfu",
+      "topic": "AI-2030",
+      "format_name": "cockpit_keybinding_panic",
+      "comedy_mechanism": "absurdly downplaying a high-stakes emergency as a routine technical user error",
+      "structure_signature": "micro input action frame with multi-emoji punctuation",
+      "tweet_id": "2110249750117392686",
+      "generated_at": "2026-10-14T06:02:01.905106+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-14",
@@ -639,7 +657,8 @@
     "OpenAI Engineer Arrested for Planting Hidden Recording Device in Executive Room",
     "OpenAI in Early Talks to Acquire Trail of Bits Cybersecurity Firm",
     "Google Launches Gemini 4 Argon AI Model Globally",
-    "HomeView — Technology · Trending"
+    "HomeView — Technology · Trending",
+    "AI-2030"
   ],
   "ai_tech_trend_names_used": []
 }
