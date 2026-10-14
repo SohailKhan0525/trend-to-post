@@ -999,7 +999,7 @@ def generate_original_text(
     emoji_count = (
         random.choices((2, 3), weights=(4, 1), k=1)[0]
         if content_mode == "person_prompt"
-        else random.choice((0, 1))
+        else 0
         if content_mode == "developer_prompt"
         else random.choices((2, 3, 4, 5), weights=(3, 3, 2, 1), k=1)[0]
     )
@@ -1024,7 +1024,7 @@ def generate_original_text(
                         target,
                         include_handle=bool(mention_handle),
                         minimum_emoji_count=emoji_count,
-                        maximum_emoji_count=1 if content_mode == "developer_prompt" else emoji_count + 1,
+                        maximum_emoji_count=0 if content_mode == "developer_prompt" else emoji_count + 1,
                         format_memory=format_memory,
                         source=source if content_mode == "trend_manual" else None,
                         require_source_link=content_mode == "trend_manual",
@@ -1050,7 +1050,7 @@ def generate_original_text(
 SAFETY RETRY:
 Generate a fresh original TEXT-ONLY X post. Do not create an image, chat transcript, thread or quote-post.
 No countries, politics, hashtags, URLs, fabricated facts or engagement bait.
-If this is developer_prompt mode and an exact handle was supplied, include that handle exactly once and no other @mention; otherwise use no @mentions.
+Never include an @mention in developer_prompt mode.
 Never start with an error, diagnostic, log, terminal, variable-name or executable-style label. Do not use snake_case or .exe/.log/.json headers.
 For developer_prompt mode, include no emojis and return exactly the two required sections. Follow the JSON schema exactly.
 """
