@@ -42,21 +42,21 @@ class OriginalTextValidationTests(unittest.TestCase):
             content_mode="developer_prompt",
         )
         self.assertIn("Devs be honest...", prompt)
-        self.assertIn("three text lines separated by blank lines", prompt)
+        self.assertIn("exactly TWO text sections separated by exactly one blank line", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
-        self.assertIn("short headline/debate hook", prompt)
+        self.assertIn("No question, no third line", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
-        self.assertIn("No quotation marks around the post", prompt)
-        self.assertIn("at most ONE emoji", prompt)
-        self.assertIn("Include the exact handle @thsottiaux exactly once", prompt)
-        self.assertIn("without an @mention", prompt)
-        self.assertIn("Cursor or VS Code?", prompt)
-        self.assertIn("Use no emoji unless it genuinely improves the question", prompt)
-        self.assertIn("Never make every post a tag", prompt)
+        self.assertIn("ABSOLUTELY NO TEXT", prompt)
+        self.assertIn("No question, no third line", prompt)
+        self.assertIn("Never include an @mention", prompt)
+        self.assertIn("The text describes the image", prompt)
+        self.assertIn("ChatGPT Dot or Grok Bot?", prompt)
+        self.assertIn("no extra punctuation or text before or after", prompt)
+        self.assertIn("same two entities in the headline", prompt)
         self.assertIn("No fake diagnostics", prompt)
 
-    def test_developer_prompt_enforces_opener_blank_line_question_and_optional_emoji(self) -> None:
-        valid = draft("Grok Bot or ChatGPT Dots?\n\nDevs be honest...\n\nWhich one are you trusting with your next project?")
+    def test_developer_prompt_enforces_exact_two_sections(self) -> None:
+        valid = draft("ChatGPT Dot or Grok Bot?\n\nDevs be honest...")
         self.assertIs(
             _validate_original(
                 valid,
@@ -69,12 +69,13 @@ class OriginalTextValidationTests(unittest.TestCase):
             valid,
         )
 
-    def test_developer_prompt_rejects_quotes_bad_line_breaks_and_emoji_stacking(self) -> None:
+    def test_developer_prompt_rejects_extra_text_quotes_and_bad_line_breaks(self) -> None:
         invalid_posts = (
-            '"Grok Bot or ChatGPT Dots?\n\nDevs be honest...\n\nWhich one do you trust?"',
-            "Grok Bot or ChatGPT Dots?\nDevs be honest...\n\nWhich one do you trust?",
-            "Grok Bot or ChatGPT Dots?\n\nDevs be honest...\n\nWhich one do you trust? 👀🔥",
-            "Grok Bot or ChatGPT Dots?\n\nRandom opener....\n\nWhich one do you trust?",
+            '"ChatGPT Dot or Grok Bot?\n\nDevs be honest..."',
+            "ChatGPT Dot or Grok Bot?\nDevs be honest...",
+            "ChatGPT Dot or Grok Bot?\n\nDevs be honest...\n\nWhich one?",
+            "ChatGPT Dot or Grok Bot?\n\nRandom opener....",
+            "ChatGPT Dot or Grok Bot?\n\nDevs be honest... 👀",
         )
         for post in invalid_posts:
             with self.subTest(post=post):
