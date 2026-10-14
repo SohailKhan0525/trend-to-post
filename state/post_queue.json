@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 1,
-  "ai_call_count": 1,
-  "last_posted_at": "2026-10-14T00:01:45.600340+00:00",
-  "last_source_tweet_id": "2110116414602547268",
-  "last_tweet_id": "2110159085035479170",
+  "daily_count": 2,
+  "ai_call_count": 2,
+  "last_posted_at": "2026-10-14T01:01:43.026561+00:00",
+  "last_source_tweet_id": null,
+  "last_tweet_id": "2110174173847031845",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -122,20 +122,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "os_error_debug_stream",
-      "comedy_mechanism": "resonant but slightly unhinged backstory attribution for widely observed ai behaviors.",
-      "used_at": "2026-10-13T01:31:24.593866+00:00",
-      "topic": "X Premium — Technology · Trending",
-      "tweet_id": "2109819257513214257",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109818908521693554",
-      "source_username": "Cointelegraph",
-      "post_text": "grok_engine_status.exe: the training data was scraped from the infinite pile of rejection letters in my trash can 💀 😤",
-      "mutation_stage": "structural_break",
-      "structure_signature": "system_process filename followed by maliciously specific and emotionally resonant failure cause."
-    },
     {
       "format_name": "meme_efficiency_tax_application.exe",
       "comedy_mechanism": "misapplies corporate software metrics to the user's personal latency in processing market news.",
@@ -385,10 +371,21 @@
       "post_text": "remove the hotel porn, add a hard-to-remove audio module, reboot the room. 🤣 🥀 😂 👀",
       "mutation_stage": "invented_rule",
       "structure_signature": "assumption confirmation + functional bug report + emoji cluster"
+    },
+    {
+      "format_name": "startup transformation curve",
+      "comedy_mechanism": "contrasts the romanticized chaos of building with the mundane reality of bureaucracy",
+      "used_at": "2026-10-14T01:01:43.026561+00:00",
+      "topic": "developer community",
+      "tweet_id": "2110174173847031845",
+      "content_type": "developer_prompt",
+      "content_mode": "developer_original_text_only",
+      "post_text": "Founders be honest....\n\nAt what exact ARR milestone does a startup stop feeling like a pirate ship and start feeling like an insurance office?",
+      "mutation_stage": "existential milestone check",
+      "structure_signature": "founders opener + arrival milestone hypothetical"
     }
   ],
   "recent_post_fingerprints": [
-    "scale labels with escalating chaos levels and emoji coded terror",
     "conceptual app name followed by a specific, paranoid cost query and emotional distress emojis.",
     "bureaucratic category label followed by total collapse punchline",
     "system_process filename prefixed with emotional metrics and impact stats",
@@ -417,7 +414,8 @@
     "opener + absurd legal consequence hypothetical + dual emoji cluster",
     "opener + blank line + creative fiction comparison question",
     "founders_opener_plus_interview_hypothetical",
-    "assumption confirmation + functional bug report + emoji cluster"
+    "assumption confirmation + functional bug report + emoji cluster",
+    "founders opener + arrival milestone hypothetical"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -511,7 +509,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "x_trends_quote",
+  "last_post_type": "developer_original",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -549,12 +547,27 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 0,
+  "person_photo_post_count": 1,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
-  "person_photo_posts": [],
+  "next_lane_index": 2,
+  "person_photo_posts": [
+    {
+      "slot_number": 1,
+      "subject": "developer community",
+      "post": "Founders be honest....\n\nAt what exact ARR milestone does a startup stop feeling like a pirate ship and start feeling like an insurance office?",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2110174173847031845",
+      "format_name": "startup transformation curve",
+      "comedy_mechanism": "contrasts the romanticized chaos of building with the mundane reality of bureaucracy",
+      "structure_signature": "founders opener + arrival milestone hypothetical",
+      "generated_at": "2026-10-14T01:01:43.026561+00:00",
+      "status": "published_text_only"
+    }
+  ],
   "ai_tech_quote_posts": [],
-  "person_photo_day_key": null,
+  "person_photo_day_key": "2026-10-14",
   "ai_tech_quote_day_key": null,
   "trend_names_used": [
     "OpenAI Engineer Arrested for Planting Hidden Recording Device in Executive Room"
