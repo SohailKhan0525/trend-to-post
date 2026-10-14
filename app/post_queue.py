@@ -943,7 +943,7 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
         lines = [line.strip() for line in post_text.splitlines() if line.strip()]
         if len(lines) != 2 or post_text.count("\n\n") != 1:
             raise GeminiError("Comparison meme must contain exactly two sections separated by one blank line.")
-        if not lines[0].endswith("?") or not any(token in lines[0].casefold() for token in (" or ", " vs ", " versus ")):
+        if not lines[0].endswith("?") or sum(lines[0].casefold().count(token) for token in (" or ", " vs ", " versus ")) != 1:
             raise GeminiError("Comparison headline must compare two clear choices and end with a question mark.")
         if lines[1] != "Devs be honest...":
             raise GeminiError("Comparison opener must be exactly 'Devs be honest...'.")
