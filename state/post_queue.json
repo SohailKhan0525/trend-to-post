@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 2,
-  "ai_call_count": 2,
-  "last_posted_at": "2026-10-14T01:01:43.026561+00:00",
-  "last_source_tweet_id": null,
-  "last_tweet_id": "2110174173847031845",
+  "daily_count": 3,
+  "ai_call_count": 3,
+  "last_posted_at": "2026-10-14T02:00:48.590561+00:00",
+  "last_source_tweet_id": "2110158753634934940",
+  "last_tweet_id": "2110189044626030692",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -97,7 +97,8 @@
     "2109939381133853106",
     "2109954950637769058",
     "2109967628441694331",
-    "2110116414602547268"
+    "2110116414602547268",
+    "2110158753634934940"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -122,20 +123,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "meme_efficiency_tax_application.exe",
-      "comedy_mechanism": "misapplies corporate software metrics to the user's personal latency in processing market news.",
-      "used_at": "2026-10-13T02:31:23.520207+00:00",
-      "topic": "Zuck — Technology · Trending",
-      "tweet_id": "2109834353098248645",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109830597975630114",
-      "source_username": "enrichtrades",
-      "post_text": "meme_efficiency_tax_application.exe: ignoring q3 earnings growth to pay for the time it takes me to autocomplete a sentence in my head 🥀 🔥 ❤️‍🩹 😤",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "system_process filename + empathy-deficit cost calculation + emoji encoded satirical penalty"
-    },
     {
       "format_name": "transactional treadmill predictor",
       "comedy_mechanism": "reformats a future dividend as a mandatory future queue entry for corporate resource extraction",
@@ -383,10 +370,23 @@
       "post_text": "Founders be honest....\n\nAt what exact ARR milestone does a startup stop feeling like a pirate ship and start feeling like an insurance office?",
       "mutation_stage": "existential milestone check",
       "structure_signature": "founders opener + arrival milestone hypothetical"
+    },
+    {
+      "format_name": "governance debt calculator.exe",
+      "comedy_mechanism": "reverses the cleanup cost into a corporate ransom probability equation",
+      "used_at": "2026-10-14T02:00:48.590561+00:00",
+      "topic": "OpenAI in Early Talks to Acquire Trail of Bits Cybersecurity Firm",
+      "tweet_id": "2110189044626030692",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110158753634934940",
+      "source_username": "Cointelegraph",
+      "post_text": "if a major acquisition reveals you've been using open source scanners to secure state secrets, do you pay the audit fee or bribe the ceo with a turing test? 🥀 🤣 😭",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "narrative question + financial stakes escalation"
     }
   ],
   "recent_post_fingerprints": [
-    "conceptual app name followed by a specific, paranoid cost query and emotional distress emojis.",
     "bureaucratic category label followed by total collapse punchline",
     "system_process filename prefixed with emotional metrics and impact stats",
     "metric_label with escalating euphemisms for failure terminating in emoji cluster",
@@ -415,7 +415,8 @@
     "opener + blank line + creative fiction comparison question",
     "founders_opener_plus_interview_hypothetical",
     "assumption confirmation + functional bug report + emoji cluster",
-    "founders opener + arrival milestone hypothetical"
+    "founders opener + arrival milestone hypothetical",
+    "narrative question + financial stakes escalation"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -509,17 +510,18 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_original",
+  "last_post_type": "x_trends_quote",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
   "trend_manual_posts": [],
   "trend_manual_day_key": null,
   "trend_source_ids": [
-    "2110116414602547268"
+    "2110116414602547268",
+    "2110158753634934940"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 1,
+  "trend_quote_post_count": 2,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -536,6 +538,22 @@
       "tweet_id": "2110159085035479170",
       "generated_at": "2026-10-14T00:01:45.600340+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 2,
+      "post": "if a major acquisition reveals you've been using open source scanners to secure state secrets, do you pay the audit fee or bribe the ceo with a turing test? 🥀 🤣 😭",
+      "source_username": "Cointelegraph",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110158753634934940",
+      "source_url": "https://x.com/Cointelegraph/status/2110158753634934940",
+      "source_text": "🚨 JUST IN: OpenAI is in early talks to acquire security firm Trail of Bits as it moves to build out its cybersecurity business, per The Information. https://t.co/Tc0B511dR1",
+      "topic": "OpenAI in Early Talks to Acquire Trail of Bits Cybersecurity Firm",
+      "format_name": "governance debt calculator.exe",
+      "comedy_mechanism": "reverses the cleanup cost into a corporate ransom probability equation",
+      "structure_signature": "narrative question + financial stakes escalation",
+      "tweet_id": "2110189044626030692",
+      "generated_at": "2026-10-14T02:00:48.590561+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-14",
@@ -549,7 +567,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 1,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 2,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -570,7 +588,8 @@
   "person_photo_day_key": "2026-10-14",
   "ai_tech_quote_day_key": null,
   "trend_names_used": [
-    "OpenAI Engineer Arrested for Planting Hidden Recording Device in Executive Room"
+    "OpenAI Engineer Arrested for Planting Hidden Recording Device in Executive Room",
+    "OpenAI in Early Talks to Acquire Trail of Bits Cybersecurity Firm"
   ],
   "ai_tech_trend_names_used": []
 }
