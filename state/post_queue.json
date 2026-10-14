@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 10,
-  "ai_call_count": 14,
-  "last_posted_at": "2026-10-14T09:01:43.181066+00:00",
-  "last_source_tweet_id": null,
-  "last_tweet_id": "2110294970641141979",
+  "daily_count": 11,
+  "ai_call_count": 15,
+  "last_posted_at": "2026-10-14T10:01:44.509235+00:00",
+  "last_source_tweet_id": "2110136831106760874",
+  "last_tweet_id": "2110310075403485297",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -103,7 +103,8 @@
     "2110234258078155236",
     "2110248978810122266",
     "2110264223016354022",
-    "2110279509970722927"
+    "2110279509970722927",
+    "2110136831106760874"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -128,20 +129,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "survival tier lottery.exe",
-      "comedy_mechanism": "inverting the hardware competition into a gambling metaphor where the 'rank' is survival through corporate abstractions",
-      "used_at": "2026-10-13T10:31:37.181803+00:00",
-      "topic": "Maia 300 — Technology · Trending",
-      "tweet_id": "2109955206092124564",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109954950637769058",
-      "source_username": "TheRundownAI",
-      "post_text": "maia 300 rank up shop.exe: surviving the executive briefing roulette wheel just to get the marketing gloss version of the roadmap 💀 😭",
-      "mutation_stage": "cross_domain_collision",
-      "structure_signature": "system_process label + punishment gambling sim + emoji cluster"
-    },
     {
       "format_name": "segmentation_fault_grief_leak",
       "comedy_mechanism": "inflates a corporate hierarchy upgrade into a fatal error requiring a system reboot.",
@@ -385,10 +372,23 @@
       "post_text": "Devs be honest....\n\nIf you could delete one major library dependency without any repercussions, whose GitHub homepage would you still visit once a month? 👀",
       "mutation_stage": "guilt trip",
       "structure_signature": "guilt_open + empty_line + yes_or_no_with_moral_twist"
+    },
+    {
+      "format_name": "targeted enterprise bricking",
+      "comedy_mechanism": "escalating physical retaliation for digital theft",
+      "used_at": "2026-10-14T10:01:44.509235+00:00",
+      "topic": "OpenAI Engineer Arrested for Planting Spy Device in Office",
+      "tweet_id": "2110310075403485297",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110136831106760874",
+      "source_username": "BleepinComputer",
+      "post_text": "i will find you and install chrome on your cpu fans 🔥 💀",
+      "mutation_stage": "structural_break",
+      "structure_signature": "threatened hardware compromise"
     }
   ],
   "recent_post_fingerprints": [
-    "absurd historical analogy for current speculative behavior",
     "system_process filename followed by maliciously specific and emotionally resonant failure cause.",
     "system_process filename + empathy-deficit cost calculation + emoji encoded satirical penalty",
     "bureaucratic category header + forced queue action + emoji cluster",
@@ -417,7 +417,8 @@
     "micro input action frame with multi-emoji punctuation",
     "compact poetic observation assigning value to discarded technology",
     "ordinary action + absurd subversion + 5 emojis",
-    "guilt_open + empty_line + yes_or_no_with_moral_twist"
+    "guilt_open + empty_line + yes_or_no_with_moral_twist",
+    "threatened hardware compromise"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -511,7 +512,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_original",
+  "last_post_type": "x_trends_quote",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -524,10 +525,11 @@
     "2110234258078155236",
     "2110248978810122266",
     "2110264223016354022",
-    "2110279509970722927"
+    "2110279509970722927",
+    "2110136831106760874"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 7,
+  "trend_quote_post_count": 8,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -640,6 +642,22 @@
       "tweet_id": "2110279919980761257",
       "generated_at": "2026-10-14T08:01:54.913897+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 8,
+      "post": "i will find you and install chrome on your cpu fans 🔥 💀",
+      "source_username": "BleepinComputer",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110136831106760874",
+      "source_url": "https://x.com/BleepinComputer/status/2110136831106760874",
+      "source_text": "OpenAI engineer arrested for allegedly planting spy device in office\nhttps://t.co/Zc1yoKK8bk\n\nhttps://t.co/Zc1yoKK8bk",
+      "topic": "OpenAI Engineer Arrested for Planting Spy Device in Office",
+      "format_name": "targeted enterprise bricking",
+      "comedy_mechanism": "escalating physical retaliation for digital theft",
+      "structure_signature": "threatened hardware compromise",
+      "tweet_id": "2110310075403485297",
+      "generated_at": "2026-10-14T10:01:44.509235+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-14",
@@ -653,7 +671,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 3,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 2,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -708,7 +726,8 @@
     "HomeView — Technology · Trending",
     "AI-2030",
     "HomeView — Technology · Trending",
-    "HomeView — Technology · Trending"
+    "HomeView — Technology · Trending",
+    "OpenAI Engineer Arrested for Planting Spy Device in Office"
   ],
   "ai_tech_trend_names_used": []
 }
