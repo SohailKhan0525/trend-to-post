@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 9,
-  "ai_call_count": 13,
-  "last_posted_at": "2026-10-14T08:01:54.913897+00:00",
-  "last_source_tweet_id": "2110279509970722927",
-  "last_tweet_id": "2110279919980761257",
+  "daily_count": 10,
+  "ai_call_count": 14,
+  "last_posted_at": "2026-10-14T09:01:43.181066+00:00",
+  "last_source_tweet_id": null,
+  "last_tweet_id": "2110294970641141979",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -128,20 +128,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "bundled ontology credit matrix",
-      "comedy_mechanism": "humorously reduces the specific acquisition of three distinct software tools (Grok, Cursor, X) into a single bureaucratic abstraction that sounds like an evil empire resource consolidation.",
-      "used_at": "2026-10-13T09:31:40.852892+00:00",
-      "topic": "X Premium — Technology · Trending",
-      "tweet_id": "2109940122242392303",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109939381133853106",
-      "source_username": "galaxper",
-      "post_text": "neural bundle synergies protocol: paying a single utility bill to rent a mind, a cursor, and an audience simultaneously 💀 ❤️‍🩹",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "noun phrase category header + unexpected triple-convergence setup + compact severity emoji cluster"
-    },
     {
       "format_name": "survival tier lottery.exe",
       "comedy_mechanism": "inverting the hardware competition into a gambling metaphor where the 'rank' is survival through corporate abstractions",
@@ -387,10 +373,21 @@
       "post_text": "if they catch you open this mail client on company time they assume you are a human 🥀 😂 👀 🔥",
       "mutation_stage": "invented_rule",
       "structure_signature": "ordinary action + absurd subversion + 5 emojis"
+    },
+    {
+      "format_name": "nuke_request_confessional",
+      "comedy_mechanism": "pivots from destructive fantasies to pathetic loyalty tests, exposing how bad software makes us love the very people we swear at.",
+      "used_at": "2026-10-14T09:01:43.181066+00:00",
+      "topic": "developer community",
+      "tweet_id": "2110294970641141979",
+      "content_type": "developer_prompt",
+      "content_mode": "developer_original_text_only",
+      "post_text": "Devs be honest....\n\nIf you could delete one major library dependency without any repercussions, whose GitHub homepage would you still visit once a month? 👀",
+      "mutation_stage": "guilt trip",
+      "structure_signature": "guilt_open + empty_line + yes_or_no_with_moral_twist"
     }
   ],
   "recent_post_fingerprints": [
-    "noun phrase category header + calculated wear and tear metric + emotional grief emoji",
     "absurd historical analogy for current speculative behavior",
     "system_process filename followed by maliciously specific and emotionally resonant failure cause.",
     "system_process filename + empathy-deficit cost calculation + emoji encoded satirical penalty",
@@ -419,7 +416,8 @@
     "historical panic subject + modern smart home absurd consequence + exact 5 distinct emojis",
     "micro input action frame with multi-emoji punctuation",
     "compact poetic observation assigning value to discarded technology",
-    "ordinary action + absurd subversion + 5 emojis"
+    "ordinary action + absurd subversion + 5 emojis",
+    "guilt_open + empty_line + yes_or_no_with_moral_twist"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -513,7 +511,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "x_trends_quote",
+  "last_post_type": "developer_original",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -653,9 +651,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 2,
+  "person_photo_post_count": 3,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 2,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -683,6 +681,20 @@
       "comedy_mechanism": "contrasts professional competence with the embarrassing digital clutter every dev hides",
       "structure_signature": "coders_be_honest_plus_tab_hoarding_question",
       "generated_at": "2026-10-14T03:01:39.865056+00:00",
+      "status": "published_text_only"
+    },
+    {
+      "slot_number": 3,
+      "subject": "developer community",
+      "post": "Devs be honest....\n\nIf you could delete one major library dependency without any repercussions, whose GitHub homepage would you still visit once a month? 👀",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2110294970641141979",
+      "format_name": "nuke_request_confessional",
+      "comedy_mechanism": "pivots from destructive fantasies to pathetic loyalty tests, exposing how bad software makes us love the very people we swear at.",
+      "structure_signature": "guilt_open + empty_line + yes_or_no_with_moral_twist",
+      "generated_at": "2026-10-14T09:01:43.181066+00:00",
       "status": "published_text_only"
     }
   ],
