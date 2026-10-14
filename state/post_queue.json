@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-14",
-  "daily_count": 11,
-  "ai_call_count": 16,
-  "last_posted_at": "2026-10-14T10:01:44.509235+00:00",
-  "last_source_tweet_id": "2110136831106760874",
-  "last_tweet_id": "2110310075403485297",
+  "daily_count": 12,
+  "ai_call_count": 17,
+  "last_posted_at": "2026-10-14T11:31:33.987837+00:00",
+  "last_source_tweet_id": null,
+  "last_tweet_id": "2110332680818532380",
   "posted_source_tweet_ids": [
     "2105696953069715689",
     "2105460699229241646",
@@ -129,20 +129,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "segmentation_fault_grief_leak",
-      "comedy_mechanism": "inflates a corporate hierarchy upgrade into a fatal error requiring a system reboot.",
-      "used_at": "2026-10-13T11:31:30.878015+00:00",
-      "topic": "Cursor Ultra",
-      "tweet_id": "2109970279506071588",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2109967628441694331",
-      "source_username": "vikktorrrre",
-      "post_text": "index out of bounds: attempting to use a mind in the context of a calculator 💀 🔥",
-      "mutation_stage": "structural_break",
-      "structure_signature": "runtime_error statement + humanist resignation metric + emotional overload emoji cluster"
-    },
     {
       "format_name": "infinite compute hedonism check",
       "comedy_mechanism": "uses resource abundance as a proxy for desire, exposing what engineers actually crave when constraints disappear.",
@@ -386,10 +372,21 @@
       "post_text": "i will find you and install chrome on your cpu fans 🔥 💀",
       "mutation_stage": "structural_break",
       "structure_signature": "threatened hardware compromise"
+    },
+    {
+      "format_name": "cloud dissociation confession",
+      "comedy_mechanism": "contrasts the abstract infrastructure of modern deployment with basic human memory loss outdoors",
+      "used_at": "2026-10-14T11:31:33.987837+00:00",
+      "topic": "developer community",
+      "tweet_id": "2110332680818532380",
+      "content_type": "developer_prompt",
+      "content_mode": "developer_original_text_only",
+      "post_text": "Coders be honest....\n\nWhat is the longest you have ever stared at a passing cloud trying to remember if you set it to local or production?",
+      "mutation_stage": "hypothetical burnout dilemma",
+      "structure_signature": "coders_opener_plus_sensory_cloud_dilemma"
     }
   ],
   "recent_post_fingerprints": [
-    "system_process filename followed by maliciously specific and emotionally resonant failure cause.",
     "system_process filename + empathy-deficit cost calculation + emoji encoded satirical penalty",
     "bureaucratic category header + forced queue action + emoji cluster",
     "vertical competency file name + arbitrary output metric + shared emotion terminus",
@@ -418,7 +415,8 @@
     "compact poetic observation assigning value to discarded technology",
     "ordinary action + absurd subversion + 5 emojis",
     "guilt_open + empty_line + yes_or_no_with_moral_twist",
-    "threatened hardware compromise"
+    "threatened hardware compromise",
+    "coders_opener_plus_sensory_cloud_dilemma"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -512,7 +510,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "x_trends_quote",
+  "last_post_type": "developer_original",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -669,9 +667,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 3,
+  "person_photo_post_count": 4,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 2,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -713,6 +711,20 @@
       "comedy_mechanism": "pivots from destructive fantasies to pathetic loyalty tests, exposing how bad software makes us love the very people we swear at.",
       "structure_signature": "guilt_open + empty_line + yes_or_no_with_moral_twist",
       "generated_at": "2026-10-14T09:01:43.181066+00:00",
+      "status": "published_text_only"
+    },
+    {
+      "slot_number": 4,
+      "subject": "developer community",
+      "post": "Coders be honest....\n\nWhat is the longest you have ever stared at a passing cloud trying to remember if you set it to local or production?",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2110332680818532380",
+      "format_name": "cloud dissociation confession",
+      "comedy_mechanism": "contrasts the abstract infrastructure of modern deployment with basic human memory loss outdoors",
+      "structure_signature": "coders_opener_plus_sensory_cloud_dilemma",
+      "generated_at": "2026-10-14T11:31:33.987837+00:00",
       "status": "published_text_only"
     }
   ],
