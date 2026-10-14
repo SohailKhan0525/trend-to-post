@@ -1122,6 +1122,8 @@ def _validate_original(
         opener_clean = opener.strip()
         if opener_clean != "Devs be honest...":
             raise GeminiError("Developer comparison opener must be exactly 'Devs be honest...'.")
+        if _found_emojis(post):
+            raise GeminiError("Developer comparison post must contain no emojis.")
             raise GeminiError("Developer post opener does not match the requested format.")
         if re.search(r"(?<!\w)@[A-Za-z0-9_]+|#|https?://|[“”\"']", post):
             raise GeminiError("Developer comparison post contains forbidden mentions, links, hashtags or quotes.")
