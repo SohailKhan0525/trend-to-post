@@ -46,7 +46,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("No question, no third line", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
-        self.assertIn("ABSOLUTELY NO TEXT", prompt)
+        self.assertIn("Never include an @mention in comparison-meme mode", prompt)
         self.assertIn("No question, no third line", prompt)
         self.assertIn("Never include an @mention", prompt)
         self.assertIn("The text describes the image", prompt)
@@ -94,7 +94,7 @@ class OriginalTextValidationTests(unittest.TestCase):
             {"trend": "Sam Altman", "text": "licensed portrait"},
             content_mode="developer_prompt",
         )
-        self.assertIn("Do not include any @mention", prompt)
+        self.assertIn("Never include an @mention", prompt)
 
     def test_valid_text_only_original_has_two_distinct_emojis(self) -> None:
         value = draft("my software update asked me to emotionally prepare 😭🔥")
