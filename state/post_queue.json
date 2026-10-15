@@ -1,12 +1,11 @@
 {
   "day_key": "2026-10-15",
-  "daily_count": 9,
-  "ai_call_count": 13,
-  "last_posted_at": "2026-10-15T08:01:45.866165+00:00",
-  "last_source_tweet_id": "2110639498635640884",
-  "last_tweet_id": "2110642269783241029",
+  "daily_count": 10,
+  "ai_call_count": 15,
+  "last_posted_at": "2026-10-15T09:01:53.779612+00:00",
+  "last_source_tweet_id": "2110657233285505339",
+  "last_tweet_id": "2110657402496295068",
   "posted_source_tweet_ids": [
-    "2105843926221660585",
     "2106083592522932320",
     "2106102670440399261",
     "2106129300168843307",
@@ -105,7 +104,8 @@
     "2110380941285953574",
     "2110602503654101367",
     "2110626728532128121",
-    "2110639498635640884"
+    "2110639498635640884",
+    "2110657233285505339"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -130,20 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "data archaeology tag",
-      "comedy_mechanism": "frames futuristic promises as the actual trash of a previous timeline, validating current rejection of them",
-      "used_at": "2026-10-14T07:01:48.886867+00:00",
-      "topic": "HomeView — Technology · Trending",
-      "tweet_id": "2110264795308097841",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2110264223016354022",
-      "source_username": "RVCJ_FB",
-      "post_text": "futurism is just data archaeology for the failed future 👀 🔥 🥀",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "compact poetic observation assigning value to discarded technology"
-    },
     {
       "format_name": "biometric camouflage protocol",
       "comedy_mechanism": "inverts benign activity into criminal identity concealment",
@@ -393,10 +379,23 @@
       "post_text": "your lucidity crystal delivery is 3 weeks delayed but im accepting it via carrier pigeon or maybe just boom 💀 😂 ❤️‍🩹",
       "mutation_stage": "premise_inversion",
       "structure_signature": "blunt delayed delivery timeline + absurd non-refundable acceptance protocols"
+    },
+    {
+      "format_name": "feudal ledger syndrome",
+      "comedy_mechanism": "inverts the tech growth narrative by framing a massive quarterly success as the oppressive labor required to maintain capital",
+      "used_at": "2026-10-15T09:01:53.779612+00:00",
+      "topic": "TSMC",
+      "tweet_id": "2110657402496295068",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110657233285505339",
+      "source_username": "marco__reed",
+      "post_text": "cohosting a quarterly results call is just modern feudalism with better spreadsheets 💀 🔥 🥀",
+      "mutation_stage": "premise_inversion",
+      "structure_signature": "headline observation referencing economic validation with toxic positivity emojis"
     }
   ],
   "recent_post_fingerprints": [
-    "opener + absurd legal consequence hypothetical + dual emoji cluster",
     "opener + blank line + creative fiction comparison question",
     "founders_opener_plus_interview_hypothetical",
     "assumption confirmation + functional bug report + emoji cluster",
@@ -425,7 +424,8 @@
     "macroscopic tech misallocation opening with emoji cluster",
     "artificial system interface mockup in prose format used to diagnose the post",
     "abstract tech jargon applied to non-technical discipline",
-    "blunt delayed delivery timeline + absurd non-refundable acceptance protocols"
+    "blunt delayed delivery timeline + absurd non-refundable acceptance protocols",
+    "headline observation referencing economic validation with toxic positivity emojis"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -532,10 +532,11 @@
     "2110380941285953574",
     "2110602503654101367",
     "2110626728532128121",
-    "2110639498635640884"
+    "2110639498635640884",
+    "2110657233285505339"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 7,
+  "trend_quote_post_count": 8,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -648,6 +649,22 @@
       "tweet_id": "2110642269783241029",
       "generated_at": "2026-10-15T08:01:45.866165+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 8,
+      "post": "cohosting a quarterly results call is just modern feudalism with better spreadsheets 💀 🔥 🥀",
+      "source_username": "marco__reed",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110657233285505339",
+      "source_url": "https://x.com/marco__reed/status/2110657233285505339",
+      "source_text": "3 biggest things from $TSM’s report:\n\n1. Profit $23.6B, up 68% y/y. Revenue $46.7B, beat again.\n\n2. Q4 guide $52.3-54.3B with 65-67% margins. They’re not slowing down!\n\n3. Citi asked them straight about AI financing, CoWoS, HBM and overbuilding. TSMC says they looked at all of it https://t.co/aU581yhcS9",
+      "topic": "TSMC",
+      "format_name": "feudal ledger syndrome",
+      "comedy_mechanism": "inverts the tech growth narrative by framing a massive quarterly success as the oppressive labor required to maintain capital",
+      "structure_signature": "headline observation referencing economic validation with toxic positivity emojis",
+      "tweet_id": "2110657402496295068",
+      "generated_at": "2026-10-15T09:01:53.779612+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-15",
@@ -702,7 +719,8 @@
     "OpenAI Engineer Arrested for Planting Hidden Recording Device in Conference Room",
     "Grok Voice 3.0",
     "GEMINI UNLOCK FULLER HAIR",
-    "50MP No Shake Cam — Technology · Trending"
+    "50MP No Shake Cam — Technology · Trending",
+    "TSMC"
   ],
   "ai_tech_trend_names_used": []
 }
