@@ -1,12 +1,11 @@
 {
   "day_key": "2026-10-15",
-  "daily_count": 12,
-  "ai_call_count": 18,
-  "last_posted_at": "2026-10-15T11:01:31.136615+00:00",
-  "last_source_tweet_id": null,
-  "last_tweet_id": "2110687506538594402",
+  "daily_count": 13,
+  "ai_call_count": 19,
+  "last_posted_at": "2026-10-15T12:01:43.702787+00:00",
+  "last_source_tweet_id": "2110629543082070441",
+  "last_tweet_id": "2110702658608910467",
   "posted_source_tweet_ids": [
-    "2106102670440399261",
     "2106129300168843307",
     "2106113312127893981",
     "2106226725428572371",
@@ -105,7 +104,8 @@
     "2110626728532128121",
     "2110639498635640884",
     "2110657233285505339",
-    "2110485415153283256"
+    "2110485415153283256",
+    "2110629543082070441"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -130,20 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "targeted enterprise bricking",
-      "comedy_mechanism": "escalating physical retaliation for digital theft",
-      "used_at": "2026-10-14T10:01:44.509235+00:00",
-      "topic": "OpenAI Engineer Arrested for Planting Spy Device in Office",
-      "tweet_id": "2110310075403485297",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2110136831106760874",
-      "source_username": "BleepinComputer",
-      "post_text": "i will find you and install chrome on your cpu fans 🔥 💀",
-      "mutation_stage": "structural_break",
-      "structure_signature": "threatened hardware compromise"
-    },
     {
       "format_name": "cloud dissociation confession",
       "comedy_mechanism": "contrasts the abstract infrastructure of modern deployment with basic human memory loss outdoors",
@@ -393,10 +379,23 @@
       "post_text": "Copilot or Raw Prompting?\n\nDevs be honest...",
       "mutation_stage": "binary choice headline",
       "structure_signature": "headline_with_question_mark_blank_line_opener"
+    },
+    {
+      "format_name": "ecosystem host restriction mock",
+      "comedy_mechanism": "subverts product metrics into a consumer licensing covenants scenario",
+      "used_at": "2026-10-15T12:01:43.702787+00:00",
+      "topic": "DeepSeek V4.1 Flash Now Free in OpenCode for Developers",
+      "tweet_id": "2110702658608910467",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110629543082070441",
+      "source_username": "thePandaily",
+      "post_text": "context window capacity priced at 2tb 4k video 🤣 💀",
+      "mutation_stage": "cross_domain_collision",
+      "structure_signature": "technical specification absurdity met with consumer despair"
     }
   ],
   "recent_post_fingerprints": [
-    "assumption confirmation + functional bug report + emoji cluster",
     "founders opener + arrival milestone hypothetical",
     "narrative question + financial stakes escalation",
     "coders_be_honest_plus_tab_hoarding_question",
@@ -425,7 +424,8 @@
     "blunt delayed delivery timeline + absurd non-refundable acceptance protocols",
     "headline observation referencing economic validation with toxic positivity emojis",
     "formal checklist item prefix followed by sarcastic status and emoji signature",
-    "headline_with_question_mark_blank_line_opener"
+    "headline_with_question_mark_blank_line_opener",
+    "technical specification absurdity met with consumer despair"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -519,7 +519,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "x_trends_quote",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -534,10 +534,11 @@
     "2110626728532128121",
     "2110639498635640884",
     "2110657233285505339",
-    "2110485415153283256"
+    "2110485415153283256",
+    "2110629543082070441"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 9,
+  "trend_quote_post_count": 10,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -682,6 +683,22 @@
       "tweet_id": "2110672480855859700",
       "generated_at": "2026-10-15T10:01:48.816022+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 10,
+      "post": "context window capacity priced at 2tb 4k video 🤣 💀",
+      "source_username": "thePandaily",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110629543082070441",
+      "source_url": "https://x.com/thePandaily/status/2110629543082070441",
+      "source_text": "Open weights for @StepFun_ai’s Step 5 Preview are live. 600B total, 27B active, 1M context, and No. 2 on @OpenRouter’s weekly chart. We read the tech blog so you don’t have to https://t.co/9gSf4tufXK",
+      "topic": "DeepSeek V4.1 Flash Now Free in OpenCode for Developers",
+      "format_name": "ecosystem host restriction mock",
+      "comedy_mechanism": "subverts product metrics into a consumer licensing covenants scenario",
+      "structure_signature": "technical specification absurdity met with consumer despair",
+      "tweet_id": "2110702658608910467",
+      "generated_at": "2026-10-15T12:01:43.702787+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-15",
@@ -695,7 +712,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 3,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 2,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -752,7 +769,8 @@
     "GEMINI UNLOCK FULLER HAIR",
     "50MP No Shake Cam — Technology · Trending",
     "TSMC",
-    "OpenAI Engineer Arrested for Planting Hidden Recorder in Conference Room"
+    "OpenAI Engineer Arrested for Planting Hidden Recorder in Conference Room",
+    "DeepSeek V4.1 Flash Now Free in OpenCode for Developers"
   ],
   "ai_tech_trend_names_used": []
 }
