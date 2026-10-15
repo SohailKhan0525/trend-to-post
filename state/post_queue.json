@@ -1,12 +1,11 @@
 {
   "day_key": "2026-10-15",
-  "daily_count": 3,
-  "ai_call_count": 4,
-  "last_posted_at": "2026-10-15T02:01:32.994216+00:00",
-  "last_source_tweet_id": null,
-  "last_tweet_id": "2110551619024904325",
+  "daily_count": 4,
+  "ai_call_count": 5,
+  "last_posted_at": "2026-10-15T03:01:41.619870+00:00",
+  "last_source_tweet_id": "2110536135533621415",
+  "last_tweet_id": "2110566754510631138",
   "posted_source_tweet_ids": [
-    "2105819452545884664",
     "2105805849415254021",
     "2105704169009246248",
     "2105954573525614797",
@@ -105,7 +104,8 @@
     "2110253016267792862",
     "2110377587826622674",
     "2110509204079608183",
-    "2110379182089769196"
+    "2110379182089769196",
+    "2110536135533621415"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "startup transformation curve",
-      "comedy_mechanism": "contrasts the romanticized chaos of building with the mundane reality of bureaucracy",
-      "used_at": "2026-10-14T01:01:43.026561+00:00",
-      "topic": "developer community",
-      "tweet_id": "2110174173847031845",
-      "content_type": "developer_prompt",
-      "content_mode": "developer_original_text_only",
-      "post_text": "Founders be honest....\n\nAt what exact ARR milestone does a startup stop feeling like a pirate ship and start feeling like an insurance office?",
-      "mutation_stage": "existential milestone check",
-      "structure_signature": "founders opener + arrival milestone hypothetical"
-    },
     {
       "format_name": "governance debt calculator.exe",
       "comedy_mechanism": "reverses the cleanup cost into a corporate ransom probability equation",
@@ -391,10 +379,23 @@
       "post_text": "Vim Motions or Stack Overflow?\n\nDevs be honest...",
       "mutation_stage": "binary tool comparison",
       "structure_signature": "headline_question_blank_opener"
+    },
+    {
+      "format_name": "gamedev_mtb_specification_protocol",
+      "comedy_mechanism": "weaponizes the hard truth of HD space degradation to mock open-source enthusiasm",
+      "used_at": "2026-10-15T03:01:41.619870+00:00",
+      "topic": "Apple Silicon",
+      "tweet_id": "2110566754510631138",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110536135533621415",
+      "source_username": "Pirat_Nation",
+      "post_text": "console mountain version requirements windows:: 2.00tb min mac:: 2.00tb min linux:: 2.00tb min android:: 2.00tb min bad project, bad pc, no enjoyment for me 🫠 💀 😤 👀",
+      "mutation_stage": "invented_rule",
+      "structure_signature": "programmer headed spec sheet with escalating absurdity"
     }
   ],
   "recent_post_fingerprints": [
-    "runtime_error statement + humanist resignation metric + emotional overload emoji cluster",
     "opener + scarcity inversion hypothetical",
     "nervous intimate opener + hypothetical interrogation",
     "vibecoder opener + forced simplification constraint + knowledge deletion question",
@@ -423,7 +424,8 @@
     "comparison headline with question mark, blank line, exact opener",
     "domain epithet + absurd economic valuation + sarcastic integer metaphor",
     "implication + absurd workplace habit",
-    "headline_question_blank_opener"
+    "headline_question_blank_opener",
+    "programmer headed spec sheet with escalating absurdity"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -517,7 +519,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "x_trends_quote",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -525,10 +527,11 @@
   "trend_manual_day_key": null,
   "trend_source_ids": [
     "2110509204079608183",
-    "2110379182089769196"
+    "2110379182089769196",
+    "2110536135533621415"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 2,
+  "trend_quote_post_count": 3,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -561,6 +564,22 @@
       "tweet_id": "2110536594746740901",
       "generated_at": "2026-10-15T01:01:50.962312+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 3,
+      "post": "console mountain version requirements windows:: 2.00tb min mac:: 2.00tb min linux:: 2.00tb min android:: 2.00tb min bad project, bad pc, no enjoyment for me 🫠 💀 😤 👀",
+      "source_username": "Pirat_Nation",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110536135533621415",
+      "source_url": "https://x.com/Pirat_Nation/status/2110536135533621415",
+      "source_text": "Lost Odyssey is getting an unofficial native PC port.\n\nA project called Lost Odyssey Recomp is bringing the Xbox 360 RPG to modern platforms t\nThe project supports Windows, Linux, macOS on Apple Silicon, and Android, and is already adding modern graphics and performance options. https://t.co/cUDgXZhKHv",
+      "topic": "Apple Silicon",
+      "format_name": "gamedev_mtb_specification_protocol",
+      "comedy_mechanism": "weaponizes the hard truth of HD space degradation to mock open-source enthusiasm",
+      "structure_signature": "programmer headed spec sheet with escalating absurdity",
+      "tweet_id": "2110566754510631138",
+      "generated_at": "2026-10-15T03:01:41.619870+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-15",
@@ -574,7 +593,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 1,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 2,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -596,7 +615,8 @@
   "ai_tech_quote_day_key": null,
   "trend_names_used": [
     "GPT-4o",
-    "OpenAI Engineer Arrested for Planting Hidden Recording Device in Executive Room"
+    "OpenAI Engineer Arrested for Planting Hidden Recording Device in Executive Room",
+    "Apple Silicon"
   ],
   "ai_tech_trend_names_used": []
 }
