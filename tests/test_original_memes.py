@@ -273,6 +273,57 @@ class OriginalTextValidationTests(unittest.TestCase):
             )
 
 
+
+class BuilderPromptTipTests(unittest.TestCase):
+    def test_builder_tip_prompt_requires_high_leverage_reusable_instruction(self) -> None:
+        prompt = _original_text_prompt(
+            {"trend": "expert builder prompt tips", "text": "Websites, UI/UX, software and AI-assisted building."},
+            content_mode="builder_tip",
+            emoji_count=0,
+        )
+        self.assertIn("EXPERT BUILDER PROMPT TIP", prompt)
+        self.assertIn("high-leverage", prompt)
+        self.assertIn("concrete prompt snippet", prompt)
+        self.assertIn("Do not use hashtags, URLs, @mentions, emojis", prompt)
+
+    def test_builder_tip_validation_accepts_substantive_tip(self) -> None:
+        value = draft(
+            'DID YOU KNOW?\n\n'
+            'Add an explicit visual QA pass to your build prompt.\n\n'
+            'Try adding this to your prompt:\n'
+            '"After implementation, audit every screen at mobile, tablet, and desktop widths; fix hierarchy, spacing, overflow, focus states, loading, empty, and error states before finishing."\n\n'
+            'Follow for more builder prompts.'
+        )
+        self.assertIs(
+            _validate_original(
+                value,
+                {},
+                include_handle=False,
+                minimum_emoji_count=0,
+                maximum_emoji_count=0,
+                content_mode="builder_tip",
+            ),
+            value,
+        )
+
+    def test_builder_tip_validation_rejects_basic_prompt(self) -> None:
+        value = draft(
+            'DID YOU KNOW?\n\n'
+            'Make your UI better.\n\n'
+            'Try adding this to your prompt:\n'
+            '"Be specific and make it better."\n\n'
+            'Follow for more builder prompts.'
+        )
+        with self.assertRaises(GeminiError):
+            _validate_original(
+                value,
+                {},
+                include_handle=False,
+                minimum_emoji_count=0,
+                maximum_emoji_count=0,
+                content_mode="builder_tip",
+            )
+
 if __name__ == "__main__":
     unittest.main()
 
