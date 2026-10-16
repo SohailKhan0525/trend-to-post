@@ -21,7 +21,7 @@ def main() -> None:
         if not published:
             message = (
                 "The queue completed without publishing a post. "
-                "Check the lane messages above for source, photo-license, or generation failures."
+                "Check the lane messages above for text-generation, validation, image-rendering, or publishing failures."
             )
             print(f"::warning title=No X post published::{message}")
             summary_path = os.environ.get("GITHUB_STEP_SUMMARY", "").strip()
