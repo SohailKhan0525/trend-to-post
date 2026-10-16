@@ -1030,6 +1030,8 @@ def generate_original_text(
                         maximum_char_count=180 if content_mode == "developer_prompt" else (120 if content_mode == "person_prompt" else None),
                         maximum_word_count=28 if content_mode == "developer_prompt" else (16 if content_mode == "person_prompt" else None),
                         require_blank_line_format=content_mode == "developer_prompt",
+                content_mode=content_mode,
+                        content_mode=content_mode,
                     ))
             except GeminiError as exc:
                 print(f"Cloudflare original text candidate rejected: {exc}")
@@ -1102,6 +1104,7 @@ def _validate_original(
     maximum_char_count: int | None = None,
     maximum_word_count: int | None = None,
     require_blank_line_format: bool = False,
+    content_mode: str | None = None,
 ) -> OriginalDraft:
     if not draft.should_post:
         return draft
@@ -1109,6 +1112,34 @@ def _validate_original(
     handle = str(target.get("handle", "")).strip()
     if not post:
         raise GeminiError("Generated company-original is empty.")
+    if content_mode == "builder_tip":
+        if len(post) > 280:
+            raise GeminiError("Builder tip is too long.")
+        if post.count("DID YOU KNOW?") != 1:
+            raise GeminiError("Builder tip must start with exactly one 'DID YOU KNOW?' heading.")
+        if not re.search(r"(?im)^Try adding this to your prompt:\s*$", post):
+            raise GeminiError("Builder tip must contain the exact prompt-introduction line.")
+        if not re.search(r'(?im)^Follow for more builder prompts\.?$', post):
+            raise GeminiError("Builder tip must end with a concise builder-follow CTA.")
+        prompt_lines = [
+            line.strip() for line in post.splitlines()
+            if line.strip().startswith('"') and line.strip().endswith('"')
+        ]
+        if not prompt_lines:
+            raise GeminiError("Builder tip must include a quoted reusable prompt instruction.")
+        prompt_text = " ".join(prompt_lines).strip('"').lower()
+        if len(prompt_text.split()) < 7:
+            raise GeminiError("Builder tip prompt snippet is too generic; require a substantive instruction.")
+        weak_phrases = (
+            "be specific", "make it better", "use good colors", "make it responsive",
+            "write a better prompt", "make it modern", "make it professional",
+        )
+        if prompt_text in weak_phrases or any(prompt_text == phrase for phrase in weak_phrases):
+            raise GeminiError("Builder tip prompt snippet is too basic.")
+        if re.search(r"(?<!\w)@[A-Za-z0-9_]+|#|https?://", post):
+            raise GeminiError("Builder tip contains a mention, hashtag, or URL.")
+        if _found_emojis(post):
+            raise GeminiError("Builder tip must not contain emojis.")
     if require_blank_line_format:
         sections = post.split("\n\n")
         if len(sections) != 2 or any("\n" in section for section in sections):
