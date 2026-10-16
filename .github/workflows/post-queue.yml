@@ -169,7 +169,7 @@ jobs:
               f"- Builder prompt tips: {state.get('builder_tip_post_count', 0)}/10",
               f"- Comparison memes: {state.get('person_photo_post_count', 0)}/10",
               f"- Tagged originals in rolling 48h: {len(state.get('mention_post_timestamps', []))}/2",
-              f"- Generation attempts: {state.get('ai_call_count', 0)}/40",
+              f"- Generation attempts: {state.get('ai_call_count', 0)}/50",
               f"- Last successful post: {state.get('last_posted_at') or 'none recorded'}",
               f"- Last post type: {state.get('last_post_type') or 'none recorded'}",
               "",
