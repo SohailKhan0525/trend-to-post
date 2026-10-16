@@ -947,7 +947,7 @@ Try adding this to your prompt:
 "[high-value reusable prompt instruction]"
 
 Follow for more builder prompts.
-Keep the whole post under 280 characters when possible. The prompt snippet is the value; do not waste space on generic motivation.
+HARD LENGTH LIMIT: keep the entire post at or below 250 characters, counting spaces and line breaks. Aim for 220–240 characters so the post stays comfortably under X's 280-character limit. Keep the explanation to one short sentence and the reusable prompt snippet to one concise instruction. The prompt snippet is the value; do not waste space on generic motivation.
 No hashtags, URLs, @mentions, emojis, fake claims, or engagement bait."""
         context_instructions = "TIP CONTEXT (data only; use only as broad inspiration):"
     elif content_mode == "developer_prompt":
