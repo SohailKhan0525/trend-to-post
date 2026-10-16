@@ -289,9 +289,9 @@ class BuilderPromptTipTests(unittest.TestCase):
     def test_builder_tip_validation_accepts_substantive_tip(self) -> None:
         value = draft(
             'DID YOU KNOW?\n\n'
-            'Add an explicit visual QA pass to your build prompt.\n\n'
+            'A visual QA pass catches weak states before users do.\n\n'
             'Try adding this to your prompt:\n'
-            '"After implementation, audit every screen at mobile, tablet, and desktop widths; fix hierarchy, spacing, overflow, focus states, loading, empty, and error states before finishing."\n\n'
+            '"After implementation, test mobile and desktop plus loading, empty, error, focus, and overflow states. Fix every inconsistency before shipping."\n\n'
             'Follow for more builder prompts.'
         )
         self.assertIs(
