@@ -283,6 +283,8 @@ class BuilderPromptTipTests(unittest.TestCase):
         )
         self.assertIn("EXPERT BUILDER PROMPT TIP", prompt)
         self.assertIn("high-leverage", prompt)
+        self.assertIn("at or below 250 characters", prompt)
+        self.assertIn("220–240 characters", prompt)
         self.assertIn("concrete prompt snippet", prompt)
         self.assertIn("No hashtags, URLs, @mentions, emojis", prompt)
 
