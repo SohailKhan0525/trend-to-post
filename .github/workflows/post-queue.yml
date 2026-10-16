@@ -1,4 +1,4 @@
-name: Post AI and Technology X Trends Quote Posts
+name: Post Builder Tips and Comparison Memes
 
 on:
   workflow_dispatch:
@@ -74,7 +74,7 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
-      - name: Publish one AI/technology X Trends Quote Post
+      - name: Publish one builder tip or comparison meme
         id: post_bot
         env:
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
@@ -110,7 +110,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add state/post_queue.json state/company_manual_posts.md state/trend_manual_posts.md
-          git commit -m "chore: update photo and quote queue state"
+          git commit -m "chore: update builder tip and comparison queue state"
 
           for attempt in 1 2 3 4 5; do
             if git push; then
@@ -175,8 +175,9 @@ jobs:
               f"- Main posts published: {state.get('daily_count', 0)}/20",
               f"- This run published a post: {os.environ.get('POST_PUBLISHED', 'unknown')}",
               f"- This run skip reason: {os.environ.get('POST_SKIP_REASON', 'unknown')}",
-              f"- AI/technology X Trends quote posts: {state.get('trend_quote_post_count', 0)}/12",
-              f"- Developer-community originals: {state.get('person_photo_post_count', 0)}/8",
+              f"- X Trends quote posts (retired): {state.get('trend_quote_post_count', 0)}/0",
+              f"- Builder prompt tips: {state.get('builder_tip_post_count', 0)}/10",
+              f"- Comparison memes: {state.get('person_photo_post_count', 0)}/10",
               f"- Tagged originals in rolling 48h: {len(state.get('mention_post_timestamps', []))}/2",
               f"- Generation attempts: {state.get('ai_call_count', 0)}/40",
               f"- Last successful post: {state.get('last_posted_at') or 'none recorded'}",
