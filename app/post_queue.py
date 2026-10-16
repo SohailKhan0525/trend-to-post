@@ -1447,21 +1447,19 @@ async def post_next(
 
     client = _client(auth_token, ct0)
     if not await client.is_logged_in():
-        raise QueueError("X session is not logged in; auth cookies may be expired.")
+        raise QueueError("X session is not logged in; X auth cookies may be expired.")
 
-    # Daily plan: 10 expert builder-prompt tips plus 10 original comparison memes.
-    # Daily plan: 10 expert builder-prompt tips plus 10 original comparison memes.
+    # Only the two requested original-content lanes remain active.
     lanes = (
         ("builder_tip", "builder_tip_post_count", BUILDER_TIP_POSTS_PER_DAY, _post_builder_tip),
         ("comparison_meme", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_comparison_meme),
     )
     start = int(state.get("next_lane_index", 0)) % len(lanes)
     eligible = [
-        (index, lane)
+        (index, lanes[index])
         for offset in range(len(lanes))
         for index in [(start + offset) % len(lanes)]
-        for lane in [lanes[index]]
-        if int(state.get(lane[1], 0)) < lane[2]
+        if int(state.get(lanes[index][1], 0)) < lanes[index][2]
     ]
     if not eligible:
         print(
@@ -1472,4 +1470,33 @@ async def post_next(
         _set_workflow_output("skip_reason", "daily_plan_complete")
         return False
 
+    last_error: Exception | None = None
+    for index, lane in eligible:
+        lane_name, _, _, publisher = lane
+        state["next_lane_index"] = (index + 1) % len(lanes)
+        _save_state(state)
+        print(f"Queue attempting lane: {lane_name}.")
+        try:
+            if await publisher(state, client):
+                _set_workflow_output("published", "true")
+                _set_workflow_output("skip_reason", "published")
+                return True
+        except QueueError:
+            # An uncertain X publish outcome must never trigger a second post.
+            raise
+        except Exception as exc:
+            last_error = exc
+            print(f"Lane {lane_name} failed safely; trying the next eligible lane: {exc}")
 
+        if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
+            _set_workflow_output("skip_reason", "daily_cap")
+            return False
+        if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+            break
+
+    if last_error is not None:
+        print(f"No lane published a post during this dispatch; last error: {last_error}")
+    else:
+        print("No lane had eligible source material to publish during this dispatch.")
+    _set_workflow_output("skip_reason", "no_eligible_source")
+    return False
