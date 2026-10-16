@@ -1422,14 +1422,9 @@ async def post_next(
     if not auth_token or not ct0:
         raise QueueError("X_AUTH_TOKEN and X_CT0 are required.")
 
-    if not (
-        os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
-        and os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
-    ):
-        raise QueueError(
-            "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are required."
-        )
-
+    # Cloudflare Workers AI is an optional first-pass text candidate provider.
+    # Gemini is the configured fallback, so missing Cloudflare credentials must
+    # not prevent a post when Gemini credentials are available.
     _set_workflow_output("published", "false")
     _set_workflow_output("skip_reason", "not_started")
     state = _load_state()
