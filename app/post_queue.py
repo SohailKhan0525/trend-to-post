@@ -1494,9 +1494,15 @@ async def post_next(
         if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
             break
 
+    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
+        print("No post published because the daily AI generation budget was exhausted.")
+        _set_workflow_output("skip_reason", "generation_budget")
+        return False
     if last_error is not None:
         print(f"No lane published a post during this dispatch; last error: {last_error}")
     else:
-        print("No lane had eligible source material to publish during this dispatch.")
-    _set_workflow_output("skip_reason", "no_eligible_source")
+        print("Eligible content lanes were attempted, but generation or validation failed.")
+    # Do not label failed generation as a harmless empty-source skip. The
+    # workflow's explicit failure step should make repeated generation failures visible.
+    _set_workflow_output("skip_reason", "generation_failed")
     return False
