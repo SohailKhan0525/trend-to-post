@@ -145,18 +145,17 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(state["trend_quote_posts"][-1]["status"], "published")
         self.assertEqual(state["last_post_type"], "x_trends_quote")
 
-    async def test_text_only_developer_fallback_publishes_when_no_photo_is_available(self):
+    async def test_builder_tip_publishes(self):
         state = post_queue._new_state()
         draft = OriginalDraft(
             True,
-            "Devs be honest...\nWhat would you build if compute cost nothing? 👀💀",
-            "developer hypothetical",
+            'DID YOU KNOW?\n\nTry adding this to your prompt:\n"Audit mobile, tablet, and desktop states plus loading, empty, error, and focus states before shipping."\n\nFollow for more builder prompts.',
+            "expert builder prompt tip",
             "",
-            "developer community",
-            "free compute question",
-            "relatable trade-off",
-            "two-line community opener plus hypothetical",
-            "developer_prompt",
+            "builder tip",
+            "practical UI QA",
+            "expert reusable prompt",
+            "builder_tip",
         )
         client = SimpleNamespace(
             create_tweet=AsyncMock(return_value=SimpleNamespace(id="4444444444444444444"))
@@ -165,14 +164,14 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             patch.object(post_queue, "generate_original_text", return_value=draft),
             patch.object(post_queue, "_save_state"),
         ):
-            result = await post_queue._post_developer_original_text_only(state, client)
+            result = await post_queue._post_builder_tip(state, client)
 
         self.assertTrue(result)
         client.create_tweet.assert_awaited_once_with(text=draft.post_text)
-        self.assertEqual(state["person_photo_post_count"], 1)
+        self.assertEqual(state["builder_tip_post_count"], 1)
         self.assertEqual(state["daily_count"], 1)
-        self.assertEqual(state["last_post_type"], "developer_original")
-        self.assertEqual(state["person_photo_posts"][-1]["status"], "published_text_only")
+        self.assertEqual(state["last_post_type"], "builder_tip")
+        self.assertEqual(state["builder_tip_posts"][-1]["status"], "published_builder_tip")
 
     async def test_post_queue_enables_original_developer_prompt_lane(self):
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 10)
