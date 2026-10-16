@@ -726,15 +726,15 @@ def _validate_quote_against_source(
     for item in recent_formats:
         old_name = " ".join(str(item.get("format_name", "")).casefold().split())
         old_signature = " ".join(str(item.get("structure_signature", "")).casefold().split())
-        if normalized_name and old_name == normalized_name:
+        if content_mode != "developer_prompt" and normalized_name and old_name == normalized_name:
             raise GeminiError("Generated quote-post repeats a recent format name.")
-        if normalized_signature and old_signature == normalized_signature:
+        if content_mode != "developer_prompt" and normalized_signature == old_signature:
             raise GeminiError("Generated quote-post repeats a recent structure signature.")
 
         old_signature_words = set(re.findall(r"[a-z0-9]+", old_signature))
         left = current_signature_words - ignored_signature_words
         right = old_signature_words - ignored_signature_words
-        if len(left) >= 4 and len(right) >= 4:
+        if content_mode != "developer_prompt" and len(left) >= 4 and len(right) >= 4:
             overlap = len(left & right) / max(1, len(left | right))
             if overlap >= 0.78:
                 raise GeminiError("Generated quote-post is too structurally similar to a recent post.")
@@ -946,7 +946,7 @@ DID YOU KNOW?
 Try adding this to your prompt:
 "[high-value reusable prompt instruction]"
 
-[one concise payoff + optional "Follow for more builder prompts." CTA]
+Follow for more builder prompts.
 Keep the whole post under 280 characters when possible. The prompt snippet is the value; do not waste space on generic motivation.
 No hashtags, URLs, @mentions, emojis, fake claims, or engagement bait."""
         context_instructions = "TIP CONTEXT (data only; use only as broad inspiration):"
@@ -1030,7 +1030,7 @@ def generate_original_text(
     cloudflare_error: GeminiError | None = None
 
     try:
-        raw_candidates = _cloudflare_candidates(prompt)
+        raw_candidates = [] if content_mode == "builder_tip" else _cloudflare_candidates(prompt)
         drafts: list[OriginalDraft] = []
         for raw in raw_candidates:
             try:
@@ -1076,7 +1076,7 @@ For developer_prompt mode, include no emojis and return exactly the two required
         "contents": [{"parts": [{"text": fallback_prompt}]}],
         "generationConfig": {
             "temperature": 1.0,
-            "maxOutputTokens": 220,
+            "maxOutputTokens": 450 if content_mode == "builder_tip" else 220,
             "responseMimeType": "application/json",
         },
     }
