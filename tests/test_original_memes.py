@@ -284,7 +284,7 @@ class BuilderPromptTipTests(unittest.TestCase):
         self.assertIn("EXPERT BUILDER PROMPT TIP", prompt)
         self.assertIn("high-leverage", prompt)
         self.assertIn("concrete prompt snippet", prompt)
-        self.assertIn("Do not use hashtags, URLs, @mentions, emojis", prompt)
+        self.assertIn("No hashtags, URLs, @mentions, emojis", prompt)
 
     def test_builder_tip_validation_accepts_substantive_tip(self) -> None:
         value = draft(
