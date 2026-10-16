@@ -1023,14 +1023,13 @@ def generate_original_text(
                         target,
                         include_handle=bool(mention_handle),
                         minimum_emoji_count=emoji_count,
-                        maximum_emoji_count=0 if content_mode == "developer_prompt" else emoji_count + 1,
+                        maximum_emoji_count=0 if content_mode in {"developer_prompt", "builder_tip"} else emoji_count + 1,
                         format_memory=format_memory,
                         source=source if content_mode == "trend_manual" else None,
                         require_source_link=content_mode == "trend_manual",
                         maximum_char_count=180 if content_mode == "developer_prompt" else (120 if content_mode == "person_prompt" else None),
                         maximum_word_count=28 if content_mode == "developer_prompt" else (16 if content_mode == "person_prompt" else None),
                         require_blank_line_format=content_mode == "developer_prompt",
-                content_mode=content_mode,
                         content_mode=content_mode,
                     ))
             except GeminiError as exc:
