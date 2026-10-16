@@ -176,8 +176,10 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_post_queue_enables_original_developer_prompt_lane(self):
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 10)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 10)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 10)
+        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
+        self.assertEqual(post_queue.POSTS_PER_DAY, 20)
 
     async def test_queue_stops_when_twenty_main_posts_are_complete(self):
         state = post_queue._new_state()
