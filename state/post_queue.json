@@ -1,12 +1,11 @@
 {
   "day_key": "2026-10-16",
-  "daily_count": 4,
-  "ai_call_count": 7,
-  "last_posted_at": "2026-10-16T03:01:59.440233+00:00",
-  "last_source_tweet_id": "2110924959438791070",
-  "last_tweet_id": "2110929217005441256",
+  "daily_count": 5,
+  "ai_call_count": 9,
+  "last_posted_at": "2026-10-16T04:02:08.131615+00:00",
+  "last_source_tweet_id": "2110934209665868196",
+  "last_tweet_id": "2110944353174896913",
   "posted_source_tweet_ids": [
-    "2106125468365918268",
     "2106147184693620924",
     "2106119810509881791",
     "2106420478273286424",
@@ -105,7 +104,8 @@
     "2110877278779605165",
     "2110898204677939368",
     "2110908585739759689",
-    "2110924959438791070"
+    "2110924959438791070",
+    "2110934209665868196"
   ],
   "skipped_source_tweet_ids": [
     "2107878893151511014",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "morbid productivity comparison",
-      "comedy_mechanism": "leverages hyperbole to validate common burnout experiences with dark humor",
-      "used_at": "2026-10-14T15:31:29.491695+00:00",
-      "topic": "developer community",
-      "tweet_id": "2110393059821392103",
-      "content_type": "developer_prompt",
-      "content_mode": "developer_original_text_only",
-      "post_text": "Caffeine Addiction or Sleep Deprivation?\n\nDevelopers be honest...\n\nWhich one are you hoping kills you first?",
-      "mutation_stage": "short structure label",
-      "structure_signature": "high stakes trade-off + guilt trigger question"
-    },
     {
       "format_name": "developer binary comparison",
       "comedy_mechanism": "pitting two universal developer polarizing choices against each other with a blunt prompt",
@@ -397,10 +385,23 @@
       "post_text": "bonus issue and a dividend drop in the exact same hour is just corporate survival roulette where the board tries to outrun the vibration of their own chairs 💀 🔥 😭",
       "mutation_stage": "structural_break",
       "structure_signature": "run-on sentence fragment concluding with a four-emoji kinetic exit"
+    },
+    {
+      "format_name": "os error macro",
+      "comedy_mechanism": "inverts standard consumer complaints into abstract system qualification to mock the uncanny valley of ai voice",
+      "used_at": "2026-10-16T04:02:08.131615+00:00",
+      "topic": "GPT-Live-1.1 — Technology · Trending",
+      "tweet_id": "2110944353174896913",
+      "content_type": "quote_post",
+      "content_mode": "x_trends_quote",
+      "source_tweet_id": "2110934209665868196",
+      "source_username": "shaunralston",
+      "post_text": "local voice model artifact: sun_eraser.exe error_code: request_rejected 💀 🔥",
+      "mutation_stage": "structural_break",
+      "structure_signature": "noun_concept + error_symbol + colloquial tech variable"
     }
   ],
   "recent_post_fingerprints": [
-    "historical panic subject + modern smart home absurd consequence + exact 5 distinct emojis",
     "micro input action frame with multi-emoji punctuation",
     "compact poetic observation assigning value to discarded technology",
     "ordinary action + absurd subversion + 5 emojis",
@@ -429,7 +430,8 @@
     "sales pitch observation + logical downgrade analogy + emoji signature",
     "tech header followed by compliance check with pending human status",
     "meta-variable definition + sarcastic metric qualification + toxic positivity emoji",
-    "run-on sentence fragment concluding with a four-emoji kinetic exit"
+    "run-on sentence fragment concluding with a four-emoji kinetic exit",
+    "noun_concept + error_symbol + colloquial tech variable"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -533,10 +535,11 @@
     "2110877278779605165",
     "2110898204677939368",
     "2110908585739759689",
-    "2110924959438791070"
+    "2110924959438791070",
+    "2110934209665868196"
   ],
   "invented_post_count": 0,
-  "trend_quote_post_count": 4,
+  "trend_quote_post_count": 5,
   "trend_quote_posts": [
     {
       "slot_number": 1,
@@ -601,6 +604,22 @@
       "tweet_id": "2110929217005441256",
       "generated_at": "2026-10-16T03:01:59.440233+00:00",
       "status": "published"
+    },
+    {
+      "slot_number": 5,
+      "post": "local voice model artifact: sun_eraser.exe error_code: request_rejected 💀 🔥",
+      "source_username": "shaunralston",
+      "source_type": "x_trend",
+      "source_tweet_id": "2110934209665868196",
+      "source_url": "https://x.com/shaunralston/status/2110934209665868196",
+      "source_text": "🚨 ChatGPT Voice bug after today's GPT-Live-1.1 rollout? My selected voice (Sol) works in Live Mode, but Standard Voice ignores my selection and defaults to an unrelated male voice. @sama, @JustinBleuel, @athyuttamre, @kundan2510, @victornunez Anyone else experiencing this?",
+      "topic": "GPT-Live-1.1 — Technology · Trending",
+      "format_name": "os error macro",
+      "comedy_mechanism": "inverts standard consumer complaints into abstract system qualification to mock the uncanny valley of ai voice",
+      "structure_signature": "noun_concept + error_symbol + colloquial tech variable",
+      "tweet_id": "2110944353174896913",
+      "generated_at": "2026-10-16T04:02:08.131615+00:00",
+      "status": "published"
     }
   ],
   "trend_quote_day_key": "2026-10-16",
@@ -623,7 +642,8 @@
     "Windows 11",
     "Chrome — Technology · Trending",
     "Mac Studios — Technology · Trending",
-    "Tech Mahindra"
+    "Tech Mahindra",
+    "GPT-Live-1.1 — Technology · Trending"
   ],
   "ai_tech_trend_names_used": []
 }
