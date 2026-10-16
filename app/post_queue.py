@@ -38,7 +38,7 @@ PERSON_PHOTO_POSTS_PER_DAY = 10
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
 # Allow retries across flaky source searches/provider responses without changing
 # the hard cap of twenty successfully published main posts.
-AI_GENERATIONS_PER_DAY = 40
+AI_GENERATIONS_PER_DAY = 50
 ORIGINAL_POSTS_PER_DAY = 11  # legacy state compatibility only
 # The external dispatcher and scheduled fallback both run every 30 minutes.
 # A 58-minute guard allows one successful post per hour despite event overlap,
