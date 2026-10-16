@@ -96,54 +96,9 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(result, [])
 
-    async def test_ai_technology_x_trends_lane_publishes_a_quote_post_with_original_commentary(self):
-        from datetime import datetime, timezone
-
-        state = post_queue._new_state()
-        source = post_queue.SourceTweet(
-            tweet_id="1111111111111111111",
-            text="We shipped a new AI software feature.",
-            username="OpenAI",
-            created_at=datetime.now(timezone.utc),
-            trend="OpenAI AI software",
-            trend_volume=0,
-            view_count=1000,
-            favorite_count=20,
-            retweet_count=5,
-            reply_count=4,
-            author_followers=100000,
-            author_verified=True,
-            author_professional=True,
-            source_type="x_trend",
-        )
-        draft = QuoteDraft(
-            True, "release day just spawned a final boss 😂 👀",
-            "meme-style observation", "release boss fight", "absurd escalation",
-            "", False, "quote_post", "invented_rule", "new structure signature",
-        )
-        client = SimpleNamespace(
-            create_tweet=AsyncMock(return_value=SimpleNamespace(id="3333333333333333333")),
-            retweet=AsyncMock(),
-        )
-        source_finder = AsyncMock(return_value=source)
-        with (
-            patch.object(post_queue, "find_trending_source", new=source_finder),
-            patch.object(post_queue, "generate_quote", return_value=draft),
-            patch.object(post_queue, "_save_state"),
-        ):
-            result = await post_queue._post_trend_quote(state, client)
-
-        source_finder.assert_awaited_once()
-        self.assertEqual(source_finder.await_args.args[0], client)
-        self.assertEqual(source_finder.await_args.args[1], [])
-        self.assertTrue(source_finder.await_args.kwargs["ai_tech_only"])
-        self.assertTrue(result)
-        client.create_tweet.assert_awaited_once_with(
-            text=draft.quote_text, attachment_url=source.url
-        )
-        client.retweet.assert_not_awaited()
-        self.assertEqual(state["trend_quote_posts"][-1]["status"], "published")
-        self.assertEqual(state["last_post_type"], "x_trends_quote")
+    async def test_x_trends_quote_lane_is_retired(self):
+        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 10)
 
     async def test_builder_tip_publishes(self):
         state = post_queue._new_state()
