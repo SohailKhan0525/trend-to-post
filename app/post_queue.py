@@ -213,6 +213,21 @@ def _load_state() -> dict:
             f"State ai_call_count is outside 0..{AI_GENERATIONS_PER_DAY}."
         )
     try:
+        state["builder_tip_post_count"] = int(state.get("builder_tip_post_count", 0))
+    except (TypeError, ValueError) as exc:
+        raise QueueError("State builder_tip_post_count must be an integer.") from exc
+    if not 0 <= state["builder_tip_post_count"] <= BUILDER_TIP_POSTS_PER_DAY:
+        raise QueueError(
+            f"State builder_tip_post_count is outside 0..{BUILDER_TIP_POSTS_PER_DAY}."
+        )
+    builder_posts = state.get("builder_tip_posts", [])
+    if not isinstance(builder_posts, list):
+        raise QueueError("State builder_tip_posts must be a list.")
+    state["builder_tip_posts"] = [
+        item for item in builder_posts[-BUILDER_TIP_POSTS_PER_DAY:]
+        if isinstance(item, dict)
+    ]
+    try:
         state["company_post_count"] = int(state.get("company_post_count", 0))
     except (TypeError, ValueError) as exc:
         raise QueueError("State company_post_count must be an integer.") from exc
