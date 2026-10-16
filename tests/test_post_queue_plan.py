@@ -13,14 +13,14 @@ class FakeClient:
 
 
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
-    def test_daily_plan_is_ten_trend_quotes_plus_ten_comparison_memes(self):
-        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 10)
+    def test_daily_plan_is_ten_builder_tips_plus_ten_comparison_memes(self):
+        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 10)
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 10)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(
-            post_queue.TREND_QUOTE_POSTS_PER_DAY
-            + post_queue.PERSON_PHOTO_POSTS_PER_DAY
-            + post_queue.AI_TECH_QUOTE_POSTS_PER_DAY,
+            post_queue.BUILDER_TIP_POSTS_PER_DAY
+            + post_queue.PERSON_PHOTO_POSTS_PER_DAY,
             post_queue.POSTS_PER_DAY,
         )
 
@@ -52,7 +52,9 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("steps.post_bot.outputs.skip_reason != 'interval_guard'", workflow)
         self.assertIn("steps.post_bot.outputs.skip_reason != 'no_eligible_source'", workflow)
         self.assertIn("POST_SKIP_REASON", workflow)
-        self.assertIn("AI/technology X Trends quote posts", workflow)
+        self.assertIn("Builder prompt tips", workflow)
+        self.assertIn("Comparison memes", workflow)
+        self.assertIn("X Trends quote posts (retired)", workflow)
         self.assertNotIn("Publish one queued photo prompt", workflow)
 
     async def test_person_photo_lane_only_uses_a_matching_active_x_profile(self):
