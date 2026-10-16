@@ -1,4 +1,3 @@
-import os
 import unittest
 from unittest.mock import AsyncMock, patch
 from types import SimpleNamespace
@@ -141,10 +140,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         state = post_queue._new_state()
         state["daily_count"] = post_queue.POSTS_PER_DAY
         with (
-            patch.dict(os.environ, {
-                "CLOUDFLARE_ACCOUNT_ID": "test-account",
-                "CLOUDFLARE_API_TOKEN": "test-token",
-            }),
+            patch.dict("os.environ", {}, clear=True),
             patch.object(post_queue, "_load_state", return_value=state),
             patch.object(post_queue, "_client") as client,
         ):
