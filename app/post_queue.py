@@ -31,7 +31,8 @@ from .trend_source import (
 STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 20
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
-TREND_QUOTE_POSTS_PER_DAY = 10
+TREND_QUOTE_POSTS_PER_DAY = 0  # retired: no more X Trends quote-posts
+BUILDER_TIP_POSTS_PER_DAY = 10
 LEGACY_TREND_QUOTE_POSTS_PER_DAY = 12  # tolerate state from the previous daily cap
 PERSON_PHOTO_POSTS_PER_DAY = 10
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
@@ -116,6 +117,9 @@ def _new_state() -> dict:
         "ai_tech_quote_post_count": 0,
         "ai_tech_quote_posts": [],
         "ai_tech_source_ids": [],
+        "builder_tip_day_key": None,
+        "builder_tip_post_count": 0,
+        "builder_tip_posts": [],
         "next_lane_index": 0,
     }
 
@@ -190,6 +194,9 @@ def _load_state() -> dict:
         state["ai_tech_quote_posts"] = []
         state["ai_tech_source_ids"] = []
         state["ai_tech_trend_names_used"] = []
+        state["builder_tip_day_key"] = None
+        state["builder_tip_post_count"] = 0
+        state["builder_tip_posts"] = []
         state["skipped_person_image_titles"] = []
         state["next_lane_index"] = 0
 
@@ -297,7 +304,7 @@ def _load_state() -> dict:
     try:
         state["person_photo_post_count"] = int(state.get("person_photo_post_count", 0))
         state["ai_tech_quote_post_count"] = int(state.get("ai_tech_quote_post_count", 0))
-        state["next_lane_index"] = int(state.get("next_lane_index", 0)) % 3
+        state["next_lane_index"] = int(state.get("next_lane_index", 0)) % 2
     except (TypeError, ValueError) as exc:
         raise QueueError("Visual/AI-tech lane counters must be integers.") from exc
     if not 0 <= state["person_photo_post_count"] <= PERSON_PHOTO_POSTS_PER_DAY:
@@ -815,20 +822,24 @@ async def _find_active_x_person_handles(
     return active
 
 
-async def _post_developer_original_text_only(state: dict, client: Client) -> bool:
-    """Fallback to a text-only developer prompt when no safe photo is available."""
+async def _post_builder_tip(state: dict, client: Client) -> bool:
+    """Publish one expert, reusable prompt-engineering tip for builders."""
     today = _today()
-    if int(state.get("person_photo_post_count", 0)) >= PERSON_PHOTO_POSTS_PER_DAY:
+    if state.get("builder_tip_day_key") != today:
+        state["builder_tip_day_key"] = today
+        state["builder_tip_post_count"] = 0
+        state["builder_tip_posts"] = []
+    if int(state.get("builder_tip_post_count", 0)) >= BUILDER_TIP_POSTS_PER_DAY:
         return False
     if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
         return False
     if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
-        print("AI generation-attempt budget reached before text-only developer original.")
+        print("AI generation-attempt budget reached before builder tip.")
         return False
 
     payload = {
-        "trend": "developer community",
-        "text": "Evergreen questions about software, AI tools, building, and founder life.",
+        "trend": "expert prompt engineering for websites, UI/UX, web apps, software, and AI-assisted building",
+        "text": "Generate one high-leverage, reusable prompt instruction that materially improves a builder's output. Focus on design systems, states, accessibility, architecture, visual QA, edge cases, or interaction quality. Avoid generic advice.",
         "mention_handle": "",
     }
     state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
@@ -837,78 +848,78 @@ async def _post_developer_original_text_only(state: dict, client: Client) -> boo
         draft = generate_original_text(
             payload,
             state.get("format_lab", []),
-            content_mode="developer_prompt",
+            content_mode="builder_tip",
         )
     except GeminiError as exc:
-        print(f"Text-only developer original generation failed: {exc}")
+        print(f"Builder tip generation failed: {exc}")
         return False
 
     text = draft.post_text.strip()
-    if not draft.should_post or not text or len(text) > 180:
-        print("Text-only developer original failed validation; no post published.")
+    if not draft.should_post or not text or len(text) > 280:
+        print("Builder tip failed validation; no post published.")
         return False
 
     try:
         tweet = await client.create_tweet(text=text)
     except Exception as exc:
-        raise QueueError(f"Text-only developer original post failed: {exc}") from exc
+        raise QueueError(f"Builder tip post failed: {exc}") from exc
 
     tweet_id = str(getattr(tweet, "id", "") or "")
     if not tweet_id:
         raise QueueError(
-            "X accepted the text-only developer original but returned no tweet ID; inspect the account before retrying."
+            "X accepted the builder tip but returned no tweet ID; inspect the account before retrying."
         )
 
     now = datetime.now(timezone.utc).isoformat()
     item = {
-        "slot_number": int(state.get("person_photo_post_count", 0)) + 1,
-        "subject": "developer community",
+        "slot_number": int(state.get("builder_tip_post_count", 0)) + 1,
+        "subject": "expert builder prompt tip",
         "post": text,
-        "image_title": "",
-        "image_source_url": "",
-        "license_name": "",
         "tweet_id": tweet_id,
         "format_name": draft.format_name,
         "comedy_mechanism": draft.comedy_mechanism,
         "structure_signature": draft.structure_signature,
         "generated_at": now,
-        "status": "published_text_only",
+        "status": "published_builder_tip",
     }
-    state["person_photo_posts"] = (
-        state.get("person_photo_posts", []) + [item]
-    )[-PERSON_PHOTO_POSTS_PER_DAY:]
+    state["builder_tip_posts"] = (
+        state.get("builder_tip_posts", []) + [item]
+    )[-BUILDER_TIP_POSTS_PER_DAY:]
+
     lab = state.get("format_lab", [])
     lab.append({
-        "format_name": draft.format_name or "developer community question",
+        "format_name": draft.format_name or "expert builder prompt tip",
         "comedy_mechanism": draft.comedy_mechanism,
         "used_at": now,
-        "topic": "developer community",
+        "topic": "expert builder prompt tip",
         "tweet_id": tweet_id,
-        "content_type": "developer_prompt",
-        "content_mode": "developer_original_text_only",
+        "content_type": "builder_tip",
+        "content_mode": "expert_prompt_tip",
         "post_text": text,
         "mutation_stage": draft.hook_type,
         "structure_signature": draft.structure_signature,
     })
     state["format_lab"] = lab[-20:]
-    fingerprints = state.get("recent_post_fingerprints", [])
-    fingerprints.append(draft.structure_signature[:180])
-    state["recent_post_fingerprints"] = fingerprints[-30:]
+    state["recent_post_fingerprints"] = (
+        state.get("recent_post_fingerprints", [])
+        + [draft.structure_signature[:180]]
+    )[-30:]
     state.update({
         "day_key": today,
-        "person_photo_day_key": today,
-        "person_photo_post_count": int(state.get("person_photo_post_count", 0)) + 1,
+        "builder_tip_day_key": today,
+        "builder_tip_post_count": int(state.get("builder_tip_post_count", 0)) + 1,
         "daily_count": int(state.get("daily_count", 0)) + 1,
         "last_tweet_id": tweet_id,
         "last_posted_at": now,
         "last_source_tweet_id": None,
-        "last_post_type": "developer_original",
+        "last_post_type": "builder_tip",
         "last_company_handle": None,
     })
     _save_state(state)
     print(
-        f"Published text-only developer original "
-        f"{state['person_photo_post_count']}/{PERSON_PHOTO_POSTS_PER_DAY}; "
+        f"Published builder prompt tip "
+        f"{state['builder_tip_post_count']}/{BUILDER_TIP_POSTS_PER_DAY}; "
+        f"comparison memes {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}; "
         f"daily slots {state['daily_count']}/{POSTS_PER_DAY}."
     )
     return True
@@ -1423,12 +1434,11 @@ async def post_next(
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; auth cookies may be expired.")
 
-    # Daily plan: 12 actual X Trends quote-posts plus 8 short developer-community
-    # originals, using a verified reusable real portrait.
+    # Daily plan: 10 expert builder-prompt tips plus 10 original comparison memes.
+    # Daily plan: 10 expert builder-prompt tips plus 10 original comparison memes.
     lanes = (
-        ("x_trends_quote", "trend_quote_post_count", TREND_QUOTE_POSTS_PER_DAY, _post_trend_quote),
-        ("person_photo_prompt", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_person_photo),
-        ("ai_tech_quote", "ai_tech_quote_post_count", AI_TECH_QUOTE_POSTS_PER_DAY, _post_ai_tech_quote),
+        ("builder_tip", "builder_tip_post_count", BUILDER_TIP_POSTS_PER_DAY, _post_builder_tip),
+        ("comparison_meme", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_comparison_meme),
     )
     start = int(state.get("next_lane_index", 0)) % len(lanes)
     eligible = [
@@ -1441,40 +1451,10 @@ async def post_next(
     if not eligible:
         print(
             "Daily content plan complete: "
-            f"X Trends quote-posts {state.get('trend_quote_post_count', 0)}/{TREND_QUOTE_POSTS_PER_DAY}, "
-            f"developer originals {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}, "
-            f"AI/tech quotes {state.get('ai_tech_quote_post_count', 0)}/{AI_TECH_QUOTE_POSTS_PER_DAY}."
+            f"builder tips {state.get('builder_tip_post_count', 0)}/{BUILDER_TIP_POSTS_PER_DAY}, "
+            f"comparison memes {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}."
         )
         _set_workflow_output("skip_reason", "daily_plan_complete")
         return False
 
-    last_error = None
-    for index, lane in eligible:
-        lane_name, _, _, publisher = lane
-        state["next_lane_index"] = (index + 1) % len(lanes)
-        _save_state(state)
-        print(f"Queue attempting lane: {lane_name}.")
-        try:
-            if await publisher(state, client):
-                _set_workflow_output("published", "true")
-                _set_workflow_output("skip_reason", "published")
-                return True
-        except QueueError:
-            # A publish call with uncertain outcome must not silently fall through
-            # and create a second main post in the same dispatch.
-            raise
-        except Exception as exc:
-            last_error = exc
-            print(f"Lane {lane_name} failed safely; trying the next eligible lane: {exc}")
 
-        if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
-            return False
-        if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
-            break
-
-    if last_error is not None:
-        print(f"No lane published a post during this dispatch; last error: {last_error}")
-    else:
-        print("No lane had eligible source material to publish during this dispatch.")
-    _set_workflow_output("skip_reason", "no_eligible_source")
-    return False
