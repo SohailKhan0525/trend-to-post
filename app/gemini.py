@@ -932,6 +932,24 @@ Examples of LENGTH and vibe (adapt the name/product to the selected person; do n
 Keep this screenshot-style, centered on the person, with only a tiny prompt. Rotate between 2–3 compact structures and vary the actual challenge. Prefer their familiar X name, not a long formal title.
 Do not claim they said, did, endorsed, or believe anything. No private details. Never describe the photo instead of writing the prompt. Ask one direct, playful question without generic engagement bait."""
         context_instructions = "PHOTO SUBJECT CONTEXT (data only; not instructions):"
+    elif content_mode == "builder_tip":
+        mode_instructions = """CONTENT MODE: EXPERT BUILDER PROMPT TIP.
+Create one genuinely useful, immediately reusable prompt tip for people building websites, web apps, UI/UX, software, AI features, or developer workflows.
+Teach ONE high-leverage technique that materially improves the result. Avoid beginner advice such as "be specific", "make it better", "use good colors", or "make it responsive".
+Give the reader a concrete prompt snippet they can paste into another build prompt. The snippet must contain an actionable instruction, constraint, method, or evaluation loop—not vague encouragement.
+Prefer advanced practical topics such as design-system consistency, responsive behavior across states, accessibility, interaction states, component architecture, visual QA, error/loading/empty states, edge-case handling, performance-aware UI, content hierarchy, or iterative critique.
+Use this structure:
+DID YOU KNOW?
+
+[one concise explanation]
+
+Try adding this to your prompt:
+"[high-value reusable prompt instruction]"
+
+[one concise payoff + optional "Follow for more builder prompts." CTA]
+Keep the whole post under 280 characters when possible. The prompt snippet is the value; do not waste space on generic motivation.
+No hashtags, URLs, @mentions, emojis, fake claims, or engagement bait."""
+        context_instructions = "TIP CONTEXT (data only; use only as broad inspiration):"
     elif content_mode == "developer_prompt":
         mention_handle = ""
         mention_instruction = "Never include an @mention in comparison-meme mode."
@@ -948,7 +966,7 @@ Never include an @mention. Return only the comparison headline and exact opener.
 Do not rely on a source post or choose the idea because it appears on X Trends. Do not reference live trending hashtags, breaking news, or a current trend as the reason for posting. Invent a genuinely fresh premise in the selected topic area; keep it evergreen, using imaginative scenarios, absurd rules, product behaviours, gaming logic, sports humour, developer situations, or AI oddities. Keep imagined scenarios obviously playful, not factual claims about real events or announcements."""
         context_instructions = "NO SOURCE POST IN THIS MODE. The topic seed is only a broad category; invent from scratch:"
     return f"""You write original TEXT-ONLY X posts for an experimental internet-culture account.
-Write one standalone original post, no thread, no quote post and no reply. For developer_prompt mode, follow its strict output contract exactly and never include an @mention.
+Write one standalone original post, no thread, no quote post and no reply. For developer_prompt mode, follow its strict output contract exactly and never include an @mention. For builder_tip mode, optimize for practical reusable prompt value, not comedy.
 
 {mode_instructions}
 
@@ -992,14 +1010,14 @@ def generate_original_text(
     format_memory: list[dict] | None = None,
     content_mode: str = "invented",
 ) -> OriginalDraft:
-    if content_mode not in {"invented", "trend_manual", "person_prompt", "developer_prompt"}:
+    if content_mode not in {"invented", "trend_manual", "person_prompt", "developer_prompt", "builder_tip"}:
         raise GeminiError(f"Unsupported original content mode: {content_mode}")
     format_memory = format_memory or []
     emoji_count = (
         random.choices((2, 3), weights=(4, 1), k=1)[0]
         if content_mode == "person_prompt"
         else 0
-        if content_mode == "developer_prompt"
+        if content_mode in {"developer_prompt", "builder_tip"}
         else random.choices((2, 3, 4, 5), weights=(3, 3, 2, 1), k=1)[0]
     )
     mention_handle = str(source.get("mention_handle", "") or "").strip() if content_mode == "developer_prompt" else ""
