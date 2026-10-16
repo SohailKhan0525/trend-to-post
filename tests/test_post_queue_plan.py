@@ -36,6 +36,9 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual([item["handle"] for item in active], ["@one", "@two"])
         self.assertEqual(len(active), 2)
 
+    def test_generation_budget_allows_retries_beyond_daily_post_cap(self):
+        self.assertGreaterEqual(post_queue.AI_GENERATIONS_PER_DAY, post_queue.POSTS_PER_DAY + 30)
+
     def test_post_interval_allows_twenty_hourly_slots(self):
         self.assertLessEqual(post_queue.MIN_POST_INTERVAL_MINUTES, 60)
         self.assertGreater(post_queue.MIN_POST_INTERVAL_MINUTES, 0)
