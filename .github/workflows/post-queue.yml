@@ -168,7 +168,7 @@ jobs:
               "## Daily queue progress",
               "",
               f"- UTC date: {state.get('day_key', 'unknown')}",
-          "- Policy: 45 hard cap; 22 builder prompts + 22 comparison memes (one slot reserved because no third lane is configured).",
+          "- Policy: 45 hard cap; 23 builder prompts + 22 comparison memes.",
               f"- Main posts published: {state.get('daily_count', 0)}/45",
               f"- This run published a post: {os.environ.get('POST_PUBLISHED', 'unknown')}",
               f"- This run skip reason: {os.environ.get('POST_SKIP_REASON', 'unknown')}",
