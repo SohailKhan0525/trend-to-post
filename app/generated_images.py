@@ -23,7 +23,7 @@ IMAGE_HEIGHT = 1024
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 JPEG_SIGNATURE = bytes.fromhex("ffd8ff")
 MAX_IMAGE_BYTES = 6 * 1024 * 1024
-MAX_PROMPT_CHARS = 2048
+MAX_PROMPT_CHARS = 4096
 
 
 def _split_comparison(headline: str) -> tuple[str, str]:
