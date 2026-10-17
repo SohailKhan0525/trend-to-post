@@ -46,8 +46,8 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         }
         draft = OriginalDraft(
             True,
-            "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
-            "PASTE THIS INTO YOUR AI BUILDER:\\n"
+            "Design an AI research workspace that feels intentionally art-directed.\n\n"
+            "PASTE THIS INTO YOUR AI BUILDER:\n"
             "Build an original AI research workspace for analysts who need to collect sources, "
             "compare findings, and turn verified notes into a clear brief. Establish a distinctive "
             "visual direction with a restrained neutral palette, one purposeful accent, a consistent "
@@ -179,8 +179,8 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         state = post_queue._new_state()
         draft = OriginalDraft(
             True,
-            "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
-            "PASTE THIS INTO YOUR AI BUILDER:\\n"
+            "Design an AI research workspace that feels intentionally art-directed.\n\n"
+            "PASTE THIS INTO YOUR AI BUILDER:\n"
             "Build an original AI research workspace for analysts who need to collect sources, "
             "compare findings, and turn verified notes into a clear brief. Establish a distinctive "
             "visual direction with a restrained neutral palette, one purposeful accent, a consistent "
