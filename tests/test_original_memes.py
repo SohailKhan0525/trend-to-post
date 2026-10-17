@@ -44,7 +44,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("Be honest...", prompt)
         self.assertIn("exactly TWO text sections separated by exactly one blank line", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
-        self.assertIn("No question, no third line", prompt)
+        self.assertIn("no third line", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("Never include an @mention.", prompt)
         self.assertIn("No question, no third line", prompt)
@@ -276,25 +276,21 @@ class OriginalTextValidationTests(unittest.TestCase):
 
 class BuilderPromptTipTests(unittest.TestCase):
     VALID_LONG_BUILDER_POST = (
-        "Design an AI research workspace that feels intentionally art-directed.\n\n"
-        "PASTE THIS INTO YOUR AI BUILDER:\n"
-        "Build an original AI research workspace for analysts who need to collect sources, "
-        "compare findings, and turn verified notes into a clear brief. Establish a distinctive "
-        "visual direction with a restrained neutral palette, one purposeful accent, a consistent "
-        "8-point spacing scale, two complementary type styles, semantic design tokens, subtle "
-        "borders, and restrained elevation. Compose a useful navigation rail, searchable source "
-        "list, central synthesis canvas, and contextual evidence panel with clear hierarchy. "
-        "Create reusable, well-named UI components and realistic example data; keep all controls "
-        "functional rather than decorative. Define responsive behavior for desktop, tablet, and "
-        "mobile: collapse navigation deliberately, stack evidence panels, preserve reading order, "
-        "and prevent horizontal overflow. Include loading, empty, error, success, disabled, hover, "
-        "pressed, and keyboard-focus states with clear recovery actions. Meet accessibility "
-        "requirements with semantic landmarks, labeled controls, keyboard navigation, visible "
-        "focus, and sufficient text contrast. Handle long source titles, missing evidence, and "
-        "slow AI responses gracefully. Finish by checking screenshots at 375px, 768px, and 1440px; "
-        "fix inconsistent spacing, typography, alignment, contrast, overflow, and dead interactions. "
-        "Acceptance criteria: no placeholder copy, no default purple gradient, no random glass cards, "
-        "no fake buttons, and no unresolved console errors."
+        "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
+            "PASTE THIS INTO YOUR AI BUILDER:\\n"
+            "Build an original AI research workspace for analysts who collect sources, compare findings, "
+            "and turn verified notes into clear briefs. Establish a distinctive visual direction: restrained "
+            "neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
+            "tokens, consistent borders, and subtle elevation. Compose a navigation rail, searchable source list, "
+            "synthesis canvas, and evidence panel with clear hierarchy. Implement reusable UI components and "
+            "realistic example data; every control must work. Define responsive behavior for desktop, tablet, "
+            "and mobile: collapse navigation, stack panels, preserve reading order, and prevent horizontal "
+            "overflow. Implement loading, empty, error, success, disabled, hover, pressed, and keyboard-focus "
+            "states with recovery actions. Meet accessibility requirements with semantic landmarks, labeled "
+            "controls, keyboard navigation, visible focus, and sufficient text contrast. Handle long titles, "
+            "missing evidence, and slow AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; "
+            "fix spacing, typography, contrast, alignment, overflow, and dead interactions. Acceptance criteria: "
+            "no placeholder copy, default purple gradient, random glass cards, fake buttons, or unresolved console errors."
     )
 
     def test_builder_prompt_requires_long_reusable_premium_ai_ui_instruction(self) -> None:
