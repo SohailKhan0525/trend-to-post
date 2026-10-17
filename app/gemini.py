@@ -920,6 +920,21 @@ def _original_text_prompt(
         if content_mode == "builder_tip"
         else f"Caption maximum {ORIGINAL_POST_MAX_CHARS} characters."
     )
+    voice_instructions = (
+        "Write like a senior product designer and staff frontend engineer: precise, design-literate, implementation-ready, and focused on user outcomes. Do not use meme voice or generic creator marketing."
+        if content_mode == "builder_tip"
+        else "Sharp, human, compressed, meme-native, funny, specific, occasionally absurd, and readable in one glance. Write like an experienced builder or internet user, never like a marketer or AI assistant."
+    )
+    exploration_instructions = (
+        "For builder mode, translate the topic into one concrete product/use case. Prioritize implementation detail, visual hierarchy, interaction behavior, responsive layouts, accessibility, and measurable acceptance criteria."
+        if content_mode == "builder_tip"
+        else "Explore AI behaviour, software, dev tools, tech products, gaming, sports tech, internet culture, bizarre product logic and tiny invented rules. If the topic is bland, collide it with a surprising everyday detail."
+    )
+    closing_voice_rule = (
+        "Optimize for practical usefulness: the result should be ready to paste into a builder and evaluate, not a joke or engagement hook."
+        if content_mode == "builder_tip"
+        else "{closing_voice_rule}"
+    )
     if content_mode == "trend_manual":
         mode_instructions = """CONTENT MODE: REAL X CONVERSATION — MANUAL DRAFT ONLY.
 This draft is for the human to review and publish manually; NEVER auto-publish it.
@@ -977,8 +992,8 @@ TOPIC SEED: {topic}
 <<<END>>>
 
 VOICE:
-Sharp, human, compressed, meme-native, funny, specific, occasionally absurd, and readable in one glance. Write like an experienced builder or internet user, never like a marketer or AI assistant.
-Explore AI behaviour, software, dev tools, tech products, gaming, sports tech, internet culture, bizarre product logic and tiny invented rules. If the topic is bland, collide it with a surprising everyday detail.
+{voice_instructions}
+{exploration_instructions}
 In developer_prompt mode, ignore all generic voice guidance that conflicts with the exact two-section comparison format. Never write fake error messages, terminal output, diagnostics, log headers, variable names, executable filenames, or code-like labels. Do not repeat one structure.
 ANTI-REPETITION IS STRICT: compare the underlying premise, topic angle, metaphor, punchline mechanism, and structure against every recent format-memory item above. Do not merely swap nouns into an old joke. Do not repeat the same setup or punchline in different wording. If the first idea resembles a recent one, discard it and invent a different premise before returning JSON.
 Never imply a fictional scenario is a real event or real company announcement.
