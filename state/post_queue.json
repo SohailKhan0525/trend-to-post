@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 20,
-  "ai_call_count": 38,
-  "last_posted_at": "2026-10-17T18:31:20.805542+00:00",
+  "daily_count": 21,
+  "ai_call_count": 40,
+  "last_posted_at": "2026-10-17T18:55:30.637913+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111525484748325165",
+  "last_tweet_id": "2111531566316798245",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "bundler_performance_schism",
-      "comedy_mechanism": "contrasts the sluggish anxiety of watching a legacy cache rebuild against the sheer disbelief of sub-millisecond hot module replacement",
-      "used_at": "2026-10-16T16:02:02.422663+00:00",
-      "topic": "Vite Dev Server or Webpack Build Cache?",
-      "tweet_id": "2111125523292418545",
-      "content_type": "developer_comparison_meme",
-      "content_mode": "generated_text_free_visual",
-      "post_text": "Vite Dev Server or Webpack Build Cache?\n\nDevs be honest...",
-      "mutation_stage": "binary tool comparison",
-      "structure_signature": "comparison_headline_newline_opener"
-    },
     {
       "format_name": "persistence_layer_schism",
       "comedy_mechanism": "contrasts the respectable engineering maturity of a real embedded database with the pure chaotic delinquency of raw file dumping",
@@ -369,10 +357,21 @@
       "post_text": "Manual Git Rebases or Blind Force Pushes?\n\nBe honest...",
       "mutation_stage": "comparison_headline_newline_opener",
       "structure_signature": "binary_headline_newline_opener"
+    },
+    {
+      "format_name": "stylesheet_architecture_schism",
+      "comedy_mechanism": "contrasts the utility-first obsession of stuffing classes directly into html with the traditional discipline of writing actual css",
+      "used_at": "2026-10-17T18:55:30.637913+00:00",
+      "topic": "Tailwind Utilities or Semantic CSS Modules?",
+      "tweet_id": "2111531566316798245",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "Tailwind Utilities or Semantic CSS Modules?\n\nBe honest...",
+      "mutation_stage": "binary choice headline",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "noun_concept + error_symbol + colloquial tech variable",
     "comparison_headline_newline_opener",
     "Headline: High Stakes / Opener: Standard",
     "comparison_headline_newline_opener",
@@ -401,7 +400,8 @@
     "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
     "did_you_know-explanation-reply_prompt-cta",
-    "binary_headline_newline_opener"
+    "binary_headline_newline_opener",
+    "comparison_headline_newline_opener"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -514,7 +514,7 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 14,
+  "person_photo_post_count": 15,
   "ai_tech_quote_post_count": 0,
   "next_lane_index": 0,
   "person_photo_posts": [
@@ -713,6 +713,20 @@
       "structure_signature": "binary_headline_newline_opener",
       "generated_at": "2026-10-17T18:31:20.805542+00:00",
       "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 15,
+      "subject": "Tailwind Utilities or Semantic CSS Modules?",
+      "post": "Tailwind Utilities or Semantic CSS Modules?\n\nBe honest...",
+      "image_title": "Cloudflare FLUX.1 schnell text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Generated with Cloudflare Workers AI @cf/black-forest-labs/flux-1-schnell",
+      "tweet_id": "2111531566316798245",
+      "format_name": "stylesheet_architecture_schism",
+      "comedy_mechanism": "contrasts the utility-first obsession of stuffing classes directly into html with the traditional discipline of writing actual css",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-17T18:55:30.637913+00:00",
+      "status": "published_generated_comparison"
     }
   ],
   "ai_tech_quote_posts": [],
@@ -863,13 +877,16 @@
     "da0374c2cf3b84f5ec417c6cf7bb305f22332bdcada5e3a5cace0d7bcfcef9b2",
     "f92f9270fdbf804d90d9e46c393ff7720d6b06dd66ebe3ffd9d56c82ead245c2",
     "bd21b8b880e7f3738295ea657670d22e4b034caba771a94e3c27a0894bbfdc21",
-    "6a34dc6065e4f7903c9b28459811c3e2e02fb7f64925d696cab61beb574f3629"
+    "6a34dc6065e4f7903c9b28459811c3e2e02fb7f64925d696cab61beb574f3629",
+    "375682965ae9cb6fb4097f97eff79e30042b7ca51937a5e6db2b259c59665505",
+    "cb11dacff2aaa47f811e6200083092c1f6bf8316730818a0ee393469f566bf36"
   ],
   "comparison_title_history": [
     "Dark Mode or Light Mode?",
     "Localhost Server or Production Server Screaming?",
     "Static Mockups or Infinite Prompting Loops?",
-    "Manual Git Rebases or Blind Force Pushes?"
+    "Manual Git Rebases or Blind Force Pushes?",
+    "Tailwind Utilities or Semantic CSS Modules?"
   ],
   "builder_post_hashes": [
     "20ae31f51007f37af6a99c071d67fa495ea4654bc68671ac9a04b2d8665acd7c",
