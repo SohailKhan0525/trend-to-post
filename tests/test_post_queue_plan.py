@@ -11,6 +11,24 @@ class FakeClient:
         return True
 
 
+def _long_builder_post():
+    return (
+        "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
+            "PASTE THIS INTO YOUR AI BUILDER:\\n"
+            "Build an original AI research workspace for analysts who collect sources, compare findings, "
+            "and turn verified notes into clear briefs. Establish a distinctive visual direction: restrained "
+            "neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
+            "tokens, consistent borders, and subtle elevation. Compose a navigation rail, searchable source list, "
+            "synthesis canvas, and evidence panel with clear hierarchy. Implement reusable UI components and "
+            "realistic example data; every control must work. Define responsive behavior for desktop, tablet, "
+            "and mobile: collapse navigation, stack panels, preserve reading order, and prevent horizontal "
+            "overflow. Implement loading, empty, error, success, disabled, hover, pressed, and keyboard-focus "
+            "states with recovery actions. Meet accessibility requirements with semantic landmarks, labeled "
+            "controls, keyboard navigation, visible focus, and sufficient text contrast. Handle long titles, "
+            "missing evidence, and slow AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; "
+            "fix spacing, typography, contrast, alignment, overflow, and dead interactions. Acceptance criteria: "
+            "no placeholder copy, default purple gradient, random glass cards, fake buttons, or unresolved console errors."
+    )
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
     def test_daily_plan_has_22_builder_prompts_22_comparison_memes_and_45_hard_cap(self):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
@@ -46,23 +64,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         }
         draft = OriginalDraft(
             True,
-            "Design an AI research workspace that feels intentionally art-directed.\n\n"
-            "PASTE THIS INTO YOUR AI BUILDER:\n"
-            "Build an original AI research workspace for analysts who need to collect sources, "
-            "compare findings, and turn verified notes into a clear brief. Establish a distinctive "
-            "visual direction with a restrained neutral palette, one purposeful accent, a consistent "
-            "8-point spacing scale, complementary type styles, semantic design tokens, subtle borders, "
-            "and restrained elevation. Compose navigation, a searchable source list, a central synthesis "
-            "canvas, and a contextual evidence panel with clear hierarchy. Create reusable, well-named UI "
-            "components and realistic example data; keep all controls functional instead of decorative. "
-            "Define responsive behavior for desktop, tablet, and mobile: collapse navigation deliberately, "
-            "stack evidence panels, preserve reading order, and prevent horizontal overflow. Include loading, "
-            "empty, error, success, disabled, hover, pressed, and keyboard-focus states with recovery actions. "
-            "Meet accessibility requirements with semantic landmarks, labeled controls, keyboard navigation, "
-            "visible focus, and sufficient text contrast. Handle long source titles, missing evidence, and slow "
-            "AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; fix inconsistent spacing, "
-            "typography, alignment, contrast, overflow, and dead interactions. Acceptance criteria: no placeholder "
-            "copy, no default purple gradient, no random glass cards, no fake buttons, and no unresolved console errors.",
+            _long_builder_post(),
             "premium builder prompt",
             "",
             "builder prompt",
@@ -179,23 +181,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         state = post_queue._new_state()
         draft = OriginalDraft(
             True,
-            "Design an AI research workspace that feels intentionally art-directed.\n\n"
-            "PASTE THIS INTO YOUR AI BUILDER:\n"
-            "Build an original AI research workspace for analysts who need to collect sources, "
-            "compare findings, and turn verified notes into a clear brief. Establish a distinctive "
-            "visual direction with a restrained neutral palette, one purposeful accent, a consistent "
-            "8-point spacing scale, complementary type styles, semantic design tokens, subtle borders, "
-            "and restrained elevation. Compose navigation, a searchable source list, a central synthesis "
-            "canvas, and a contextual evidence panel with clear hierarchy. Create reusable, well-named UI "
-            "components and realistic example data; keep all controls functional instead of decorative. "
-            "Define responsive behavior for desktop, tablet, and mobile: collapse navigation deliberately, "
-            "stack evidence panels, preserve reading order, and prevent horizontal overflow. Include loading, "
-            "empty, error, success, disabled, hover, pressed, and keyboard-focus states with recovery actions. "
-            "Meet accessibility requirements with semantic landmarks, labeled controls, keyboard navigation, "
-            "visible focus, and sufficient text contrast. Handle long source titles, missing evidence, and slow "
-            "AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; fix inconsistent spacing, "
-            "typography, alignment, contrast, overflow, and dead interactions. Acceptance criteria: no placeholder "
-            "copy, no default purple gradient, no random glass cards, no fake buttons, and no unresolved console errors.",
+            _long_builder_post(),
             "premium builder prompt",
             "",
             "builder prompt",
