@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock, patch
 from types import SimpleNamespace
 
 from app import post_queue
-from app.gemini import OriginalDraft, QuoteDraft
+from app.gemini import GeminiError, OriginalDraft, QuoteDraft, _validate_original
 
 
 class FakeClient:
@@ -36,6 +36,41 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual([item["handle"] for item in active], ["@one", "@two"])
         self.assertEqual(len(active), 2)
 
+    def test_builder_tip_reuses_required_format_without_being_rejected_as_duplicate(self):
+        previous = {
+            "format_name": "expert builder prompt tip",
+            "structure_signature": "did_you_know_explanation_snippet_footer",
+            "post_text": (
+                "DID YOU KNOW? Try adding this to your prompt: "
+                '"Use keyboard navigation to verify every interactive control."'
+            ),
+            "content_type": "builder_tip",
+        }
+        draft = OriginalDraft(
+            True,
+            'DID YOU KNOW?\\n\\n'
+            'A reliable UI should be testable with a keyboard, not just a mouse.\\n\\n'
+            'Try adding this to your prompt:\\n'
+            '"Verify keyboard navigation, visible focus, and logical tab order for every interactive component."\\n\\n'
+            'Follow for more builder prompts.',
+            "expert builder prompt tip",
+            "",
+            "builder tip",
+            "practical accessibility QA",
+            "did_you_know_explanation_snippet_footer",
+            "builder_tip",
+        )
+        validated = _validate_original(
+            draft,
+            {},
+            include_handle=False,
+            minimum_emoji_count=0,
+            maximum_emoji_count=0,
+            format_memory=[previous],
+            content_mode="builder_tip",
+        )
+        self.assertIs(validated, draft)
+
     def test_generation_budget_allows_retries_beyond_daily_post_cap(self):
         self.assertGreaterEqual(post_queue.AI_GENERATIONS_PER_DAY, post_queue.POSTS_PER_DAY + 30)
 
@@ -57,6 +92,9 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("Builder prompt tips", workflow)
         self.assertIn("Comparison memes", workflow)
         self.assertIn("X Trends quote posts (retired)", workflow)
+        self.assertIn('test -n "$CLOUDFLARE_ACCOUNT_ID"', workflow)
+        self.assertIn('test -n "$CLOUDFLARE_API_TOKEN"', workflow)
+        self.assertIn('test -n "$GEMINI_API_KEY"', workflow)
         self.assertNotIn("Publish one queued photo prompt", workflow)
 
     async def test_person_photo_lane_only_uses_a_matching_active_x_profile(self):
