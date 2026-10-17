@@ -1,154 +1,162 @@
 from __future__ import annotations
 
-import hashlib
+import base64
+import binascii
 import io
-import re
-import xml.sax.saxutils as xml_escape
+import json
+import os
+import secrets
+import time
+import urllib.error
+import urllib.request
 
-from PIL import Image, ImageFilter, ImageEnhance
-import cairosvg
+from PIL import Image
 
 
 class GeneratedImageError(RuntimeError):
-    """Raised when a local comparison image cannot be rendered safely."""
+    """Raised when Cloudflare FLUX image generation fails or returns invalid data."""
 
 
-IMAGE_WIDTH = 1200
-IMAGE_HEIGHT = 900
+MODEL = "@cf/black-forest-labs/flux-1-schnell"
+IMAGE_WIDTH = 1024
+IMAGE_HEIGHT = 1024
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+JPEG_SIGNATURE = bytes.fromhex("ffd8ff")
+MAX_IMAGE_BYTES = 6 * 1024 * 1024
+MAX_PROMPT_CHARS = 2048
 
 
 def _split_comparison(headline: str) -> tuple[str, str]:
+    import re
+
     cleaned = " ".join(str(headline).strip().rstrip("?!").split())
     for separator in (" or ", " versus ", " vs "):
         parts = re.split(re.escape(separator), cleaned, maxsplit=1, flags=re.IGNORECASE)
         if len(parts) == 2 and parts[0].strip() and parts[1].strip():
             return parts[0].strip()[:80], parts[1].strip()[:80]
-    raise GeneratedImageError("Comparison headline must contain two choices separated by 'or', 'vs', or 'versus'.")
+    raise GeneratedImageError(
+        "Comparison headline must contain two choices separated by 'or', 'vs', or 'versus'."
+    )
 
 
-def _kind(label: str) -> str:
-    value = label.casefold()
-    if any(word in value for word in ("dark mode", "light mode", "ui", "ux", "design", "figma")):
-        return "interface"
-    if any(word in value for word in ("ai", "gpt", "claude", "gemini", "llm", "agent", "model", "copilot")):
-        return "brain"
-    if any(word in value for word in ("code", "coding", "developer", "dev", "cursor", "ide", "terminal", "vscode", "github", "python")):
-        return "code"
-    if any(word in value for word in ("cloud", "server", "database", "backend", "kubernetes", "docker")):
-        return "cloud"
-    if any(word in value for word in ("phone", "mobile", "android", "iphone", "app")):
-        return "device"
-    return "spark"
+def build_comparison_image_prompt(headline: str) -> str:
+    """Build a strict, reference-guided FLUX prompt with no text except the central VS."""
+    left, right = _split_comparison(headline)
+    prompt = f"""Create a polished, premium-quality comparison meme illustration, guided by this visual composition: a perfectly balanced, clean 50/50 vertical split; the LEFT half has a soft cool light-gray background, the RIGHT half has a vivid mint/turquoise-green background, and a large centered white “VS” with a dark navy outline sits directly over the dividing line.
+
+LEFT CHOICE: visually represent “{left}” with one bold, instantly recognizable original visual metaphor or character. Keep the silhouette simple, high-contrast, dark, and readable at small social-feed size.
+
+RIGHT CHOICE: visually represent “{right}” with a small group of three or four expressive, colorful, fuzzy 3D plush-like mascot characters. Give them distinct silhouettes, charming facial expressions, tactile fibers, saturated pink/yellow/blue/lime accents, and believable soft studio shadows. Their design must clearly relate to the RIGHT choice rather than being random decoration.
+
+ART DIRECTION: delightful collectible-toy product photography blended with editorial meme art; immaculate softbox lighting; realistic fluffy materials; crisp focus on characters; subtle contact shadows; balanced scale; clean negative space; premium color grading; playful, instantly readable visual storytelling. Make the image feel intentionally art-directed, not like clip art or a generic AI collage. The left and right sides must feel different but equally polished. Keep every important subject inside safe margins and leave the center seam unobstructed except for the VS.
+
+LAYOUT: landscape 3:2 composition, straight vertical divide exactly at the midpoint, left subject clearly on the left and right characters clearly on the right, large central VS, no cropped faces, no confusing overlaps, no extra panels, no border, no mockup frame.
+
+STRICT TEXT AND BRAND SAFETY: the ONLY permitted letters are the exact two characters “VS” at the center. Do not render the headline, choice names, labels, captions, letters, numbers, UI text, watermarks, signatures, logos, or brand marks anywhere else. Use original, generic visual metaphors; do not copy a real company's logo, mascot, screenshot, or proprietary design. No extra lettering or pseudo-text. The post caption will be added separately outside the image.
+
+QUALITY CHECK BEFORE FINALIZING: the vertical split and color backgrounds are obvious at a glance; the two choices are visually distinct; the left-side subject represents {left}; the right-side character group represents {right}; the central VS is legible; no other text is present; the composition is tidy and professional; no visual glitches, duplicate limbs, melted objects, or accidental logo-like shapes."""
+    return prompt[:MAX_PROMPT_CHARS]
 
 
-def _svg_scene(left: str, right: str) -> str:
-    left_kind, right_kind = _kind(left), _kind(right)
-    # These SVGs are generated locally. User-supplied labels influence only the
-    # small, escaped accessibility description and never appear as image text.
-    safe_left = xml_escape.escape(left)
-    safe_right = xml_escape.escape(right)
-
-    def subject(kind: str, x: int, color: str, accent: str, flip: bool = False) -> str:
-        transform = f"translate({x} 0)" + (" scale(-1 1) translate(-300 0)" if flip else "")
-        if kind == "code":
-            shape = f"""
-              <rect x="62" y="286" width="176" height="140" rx="24" fill="#111827" stroke="{accent}" stroke-width="5"/>
-              <path d="M112 332 L88 356 L112 380 M188 332 L212 356 L188 380 M160 322 L140 390" fill="none" stroke="{color}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="150" cy="250" r="40" fill="{accent}" opacity=".9"/>
-              <path d="M130 250 L145 265 L174 232" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-            """
-        elif kind == "brain":
-            shape = f"""
-              <path d="M150 250 C108 211 73 248 88 280 C55 310 80 349 108 351 C103 391 143 409 163 381 C190 408 226 386 217 351 C251 339 252 300 222 281 C237 245 194 215 169 247 C163 237 156 237 150 250Z" fill="{accent}" stroke="{color}" stroke-width="6"/>
-              <path d="M154 253 L154 375 M119 278 L146 302 L119 328 M190 274 L169 300 L193 322 M127 354 L148 340 L174 359" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="80" cy="235" r="12" fill="{color}"/><circle cx="230" cy="235" r="10" fill="{accent}"/><circle cx="228" cy="390" r="13" fill="{color}"/>
-            """
-        elif kind == "interface":
-            shape = f"""
-              <rect x="64" y="236" width="174" height="180" rx="22" fill="#fff" stroke="{color}" stroke-width="7"/>
-              <rect x="64" y="236" width="174" height="38" rx="18" fill="{accent}"/>
-              <circle cx="86" cy="255" r="5" fill="#fff"/><circle cx="104" cy="255" r="5" fill="#fff"/><circle cx="122" cy="255" r="5" fill="#fff"/>
-              <rect x="84" y="294" width="62" height="88" rx="10" fill="{accent}" opacity=".8"/>
-              <rect x="158" y="294" width="60" height="16" rx="8" fill="{color}" opacity=".9"/>
-              <rect x="158" y="320" width="48" height="9" rx="4" fill="#94a3b8"/>
-              <rect x="158" y="338" width="54" height="9" rx="4" fill="#cbd5e1"/>
-              <circle cx="218" cy="216" r="30" fill="{color}"/><path d="M204 216 L215 227 L234 205" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-            """
-        elif kind == "cloud":
-            shape = f"""
-              <path d="M88 356 C54 356 48 311 79 295 C79 249 129 232 158 260 C187 226 239 252 233 291 C269 309 250 356 219 356Z" fill="{accent}" stroke="{color}" stroke-width="7"/>
-              <rect x="116" y="316" width="70" height="58" rx="10" fill="#fff" stroke="{color}" stroke-width="5"/>
-              <path d="M133 335 L169 335 M133 348 L160 348 M133 361 L151 361" stroke="{color}" stroke-width="5" stroke-linecap="round"/>
-              <circle cx="88" cy="244" r="12" fill="{color}"/><circle cx="225" cy="237" r="9" fill="{accent}"/>
-            """
-        elif kind == "device":
-            shape = f"""
-              <rect x="96" y="220" width="120" height="210" rx="26" fill="#111827" stroke="{color}" stroke-width="7"/>
-              <rect x="108" y="246" width="96" height="150" rx="13" fill="{accent}"/>
-              <circle cx="156" cy="413" r="6" fill="#fff"/>
-              <circle cx="155" cy="315" r="30" fill="#fff" opacity=".92"/>
-              <path d="M140 315 L152 327 L173 300" fill="none" stroke="{color}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="84" cy="242" r="17" fill="{accent}"/><circle cx="228" cy="386" r="13" fill="{color}"/>
-            """
-        else:
-            shape = f"""
-              <path d="M150 215 L177 292 L256 320 L177 347 L150 425 L123 347 L44 320 L123 292Z" fill="{accent}" stroke="{color}" stroke-width="6" stroke-linejoin="round"/>
-              <circle cx="72" cy="240" r="15" fill="{color}"/><circle cx="235" cy="240" r="11" fill="{accent}"/>
-              <circle cx="230" cy="400" r="16" fill="{color}"/><path d="M88 385 L103 400 L88 415 L73 400Z" fill="{accent}"/>
-            """
-        return f'<g transform="{transform}">{shape}</g>'
-
-    # A diagonal seam and separated panels keep the choices legible without any text.
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{IMAGE_WIDTH}" height="{IMAGE_HEIGHT}" viewBox="0 0 {IMAGE_WIDTH} {IMAGE_HEIGHT}" role="img" aria-label="Text-free illustration comparing {safe_left} and {safe_right}">
-      <defs>
-        <linearGradient id="bgL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#172554"/><stop offset="1" stop-color="#2563eb"/></linearGradient>
-        <linearGradient id="bgR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f1d5a"/><stop offset="1" stop-color="#db2777"/></linearGradient>
-        <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".22"/><stop offset="1" stop-color="#ffffff" stop-opacity=".06"/></linearGradient>
-        <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#020617" flood-opacity=".28"/></filter>
-      </defs>
-      <rect width="600" height="900" fill="url(#bgL)"/><rect x="600" width="600" height="900" fill="url(#bgR)"/>
-      <circle cx="80" cy="110" r="190" fill="#60a5fa" opacity=".12"/><circle cx="1120" cy="780" r="240" fill="#f9a8d4" opacity=".12"/>
-      <path d="M0 640 C190 550 360 760 600 650 L600 900 L0 900Z" fill="#020617" opacity=".12"/>
-      <path d="M600 650 C820 750 1000 550 1200 640 L1200 900 L600 900Z" fill="#020617" opacity=".14"/>
-      <g filter="url(#shadow)"><rect x="66" y="110" width="468" height="680" rx="44" fill="url(#panel)" stroke="#ffffff" stroke-opacity=".22" stroke-width="2"/><rect x="666" y="110" width="468" height="680" rx="44" fill="url(#panel)" stroke="#ffffff" stroke-opacity=".22" stroke-width="2"/></g>
-      <g transform="translate(84 140)">{subject(left_kind, 0, "#bfdbfe", "#38bdf8")}</g>
-      <g transform="translate(684 140)">{subject(right_kind, 0, "#fce7f3", "#fb7185")}</g>
-      <path d="M600 0 L600 900" stroke="#ffffff" stroke-opacity=".5" stroke-width="3" stroke-dasharray="12 18"/>
-      <circle cx="600" cy="450" r="43" fill="#fff" opacity=".95"/><path d="M583 450 L594 461 L617 438" fill="none" stroke="#334155" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-      <g fill="#fff" opacity=".65"><circle cx="104" cy="690" r="5"/><circle cx="132" cy="720" r="3"/><circle cx="1090" cy="205" r="5"/><circle cx="1060" cy="235" r="3"/><path d="M480 175 l9 18 18 9 -18 9 -9 18 -9 -18 -18 -9 18 -9Z"/><path d="M724 665 l6 12 12 6 -12 6 -6 12 -6 -12 -12 -6 12 -6Z"/></g>
-    </svg>'''
-
-
-def generate_comparison_image(headline: str, question: str = "") -> bytes:
-    """Render an original comparison illustration locally as a PNG using SVG, CairoSVG and Pillow.
-
-    No API key, network call, remote image service, or generated-image quota is required.
-    The headline is used only to choose visual motifs; no text is rendered into the image.
-    """
-    try:
-        left, right = _split_comparison(headline)
-        svg = _svg_scene(left, right)
-        rendered = cairosvg.svg2png(
-            bytestring=svg.encode("utf-8"),
-            output_width=IMAGE_WIDTH,
-            output_height=IMAGE_HEIGHT,
+def _cloudflare_credentials() -> tuple[str, str]:
+    account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
+    token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
+    if not account_id or not token:
+        raise GeneratedImageError(
+            "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are required for FLUX.1 schnell image generation."
         )
-        with Image.open(io.BytesIO(rendered)) as source:
-            image = source.convert("RGB")
-        # Pillow normalizes dimensions/color mode and applies a very subtle finish.
-        image = ImageEnhance.Contrast(image).enhance(1.025)
-        image = image.filter(ImageFilter.SMOOTH)
-        output = io.BytesIO()
-        image.save(output, format="PNG", optimize=True)
-        data = output.getvalue()
+    return account_id, token
+
+
+def _validate_image(image_bytes: bytes) -> bytes:
+    if not image_bytes:
+        raise GeneratedImageError("Cloudflare FLUX returned an empty image.")
+    if len(image_bytes) > MAX_IMAGE_BYTES:
+        raise GeneratedImageError("Generated comparison image exceeds the 6 MiB upload limit.")
+    if not (image_bytes.startswith(PNG_SIGNATURE) or image_bytes.startswith(JPEG_SIGNATURE)):
+        raise GeneratedImageError("Cloudflare FLUX returned data that is not a PNG or JPEG image.")
+
+    try:
+        with Image.open(io.BytesIO(image_bytes)) as image:
+            if image.format not in {"PNG", "JPEG"}:
+                raise GeneratedImageError("Generated comparison image has an unsupported image format.")
+            if image.width < 512 or image.height < 512:
+                raise GeneratedImageError("Generated comparison image resolution is too small.")
+            image.verify()
     except GeneratedImageError:
         raise
     except Exception as exc:
-        raise GeneratedImageError(f"Local SVG/PNG image rendering failed: {exc}") from exc
+        raise GeneratedImageError(f"Cloudflare FLUX returned a corrupt image: {exc}") from exc
+    return image_bytes
 
-    if not data.startswith(PNG_SIGNATURE):
-        raise GeneratedImageError("Local image renderer did not produce a valid PNG.")
-    if len(data) > 6 * 1024 * 1024:
-        raise GeneratedImageError("Rendered PNG exceeds the 6 MiB upload limit.")
-    return data
+
+def generate_comparison_image(headline: str, question: str = "") -> bytes:
+    """Generate and validate a text-free comparison image with Cloudflare FLUX.1 [schnell].
+
+    The Cloudflare Workers AI REST API is used directly; no Worker deployment or local
+    vector fallback is used. API quota and service errors are raised so the post queue
+    never silently substitutes a different image style.
+    """
+    del question  # Kept for call-site compatibility; the generated headline is authoritative.
+    prompt = build_comparison_image_prompt(headline)
+    account_id, token = _cloudflare_credentials()
+    url = (
+        "https://api.cloudflare.com/client/v4/accounts/"
+        f"{account_id}/ai/run/{MODEL}"
+    )
+    payload = {
+        "prompt": prompt,
+        "steps": 4,
+        "seed": secrets.randbelow(2_147_483_646) + 1,
+    }
+
+    for attempt in range(2):
+        request = urllib.request.Request(
+            url,
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=120) as response:
+                response_payload = json.loads(response.read().decode("utf-8"))
+            if response_payload.get("success") is False:
+                details = response_payload.get("errors") or response_payload.get("messages")
+                raise GeneratedImageError(f"Cloudflare FLUX image generation failed: {details}")
+
+            result = response_payload.get("result")
+            encoded_image = result.get("image") if isinstance(result, dict) else None
+            if not isinstance(encoded_image, str) or not encoded_image.strip():
+                raise GeneratedImageError("Cloudflare FLUX returned no base64 image.")
+            try:
+                image_bytes = base64.b64decode(encoded_image, validate=True)
+            except (ValueError, binascii.Error) as exc:
+                raise GeneratedImageError("Cloudflare FLUX returned invalid base64 image data.") from exc
+            return _validate_image(image_bytes)
+
+        except urllib.error.HTTPError as exc:
+            detail = exc.read().decode("utf-8", errors="replace")[:900]
+            if exc.code in {408, 500, 502, 503, 504} and attempt == 0:
+                time.sleep(2)
+                continue
+            if exc.code == 429:
+                raise GeneratedImageError(
+                    "Cloudflare FLUX was rate- or daily-quota-limited (HTTP 429); "
+                    f"no fallback image was published. Details: {detail}"
+                ) from exc
+            raise GeneratedImageError(
+                f"Cloudflare FLUX failed with HTTP {exc.code}: {detail}"
+            ) from exc
+        except (urllib.error.URLError, TimeoutError) as exc:
+            if attempt == 0:
+                time.sleep(2)
+                continue
+            raise GeneratedImageError(f"Cloudflare FLUX request failed: {exc}") from exc
+        except json.JSONDecodeError as exc:
+            raise GeneratedImageError("Cloudflare FLUX returned invalid JSON.") from exc
+
+    raise GeneratedImageError("Cloudflare FLUX image generation failed after retrying.")
