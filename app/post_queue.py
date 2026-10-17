@@ -1102,15 +1102,15 @@ async def _post_github_repo_spotlight(state: dict, client: Client) -> bool:
     if not full_name or not description or not url.startswith("https://github.com/"):
         return False
 
-    prefix = f"DEVS & VIBE CODERS: {full_name} is worth a look.\\n\\n"
-    suffix = "\\n\\nExplore it before building this from scratch."
+    prefix = f"DEVS & VIBE CODERS: {full_name} is worth a look.\n\n"
+    suffix = "\n\nExplore it before building this from scratch."
     available = max(35, 220 - len(prefix) - len(suffix))
     short_description = description if len(description) <= available else description[:available - 1].rsplit(" ", 1)[0].rstrip(".,;:") + "…"
     main_text = prefix + short_description + suffix
     reply_text = (
-        f"GitHub repo: {url}\\n\\n"
-        f"What it does: {description}\\n\\n"
-        f"Stars: {stars:,} · Language: {language}\\n\\n"
+        f"GitHub repo: {url}\n\n"
+        f"What it does: {description}\n\n"
+        f"Stars: {stars:,} · Language: {language}\n\n"
         "Useful for developers, software engineers, and vibe coders exploring tools before starting from scratch."
     )
     item = {
@@ -1205,7 +1205,7 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
         print("Builder prompt is an exact or near-duplicate of prior content; skipping safely.")
         return False
 
-    reply_text = f"{prompt_text}\\n\\n{cta}"
+    reply_text = f"{prompt_text}\n\n{cta}"
     item = {
         "subject": "educational builder prompt",
         "content_type": "builder_prompt",
