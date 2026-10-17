@@ -1043,6 +1043,15 @@ async def _publish_builder_post(
         history = state.get("github_repo_history", [])
         history.append(str(item.get("repo_full_name", "")).strip())
         state["github_repo_history"] = [x for x in history if x][-200:]
+    elif post_type == "builder_tip":
+        # Remember the prompt package as soon as the parent is accepted, even if a reply fails.
+        package = str(item.get("generated_package") or (main_text + "\n\n" + reply_text))
+        state["builder_post_hashes"] = (
+            state.get("builder_post_hashes", []) + [_content_fingerprint(package)]
+        )[-20000:]
+        state["builder_post_history"] = (
+            state.get("builder_post_history", []) + [package]
+        )[-120:]
     # Persist the accepted parent before attempting replies to prevent duplicate parents on retry.
     _save_state(state)
 
@@ -1213,6 +1222,7 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
         "comedy_mechanism": draft.comedy_mechanism,
         "structure_signature": draft.structure_signature,
         "prompt_text": prompt_text,
+        "generated_package": generated,
     }
     await _publish_builder_post(state, client, main_text, reply_text, item, "builder_tip")
 
@@ -1234,12 +1244,6 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
     state["recent_post_fingerprints"] = (
         state.get("recent_post_fingerprints", []) + [draft.structure_signature[:180]]
     )[-30:]
-    state["builder_post_hashes"] = (
-        state.get("builder_post_hashes", []) + [_content_fingerprint(generated)]
-    )[-20000:]
-    state["builder_post_history"] = (
-        state.get("builder_post_history", []) + [generated]
-    )[-120:]
     _save_state(state)
     return True
 
