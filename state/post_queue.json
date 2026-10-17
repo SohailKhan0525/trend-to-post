@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 11,
-  "ai_call_count": 23,
-  "last_posted_at": "2026-10-17T10:01:30.302150+00:00",
+  "daily_count": 12,
+  "ai_call_count": 24,
+  "last_posted_at": "2026-10-17T12:31:26.662473+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111397179419955639",
+  "last_tweet_id": "2111434912956031042",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "abstract infrastructure clash",
-      "comedy_mechanism": "Elevates mundane deployment failures to epic geological scale tragedy.",
-      "used_at": "2026-10-16T07:51:48.487524+00:00",
-      "topic": "Docker containers or stuck in a sandstorm?",
-      "tweet_id": "2111002151732625896",
-      "content_type": "developer_comparison_meme",
-      "content_mode": "generated_text_free_visual",
-      "post_text": "Docker containers or stuck in a sandstorm?\n\nDevs be honest...",
-      "mutation_stage": "short structure label",
-      "structure_signature": "Headline: High Stakes / Opener: Standard"
-    },
     {
       "format_name": "frontend_styling_schism",
       "comedy_mechanism": "juxtaposes two universally recognized methods of writing horrific markup",
@@ -369,10 +357,21 @@
       "post_text": "Bun Install or npm Install?\n\nDevs be honest...",
       "mutation_stage": "binary tool comparison",
       "structure_signature": "comparison_headline_newline_opener"
+    },
+    {
+      "format_name": "builder_prompt_tip",
+      "comedy_mechanism": "direct utility",
+      "used_at": "2026-10-17T12:31:26.662473+00:00",
+      "topic": "expert builder prompt tip",
+      "tweet_id": "2111434912956031042",
+      "content_type": "builder_tip",
+      "content_mode": "expert_prompt_tip",
+      "post_text": "DID YOU KNOW?\n\nAI generates broken layouts when content overflows because it lacks explicit width bounds.\n\nTry adding this to your prompt:\n\"Enforce strict min-width and max-width constraints on all flex and grid child elements.\"\n\nFollow for more builder prompts.",
+      "mutation_stage": "builder_prompt_tip",
+      "structure_signature": "did_you_know_explanation_snippet_footer"
     }
   ],
   "recent_post_fingerprints": [
-    "headline observation referencing economic validation with toxic positivity emojis",
     "formal checklist item prefix followed by sarcastic status and emoji signature",
     "headline_with_question_mark_blank_line_opener",
     "technical specification absurdity met with consumer despair",
@@ -401,7 +400,8 @@
     "binary_headline_newline_opener",
     "comparison_headline_newline_opener",
     "did_you_know_explanation_snippet_footer",
-    "comparison_headline_newline_opener"
+    "comparison_headline_newline_opener",
+    "did_you_know_explanation_snippet_footer"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "builder_tip",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -664,7 +664,7 @@
   "ai_tech_quote_day_key": null,
   "trend_names_used": [],
   "ai_tech_trend_names_used": [],
-  "builder_tip_post_count": 1,
+  "builder_tip_post_count": 2,
   "builder_tip_posts": [
     {
       "slot_number": 1,
@@ -675,6 +675,17 @@
       "comedy_mechanism": "direct utility",
       "structure_signature": "did_you_know_explanation_snippet_footer",
       "generated_at": "2026-10-17T09:01:33.505893+00:00",
+      "status": "published_builder_tip"
+    },
+    {
+      "slot_number": 2,
+      "subject": "expert builder prompt tip",
+      "post": "DID YOU KNOW?\n\nAI generates broken layouts when content overflows because it lacks explicit width bounds.\n\nTry adding this to your prompt:\n\"Enforce strict min-width and max-width constraints on all flex and grid child elements.\"\n\nFollow for more builder prompts.",
+      "tweet_id": "2111434912956031042",
+      "format_name": "builder_prompt_tip",
+      "comedy_mechanism": "direct utility",
+      "structure_signature": "did_you_know_explanation_snippet_footer",
+      "generated_at": "2026-10-17T12:31:26.662473+00:00",
       "status": "published_builder_tip"
     }
   ],
