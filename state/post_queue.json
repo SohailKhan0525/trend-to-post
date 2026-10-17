@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 1,
-  "ai_call_count": 2,
-  "last_posted_at": "2026-10-17T00:01:51.017522+00:00",
+  "daily_count": 2,
+  "ai_call_count": 4,
+  "last_posted_at": "2026-10-17T01:01:44.486298+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111246270769860720",
+  "last_tweet_id": "2111261343471071640",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,20 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "feudal ledger syndrome",
-      "comedy_mechanism": "inverts the tech growth narrative by framing a massive quarterly success as the oppressive labor required to maintain capital",
-      "used_at": "2026-10-15T09:01:53.779612+00:00",
-      "topic": "TSMC",
-      "tweet_id": "2110657402496295068",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2110657233285505339",
-      "source_username": "marco__reed",
-      "post_text": "cohosting a quarterly results call is just modern feudalism with better spreadsheets 💀 🔥 🥀",
-      "mutation_stage": "premise_inversion",
-      "structure_signature": "headline observation referencing economic validation with toxic positivity emojis"
-    },
     {
       "format_name": "corporate compliance checkmark artifact",
       "comedy_mechanism": "reframes a security breach as a completed remote work onboarding item",
@@ -385,10 +371,21 @@
       "post_text": "SQLite Database or Local JSON File?\n\nDevs be honest...",
       "mutation_stage": "binary tool comparison",
       "structure_signature": "comparison_headline_newline_opener"
+    },
+    {
+      "format_name": "binary_tool_comparison",
+      "comedy_mechanism": "contrasts the sandbox safety of universal web execution with the sheer reckless velocity of trusting your CPU directly",
+      "used_at": "2026-10-17T01:01:44.486298+00:00",
+      "topic": "WebAssembly Modules or Native C Binaries?",
+      "tweet_id": "2111261343471071640",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "WebAssembly Modules or Native C Binaries?\n\nDevs be honest...",
+      "mutation_stage": "binary tool comparison",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "comparison headline with question mark, blank line, exact opener",
     "domain epithet + absurd economic valuation + sarcastic integer metaphor",
     "implication + absurd workplace habit",
     "headline_question_blank_opener",
@@ -413,6 +410,7 @@
     "comparison_headline_newline_opener",
     "binary_headline_newline_opener",
     "binary_headline_newline_opener",
+    "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
@@ -530,7 +528,7 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 1,
+  "person_photo_post_count": 2,
   "ai_tech_quote_post_count": 0,
   "next_lane_index": 0,
   "person_photo_posts": [
@@ -546,6 +544,20 @@
       "comedy_mechanism": "contrasts the respectable engineering maturity of a real embedded database with the pure chaotic delinquency of raw file dumping",
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-17T00:01:51.017522+00:00",
+      "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 2,
+      "subject": "WebAssembly Modules or Native C Binaries?",
+      "post": "WebAssembly Modules or Native C Binaries?\n\nDevs be honest...",
+      "image_title": "AI-generated text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Locally generated SVG illustration (CairoSVG + Pillow)",
+      "tweet_id": "2111261343471071640",
+      "format_name": "binary_tool_comparison",
+      "comedy_mechanism": "contrasts the sandbox safety of universal web execution with the sheer reckless velocity of trusting your CPU directly",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-17T01:01:44.486298+00:00",
       "status": "published_generated_comparison"
     }
   ],
