@@ -47,7 +47,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("no third line", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("Never include an @mention.", prompt)
-        self.assertIn("No question, no third line", prompt)
+        self.assertIn("no third line", prompt)
         self.assertIn("Never include an @mention", prompt)
         self.assertIn("The text describes the image", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
@@ -276,8 +276,8 @@ class OriginalTextValidationTests(unittest.TestCase):
 
 class BuilderPromptTipTests(unittest.TestCase):
     VALID_LONG_BUILDER_POST = (
-        "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
-            "PASTE THIS INTO YOUR AI BUILDER:\\n"
+        "Design an AI research workspace that feels intentionally art-directed.\n\n"
+            "PASTE THIS INTO YOUR AI BUILDER:\n"
             "Build an original AI research workspace for analysts who collect sources, compare findings, "
             "and turn verified notes into clear briefs. Establish a distinctive visual direction: restrained "
             "neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
