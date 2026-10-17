@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 14,
-  "ai_call_count": 32,
-  "last_posted_at": "2026-10-17T15:31:21.156072+00:00",
+  "daily_count": 15,
+  "ai_call_count": 33,
+  "last_posted_at": "2026-10-17T16:01:36.126812+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111480178731819290",
+  "last_tweet_id": "2111487801091043429",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "builder_tip",
+  "last_post_type": "github_repo_spotlight",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -678,7 +678,7 @@
   "ai_tech_quote_day_key": null,
   "trend_names_used": [],
   "ai_tech_trend_names_used": [],
-  "builder_tip_post_count": 3,
+  "builder_tip_post_count": 4,
   "builder_tip_posts": [
     {
       "slot_number": 1,
@@ -720,6 +720,34 @@
       "structure_signature": "hook_newline_marker_prompt",
       "generated_at": "2026-10-17T15:31:21.156072+00:00",
       "status": "published_builder_tip"
+    },
+    {
+      "subject": "GitHub repository spotlight",
+      "content_type": "github_repo_spotlight",
+      "repo_full_name": "shadcn-ui/ui",
+      "repo_url": "https://github.com/shadcn-ui/ui",
+      "repo_description": "Composable, accessible components with thoughtful defaults. Build your own component library with code you can customize, extend, and make your own.",
+      "repo_stars": 125795,
+      "repo_language": "TypeScript",
+      "format_name": "active GitHub repository spotlight",
+      "comedy_mechanism": "practical developer discovery",
+      "structure_signature": "github_repo_51f33a8f96187a8e57af5576",
+      "slot_number": 4,
+      "post": "DEVS & VIBE CODERS: shadcn-ui/ui is worth a look.\n\nComposable, accessible components with thoughtful defaults. Build your own component library with code you can…\n\nExplore it before building this from scratch.",
+      "reply_text": "GitHub repo: https://github.com/shadcn-ui/ui\n\nWhat it does: Composable, accessible components with thoughtful defaults. Build your own component library with code you can customize, extend, and make your own.\n\nStars: 125,795 · Language: TypeScript\n\nUseful for developers, software engineers, and vibe coders exploring tools before starting from scratch.",
+      "tweet_id": "2111487801091043429",
+      "thread_tweet_ids": [
+        "2111487801091043429",
+        "2111487801992876414",
+        "2111487803062444056"
+      ],
+      "reply_tweet_ids": [
+        "2111487801992876414",
+        "2111487803062444056"
+      ],
+      "generated_at": "2026-10-17T16:01:36.126812+00:00",
+      "reply_status": "published",
+      "status": "published_github_repo_spotlight"
     }
   ],
   "builder_tip_day_key": "2026-10-17",
@@ -735,5 +763,8 @@
   ],
   "builder_post_history": [
     "Building financial compliance dashboards that look like actual professional software instead of generic admin templates requires extreme layout discipline and precise data density control.\n\nPASTE THIS INTO YOUR AI BUILDER:\nBuild a production-grade transaction monitoring console for financial analysts featuring a high-density data table, a collapsible filter sidebar, and real-time alert streaming. Use an ultra-clean design language inspired by professional developer tools, avoiding any default purple gradients or decorative glass cards. The color palette must use strict zinc neutrals with a single semantic slate blue accent for primary triggers and amber for warning indicators. Implement a fixed header with search, global keyboard shortcuts, and tenant selection. The data table must support multi-column sorting, row selection with bulk actions, and expandable row details showing compliance metadata. Include fully styled empty states, loading skeletons with shimmer effects, inline error banners, and explicit focus rings on all interactive elements. Ensure responsive layouts collapse the sidebar into a slide-over drawer on mobile viewports while preserving table horizontal scroll with sticky status columns. Acceptance criteria: zero layout shifts during data streaming, WCAG AA color contrast compliance, and complete keyboard navigation across all interactive components."
+  ],
+  "github_repo_history": [
+    "shadcn-ui/ui"
   ]
 }
