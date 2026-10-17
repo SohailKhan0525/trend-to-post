@@ -60,6 +60,7 @@ class GeneratedComparisonImageTests(unittest.TestCase):
         self.assertEqual(request.get_header("Authorization"), "Bearer test-token")
         payload = json.loads(request.data.decode("utf-8"))
         self.assertEqual(payload["steps"], 4)
+        self.assertNotIn("seed", payload)
         self.assertIn("soft cool light gray", payload["prompt"])
         self.assertIn("vivid mint/turquoise green", payload["prompt"])
         self.assertIn("Grok Bot", payload["prompt"])
