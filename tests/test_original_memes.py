@@ -28,7 +28,7 @@ class OriginalTextValidationTests(unittest.TestCase):
             "error_status: retry failed 💀🔥",
             "attempting to use a mind in the context of a calculator: 💀🔥",
             "Traceback: the developer has feelings 😭🔥",
-            "Devs be honest...\nindex out of bounds: attempting to use a mind in a calculator 💀🔥",
+            "Be honest...\nindex out of bounds: attempting to use a mind in a calculator 💀🔥",
         )
         for post in examples:
             with self.subTest(post=post):
@@ -41,22 +41,22 @@ class OriginalTextValidationTests(unittest.TestCase):
             {"trend": "Tibo", "text": "Real photo of Tibo", "mention_handle": "@thsottiaux"},
             content_mode="developer_prompt",
         )
-        self.assertIn("Devs be honest...", prompt)
+        self.assertIn("Be honest...", prompt)
         self.assertIn("exactly TWO text sections separated by exactly one blank line", prompt)
-        self.assertIn("ChatGPT Dot or Grok Bot?", prompt)
+        self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("No question, no third line", prompt)
-        self.assertIn("ChatGPT Dot or Grok Bot?", prompt)
+        self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("Never include an @mention.", prompt)
         self.assertIn("No question, no third line", prompt)
         self.assertIn("Never include an @mention", prompt)
         self.assertIn("The text describes the image", prompt)
-        self.assertIn("ChatGPT Dot or Grok Bot?", prompt)
+        self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("no extra punctuation or text before or after", prompt)
         self.assertIn("the same two entities in the headline", prompt)
         self.assertIn("No fake diagnostics", prompt)
 
     def test_developer_prompt_enforces_exact_two_sections(self) -> None:
-        valid = draft("ChatGPT Dot or Grok Bot?\n\nDevs be honest...")
+        valid = draft("Grok Bot or ChatGPT Dots?\n\nBe honest...")
         self.assertIs(
             _validate_original(
                 valid,
@@ -71,11 +71,11 @@ class OriginalTextValidationTests(unittest.TestCase):
 
     def test_developer_prompt_rejects_extra_text_quotes_and_bad_line_breaks(self) -> None:
         invalid_posts = (
-            '"ChatGPT Dot or Grok Bot?\n\nDevs be honest..."',
-            "ChatGPT Dot or Grok Bot?\nDevs be honest...",
-            "ChatGPT Dot or Grok Bot?\n\nDevs be honest...\n\nWhich one?",
-            "ChatGPT Dot or Grok Bot?\n\nRandom opener....",
-            "ChatGPT Dot or Grok Bot?\n\nDevs be honest... 👀",
+            '"Grok Bot or ChatGPT Dots?\n\nBe honest..."',
+            "Grok Bot or ChatGPT Dots?\nBe honest...",
+            "Grok Bot or ChatGPT Dots?\n\nBe honest...\n\nWhich one?",
+            "Grok Bot or ChatGPT Dots?\n\nRandom opener....",
+            "Grok Bot or ChatGPT Dots?\n\nBe honest... 👀",
         )
         for post in invalid_posts:
             with self.subTest(post=post):
@@ -275,27 +275,46 @@ class OriginalTextValidationTests(unittest.TestCase):
 
 
 class BuilderPromptTipTests(unittest.TestCase):
-    def test_builder_tip_prompt_requires_high_leverage_reusable_instruction(self) -> None:
+    VALID_LONG_BUILDER_POST = (
+        "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
+        "PASTE THIS INTO YOUR AI BUILDER:\\n"
+        "Build an original AI research workspace for analysts who need to collect sources, "
+        "compare findings, and turn verified notes into a clear brief. Establish a distinctive "
+        "visual direction with a restrained neutral palette, one purposeful accent, a consistent "
+        "8-point spacing scale, two complementary type styles, semantic design tokens, subtle "
+        "borders, and restrained elevation. Compose a useful navigation rail, searchable source "
+        "list, central synthesis canvas, and contextual evidence panel with clear hierarchy. "
+        "Create reusable, well-named UI components and realistic example data; keep all controls "
+        "functional rather than decorative. Define responsive behavior for desktop, tablet, and "
+        "mobile: collapse navigation deliberately, stack evidence panels, preserve reading order, "
+        "and prevent horizontal overflow. Include loading, empty, error, success, disabled, hover, "
+        "pressed, and keyboard-focus states with clear recovery actions. Meet accessibility "
+        "requirements with semantic landmarks, labeled controls, keyboard navigation, visible "
+        "focus, and sufficient text contrast. Handle long source titles, missing evidence, and "
+        "slow AI responses gracefully. Finish by checking screenshots at 375px, 768px, and 1440px; "
+        "fix inconsistent spacing, typography, alignment, contrast, overflow, and dead interactions. "
+        "Acceptance criteria: no placeholder copy, no default purple gradient, no random glass cards, "
+        "no fake buttons, and no unresolved console errors."
+    )
+
+    def test_builder_prompt_requires_long_reusable_premium_ai_ui_instruction(self) -> None:
         prompt = _original_text_prompt(
-            {"trend": "expert builder prompt tips", "text": "Websites, UI/UX, software and AI-assisted building."},
+            {"trend": "AI workspaces, premium UI and responsive web applications", "text": "Build an original AI research tool."},
             content_mode="builder_tip",
             emoji_count=0,
         )
-        self.assertIn("EXPERT BUILDER PROMPT TIP", prompt)
-        self.assertIn("high-leverage", prompt)
-        self.assertIn("at or below 250 characters", prompt)
-        self.assertIn("220–240 characters", prompt)
-        self.assertIn("concrete prompt snippet", prompt)
+        self.assertIn("LONG-FORM PREMIUM AI + UI BUILDER PROMPT", prompt)
+        self.assertIn("600–1,400 characters", prompt)
+        self.assertIn("PASTE THIS INTO YOUR AI BUILDER:", prompt)
+        self.assertIn("visual-QA loop", prompt)
+        self.assertIn("Treat products such as Stripe and Vercel only as quality benchmarks", prompt)
         self.assertIn("No hashtags, URLs, @mentions, emojis", prompt)
+        self.assertIn("Builder post length must be 600–1,400 characters", prompt)
 
-    def test_builder_tip_validation_accepts_substantive_tip(self) -> None:
-        value = draft(
-            'DID YOU KNOW?\n\n'
-            'A visual QA pass catches weak states before users do.\n\n'
-            'Try adding this to your prompt:\n'
-            '"After implementation, test mobile and desktop plus loading, empty, error, focus, and overflow states. Fix every inconsistency before shipping."\n\n'
-            'Follow for more builder prompts.'
-        )
+    def test_builder_tip_validation_accepts_substantive_long_prompt(self) -> None:
+        value = draft(self.VALID_LONG_BUILDER_POST)
+        self.assertGreaterEqual(len(value.post_text), 600)
+        self.assertLessEqual(len(value.post_text), 1400)
         self.assertIs(
             _validate_original(
                 value,
@@ -308,17 +327,30 @@ class BuilderPromptTipTests(unittest.TestCase):
             value,
         )
 
-    def test_builder_tip_validation_rejects_basic_prompt(self) -> None:
+    def test_builder_tip_validation_rejects_short_prompt(self) -> None:
         value = draft(
-            'DID YOU KNOW?\n\n'
-            'Make your UI better.\n\n'
-            'Try adding this to your prompt:\n'
-            '"Be specific and make it better."\n\n'
-            'Follow for more builder prompts.'
+            "Design a UI.\\n\\nPASTE THIS INTO YOUR AI BUILDER:\\n"
+            "Make the website better and responsive."
         )
-        with self.assertRaises(GeminiError):
+        with self.assertRaisesRegex(GeminiError, "600–1,400 characters"):
             _validate_original(
                 value,
+                {},
+                include_handle=False,
+                minimum_emoji_count=0,
+                maximum_emoji_count=0,
+                content_mode="builder_tip",
+            )
+
+    def test_builder_tip_validation_rejects_long_prompt_without_accessibility(self) -> None:
+        low_quality = (
+            "Build a polished interface.\\n\\nPASTE THIS INTO YOUR AI BUILDER:\\n"
+            + ("Create a beautiful responsive UI with components and layouts. " * 12)
+        )[:1000]
+        low_quality = low_quality.ljust(610, "x")
+        with self.assertRaisesRegex(GeminiError, "accessibility"):
+            _validate_original(
+                draft(low_quality),
                 {},
                 include_handle=False,
                 minimum_emoji_count=0,
