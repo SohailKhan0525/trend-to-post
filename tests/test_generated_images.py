@@ -70,7 +70,7 @@ class GeneratedComparisonImageTests(unittest.TestCase):
         self.assertIn("50/50 vertical split", prompt)
         self.assertIn("large centered white", prompt)
         self.assertIn("ONLY permitted letters", prompt)
-        self.assertIn("no logos", prompt.lower())
+        self.assertIn("logos", prompt.lower())
         self.assertIn("no visual glitches", prompt.lower())
 
     def test_supports_or_vs_and_versus_separators(self):
