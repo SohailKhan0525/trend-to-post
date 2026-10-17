@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 4,
-  "ai_call_count": 8,
-  "last_posted_at": "2026-10-17T03:01:44.479857+00:00",
+  "daily_count": 5,
+  "ai_call_count": 10,
+  "last_posted_at": "2026-10-17T04:01:33.284269+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111291541826462174",
+  "last_tweet_id": "2111306594508324960",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,20 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "ecosystem host restriction mock",
-      "comedy_mechanism": "subverts product metrics into a consumer licensing covenants scenario",
-      "used_at": "2026-10-15T12:01:43.702787+00:00",
-      "topic": "DeepSeek V4.1 Flash Now Free in OpenCode for Developers",
-      "tweet_id": "2110702658608910467",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2110629543082070441",
-      "source_username": "thePandaily",
-      "post_text": "context window capacity priced at 2tb 4k video 🤣 💀",
-      "mutation_stage": "cross_domain_collision",
-      "structure_signature": "technical specification absurdity met with consumer despair"
-    },
     {
       "format_name": "economized preference injection",
       "comedy_mechanism": "blunts a marketing claim into a cynical consumer analogy about existing hardware debt.",
@@ -381,10 +367,21 @@
       "post_text": "Vim Motions or Regular Typing?\n\nDevs be honest...",
       "mutation_stage": "binary tool comparison",
       "structure_signature": "comparison_headline_newline_opener"
+    },
+    {
+      "format_name": "infrastructure_deployment_schism",
+      "comedy_mechanism": "contrasts the rigorous predictability of modern virtualization with pure superstitious desperation",
+      "used_at": "2026-10-17T04:01:33.284269+00:00",
+      "topic": "Docker Containers or Bare Metal Prayers?",
+      "tweet_id": "2111306594508324960",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "Docker Containers or Bare Metal Prayers?\n\nDevs be honest...",
+      "mutation_stage": "binary choice comparison",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "headline_question_blank_opener",
     "programmer headed spec sheet with escalating absurdity",
     "compact structural fingerprint",
     "macroscopic tech misallocation opening with emoji cluster",
@@ -406,6 +403,7 @@
     "comparison_headline_newline_opener",
     "binary_headline_newline_opener",
     "binary_headline_newline_opener",
+    "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
@@ -526,7 +524,7 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 4,
+  "person_photo_post_count": 5,
   "ai_tech_quote_post_count": 0,
   "next_lane_index": 0,
   "person_photo_posts": [
@@ -584,6 +582,20 @@
       "comedy_mechanism": "juxtaposes the cultish efficiency of modal editing against the honest panic of regular backspacing",
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-17T03:01:44.479857+00:00",
+      "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 5,
+      "subject": "Docker Containers or Bare Metal Prayers?",
+      "post": "Docker Containers or Bare Metal Prayers?\n\nDevs be honest...",
+      "image_title": "AI-generated text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Locally generated SVG illustration (CairoSVG + Pillow)",
+      "tweet_id": "2111306594508324960",
+      "format_name": "infrastructure_deployment_schism",
+      "comedy_mechanism": "contrasts the rigorous predictability of modern virtualization with pure superstitious desperation",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-17T04:01:33.284269+00:00",
       "status": "published_generated_comparison"
     }
   ],
