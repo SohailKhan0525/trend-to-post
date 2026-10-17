@@ -12,23 +12,29 @@ class FakeClient:
 
 
 def _long_builder_post():
-    return (
-        "Design an AI research workspace that feels intentionally art-directed.\n\n"
-            "PASTE THIS INTO YOUR AI BUILDER:\n"
-            "Build an original AI research workspace for analysts who collect sources, compare findings, "
-            "and turn verified notes into clear briefs. Establish a distinctive visual direction: restrained "
-            "neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
-            "tokens, consistent borders, and subtle elevation. Compose a navigation rail, searchable source list, "
-            "synthesis canvas, and evidence panel with clear hierarchy. Implement reusable UI components and "
-            "realistic example data; every control must work. Define responsive behavior for desktop, tablet, "
-            "and mobile: collapse navigation, stack panels, preserve reading order, and prevent horizontal "
-            "overflow. Implement loading, empty, error, success, disabled, hover, pressed, and keyboard-focus "
-            "states with recovery actions. Meet accessibility requirements with semantic landmarks, labeled "
-            "controls, keyboard navigation, visible focus, and sufficient text contrast. Handle long titles, "
-            "missing evidence, and slow AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; "
-            "fix spacing, typography, contrast, alignment, overflow, and dead interactions. Acceptance criteria: "
-            "no placeholder copy, default purple gradient, random glass cards, fake buttons, or unresolved console errors."
+    prompt = (
+        "Build an original AI research workspace for analysts who collect sources, compare findings, "
+        "and turn verified notes into clear briefs. Establish a distinctive visual direction with restrained "
+        "neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
+        "tokens, consistent borders, and subtle elevation. Compose a navigation rail, searchable source list, "
+        "synthesis canvas, and evidence panel with clear hierarchy. Implement reusable UI components and "
+        "realistic example data; every control must work. Define responsive behavior for desktop, tablet, "
+        "and mobile: collapse navigation, stack panels, preserve reading order, and prevent horizontal "
+        "overflow. Implement loading, empty, error, success, disabled, hover, pressed, and keyboard-focus "
+        "states with recovery actions. Meet accessibility requirements with semantic landmarks, labeled "
+        "controls, keyboard navigation, visible focus, and sufficient text contrast. Handle long titles, "
+        "missing evidence, and slow AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; "
+        "fix spacing, typography, contrast, alignment, overflow, and dead interactions. Acceptance criteria: "
+        "no placeholder copy, default purple gradient, random glass cards, fake buttons, or unresolved console errors."
     )
+    return (
+        "DID YOU KNOW?\nThis prompt helps you build an AI research workspace with clear evidence trails, "
+        "responsive panels, and accessible interactions.\n\nREPLY PROMPT:\n"
+        + prompt
+        + "\n\nFOLLOW FOR MORE PROMPTS."
+    )
+
+
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
     def test_daily_plan_fills_all_45_slots_with_23_builder_prompts_and_22_comparison_memes(self):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
@@ -181,7 +187,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 23)
 
-    async def test_builder_tip_publishes(self):
+    async def test_builder_tip_publishes_did_you_know_parent_and_prompt_reply_thread(self):
         state = post_queue._new_state()
         draft = OriginalDraft(
             True,
@@ -194,47 +200,8 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             "hook_prompt_marker_long_implementation",
             "builder_tip",
         )
-        client = SimpleNamespace(
-            create_tweet=AsyncMock(return_value=SimpleNamespace(id="4444444444444444444"))
-        )
-        with (
-            patch.object(post_queue, "generate_original_text", return_value=draft),
-            patch.object(post_queue, "_save_state"),
-        ):
-            result = await post_queue._post_builder_tip(state, client)
-
-        self.assertTrue(result)
-        client.create_tweet.assert_awaited_once_with(text=draft.post_text)
-        self.assertEqual(state["builder_tip_post_count"], 1)
-        self.assertEqual(state["daily_count"], 1)
-        self.assertEqual(state["last_post_type"], "builder_tip")
-        self.assertEqual(state["builder_tip_posts"][-1]["status"], "published_builder_tip")
-
-    async def test_builder_long_post_falls_back_to_thread_when_x_rejects_length(self):
-        state = post_queue._new_state()
-        draft = OriginalDraft(
-            True,
-            _long_builder_post(),
-            "premium builder prompt",
-            "",
-            "builder prompt",
-            "AI research workspace",
-            "responsive accessibility visual QA",
-            "hook_prompt_marker_long_implementation",
-            "builder_tip",
-        )
-        client = SimpleNamespace(
-            create_tweet=AsyncMock(side_effect=[
-                Exception("Authorization: Tweet needs to be a bit shorter. (186)"),
-                SimpleNamespace(id="thread-root"),
-                SimpleNamespace(id="thread-reply-1"),
-                SimpleNamespace(id="thread-reply-2"),
-                SimpleNamespace(id="thread-reply-3"),
-                SimpleNamespace(id="thread-reply-4"),
-                SimpleNamespace(id="thread-reply-5"),
-                SimpleNamespace(id="thread-reply-6"),
-            ])
-        )
+        ids = iter(SimpleNamespace(id=f"tweet-{index}") for index in range(20))
+        client = SimpleNamespace(create_tweet=AsyncMock(side_effect=lambda **kwargs: next(ids)))
         with (
             patch.object(post_queue, "generate_original_text", return_value=draft),
             patch.object(post_queue, "_save_state"),
@@ -243,10 +210,53 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertTrue(result)
         self.assertGreater(client.create_tweet.await_count, 1)
-        chunks = [call.kwargs["text"] for call in client.create_tweet.await_args_list[1:]]
-        self.assertTrue(all(len(chunk) <= 280 for chunk in chunks))
-        self.assertTrue(all("reply_to" in call.kwargs for call in client.create_tweet.await_args_list[2:]))
-        self.assertEqual(state["builder_tip_posts"][-1]["thread_tweet_ids"][0], "thread-root")
+        calls = client.create_tweet.await_args_list
+        self.assertTrue(calls[0].kwargs["text"].startswith("DID YOU KNOW?"))
+        self.assertLessEqual(len(calls[0].kwargs["text"]), 220)
+        self.assertNotIn("Build an original AI research workspace", calls[0].kwargs["text"])
+        self.assertTrue(all(call.kwargs.get("reply_to") for call in calls[1:]))
+        self.assertTrue(calls[-1].kwargs["text"].endswith("FOLLOW FOR MORE PROMPTS."))
+        self.assertEqual(state["builder_tip_post_count"], 1)
+        self.assertEqual(state["daily_count"], 1)
+        self.assertEqual(state["last_post_type"], "builder_tip")
+        self.assertEqual(state["builder_tip_posts"][-1]["reply_status"], "published")
+        self.assertEqual(state["builder_tip_posts"][-1]["thread_tweet_ids"][0], "tweet-0")
+
+    async def test_fourth_builder_slot_can_publish_a_github_repo_spotlight(self):
+        state = post_queue._new_state()
+        state["builder_tip_day_key"] = post_queue._today()
+        state["builder_tip_post_count"] = 3
+        state["daily_count"] = 3
+        repo = {
+            "full_name": "example/awesome-dev-tool",
+            "description": "A practical open-source toolkit for building and testing modern AI applications.",
+            "html_url": "https://github.com/example/awesome-dev-tool",
+            "stargazers_count": 12345,
+            "language": "Python",
+            "archived": False,
+            "disabled": False,
+            "fork": False,
+            "pushed_at": "2026-10-01T12:00:00Z",
+        }
+        ids = iter(SimpleNamespace(id=f"repo-tweet-{index}") for index in range(20))
+        client = SimpleNamespace(create_tweet=AsyncMock(side_effect=lambda **kwargs: next(ids)))
+        with (
+            patch.object(post_queue, "_find_github_repo", return_value=repo),
+            patch.object(post_queue, "_save_state"),
+        ):
+            result = await post_queue._post_builder_tip(state, client)
+
+        self.assertTrue(result)
+        self.assertTrue(client.create_tweet.await_args_list[0].kwargs["text"].startswith("DEVS & VIBE CODERS:"))
+        self.assertIn("https://github.com/example/awesome-dev-tool", " ".join(
+            call.kwargs["text"] for call in client.create_tweet.await_args_list[1:]
+        ))
+        self.assertEqual(state["builder_tip_post_count"], 4)
+        self.assertEqual(state["daily_count"], 4)
+        self.assertEqual(state["last_post_type"], "github_repo_spotlight")
+        self.assertEqual(state["builder_tip_posts"][-1]["status"], "published_github_repo_spotlight")
+        self.assertIn("example/awesome-dev-tool", state["github_repo_history"])
+
 
     async def test_post_queue_enables_original_comparison_and_builder_lanes(self):
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
