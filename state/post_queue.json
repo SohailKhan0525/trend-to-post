@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 6,
-  "ai_call_count": 12,
-  "last_posted_at": "2026-10-17T05:01:34.059654+00:00",
+  "daily_count": 7,
+  "ai_call_count": 14,
+  "last_posted_at": "2026-10-17T06:01:35.421068+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111321697341333631",
+  "last_tweet_id": "2111336802887913754",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,20 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "browser scope creep protocol",
-      "comedy_mechanism": "frames software telemetry features as corporate policy compliance checks",
-      "used_at": "2026-10-16T01:01:43.382815+00:00",
-      "topic": "Chrome — Technology · Trending",
-      "tweet_id": "2110898950974926856",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2110898204677939368",
-      "source_username": "akmalfaizan",
-      "post_text": "browser scope creep protocol initialized. tab archival: yes employee dependency: pending review 🤣 👀 💀",
-      "mutation_stage": "invented_rule",
-      "structure_signature": "tech header followed by compliance check with pending human status"
-    },
     {
       "format_name": "corporate asset cannibalization index",
       "comedy_mechanism": "reframes hardware acquisition as a cost-saving metric for metabolic suffering via crypto abstraction",
@@ -377,10 +363,21 @@
       "post_text": "Monorepo Scale or Single File Glory?\n\nDevs be honest...",
       "mutation_stage": "short structure label",
       "structure_signature": "comparison_headline_newline_opener"
+    },
+    {
+      "format_name": "stylesheet_dichotomy",
+      "comedy_mechanism": "juxtaposes the clean modular look of modern utility frameworks against the absolute surrender of raw inline styling",
+      "used_at": "2026-10-17T06:01:35.421068+00:00",
+      "topic": "Tailwind Classes or Inline Styles?",
+      "tweet_id": "2111336802887913754",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "Tailwind Classes or Inline Styles?\n\nDevs be honest...",
+      "mutation_stage": "binary tool comparison",
+      "structure_signature": "binary_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "compact structural fingerprint",
     "macroscopic tech misallocation opening with emoji cluster",
     "artificial system interface mockup in prose format used to diagnose the post",
     "abstract tech jargon applied to non-technical discipline",
@@ -409,7 +406,8 @@
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
-    "comparison_headline_newline_opener"
+    "comparison_headline_newline_opener",
+    "binary_headline_newline_opener"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -522,7 +520,7 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 6,
+  "person_photo_post_count": 7,
   "ai_tech_quote_post_count": 0,
   "next_lane_index": 0,
   "person_photo_posts": [
@@ -608,6 +606,20 @@
       "comedy_mechanism": "Pokes fun at the internal debate every dev faces when building something: do you keep it nimble and ugly (Single File) or do you embrace the bureaucracy and scale (Monorepo)?",
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-17T05:01:34.059654+00:00",
+      "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 7,
+      "subject": "Tailwind Classes or Inline Styles?",
+      "post": "Tailwind Classes or Inline Styles?\n\nDevs be honest...",
+      "image_title": "AI-generated text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Locally generated SVG illustration (CairoSVG + Pillow)",
+      "tweet_id": "2111336802887913754",
+      "format_name": "stylesheet_dichotomy",
+      "comedy_mechanism": "juxtaposes the clean modular look of modern utility frameworks against the absolute surrender of raw inline styling",
+      "structure_signature": "binary_headline_newline_opener",
+      "generated_at": "2026-10-17T06:01:35.421068+00:00",
       "status": "published_generated_comparison"
     }
   ],
