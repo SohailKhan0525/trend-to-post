@@ -210,6 +210,44 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(state["last_post_type"], "builder_tip")
         self.assertEqual(state["builder_tip_posts"][-1]["status"], "published_builder_tip")
 
+    async def test_builder_long_post_falls_back_to_thread_when_x_rejects_length(self):
+        state = post_queue._new_state()
+        draft = OriginalDraft(
+            True,
+            _long_builder_post(),
+            "premium builder prompt",
+            "",
+            "builder prompt",
+            "AI research workspace",
+            "responsive accessibility visual QA",
+            "hook_prompt_marker_long_implementation",
+            "builder_tip",
+        )
+        client = SimpleNamespace(
+            create_tweet=AsyncMock(side_effect=[
+                Exception("Authorization: Tweet needs to be a bit shorter. (186)"),
+                SimpleNamespace(id="thread-root"),
+                SimpleNamespace(id="thread-reply-1"),
+                SimpleNamespace(id="thread-reply-2"),
+                SimpleNamespace(id="thread-reply-3"),
+                SimpleNamespace(id="thread-reply-4"),
+                SimpleNamespace(id="thread-reply-5"),
+                SimpleNamespace(id="thread-reply-6"),
+            ])
+        )
+        with (
+            patch.object(post_queue, "generate_original_text", return_value=draft),
+            patch.object(post_queue, "_save_state"),
+        ):
+            result = await post_queue._post_builder_tip(state, client)
+
+        self.assertTrue(result)
+        self.assertGreater(client.create_tweet.await_count, 1)
+        chunks = [call.kwargs["text"] for call in client.create_tweet.await_args_list[1:]]
+        self.assertTrue(all(len(chunk) <= 280 for chunk in chunks))
+        self.assertTrue(all("reply_to" in call.kwargs for call in client.create_tweet.await_args_list[2:]))
+        self.assertEqual(state["builder_tip_posts"][-1]["thread_tweet_ids"][0], "thread-root")
+
     async def test_post_queue_enables_original_comparison_and_builder_lanes(self):
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
         self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 22)
