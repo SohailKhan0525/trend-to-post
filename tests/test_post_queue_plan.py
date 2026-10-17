@@ -13,23 +13,21 @@ class FakeClient:
 
 def _long_builder_post():
     prompt = (
-        "Build an original AI research workspace for analysts who collect sources, compare findings, "
-        "and turn verified notes into clear briefs. Establish a distinctive visual direction with restrained "
-        "neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
-        "tokens, consistent borders, and subtle elevation. Compose a navigation rail, searchable source list, "
-        "synthesis canvas, and evidence panel with clear hierarchy. Implement reusable UI components and "
-        "realistic example data; every control must work. Define responsive behavior for desktop, tablet, "
-        "and mobile: collapse navigation, stack panels, preserve reading order, and prevent horizontal "
-        "overflow. Implement loading, empty, error, success, disabled, hover, pressed, and keyboard-focus "
-        "states with recovery actions. Meet accessibility requirements with semantic landmarks, labeled "
-        "controls, keyboard navigation, visible focus, and sufficient text contrast. Handle long titles, "
-        "missing evidence, and slow AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; "
-        "fix spacing, typography, contrast, alignment, overflow, and dead interactions. Acceptance criteria: "
-        "no placeholder copy, default purple gradient, random glass cards, fake buttons, or unresolved console errors."
+        "Build an original AI research workspace for analysts who collect sources and turn verified notes into briefs. "
+        "Use restrained neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
+        "tokens, consistent borders, and clear hierarchy. Create a navigation rail, searchable source list, synthesis "
+        "canvas, and evidence panel with reusable UI components and realistic data. Every control must work. Define "
+        "responsive behavior for desktop, tablet, and mobile; collapse navigation, stack panels, preserve reading order, "
+        "and prevent horizontal overflow. Implement loading, empty, error, success, disabled, hover, pressed, and "
+        "keyboard-focus states. Meet accessibility requirements with semantic landmarks, labeled controls, keyboard "
+        "navigation, visible focus, and sufficient text contrast. Handle missing evidence and slow AI responses. Review "
+        "screenshots at 375px, 768px, and 1440px; fix spacing, typography, contrast, alignment, overflow, and dead "
+        "interactions. Acceptance criteria: no placeholder copy, default purple gradient, random glass cards, fake "
+        "buttons, or unresolved console errors."
     )
     return (
-        "DID YOU KNOW?\nThis prompt helps you build an AI research workspace with clear evidence trails, "
-        "responsive panels, and accessible interactions.\n\nREPLY PROMPT:\n"
+        "DID YOU KNOW?\nThis prompt helps you build an AI research workspace with clearer evidence trails and accessible, "
+        "responsive panels.\n\nREPLY PROMPT:\n"
         + prompt
         + "\n\nFOLLOW FOR MORE PROMPTS."
     )
