@@ -13,8 +13,8 @@ class FakeClient:
 
 def _long_builder_post():
     return (
-        "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
-            "PASTE THIS INTO YOUR AI BUILDER:\\n"
+        "Design an AI research workspace that feels intentionally art-directed.\n\n"
+            "PASTE THIS INTO YOUR AI BUILDER:\n"
             "Build an original AI research workspace for analysts who collect sources, compare findings, "
             "and turn verified notes into clear briefs. Establish a distinctive visual direction: restrained "
             "neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
@@ -92,6 +92,10 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         )
         fingerprint = post_queue._content_fingerprint(original)
         self.assertTrue(post_queue._is_duplicate_content(original, [fingerprint], []))
+        self.assertEqual(
+            post_queue._comparison_pair_fingerprint("Grok Bot or ChatGPT Dots?"),
+            post_queue._comparison_pair_fingerprint("ChatGPT Dots vs Grok Bot?"),
+        )
         self.assertTrue(
             post_queue._is_duplicate_content(
                 original,
