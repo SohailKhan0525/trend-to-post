@@ -42,13 +42,13 @@ LEGACY_TREND_QUOTE_POSTS_PER_DAY = 12  # tolerate state from the previous daily 
 PERSON_PHOTO_POSTS_PER_DAY = 22  # This legacy state field now stores comparison memes.
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
 # Allow retries across flaky source searches/provider responses without changing
-# the hard cap of twenty successfully published main posts.
+# the hard cap of 45 successfully published main posts.
 AI_GENERATIONS_PER_DAY = 120
 ORIGINAL_POSTS_PER_DAY = 11  # legacy state compatibility only
 # The external dispatcher and scheduled fallback both run every 30 minutes.
-# A 30-minute guard supports the higher-volume schedule while preventing overlapping
-# dispatches from publishing duplicate posts. The active lane quotas are 22 + 22;
-# the overall hard cap is 45, leaving one reserve slot with no third lane configured.
+# A 20-minute guard allows the 45-slot daily plan to progress while preventing
+# closely spaced duplicate dispatches. Active lane quotas are 23 builder prompts/repo
+# spotlights and 22 comparison memes, matching the 45-post hard cap.
 MIN_POST_INTERVAL_MINUTES = 20
 
 
