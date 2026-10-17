@@ -169,6 +169,28 @@ def _content_fingerprint(value: str) -> str:
     return hashlib.sha256(normalised.encode("utf-8")).hexdigest()
 
 
+def _split_builder_thread(post: str, max_chars: int = 255) -> list[str]:
+    """Split a long builder prompt into X-safe, word-boundary thread chunks."""
+    words = post.split()
+    chunks: list[str] = []
+    current = ""
+    for word in words:
+        candidate = f"{current} {word}".strip()
+        if len(candidate) <= max_chars:
+            current = candidate
+            continue
+        if current:
+            chunks.append(current)
+        if len(word) > max_chars:
+            chunks.extend(word[index:index + max_chars] for index in range(0, len(word), max_chars))
+            current = ""
+        else:
+            current = word
+    if current:
+        chunks.append(current)
+    return chunks
+
+
 def _comparison_pair_fingerprint(headline: str) -> str:
     """Fingerprint both choices as an unordered pair so reversing them cannot repeat a meme."""
     parts = re.split(r"\s+(?:or|vs|versus)\s+", str(headline).strip().rstrip("?!"), maxsplit=1, flags=re.IGNORECASE)
@@ -958,14 +980,54 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
 
     try:
         tweet = await client.create_tweet(text=text)
+        tweet_id = str(getattr(tweet, "id", "") or "")
+        if not tweet_id:
+            raise QueueError(
+                "X accepted the builder tip but returned no tweet ID; inspect the account before retrying."
+            )
+        published_ids = [tweet_id]
+    except QueueError:
+        raise
     except Exception as exc:
-        raise QueueError(f"Builder tip post failed: {exc}") from exc
-
-    tweet_id = str(getattr(tweet, "id", "") or "")
-    if not tweet_id:
-        raise QueueError(
-            "X accepted the builder tip but returned no tweet ID; inspect the account before retrying."
+        error_text = str(exc).casefold()
+        length_rejected = any(
+            marker in error_text
+            for marker in ("tweet needs to be a bit shorter", "too long", "character limit", "(186)")
         )
+        if not length_rejected:
+            raise QueueError(f"Builder tip post failed: {exc}") from exc
+
+        # Preserve the full long-form prompt on accounts without X long-post
+        # entitlement by publishing it as a connected thread of regular posts.
+        chunks = _split_builder_thread(text)
+        if len(chunks) < 2 or any(len(chunk) > 280 for chunk in chunks):
+            raise QueueError("Builder prompt cannot be safely split into X-sized thread posts.") from exc
+        print(
+            f"X rejected the {len(text)}-character builder post as too long; "
+            f"retrying as a {len(chunks)}-post thread."
+        )
+        published_ids = []
+        reply_to = None
+        try:
+            for chunk in chunks:
+                if reply_to is None:
+                    reply = await client.create_tweet(text=chunk)
+                else:
+                    reply = await client.create_tweet(text=chunk, reply_to=reply_to)
+                reply_id = str(getattr(reply, "id", "") or "")
+                if not reply_id:
+                    raise QueueError(
+                        "X accepted a builder thread segment but returned no tweet ID; inspect the account before retrying."
+                    )
+                published_ids.append(reply_id)
+                reply_to = reply_id
+        except QueueError:
+            raise
+        except Exception as thread_exc:
+            raise QueueError(
+                f"Builder prompt thread partially failed after {len(published_ids)} segment(s): {thread_exc}"
+            ) from thread_exc
+        tweet_id = published_ids[0]
 
     now = datetime.now(timezone.utc).isoformat()
     item = {
@@ -973,6 +1035,7 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
         "subject": "expert builder prompt tip",
         "post": text,
         "tweet_id": tweet_id,
+        "thread_tweet_ids": published_ids,
         "format_name": draft.format_name,
         "comedy_mechanism": draft.comedy_mechanism,
         "structure_signature": draft.structure_signature,
