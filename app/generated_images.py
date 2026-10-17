@@ -42,7 +42,7 @@ def _split_comparison(headline: str) -> tuple[str, str]:
 def build_comparison_image_prompt(headline: str) -> str:
     """Build a strict, reference-guided FLUX prompt that fits the model's 2,048-char input cap."""
     left, right = _split_comparison(headline)
-    prompt = f"""Premium editorial comparison-meme art, carefully art-directed like high-end collectible-toy product photography. COMPOSITION: exact 50/50 vertical split at the midpoint; LEFT background soft cool light gray, RIGHT background vivid mint/turquoise green. Put a large, crisp white “VS” with a dark navy outline directly over the center seam.
+    prompt = f"""Premium editorial comparison-meme art, carefully art-directed like high-end collectible-toy product photography. COMPOSITION: exact 50/50 vertical split at the midpoint; LEFT background soft cool light gray, RIGHT background vivid mint/turquoise green. Place a large centered white “VS” with a dark navy outline, crisp and legible, directly over the center seam.
 
 LEFT CHOICE — “{left}”: one bold, simple, original visual metaphor/character, dark and high-contrast, clearly confined to the left half. It must instantly suggest this choice without using brand assets.
 
