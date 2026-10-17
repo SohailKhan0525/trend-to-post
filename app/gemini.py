@@ -1240,13 +1240,13 @@ def _validate_original(
         old_name = " ".join(str(item.get("format_name", "")).lower().split())
         old_signature = " ".join(str(item.get("structure_signature", "")).lower().split())
         old_signature_words = set(re.findall(r"[a-z0-9]+", old_signature))
-        if content_mode != "developer_prompt" and normalized_name and old_name == normalized_name:
+        if content_mode not in {"developer_prompt", "builder_tip"} and normalized_name and old_name == normalized_name:
             raise GeminiError("Generated post repeats a recent format name.")
-        if content_mode != "developer_prompt" and normalized_signature and old_signature == normalized_signature:
+        if content_mode not in {"developer_prompt", "builder_tip"} and normalized_signature and old_signature == normalized_signature:
             raise GeminiError("Generated post repeats a recent structure signature.")
         left = current_signature_words - ignored_signature_words
         right = old_signature_words - ignored_signature_words
-        if content_mode != "developer_prompt" and len(left) >= 4 and len(right) >= 4:
+        if content_mode not in {"developer_prompt", "builder_tip"} and len(left) >= 4 and len(right) >= 4:
             overlap = len(left & right) / max(1, len(left | right))
             if overlap >= 0.78:
                 raise GeminiError("Generated post is too structurally similar to a recent post.")
