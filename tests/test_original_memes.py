@@ -49,7 +49,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("Never include an @mention.", prompt)
         self.assertIn("no third line", prompt)
         self.assertIn("Never include an @mention", prompt)
-        self.assertIn("The text describes the image", prompt)
+        self.assertIn("The image represents the same two choices", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("no extra punctuation or text before or after", prompt)
         self.assertIn("the same two entities in the headline", prompt)
