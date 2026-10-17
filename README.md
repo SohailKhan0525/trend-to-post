@@ -62,4 +62,5 @@ The X cookies are session credentials and may expire. Keep all credentials in Gi
 - A post whose X publishing outcome is uncertain must not be blindly retried, because that could create a duplicate.
 - State commits use retry/rebase logic to handle concurrent updates.
 - Wikimedia/person-photo and retired quote-post code may remain for backward compatibility; they are not the active comparison-image path.
-- FLUX.1 [schnell] uses Cloudflare Workers AI's 10,000-Neuron free daily allocation where available; this limit is shared with other Workers AI usage and can be exhausted.\n- This project uses Twikit with an authenticated X session. Review [X's automation rules](https://help.x.com/en/rules-and-policies/x-automation) and use an approved publishing method consistent with current platform requirements.
+- FLUX.1 [schnell] uses Cloudflare Workers AI's 10,000-Neuron free daily allocation where available; this limit is shared with other Workers AI usage and can be exhausted.
+- This project uses Twikit with an authenticated X session. Review [X's automation rules](https://help.x.com/en/rules-and-policies/x-automation) and use an approved publishing method consistent with current platform requirements.
