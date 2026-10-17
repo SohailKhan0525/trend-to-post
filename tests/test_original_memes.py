@@ -52,7 +52,7 @@ class OriginalTextValidationTests(unittest.TestCase):
         self.assertIn("The image represents the same two choices", prompt)
         self.assertIn("Grok Bot or ChatGPT Dots?", prompt)
         self.assertIn("no other characters before or after", prompt)
-        self.assertIn("the same two entities in the headline", prompt)
+        self.assertIn("the same two choices in the headline", prompt)
         self.assertIn("No fake diagnostics", prompt)
 
     def test_developer_prompt_enforces_exact_two_sections(self) -> None:
