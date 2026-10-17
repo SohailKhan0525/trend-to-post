@@ -909,9 +909,16 @@ def _original_text_prompt(
         else f"EMOJI RULE: use ONLY these emojis: 👀 🔥 😭 ❤️‍🩹 😂 😙 🥀 🤣 🥳 🫠 😤 💀. The randomized target for this post is {emoji_count} distinct emojis. Use at least {emoji_count}; one extra is okay if it improves the joke. Never repeat an emoji token in one post, and do not use any emoji outside the list. Make emojis feel like part of the punchline."
     )
     post_description = (
-        "one original standalone post containing only a comparison headline, one blank line, and exactly Devs be honest...; no question, no emoji, no quotes"
+        "one original standalone post containing only a comparison headline, one blank line, and exactly Be honest...; no question, no emoji, no quotes"
         if content_mode == "developer_prompt"
+        else "one 600–1,400 character original post with a hook, one blank line, the exact PASTE THIS INTO YOUR AI BUILDER: marker, and a substantial actionable AI/UI builder prompt"
+        if content_mode == "builder_tip"
         else f"one original standalone post containing {emoji_count} distinct emojis"
+    )
+    output_length_rule = (
+        "Builder post length must be 600–1,400 characters."
+        if content_mode == "builder_tip"
+        else f"Caption maximum {ORIGINAL_POST_MAX_CHARS} characters."
     )
     if content_mode == "trend_manual":
         mode_instructions = """CONTENT MODE: REAL X CONVERSATION — MANUAL DRAFT ONLY.
@@ -977,7 +984,7 @@ ANTI-REPETITION IS STRICT: compare the underlying premise, topic angle, metaphor
 Never imply a fictional scenario is a real event or real company announcement.
 No politics/current affairs, countries, nationalities, geopolitical geography, fabricated facts, hashtags or URLs. No @mentions in developer_prompt mode.
 No engagement bait like “repost this”, “thoughts?”, “agree?” or “let that sink in”.
-{emoji_rule} Caption maximum {ORIGINAL_POST_MAX_CHARS} characters.
+{emoji_rule} {output_length_rule}
 Make the line worth sharing because it is funny, not because it asks for engagement.
 
 RECENT FORMAT MEMORY:
