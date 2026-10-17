@@ -35,9 +35,9 @@ STATE_PATH = Path("state/post_queue.json")
 POSTS_PER_DAY = 45
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
 TREND_QUOTE_POSTS_PER_DAY = 0  # retired: no more X Trends quote-posts
-BUILDER_TIP_POSTS_PER_DAY = 22
+BUILDER_TIP_POSTS_PER_DAY = 23
 LEGACY_TREND_QUOTE_POSTS_PER_DAY = 12  # tolerate state from the previous daily cap
-PERSON_PHOTO_POSTS_PER_DAY = 22  # Legacy state field; this lane now stores comparison memes.
+PERSON_PHOTO_POSTS_PER_DAY = 22  # This legacy state field now stores comparison memes.
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
 # Allow retries across flaky source searches/provider responses without changing
 # the hard cap of twenty successfully published main posts.
@@ -47,7 +47,7 @@ ORIGINAL_POSTS_PER_DAY = 11  # legacy state compatibility only
 # A 30-minute guard supports the higher-volume schedule while preventing overlapping
 # dispatches from publishing duplicate posts. The active lane quotas are 22 + 22;
 # the overall hard cap is 45, leaving one reserve slot with no third lane configured.
-MIN_POST_INTERVAL_MINUTES = 30
+MIN_POST_INTERVAL_MINUTES = 20
 
 
 def _set_workflow_output(name: str, value: str) -> None:
