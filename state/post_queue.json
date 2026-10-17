@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 9,
-  "ai_call_count": 18,
-  "last_posted_at": "2026-10-17T08:01:33.329535+00:00",
+  "daily_count": 10,
+  "ai_call_count": 19,
+  "last_posted_at": "2026-10-17T09:01:33.505893+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111366993152454971",
+  "last_tweet_id": "2111382093418934476",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,20 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "os error macro",
-      "comedy_mechanism": "inverts standard consumer complaints into abstract system qualification to mock the uncanny valley of ai voice",
-      "used_at": "2026-10-16T04:02:08.131615+00:00",
-      "topic": "GPT-Live-1.1 — Technology · Trending",
-      "tweet_id": "2110944353174896913",
-      "content_type": "quote_post",
-      "content_mode": "x_trends_quote",
-      "source_tweet_id": "2110934209665868196",
-      "source_username": "shaunralston",
-      "post_text": "local voice model artifact: sun_eraser.exe error_code: request_rejected 💀 🔥",
-      "mutation_stage": "structural_break",
-      "structure_signature": "noun_concept + error_symbol + colloquial tech variable"
-    },
     {
       "format_name": "developer_workflow_dichotomy",
       "comedy_mechanism": "juxtaposes the extreme pretension of memorizing keyboard shortcuts against the desperate reality of scavenging code from strangers on the internet",
@@ -371,10 +357,21 @@
       "post_text": "Cursor Composer or Tab and Pray?\n\nDevs be honest...",
       "mutation_stage": "binary choice comparison",
       "structure_signature": "comparison_headline_newline_opener"
+    },
+    {
+      "format_name": "builder_prompt_tip",
+      "comedy_mechanism": "direct utility",
+      "used_at": "2026-10-17T09:01:33.505893+00:00",
+      "topic": "expert builder prompt tip",
+      "tweet_id": "2111382093418934476",
+      "content_type": "builder_tip",
+      "content_mode": "expert_prompt_tip",
+      "post_text": "DID YOU KNOW?\n\nAI defaults to missing mobile touch targets unless explicitly constrained.\n\nTry adding this to your prompt:\n\"Ensure all interactive elements have a minimum 44px touch target size across viewports.\"\n\nFollow for more builder prompts.",
+      "mutation_stage": "did_you_know",
+      "structure_signature": "did_you_know_explanation_snippet_footer"
     }
   ],
   "recent_post_fingerprints": [
-    "abstract tech jargon applied to non-technical discipline",
     "blunt delayed delivery timeline + absurd non-refundable acceptance protocols",
     "headline observation referencing economic validation with toxic positivity emojis",
     "formal checklist item prefix followed by sarcastic status and emoji signature",
@@ -403,7 +400,8 @@
     "comparison_headline_newline_opener",
     "binary_headline_newline_opener",
     "binary_headline_newline_opener",
-    "comparison_headline_newline_opener"
+    "comparison_headline_newline_opener",
+    "did_you_know_explanation_snippet_footer"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -497,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "builder_tip",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -518,7 +516,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 9,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 0,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -652,7 +650,19 @@
   "ai_tech_quote_day_key": null,
   "trend_names_used": [],
   "ai_tech_trend_names_used": [],
-  "builder_tip_post_count": 0,
-  "builder_tip_posts": [],
+  "builder_tip_post_count": 1,
+  "builder_tip_posts": [
+    {
+      "slot_number": 1,
+      "subject": "expert builder prompt tip",
+      "post": "DID YOU KNOW?\n\nAI defaults to missing mobile touch targets unless explicitly constrained.\n\nTry adding this to your prompt:\n\"Ensure all interactive elements have a minimum 44px touch target size across viewports.\"\n\nFollow for more builder prompts.",
+      "tweet_id": "2111382093418934476",
+      "format_name": "builder_prompt_tip",
+      "comedy_mechanism": "direct utility",
+      "structure_signature": "did_you_know_explanation_snippet_footer",
+      "generated_at": "2026-10-17T09:01:33.505893+00:00",
+      "status": "published_builder_tip"
+    }
+  ],
   "builder_tip_day_key": "2026-10-17"
 }
