@@ -1422,16 +1422,6 @@ async def post_next(
     if not auth_token or not ct0:
         raise QueueError("X_AUTH_TOKEN and X_CT0 are required.")
 
-    # Keep the configured provider chain explicit: Cloudflare is the primary
-    # candidate provider and Gemini is required for fallback/builder-tip text.
-    # Fail before generation or posting if required credentials are missing.
-    if not os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip():
-        raise QueueError("CLOUDFLARE_ACCOUNT_ID is required.")
-    if not os.environ.get("CLOUDFLARE_API_TOKEN", "").strip():
-        raise QueueError("CLOUDFLARE_API_TOKEN is required.")
-    if not (gemini_api_key or os.environ.get("GEMINI_API_KEY", "").strip()):
-        raise QueueError("GEMINI_API_KEY is required for builder-tip text generation.")
-
     _set_workflow_output("published", "false")
     _set_workflow_output("skip_reason", "not_started")
     state = _load_state()
@@ -1446,6 +1436,16 @@ async def post_next(
     if not _interval_ok(state):
         _set_workflow_output("skip_reason", "interval_guard")
         return False
+
+    # Keep the configured provider chain explicit: Cloudflare is the primary
+    # candidate provider and Gemini is required for builder-tip text/fallback.
+    # Do not start generation or posting if required credentials are missing.
+    if not os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip():
+        raise QueueError("CLOUDFLARE_ACCOUNT_ID is required.")
+    if not os.environ.get("CLOUDFLARE_API_TOKEN", "").strip():
+        raise QueueError("CLOUDFLARE_API_TOKEN is required.")
+    if not (gemini_api_key or os.environ.get("GEMINI_API_KEY", "").strip()):
+        raise QueueError("GEMINI_API_KEY is required for builder-tip text generation.")
 
     client = _client(auth_token, ct0)
     if not await client.is_logged_in():
