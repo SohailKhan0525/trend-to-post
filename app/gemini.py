@@ -1151,7 +1151,7 @@ def _validate_original(
             raise GeminiError("Builder prompt package must be 600–1,400 characters.")
         if post.count("REPLY PROMPT:") != 1:
             raise GeminiError("Builder package must contain exactly one REPLY PROMPT: separator.")
-        if not post.startswith("DID YOU KNOW?\\n"):
+        if not post.startswith("DID YOU KNOW?\n"):
             raise GeminiError("Builder main post must start with DID YOU KNOW? on its own line.")
         main_text, reply_section = post.split("REPLY PROMPT:", 1)
         if len(main_text.strip()) > 220:
