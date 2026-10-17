@@ -250,7 +250,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_post_queue_enables_original_comparison_and_builder_lanes(self):
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 22)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 23)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.POSTS_PER_DAY, 45)
