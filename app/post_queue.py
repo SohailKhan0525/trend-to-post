@@ -5,6 +5,8 @@ import json
 import os
 import random
 import re
+import urllib.parse
+import urllib.request
 from difflib import SequenceMatcher
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -128,6 +130,7 @@ def _new_state() -> dict:
         "builder_tip_day_key": None,
         "builder_tip_post_count": 0,
         "builder_tip_posts": [],
+        "github_repo_history": [],
         "next_lane_index": 0,
     }
 
@@ -925,8 +928,210 @@ async def _find_active_x_person_handles(
     return active
 
 
+def _find_github_repo(state: dict) -> dict | None:
+    """Find an active, non-archived GitHub repository suitable for a developer spotlight."""
+    history = state.get("github_repo_history", [])
+    if not isinstance(history, list):
+        history = []
+    used = {str(item).casefold() for item in history if str(item).strip()}
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=540)).date().isoformat()
+    topics = (
+        "topic:ai-agents stars:>300",
+        "topic:llm stars:>1000",
+        "topic:developer-tools stars:>300",
+        "topic:react stars:>3000",
+        "topic:nextjs stars:>1000",
+        "topic:automation stars:>500",
+        "topic:cli stars:>1000",
+        "topic:open-source stars:>5000",
+        "topic:vibe-coding stars:>100",
+    )
+    queries = random.sample(topics, k=len(topics))
+    for topic_query in queries[:4]:
+        params = urllib.parse.urlencode({
+            "q": f"{topic_query} pushed:>{cutoff} fork:false",
+            "sort": "stars",
+            "order": "desc",
+            "per_page": "15",
+        })
+        request = urllib.request.Request(
+            f"https://api.github.com/search/repositories?{params}",
+            headers={
+                "Accept": "application/vnd.github+json",
+                "User-Agent": "trend-to-post-repo-spotlight",
+                "X-GitHub-Api-Version": "2022-11-28",
+            },
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=12) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+        except Exception as exc:
+            print(f"GitHub repo discovery query failed safely ({topic_query}): {exc}")
+            continue
+        candidates = []
+        for item in payload.get("items", []):
+            if not isinstance(item, dict):
+                continue
+            full_name = str(item.get("full_name", "")).strip()
+            description = " ".join(str(item.get("description", "") or "").split())
+            html_url = str(item.get("html_url", "")).strip()
+            pushed_at = str(item.get("pushed_at", "")).strip()
+            if (
+                not full_name or full_name.casefold() in used
+                or not description or len(description) < 18
+                or not html_url.startswith("https://github.com/")
+                or item.get("archived") or item.get("disabled") or item.get("fork")
+                or int(item.get("stargazers_count", 0) or 0) < 100
+                or not pushed_at or pushed_at[:10] < cutoff
+            ):
+                continue
+            candidates.append(item)
+        if candidates:
+            # Select among highly ranked active projects to balance quality and variety.
+            return random.choice(candidates[:min(5, len(candidates))])
+    return None
+
+
+async def _publish_builder_post(
+    state: dict,
+    client: Client,
+    main_text: str,
+    reply_text: str,
+    item: dict,
+    post_type: str,
+) -> bool:
+    """Publish a short parent post, persist it, then publish the connected reply thread."""
+    try:
+        tweet = await client.create_tweet(text=main_text)
+    except Exception as exc:
+        raise QueueError(f"{post_type} main post failed: {exc}") from exc
+    tweet_id = str(getattr(tweet, "id", "") or "")
+    if not tweet_id:
+        raise QueueError(
+            f"X accepted the {post_type} main post but returned no tweet ID; inspect the account before retrying."
+        )
+
+    today = _today()
+    now = datetime.now(timezone.utc).isoformat()
+    slot_number = int(state.get("builder_tip_post_count", 0)) + 1
+    item.update({
+        "slot_number": slot_number,
+        "post": main_text,
+        "reply_text": reply_text,
+        "tweet_id": tweet_id,
+        "thread_tweet_ids": [tweet_id],
+        "reply_tweet_ids": [],
+        "generated_at": now,
+        "reply_status": "pending",
+        "status": "published_main_reply_pending",
+    })
+    state["builder_tip_posts"] = (
+        state.get("builder_tip_posts", []) + [item]
+    )[-BUILDER_TIP_POSTS_PER_DAY:]
+    state.update({
+        "day_key": today,
+        "builder_tip_day_key": today,
+        "builder_tip_post_count": slot_number,
+        "daily_count": int(state.get("daily_count", 0)) + 1,
+        "last_tweet_id": tweet_id,
+        "last_posted_at": now,
+        "last_source_tweet_id": None,
+        "last_post_type": post_type,
+        "last_company_handle": None,
+    })
+    if post_type == "github_repo_spotlight":
+        history = state.get("github_repo_history", [])
+        history.append(str(item.get("repo_full_name", "")).strip())
+        state["github_repo_history"] = [x for x in history if x][-200:]
+    # Persist the accepted parent before attempting replies to prevent duplicate parents on retry.
+    _save_state(state)
+
+    reply_ids = []
+    reply_to = tweet_id
+    chunks = _split_builder_thread(reply_text, max_chars=255)
+    if not chunks:
+        item["reply_status"] = "failed"
+        item["reply_error"] = "Reply content was empty."
+        _save_state(state)
+        raise QueueError(f"{post_type} parent published but reply content was empty.")
+    try:
+        for chunk in chunks:
+            reply = await client.create_tweet(text=chunk, reply_to=reply_to)
+            reply_id = str(getattr(reply, "id", "") or "")
+            if not reply_id:
+                raise QueueError(
+                    f"X accepted a {post_type} reply but returned no tweet ID; inspect the thread before retrying."
+                )
+            reply_ids.append(reply_id)
+            reply_to = reply_id
+    except Exception as exc:
+        item["reply_tweet_ids"] = reply_ids
+        item["thread_tweet_ids"] = [tweet_id] + reply_ids
+        item["reply_status"] = "failed_or_partial"
+        item["reply_error"] = str(exc)[:300]
+        _save_state(state)
+        if isinstance(exc, QueueError):
+            raise
+        raise QueueError(
+            f"{post_type} parent published but reply thread failed after {len(reply_ids)} reply segment(s): {exc}"
+        ) from exc
+
+    item["reply_tweet_ids"] = reply_ids
+    item["thread_tweet_ids"] = [tweet_id] + reply_ids
+    item["reply_status"] = "published"
+    item["status"] = "published_github_repo_spotlight" if post_type == "github_repo_spotlight" else "published_builder_tip"
+    _save_state(state)
+    print(
+        f"Published {post_type}: builder lane {state['builder_tip_post_count']}/{BUILDER_TIP_POSTS_PER_DAY}; "
+        f"daily slots {state['daily_count']}/{POSTS_PER_DAY}; reply segments {len(reply_ids)}."
+    )
+    return True
+
+
+async def _post_github_repo_spotlight(state: dict, client: Client) -> bool:
+    """Publish a verified, active GitHub repository spotlight as a parent plus reply thread."""
+    repo = _find_github_repo(state)
+    if not repo:
+        print("No suitable active GitHub repository found; falling back to a builder prompt.")
+        return False
+    full_name = str(repo.get("full_name", "")).strip()
+    description = " ".join(str(repo.get("description", "") or "").split())
+    url = str(repo.get("html_url", "")).strip()
+    stars = int(repo.get("stargazers_count", 0) or 0)
+    language = str(repo.get("language", "") or "Not specified")
+    if not full_name or not description or not url.startswith("https://github.com/"):
+        return False
+
+    prefix = f"DEVS & VIBE CODERS: {full_name} is worth a look.\\n\\n"
+    suffix = "\\n\\nExplore it before building this from scratch."
+    available = max(35, 220 - len(prefix) - len(suffix))
+    short_description = description if len(description) <= available else description[:available - 1].rsplit(" ", 1)[0].rstrip(".,;:") + "…"
+    main_text = prefix + short_description + suffix
+    reply_text = (
+        f"GitHub repo: {url}\\n\\n"
+        f"What it does: {description}\\n\\n"
+        f"Stars: {stars:,} · Language: {language}\\n\\n"
+        "Useful for developers, software engineers, and vibe coders exploring tools before starting from scratch."
+    )
+    item = {
+        "subject": "GitHub repository spotlight",
+        "content_type": "github_repo_spotlight",
+        "repo_full_name": full_name,
+        "repo_url": url,
+        "repo_description": description,
+        "repo_stars": stars,
+        "repo_language": language,
+        "format_name": "active GitHub repository spotlight",
+        "comedy_mechanism": "practical developer discovery",
+        "structure_signature": f"github_repo_{_content_fingerprint(full_name)[:24]}",
+    }
+    return await _publish_builder_post(
+        state, client, main_text, reply_text, item, "github_repo_spotlight"
+    )
+
+
 async def _post_builder_tip(state: dict, client: Client) -> bool:
-    """Publish one expert, reusable prompt-engineering tip for builders."""
+    """Publish an educational DID YOU KNOW? hook with the reusable prompt in its reply thread."""
     today = _today()
     if state.get("builder_tip_day_key") != today:
         state["builder_tip_day_key"] = today
@@ -940,6 +1145,17 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
         print("AI generation-attempt budget reached before builder tip.")
         return False
 
+    # Roughly one in four builder-lane slots spotlights a real GitHub project.
+    # If discovery is rate-limited or finds no suitable repo, publish a prompt instead.
+    if int(state.get("builder_tip_post_count", 0)) % 4 == 3:
+        try:
+            if await _post_github_repo_spotlight(state, client):
+                return True
+        except QueueError:
+            raise
+        except Exception as exc:
+            print(f"GitHub repo spotlight failed safely; falling back to prompt: {exc}")
+
     used_angles = []
     for previous in state.get("builder_post_history", [])[-18:]:
         first_line = str(previous).splitlines()[0].strip() if str(previous).splitlines() else ""
@@ -948,7 +1164,7 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
     payload = {
         "trend": "premium AI + UI/UX builder prompts for production-quality websites and web apps",
         "text": (
-            "Create a long-form, paste-ready prompt for an AI website/app builder. Focus on an original, highly polished product experience: strong layout hierarchy, spacing/type/color tokens, responsive behavior, component architecture, accessibility, meaningful interactive states, and visual QA. Do not copy Stripe, Vercel, or another brand's exact UI. "
+            "Create a long-form, paste-ready prompt for an AI website/app builder. Focus on an original, highly polished product experience: strong layout hierarchy, spacing/type/color tokens, responsive behavior, component architecture, accessibility, meaningful interactive states, and visual QA. "
             "Avoid repeating or paraphrasing these recently used hooks: "
             + " | ".join(used_angles[-18:])
         ),
@@ -966,128 +1182,65 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
         print(f"Builder tip generation failed: {exc}")
         return False
 
-    text = draft.post_text.strip()
-    if not draft.should_post or not 600 <= len(text) <= 1400:
-        print("Builder prompt failed long-form length validation; no post published.")
+    generated = draft.post_text.strip()
+    if not draft.should_post or not 600 <= len(generated) <= 1400 or generated.count("REPLY PROMPT:") != 1:
+        print("Builder prompt package failed format/length validation; no post published.")
+        return False
+    main_text, reply_section = generated.split("REPLY PROMPT:", 1)
+    main_text = main_text.strip()
+    reply_section = reply_section.strip()
+    cta = "FOLLOW FOR MORE PROMPTS."
+    if not main_text.startswith("DID YOU KNOW?") or len(main_text) > 220 or not reply_section.endswith(cta):
+        print("Builder prompt package failed hook, main-post length, or CTA validation; no post published.")
+        return False
+    prompt_text = reply_section[:-len(cta)].strip()
+    if len(prompt_text) < 480:
+        print("Builder prompt reply was too short; no post published.")
         return False
     if _is_duplicate_content(
-        text,
+        generated,
         state.get("builder_post_hashes", []),
         state.get("builder_post_history", []),
     ):
         print("Builder prompt is an exact or near-duplicate of prior content; skipping safely.")
         return False
 
-    try:
-        tweet = await client.create_tweet(text=text)
-        tweet_id = str(getattr(tweet, "id", "") or "")
-        if not tweet_id:
-            raise QueueError(
-                "X accepted the builder tip but returned no tweet ID; inspect the account before retrying."
-            )
-        published_ids = [tweet_id]
-    except QueueError:
-        raise
-    except Exception as exc:
-        error_text = str(exc).casefold()
-        length_rejected = any(
-            marker in error_text
-            for marker in ("tweet needs to be a bit shorter", "too long", "character limit", "(186)")
-        )
-        if not length_rejected:
-            raise QueueError(f"Builder tip post failed: {exc}") from exc
-
-        # Preserve the full long-form prompt on accounts without X long-post
-        # entitlement by publishing it as a connected thread of regular posts.
-        chunks = _split_builder_thread(text)
-        if len(chunks) < 2 or any(len(chunk) > 280 for chunk in chunks):
-            raise QueueError("Builder prompt cannot be safely split into X-sized thread posts.") from exc
-        print(
-            f"X rejected the {len(text)}-character builder post as too long; "
-            f"retrying as a {len(chunks)}-post thread."
-        )
-        published_ids = []
-        reply_to = None
-        try:
-            for chunk in chunks:
-                if reply_to is None:
-                    reply = await client.create_tweet(text=chunk)
-                else:
-                    reply = await client.create_tweet(text=chunk, reply_to=reply_to)
-                reply_id = str(getattr(reply, "id", "") or "")
-                if not reply_id:
-                    raise QueueError(
-                        "X accepted a builder thread segment but returned no tweet ID; inspect the account before retrying."
-                    )
-                published_ids.append(reply_id)
-                reply_to = reply_id
-        except QueueError:
-            raise
-        except Exception as thread_exc:
-            raise QueueError(
-                f"Builder prompt thread partially failed after {len(published_ids)} segment(s): {thread_exc}"
-            ) from thread_exc
-        tweet_id = published_ids[0]
-
-    now = datetime.now(timezone.utc).isoformat()
+    reply_text = f"{prompt_text}\\n\\n{cta}"
     item = {
-        "slot_number": int(state.get("builder_tip_post_count", 0)) + 1,
-        "subject": "expert builder prompt tip",
-        "post": text,
-        "tweet_id": tweet_id,
-        "thread_tweet_ids": published_ids,
+        "subject": "educational builder prompt",
+        "content_type": "builder_prompt",
         "format_name": draft.format_name,
         "comedy_mechanism": draft.comedy_mechanism,
         "structure_signature": draft.structure_signature,
-        "generated_at": now,
-        "status": "published_builder_tip",
+        "prompt_text": prompt_text,
     }
-    state["builder_tip_posts"] = (
-        state.get("builder_tip_posts", []) + [item]
-    )[-BUILDER_TIP_POSTS_PER_DAY:]
+    await _publish_builder_post(state, client, main_text, reply_text, item, "builder_tip")
 
+    now = datetime.now(timezone.utc).isoformat()
     lab = state.get("format_lab", [])
     lab.append({
-        "format_name": draft.format_name or "expert builder prompt tip",
+        "format_name": draft.format_name or "educational builder prompt",
         "comedy_mechanism": draft.comedy_mechanism,
         "used_at": now,
-        "topic": "expert builder prompt tip",
-        "tweet_id": tweet_id,
-        "content_type": "builder_tip",
+        "topic": "educational builder prompt",
+        "tweet_id": item["tweet_id"],
+        "content_type": "builder_prompt",
         "content_mode": "expert_prompt_tip",
-        "post_text": text,
+        "post_text": generated,
         "mutation_stage": draft.hook_type,
         "structure_signature": draft.structure_signature,
     })
     state["format_lab"] = lab[-20:]
     state["recent_post_fingerprints"] = (
-        state.get("recent_post_fingerprints", [])
-        + [draft.structure_signature[:180]]
+        state.get("recent_post_fingerprints", []) + [draft.structure_signature[:180]]
     )[-30:]
     state["builder_post_hashes"] = (
-        state.get("builder_post_hashes", []) + [_content_fingerprint(text)]
+        state.get("builder_post_hashes", []) + [_content_fingerprint(generated)]
     )[-20000:]
     state["builder_post_history"] = (
-        state.get("builder_post_history", []) + [text]
+        state.get("builder_post_history", []) + [generated]
     )[-120:]
-    state.update({
-        "day_key": today,
-        "builder_tip_day_key": today,
-        "builder_tip_post_count": int(state.get("builder_tip_post_count", 0)) + 1,
-        "daily_count": int(state.get("daily_count", 0)) + 1,
-        "last_tweet_id": tweet_id,
-        "last_posted_at": now,
-        "last_source_tweet_id": None,
-        "last_post_type": "builder_tip",
-        "last_company_handle": None,
-    })
     _save_state(state)
-    print(
-        f"Published builder prompt tip "
-        f"{state['builder_tip_post_count']}/{BUILDER_TIP_POSTS_PER_DAY}; "
-        f"comparison memes {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}; "
-        f"daily slots {state['daily_count']}/{POSTS_PER_DAY}."
-    )
     return True
 
 
