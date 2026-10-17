@@ -4,11 +4,17 @@ An automated X publishing queue for practical developer prompt tips and text-fre
 
 ## Active daily plan
 
-- **22 builder prompt posts/day** — long, paste-ready instructions for AI coding tools and premium-quality websites, web apps, and UI/UX. Each post includes implementation constraints, responsive behavior, component states, accessibility, and a visual QA checklist.
-- **22 comparison memes/day** — original choice-versus-choice captions, using the exact format `Grok Bot or ChatGPT Dots?\n\nBe honest...` as the only caption-format example. The pair varies; the example is not blindly reposted.
+- **22 builder prompt posts/day** — substantial, paste-ready briefs for AI coding tools and polished websites, apps, and UI/UX. Each prompt specifies the actual product flow, design system, responsive rules, accessibility, interaction states, and visual QA.
+- **22 comparison memes/day** — original two-choice captions and images. The caption has exactly this two-section format (this is the only example; its pair is not a reusable post):
+
+  ```text
+  Grok Bot or ChatGPT Dots?
+
+  Be honest...
+  ```
 - **No X Trends quote-posts or real-person photo prompts** — those lanes are not part of the active plan.
 
-The **hard daily cap is 45 posts**. The requested lane quotas add up to **44** (22 + 22), so the 45th slot is reserved rather than inventing a third content lane or exceeding either requested quota. Posts are spaced by at least 30 minutes. The queue stops at the lane quotas even though the overall safety cap is 45. State is stored in `state/post_queue.json` and committed back to `main` by the posting workflow.
+The **hard daily cap is 45 posts**. The two requested lane quotas total **44** (22 + 22), so the 45th slot remains reserved rather than creating an unrequested third lane. Posts are spaced by at least 30 minutes. The queue stops at either lane quota, and state is stored in `state/post_queue.json` and committed back to `main` by the posting workflow.
 
 ## Image generation
 
@@ -45,7 +51,7 @@ Configure these GitHub Actions secrets:
 - `X_CT0` — required X CSRF cookie.
 - `GEMINI_API_KEY` — required when Gemini fallback is needed.
 - `GEMINI_API_KEY_BACKUP` — optional second Gemini key.
-- `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` — required for first-pass text candidates.
+- `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` — required for first-pass text candidates and FLUX.1 [schnell] comparison images.
 
 The X cookies are session credentials and may expire. Keep all credentials in GitHub Secrets; never commit them to the repository or print their values in logs.
 
@@ -56,4 +62,4 @@ The X cookies are session credentials and may expire. Keep all credentials in Gi
 - A post whose X publishing outcome is uncertain must not be blindly retried, because that could create a duplicate.
 - State commits use retry/rebase logic to handle concurrent updates.
 - Wikimedia/person-photo and retired quote-post code may remain for backward compatibility; they are not the active comparison-image path.
-- FLUX.1 [schnell] uses Cloudflare Workers AI's 10,000-Neuron free daily allocation where available; this limit is shared with other Workers AI usage and can be exhausted. - This project uses Twikit with an authenticated X session. Review [X's automation rules](https://help.x.com/en/rules-and-policies/x-automation) and use an approved publishing method consistent with current platform requirements.
+- FLUX.1 [schnell] uses Cloudflare Workers AI's 10,000-Neuron free daily allocation where available; this limit is shared with other Workers AI usage and can be exhausted.\n- This project uses Twikit with an authenticated X session. Review [X's automation rules](https://help.x.com/en/rules-and-policies/x-automation) and use an approved publishing method consistent with current platform requirements.
