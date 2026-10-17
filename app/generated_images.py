@@ -23,7 +23,7 @@ IMAGE_HEIGHT = 1024
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 JPEG_SIGNATURE = bytes.fromhex("ffd8ff")
 MAX_IMAGE_BYTES = 6 * 1024 * 1024
-MAX_PROMPT_CHARS = 4096
+MAX_PROMPT_CHARS = 2048
 
 
 def _split_comparison(headline: str) -> tuple[str, str]:
@@ -40,22 +40,24 @@ def _split_comparison(headline: str) -> tuple[str, str]:
 
 
 def build_comparison_image_prompt(headline: str) -> str:
-    """Build a strict, reference-guided FLUX prompt with no text except the central VS."""
+    """Build a strict, reference-guided FLUX prompt that fits the model's 2,048-char input cap."""
     left, right = _split_comparison(headline)
-    prompt = f"""Create a polished, premium-quality comparison meme illustration, guided by this visual composition: a perfectly balanced, clean 50/50 vertical split; the LEFT half has a soft cool light-gray background, the RIGHT half has a vivid mint/turquoise-green background, and a large centered white “VS” with a dark navy outline sits directly over the dividing line.
+    prompt = f"""Premium editorial comparison-meme art, carefully art-directed like high-end collectible-toy product photography. COMPOSITION: exact 50/50 vertical split at the midpoint; LEFT background soft cool light gray, RIGHT background vivid mint/turquoise green. Put a large, crisp white “VS” with a dark navy outline directly over the center seam.
 
-LEFT CHOICE: visually represent “{left}” with one bold, instantly recognizable original visual metaphor or character. Keep the silhouette simple, high-contrast, dark, and readable at small social-feed size.
+LEFT CHOICE — “{left}”: one bold, simple, original visual metaphor/character, dark and high-contrast, clearly confined to the left half. It must instantly suggest this choice without using brand assets.
 
-RIGHT CHOICE: visually represent “{right}” with a small group of three or four expressive, colorful, fuzzy 3D plush-like mascot characters. Give them distinct silhouettes, charming facial expressions, tactile fibers, saturated pink/yellow/blue/lime accents, and believable soft studio shadows. Their design must clearly relate to the RIGHT choice rather than being random decoration.
+RIGHT CHOICE — “{right}”: three or four colorful fuzzy 3D plush-like mascots, distinct silhouettes, charming expressive faces, tactile fibers, vivid pink/yellow/blue/lime accents, soft contact shadows. Keep the group on the right half and make it visually communicate this choice, not random decoration.
 
-ART DIRECTION: delightful collectible-toy product photography blended with editorial meme art; immaculate softbox lighting; realistic fluffy materials; crisp focus on characters; subtle contact shadows; balanced scale; clean negative space; premium color grading; playful, instantly readable visual storytelling. Make the image feel intentionally art-directed, not like clip art or a generic AI collage. The left and right sides must feel different but equally polished. Keep every important subject inside safe margins and leave the center seam unobstructed except for the VS.
+QUALITY: delightful, polished, premium 3D art; softbox studio lighting; crisp character details; realistic fluffy materials; balanced scale; clean negative space; subtle grounding shadows; strong contrast and instantly readable visual storytelling. Keep both sides equally polished, with subjects fully in frame and within safe margins. No subject may obscure the central VS. The divide must be straight and unmistakable. Compose for a social feed with a clear left-versus-right story.
 
-LAYOUT: landscape 3:2 composition, straight vertical divide exactly at the midpoint, left subject clearly on the left and right characters clearly on the right, large central VS, no cropped faces, no confusing overlaps, no extra panels, no border, no mockup frame.
+TEXT AND BRAND SAFETY: the ONLY permitted letters anywhere are the exact “VS” at the center. Never render choice names, headline, captions, labels, UI text, numbers, pseudo-text, watermarks, signatures, logos, or brand marks. Use original generic metaphors; do not copy any company's logo, mascot, screenshot, proprietary layout, or identity. No extra panels, borders, frames, or decorative lettering.
 
-STRICT TEXT AND BRAND SAFETY: the ONLY permitted letters are the exact two characters “VS” at the center. Do not render the headline, choice names, labels, captions, letters, numbers, UI text, watermarks, signatures, logos, or brand marks anywhere else. Use original, generic visual metaphors; do not copy a real company's logo, mascot, screenshot, or proprietary design. No extra lettering or pseudo-text. The post caption will be added separately outside the image.
-
-QUALITY CHECK BEFORE FINALIZING: the vertical split and color backgrounds are obvious at a glance; the two choices are visually distinct; the left-side subject represents {left}; the right-side character group represents {right}; the central VS is legible; no other text is present; the composition is tidy and professional; no visual glitches, duplicate limbs, melted objects, or accidental logo-like shapes."""
-    return prompt[:MAX_PROMPT_CHARS]
+FINAL QUALITY CHECK: correct left/right concepts; clear gray/mint split; central VS legible; no accidental text; no cropping, duplicate limbs, melted objects, confusing overlaps, visual glitches, or logo-like shapes."""
+    if len(prompt) > MAX_PROMPT_CHARS:
+        raise GeneratedImageError(
+            f"Comparison image prompt exceeds Cloudflare FLUX's {MAX_PROMPT_CHARS}-character limit."
+        )
+    return prompt
 
 
 def _cloudflare_credentials() -> tuple[str, str]:
