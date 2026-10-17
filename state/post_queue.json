@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 24,
-  "ai_call_count": 42,
-  "last_posted_at": "2026-10-17T20:31:11.180053+00:00",
+  "daily_count": 25,
+  "ai_call_count": 43,
+  "last_posted_at": "2026-10-17T21:01:47.589618+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111555644163768724",
+  "last_tweet_id": "2111563346269057424",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "developer_stare_dichotomy",
-      "comedy_mechanism": "Equates an advanced AI coding assistant with doing absolutely nothing while pretending to work.",
-      "used_at": "2026-10-17T02:01:36.033710+00:00",
-      "topic": "Copilot Autocomplete or Staring Into Space?",
-      "tweet_id": "2111276407557152769",
-      "content_type": "developer_comparison_meme",
-      "content_mode": "generated_text_free_visual",
-      "post_text": "Copilot Autocomplete or Staring Into Space?\n\nDevs be honest...",
-      "mutation_stage": "binary tool comparison",
-      "structure_signature": "comparison_headline_newline_opener"
-    },
     {
       "format_name": "editor_workflow_schism",
       "comedy_mechanism": "juxtaposes the cultish efficiency of modal editing against the honest panic of regular backspacing",
@@ -369,10 +357,21 @@
       "post_text": "Rigid Design Systems or Pure Vibe Coding?\n\nBe honest...",
       "mutation_stage": "binary choice comparison",
       "structure_signature": "comparison_headline_newline_opener"
+    },
+    {
+      "format_name": "developer_tool_schism",
+      "comedy_mechanism": "contrasts endless marketing gradients with cold plain text",
+      "used_at": "2026-10-17T21:01:47.589618+00:00",
+      "topic": "SaaS Landing Pages or Terminal Dashboards?",
+      "tweet_id": "2111563346269057424",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "SaaS Landing Pages or Terminal Dashboards?\n\nBe honest...",
+      "mutation_stage": "comparison headline",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "binary_headline_newline_opener",
     "binary_headline_newline_opener",
@@ -401,6 +400,7 @@
     "binary_headline_newline_opener",
     "comparison_headline_newline_opener",
     "did_you_know-explanation-reply_prompt-cta",
+    "comparison_headline_newline_opener",
     "comparison_headline_newline_opener"
   ],
   "brand_draft_queue": [],
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_spotlight",
+  "last_post_type": "developer_comparison_meme",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -514,9 +514,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 16,
+  "person_photo_post_count": 17,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 0,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -741,6 +741,20 @@
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-17T20:01:34.943677+00:00",
       "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 17,
+      "subject": "SaaS Landing Pages or Terminal Dashboards?",
+      "post": "SaaS Landing Pages or Terminal Dashboards?\n\nBe honest...",
+      "image_title": "Cloudflare FLUX.1 schnell text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Generated with Cloudflare Workers AI @cf/black-forest-labs/flux-1-schnell",
+      "tweet_id": "2111563346269057424",
+      "format_name": "developer_tool_schism",
+      "comedy_mechanism": "contrasts endless marketing gradients with cold plain text",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-17T21:01:47.589618+00:00",
+      "status": "published_generated_comparison"
     }
   ],
   "ai_tech_quote_posts": [],
@@ -954,7 +968,9 @@
     "375682965ae9cb6fb4097f97eff79e30042b7ca51937a5e6db2b259c59665505",
     "cb11dacff2aaa47f811e6200083092c1f6bf8316730818a0ee393469f566bf36",
     "8899ed01daad8b6e27c655a409826a27a8baffcf32cd1cf144e6f72f20a9135a",
-    "492cd5f134af46968109ca4958b3da2ed2ca5353d8ce086ff29ba25c0c9629f0"
+    "492cd5f134af46968109ca4958b3da2ed2ca5353d8ce086ff29ba25c0c9629f0",
+    "c11459a289a2f66876e81c2e44973a21f536d315ee0b3b7a48c9d5d8746cc5f0",
+    "efea8ecde685248cfc52a568b0758324699135a3f75922755f47d5cf73b6b58d"
   ],
   "comparison_title_history": [
     "Dark Mode or Light Mode?",
@@ -962,7 +978,8 @@
     "Static Mockups or Infinite Prompting Loops?",
     "Manual Git Rebases or Blind Force Pushes?",
     "Tailwind Utilities or Semantic CSS Modules?",
-    "Rigid Design Systems or Pure Vibe Coding?"
+    "Rigid Design Systems or Pure Vibe Coding?",
+    "SaaS Landing Pages or Terminal Dashboards?"
   ],
   "builder_post_hashes": [
     "20ae31f51007f37af6a99c071d67fa495ea4654bc68671ac9a04b2d8665acd7c",
