@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 23,
+  "daily_count": 24,
   "ai_call_count": 42,
-  "last_posted_at": "2026-10-17T20:01:34.943677+00:00",
+  "last_posted_at": "2026-10-17T20:31:11.180053+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111548193783877989",
+  "last_tweet_id": "2111555644163768724",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "github_repo_spotlight",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -516,7 +516,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 16,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 0,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -748,7 +748,7 @@
   "ai_tech_quote_day_key": null,
   "trend_names_used": [],
   "ai_tech_trend_names_used": [],
-  "builder_tip_post_count": 7,
+  "builder_tip_post_count": 8,
   "builder_tip_posts": [
     {
       "slot_number": 1,
@@ -911,6 +911,34 @@
       "generated_at": "2026-10-17T19:31:12.858811+00:00",
       "reply_status": "published",
       "status": "published_builder_tip"
+    },
+    {
+      "subject": "GitHub repository spotlight",
+      "content_type": "github_repo_spotlight",
+      "repo_full_name": "shanraisshan/claude-code-best-practice",
+      "repo_url": "https://github.com/shanraisshan/claude-code-best-practice",
+      "repo_description": "from vibe coding to agentic engineering - practice makes claude perfect",
+      "repo_stars": 67673,
+      "repo_language": "HTML",
+      "format_name": "active GitHub repository spotlight",
+      "comedy_mechanism": "practical developer discovery",
+      "structure_signature": "github_repo_720cdc4827d0d9f3ec1d1543",
+      "slot_number": 8,
+      "post": "DEVS & VIBE CODERS: shanraisshan/claude-code-best-practice is worth a look.\n\nfrom vibe coding to agentic engineering - practice makes claude perfect\n\nExplore it before building this from scratch.",
+      "reply_text": "GitHub repo: https://github.com/shanraisshan/claude-code-best-practice\n\nWhat it does: from vibe coding to agentic engineering - practice makes claude perfect\n\nStars: 67,673 · Language: HTML\n\nUseful for developers, software engineers, and vibe coders exploring tools before starting from scratch.",
+      "tweet_id": "2111555644163768724",
+      "thread_tweet_ids": [
+        "2111555644163768724",
+        "2111555645044596960",
+        "2111555646114197552"
+      ],
+      "reply_tweet_ids": [
+        "2111555645044596960",
+        "2111555646114197552"
+      ],
+      "generated_at": "2026-10-17T20:31:11.180053+00:00",
+      "reply_status": "published",
+      "status": "published_github_repo_spotlight"
     }
   ],
   "builder_tip_day_key": "2026-10-17",
@@ -949,6 +977,7 @@
     "DID YOU KNOW?\nBuilding a secure enterprise settings page that avoids messy form layouts requires rigorous grid discipline and explicit field-level error handling.\nREPLY PROMPT:\nBuild a production-grade enterprise settings and security portal featuring an organizational profile editor, an access control permissions matrix, and a granular api key management table. Adopt a pristine design language inspired by professional developer consoles, utilizing strict neutral grays, a four-pixel spacing grid, and a crisp cobalt blue accent token for primary actions. Implement a persistent vertical navigation sidebar alongside a structured main content canvas that handles tabbed configuration panels, inline validation states, and confirmation dialogs for destructive actions. Provide fully articulated states for form submission spinners, field-level error banners, success toast notifications, empty api key lists, and disabled role-switching toggles. Ensure all interactive elements maintain explicit keyboard focus rings, fifty-pixel minimum touch targets, and WCAG AA contrast compliance across all breakpoints. Acceptance criteria: zero layout jumps during async form validation, flawless tab navigation through complex permission matrices, and robust error boundaries preventing state corruption on failed updates.\nFOLLOW FOR MORE PROMPTS."
   ],
   "github_repo_history": [
-    "shadcn-ui/ui"
+    "shadcn-ui/ui",
+    "shanraisshan/claude-code-best-practice"
   ]
 }
