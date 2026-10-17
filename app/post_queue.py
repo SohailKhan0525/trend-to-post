@@ -169,6 +169,15 @@ def _content_fingerprint(value: str) -> str:
     return hashlib.sha256(normalised.encode("utf-8")).hexdigest()
 
 
+def _comparison_pair_fingerprint(headline: str) -> str:
+    """Fingerprint both choices as an unordered pair so reversing them cannot repeat a meme."""
+    parts = re.split(r"\\s+(?:or|vs|versus)\\s+", str(headline).strip().rstrip("?!"), maxsplit=1, flags=re.IGNORECASE)
+    if len(parts) != 2:
+        return _content_fingerprint(headline)
+    pair = sorted((_normalised_content(parts[0]), _normalised_content(parts[1])))
+    return hashlib.sha256(" || ".join(pair).encode("utf-8")).hexdigest()
+
+
 def _is_duplicate_content(
     value: str,
     seen_fingerprints: list[str],
@@ -1062,6 +1071,18 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
             raise GeminiError("Comparison headline must compare two clear choices and end with a question mark.")
         if lines[1] != "Be honest...":
             raise GeminiError("Comparison opener must be exactly 'Be honest...'.")
+        pair_fingerprint = _comparison_pair_fingerprint(lines[0])
+        seen_pair_fingerprints = set(state.get("comparison_title_hashes", []))
+        if (
+            pair_fingerprint in seen_pair_fingerprints
+            or _is_duplicate_content(
+                lines[0],
+                state.get("comparison_title_hashes", []),
+                state.get("comparison_title_history", []),
+            )
+        ):
+            print(f"Comparison pair already used or too similar to a recent meme; skipping: {lines[0]}")
+            return False
         if any(mark in post_text for mark in ('"', "'", "“", "”", "@", "#", "http://", "https://")):
             raise GeminiError("Comparison post contains forbidden extra text, quote marks, mentions, tags or links.")
         image_bytes = generate_comparison_image(lines[0], "")
@@ -1109,7 +1130,8 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
     state["format_lab"] = lab[-20:]
     state["recent_post_fingerprints"] = (state.get("recent_post_fingerprints", []) + [draft.structure_signature[:180]])[-30:]
     state["comparison_title_hashes"] = (
-        state.get("comparison_title_hashes", []) + [_content_fingerprint(lines[0])]
+        state.get("comparison_title_hashes", [])
+        + [_content_fingerprint(lines[0]), _comparison_pair_fingerprint(lines[0])]
     )[-20000:]
     state["comparison_title_history"] = (
         state.get("comparison_title_history", []) + [lines[0]]
