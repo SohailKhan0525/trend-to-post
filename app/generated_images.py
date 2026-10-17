@@ -33,7 +33,7 @@ def _split_comparison(headline: str) -> tuple[str, str]:
     for separator in (" or ", " versus ", " vs "):
         parts = re.split(re.escape(separator), cleaned, maxsplit=1, flags=re.IGNORECASE)
         if len(parts) == 2 and parts[0].strip() and parts[1].strip():
-            return parts[0].strip()[:80], parts[1].strip()[:80]
+            return parts[0].strip()[:38], parts[1].strip()[:38]
     raise GeneratedImageError(
         "Comparison headline must contain two choices separated by 'or', 'vs', or 'versus'."
     )
