@@ -173,7 +173,7 @@ jobs:
               f"- This run published a post: {os.environ.get('POST_PUBLISHED', 'unknown')}",
               f"- This run skip reason: {os.environ.get('POST_SKIP_REASON', 'unknown')}",
               f"- X Trends quote posts (retired): {state.get('trend_quote_post_count', 0)}/0",
-              f"- Builder prompts + GitHub repo spotlights: {state.get('builder_tip_post_count', 0)}/23",
+              f"- Builder prompt tips + GitHub repo spotlights: {state.get('builder_tip_post_count', 0)}/23",
               f"- Comparison memes: {state.get('person_photo_post_count', 0)}/22",
               f"- Tagged originals in rolling 48h: {len(state.get('mention_post_timestamps', []))}/2",
               f"- Generation attempts: {state.get('ai_call_count', 0)}/120",
