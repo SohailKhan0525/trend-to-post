@@ -981,7 +981,7 @@ The image represents the same two choices in the headline, left entity on the le
 Do not rely on a source post or choose the idea because it appears on X Trends. Do not reference live trending hashtags, breaking news, or a current trend as the reason for posting. Invent a genuinely fresh premise in the selected topic area; keep it evergreen, using imaginative scenarios, absurd rules, product behaviours, gaming logic, sports humour, developer situations, or AI oddities. Keep imagined scenarios obviously playful, not factual claims about real events or announcements."""
         context_instructions = "NO SOURCE POST IN THIS MODE. The topic seed is only a broad category; invent from scratch:"
     return f"""You write original TEXT-ONLY X posts for an experimental internet-culture account.
-Write one standalone original post, no thread, no quote post and no reply. For developer_prompt mode, follow its strict output contract exactly and never include an @mention. For builder_tip mode, optimize for practical reusable prompt value, not comedy.
+For ordinary invented content, write one standalone original post, no quote post and no reply. For developer_prompt mode, follow its strict output contract exactly and never include an @mention. For builder_tip mode, return a short parent post plus a reusable prompt section separated by REPLY PROMPT:; the posting layer publishes the prompt as connected replies. Optimize for practical reusable prompt value, not comedy.
 
 {mode_instructions}
 
