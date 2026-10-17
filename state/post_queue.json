@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 19,
-  "ai_call_count": 37,
-  "last_posted_at": "2026-10-17T18:01:25.543098+00:00",
+  "daily_count": 20,
+  "ai_call_count": 38,
+  "last_posted_at": "2026-10-17T18:31:20.805542+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111517955653566629",
+  "last_tweet_id": "2111525484748325165",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "developer_workflow_dichotomy",
-      "comedy_mechanism": "contrasts the polished enterprise comfort of a massive API client against the chaotic speed of hammering raw text commands",
-      "used_at": "2026-10-16T15:02:42.045502+00:00",
-      "topic": "Postman Collections or curl in the terminal?",
-      "tweet_id": "2111110589405929849",
-      "content_type": "developer_comparison_meme",
-      "content_mode": "generated_text_free_visual",
-      "post_text": "Postman Collections or curl in the terminal?\n\nDevs be honest...",
-      "mutation_stage": "binary tool comparison",
-      "structure_signature": "comparison_headline_newline_opener"
-    },
     {
       "format_name": "bundler_performance_schism",
       "comedy_mechanism": "contrasts the sluggish anxiety of watching a legacy cache rebuild against the sheer disbelief of sub-millisecond hot module replacement",
@@ -369,10 +357,21 @@
       "post_text": "DID YOU KNOW?\nBuilding a complex multi-tenant analytics dashboard that avoids generic wrapper tropes requires strict modular hierarchy and precise token budgets.\nREPLY PROMPT:\nBuild a production-grade multi-tenant analytics dashboard featuring a real-time metrics overview, a customizable chart grid, and an advanced date-range filter toolbar. Adopt an uncompromisingly spare design language inspired by professional developer tooling, utilizing precise zinc neutrals, a strict four-pixel spacing grid, and an emerald green accent token for positive variance states. Implement a flexible two-pane layout where the left sidebar manages workspace navigation and saved views, while the primary viewport handles modular metric cards, data tables with inline sorting, and export controls. Provide robust states for data fetching skeletons, empty telemetry views, partial error banners, and disabled permission controls. Ensure all interactive components feature explicit keyboard focus rings, a minimum touch target size of forty-four pixels across mobile viewports, and WCAG AA contrast compliance. Acceptance criteria: zero layout shifts during metric updates, flawless keyboard navigation, and explicit error boundaries that gracefully handle failed api requests without breaking page layout.\nFOLLOW FOR MORE PROMPTS.",
       "mutation_stage": "did_you_know_explanation_snippet_footer",
       "structure_signature": "did_you_know-explanation-reply_prompt-cta"
+    },
+    {
+      "format_name": "git_workflow_schism",
+      "comedy_mechanism": "contrasts the meticulous anxiety of resolving merge conflicts line by line with the terrifying gamble of overwriting a shared branch",
+      "used_at": "2026-10-17T18:31:20.805542+00:00",
+      "topic": "Manual Git Rebases or Blind Force Pushes?",
+      "tweet_id": "2111525484748325165",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "Manual Git Rebases or Blind Force Pushes?\n\nBe honest...",
+      "mutation_stage": "comparison_headline_newline_opener",
+      "structure_signature": "binary_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "run-on sentence fragment concluding with a four-emoji kinetic exit",
     "noun_concept + error_symbol + colloquial tech variable",
     "comparison_headline_newline_opener",
     "Headline: High Stakes / Opener: Standard",
@@ -401,7 +400,8 @@
     "comparison_headline_newline_opener",
     "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
-    "did_you_know-explanation-reply_prompt-cta"
+    "did_you_know-explanation-reply_prompt-cta",
+    "binary_headline_newline_opener"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "builder_tip",
+  "last_post_type": "developer_comparison_meme",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -514,9 +514,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 13,
+  "person_photo_post_count": 14,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 0,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -699,6 +699,20 @@
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-17T17:31:28.858588+00:00",
       "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 14,
+      "subject": "Manual Git Rebases or Blind Force Pushes?",
+      "post": "Manual Git Rebases or Blind Force Pushes?\n\nBe honest...",
+      "image_title": "Cloudflare FLUX.1 schnell text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Generated with Cloudflare Workers AI @cf/black-forest-labs/flux-1-schnell",
+      "tweet_id": "2111525484748325165",
+      "format_name": "git_workflow_schism",
+      "comedy_mechanism": "contrasts the meticulous anxiety of resolving merge conflicts line by line with the terrifying gamble of overwriting a shared branch",
+      "structure_signature": "binary_headline_newline_opener",
+      "generated_at": "2026-10-17T18:31:20.805542+00:00",
+      "status": "published_generated_comparison"
     }
   ],
   "ai_tech_quote_posts": [],
@@ -847,12 +861,15 @@
     "4e37ed0e54ee2e251a661105da63fc48e69f551c74abe8f5ddabd8fd55941a00",
     "44fe2a82460023788ee99cbaac57d3f6ed09949ed28d58a0975140cb10c00ad5",
     "da0374c2cf3b84f5ec417c6cf7bb305f22332bdcada5e3a5cace0d7bcfcef9b2",
-    "f92f9270fdbf804d90d9e46c393ff7720d6b06dd66ebe3ffd9d56c82ead245c2"
+    "f92f9270fdbf804d90d9e46c393ff7720d6b06dd66ebe3ffd9d56c82ead245c2",
+    "bd21b8b880e7f3738295ea657670d22e4b034caba771a94e3c27a0894bbfdc21",
+    "6a34dc6065e4f7903c9b28459811c3e2e02fb7f64925d696cab61beb574f3629"
   ],
   "comparison_title_history": [
     "Dark Mode or Light Mode?",
     "Localhost Server or Production Server Screaming?",
-    "Static Mockups or Infinite Prompting Loops?"
+    "Static Mockups or Infinite Prompting Loops?",
+    "Manual Git Rebases or Blind Force Pushes?"
   ],
   "builder_post_hashes": [
     "20ae31f51007f37af6a99c071d67fa495ea4654bc68671ac9a04b2d8665acd7c",
