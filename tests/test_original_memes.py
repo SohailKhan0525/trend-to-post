@@ -275,22 +275,24 @@ class OriginalTextValidationTests(unittest.TestCase):
 
 
 class BuilderPromptTipTests(unittest.TestCase):
+    PROMPT_BODY = (
+        "Build an original AI research workspace for analysts who collect sources and turn verified notes into briefs. "
+        "Use restrained neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
+        "tokens, consistent borders, and clear hierarchy. Create a navigation rail, searchable source list, synthesis "
+        "canvas, and evidence panel with reusable UI components and realistic data. Every control must work. Define "
+        "responsive behavior for desktop, tablet, and mobile; collapse navigation, stack panels, preserve reading order, "
+        "and prevent horizontal overflow. Implement loading, empty, error, success, disabled, hover, pressed, and "
+        "keyboard-focus states. Meet accessibility requirements with semantic landmarks, labeled controls, keyboard "
+        "navigation, visible focus, and sufficient text contrast. Handle missing evidence and slow AI responses. Review "
+        "screenshots at 375px, 768px, and 1440px; fix spacing, typography, contrast, alignment, overflow, and dead "
+        "interactions. Acceptance criteria: no placeholder copy, default purple gradient, random glass cards, fake "
+        "buttons, or unresolved console errors."
+    )
     VALID_LONG_BUILDER_POST = (
-        "Design an AI research workspace that feels intentionally art-directed.\n\n"
-            "PASTE THIS INTO YOUR AI BUILDER:\n"
-            "Build an original AI research workspace for analysts who collect sources, compare findings, "
-            "and turn verified notes into clear briefs. Establish a distinctive visual direction: restrained "
-            "neutrals, one purposeful accent, an 8-point spacing scale, deliberate typography, semantic color "
-            "tokens, consistent borders, and subtle elevation. Compose a navigation rail, searchable source list, "
-            "synthesis canvas, and evidence panel with clear hierarchy. Implement reusable UI components and "
-            "realistic example data; every control must work. Define responsive behavior for desktop, tablet, "
-            "and mobile: collapse navigation, stack panels, preserve reading order, and prevent horizontal "
-            "overflow. Implement loading, empty, error, success, disabled, hover, pressed, and keyboard-focus "
-            "states with recovery actions. Meet accessibility requirements with semantic landmarks, labeled "
-            "controls, keyboard navigation, visible focus, and sufficient text contrast. Handle long titles, "
-            "missing evidence, and slow AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; "
-            "fix spacing, typography, contrast, alignment, overflow, and dead interactions. Acceptance criteria: "
-            "no placeholder copy, default purple gradient, random glass cards, fake buttons, or unresolved console errors."
+        "DID YOU KNOW?\nThis prompt helps you build an AI research workspace with clearer evidence trails and accessible, "
+        "responsive panels.\n\nREPLY PROMPT:\n"
+        + PROMPT_BODY
+        + "\n\nFOLLOW FOR MORE PROMPTS."
     )
 
     def test_builder_prompt_requires_long_reusable_premium_ai_ui_instruction(self) -> None:
@@ -299,13 +301,13 @@ class BuilderPromptTipTests(unittest.TestCase):
             content_mode="builder_tip",
             emoji_count=0,
         )
-        self.assertIn("LONG-FORM PREMIUM AI + UI BUILDER PROMPT", prompt)
+        self.assertIn("EDUCATIONAL BUILDER PROMPT WITH A REPLY", prompt)
         self.assertIn("600–1,400 characters", prompt)
-        self.assertIn("PASTE THIS INTO YOUR AI BUILDER:", prompt)
+        self.assertIn("REPLY PROMPT:", prompt)
         self.assertIn("visual-QA loop", prompt)
-        self.assertIn("Treat products such as Stripe and Vercel only as quality benchmarks", prompt)
+        self.assertIn("Treat Stripe and Vercel only as quality benchmarks", prompt)
         self.assertIn("No hashtags, URLs, @mentions, emojis", prompt)
-        self.assertIn("Builder post length must be 600–1,400 characters", prompt)
+        self.assertIn("Main post maximum 220 characters", prompt)
 
     def test_builder_tip_validation_accepts_substantive_long_prompt(self) -> None:
         value = draft(self.VALID_LONG_BUILDER_POST)
@@ -325,8 +327,8 @@ class BuilderPromptTipTests(unittest.TestCase):
 
     def test_builder_tip_validation_rejects_short_prompt(self) -> None:
         value = draft(
-            "Design a UI.\n\nPASTE THIS INTO YOUR AI BUILDER:\n"
-            "Make the website better and responsive."
+            "DID YOU KNOW?\nThis prompt helps you improve a website.\n\n"
+            "REPLY PROMPT:\nMake the website better and responsive.\n\nFOLLOW FOR MORE PROMPTS."
         )
         with self.assertRaisesRegex(GeminiError, "600–1,400 characters"):
             _validate_original(
@@ -340,10 +342,10 @@ class BuilderPromptTipTests(unittest.TestCase):
 
     def test_builder_tip_validation_rejects_long_prompt_without_accessibility(self) -> None:
         low_quality = (
-            "Build a polished interface.\n\nPASTE THIS INTO YOUR AI BUILDER:\n"
+            "DID YOU KNOW?\nThis prompt helps create a polished interface.\n\nREPLY PROMPT:\n"
             + ("Create a beautiful responsive UI with components and layouts. " * 12)
-        )[:1000]
-        low_quality = low_quality.ljust(610, "x")
+            + "\n\nFOLLOW FOR MORE PROMPTS."
+        )
         with self.assertRaisesRegex(GeminiError, "accessibility"):
             _validate_original(
                 draft(low_quality),
