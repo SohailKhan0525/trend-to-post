@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 28,
-  "ai_call_count": 46,
-  "last_posted_at": "2026-10-17T22:31:12.297636+00:00",
+  "daily_count": 29,
+  "ai_call_count": 47,
+  "last_posted_at": "2026-10-17T23:01:29.532061+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111585847732826245",
+  "last_tweet_id": "2111593469420400739",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "stylesheet_dichotomy",
-      "comedy_mechanism": "juxtaposes the clean modular look of modern utility frameworks against the absolute surrender of raw inline styling",
-      "used_at": "2026-10-17T06:01:35.421068+00:00",
-      "topic": "Tailwind Classes or Inline Styles?",
-      "tweet_id": "2111336802887913754",
-      "content_type": "developer_comparison_meme",
-      "content_mode": "generated_text_free_visual",
-      "post_text": "Tailwind Classes or Inline Styles?\n\nDevs be honest...",
-      "mutation_stage": "binary tool comparison",
-      "structure_signature": "binary_headline_newline_opener"
-    },
     {
       "format_name": "type_system_schism",
       "comedy_mechanism": "contrasts the strict bureaucratic discipline of proper typing against the absolute chaotic surrender of just casting everything to any",
@@ -369,10 +357,21 @@
       "post_text": "DID YOU KNOW?\nBuilding a lightning-fast customer onboarding workflow that avoids disjointed modal steps requires strict progression hierarchy and robust validation states.\nREPLY PROMPT:\nBuild a production-grade multi-step customer onboarding wizard featuring a progressive milestone tracker, dynamic form validation, and instant workspace creation. Adopt a pristine design language inspired by professional software, utilizing strict neutral grays, a four-pixel spacing grid, and a vibrant azure blue accent token for completion indicators. Implement a centered card layout that guides users through company setup, team member invitations, and initial preference configurations without disorienting context switches. Provide fully articulated states for step transition spinners, inline field validation errors, success checkmarks, empty team lists, and disabled progression triggers until requirements are met. Ensure all interactive elements maintain explicit keyboard focus rings, forty-four-pixel minimum touch targets, and WCAG AA contrast compliance across mobile, tablet, and desktop breakpoints. Acceptance criteria: zero layout jumps during step transitions, flawless keyboard tab navigation through complex input fields, and robust error handling ensuring user state is never lost on network timeouts.\nFOLLOW FOR MORE PROMPTS.",
       "mutation_stage": "did_you_know",
       "structure_signature": "did_you_know-explanation-reply_prompt-cta"
+    },
+    {
+      "format_name": "developer_tool_schism",
+      "comedy_mechanism": "contrasts the transparent control of raw queries against the unpredictable chaos of abstract ORM helpers",
+      "used_at": "2026-10-17T23:01:29.532061+00:00",
+      "topic": "Raw SQL Queries or ORM Magic?",
+      "tweet_id": "2111593469420400739",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "Raw SQL Queries or ORM Magic?\n\nBe honest...",
+      "mutation_stage": "binary choice question",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
@@ -401,7 +400,8 @@
     "comparison_headline_newline_opener",
     "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
-    "did_you_know-explanation-reply_prompt-cta"
+    "did_you_know-explanation-reply_prompt-cta",
+    "comparison_headline_newline_opener"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "builder_tip",
+  "last_post_type": "developer_comparison_meme",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -514,9 +514,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 18,
+  "person_photo_post_count": 19,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 0,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -768,6 +768,20 @@
       "comedy_mechanism": "contrasts the academic purity of strict typing with the chaotic reality of panic debugging",
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-17T22:01:57.738772+00:00",
+      "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 19,
+      "subject": "Raw SQL Queries or ORM Magic?",
+      "post": "Raw SQL Queries or ORM Magic?\n\nBe honest...",
+      "image_title": "Cloudflare FLUX.1 schnell text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Generated with Cloudflare Workers AI @cf/black-forest-labs/flux-1-schnell",
+      "tweet_id": "2111593469420400739",
+      "format_name": "developer_tool_schism",
+      "comedy_mechanism": "contrasts the transparent control of raw queries against the unpredictable chaos of abstract ORM helpers",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-17T23:01:29.532061+00:00",
       "status": "published_generated_comparison"
     }
   ],
@@ -1048,7 +1062,9 @@
     "c11459a289a2f66876e81c2e44973a21f536d315ee0b3b7a48c9d5d8746cc5f0",
     "efea8ecde685248cfc52a568b0758324699135a3f75922755f47d5cf73b6b58d",
     "ec9336d72b35c4c8022c79d33f170158a1f229eb471dbe40162f9959e053e7cb",
-    "79a434889808534a450d9e956589d3a23f239af4b483f9db8733df1ad0f3daf3"
+    "79a434889808534a450d9e956589d3a23f239af4b483f9db8733df1ad0f3daf3",
+    "0d5edae51ba04938c734d1b29e5a6fbadc2e8329bc5ba8ff0918c22c384d0c8d",
+    "03d791d855a472b0e5bb89f178449817e20d87eb8f55a40dae7609e360ed2b4c"
   ],
   "comparison_title_history": [
     "Dark Mode or Light Mode?",
@@ -1058,7 +1074,8 @@
     "Tailwind Utilities or Semantic CSS Modules?",
     "Rigid Design Systems or Pure Vibe Coding?",
     "SaaS Landing Pages or Terminal Dashboards?",
-    "Strict TypeScript Types or 500 Console Logs?"
+    "Strict TypeScript Types or 500 Console Logs?",
+    "Raw SQL Queries or ORM Magic?"
   ],
   "builder_post_hashes": [
     "20ae31f51007f37af6a99c071d67fa495ea4654bc68671ac9a04b2d8665acd7c",
