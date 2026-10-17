@@ -5,7 +5,6 @@ import binascii
 import io
 import json
 import os
-import secrets
 import time
 import urllib.error
 import urllib.request
@@ -109,7 +108,6 @@ def generate_comparison_image(headline: str, question: str = "") -> bytes:
     payload = {
         "prompt": prompt,
         "steps": 4,
-        "seed": secrets.randbelow(2_147_483_646) + 1,
     }
 
     for attempt in range(2):
