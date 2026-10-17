@@ -276,8 +276,8 @@ class OriginalTextValidationTests(unittest.TestCase):
 
 class BuilderPromptTipTests(unittest.TestCase):
     VALID_LONG_BUILDER_POST = (
-        "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
-        "PASTE THIS INTO YOUR AI BUILDER:\\n"
+        "Design an AI research workspace that feels intentionally art-directed.\n\n"
+        "PASTE THIS INTO YOUR AI BUILDER:\n"
         "Build an original AI research workspace for analysts who need to collect sources, "
         "compare findings, and turn verified notes into a clear brief. Establish a distinctive "
         "visual direction with a restrained neutral palette, one purposeful accent, a consistent "
@@ -329,7 +329,7 @@ class BuilderPromptTipTests(unittest.TestCase):
 
     def test_builder_tip_validation_rejects_short_prompt(self) -> None:
         value = draft(
-            "Design a UI.\\n\\nPASTE THIS INTO YOUR AI BUILDER:\\n"
+            "Design a UI.\n\nPASTE THIS INTO YOUR AI BUILDER:\n"
             "Make the website better and responsive."
         )
         with self.assertRaisesRegex(GeminiError, "600–1,400 characters"):
@@ -344,7 +344,7 @@ class BuilderPromptTipTests(unittest.TestCase):
 
     def test_builder_tip_validation_rejects_long_prompt_without_accessibility(self) -> None:
         low_quality = (
-            "Build a polished interface.\\n\\nPASTE THIS INTO YOUR AI BUILDER:\\n"
+            "Build a polished interface.\n\nPASTE THIS INTO YOUR AI BUILDER:\n"
             + ("Create a beautiful responsive UI with components and layouts. " * 12)
         )[:1000]
         low_quality = low_quality.ljust(610, "x")
