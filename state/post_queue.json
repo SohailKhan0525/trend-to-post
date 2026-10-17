@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-17",
-  "daily_count": 10,
-  "ai_call_count": 19,
-  "last_posted_at": "2026-10-17T09:01:33.505893+00:00",
+  "daily_count": 11,
+  "ai_call_count": 20,
+  "last_posted_at": "2026-10-17T10:01:30.302150+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111382093418934476",
+  "last_tweet_id": "2111397179419955639",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "developer_workflow_dichotomy",
-      "comedy_mechanism": "juxtaposes the extreme pretension of memorizing keyboard shortcuts against the desperate reality of scavenging code from strangers on the internet",
-      "used_at": "2026-10-16T05:07:11.771914+00:00",
-      "topic": "Vim Motions or Stack Overflow Copy-Paste?",
-      "tweet_id": "2110960726240112728",
-      "content_type": "developer_comparison_meme",
-      "content_mode": "generated_text_free_visual",
-      "post_text": "Vim Motions or Stack Overflow Copy-Paste?\n\nDevs be honest...",
-      "mutation_stage": "tool_comparison_binary",
-      "structure_signature": "comparison_headline_newline_opener"
-    },
     {
       "format_name": "abstract infrastructure clash",
       "comedy_mechanism": "Elevates mundane deployment failures to epic geological scale tragedy.",
@@ -369,10 +357,21 @@
       "post_text": "DID YOU KNOW?\n\nAI defaults to missing mobile touch targets unless explicitly constrained.\n\nTry adding this to your prompt:\n\"Ensure all interactive elements have a minimum 44px touch target size across viewports.\"\n\nFollow for more builder prompts.",
       "mutation_stage": "did_you_know",
       "structure_signature": "did_you_know_explanation_snippet_footer"
+    },
+    {
+      "format_name": "package_manager_schism",
+      "comedy_mechanism": "contrasts the instantaneous blink-and-you-miss-it speed of bleeding-edge runtimes against the meditative coffee-break wait of legacy dependency trees",
+      "used_at": "2026-10-17T10:01:30.302150+00:00",
+      "topic": "Bun Install or npm Install?",
+      "tweet_id": "2111397179419955639",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "Bun Install or npm Install?\n\nDevs be honest...",
+      "mutation_stage": "binary tool comparison",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "blunt delayed delivery timeline + absurd non-refundable acceptance protocols",
     "headline observation referencing economic validation with toxic positivity emojis",
     "formal checklist item prefix followed by sarcastic status and emoji signature",
     "headline_with_question_mark_blank_line_opener",
@@ -401,7 +400,8 @@
     "binary_headline_newline_opener",
     "binary_headline_newline_opener",
     "comparison_headline_newline_opener",
-    "did_you_know_explanation_snippet_footer"
+    "did_you_know_explanation_snippet_footer",
+    "comparison_headline_newline_opener"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "builder_tip",
+  "last_post_type": "developer_comparison_meme",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -514,9 +514,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 9,
+  "person_photo_post_count": 10,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 0,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -642,6 +642,20 @@
       "comedy_mechanism": "contrasts the structured ambition of automated multi-file editing with the superstitious exhaustion of hammering the tab key",
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-17T08:01:33.329535+00:00",
+      "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 10,
+      "subject": "Bun Install or npm Install?",
+      "post": "Bun Install or npm Install?\n\nDevs be honest...",
+      "image_title": "AI-generated text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Locally generated SVG illustration (CairoSVG + Pillow)",
+      "tweet_id": "2111397179419955639",
+      "format_name": "package_manager_schism",
+      "comedy_mechanism": "contrasts the instantaneous blink-and-you-miss-it speed of bleeding-edge runtimes against the meditative coffee-break wait of legacy dependency trees",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-17T10:01:30.302150+00:00",
       "status": "published_generated_comparison"
     }
   ],
