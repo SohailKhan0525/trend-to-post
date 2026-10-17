@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import random
+import re
+from difflib import SequenceMatcher
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -29,21 +32,22 @@ from .trend_source import (
 )
 
 STATE_PATH = Path("state/post_queue.json")
-POSTS_PER_DAY = 20
+POSTS_PER_DAY = 45
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
 TREND_QUOTE_POSTS_PER_DAY = 0  # retired: no more X Trends quote-posts
-BUILDER_TIP_POSTS_PER_DAY = 10
+BUILDER_TIP_POSTS_PER_DAY = 22
 LEGACY_TREND_QUOTE_POSTS_PER_DAY = 12  # tolerate state from the previous daily cap
-PERSON_PHOTO_POSTS_PER_DAY = 10
+PERSON_PHOTO_POSTS_PER_DAY = 22  # Legacy state field; this lane now stores comparison memes.
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
 # Allow retries across flaky source searches/provider responses without changing
 # the hard cap of twenty successfully published main posts.
-AI_GENERATIONS_PER_DAY = 50
+AI_GENERATIONS_PER_DAY = 120
 ORIGINAL_POSTS_PER_DAY = 11  # legacy state compatibility only
 # The external dispatcher and scheduled fallback both run every 30 minutes.
-# A 58-minute guard allows one successful post per hour despite event overlap,
-# leaving enough time to complete the 20-slot daily plan without duplicate posts.
-MIN_POST_INTERVAL_MINUTES = 58
+# A 30-minute guard supports the higher-volume schedule while preventing overlapping
+# dispatches from publishing duplicate posts. The active lane quotas are 22 + 22;
+# the overall hard cap is 45, leaving one reserve slot with no third lane configured.
+MIN_POST_INTERVAL_MINUTES = 30
 
 
 def _set_workflow_output(name: str, value: str) -> None:
@@ -78,6 +82,10 @@ def _new_state() -> dict:
     return {
         "format_lab": [],
         "recent_post_fingerprints": [],
+        "comparison_title_hashes": [],
+        "comparison_title_history": [],
+        "builder_post_hashes": [],
+        "builder_post_history": [],
         "day_key": _today(),
         "daily_count": 0,
         "ai_call_count": 0,
@@ -149,6 +157,55 @@ def _history(value: object) -> list[str]:
     if not isinstance(value, list):
         raise QueueError("Source history must be a list.")
     return [str(x).strip() for x in value if str(x).strip()][-SOURCE_HISTORY_LIMIT:]
+
+
+def _normalised_content(value: str) -> str:
+    """Normalise copy for duplicate checks without depending on punctuation/case."""
+    return " ".join(re.findall(r"[a-z0-9]+", str(value).casefold()))
+
+
+def _content_fingerprint(value: str) -> str:
+    normalised = _normalised_content(value)
+    return hashlib.sha256(normalised.encode("utf-8")).hexdigest()
+
+
+def _is_duplicate_content(
+    value: str,
+    seen_fingerprints: list[str],
+    recent_content: list[str],
+) -> bool:
+    """Reject exact historical repeats and near-copies from the recent rolling window."""
+    normalised = _normalised_content(value)
+    if not normalised:
+        return True
+    fingerprint = _content_fingerprint(value)
+    if fingerprint in {str(item) for item in seen_fingerprints}:
+        return True
+
+    stopwords = {
+        "the", "and", "for", "with", "from", "that", "this", "your", "you",
+        "into", "when", "then", "must", "should", "have", "has", "will",
+        "make", "build", "create", "ensure", "before", "after", "every",
+    }
+    current_tokens = {
+        token for token in re.findall(r"[a-z0-9]{3,}", normalised) if token not in stopwords
+    }
+    for prior in recent_content[-200:]:
+        previous = _normalised_content(str(prior))
+        if not previous:
+            continue
+        if normalised == previous:
+            return True
+        if min(len(normalised), len(previous)) >= 36:
+            if SequenceMatcher(None, normalised, previous).ratio() >= 0.90:
+                return True
+        previous_tokens = {
+            token for token in re.findall(r"[a-z0-9]{3,}", previous) if token not in stopwords
+        }
+        union = current_tokens | previous_tokens
+        if len(union) >= 14 and len(current_tokens & previous_tokens) / len(union) >= 0.86:
+            return True
+    return False
 
 
 def _load_state() -> dict:
@@ -852,9 +909,18 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
         print("AI generation-attempt budget reached before builder tip.")
         return False
 
+    used_angles = []
+    for previous in state.get("builder_post_history", [])[-18:]:
+        first_line = str(previous).splitlines()[0].strip() if str(previous).splitlines() else ""
+        if first_line:
+            used_angles.append(first_line[:140])
     payload = {
-        "trend": "expert prompt engineering for websites, UI/UX, web apps, software, and AI-assisted building",
-        "text": "Generate one high-leverage, reusable prompt instruction that materially improves a builder's output. Focus on design systems, states, accessibility, architecture, visual QA, edge cases, or interaction quality. Avoid generic advice.",
+        "trend": "premium AI + UI/UX builder prompts for production-quality websites and web apps",
+        "text": (
+            "Create a long-form, paste-ready prompt for an AI website/app builder. Focus on an original, highly polished product experience: strong layout hierarchy, spacing/type/color tokens, responsive behavior, component architecture, accessibility, meaningful interactive states, and visual QA. Do not copy Stripe, Vercel, or another brand's exact UI. "
+            "Avoid repeating or paraphrasing these recently used hooks: "
+            + " | ".join(used_angles[-18:])
+        ),
         "mention_handle": "",
     }
     state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
@@ -870,8 +936,15 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
         return False
 
     text = draft.post_text.strip()
-    if not draft.should_post or not text or len(text) > 280:
-        print("Builder tip failed validation; no post published.")
+    if not draft.should_post or not 600 <= len(text) <= 1400:
+        print("Builder prompt failed long-form length validation; no post published.")
+        return False
+    if _is_duplicate_content(
+        text,
+        state.get("builder_post_hashes", []),
+        state.get("builder_post_history", []),
+    ):
+        print("Builder prompt is an exact or near-duplicate of prior content; skipping safely.")
         return False
 
     try:
@@ -919,6 +992,12 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
         state.get("recent_post_fingerprints", [])
         + [draft.structure_signature[:180]]
     )[-30:]
+    state["builder_post_hashes"] = (
+        state.get("builder_post_hashes", []) + [_content_fingerprint(text)]
+    )[-20000:]
+    state["builder_post_history"] = (
+        state.get("builder_post_history", []) + [text]
+    )[-120:]
     state.update({
         "day_key": today,
         "builder_tip_day_key": today,
@@ -941,7 +1020,7 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
 
 
 async def _post_comparison_meme(state: dict, client: Client) -> bool:
-    """Publish a three-part Devs be honest post with an original text-free visual."""
+    """Publish a strict comparison caption with a Cloudflare FLUX-generated image."""
     today = _today()
     if state.get("person_photo_day_key") != today:
         state["person_photo_day_key"] = today
@@ -955,9 +1034,18 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
         print("AI generation-attempt budget reached before comparison meme.")
         return False
 
+    used_pairs = [
+        str(value).splitlines()[0].strip()
+        for value in state.get("comparison_title_history", [])[-30:]
+        if str(value).strip()
+    ]
     payload = {
-        "trend": "AI tools, developer tools, coding workflows and technology comparisons",
-        "text": "Create a funny comparison between two tools or developer choices: short headline, Devs be honest opener, one natural question. The image is generated separately and must contain no text.",
+        "trend": "original AI, UI/UX, software, coding workflow, and developer-tool comparisons",
+        "text": (
+            "Generate a fresh two-choice comparison in the exact caption format specified in the system contract. The sole format example is instructional, not content to copy. Avoid every pair in this history and avoid close paraphrases: "
+            + " | ".join(used_pairs[-30:])
+            + ". The image is generated separately and must contain no text except the central VS."
+        ),
         "mention_handle": "",
     }
     state["ai_call_count"] = int(state.get("ai_call_count", 0)) + 1
@@ -972,8 +1060,8 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
             raise GeminiError("Comparison meme must contain exactly two sections separated by one blank line.")
         if not lines[0].endswith("?") or sum(lines[0].casefold().count(token) for token in (" or ", " vs ", " versus ")) != 1:
             raise GeminiError("Comparison headline must compare two clear choices and end with a question mark.")
-        if lines[1] != "Devs be honest...":
-            raise GeminiError("Comparison opener must be exactly 'Devs be honest...'.")
+        if lines[1] != "Be honest...":
+            raise GeminiError("Comparison opener must be exactly 'Be honest...'.")
         if any(mark in post_text for mark in ('"', "'", "“", "”", "@", "#", "http://", "https://")):
             raise GeminiError("Comparison post contains forbidden extra text, quote marks, mentions, tags or links.")
         image_bytes = generate_comparison_image(lines[0], "")
@@ -1001,8 +1089,8 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
     item = {
         "slot_number": int(state.get("person_photo_post_count", 0)) + 1,
         "subject": lines[0], "post": post_text,
-        "image_title": "AI-generated text-free comparison illustration",
-        "image_source_url": "", "license_name": "Locally generated SVG illustration (CairoSVG + Pillow)",
+        "image_title": "Cloudflare FLUX.1 schnell text-free comparison illustration",
+        "image_source_url": "", "license_name": "Generated with Cloudflare Workers AI @cf/black-forest-labs/flux-1-schnell",
         "tweet_id": tweet_id, "format_name": draft.format_name,
         "comedy_mechanism": draft.comedy_mechanism,
         "structure_signature": draft.structure_signature, "generated_at": now,
@@ -1020,6 +1108,12 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
     })
     state["format_lab"] = lab[-20:]
     state["recent_post_fingerprints"] = (state.get("recent_post_fingerprints", []) + [draft.structure_signature[:180]])[-30:]
+    state["comparison_title_hashes"] = (
+        state.get("comparison_title_hashes", []) + [_content_fingerprint(lines[0])]
+    )[-20000:]
+    state["comparison_title_history"] = (
+        state.get("comparison_title_history", []) + [lines[0]]
+    )[-200:]
     state.update({
         "day_key": today, "person_photo_day_key": today,
         "person_photo_post_count": int(state.get("person_photo_post_count", 0)) + 1,
