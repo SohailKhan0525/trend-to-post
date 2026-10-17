@@ -12,16 +12,17 @@ class FakeClient:
 
 
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
-    def test_daily_plan_is_ten_builder_tips_plus_ten_comparison_memes(self):
+    def test_daily_plan_has_22_builder_prompts_22_comparison_memes_and_45_hard_cap(self):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 10)
-        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 10)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 22)
+        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(
             post_queue.BUILDER_TIP_POSTS_PER_DAY
             + post_queue.PERSON_PHOTO_POSTS_PER_DAY,
-            post_queue.POSTS_PER_DAY,
+            post_queue.POSTS_PER_DAY - 1,
         )
+        self.assertEqual(post_queue.POSTS_PER_DAY, 45)
 
     def test_mention_posts_are_limited_to_two_in_rolling_48_hours(self):
         from datetime import datetime, timedelta, timezone
@@ -36,28 +37,38 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual([item["handle"] for item in active], ["@one", "@two"])
         self.assertEqual(len(active), 2)
 
-    def test_builder_tip_reuses_required_format_without_being_rejected_as_duplicate(self):
+    def test_builder_prompt_validation_accepts_long_accessible_ai_ui_prompt(self):
         previous = {
-            "format_name": "expert builder prompt tip",
-            "structure_signature": "did_you_know_explanation_snippet_footer",
-            "post_text": (
-                "DID YOU KNOW? Try adding this to your prompt: "
-                '"Use keyboard navigation to verify every interactive control."'
-            ),
+            "format_name": "premium builder prompt",
+            "structure_signature": "hook_prompt_marker_long_implementation",
+            "post_text": "A previously used brief with a different UI scenario.",
             "content_type": "builder_tip",
         }
         draft = OriginalDraft(
             True,
-            'DID YOU KNOW?\n\n'
-            'A reliable UI should be testable with a keyboard, not just a mouse.\n\n'
-            'Try adding this to your prompt:\n'
-            '"Verify keyboard navigation, visible focus, and logical tab order for every interactive component."\n\n'
-            'Follow for more builder prompts.',
-            "expert builder prompt tip",
+            "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
+            "PASTE THIS INTO YOUR AI BUILDER:\\n"
+            "Build an original AI research workspace for analysts who need to collect sources, "
+            "compare findings, and turn verified notes into a clear brief. Establish a distinctive "
+            "visual direction with a restrained neutral palette, one purposeful accent, a consistent "
+            "8-point spacing scale, complementary type styles, semantic design tokens, subtle borders, "
+            "and restrained elevation. Compose navigation, a searchable source list, a central synthesis "
+            "canvas, and a contextual evidence panel with clear hierarchy. Create reusable, well-named UI "
+            "components and realistic example data; keep all controls functional instead of decorative. "
+            "Define responsive behavior for desktop, tablet, and mobile: collapse navigation deliberately, "
+            "stack evidence panels, preserve reading order, and prevent horizontal overflow. Include loading, "
+            "empty, error, success, disabled, hover, pressed, and keyboard-focus states with recovery actions. "
+            "Meet accessibility requirements with semantic landmarks, labeled controls, keyboard navigation, "
+            "visible focus, and sufficient text contrast. Handle long source titles, missing evidence, and slow "
+            "AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; fix inconsistent spacing, "
+            "typography, alignment, contrast, overflow, and dead interactions. Acceptance criteria: no placeholder "
+            "copy, no default purple gradient, no random glass cards, no fake buttons, and no unresolved console errors.",
+            "premium builder prompt",
             "",
-            "builder tip",
-            "practical accessibility QA",
-            "did_you_know_explanation_snippet_footer",
+            "builder prompt",
+            "AI research workspace",
+            "responsive accessibility visual QA",
+            "hook_prompt_marker_long_implementation",
             "builder_tip",
         )
         validated = _validate_original(
@@ -71,6 +82,28 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertIs(validated, draft)
 
+
+    def test_content_deduplication_catches_exact_and_near_duplicates(self):
+        original = (
+            "Build an AI dashboard with a responsive component layout, accessible keyboard focus, "
+            "loading and error states, a clear typography hierarchy, and screenshot-based visual QA."
+        )
+        fingerprint = post_queue._content_fingerprint(original)
+        self.assertTrue(post_queue._is_duplicate_content(original, [fingerprint], []))
+        self.assertTrue(
+            post_queue._is_duplicate_content(
+                original,
+                [],
+                [original.replace("Build an AI dashboard", "Build an AI workspace")],
+            )
+        )
+        self.assertFalse(
+            post_queue._is_duplicate_content(
+                "Design a music discovery app with playlist controls and audio waveform previews.",
+                [],
+                [original],
+            )
+        )
     def test_generation_budget_allows_retries_beyond_daily_post_cap(self):
         self.assertGreaterEqual(post_queue.AI_GENERATIONS_PER_DAY, post_queue.POSTS_PER_DAY + 30)
 
@@ -140,18 +173,35 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_x_trends_quote_lane_is_retired(self):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 10)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 22)
 
     async def test_builder_tip_publishes(self):
         state = post_queue._new_state()
         draft = OriginalDraft(
             True,
-            'DID YOU KNOW?\n\nTry adding this to your prompt:\n"Audit mobile, tablet, and desktop states plus loading, empty, error, and focus states before shipping."\n\nFollow for more builder prompts.',
-            "expert builder prompt tip",
+            "Design an AI research workspace that feels intentionally art-directed.\\n\\n"
+            "PASTE THIS INTO YOUR AI BUILDER:\\n"
+            "Build an original AI research workspace for analysts who need to collect sources, "
+            "compare findings, and turn verified notes into a clear brief. Establish a distinctive "
+            "visual direction with a restrained neutral palette, one purposeful accent, a consistent "
+            "8-point spacing scale, complementary type styles, semantic design tokens, subtle borders, "
+            "and restrained elevation. Compose navigation, a searchable source list, a central synthesis "
+            "canvas, and a contextual evidence panel with clear hierarchy. Create reusable, well-named UI "
+            "components and realistic example data; keep all controls functional instead of decorative. "
+            "Define responsive behavior for desktop, tablet, and mobile: collapse navigation deliberately, "
+            "stack evidence panels, preserve reading order, and prevent horizontal overflow. Include loading, "
+            "empty, error, success, disabled, hover, pressed, and keyboard-focus states with recovery actions. "
+            "Meet accessibility requirements with semantic landmarks, labeled controls, keyboard navigation, "
+            "visible focus, and sufficient text contrast. Handle long source titles, missing evidence, and slow "
+            "AI responses gracefully. Review screenshots at 375px, 768px, and 1440px; fix inconsistent spacing, "
+            "typography, alignment, contrast, overflow, and dead interactions. Acceptance criteria: no placeholder "
+            "copy, no default purple gradient, no random glass cards, no fake buttons, and no unresolved console errors.",
+            "premium builder prompt",
             "",
-            "builder tip",
-            "practical UI QA",
-            "expert reusable prompt",
+            "builder prompt",
+            "AI research workspace",
+            "responsive accessibility visual QA",
+            "hook_prompt_marker_long_implementation",
             "builder_tip",
         )
         client = SimpleNamespace(
@@ -170,14 +220,14 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(state["last_post_type"], "builder_tip")
         self.assertEqual(state["builder_tip_posts"][-1]["status"], "published_builder_tip")
 
-    async def test_post_queue_enables_original_developer_prompt_lane(self):
-        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 10)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 10)
+    async def test_post_queue_enables_original_comparison_and_builder_lanes(self):
+        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 22)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.POSTS_PER_DAY, 20)
+        self.assertEqual(post_queue.POSTS_PER_DAY, 45)
 
-    async def test_queue_stops_when_twenty_main_posts_are_complete(self):
+    async def test_queue_stops_when_forty_five_main_posts_are_complete(self):
         state = post_queue._new_state()
         state["daily_count"] = post_queue.POSTS_PER_DAY
         with (
