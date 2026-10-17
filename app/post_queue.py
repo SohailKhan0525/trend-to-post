@@ -171,7 +171,7 @@ def _content_fingerprint(value: str) -> str:
 
 def _comparison_pair_fingerprint(headline: str) -> str:
     """Fingerprint both choices as an unordered pair so reversing them cannot repeat a meme."""
-    parts = re.split(r"\\s+(?:or|vs|versus)\\s+", str(headline).strip().rstrip("?!"), maxsplit=1, flags=re.IGNORECASE)
+    parts = re.split(r"\s+(?:or|vs|versus)\s+", str(headline).strip().rstrip("?!"), maxsplit=1, flags=re.IGNORECASE)
     if len(parts) != 2:
         return _content_fingerprint(headline)
     pair = sorted((_normalised_content(parts[0]), _normalised_content(parts[1])))
