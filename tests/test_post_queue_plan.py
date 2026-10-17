@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock, patch
 from types import SimpleNamespace
 
 from app import post_queue
-from app.gemini import GeminiError, OriginalDraft, QuoteDraft, _validate_original
+from app.gemini import OriginalDraft, QuoteDraft, _validate_original
 
 
 class FakeClient:
@@ -48,10 +48,10 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         }
         draft = OriginalDraft(
             True,
-            'DID YOU KNOW?\\n\\n'
-            'A reliable UI should be testable with a keyboard, not just a mouse.\\n\\n'
-            'Try adding this to your prompt:\\n'
-            '"Verify keyboard navigation, visible focus, and logical tab order for every interactive component."\\n\\n'
+            'DID YOU KNOW?\n\n'
+            'A reliable UI should be testable with a keyboard, not just a mouse.\n\n'
+            'Try adding this to your prompt:\n'
+            '"Verify keyboard navigation, visible focus, and logical tab order for every interactive component."\n\n'
             'Follow for more builder prompts.',
             "expert builder prompt tip",
             "",
