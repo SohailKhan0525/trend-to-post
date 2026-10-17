@@ -24,7 +24,7 @@ This renderer does not require a remote image-generation service or image-servic
 
 ## AI text generation
 
-Gemini is the fallback text-generation provider. Cloudflare Workers AI can be used as an optional first-pass candidate provider when credentials are configured. Missing Cloudflare credentials must not block Gemini fallback. Set `GEMINI_API_KEY`; `GEMINI_API_KEY_BACKUP` is optional.
+Cloudflare Workers AI is the required first-pass text-candidate provider for the configured provider chain. Gemini is required for builder-tip generation and fallback when Cloudflare candidates fail validation. The queue refuses to start a publishing attempt if required Cloudflare or Gemini credentials are missing. Set `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`, and `GEMINI_API_KEY`; `GEMINI_API_KEY_BACKUP` is optional.
 
 ## Workflows
 
@@ -49,7 +49,7 @@ Configure these GitHub Actions secrets:
 - `X_CT0` — required X CSRF cookie.
 - `GEMINI_API_KEY` — required when Gemini fallback is needed.
 - `GEMINI_API_KEY_BACKUP` — optional second Gemini key.
-- `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` — optional; used for first-pass text candidates only.
+- `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` — required for first-pass text candidates.
 
 The X cookies are session credentials and may expire. Keep all credentials in GitHub Secrets; never commit them to the repository or print their values in logs.
 
