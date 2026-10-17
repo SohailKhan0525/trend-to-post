@@ -30,15 +30,15 @@ def _long_builder_post():
             "no placeholder copy, default purple gradient, random glass cards, fake buttons, or unresolved console errors."
     )
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
-    def test_daily_plan_has_22_builder_prompts_22_comparison_memes_and_45_hard_cap(self):
+    def test_daily_plan_fills_all_45_slots_with_23_builder_prompts_and_22_comparison_memes(self):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 22)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 23)
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(
             post_queue.BUILDER_TIP_POSTS_PER_DAY
             + post_queue.PERSON_PHOTO_POSTS_PER_DAY,
-            post_queue.POSTS_PER_DAY - 1,
+            post_queue.POSTS_PER_DAY,
         )
         self.assertEqual(post_queue.POSTS_PER_DAY, 45)
 
@@ -113,9 +113,9 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
     def test_generation_budget_allows_retries_beyond_daily_post_cap(self):
         self.assertGreaterEqual(post_queue.AI_GENERATIONS_PER_DAY, post_queue.POSTS_PER_DAY + 30)
 
-    def test_post_interval_allows_twenty_hourly_slots(self):
-        self.assertLessEqual(post_queue.MIN_POST_INTERVAL_MINUTES, 60)
-        self.assertGreater(post_queue.MIN_POST_INTERVAL_MINUTES, 0)
+    def test_post_interval_supports_daily_target_with_30_minute_schedule(self):
+        self.assertLessEqual(post_queue.MIN_POST_INTERVAL_MINUTES, 30)
+        self.assertEqual(post_queue.MIN_POST_INTERVAL_MINUTES, 20)
 
     def test_workflow_has_a_scheduled_fallback(self):
         from pathlib import Path
@@ -179,7 +179,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_x_trends_quote_lane_is_retired(self):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 22)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 23)
 
     async def test_builder_tip_publishes(self):
         state = post_queue._new_state()
