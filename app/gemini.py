@@ -1081,11 +1081,12 @@ For developer_prompt mode, include no emojis and return exactly the two required
         },
     }
     last_error: GeminiError | None = None
-    for attempt in range(1, 3):
+    max_attempts = 4 if content_mode == "builder_tip" else 2
+    for attempt in range(1, max_attempts + 1):
         try:
             retry_payload = payload if attempt == 1 else {
                 **payload,
-                "contents": [{"parts": [{"text": fallback_prompt + " Make it more specific, stranger and tighter; avoid all previous structures."}]}],
+                "contents": [{"parts": [{"text": fallback_prompt + (" Make the reusable instruction concrete and testable: name the exact UI, code, or workflow behavior, the condition to cover, and the expected result. Do not use generic advice. Choose a different technical topic from earlier candidates." if content_mode == "builder_tip" else " Make it more specific, stranger and tighter; avoid all previous structures.")}]}],
             }
             draft = _parse_original(_extract_text(_post_json(retry_payload)))
             return _validate_original(
@@ -1104,8 +1105,8 @@ For developer_prompt mode, include no emojis and return exactly the two required
                     )
         except GeminiError as exc:
             last_error = exc
-            print(f"Gemini original text candidate rejected ({attempt}/2): {exc}")
-            if attempt == 2:
+            print(f"Gemini original text candidate rejected ({attempt}/{max_attempts}): {exc}")
+            if attempt == max_attempts:
                 raise last_error
     raise last_error or GeminiError("Original text generation failed.")
 
