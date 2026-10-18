@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 28,
+  "daily_count": 29,
   "ai_call_count": 33,
-  "last_posted_at": "2026-10-18T14:31:25.953111+00:00",
+  "last_posted_at": "2026-10-18T15:01:28.962124+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111827497088335990",
+  "last_tweet_id": "2111835059267494201",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "github_repo_spotlight",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -516,7 +516,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 13,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 0,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -706,7 +706,7 @@
   "ai_tech_quote_day_key": null,
   "trend_names_used": [],
   "ai_tech_trend_names_used": [],
-  "builder_tip_post_count": 15,
+  "builder_tip_post_count": 16,
   "builder_tip_posts": [
     {
       "subject": "educational builder prompt",
@@ -1162,6 +1162,36 @@
       "generated_at": "2026-10-18T14:01:56.394287+00:00",
       "reply_status": "published",
       "status": "published_builder_tip"
+    },
+    {
+      "subject": "GitHub repository spotlight",
+      "content_type": "github_repo_spotlight",
+      "repo_full_name": "freeCodeCamp/freeCodeCamp",
+      "repo_url": "https://github.com/freeCodeCamp/freeCodeCamp",
+      "repo_description": "freeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for free.",
+      "repo_stars": 457404,
+      "repo_language": "TypeScript",
+      "format_name": "active GitHub repository spotlight",
+      "comedy_mechanism": "practical developer discovery",
+      "structure_signature": "github_repo_c5717315c806176aa43afcb1",
+      "slot_number": 16,
+      "post": "DEVS & VIBE CODERS\n\nfreeCodeCamp/freeCodeCamp\n\nfreeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for…\n\nWHY IT IS USEFUL\nExplore it before building this from scratch.",
+      "reply_text": "REPOSITORY\nfreeCodeCamp/freeCodeCamp\nhttps://github.com/freeCodeCamp/freeCodeCamp\n\nWHAT IT DOES\nfreeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for free.\n\nTECH STACK\nLanguage: TypeScript\nStars: 457,404\n\nWHY DEVELOPERS SHOULD CARE\nExplain how this project can reduce implementation time, provide a reference architecture, or solve a real workflow problem. Read the README, check setup requirements and license, then evaluate whether it fits your stack.\n\nBEST FOR\nDevelopers, software engineers, AI builders, and vibe coders researching tools before building from scratch.",
+      "tweet_id": "2111835059267494201",
+      "thread_tweet_ids": [
+        "2111835059267494201",
+        "2111835060337053931",
+        "2111835061578522852",
+        "2111835062593581111"
+      ],
+      "reply_tweet_ids": [
+        "2111835060337053931",
+        "2111835061578522852",
+        "2111835062593581111"
+      ],
+      "generated_at": "2026-10-18T15:01:28.962124+00:00",
+      "reply_status": "published",
+      "status": "published_github_repo_spotlight"
     }
   ],
   "builder_tip_day_key": "2026-10-18",
@@ -1282,6 +1312,7 @@
     "shanraisshan/claude-code-best-practice",
     "langgenius/dify",
     "firecrawl/firecrawl",
-    "x1xhlol/system-prompts-and-models-of-ai-tools"
+    "x1xhlol/system-prompts-and-models-of-ai-tools",
+    "freeCodeCamp/freeCodeCamp"
   ]
 }
