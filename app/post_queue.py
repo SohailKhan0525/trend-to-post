@@ -173,23 +173,33 @@ def _content_fingerprint(value: str) -> str:
 
 def _split_builder_thread(post: str, max_chars: int = 255) -> list[str]:
     """Split a long builder prompt into X-safe, word-boundary thread chunks."""
-    words = post.split()
+    # Preserve deliberate paragraph/section breaks while keeping every X reply safe.
     chunks: list[str] = []
     current = ""
-    for word in words:
-        candidate = f"{current} {word}".strip()
-        if len(candidate) <= max_chars:
-            current = candidate
+    for line in post.splitlines():
+        if not line.strip():
+            candidate = current.rstrip() + "\n\n" if current else ""
+            if len(candidate) <= max_chars:
+                current = candidate
+            elif current.strip():
+                chunks.append(current.strip())
+                current = ""
             continue
-        if current:
-            chunks.append(current)
-        if len(word) > max_chars:
-            chunks.extend(word[index:index + max_chars] for index in range(0, len(word), max_chars))
-            current = ""
-        else:
-            current = word
-    if current:
-        chunks.append(current)
+        words = line.split()
+        for word in words:
+            candidate = f"{current.rstrip()} {word}".strip() if current.strip() else word
+            if len(candidate) <= max_chars:
+                current = candidate
+                continue
+            if current.strip():
+                chunks.append(current.strip())
+            if len(word) > max_chars:
+                chunks.extend(word[index:index + max_chars] for index in range(0, len(word), max_chars))
+                current = ""
+            else:
+                current = word
+    if current.strip():
+        chunks.append(current.strip())
     return chunks
 
 
