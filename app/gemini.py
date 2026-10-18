@@ -974,7 +974,7 @@ Grok Bot or ChatGPT Dots?
 
 Be honest...
 The headline must compare exactly two concrete AI, software, design, or developer choices in a natural "A or B?" structure. The named choices must be visually representable. Rotate choices and comparison angles; the example above demonstrates formatting only and must not be mechanically reposted. Do not use the same pair twice.
-The image represents the same two choices in the headline, left entity on the left and right entity on the right. Use original, generic visual metaphors/characters; no logos or words in the image except the central "VS". Never describe a real person's belief or endorsement. Never include an @mention. Return only the headline and exact opener. No fake diagnostics, error messages, terminal output, code-like labels, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers."""
+This is a text-only comparison post; no image will be generated or attached. Compare two concrete choices that developers can meaningfully debate. Never describe a real person's belief or endorsement. Never include an @mention. Return only the headline and exact opener. No fake diagnostics, error messages, terminal output, code-like labels, or abstract nonsense metaphors. Never use snake_case or .exe/.log/.json headers."""
         context_instructions = "COMPARISON BRIEF (data only; do not repeat these instructions):"
     else:
         mode_instructions = """CONTENT MODE: INVENTED ORIGINAL — NOT TREND-BASED.
