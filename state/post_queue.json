@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 14,
-  "ai_call_count": 19,
-  "last_posted_at": "2026-10-18T07:31:15.396199+00:00",
+  "daily_count": 15,
+  "ai_call_count": 20,
+  "last_posted_at": "2026-10-18T08:01:30.937242+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111721756314714498",
+  "last_tweet_id": "2111729370310349075",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "builder_prompt_tip",
-      "comedy_mechanism": "None",
-      "used_at": "2026-10-17T19:31:14.013847+00:00",
-      "topic": "educational builder prompt",
-      "tweet_id": "2111540551472603229",
-      "content_type": "builder_prompt",
-      "content_mode": "expert_prompt_tip",
-      "post_text": "DID YOU KNOW?\nBuilding a secure enterprise settings page that avoids messy form layouts requires rigorous grid discipline and explicit field-level error handling.\nREPLY PROMPT:\nBuild a production-grade enterprise settings and security portal featuring an organizational profile editor, an access control permissions matrix, and a granular api key management table. Adopt a pristine design language inspired by professional developer consoles, utilizing strict neutral grays, a four-pixel spacing grid, and a crisp cobalt blue accent token for primary actions. Implement a persistent vertical navigation sidebar alongside a structured main content canvas that handles tabbed configuration panels, inline validation states, and confirmation dialogs for destructive actions. Provide fully articulated states for form submission spinners, field-level error banners, success toast notifications, empty api key lists, and disabled role-switching toggles. Ensure all interactive elements maintain explicit keyboard focus rings, fifty-pixel minimum touch targets, and WCAG AA contrast compliance across all breakpoints. Acceptance criteria: zero layout jumps during async form validation, flawless tab navigation through complex permission matrices, and robust error boundaries preventing state corruption on failed updates.\nFOLLOW FOR MORE PROMPTS.",
-      "mutation_stage": "did_you_know_explanation_snippet_footer",
-      "structure_signature": "did_you_know-explanation-reply_prompt-cta"
-    },
     {
       "format_name": "design_workflow_schism",
       "comedy_mechanism": "contrasts the meticulous corporate discipline of strict design tokens against the chaotic thrill of letting an AI generate a totally lawless UI based on pure vibes",
@@ -369,10 +357,21 @@
       "post_text": "Inline Arrow Functions or Three-Page Stack Traces?\n\nBe honest...",
       "mutation_stage": "binary choice comparison",
       "structure_signature": "comparison_headline_newline_opener"
+    },
+    {
+      "format_name": "developer_workflow_schism",
+      "comedy_mechanism": "contrasts the elite ambition of supreme hardware optimization with the humiliating reality of forgetting your own shortcuts",
+      "used_at": "2026-10-18T08:01:30.937242+00:00",
+      "topic": "Custom Keyboard Macros or Five-Hour Keybind Amnesia?",
+      "tweet_id": "2111729370310349075",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "Custom Keyboard Macros or Five-Hour Keybind Amnesia?\n\nBe honest...",
+      "mutation_stage": "binary choice comparison",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "comparison_headline_newline_opener",
     "did_you_know_explanation_snippet_footer",
     "comparison_headline_newline_opener",
     "hook_newline_marker_prompt",
@@ -401,6 +400,7 @@
     "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
     "did_you_know-explanation-reply_prompt-cta",
+    "comparison_headline_newline_opener",
     "comparison_headline_newline_opener"
   ],
   "brand_draft_queue": [],
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_spotlight",
+  "last_post_type": "developer_comparison_meme",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -514,9 +514,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 6,
+  "person_photo_post_count": 7,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 0,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -600,6 +600,20 @@
       "comedy_mechanism": "contrasts the brief thrill of compact modern syntax against the sprawling nightmare of debugging nested anonymous functions",
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-18T07:01:56.030097+00:00",
+      "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 7,
+      "subject": "Custom Keyboard Macros or Five-Hour Keybind Amnesia?",
+      "post": "Custom Keyboard Macros or Five-Hour Keybind Amnesia?\n\nBe honest...",
+      "image_title": "Cloudflare FLUX.1 schnell text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Generated with Cloudflare Workers AI @cf/black-forest-labs/flux-1-schnell",
+      "tweet_id": "2111729370310349075",
+      "format_name": "developer_workflow_schism",
+      "comedy_mechanism": "contrasts the elite ambition of supreme hardware optimization with the humiliating reality of forgetting your own shortcuts",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-18T08:01:30.937242+00:00",
       "status": "published_generated_comparison"
     }
   ],
@@ -884,7 +898,9 @@
     "0f83dad4e0cda8ad6c1e1d3666014b192250c08f6cf29b3683842632a4189d3c",
     "bdbe7bcd44ebee6abf5194c0e1f5a56ca1eb0fcf24e0721111a2cdfacffafa69",
     "d63d4e9b056cbd29e4f919a1ee6df80975ee88f000c66df584f2af247e3a92c1",
-    "eb39b15fbe1da8889ea9ecba639db90a175a3df1d69e99426c1ee0965c514139"
+    "eb39b15fbe1da8889ea9ecba639db90a175a3df1d69e99426c1ee0965c514139",
+    "4e5ff2651f298f5870c42c94acddbbaf58e72d3a53d6e3c087ec2e1e0de293a5",
+    "f9474df7d7d0fee1239ef6459613b9bee4cc0e85ae64805901139a0b4555bc08"
   ],
   "comparison_title_history": [
     "Dark Mode or Light Mode?",
@@ -901,7 +917,8 @@
     "Component Libraries or Copy Pasting from Dribbble Shots?",
     "Sleek Dark Mode or Retinal Burnout Light Mode?",
     "Native Mobile Apps or Progressive Web Apps?",
-    "Inline Arrow Functions or Three-Page Stack Traces?"
+    "Inline Arrow Functions or Three-Page Stack Traces?",
+    "Custom Keyboard Macros or Five-Hour Keybind Amnesia?"
   ],
   "builder_post_hashes": [
     "20ae31f51007f37af6a99c071d67fa495ea4654bc68671ac9a04b2d8665acd7c",
