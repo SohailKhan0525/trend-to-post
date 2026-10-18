@@ -1180,12 +1180,31 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
         first_line = str(previous).splitlines()[0].strip() if str(previous).splitlines() else ""
         if first_line:
             used_angles.append(first_line[:140])
+    # Give each slot a concrete user problem so the hook explains a real capability,
+    # rather than repeatedly advertising a generic "better UI" prompt.
+    builder_scenarios = (
+        "an AI research workspace that pins every claim beside its source and flags unsupported statements",
+        "a SaaS billing console that explains invoice changes and lets users resolve failed payments",
+        "a support inbox that groups duplicate reports and shows each customer's recent history",
+        "a project handoff board that turns decisions into owners, deadlines, and trackable follow-ups",
+        "a developer API console that makes requests, responses, and retryable errors easy to inspect",
+        "an onboarding flow that saves progress and adapts steps to the user's selected goal",
+        "an analytics view that lets operators trace a metric spike to the underlying segment and time range",
+        "a documentation search page that answers from indexed docs and links each answer to its exact source",
+        "an inventory workspace that highlights low-stock items and explains the next reorder action",
+        "an AI meeting brief that separates confirmed decisions, open questions, and assigned actions",
+        "a settings center that shows the impact of a change before the user saves it",
+        "a content review queue that shows feedback beside the exact text being reviewed",
+    )
+    scenario = builder_scenarios[int(state.get("builder_tip_post_count", 0)) % len(builder_scenarios)]
     payload = {
-        "trend": "premium AI + UI/UX builder prompts for production-quality websites and web apps",
+        "trend": scenario,
         "text": (
-            "Create a long-form, paste-ready prompt for an AI website/app builder. Focus on an original, highly polished product experience: strong layout hierarchy, spacing/type/color tokens, responsive behavior, component architecture, accessibility, meaningful interactive states, and visual QA. "
-            "Avoid repeating or paraphrasing these recently used hooks: "
-            + " | ".join(used_angles[-18:])
+            f"Build a practical, production-quality interface for this exact use case: {scenario}. "
+            "The DID YOU KNOW parent must state the specific user capability and outcome in plain language. "
+            "The reply prompt must implement that same workflow, not repeat the hook or dump a generic UI checklist. "
+            "Vary product type, user, and workflow; avoid generic dashboard filler. "
+            "Previously used hooks to avoid: " + " | ".join(used_angles[-18:])
         ),
         "mention_handle": "",
     }
@@ -1211,6 +1230,16 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
     cta = "FOLLOW FOR MORE PROMPTS."
     if not main_text.startswith("DID YOU KNOW?") or len(main_text) > 220 or not reply_section.endswith(cta):
         print("Builder prompt package failed hook, main-post length, or CTA validation; no post published.")
+        return False
+    main_lines = [line.strip() for line in main_text.splitlines() if line.strip()]
+    main_body = " ".join(main_lines[1:]).casefold()
+    generic_hook_phrases = (
+        "this prompt helps you build", "this prompt helps create",
+        "this prompt will help", "better ui", "polished experience",
+        "responsive panels", "more productive",
+    )
+    if len(main_lines) < 2 or not main_body or any(phrase in main_body for phrase in generic_hook_phrases):
+        print("Builder prompt package failed specific DID YOU KNOW explanation; no post published.")
         return False
     prompt_text = reply_section[:-len(cta)].strip()
     if len(prompt_text) < 480:
