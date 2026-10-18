@@ -289,8 +289,7 @@ class BuilderPromptTipTests(unittest.TestCase):
         "buttons, or unresolved console errors."
     )
     VALID_LONG_BUILDER_POST = (
-        "DID YOU KNOW?\nThis prompt helps you build an AI research workspace with clearer evidence trails and accessible, "
-        "responsive panels.\n\nREPLY PROMPT:\n"
+        "DID YOU KNOW?\nEvery research claim stays beside its source, so analysts can verify a brief without hunting through tabs.\n\nREPLY PROMPT:\n"
         + PROMPT_BODY
         + "\n\nFOLLOW FOR MORE PROMPTS."
     )
@@ -325,6 +324,21 @@ class BuilderPromptTipTests(unittest.TestCase):
             value,
         )
 
+    def test_builder_tip_validation_rejects_generic_hook(self) -> None:
+        generic = self.VALID_LONG_BUILDER_POST.replace(
+            "Every research claim stays beside its source, so analysts can verify a brief without hunting through tabs.",
+            "This prompt helps you build a polished, responsive AI research workspace.",
+        )
+        with self.assertRaisesRegex(GeminiError, "generic prompt-advertising"):
+            _validate_original(
+                draft(generic),
+                {},
+                include_handle=False,
+                minimum_emoji_count=0,
+                maximum_emoji_count=0,
+                content_mode="builder_tip",
+            )
+
     def test_builder_tip_validation_rejects_short_prompt(self) -> None:
         value = draft(
             "DID YOU KNOW?\nThis prompt helps you improve a website.\n\n"
@@ -342,7 +356,7 @@ class BuilderPromptTipTests(unittest.TestCase):
 
     def test_builder_tip_validation_rejects_long_prompt_without_accessibility(self) -> None:
         low_quality = (
-            "DID YOU KNOW?\nThis prompt helps create a polished interface.\n\nREPLY PROMPT:\n"
+            "DID YOU KNOW?\nUsers can complete the primary workflow and recover from errors without losing their work.\n\nREPLY PROMPT:\n"
             + ("Create a beautiful responsive UI with components and layouts. " * 12)
             + "\n\nFOLLOW FOR MORE PROMPTS."
         )
