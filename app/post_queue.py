@@ -1119,17 +1119,18 @@ async def _post_github_repo_spotlight(state: dict, client: Client) -> bool:
     if not full_name or not description or not url.startswith("https://github.com/"):
         return False
 
-    prefix = f"DEVS & VIBE CODERS\n\n{full_name}\n\n"
-    suffix = "\n\nWHY IT IS USEFUL\nExplore it before building this from scratch."
-    available = max(35, 220 - len(prefix) - len(suffix))
-    short_description = description if len(description) <= available else description[:available - 1].rsplit(" ", 1)[0].rstrip(".,;:") + "…"
-    main_text = prefix + short_description + suffix
+    # Keep the parent post as a clean hook; explain the actual project once in the thread.
+    main_text = (
+        f"DEVS & VIBE CODERS\n\n{full_name}\n\n"
+        "What it does, who it helps, and what to check before using it ↓"
+    )
     reply_text = (
-        f"REPOSITORY\n{full_name}\n{url}\n\n"
+        f"{full_name}\n{url}\n\n"
         f"WHAT IT DOES\n{description}\n\n"
-        f"TECH STACK\nLanguage: {language}\nStars: {stars:,}\n\n"
-        "WHY DEVELOPERS SHOULD CARE\nExplain how this project can reduce implementation time, provide a reference architecture, or solve a real workflow problem. Read the README, check setup requirements and license, then evaluate whether it fits your stack.\n\n"
-        "BEST FOR\nDevelopers, software engineers, AI builders, and vibe coders researching tools before building from scratch."
+        f"TECH STACK\n{language} · {stars:,} stars\n\n"
+        "BEFORE YOU USE IT\n"
+        "Open the README, follow the setup instructions, check the license and recent activity, "
+        "then try one small real task to see whether it fits your workflow."
     )
     item = {
         "subject": "GitHub repository spotlight",
