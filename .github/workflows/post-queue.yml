@@ -1,4 +1,4 @@
-name: Post Builder Tips and Text-Only Comparison Memes
+name: Post Curated GitHub Repositories, Builder Tips, and Text-Only Comparison Memes
 
 on:
   workflow_dispatch:
@@ -53,16 +53,10 @@ jobs:
         env:
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
           X_CT0: ${{ secrets.X_CT0 }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         shell: bash
         run: |
           test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
           test -n "$X_CT0" || { echo "Missing X_CT0"; exit 1; }
-          test -n "$GEMINI_API_KEY" || { echo "Missing GEMINI_API_KEY"; exit 1; }
-          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
-          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
 
       - name: Validate Python syntax
         run: python -m compileall -q app
@@ -70,7 +64,7 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
-      - name: Publish one builder tip or text-only comparison meme
+      - name: Publish the next planned queue post
         id: post_bot
         env:
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
@@ -106,7 +100,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add state/post_queue.json state/company_manual_posts.md state/trend_manual_posts.md
-          git commit -m "chore: update builder tip and comparison queue state"
+          git commit -m "chore: update curated repo, builder tip, and comparison queue state"
 
           for attempt in 1 2 3 4 5; do
             if git push; then
@@ -168,12 +162,13 @@ jobs:
               "## Daily queue progress",
               "",
               f"- UTC date: {state.get('day_key', 'unknown')}",
-          "- Regular queue: 45 posts/day (23 builder prompts/repo spotlights + 22 text-only comparison memes). Two additional fixed community posts run in a separate workflow.",
+          "- Regular queue: 45 main posts/day (19 DID YOU KNOW builder prompts + 4 curated GitHub repository posts from the JSON calendar + 22 text-only comparison memes). Two additional fixed community posts run separately, for 47 main posts/day total.",
               f"- Main posts published: {state.get('daily_count', 0)}/45",
               f"- This run published a post: {os.environ.get('POST_PUBLISHED', 'unknown')}",
               f"- This run skip reason: {os.environ.get('POST_SKIP_REASON', 'unknown')}",
               f"- X Trends quote posts (retired): {state.get('trend_quote_post_count', 0)}/0",
-              f"- Builder prompt tips + GitHub repo spotlights: {state.get('builder_tip_post_count', 0)}/23",
+              f"- DID YOU KNOW builder prompts: {state.get('builder_tip_post_count', 0)}/19",
+              f"- Curated GitHub repository posts: {state.get('github_repo_post_count', 0)}/4",
               f"- Comparison memes: {state.get('person_photo_post_count', 0)}/22",
               f"- Tagged originals in rolling 48h: {len(state.get('mention_post_timestamps', []))}/2",
               f"- Generation attempts: {state.get('ai_call_count', 0)}/120",
