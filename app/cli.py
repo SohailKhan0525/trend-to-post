@@ -2,7 +2,8 @@ import argparse
 import asyncio
 import os
 
-from .post_queue import post_next\nfrom .community_posts import post_community_post
+from .community_posts import post_community_post
+from .post_queue import post_next
 
 
 def main() -> None:
@@ -10,7 +11,18 @@ def main() -> None:
     parser.add_argument("command", choices=["post", "community-connect", "community-building"])
     args = parser.parse_args()
 
-    if args.command in {"community-connect", "community-building"}:\n        slot = "connect" if args.command == "community-connect" else "building"\n        asyncio.run(\n            post_community_post(\n                os.environ.get("X_AUTH_TOKEN", "").strip(),\n                os.environ.get("X_CT0", "").strip(),\n                slot,\n            )\n        )\n        return\n\n    if args.command == "post":
+    if args.command in {"community-connect", "community-building"}:
+        slot = "connect" if args.command == "community-connect" else "building"
+        asyncio.run(
+            post_community_post(
+                os.environ.get("X_AUTH_TOKEN", "").strip(),
+                os.environ.get("X_CT0", "").strip(),
+                slot,
+            )
+        )
+        return
+
+    if args.command == "post":
         published = asyncio.run(
             post_next(
                 os.environ.get("X_AUTH_TOKEN", "").strip(),
@@ -31,3 +43,7 @@ def main() -> None:
                         "## X post queue: no post published\n\n"
                         f"{message}\n"
                     )
+
+
+if __name__ == "__main__":
+    main()
