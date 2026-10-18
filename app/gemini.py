@@ -1158,6 +1158,17 @@ def _validate_original(
             raise GeminiError("Builder main post must fit within 220 characters.")
         if not main_text.strip().endswith("DID YOU KNOW?") and "DID YOU KNOW?" not in main_text:
             raise GeminiError("Builder main post is missing the required hook.")
+        main_lines = [line.strip() for line in main_text.splitlines() if line.strip()]
+        main_body = " ".join(main_lines[1:]).casefold()
+        generic_hook_phrases = (
+            "this prompt helps you build", "this prompt helps create",
+            "this prompt will help", "better ui", "polished experience",
+            "responsive panels", "more productive",
+        )
+        if len(main_lines) < 2 or len(main_body) < 28:
+            raise GeminiError("Builder main post must explain a concrete user capability.")
+        if any(phrase in main_body for phrase in generic_hook_phrases):
+            raise GeminiError("Builder main post uses generic prompt-advertising copy instead of explaining the feature.")
         if not reply_section.rstrip().endswith("FOLLOW FOR MORE PROMPTS."):
             raise GeminiError("Builder prompt reply must end with FOLLOW FOR MORE PROMPTS.")
         prompt_text = reply_section.rsplit("FOLLOW FOR MORE PROMPTS.", 1)[0].strip()
