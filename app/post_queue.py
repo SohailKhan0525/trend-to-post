@@ -172,34 +172,33 @@ def _content_fingerprint(value: str) -> str:
 
 
 def _split_builder_thread(post: str, max_chars: int = 255) -> list[str]:
-    """Split a long builder prompt into X-safe, word-boundary thread chunks."""
-    # Preserve deliberate paragraph/section breaks while keeping every X reply safe.
+    """Split a long builder prompt into X-safe chunks while preserving section breaks."""
     chunks: list[str] = []
     current = ""
-    for line in post.splitlines():
-        if not line.strip():
-            candidate = current.rstrip() + "\n\n" if current else ""
-            if len(candidate) <= max_chars:
-                current = candidate
-            elif current.strip():
-                chunks.append(current.strip())
+    for paragraph in post.strip().split("\n"):
+        if not paragraph.strip():
+            if current and len(current.rstrip() + "\n") <= max_chars:
+                current = current.rstrip() + "\n"
+            elif current:
+                chunks.append(current.rstrip())
                 current = ""
             continue
-        words = line.split()
+        words = paragraph.split()
         for word in words:
-            candidate = f"{current.rstrip()} {word}".strip() if current.strip() else word
+            separator = " " if current and not current.endswith("\n") else ""
+            candidate = current + separator + word
             if len(candidate) <= max_chars:
                 current = candidate
                 continue
             if current.strip():
-                chunks.append(current.strip())
+                chunks.append(current.rstrip())
             if len(word) > max_chars:
                 chunks.extend(word[index:index + max_chars] for index in range(0, len(word), max_chars))
                 current = ""
             else:
                 current = word
     if current.strip():
-        chunks.append(current.strip())
+        chunks.append(current.rstrip())
     return chunks
 
 
