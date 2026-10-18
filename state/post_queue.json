@@ -1,7 +1,7 @@
 {
   "day_key": "2026-10-18",
   "daily_count": 41,
-  "ai_call_count": 49,
+  "ai_call_count": 50,
   "last_posted_at": "2026-10-18T21:31:15.110945+00:00",
   "last_source_tweet_id": null,
   "last_tweet_id": "2111933147843866631",
@@ -516,7 +516,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 20,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 2,
   "person_photo_posts": [
     {
       "slot_number": 1,
