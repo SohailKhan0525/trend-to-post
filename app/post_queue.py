@@ -5,7 +5,7 @@ import json
 import os
 import random
 import re
-import urllib.parse
+import urllib.error
 import urllib.request
 from difflib import SequenceMatcher
 from datetime import datetime, timedelta, timezone
@@ -33,10 +33,12 @@ from .trend_source import (
 )
 
 STATE_PATH = Path("state/post_queue.json")
+GITHUB_REPO_CALENDAR_PATH = Path("data/github_repos_x_calendar_100_no_day_numbers.json")
 POSTS_PER_DAY = 45
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
 TREND_QUOTE_POSTS_PER_DAY = 0  # retired: no more X Trends quote-posts
-BUILDER_TIP_POSTS_PER_DAY = 23
+BUILDER_TIP_POSTS_PER_DAY = 19
+GITHUB_REPO_POSTS_PER_DAY = 4
 LEGACY_TREND_QUOTE_POSTS_PER_DAY = 12  # tolerate state from the previous daily cap
 PERSON_PHOTO_POSTS_PER_DAY = 22  # This legacy state field now stores comparison memes.
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
@@ -129,7 +131,11 @@ def _new_state() -> dict:
         "builder_tip_day_key": None,
         "builder_tip_post_count": 0,
         "builder_tip_posts": [],
-        "github_repo_history": [],
+        "github_repo_day_key": _today(),
+        "github_repo_post_count": 0,
+        "github_repo_posts": [],
+        "github_repo_next_index": 0,
+        "github_repo_skipped": [],
         "next_lane_index": 0,
     }
 
@@ -296,8 +302,20 @@ def _load_state() -> dict:
         state["builder_tip_day_key"] = None
         state["builder_tip_post_count"] = 0
         state["builder_tip_posts"] = []
+        state["github_repo_day_key"] = today
+        state["github_repo_post_count"] = 0
+        state["github_repo_posts"] = []
         state["skipped_person_image_titles"] = []
         state["next_lane_index"] = 0
+
+    # Initialize the new curated-repository lane even when the persisted overall day key
+    # already matches today (an in-place rollout from the old random spotlight lane).
+    if state.get("github_repo_day_key") != today:
+        state["github_repo_day_key"] = today
+        state["github_repo_post_count"] = 0
+        state["github_repo_posts"] = []
+    state.setdefault("github_repo_next_index", 0)
+    state.setdefault("github_repo_skipped", [])
 
     try:
         state["daily_count"] = int(state.get("daily_count", 0))
@@ -315,10 +333,29 @@ def _load_state() -> dict:
         state["builder_tip_post_count"] = int(state.get("builder_tip_post_count", 0))
     except (TypeError, ValueError) as exc:
         raise QueueError("State builder_tip_post_count must be an integer.") from exc
-    if not 0 <= state["builder_tip_post_count"] <= BUILDER_TIP_POSTS_PER_DAY:
-        raise QueueError(
-            f"State builder_tip_post_count is outside 0..{BUILDER_TIP_POSTS_PER_DAY}."
-        )
+    if state["builder_tip_post_count"] < 0:
+        raise QueueError("State builder_tip_post_count must not be negative.")
+    # Older versions counted random repo spotlights inside this counter; clamp migration
+    # state rather than failing the first run after changing the quotas.
+    state["builder_tip_post_count"] = min(state["builder_tip_post_count"], BUILDER_TIP_POSTS_PER_DAY)
+    try:
+        state["github_repo_post_count"] = int(state.get("github_repo_post_count", 0))
+        state["github_repo_next_index"] = int(state.get("github_repo_next_index", 0))
+    except (TypeError, ValueError) as exc:
+        raise QueueError("Curated GitHub repository counters must be integers.") from exc
+    if not 0 <= state["github_repo_post_count"] <= GITHUB_REPO_POSTS_PER_DAY:
+        raise QueueError(f"State github_repo_post_count is outside 0..{GITHUB_REPO_POSTS_PER_DAY}.")
+    if state["github_repo_next_index"] < 0:
+        raise QueueError("State github_repo_next_index must not be negative.")
+    repo_posts = state.get("github_repo_posts", [])
+    if not isinstance(repo_posts, list):
+        raise QueueError("State github_repo_posts must be a list.")
+    state["github_repo_posts"] = [item for item in repo_posts[-GITHUB_REPO_POSTS_PER_DAY:] if isinstance(item, dict)]
+    skipped_repos = state.get("github_repo_skipped", [])
+    if not isinstance(skipped_repos, list):
+        raise QueueError("State github_repo_skipped must be a list.")
+    state["github_repo_skipped"] = [str(item).strip() for item in skipped_repos if str(item).strip()][-200:]
+
     builder_posts = state.get("builder_tip_posts", [])
     if not isinstance(builder_posts, list):
         raise QueueError("State builder_tip_posts must be a list.")
@@ -936,70 +973,6 @@ async def _find_active_x_person_handles(
     return active
 
 
-def _find_github_repo(state: dict) -> dict | None:
-    """Find an active, non-archived GitHub repository suitable for a developer spotlight."""
-    history = state.get("github_repo_history", [])
-    if not isinstance(history, list):
-        history = []
-    used = {str(item).casefold() for item in history if str(item).strip()}
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=540)).date().isoformat()
-    topics = (
-        "topic:ai-agents stars:>300",
-        "topic:llm stars:>1000",
-        "topic:developer-tools stars:>300",
-        "topic:react stars:>3000",
-        "topic:nextjs stars:>1000",
-        "topic:automation stars:>500",
-        "topic:cli stars:>1000",
-        "topic:open-source stars:>5000",
-        "topic:vibe-coding stars:>100",
-    )
-    queries = random.sample(topics, k=len(topics))
-    for topic_query in queries[:4]:
-        params = urllib.parse.urlencode({
-            "q": f"{topic_query} pushed:>{cutoff} fork:false",
-            "sort": "stars",
-            "order": "desc",
-            "per_page": "15",
-        })
-        request = urllib.request.Request(
-            f"https://api.github.com/search/repositories?{params}",
-            headers={
-                "Accept": "application/vnd.github+json",
-                "User-Agent": "trend-to-post-repo-spotlight",
-                "X-GitHub-Api-Version": "2022-11-28",
-            },
-        )
-        try:
-            with urllib.request.urlopen(request, timeout=12) as response:
-                payload = json.loads(response.read().decode("utf-8"))
-        except Exception as exc:
-            print(f"GitHub repo discovery query failed safely ({topic_query}): {exc}")
-            continue
-        candidates = []
-        for item in payload.get("items", []):
-            if not isinstance(item, dict):
-                continue
-            full_name = str(item.get("full_name", "")).strip()
-            description = " ".join(str(item.get("description", "") or "").split())
-            html_url = str(item.get("html_url", "")).strip()
-            pushed_at = str(item.get("pushed_at", "")).strip()
-            if (
-                not full_name or full_name.casefold() in used
-                or not description or len(description) < 18
-                or not html_url.startswith("https://github.com/")
-                or item.get("archived") or item.get("disabled") or item.get("fork")
-                or int(item.get("stargazers_count", 0) or 0) < 100
-                or not pushed_at or pushed_at[:10] < cutoff
-            ):
-                continue
-            candidates.append(item)
-        if candidates:
-            # Select among highly ranked active projects to balance quality and variety.
-            return random.choice(candidates[:min(5, len(candidates))])
-    return None
-
-
 async def _publish_builder_post(
     state: dict,
     client: Client,
@@ -1105,48 +1078,199 @@ async def _publish_builder_post(
     return True
 
 
-async def _post_github_repo_spotlight(state: dict, client: Client) -> bool:
-    """Publish a verified, active GitHub repository spotlight as a parent plus reply thread."""
-    repo = _find_github_repo(state)
-    if not repo:
-        print("No suitable active GitHub repository found; falling back to a builder prompt.")
+def _load_github_repo_calendar() -> list[dict]:
+    """Load and validate the curated repository posts from the committed JSON calendar."""
+    try:
+        payload = json.loads(GITHUB_REPO_CALENDAR_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise QueueError(f"Could not load GitHub repository calendar: {exc}") from exc
+    repositories = payload.get("repositories") if isinstance(payload, dict) else None
+    if not isinstance(repositories, list) or not repositories:
+        raise QueueError("GitHub repository calendar must contain a non-empty repositories list.")
+    seen: set[str] = set()
+    for index, item in enumerate(repositories):
+        if not isinstance(item, dict):
+            raise QueueError(f"GitHub repository calendar entry {index} is not an object.")
+        slug = str(item.get("repo", "")).strip()
+        post = str(item.get("x_post", "")).strip()
+        url = str(item.get("url", "")).strip()
+        if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", slug):
+            raise QueueError(f"Invalid repository slug at calendar entry {index}.")
+        if slug.casefold() in seen:
+            raise QueueError(f"Duplicate repository in calendar: {slug}.")
+        seen.add(slug.casefold())
+        if not url.startswith("https://github.com/") or not post or len(post) > 280:
+            raise QueueError(f"Invalid or over-length X post for calendar repository {slug}.")
+        if url.rstrip("/").casefold() != f"https://github.com/{slug}".casefold():
+            raise QueueError(f"Repository URL does not match slug for {slug}.")
+        if url not in post:
+            raise QueueError(f"X post for {slug} is missing its GitHub repository URL.")
+    return repositories
+
+
+def _get_live_github_repo_metadata(repo_full_name: str) -> dict | None:
+    """Refresh repository status and star count before publishing a curated entry."""
+    request = urllib.request.Request(
+        f"https://api.github.com/repos/{repo_full_name}",
+        headers={
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "trend-to-post-curated-repo-calendar",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=12) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        if exc.code == 404:
+            return None
+        raise QueueError(f"Could not verify GitHub repository {repo_full_name}: HTTP {exc.code}.") from exc
+    except Exception as exc:
+        raise QueueError(f"Could not verify GitHub repository {repo_full_name}: {exc}") from exc
+    if not isinstance(payload, dict):
+        return None
+    actual_name = str(payload.get("full_name", "")).strip()
+    if actual_name.casefold() != repo_full_name.casefold():
+        return None
+    if payload.get("archived") or payload.get("disabled"):
+        return None
+    return payload
+
+
+def _refresh_repo_star_label(post_text: str, current_stars: int) -> str:
+    """Refresh the approximate star display while preserving the calendar's chosen style."""
+    match = re.search(r"~([0-9,.]+)([kKmM]?)★", post_text)
+    if not match:
+        return post_text
+    old_number, unit = match.group(1), match.group(2)
+    scale = 1_000_000 if unit.lower() == "m" else 1_000 if unit.lower() == "k" else 1
+    precision = len(old_number.partition(".")[2]) if "." in old_number else 0
+    value = current_stars / scale
+    displayed = f"{value:.{precision}f}" if precision else f"{round(value):.0f}"
+    replacement = f"~{displayed}{unit}★"
+    return post_text[:match.start()] + replacement + post_text[match.end():]
+
+
+async def _post_curated_github_repo(state: dict, client: Client) -> bool:
+    """Publish the next unused curated JSON repository post and its practical self-reply."""
+    today = _today()
+    if state.get("github_repo_day_key") != today:
+        state["github_repo_day_key"] = today
+        state["github_repo_post_count"] = 0
+        state["github_repo_posts"] = []
+    if int(state.get("github_repo_post_count", 0)) >= GITHUB_REPO_POSTS_PER_DAY:
         return False
-    full_name = str(repo.get("full_name", "")).strip()
-    description = " ".join(str(repo.get("description", "") or "").split())
-    url = str(repo.get("html_url", "")).strip()
-    stars = int(repo.get("stargazers_count", 0) or 0)
-    language = str(repo.get("language", "") or "Not specified")
-    if not full_name or not description or not url.startswith("https://github.com/"):
+    if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
         return False
 
-    # Keep the parent post as a clean hook; explain the actual project once in the thread.
-    main_text = (
-        f"DEVS & VIBE CODERS\n\n{full_name}\n\n"
-        "What it does, who it helps, and what to check before using it ↓"
-    )
-    reply_text = (
-        f"{full_name}\n{url}\n\n"
-        f"WHAT IT DOES\n{description}\n\n"
-        f"TECH STACK\n{language} · {stars:,} stars\n\n"
-        "BEFORE YOU USE IT\n"
-        "Open the README, follow the setup instructions, check the license and recent activity, "
-        "then try one small real task to see whether it fits your workflow."
-    )
-    item = {
-        "subject": "GitHub repository spotlight",
-        "content_type": "github_repo_spotlight",
-        "repo_full_name": full_name,
-        "repo_url": url,
-        "repo_description": description,
-        "repo_stars": stars,
-        "repo_language": language,
-        "format_name": "active GitHub repository spotlight",
-        "comedy_mechanism": "practical developer discovery",
-        "structure_signature": f"github_repo_{_content_fingerprint(full_name)[:24]}",
+    repositories = _load_github_repo_calendar()
+    if not repositories:
+        raise QueueError("GitHub repository calendar is empty.")
+    start_index = int(state.get("github_repo_next_index", 0)) % len(repositories)
+    skipped = {
+        str(item).strip().casefold()
+        for item in state.get("github_repo_skipped", [])
+        if str(item).strip()
     }
-    return await _publish_builder_post(
-        state, client, main_text, reply_text, item, "github_repo_spotlight"
+    selected: tuple[int, dict, dict, str] | None = None
+    for offset in range(len(repositories)):
+        index = (start_index + offset) % len(repositories)
+        item = repositories[index]
+        slug = str(item.get("repo", "")).strip()
+        if slug.casefold() in skipped:
+            continue
+        metadata = _get_live_github_repo_metadata(slug)
+        if metadata is None:
+            state.setdefault("github_repo_skipped", []).append(slug)
+            skipped.add(slug.casefold())
+            print(f"Skipping unavailable, renamed, archived, or disabled curated repository: {slug}")
+            continue
+        post_text = _refresh_repo_star_label(str(item.get("x_post", "")).strip(),
+                                             int(metadata.get("stargazers_count", item.get("github_stars_approx", 0)) or 0))
+        live_url = str(metadata.get("html_url", "") or item.get("url", "")).strip()
+        original_url = str(item.get("url", "")).strip()
+        if live_url.startswith("https://github.com/") and live_url != original_url:
+            post_text = post_text.replace(original_url, live_url)
+        if not post_text or len(post_text) > 280:
+            raise QueueError(f"Refreshed X post for {slug} is empty or exceeds 280 characters.")
+        selected = (index, item, metadata, post_text)
+        break
+
+    if selected is None:
+        state["github_repo_skipped"] = list(dict.fromkeys(state.get("github_repo_skipped", [])))[-200:]
+        _save_state(state)
+        print("No active, unskipped repositories remain in the curated JSON calendar.")
+        return False
+
+    index, item, metadata, post_text = selected
+    slug = str(item["repo"]).strip()
+    try:
+        tweet = await client.create_tweet(text=post_text)
+    except Exception as exc:
+        raise QueueError(f"Curated GitHub repository main post failed for {slug}: {exc}") from exc
+    tweet_id = str(getattr(tweet, "id", "") or "")
+    if not tweet_id:
+        raise QueueError(
+            f"X may have accepted the curated repository post for {slug} but returned no tweet ID; inspect the account before retrying."
+        )
+
+    now = datetime.now(timezone.utc).isoformat()
+    record = {
+        "repo": slug,
+        "calendar_index": index,
+        "post": post_text,
+        "tweet_id": tweet_id,
+        "reply_text": str(item.get("self_reply", "") or "").strip(),
+        "reply_tweet_id": None,
+        "reply_status": "pending",
+        "posted_at": now,
+        "status": "published_main_reply_pending",
+    }
+    state["github_repo_posts"] = (state.get("github_repo_posts", []) + [record])[-GITHUB_REPO_POSTS_PER_DAY:]
+    state["github_repo_post_count"] = int(state.get("github_repo_post_count", 0)) + 1
+    state["github_repo_next_index"] = (index + 1) % len(repositories)
+    state["github_repo_skipped"] = list(dict.fromkeys(state.get("github_repo_skipped", [])))[-200:]
+    state["daily_count"] = int(state.get("daily_count", 0)) + 1
+    state.update({
+        "day_key": today,
+        "last_tweet_id": tweet_id,
+        "last_posted_at": now,
+        "last_source_tweet_id": None,
+        "last_post_type": "github_repo_calendar",
+        "last_company_handle": None,
+    })
+    # Persist the parent/cursor before the optional reply so an error cannot duplicate the main post.
+    _save_state(state)
+
+    reply_text = record["reply_text"]
+    if reply_text and len(reply_text) <= 280:
+        try:
+            reply = await client.create_tweet(text=reply_text, reply_to=tweet_id)
+            reply_id = str(getattr(reply, "id", "") or "")
+            if reply_id:
+                record["reply_tweet_id"] = reply_id
+                record["reply_status"] = "published"
+                record["status"] = "published"
+            else:
+                record["reply_status"] = "accepted_without_id"
+                record["status"] = "published_main_reply_pending"
+                print(f"Curated repository self-reply for {slug} returned no ID; inspect the thread.")
+        except Exception as exc:
+            record["reply_status"] = "failed"
+            record["reply_error"] = str(exc)[:300]
+            print(f"Curated repository main post for {slug} is published, but its optional self-reply failed: {exc}")
+        _save_state(state)
+    else:
+        record["reply_status"] = "not_used" if not reply_text else "skipped_over_280_chars"
+        record["status"] = "published"
+        _save_state(state)
+
+    print(
+        f"Published curated GitHub repository {slug}: "
+        f"{state['github_repo_post_count']}/{GITHUB_REPO_POSTS_PER_DAY} today; "
+        f"calendar entry {index + 1}/{len(repositories)}."
     )
+    return True
 
 
 async def _post_builder_tip(state: dict, client: Client) -> bool:
@@ -1163,17 +1287,6 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
     if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
         print("AI generation-attempt budget reached before builder tip.")
         return False
-
-    # Roughly one in four builder-lane slots spotlights a real GitHub project.
-    # If discovery is rate-limited or finds no suitable repo, publish a prompt instead.
-    if int(state.get("builder_tip_post_count", 0)) % 4 == 3:
-        try:
-            if await _post_github_repo_spotlight(state, client):
-                return True
-        except QueueError:
-            raise
-        except Exception as exc:
-            print(f"GitHub repo spotlight failed safely; falling back to prompt: {exc}")
 
     used_angles = []
     for previous in state.get("builder_post_history", [])[-18:]:
@@ -1779,6 +1892,28 @@ async def _post_ai_tech_quote(state: dict, client: Client) -> bool:
     return True
 
 
+def _select_next_lane(state: dict) -> tuple[str, str, int, object] | None:
+    """Select the most under-served lane against the exact daily content quotas."""
+    lanes = (
+        ("builder_tip", "builder_tip_post_count", BUILDER_TIP_POSTS_PER_DAY, _post_builder_tip),
+        ("github_repo_calendar", "github_repo_post_count", GITHUB_REPO_POSTS_PER_DAY, _post_curated_github_repo),
+        ("comparison_meme", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_comparison_meme),
+    )
+    next_slot = min(POSTS_PER_DAY, int(state.get("daily_count", 0)) + 1)
+    eligible = []
+    for lane_index, lane in enumerate(lanes):
+        name, count_key, target, publisher = lane
+        actual = int(state.get(count_key, 0))
+        if actual >= target:
+            continue
+        expected = next_slot * target / POSTS_PER_DAY
+        deficit = expected - actual
+        eligible.append((deficit, -lane_index, lane))
+    if not eligible:
+        return None
+    return max(eligible, key=lambda item: (item[0], item[1]))[2]
+
+
 async def post_next(
     auth_token: str,
     ct0: str,
@@ -1802,74 +1937,50 @@ async def post_next(
         _set_workflow_output("skip_reason", "interval_guard")
         return False
 
-    # Keep the configured provider chain explicit: Cloudflare is the primary
-    # candidate provider and Gemini is required for builder-tip text/fallback.
-    # Do not start generation or posting if required credentials are missing.
-    if not os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip():
-        raise QueueError("CLOUDFLARE_ACCOUNT_ID is required.")
-    if not os.environ.get("CLOUDFLARE_API_TOKEN", "").strip():
-        raise QueueError("CLOUDFLARE_API_TOKEN is required.")
-    if not (gemini_api_key or os.environ.get("GEMINI_API_KEY", "").strip()):
-        raise QueueError("GEMINI_API_KEY is required for builder-tip text generation.")
-
     client = _client(auth_token, ct0)
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; X auth cookies may be expired.")
 
-    # Only the two requested original-content lanes remain active.
-    lanes = (
-        ("builder_tip", "builder_tip_post_count", BUILDER_TIP_POSTS_PER_DAY, _post_builder_tip),
-        ("comparison_meme", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_comparison_meme),
-    )
-    start = int(state.get("next_lane_index", 0)) % len(lanes)
-    eligible = [
-        (index, lanes[index])
-        for offset in range(len(lanes))
-        for index in [(start + offset) % len(lanes)]
-        if int(state.get(lanes[index][1], 0)) < lanes[index][2]
-    ]
-    if not eligible:
+    # Pick the lane most behind its proportional share of today's 45 main-post slots.
+    # This spreads four curated repos across the day and catches up if state starts mid-day.
+    lane = _select_next_lane(state)
+    if lane is None:
         print(
             "Daily content plan complete: "
             f"builder tips {state.get('builder_tip_post_count', 0)}/{BUILDER_TIP_POSTS_PER_DAY}, "
+            f"curated GitHub repositories {state.get('github_repo_post_count', 0)}/{GITHUB_REPO_POSTS_PER_DAY}, "
             f"comparison memes {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}."
         )
         _set_workflow_output("skip_reason", "daily_plan_complete")
         return False
 
-    last_error: Exception | None = None
-    for index, lane in eligible:
-        lane_name, _, _, publisher = lane
-        state["next_lane_index"] = (index + 1) % len(lanes)
-        _save_state(state)
-        print(f"Queue attempting lane: {lane_name}.")
-        try:
-            if await publisher(state, client):
-                _set_workflow_output("published", "true")
-                _set_workflow_output("skip_reason", "published")
-                return True
-        except QueueError:
-            # An uncertain X publish outcome must never trigger a second post.
-            raise
-        except Exception as exc:
-            last_error = exc
-            print(f"Lane {lane_name} failed safely; trying the next eligible lane: {exc}")
+    lane_name, count_key, target, publisher = lane
+    if lane_name in {"builder_tip", "comparison_meme"}:
+        if not os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip():
+            raise QueueError("CLOUDFLARE_ACCOUNT_ID is required for AI-generated posts.")
+        if not os.environ.get("CLOUDFLARE_API_TOKEN", "").strip():
+            raise QueueError("CLOUDFLARE_API_TOKEN is required for AI-generated posts.")
+        if not (gemini_api_key or os.environ.get("GEMINI_API_KEY", "").strip()):
+            raise QueueError("GEMINI_API_KEY is required for AI-generated posts.")
 
-        if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
-            _set_workflow_output("skip_reason", "daily_cap")
-            return False
-        if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
-            break
+    state["next_lane_index"] = (int(state.get("next_lane_index", 0)) + 1) % 3
+    _save_state(state)
+    print(f"Queue attempting planned lane: {lane_name} ({state.get(count_key, 0)}/{target}).")
+    try:
+        if await publisher(state, client):
+            _set_workflow_output("published", "true")
+            _set_workflow_output("skip_reason", "published")
+            return True
+    except QueueError:
+        # An uncertain X publish outcome must never trigger another lane on this dispatch.
+        raise
+    except Exception as exc:
+        print(f"Lane {lane_name} failed safely; the same planned slot will be retried: {exc}")
 
     if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
         print("No post published because the daily AI generation budget was exhausted.")
         _set_workflow_output("skip_reason", "generation_budget")
         return False
-    if last_error is not None:
-        print(f"No lane published a post during this dispatch; last error: {last_error}")
-    else:
-        print("Eligible content lanes were attempted, but generation or validation failed.")
-    # Do not label failed generation as a harmless empty-source skip. The
-    # workflow's explicit failure step should make repeated generation failures visible.
+    print(f"No post published from planned lane {lane_name}; it will be retried on the next dispatch.")
     _set_workflow_output("skip_reason", "generation_failed")
     return False
