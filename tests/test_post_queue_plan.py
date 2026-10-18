@@ -234,7 +234,8 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_x_trends_quote_lane_is_retired(self):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 23)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 19)
+        self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
 
     async def test_builder_tip_publishes_did_you_know_parent_and_prompt_reply_thread(self):
         state = post_queue._new_state()
