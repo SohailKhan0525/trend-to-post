@@ -1066,7 +1066,7 @@ async def _publish_builder_post(
     item["reply_tweet_ids"] = reply_ids
     item["thread_tweet_ids"] = [tweet_id] + reply_ids
     item["reply_status"] = "published"
-    item["status"] = "published_github_repo_spotlight" if post_type == "github_repo_spotlight" else "published_builder_tip"
+    item["status"] = "published_builder_tip"
     _save_state(state)
     print(
         f"Published {post_type}: builder lane {state['builder_tip_post_count']}/{BUILDER_TIP_POSTS_PER_DAY}; "
