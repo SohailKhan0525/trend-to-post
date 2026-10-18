@@ -316,6 +316,7 @@ def _load_state() -> dict:
         state["github_repo_posts"] = []
     state.setdefault("github_repo_next_index", 0)
     state.setdefault("github_repo_skipped", [])
+    state.pop("github_repo_history", None)  # retire the legacy random-repository history
 
     try:
         state["daily_count"] = int(state.get("daily_count", 0))
@@ -1020,11 +1021,7 @@ async def _publish_builder_post(
         "last_post_type": post_type,
         "last_company_handle": None,
     })
-    if post_type == "github_repo_spotlight":
-        history = state.get("github_repo_history", [])
-        history.append(str(item.get("repo_full_name", "")).strip())
-        state["github_repo_history"] = [x for x in history if x][-200:]
-    elif post_type == "builder_tip":
+    if post_type == "builder_tip":
         # Remember the prompt package as soon as the parent is accepted, even if a reply fails.
         package = str(item.get("generated_package") or (main_text + "\n\n" + reply_text))
         state["builder_post_hashes"] = (
