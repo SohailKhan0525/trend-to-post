@@ -1,4 +1,4 @@
-name: Post Builder Tips and Comparison Memes
+name: Post Builder Tips and Text-Only Comparison Memes
 
 on:
   workflow_dispatch:
@@ -70,7 +70,7 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
-      - name: Publish one builder tip or comparison meme
+      - name: Publish one builder tip or text-only comparison meme
         id: post_bot
         env:
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
@@ -168,7 +168,7 @@ jobs:
               "## Daily queue progress",
               "",
               f"- UTC date: {state.get('day_key', 'unknown')}",
-          "- Policy: 45 hard cap; 23 builder prompts/repo spotlights + 22 comparison memes.",
+          "- Regular queue: 45 posts/day (23 builder prompts/repo spotlights + 22 text-only comparison memes). Two additional fixed community posts run in a separate workflow.",
               f"- Main posts published: {state.get('daily_count', 0)}/45",
               f"- This run published a post: {os.environ.get('POST_PUBLISHED', 'unknown')}",
               f"- This run skip reason: {os.environ.get('POST_SKIP_REASON', 'unknown')}",
