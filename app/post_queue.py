@@ -15,7 +15,6 @@ from twikit import Client
 
 from .brand_targets import DAILY_BRAND_TARGETS, ensure_daily_brand_targets
 from .gemini import COMPANY_HOOK_TYPES, GeminiError, generate_company_original, generate_original_text, generate_quote
-from .generated_images import GeneratedImageError, generate_comparison_image
 from .person_images import (
     PERSON_SUBJECTS,
     PersonImageError,
@@ -1249,7 +1248,7 @@ async def _post_builder_tip(state: dict, client: Client) -> bool:
 
 
 async def _post_comparison_meme(state: dict, client: Client) -> bool:
-    """Publish a strict comparison caption with a Cloudflare FLUX-generated image."""
+    """Publish a text-only comparison post; comparison memes never generate or upload images."""
     today = _today()
     if state.get("person_photo_day_key") != today:
         state["person_photo_day_key"] = today
@@ -1273,7 +1272,7 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
         "text": (
             "Generate a fresh two-choice comparison in the exact caption format specified in the system contract. The sole format example is instructional, not content to copy. Avoid every pair in this history and avoid close paraphrases: "
             + " | ".join(used_pairs[-30:])
-            + ". The image is generated separately and must contain no text except the central VS."
+            + ". This is a text-only post: do not generate, fetch, or attach any image."
         ),
         "mention_handle": "",
     }
@@ -1305,23 +1304,14 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
             return False
         if any(mark in post_text for mark in ('"', "'", "“", "”", "@", "#", "http://", "https://")):
             raise GeminiError("Comparison post contains forbidden extra text, quote marks, mentions, tags or links.")
-        image_bytes = generate_comparison_image(lines[0], "")
-    except (GeminiError, GeneratedImageError) as exc:
+    except GeminiError as exc:
         print(f"Comparison meme generation skipped safely: {exc}")
         return False
 
     try:
-        image_media_type = (
-            "image/jpeg" if image_bytes.startswith(bytes.fromhex("ffd8ff")) else "image/png"
-        )
-        media_id = await client.upload_media(image_bytes, media_type=image_media_type)
-        try:
-            await client.create_media_metadata(media_id, alt_text="Original text-free illustration comparing developer tools.")
-        except Exception as exc:
-            print(f"Could not set comparison image alt text; continuing: {exc}")
-        tweet = await client.create_tweet(text=post_text, media_ids=[media_id])
+        tweet = await client.create_tweet(text=post_text)
     except Exception as exc:
-        raise QueueError(f"Generated comparison meme upload/post failed: {exc}") from exc
+        raise QueueError(f"Text-only comparison post failed: {exc}") from exc
 
     tweet_id = str(getattr(tweet, "id", "") or "")
     if not tweet_id:
@@ -1330,8 +1320,7 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
     item = {
         "slot_number": int(state.get("person_photo_post_count", 0)) + 1,
         "subject": lines[0], "post": post_text,
-        "image_title": "Cloudflare FLUX.1 schnell text-free comparison illustration",
-        "image_source_url": "", "license_name": "Generated with Cloudflare Workers AI @cf/black-forest-labs/flux-1-schnell",
+        "image_title": "", "image_source_url": "", "license_name": "",
         "tweet_id": tweet_id, "format_name": draft.format_name,
         "comedy_mechanism": draft.comedy_mechanism,
         "structure_signature": draft.structure_signature, "generated_at": now,
@@ -1344,7 +1333,7 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
         "comedy_mechanism": draft.comedy_mechanism, "used_at": now,
         "topic": lines[0], "tweet_id": tweet_id,
         "content_type": "developer_comparison_meme",
-        "content_mode": "generated_text_free_visual", "post_text": post_text,
+        "content_mode": "text_only_comparison", "post_text": post_text,
         "mutation_stage": draft.hook_type, "structure_signature": draft.structure_signature,
     })
     state["format_lab"] = lab[-20:]
@@ -1365,7 +1354,7 @@ async def _post_comparison_meme(state: dict, client: Client) -> bool:
         "last_company_handle": None,
     })
     _save_state(state)
-    print(f"Published generated comparison meme {state['person_photo_post_count']}/{PERSON_PHOTO_POSTS_PER_DAY}; daily slots {state['daily_count']}/{POSTS_PER_DAY}.")
+    print(f"Published text-only comparison meme {state['person_photo_post_count']}/{PERSON_PHOTO_POSTS_PER_DAY}; daily slots {state['daily_count']}/{POSTS_PER_DAY}.")
     return True
 
 
