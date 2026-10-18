@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 40,
+  "daily_count": 41,
   "ai_call_count": 49,
-  "last_posted_at": "2026-10-18T21:01:37.384328+00:00",
+  "last_posted_at": "2026-10-18T21:31:15.110945+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111925691830960314",
+  "last_tweet_id": "2111933147843866631",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "github_repo_calendar",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -516,7 +516,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 20,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 2,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -1460,7 +1460,7 @@
     "DID YOU KNOW?\nIsolating failed network payloads lets backend engineers inspect raw headers and rerun failed requests without digging through logs.\nREPLY PROMPT:\nBuild a production-grade developer API console featuring raw HTTP request editors, color-coded JSON response viewers, and one-click request retry triggers. Adopt a disciplined technical design language inspired by professional developer tooling, utilizing strict zinc neutrals, a four-pixel spacing grid, and a high-contrast emerald accent token for successful status codes. Implement a resizable split-pane layout that cleanly separates the request builder from the response inspector while maintaining fixed container boundaries across mobile, tablet, and desktop viewports. Provide fully articulated states for active network request spinners, empty history drawers, hovered endpoint actions, error banners for dropped payload connections, and disabled submit buttons during active transmission. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during large payload rendering, flawless keyboard navigation through response headers, and robust error handling ensuring dropped connections automatically preserve local draft state without crashing the debugging session. FOLLOW FOR MORE PROMPTS."
   ],
   "github_repo_day_key": "2026-10-18",
-  "github_repo_post_count": 3,
+  "github_repo_post_count": 4,
   "github_repo_posts": [
     {
       "repo": "obra/superpowers",
@@ -1494,8 +1494,19 @@
       "reply_status": "published",
       "posted_at": "2026-10-18T20:01:33.232169+00:00",
       "status": "published"
+    },
+    {
+      "repo": "openai/codex",
+      "calendar_index": 3,
+      "post": "Stop asking AI for snippets. Give it a small, testable task in your repo.\n\ncodex (~130k★): Local terminal agent for repository-level coding tasks. https://github.com/openai/codex\n\nWhat boring coding task would you delegate first?",
+      "tweet_id": "2111933147843866631",
+      "reply_text": "Use a dedicated branch and require tests for any behavior-changing task.",
+      "reply_tweet_id": "2111933148846297431",
+      "reply_status": "published",
+      "posted_at": "2026-10-18T21:31:15.110945+00:00",
+      "status": "published"
     }
   ],
-  "github_repo_next_index": 3,
+  "github_repo_next_index": 4,
   "github_repo_skipped": []
 }
