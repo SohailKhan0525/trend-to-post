@@ -177,8 +177,8 @@ def _split_builder_thread(post: str, max_chars: int = 255) -> list[str]:
     current = ""
     for paragraph in post.strip().split("\n"):
         if not paragraph.strip():
-            if current and len(current.rstrip() + "\n") <= max_chars:
-                current = current.rstrip() + "\n"
+            if current and len(current.rstrip() + "\n\n") <= max_chars:
+                current = current.rstrip() + "\n\n"
             elif current:
                 chunks.append(current.rstrip())
                 current = ""
