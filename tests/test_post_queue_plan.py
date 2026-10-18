@@ -252,10 +252,18 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             result = await post_queue._post_builder_tip(state, client)
 
         self.assertTrue(result)
-        self.assertTrue(client.create_tweet.await_args_list[0].kwargs["text"].startswith("DEVS & VIBE CODERS\n\n"))
-        self.assertIn("https://github.com/example/awesome-dev-tool", " ".join(
+        parent = client.create_tweet.await_args_list[0].kwargs["text"]
+        thread = " ".join(
             call.kwargs["text"] for call in client.create_tweet.await_args_list[1:]
-        ))
+        )
+        self.assertTrue(parent.startswith("DEVS & VIBE CODERS"))
+        self.assertIn("What it does, who it helps", parent)
+        self.assertIn("https://github.com/example/awesome-dev-tool", thread)
+        self.assertIn("WHAT IT DOES", thread)
+        self.assertIn(repo["description"], thread)
+        self.assertIn("BEFORE YOU USE IT", thread)
+        self.assertNotIn("Explain how this project can reduce", thread)
+        self.assertNotIn(repo["description"], parent)
         self.assertEqual(state["builder_tip_post_count"], 4)
         self.assertEqual(state["daily_count"], 4)
         self.assertEqual(state["last_post_type"], "github_repo_spotlight")
