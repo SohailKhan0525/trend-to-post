@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 29,
-  "ai_call_count": 33,
-  "last_posted_at": "2026-10-18T15:01:28.962124+00:00",
+  "daily_count": 30,
+  "ai_call_count": 34,
+  "last_posted_at": "2026-10-18T15:31:20.655960+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111835059267494201",
+  "last_tweet_id": "2111842574390710464",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "developer_tool_schism",
-      "comedy_mechanism": "juxtaposes the clean, scalable reality of boring component libraries against the chaotic, non-functional fantasy of building interfaces straight from hyper-stylized static design shots",
-      "used_at": "2026-10-18T03:31:17.854969+00:00",
-      "topic": "Component Libraries or Copy Pasting from Dribbble Shots?",
-      "tweet_id": "2111661368286011475",
-      "content_type": "developer_comparison_meme",
-      "content_mode": "generated_text_free_visual",
-      "post_text": "Component Libraries or Copy Pasting from Dribbble Shots?\n\nBe honest...",
-      "mutation_stage": "comparison_schism",
-      "structure_signature": "comparison_headline_newline_opener"
-    },
     {
       "format_name": "builder_prompt_tip",
       "comedy_mechanism": "none",
@@ -369,10 +357,21 @@
       "post_text": "Automated Code Reviews or Human PR Vibe Checks?\n\nBe honest...",
       "mutation_stage": "comparison_headline_newline_opener",
       "structure_signature": "comparison_headline_newline_opener"
+    },
+    {
+      "format_name": "developer_workflow_schism",
+      "comedy_mechanism": "contrasts the slow agony of incremental code tidying with the reckless adrenaline of starting from scratch",
+      "used_at": "2026-10-18T15:31:20.655960+00:00",
+      "topic": "Endless Refactoring Sessions or One Massive Midnight Rewrite?",
+      "tweet_id": "2111842574390710464",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "text_only_comparison",
+      "post_text": "Endless Refactoring Sessions or One Massive Midnight Rewrite?\n\nBe honest...",
+      "mutation_stage": "comparison headline",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
     "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
@@ -401,6 +400,7 @@
     "comparison_headline_newline_opener",
     "did_you_know-explanation-reply_prompt-cta",
     "did_you_know-explanation-reply_prompt-cta",
+    "comparison_headline_newline_opener",
     "comparison_headline_newline_opener"
   ],
   "brand_draft_queue": [],
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_spotlight",
+  "last_post_type": "developer_comparison_meme",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -514,9 +514,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 13,
+  "person_photo_post_count": 14,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 0,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -698,6 +698,20 @@
       "comedy_mechanism": "contrasts the cold algorithmic judgment of CI checks with the deeply emotional opinions of senior engineers arguing about variable naming",
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-18T14:31:25.953111+00:00",
+      "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 14,
+      "subject": "Endless Refactoring Sessions or One Massive Midnight Rewrite?",
+      "post": "Endless Refactoring Sessions or One Massive Midnight Rewrite?\n\nBe honest...",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2111842574390710464",
+      "format_name": "developer_workflow_schism",
+      "comedy_mechanism": "contrasts the slow agony of incremental code tidying with the reckless adrenaline of starting from scratch",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-18T15:31:20.655960+00:00",
       "status": "published_generated_comparison"
     }
   ],
@@ -1239,7 +1253,9 @@
     "b42bb3f96b8cfec53dde268acdad3f804748404bd3bfeb909c30888bf62e298d",
     "d64e844e3a15d21b3e626e4f3f6a42e36340f74abb78fc89c046e6d8fe187411",
     "db843db288aa0a3eb4733c304005e9bf3d7e1fe821ba76c551d4bf70b95b680f",
-    "679f2d72418d549bdcd687130f94898ac8bf79651c8e5c447569138e23afabfa"
+    "679f2d72418d549bdcd687130f94898ac8bf79651c8e5c447569138e23afabfa",
+    "f77ddc81698fb72cce329dd97f76cdcb911954a86c1733e5cbb4a07aff0d9ac8",
+    "d32be45cd5d296cd4f390c3cde8b516d094a83fa130a03d19c98e1869a7e38e6"
   ],
   "comparison_title_history": [
     "Dark Mode or Light Mode?",
@@ -1263,7 +1279,8 @@
     "Visual Reality or Creative Writing?",
     "Semantic Tokens or Vibes Based Hex Codes?",
     "Strict Lint Rules or Six Hour Merge Conflicts?",
-    "Automated Code Reviews or Human PR Vibe Checks?"
+    "Automated Code Reviews or Human PR Vibe Checks?",
+    "Endless Refactoring Sessions or One Massive Midnight Rewrite?"
   ],
   "builder_post_hashes": [
     "20ae31f51007f37af6a99c071d67fa495ea4654bc68671ac9a04b2d8665acd7c",
