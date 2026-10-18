@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 21,
+  "daily_count": 22,
   "ai_call_count": 26,
-  "last_posted_at": "2026-10-18T11:01:32.852483+00:00",
+  "last_posted_at": "2026-10-18T11:26:36.333716+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111774676670410849",
+  "last_tweet_id": "2111780983749910983",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "github_repo_spotlight",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -516,7 +516,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 10,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 0,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -664,7 +664,7 @@
   "ai_tech_quote_day_key": null,
   "trend_names_used": [],
   "ai_tech_trend_names_used": [],
-  "builder_tip_post_count": 11,
+  "builder_tip_post_count": 12,
   "builder_tip_posts": [
     {
       "subject": "educational builder prompt",
@@ -1000,6 +1000,33 @@
       "generated_at": "2026-10-18T10:31:16.318629+00:00",
       "reply_status": "published",
       "status": "published_builder_tip"
+    },
+    {
+      "subject": "GitHub repository spotlight",
+      "content_type": "github_repo_spotlight",
+      "repo_full_name": "x1xhlol/system-prompts-and-models-of-ai-tools",
+      "repo_url": "https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools",
+      "repo_description": "FULL Augment Code, Claude Code, Cluely, CodeBuddy, Comet, Cursor, Devin AI, Junie, Kiro, Leap.new, Lovable, Manus, NotionAI, Orchids.app, Perplexity, Poke, Qoder, Replit, Same.dev, Trae, Traycer AI, VSCode Agent, Warp.dev, Windsurf, Xcode, Z.ai Code, Dia & v0. (And other Open Sourced) System Prompts, Internal Tools & AI Models",
+      "repo_stars": 144077,
+      "repo_language": "Not specified",
+      "format_name": "active GitHub repository spotlight",
+      "comedy_mechanism": "practical developer discovery",
+      "structure_signature": "github_repo_f01a8bbde81f7f1b0ab8596e",
+      "slot_number": 12,
+      "post": "DEVS & VIBE CODERS: x1xhlol/system-prompts-and-models-of-ai-tools is worth a look.\n\nFULL Augment Code, Claude Code, Cluely, CodeBuddy, Comet, Cursor, Devin AI, Junie…\n\nExplore it before building this from scratch.",
+      "reply_text": "GitHub repo: https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools\n\nWhat it does: FULL Augment Code, Claude Code, Cluely, CodeBuddy, Comet, Cursor, Devin AI, Junie, Kiro, Leap.new, Lovable, Manus, NotionAI, Orchids.app, Perplexity, Poke, Qoder, Replit, Same.dev, Trae, Traycer AI, VSCode Agent, Warp.dev, Windsurf, Xcode, Z.ai Code, Dia & v0. (And other Open Sourced) System Prompts, Internal Tools & AI Models\n\nStars: 144,077 · Language: Not specified\n\nUseful for developers, software engineers, and vibe coders exploring tools before starting from scratch.",
+      "tweet_id": "2111780983749910983",
+      "thread_tweet_ids": [
+        "2111780983749910983",
+        "2111780984815341588"
+      ],
+      "reply_tweet_ids": [
+        "2111780984815341588"
+      ],
+      "generated_at": "2026-10-18T11:26:36.333716+00:00",
+      "reply_status": "failed_or_partial",
+      "status": "published_main_reply_pending",
+      "reply_error": "Authorization: Tweet needs to be a bit shorter. (186)"
     }
   ],
   "builder_tip_day_key": "2026-10-18",
@@ -1104,6 +1131,7 @@
     "shadcn-ui/ui",
     "shanraisshan/claude-code-best-practice",
     "langgenius/dify",
-    "firecrawl/firecrawl"
+    "firecrawl/firecrawl",
+    "x1xhlol/system-prompts-and-models-of-ai-tools"
   ]
 }
