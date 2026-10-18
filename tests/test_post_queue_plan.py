@@ -26,8 +26,7 @@ def _long_builder_post():
         "buttons, or unresolved console errors."
     )
     return (
-        "DID YOU KNOW?\nThis prompt helps you build an AI research workspace with clearer evidence trails and accessible, "
-        "responsive panels.\n\nREPLY PROMPT:\n"
+        "DID YOU KNOW?\nEvery research claim stays beside its source, so analysts can verify a brief without hunting through tabs.\n\nREPLY PROMPT:\n"
         + prompt
         + "\n\nFOLLOW FOR MORE PROMPTS."
     )
@@ -58,6 +57,23 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         active = post_queue._active_mention_posts(state, now)
         self.assertEqual([item["handle"] for item in active], ["@one", "@two"])
         self.assertEqual(len(active), 2)
+
+    def test_builder_prompt_validation_rejects_generic_did_you_know_hook(self):
+        from app.gemini import GeminiError
+        bad = _long_builder_post().replace(
+            "Every research claim stays beside its source, so analysts can verify a brief without hunting through tabs.",
+            "This prompt helps you build a polished, responsive AI research workspace.",
+        )
+        draft = OriginalDraft(
+            True, bad, "premium builder prompt", "", "builder prompt",
+            "AI research workspace", "responsive accessibility visual QA",
+            "hook_prompt_marker_long_implementation", "builder_tip",
+        )
+        with self.assertRaisesRegex(GeminiError, "generic prompt-advertising"):
+            _validate_original(
+                draft, {}, include_handle=False, minimum_emoji_count=0,
+                maximum_emoji_count=0, content_mode="builder_tip",
+            )
 
     def test_builder_prompt_validation_accepts_long_accessible_ai_ui_prompt(self):
         previous = {
