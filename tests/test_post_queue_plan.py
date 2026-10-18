@@ -33,17 +33,43 @@ def _long_builder_post():
 
 
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
-    def test_daily_plan_fills_all_45_slots_with_23_builder_prompts_and_22_comparison_memes(self):
+    def test_daily_plan_fills_all_45_slots_with_curated_repo_lane(self):
+        from collections import Counter
+
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 23)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 19)
+        self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(
             post_queue.BUILDER_TIP_POSTS_PER_DAY
+            + post_queue.GITHUB_REPO_POSTS_PER_DAY
             + post_queue.PERSON_PHOTO_POSTS_PER_DAY,
             post_queue.POSTS_PER_DAY,
         )
+        state = post_queue._new_state()
+        published_lanes = []
+        while state["daily_count"] < post_queue.POSTS_PER_DAY:
+            lane = post_queue._select_next_lane(state)
+            self.assertIsNotNone(lane)
+            lane_name, count_key, limit, _publisher = lane
+            self.assertLess(state[count_key], limit)
+            state[count_key] += 1
+            state["daily_count"] += 1
+            published_lanes.append(lane_name)
+        self.assertEqual(Counter(published_lanes), {
+            "builder_tip": 19,
+            "github_repo_calendar": 4,
+            "comparison_meme": 22,
+        })
         self.assertEqual(post_queue.POSTS_PER_DAY, 45)
+
+    def test_curated_github_calendar_contains_100_unique_under_limit_posts(self):
+        repositories = post_queue._load_github_repo_calendar()
+        self.assertEqual(len(repositories), 100)
+        self.assertEqual(len({item["repo"].casefold() for item in repositories}), 100)
+        self.assertTrue(all(len(item["x_post"]) <= 280 for item in repositories))
+        self.assertTrue(all(item["url"] in item["x_post"] for item in repositories))
 
     def test_mention_posts_are_limited_to_two_in_rolling_48_hours(self):
         from datetime import datetime, timedelta, timezone
@@ -148,14 +174,16 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("steps.post_bot.outputs.skip_reason != 'interval_guard'", workflow)
         self.assertIn("steps.post_bot.outputs.skip_reason != 'no_eligible_source'", workflow)
         self.assertIn("POST_SKIP_REASON", workflow)
-        self.assertIn("Builder prompt tips", workflow)
+        self.assertIn("DID YOU KNOW builder prompts", workflow)
+        self.assertIn("Curated GitHub repository posts", workflow)
+        self.assertIn("data/github_repos_x_calendar_100_no_day_numbers.json", post_queue.GITHUB_REPO_CALENDAR_PATH.as_posix())
         self.assertIn("Comparison memes", workflow)
         self.assertIn("text-only comparison meme", workflow.lower())
         self.assertIn("Two additional fixed community posts", workflow)
         self.assertIn("X Trends quote posts (retired)", workflow)
-        self.assertIn('test -n "$CLOUDFLARE_ACCOUNT_ID"', workflow)
-        self.assertIn('test -n "$CLOUDFLARE_API_TOKEN"', workflow)
-        self.assertIn('test -n "$GEMINI_API_KEY"', workflow)
+        self.assertIn('test -n "$X_AUTH_TOKEN"', workflow)
+        self.assertIn('test -n "$X_CT0"', workflow)
+        self.assertNotIn('test -n "$CLOUDFLARE_ACCOUNT_ID"', workflow)
         self.assertNotIn("generate_comparison_image", post_queue._post_comparison_meme.__code__.co_names)
         community_workflow = Path(".github/workflows/daily-community-posts.yml").read_text(encoding="utf-8")
         self.assertIn('cron: "30 12 * * *"', community_workflow)
@@ -243,53 +271,54 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(state["builder_tip_posts"][-1]["reply_status"], "published")
         self.assertEqual(state["builder_tip_posts"][-1]["thread_tweet_ids"][0], "tweet-0")
 
-    async def test_fourth_builder_slot_can_publish_a_github_repo_spotlight(self):
+    async def test_curated_github_repo_lane_uses_json_post_and_self_reply(self):
         state = post_queue._new_state()
-        state["builder_tip_day_key"] = post_queue._today()
-        state["builder_tip_post_count"] = 3
-        state["daily_count"] = 3
+        state["day_key"] = post_queue._today()
+        state["daily_count"] = 0
         repo = {
+            "repo": "example/awesome-dev-tool",
+            "url": "https://github.com/example/awesome-dev-tool",
+            "x_post": (
+                "A specific hook for developers.\n\n"
+                "awesome-dev-tool (~1.0k★): A toolkit. "
+                "https://github.com/example/awesome-dev-tool\n\n"
+                "What would you build with it?"
+            ),
+            "self_reply": "Try one small task first and inspect the changes before trusting it.",
+        }
+        metadata = {
             "full_name": "example/awesome-dev-tool",
-            "description": "A practical open-source toolkit for building and testing modern AI applications.",
             "html_url": "https://github.com/example/awesome-dev-tool",
             "stargazers_count": 12345,
-            "language": "Python",
             "archived": False,
             "disabled": False,
-            "fork": False,
-            "pushed_at": "2026-10-01T12:00:00Z",
         }
-        ids = iter(SimpleNamespace(id=f"repo-tweet-{index}") for index in range(20))
+        ids = iter((SimpleNamespace(id="repo-main-id"), SimpleNamespace(id="repo-reply-id")))
         client = SimpleNamespace(create_tweet=AsyncMock(side_effect=lambda **kwargs: next(ids)))
         with (
-            patch.object(post_queue, "_find_github_repo", return_value=repo),
+            patch.object(post_queue, "_load_github_repo_calendar", return_value=[repo]),
+            patch.object(post_queue, "_get_live_github_repo_metadata", return_value=metadata),
             patch.object(post_queue, "_save_state"),
         ):
-            result = await post_queue._post_builder_tip(state, client)
+            result = await post_queue._post_curated_github_repo(state, client)
 
         self.assertTrue(result)
-        parent = client.create_tweet.await_args_list[0].kwargs["text"]
-        thread = " ".join(
-            call.kwargs["text"] for call in client.create_tweet.await_args_list[1:]
-        )
-        self.assertTrue(parent.startswith("DEVS & VIBE CODERS"))
-        self.assertIn("What it does, who it helps", parent)
-        self.assertIn("https://github.com/example/awesome-dev-tool", thread)
-        self.assertIn("WHAT IT DOES", thread)
-        self.assertIn(repo["description"], thread)
-        self.assertIn("BEFORE YOU USE IT", thread)
-        self.assertNotIn("Explain how this project can reduce", thread)
-        self.assertNotIn(repo["description"], parent)
-        self.assertEqual(state["builder_tip_post_count"], 4)
-        self.assertEqual(state["daily_count"], 4)
-        self.assertEqual(state["last_post_type"], "github_repo_spotlight")
-        self.assertEqual(state["builder_tip_posts"][-1]["status"], "published_github_repo_spotlight")
-        self.assertIn("example/awesome-dev-tool", state["github_repo_history"])
+        main_call, reply_call = client.create_tweet.await_args_list
+        self.assertIn("~12.3k★", main_call.kwargs["text"])
+        self.assertIn("https://github.com/example/awesome-dev-tool", main_call.kwargs["text"])
+        self.assertEqual(reply_call.kwargs["text"], repo["self_reply"])
+        self.assertEqual(reply_call.kwargs["reply_to"], "repo-main-id")
+        self.assertEqual(state["github_repo_post_count"], 1)
+        self.assertEqual(state["builder_tip_post_count"], 0)
+        self.assertEqual(state["daily_count"], 1)
+        self.assertEqual(state["github_repo_next_index"], 0)
+        self.assertEqual(state["last_post_type"], "github_repo_calendar")
+        self.assertEqual(state["github_repo_posts"][-1]["reply_status"], "published")
 
-
-    async def test_post_queue_enables_original_comparison_and_builder_lanes(self):
+    async def test_post_queue_enables_all_three_content_lanes(self):
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 23)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 19)
+        self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.POSTS_PER_DAY, 45)
