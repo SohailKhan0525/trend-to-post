@@ -252,7 +252,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             result = await post_queue._post_builder_tip(state, client)
 
         self.assertTrue(result)
-        self.assertTrue(client.create_tweet.await_args_list[0].kwargs["text"].startswith("DEVS & VIBE CODERS:"))
+        self.assertTrue(client.create_tweet.await_args_list[0].kwargs["text"].startswith("DEVS & VIBE CODERS\\n\\n"))
         self.assertIn("https://github.com/example/awesome-dev-tool", " ".join(
             call.kwargs["text"] for call in client.create_tweet.await_args_list[1:]
         ))
