@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 42,
-  "ai_call_count": 51,
-  "last_posted_at": "2026-10-18T22:01:32.142197+00:00",
+  "daily_count": 43,
+  "ai_call_count": 52,
+  "last_posted_at": "2026-10-18T22:31:20.006299+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111940769225531564",
+  "last_tweet_id": "2111948267970072667",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "developer_tool_schism",
-      "comedy_mechanism": "juxtaposes the aggressive ergonomics of floating buttons against the infuriating minimalism of hidden menus",
-      "used_at": "2026-10-18T09:01:30.878826+00:00",
-      "topic": "Floating Action Buttons or Three Hidden Hamburger Menus?",
-      "tweet_id": "2111744468856795218",
-      "content_type": "developer_comparison_meme",
-      "content_mode": "generated_text_free_visual",
-      "post_text": "Floating Action Buttons or Three Hidden Hamburger Menus?\n\nBe honest...",
-      "mutation_stage": "binary choice comparison",
-      "structure_signature": "comparison_headline_newline_opener"
-    },
     {
       "format_name": "builder_prompt_tip",
       "comedy_mechanism": "none",
@@ -369,10 +357,21 @@
       "post_text": "DID YOU KNOW?\nAdaptive onboarding paths let new users skip irrelevant setup screens based on their stated goal, cutting drop-off rates before the first session.\n\nREPLY PROMPT:\nBuild a production-grade multi-step onboarding wizard featuring persistent progress auto-saving, dynamic step injection based on user goals, and interactive card selection. Adopt a refined SaaS design language utilizing slate neutrals, an eight-pixel spacing grid, and an electric indigo accent token for active selection states. Implement a card-grid layout that cleanly separates goal selection from sequential form fields while maintaining fixed container boundaries across mobile, tablet, and desktop viewports. Provide fully articulated states for local storage sync indicators, empty configuration views, hovered option cards, error banners for failed state persistence, and disabled navigation buttons during active validation routines. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during step transitions, flawless keyboard navigation through option cards, and robust error handling ensuring interrupted sessions automatically restore previous progress without data loss. FOLLOW FOR MORE PROMPTS.",
       "mutation_stage": "did_you_know",
       "structure_signature": "did_you_know-explanation-reply_prompt-cta"
+    },
+    {
+      "format_name": "developer_workflow_schism",
+      "comedy_mechanism": "juxtaposes rigorous engineering discipline with superstitious gambling",
+      "used_at": "2026-10-18T22:31:20.006299+00:00",
+      "topic": "Static Type Checkers or Praying Before Compiling?",
+      "tweet_id": "2111948267970072667",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "text_only_comparison",
+      "post_text": "Static Type Checkers or Praying Before Compiling?\n\nBe honest...",
+      "mutation_stage": "binary choice question",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
     "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
@@ -401,7 +400,8 @@
     "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
-    "did_you_know-explanation-reply_prompt-cta"
+    "did_you_know-explanation-reply_prompt-cta",
+    "comparison_headline_newline_opener"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "builder_tip",
+  "last_post_type": "developer_comparison_meme",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -514,9 +514,9 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 20,
+  "person_photo_post_count": 21,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 2,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -796,6 +796,20 @@
       "comedy_mechanism": "juxtaposes self-hosted asset control with the constant anxiety of third-party network latency spikes",
       "structure_signature": "comparison_headline_newline_opener",
       "generated_at": "2026-10-18T21:01:37.384328+00:00",
+      "status": "published_generated_comparison"
+    },
+    {
+      "slot_number": 21,
+      "subject": "Static Type Checkers or Praying Before Compiling?",
+      "post": "Static Type Checkers or Praying Before Compiling?\n\nBe honest...",
+      "image_title": "",
+      "image_source_url": "",
+      "license_name": "",
+      "tweet_id": "2111948267970072667",
+      "format_name": "developer_workflow_schism",
+      "comedy_mechanism": "juxtaposes rigorous engineering discipline with superstitious gambling",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-18T22:31:20.006299+00:00",
       "status": "published_generated_comparison"
     }
   ],
@@ -1413,7 +1427,9 @@
     "7a3de7f10289705eb6a491c8a525ce43d6d34b9bf7f9869f145c2a0bc421012b",
     "1de9161cb2eb4d266074a0c5fffe8684b5311279ac1333f34de412f6e39bf16e",
     "f8625d6372130f8c4149b784af3771e59bb3ad8270daa0fdd8e92b5f6ddcb5fe",
-    "f833b6fced1d4d8b7d28d1d31891f77803bc13c9d8ca98d07ea22da29b55ea1c"
+    "f833b6fced1d4d8b7d28d1d31891f77803bc13c9d8ca98d07ea22da29b55ea1c",
+    "42fe4ad7fdcabe5fee48ecf19fe25088601581eaa282aa7519d9c2b95cd03a4b",
+    "c0eae67e51510fbdd69c84d3ed97adabcc00c65ba15138d02780335af91e6cab"
   ],
   "comparison_title_history": [
     "Dark Mode or Light Mode?",
@@ -1444,7 +1460,8 @@
     "Instant Error Boundaries or Five Minute Panic Dumps?",
     "Zero State Illustrations or Blinking Cursor of Despair?",
     "Strict Dependency Graphs or Vibes Based npm Installs?",
-    "Cached Local Fonts or Third-Party CDN Font Requests?"
+    "Cached Local Fonts or Third-Party CDN Font Requests?",
+    "Static Type Checkers or Praying Before Compiling?"
   ],
   "builder_post_hashes": [
     "20ae31f51007f37af6a99c071d67fa495ea4654bc68671ac9a04b2d8665acd7c",
