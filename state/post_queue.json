@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 0,
-  "ai_call_count": 4,
-  "last_posted_at": "2026-10-17T23:31:23.575117+00:00",
+  "daily_count": 1,
+  "ai_call_count": 6,
+  "last_posted_at": "2026-10-18T01:01:37.601720+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111600994723533105",
+  "last_tweet_id": "2111623702311751793",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -130,18 +130,6 @@
     "2108912332369989776"
   ],
   "format_lab": [
-    {
-      "format_name": "ai_workflow_schism",
-      "comedy_mechanism": "contrasts the structured ambition of automated multi-file editing with the superstitious exhaustion of hammering the tab key",
-      "used_at": "2026-10-17T08:01:33.329535+00:00",
-      "topic": "Cursor Composer or Tab and Pray?",
-      "tweet_id": "2111366993152454971",
-      "content_type": "developer_comparison_meme",
-      "content_mode": "generated_text_free_visual",
-      "post_text": "Cursor Composer or Tab and Pray?\n\nDevs be honest...",
-      "mutation_stage": "binary choice comparison",
-      "structure_signature": "comparison_headline_newline_opener"
-    },
     {
       "format_name": "builder_prompt_tip",
       "comedy_mechanism": "direct utility",
@@ -369,10 +357,21 @@
       "post_text": "DID YOU KNOW?\nBuilding a high-converting SaaS pricing page that avoids confusing tier matrices requires strict structural hierarchy and clear value differentiation.\nREPLY PROMPT:\nBuild a production-grade SaaS pricing page featuring a monthly and annual billing toggle, a multi-tier feature comparison matrix, and an interactive FAQ accordion. Adopt a pristine design language inspired by professional software, utilizing strict neutral grays, a four-pixel spacing grid, and a vibrant indigo accent token for recommended plan highlights. Implement a responsive multi-column card layout that clearly isolates starter, pro, and enterprise tiers while maintaining balanced vertical alignment across all screen sizes. Provide fully articulated states for billing toggle transitions, hovered feature tooltips, expanded accordion items, disabled checkout buttons during processing, and loading spinners for plan selection. Ensure all interactive elements maintain explicit keyboard focus rings, forty-four-pixel minimum touch targets, and WCAG AA contrast compliance across mobile, tablet, and desktop breakpoints. Acceptance criteria: zero layout shifts during billing interval switches, flawless keyboard tab navigation through complex comparison matrices, and robust error handling ensuring checkout failures display immediate, clear recovery guidance.\nFOLLOW FOR MORE PROMPTS.",
       "mutation_stage": "did_you_know_prompt_tip",
       "structure_signature": "did_you_know-explanation-reply_prompt-cta"
+    },
+    {
+      "format_name": "developer_workflow_schism",
+      "comedy_mechanism": "contrasts the masochistic pride of writing unreadable regex from scratch with the hollow survival mechanism of blindly pasting ancient forum code",
+      "used_at": "2026-10-18T01:01:37.601720+00:00",
+      "topic": "Hand-Tuned RegEx Patterns or Stack Overflow Copy Pastas?",
+      "tweet_id": "2111623702311751793",
+      "content_type": "developer_comparison_meme",
+      "content_mode": "generated_text_free_visual",
+      "post_text": "Hand-Tuned RegEx Patterns or Stack Overflow Copy Pastas?\n\nBe honest...",
+      "mutation_stage": "binary choice headline",
+      "structure_signature": "comparison_headline_newline_opener"
     }
   ],
   "recent_post_fingerprints": [
-    "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
     "comparison_headline_newline_opener",
@@ -401,7 +400,8 @@
     "comparison_headline_newline_opener",
     "did_you_know-explanation-reply_prompt-cta",
     "comparison_headline_newline_opener",
-    "did_you_know-explanation-reply_prompt-cta"
+    "did_you_know-explanation-reply_prompt-cta",
+    "comparison_headline_newline_opener"
   ],
   "brand_draft_queue": [],
   "brand_ai_call_count": 0,
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": null,
+  "last_post_type": "developer_comparison_meme",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -514,10 +514,25 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 0,
+  "person_photo_post_count": 1,
   "ai_tech_quote_post_count": 0,
   "next_lane_index": 0,
-  "person_photo_posts": [],
+  "person_photo_posts": [
+    {
+      "slot_number": 1,
+      "subject": "Hand-Tuned RegEx Patterns or Stack Overflow Copy Pastas?",
+      "post": "Hand-Tuned RegEx Patterns or Stack Overflow Copy Pastas?\n\nBe honest...",
+      "image_title": "Cloudflare FLUX.1 schnell text-free comparison illustration",
+      "image_source_url": "",
+      "license_name": "Generated with Cloudflare Workers AI @cf/black-forest-labs/flux-1-schnell",
+      "tweet_id": "2111623702311751793",
+      "format_name": "developer_workflow_schism",
+      "comedy_mechanism": "contrasts the masochistic pride of writing unreadable regex from scratch with the hollow survival mechanism of blindly pasting ancient forum code",
+      "structure_signature": "comparison_headline_newline_opener",
+      "generated_at": "2026-10-18T01:01:37.601720+00:00",
+      "status": "published_generated_comparison"
+    }
+  ],
   "ai_tech_quote_posts": [],
   "person_photo_day_key": "2026-10-18",
   "ai_tech_quote_day_key": null,
@@ -544,7 +559,9 @@
     "ec9336d72b35c4c8022c79d33f170158a1f229eb471dbe40162f9959e053e7cb",
     "79a434889808534a450d9e956589d3a23f239af4b483f9db8733df1ad0f3daf3",
     "0d5edae51ba04938c734d1b29e5a6fbadc2e8329bc5ba8ff0918c22c384d0c8d",
-    "03d791d855a472b0e5bb89f178449817e20d87eb8f55a40dae7609e360ed2b4c"
+    "03d791d855a472b0e5bb89f178449817e20d87eb8f55a40dae7609e360ed2b4c",
+    "d6980420cbae356743b8b602db0183a0a3825f4e1d87893bdedbfa666091251a",
+    "2bd17ceb9c67d6b8d942e0d1d705b5e45c9d3b73dd759899161f4fb6333cb41d"
   ],
   "comparison_title_history": [
     "Dark Mode or Light Mode?",
@@ -555,7 +572,8 @@
     "Rigid Design Systems or Pure Vibe Coding?",
     "SaaS Landing Pages or Terminal Dashboards?",
     "Strict TypeScript Types or 500 Console Logs?",
-    "Raw SQL Queries or ORM Magic?"
+    "Raw SQL Queries or ORM Magic?",
+    "Hand-Tuned RegEx Patterns or Stack Overflow Copy Pastas?"
   ],
   "builder_post_hashes": [
     "20ae31f51007f37af6a99c071d67fa495ea4654bc68671ac9a04b2d8665acd7c",
