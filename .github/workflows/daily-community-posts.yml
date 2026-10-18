@@ -1,0 +1,87 @@
+name: Daily Community Posts
+
+on:
+  schedule:
+    # 12:30 UTC = 18:00 India Standard Time
+    - cron: "30 12 * * *"
+    # 18:30 UTC = 00:00 India Standard Time on the following calendar day
+    - cron: "30 18 * * *"
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: "Which fixed community post to publish"
+        required: true
+        type: choice
+        options:
+          - connect
+          - building
+
+permissions:
+  contents: write
+
+concurrency:
+  group: x-daily-community-posts
+  cancel-in-progress: false
+
+jobs:
+  community-post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install X client
+        run: python -m pip install -r requirements.txt
+
+      - name: Validate X secrets
+        env:
+          X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
+          X_CT0: ${{ secrets.X_CT0 }}
+        shell: bash
+        run: |
+          test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
+          test -n "$X_CT0" || { echo "Missing X_CT0"; exit 1; }
+
+      - name: Publish fixed community post
+        id: publish
+        env:
+          X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
+          X_CT0: ${{ secrets.X_CT0 }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+          MANUAL_SLOT: ${{ inputs.slot }}
+        shell: bash
+        run: |
+          if test "$MANUAL_SLOT" = "connect"; then
+            COMMAND=community-connect
+          elif test "$MANUAL_SLOT" = "building"; then
+            COMMAND=community-building
+          elif test "$EVENT_SCHEDULE" = "30 18 * * *"; then
+            COMMAND=community-connect
+          elif test "$EVENT_SCHEDULE" = "30 12 * * *"; then
+            COMMAND=community-building
+          else
+            echo "::error::Could not determine the requested community-post slot."
+            exit 1
+          fi
+          python -m app "$COMMAND"
+
+      - name: Commit community-post idempotency state
+        if: always()
+        shell: bash
+        run: |
+          if test -z "$(git status --porcelain -- state/community_posts.json)"; then
+            echo "No community state change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/community_posts.json
+          git commit -m "chore: record daily community post"
+          git pull --rebase origin main
+          git push
