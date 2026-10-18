@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 6,
+  "daily_count": 7,
   "ai_call_count": 12,
-  "last_posted_at": "2026-10-18T03:31:17.854969+00:00",
+  "last_posted_at": "2026-10-18T04:01:28.261077+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111661368286011475",
+  "last_tweet_id": "2111668962018967837",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "github_repo_spotlight",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -516,7 +516,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 3,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 0,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -566,7 +566,7 @@
   "ai_tech_quote_day_key": null,
   "trend_names_used": [],
   "ai_tech_trend_names_used": [],
-  "builder_tip_post_count": 3,
+  "builder_tip_post_count": 4,
   "builder_tip_posts": [
     {
       "subject": "educational builder prompt",
@@ -660,6 +660,34 @@
       "generated_at": "2026-10-18T03:01:32.789673+00:00",
       "reply_status": "published",
       "status": "published_builder_tip"
+    },
+    {
+      "subject": "GitHub repository spotlight",
+      "content_type": "github_repo_spotlight",
+      "repo_full_name": "langgenius/dify",
+      "repo_url": "https://github.com/langgenius/dify",
+      "repo_description": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
+      "repo_stars": 158740,
+      "repo_language": "Python",
+      "format_name": "active GitHub repository spotlight",
+      "comedy_mechanism": "practical developer discovery",
+      "structure_signature": "github_repo_4f90f4c9419adf5ee62e9b52",
+      "slot_number": 4,
+      "post": "DEVS & VIBE CODERS: langgenius/dify is worth a look.\n\nBuild Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on…\n\nExplore it before building this from scratch.",
+      "reply_text": "GitHub repo: https://github.com/langgenius/dify\n\nWhat it does: Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.\n\nStars: 158,740 · Language: Python\n\nUseful for developers, software engineers, and vibe coders exploring tools before starting from scratch.",
+      "tweet_id": "2111668962018967837",
+      "thread_tweet_ids": [
+        "2111668962018967837",
+        "2111668962908062163",
+        "2111668964015444026"
+      ],
+      "reply_tweet_ids": [
+        "2111668962908062163",
+        "2111668964015444026"
+      ],
+      "generated_at": "2026-10-18T04:01:28.261077+00:00",
+      "reply_status": "published",
+      "status": "published_github_repo_spotlight"
     }
   ],
   "builder_tip_day_key": "2026-10-18",
@@ -729,6 +757,7 @@
   ],
   "github_repo_history": [
     "shadcn-ui/ui",
-    "shanraisshan/claude-code-best-practice"
+    "shanraisshan/claude-code-best-practice",
+    "langgenius/dify"
   ]
 }
