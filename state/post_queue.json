@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 13,
+  "daily_count": 14,
   "ai_call_count": 19,
-  "last_posted_at": "2026-10-18T07:01:56.030097+00:00",
+  "last_posted_at": "2026-10-18T07:31:15.396199+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111714376172634602",
+  "last_tweet_id": "2111721756314714498",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "github_repo_spotlight",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -516,7 +516,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 6,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 0,
+  "next_lane_index": 1,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -608,7 +608,7 @@
   "ai_tech_quote_day_key": null,
   "trend_names_used": [],
   "ai_tech_trend_names_used": [],
-  "builder_tip_post_count": 7,
+  "builder_tip_post_count": 8,
   "builder_tip_posts": [
     {
       "subject": "educational builder prompt",
@@ -823,6 +823,34 @@
       "generated_at": "2026-10-18T06:31:18.784066+00:00",
       "reply_status": "published",
       "status": "published_builder_tip"
+    },
+    {
+      "subject": "GitHub repository spotlight",
+      "content_type": "github_repo_spotlight",
+      "repo_full_name": "firecrawl/firecrawl",
+      "repo_url": "https://github.com/firecrawl/firecrawl",
+      "repo_description": "Supercharge your AI agents with data from the web and beyond. Building the library for superintelligence. 🔥",
+      "repo_stars": 192571,
+      "repo_language": "TypeScript",
+      "format_name": "active GitHub repository spotlight",
+      "comedy_mechanism": "practical developer discovery",
+      "structure_signature": "github_repo_257fc8d4f46dfb0c270af6c0",
+      "slot_number": 8,
+      "post": "DEVS & VIBE CODERS: firecrawl/firecrawl is worth a look.\n\nSupercharge your AI agents with data from the web and beyond. Building the library for superintelligence. 🔥\n\nExplore it before building this from scratch.",
+      "reply_text": "GitHub repo: https://github.com/firecrawl/firecrawl\n\nWhat it does: Supercharge your AI agents with data from the web and beyond. Building the library for superintelligence. 🔥\n\nStars: 192,571 · Language: TypeScript\n\nUseful for developers, software engineers, and vibe coders exploring tools before starting from scratch.",
+      "tweet_id": "2111721756314714498",
+      "thread_tweet_ids": [
+        "2111721756314714498",
+        "2111721757174620200",
+        "2111721758244086066"
+      ],
+      "reply_tweet_ids": [
+        "2111721757174620200",
+        "2111721758244086066"
+      ],
+      "generated_at": "2026-10-18T07:31:15.396199+00:00",
+      "reply_status": "published",
+      "status": "published_github_repo_spotlight"
     }
   ],
   "builder_tip_day_key": "2026-10-18",
@@ -908,6 +936,7 @@
   "github_repo_history": [
     "shadcn-ui/ui",
     "shanraisshan/claude-code-best-practice",
-    "langgenius/dify"
+    "langgenius/dify",
+    "firecrawl/firecrawl"
   ]
 }
