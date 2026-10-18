@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-18",
-  "daily_count": 35,
+  "daily_count": 36,
   "ai_call_count": 47,
-  "last_posted_at": "2026-10-18T18:31:17.778643+00:00",
+  "last_posted_at": "2026-10-18T19:01:26.762248+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2111887860739801101",
+  "last_tweet_id": "2111895448004821100",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "builder_tip",
+  "last_post_type": "github_repo_calendar",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -516,7 +516,7 @@
   "ai_tech_source_ids": [],
   "person_photo_post_count": 18,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 1,
+  "next_lane_index": 2,
   "person_photo_posts": [
     {
       "slot_number": 1,
@@ -1425,12 +1425,21 @@
     "DID YOU KNOW?\nBuilding a latency-optimized analytics settings panel requires debounced input handlers and persistent layout state.\nREPLY PROMPT:\nBuild a production-grade analytics settings and data governance dashboard featuring real-time toggle controls, custom metric configuration forms, and automated threshold alerts. Adopt an uncompromisingly spare design language inspired by professional enterprise software, utilizing strict neutral stone scales, a four-pixel spacing grid, and a precise teal accent token for active toggle states. Implement a multi-column grid layout that cleanly separates category navigation from configuration forms while maintaining fixed container boundaries across mobile, tablet, and desktop viewports. Provide fully articulated states for asynchronous settings synchronization spinners, empty preference views, hovered navigation items, error banners for failed configuration writes, and disabled action buttons during active network requests. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during rapid form inputs, flawless keyboard tab navigation through configuration fields, and robust error handling ensuring failed API updates preserve local unsaved state changes without data loss. FOLLOW FOR MORE PROMPTS.",
     "DID YOU KNOW?\nIsolating failed network payloads lets backend engineers inspect raw headers and rerun failed requests without digging through logs.\nREPLY PROMPT:\nBuild a production-grade developer API console featuring raw HTTP request editors, color-coded JSON response viewers, and one-click request retry triggers. Adopt a disciplined technical design language inspired by professional developer tooling, utilizing strict zinc neutrals, a four-pixel spacing grid, and a high-contrast emerald accent token for successful status codes. Implement a resizable split-pane layout that cleanly separates the request builder from the response inspector while maintaining fixed container boundaries across mobile, tablet, and desktop viewports. Provide fully articulated states for active network request spinners, empty history drawers, hovered endpoint actions, error banners for dropped payload connections, and disabled submit buttons during active transmission. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during large payload rendering, flawless keyboard navigation through response headers, and robust error handling ensuring dropped connections automatically preserve local draft state without crashing the debugging session. FOLLOW FOR MORE PROMPTS."
   ],
-  "github_repo_history": [
-    "shadcn-ui/ui",
-    "shanraisshan/claude-code-best-practice",
-    "langgenius/dify",
-    "firecrawl/firecrawl",
-    "x1xhlol/system-prompts-and-models-of-ai-tools",
-    "freeCodeCamp/freeCodeCamp"
-  ]
+  "github_repo_day_key": "2026-10-18",
+  "github_repo_post_count": 1,
+  "github_repo_posts": [
+    {
+      "repo": "obra/superpowers",
+      "calendar_index": 0,
+      "post": "Your coding agent may not need a better prompt. It may need a better process.\n\nsuperpowers (~302k★): Reusable agent skills for spec, plan, test, review. https://github.com/obra/superpowers\n\nWhich step does your agent skip most?",
+      "tweet_id": "2111895448004821100",
+      "reply_text": "Use this on a tiny feature first; don't hand it a production migration as the first experiment.",
+      "reply_tweet_id": "2111895449099481300",
+      "reply_status": "published",
+      "posted_at": "2026-10-18T19:01:26.762248+00:00",
+      "status": "published"
+    }
+  ],
+  "github_repo_next_index": 1,
+  "github_repo_skipped": []
 }
