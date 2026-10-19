@@ -33,36 +33,24 @@ def _long_builder_post():
 
 
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
-    def test_daily_plan_fills_all_45_slots_with_curated_repo_lane(self):
-        from collections import Counter
-
-        self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 19)
+    def test_only_curated_github_repo_lane_is_active(self):
+        self.assertEqual(post_queue.POSTS_PER_DAY, 4)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
-        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
-        self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(
-            post_queue.BUILDER_TIP_POSTS_PER_DAY
-            + post_queue.GITHUB_REPO_POSTS_PER_DAY
-            + post_queue.PERSON_PHOTO_POSTS_PER_DAY,
-            post_queue.POSTS_PER_DAY,
-        )
+        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 0)
         state = post_queue._new_state()
         published_lanes = []
         while state["daily_count"] < post_queue.POSTS_PER_DAY:
             lane = post_queue._select_next_lane(state)
             self.assertIsNotNone(lane)
             lane_name, count_key, limit, _publisher = lane
+            self.assertEqual(lane_name, "github_repo_calendar")
             self.assertLess(state[count_key], limit)
             state[count_key] += 1
             state["daily_count"] += 1
             published_lanes.append(lane_name)
-        self.assertEqual(Counter(published_lanes), {
-            "builder_tip": 19,
-            "github_repo_calendar": 4,
-            "comparison_meme": 22,
-        })
-        self.assertEqual(post_queue.POSTS_PER_DAY, 45)
+        self.assertEqual(published_lanes, ["github_repo_calendar"] * 4)
+        self.assertIsNone(post_queue._select_next_lane(state))
 
     def test_curated_github_calendar_contains_100_unique_under_limit_posts(self):
         repositories = post_queue._load_github_repo_calendar()
@@ -174,11 +162,13 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("steps.post_bot.outputs.skip_reason != 'interval_guard'", workflow)
         self.assertIn("steps.post_bot.outputs.skip_reason != 'no_eligible_source'", workflow)
         self.assertIn("POST_SKIP_REASON", workflow)
-        self.assertIn("DID YOU KNOW builder prompts", workflow)
+        self.assertIn("Active posting: 4 curated GitHub repository posts/day", workflow)
+        self.assertIn("Builder prompts and comparison memes are disabled", workflow)
+        self.assertNotIn("DID YOU KNOW builder prompts: ", workflow)
         self.assertIn("Curated GitHub repository posts", workflow)
         self.assertIn("data/github_repos_x_calendar_100_no_day_numbers.json", post_queue.GITHUB_REPO_CALENDAR_PATH.as_posix())
-        self.assertIn("Comparison memes", workflow)
-        self.assertIn("text-only comparison meme", workflow.lower())
+        self.assertNotIn("Comparison memes:", workflow)
+        self.assertNotIn("text-only comparison meme", workflow.lower())
         self.assertIn("Two additional fixed community posts", workflow)
         self.assertIn("X Trends quote posts (retired)", workflow)
         self.assertIn('test -n "$X_AUTH_TOKEN"', workflow)
@@ -232,10 +222,11 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(result, [])
 
-    async def test_x_trends_quote_lane_is_retired(self):
+    async def test_only_repository_posts_remain_active_in_main_queue(self):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 19)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
+        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 0)
 
     async def test_builder_tip_publishes_did_you_know_parent_and_prompt_reply_thread(self):
         state = post_queue._new_state()
@@ -316,15 +307,15 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(state["last_post_type"], "github_repo_calendar")
         self.assertEqual(state["github_repo_posts"][-1]["reply_status"], "published")
 
-    async def test_post_queue_enables_all_three_content_lanes(self):
-        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 22)
-        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 19)
+    async def test_post_queue_enables_only_curated_repository_lane(self):
+        self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 0)
+        self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.POSTS_PER_DAY, 45)
+        self.assertEqual(post_queue.POSTS_PER_DAY, 4)
 
-    async def test_queue_stops_when_forty_five_main_posts_are_complete(self):
+    async def test_queue_stops_when_four_curated_posts_are_complete(self):
         state = post_queue._new_state()
         state["daily_count"] = post_queue.POSTS_PER_DAY
         with (
