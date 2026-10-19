@@ -162,7 +162,7 @@ jobs:
               "## Daily queue progress",
               "",
               f"- UTC date: {state.get('day_key', 'unknown')}",
-          "- Active posting: 4 curated GitHub repository posts/day from the JSON calendar + 2 fixed community posts/day in a separate workflow. Total: 6 main posts/day. Builder prompts and comparison memes are disabled.",
+          "- Active posting: 4 curated GitHub repository posts/day from the JSON calendar. Two additional fixed community posts/day run separately. Total: 6 main posts/day. Builder prompts and comparison memes are disabled.",
               f"- Curated queue posts published: {state.get('daily_count', 0)}/4",
               f"- This run published a post: {os.environ.get('POST_PUBLISHED', 'unknown')}",
               f"- This run skip reason: {os.environ.get('POST_SKIP_REASON', 'unknown')}",
