@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-19",
-  "daily_count": 8,
+  "daily_count": 2,
   "ai_call_count": 9,
-  "last_posted_at": "2026-10-19T04:31:15.706532+00:00",
+  "last_posted_at": "2026-10-19T05:31:14.786094+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2112038846896410920",
+  "last_tweet_id": "2112053942058398134",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "developer_comparison_meme",
+  "last_post_type": "github_repo_calendar",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -514,73 +514,16 @@
   ],
   "skipped_person_image_titles": [],
   "ai_tech_source_ids": [],
-  "person_photo_post_count": 4,
+  "person_photo_post_count": 0,
   "ai_tech_quote_post_count": 0,
-  "next_lane_index": 2,
-  "person_photo_posts": [
-    {
-      "slot_number": 1,
-      "subject": "Dry Run Sessions or Prod Incidents?",
-      "post": "Dry Run Sessions or Prod Incidents?\n\nBe honest...",
-      "image_title": "",
-      "image_source_url": "",
-      "license_name": "",
-      "tweet_id": "2111978449749651578",
-      "format_name": "strict_comparison_meme",
-      "comedy_mechanism": "the promise of zero-damage testing is undercut by the reality that the money printer always breaks in production",
-      "structure_signature": "contrast_confidence_vs_failure",
-      "generated_at": "2026-10-19T00:31:15.857179+00:00",
-      "status": "published_generated_comparison"
-    },
-    {
-      "slot_number": 2,
-      "subject": "Semantic HTML Tags or Ten Nested Div Containers?",
-      "post": "Semantic HTML Tags or Ten Nested Div Containers?\n\nBe honest...",
-      "image_title": "",
-      "image_source_url": "",
-      "license_name": "",
-      "tweet_id": "2111993553161437286",
-      "format_name": "developer_workflow_schism",
-      "comedy_mechanism": "contrasts the strict semantics of clean web markup against the absolute structural psychosis of endless div nesting",
-      "structure_signature": "comparison_headline_newline_opener",
-      "generated_at": "2026-10-19T01:31:16.834527+00:00",
-      "status": "published_generated_comparison"
-    },
-    {
-      "slot_number": 3,
-      "subject": "High-DPI Screens or 3000-Pixel Tailwind Sheet?",
-      "post": "High-DPI Screens or 3000-Pixel Tailwind Sheet?\n\nBe honest...",
-      "image_title": "",
-      "image_source_url": "",
-      "license_name": "",
-      "tweet_id": "2112016291271745630",
-      "format_name": "strict_comparison_meme",
-      "comedy_mechanism": "collides the technical fetish for resolution clarity with the corporate absurdity of bloated abstraction classes",
-      "structure_signature": "headline_newline_opener",
-      "generated_at": "2026-10-19T03:01:37.999733+00:00",
-      "status": "published_generated_comparison"
-    },
-    {
-      "slot_number": 4,
-      "subject": "Semantic Variables or Midnight Guessing Constants?",
-      "post": "Semantic Variables or Midnight Guessing Constants?\n\nBe honest...",
-      "image_title": "",
-      "image_source_url": "",
-      "license_name": "",
-      "tweet_id": "2112038846896410920",
-      "format_name": "developer_workflow_schism",
-      "comedy_mechanism": "juxtaposes professional variable naming discipline against superstitious exhaustion-driven guessing",
-      "structure_signature": "comparison_headline_newline_opener",
-      "generated_at": "2026-10-19T04:31:15.706532+00:00",
-      "status": "published_generated_comparison"
-    }
-  ],
+  "next_lane_index": 0,
+  "person_photo_posts": [],
   "ai_tech_quote_posts": [],
   "person_photo_day_key": "2026-10-19",
   "ai_tech_quote_day_key": null,
   "trend_names_used": [],
   "ai_tech_trend_names_used": [],
-  "builder_tip_post_count": 3,
+  "builder_tip_post_count": 0,
   "builder_tip_posts": [
     {
       "subject": "educational builder prompt",
@@ -841,7 +784,7 @@
     "DID YOU KNOW?\nGrouping duplicate support tickets and displaying recent customer history lets agents resolve issues instantly without switching tabs or asking repeat questions.\n\nREPLY PROMPT:\nBuild a production-grade customer support triage inbox featuring automated duplicate ticket clustering, inline customer history timelines, and rapid response macro triggers. Adopt a clean operations design language utilizing cool-grey neutrals, a four-pixel spacing grid, and a vibrant azure accent token for priority status tags. Implement a three-column master-detail layout that cleanly separates the incoming ticket queue from grouped duplicate threads and individual customer profiles across mobile, tablet, and desktop viewports. Provide fully articulated states for real-time incoming message spinners, empty thread queues, hovered list items, error banners for dropped websocket connections, and disabled send buttons during active replies. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during rapid thread switching, flawless keyboard navigation through ticket lists, and robust error handling ensuring interrupted transmissions automatically preserve draft text without data loss.\nFOLLOW FOR MORE PROMPTS."
   ],
   "github_repo_day_key": "2026-10-19",
-  "github_repo_post_count": 1,
+  "github_repo_post_count": 2,
   "github_repo_posts": [
     {
       "repo": "browser-use/browser-use",
@@ -853,8 +796,20 @@
       "reply_status": "published",
       "posted_at": "2026-10-19T03:31:13.415474+00:00",
       "status": "published"
+    },
+    {
+      "repo": "shadcn-ui/ui",
+      "calendar_index": 5,
+      "post": "Want a polished UI without being trapped in a component black box?\n\nui (~126k★): Customizable UI components you can own. https://github.com/shadcn-ui/ui\n\nWhich component should every starter kit include?",
+      "tweet_id": "2112053942058398134",
+      "reply_text": "It's a great accelerator, not a substitute for a consistent design system.",
+      "reply_tweet_id": "2112053943744315866",
+      "reply_status": "published",
+      "posted_at": "2026-10-19T05:31:14.786094+00:00",
+      "status": "published"
     }
   ],
-  "github_repo_next_index": 5,
-  "github_repo_skipped": []
+  "github_repo_next_index": 6,
+  "github_repo_skipped": [],
+  "queue_mode_version": "github_repo_and_community_only_v1"
 }
