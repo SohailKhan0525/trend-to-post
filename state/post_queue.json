@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-19",
-  "daily_count": 3,
+  "daily_count": 4,
   "ai_call_count": 9,
-  "last_posted_at": "2026-10-19T06:01:27.921775+00:00",
+  "last_posted_at": "2026-10-19T07:01:27.040846+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2112061547191452127",
+  "last_tweet_id": "2112076643288182844",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_calendar",
+  "last_post_type": "grok_bait",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -822,5 +822,18 @@
   ],
   "github_repo_next_index": 7,
   "github_repo_skipped": [],
-  "queue_mode_version": "github_repo_and_community_only_v1"
+  "queue_mode_version": "github_repo_grok_bait_community_only_v2",
+  "grok_bait_day_key": "2026-10-19",
+  "grok_bait_post_count": 1,
+  "grok_bait_posts": [
+    {
+      "id": "grok_bait_01",
+      "title": "The 'Be honest' filter",
+      "post": "If a post starts with “Be honest,” @grok can you reply “You first” and let nature take its course?",
+      "tweet_id": "2112076643288182844",
+      "posted_at": "2026-10-19T07:01:27.040846+00:00",
+      "status": "published"
+    }
+  ],
+  "grok_bait_next_index": 1
 }
