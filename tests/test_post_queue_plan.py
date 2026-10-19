@@ -174,7 +174,7 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("Active posting: 4 curated GitHub repository posts/day plus 3 Grok-bait posts/day", workflow)
         self.assertIn("DID YOU KNOW builder prompts and comparison memes are disabled", workflow)
         self.assertIn("Total: 9 main posts/day", workflow)
-        self.assertIn("data/grok_bait_x_posts_40_no_self_replies.json", workflow)
+        self.assertIn("data/grok_bait_x_posts_40_no_self_replies.json", post_queue.GROK_BAIT_CALENDAR_PATH.as_posix())
         self.assertIn("grok_bait_post_count", workflow)
         self.assertNotIn("DID YOU KNOW builder prompts: ", workflow)
         self.assertIn("Curated GitHub repository posts", workflow)
