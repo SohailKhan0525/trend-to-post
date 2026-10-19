@@ -34,13 +34,13 @@ from .trend_source import (
 
 STATE_PATH = Path("state/post_queue.json")
 GITHUB_REPO_CALENDAR_PATH = Path("data/github_repos_x_calendar_100_no_day_numbers.json")
-POSTS_PER_DAY = 45
+POSTS_PER_DAY = 4
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
 TREND_QUOTE_POSTS_PER_DAY = 0  # retired: no more X Trends quote-posts
-BUILDER_TIP_POSTS_PER_DAY = 19
+BUILDER_TIP_POSTS_PER_DAY = 0
 GITHUB_REPO_POSTS_PER_DAY = 4
 LEGACY_TREND_QUOTE_POSTS_PER_DAY = 12  # tolerate state from the previous daily cap
-PERSON_PHOTO_POSTS_PER_DAY = 22  # This legacy state field now stores comparison memes.
+PERSON_PHOTO_POSTS_PER_DAY = 0  # Disabled: only curated GitHub repositories and fixed community posts remain.
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
 # Allow retries across flaky source searches/provider responses without changing
 # the hard cap of 45 successfully published main posts.
@@ -1926,10 +1926,6 @@ async def post_next(
         print(f"Daily content-slot limit reached: {POSTS_PER_DAY}.")
         _set_workflow_output("skip_reason", "daily_cap")
         return False
-    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
-        print(f"Daily generation-attempt budget reached: {AI_GENERATIONS_PER_DAY}.")
-        _set_workflow_output("skip_reason", "generation_budget")
-        return False
     if not _interval_ok(state):
         _set_workflow_output("skip_reason", "interval_guard")
         return False
@@ -1938,15 +1934,13 @@ async def post_next(
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; X auth cookies may be expired.")
 
-    # Pick the lane most behind its proportional share of today's 45 main-post slots.
-    # This spreads four curated repos across the day and catches up if state starts mid-day.
+    # Only the curated repository lane remains active in the main queue.
+    # Fixed community posts run independently in daily-community-posts.yml.
     lane = _select_next_lane(state)
     if lane is None:
         print(
             "Daily content plan complete: "
-            f"builder tips {state.get('builder_tip_post_count', 0)}/{BUILDER_TIP_POSTS_PER_DAY}, "
-            f"curated GitHub repositories {state.get('github_repo_post_count', 0)}/{GITHUB_REPO_POSTS_PER_DAY}, "
-            f"comparison memes {state.get('person_photo_post_count', 0)}/{PERSON_PHOTO_POSTS_PER_DAY}."
+            f"curated GitHub repositories {state.get('github_repo_post_count', 0)}/{GITHUB_REPO_POSTS_PER_DAY}."
         )
         _set_workflow_output("skip_reason", "daily_plan_complete")
         return False
@@ -1960,7 +1954,6 @@ async def post_next(
         if not (gemini_api_key or os.environ.get("GEMINI_API_KEY", "").strip()):
             raise QueueError("GEMINI_API_KEY is required for AI-generated posts.")
 
-    state["next_lane_index"] = (int(state.get("next_lane_index", 0)) + 1) % 3
     _save_state(state)
     print(f"Queue attempting planned lane: {lane_name} ({state.get(count_key, 0)}/{target}).")
     try:
