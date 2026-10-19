@@ -1,0 +1,208 @@
+{
+  "title": "40 Unique Grok-Bait Posts for X (No Self-Replies)",
+  "version": "2.0",
+  "platform": "X",
+  "total_posts": 40,
+  "posts": [
+    {
+      "id": "grok_bait_01",
+      "title": "The 'Be honest' filter",
+      "post": "If a post starts with “Be honest,” @grok can you reply “You first” and let nature take its course?"
+    },
+    {
+      "id": "grok_bait_02",
+      "title": "The thread detector",
+      "post": "@grok, please invent a warning label for threads that could have been one sentence. Keep it short enough to fit above the 🧵."
+    },
+    {
+      "id": "grok_bait_03",
+      "title": "The 'nobody talks about this' counter",
+      "post": "When someone says “Nobody talks about this” on X, @grok, count the 300 people who posted it this morning."
+    },
+    {
+      "id": "grok_bait_04",
+      "title": "Humble announcement translator",
+      "post": "@grok, translate “I’m humbled and excited to announce…” into the version the author said out loud in their room."
+    },
+    {
+      "id": "grok_bait_05",
+      "title": "Stealth mode audit",
+      "post": "A founder says they’re in stealth mode. @grok, help me determine whether the company is secret—or the product just isn’t ready."
+    },
+    {
+      "id": "grok_bait_06",
+      "title": "The source button",
+      "post": "@grok, propose a new X button for bold claims. It should say: “Source?” or “Did a podcast tell you this?”"
+    },
+    {
+      "id": "grok_bait_07",
+      "title": "The likes test",
+      "post": "@grok, design a 24-hour experiment: hide the like count from people who say “I don’t care about likes.” What’s the hypothesis?"
+    },
+    {
+      "id": "grok_bait_08",
+      "title": "Good morning at 4 PM",
+      "post": "@grok, please explain why “Good morning, X” posted at 4 PM has the energy of someone waking up from a 3-year nap."
+    },
+    {
+      "id": "grok_bait_09",
+      "title": "AI startup completion",
+      "post": "@grok, autocomplete this startup pitch: “We put AI into ___, added a waitlist, and now we’re…” Make the ending realistic."
+    },
+    {
+      "id": "grok_bait_10",
+      "title": "The secret DM funnel",
+      "post": "When someone says “DM me ‘AI’ for my secret prompt,” @grok, guess how many pages the PDF is before getting to the prompt."
+    },
+    {
+      "id": "grok_bait_11",
+      "title": "Screenshot recursion",
+      "post": "@grok, map the journey of an X post that screenshots another X post, which screenshots a post about screenshots. I need the family tree."
+    },
+    {
+      "id": "grok_bait_12",
+      "title": "Apology from my tabs",
+      "post": "@grok, write a formal apology from my 47 open browser tabs to my laptop fan. They need to take accountability."
+    },
+    {
+      "id": "grok_bait_13",
+      "title": "Shipping soon archive",
+      "post": "@grok, my product has been “shipping soon” for months. Draft a status update that tells the truth without calling me out by name."
+    },
+    {
+      "id": "grok_bait_14",
+      "title": "Let that sink in",
+      "post": "@grok, translate “Let that sink in” into plain English, with absolutely no motivational-poster energy."
+    },
+    {
+      "id": "grok_bait_15",
+      "title": "Thoughts? after the essay",
+      "post": "Someone posts 26 paragraphs and ends with “Thoughts?” @grok, what’s the shortest honest reply that won’t start a civil war?"
+    },
+    {
+      "id": "grok_bait_16",
+      "title": "Big things coming",
+      "post": "@grok, when an account posts “Big things coming 👀,” ask one follow-up question that separates a real launch from a vague teaser."
+    },
+    {
+      "id": "grok_bait_17",
+      "title": "Revenue while sleeping",
+      "post": "@grok, a creator says they made money while sleeping. Please investigate whether they also did anything while awake."
+    },
+    {
+      "id": "grok_bait_18",
+      "title": "Bio title generator",
+      "post": "@grok, turn “Founder | Creator | Investor | Visionary” into a job title that fits on an actual business card."
+    },
+    {
+      "id": "grok_bait_19",
+      "title": "The humblebrag detector",
+      "post": "@grok, build a humblebrag detector that flags sentences like “I’m so tired of all these amazing opportunities.” What should the alert say?"
+    },
+    {
+      "id": "grok_bait_20",
+      "title": "The DM that vanished",
+      "post": "@grok, write the missing scene after someone says “Let’s definitely connect” and then disappears from the internet forever."
+    },
+    {
+      "id": "grok_bait_21",
+      "title": "Vibe-coding incident report",
+      "post": "@grok, write an incident report for a vibe coder whose prompt worked, the app launched, and nobody knows why it works."
+    },
+    {
+      "id": "grok_bait_22",
+      "title": "Bug math",
+      "post": "@grok, explain the developer equation: fix 1 bug + accidentally create 3 bugs = “refactoring progress.” Show your work."
+    },
+    {
+      "id": "grok_bait_23",
+      "title": "Self-documenting code",
+      "post": "@grok, write a missing README for a function named `doStuff()` that has 900 lines and one comment saying “temporary.”"
+    },
+    {
+      "id": "grok_bait_24",
+      "title": "Friday deploy horoscope",
+      "post": "@grok, give developers who deploy on Friday afternoon a horoscope. Their lucky number is the incident ticket they haven’t received yet."
+    },
+    {
+      "id": "grok_bait_25",
+      "title": "AI will replace everyone",
+      "post": "@grok, when someone predicts AI will replace every developer, ask them to describe the last bug they personally fixed."
+    },
+    {
+      "id": "grok_bait_26",
+      "title": "Prompt engineer badge",
+      "post": "@grok, design a certification exam for people who call themselves prompt engineers. First question: what does “act as an expert” actually guarantee?"
+    },
+    {
+      "id": "grok_bait_27",
+      "title": "Portfolio loading screen",
+      "post": "@grok, review a developer portfolio with 14 animations, 3D text, and zero shipped projects. Give it a brutally fair headline."
+    },
+    {
+      "id": "grok_bait_28",
+      "title": "Side-project therapist",
+      "post": "@grok, act as a therapist for my abandoned side projects. They need to explain how it felt when I started a new repo instead of finishing them."
+    },
+    {
+      "id": "grok_bait_29",
+      "title": "GitHub stars vs ego",
+      "post": "@grok, create a gentle warning for developers whose GitHub star count has grown faster than their ability to accept a code review."
+    },
+    {
+      "id": "grok_bait_30",
+      "title": "Founder math calculator",
+      "post": "@grok, check this forecast: 10 users today, 100% monthly growth, therefore IPO next Tuesday. Which cell in the spreadsheet needs adult supervision?"
+    },
+    {
+      "id": "grok_bait_31",
+      "title": "Pitch-deck buzzword tax",
+      "post": "@grok, charge this pitch deck a tax for every use of “disrupt,” “synergy,” and “AI-powered.” What’s the total and what could it fund instead?"
+    },
+    {
+      "id": "grok_bait_32",
+      "title": "Coming soon calendar",
+      "post": "@grok, create a calendar event for every feature labeled “coming soon.” Make the reminder read: “Soon is not a date.”"
+    },
+    {
+      "id": "grok_bait_33",
+      "title": "One-line context collapse",
+      "post": "@grok, summarize this entire post in one sentence that makes the author wonder why they typed all the other sentences."
+    },
+    {
+      "id": "grok_bait_34",
+      "title": "The 12-word limit",
+      "post": "@grok, you have exactly 12 words to explain why my last post didn’t get the reaction I expected. No generic advice."
+    },
+    {
+      "id": "grok_bait_35",
+      "title": "Reverse psychology test",
+      "post": "@grok, do NOT make this post funny. Please provide a dull, corporate explanation of why it has the energy of a forgotten group chat."
+    },
+    {
+      "id": "grok_bait_36",
+      "title": "Polite performance review",
+      "post": "@grok, review my X account like a manager who has to be polite in writing but is brutally honest in the private notes."
+    },
+    {
+      "id": "grok_bait_37",
+      "title": "Screenshot context check",
+      "post": "@grok, inspect the screenshot I attach and identify the most confident sentence with the least supporting evidence. Keep the verdict to one line."
+    },
+    {
+      "id": "grok_bait_38",
+      "title": "Pick the weak link",
+      "post": "@grok, choose which needs the most work: my bio, my posting schedule, my hooks, or my habit of checking analytics. Explain your choice in one sentence."
+    },
+    {
+      "id": "grok_bait_39",
+      "title": "The vague-post decoder",
+      "post": "@grok, decode this classic post: “Some people really show you who they are.” Give me the translation without the mystery soundtrack."
+    },
+    {
+      "id": "grok_bait_40",
+      "title": "The final ironic audit",
+      "post": "@grok, audit this post for signs that it was written to get engagement. Be specific, then tell me whether asking for that audit makes it worse."
+    }
+  ]
+}
