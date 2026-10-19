@@ -68,6 +68,23 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(all(len(item["post"]) <= 280 for item in posts))
         self.assertTrue(all("@grok" in item["post"].lower() for item in posts))
 
+    async def test_grok_bait_publisher_posts_supplied_copy_without_self_reply(self):
+        state = post_queue._new_state()
+        state["day_key"] = post_queue._today()
+        state["daily_count"] = 0
+        client = SimpleNamespace(create_tweet=AsyncMock(return_value=SimpleNamespace(id="grok-main-id")))
+        posts = post_queue._load_grok_bait_calendar()
+        with patch.object(post_queue, "_save_state"):
+            result = await post_queue._post_grok_bait(state, client)
+
+        self.assertTrue(result)
+        client.create_tweet.assert_awaited_once_with(text=posts[0]["post"])
+        self.assertEqual(state["grok_bait_post_count"], 1)
+        self.assertEqual(state["daily_count"], 1)
+        self.assertEqual(state["grok_bait_next_index"], 1)
+        self.assertEqual(state["last_post_type"], "grok_bait")
+        self.assertEqual(state["grok_bait_posts"][-1]["tweet_id"], "grok-main-id")
+
     def test_mention_posts_are_limited_to_two_in_rolling_48_hours(self):
         from datetime import datetime, timedelta, timezone
 
