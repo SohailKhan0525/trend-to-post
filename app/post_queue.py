@@ -1154,6 +1154,31 @@ def _load_github_repo_calendar() -> list[dict]:
     return repositories
 
 
+def _load_grok_bait_calendar() -> list[dict]:
+    """Load and validate the supplied no-self-reply Grok-bait JSON calendar."""
+    try:
+        payload = json.loads(GROK_BAIT_CALENDAR_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise QueueError(f"Could not load Grok-bait calendar: {exc}") from exc
+    posts = payload.get("posts") if isinstance(payload, dict) else None
+    if not isinstance(posts, list) or not posts:
+        raise QueueError("Grok-bait calendar must contain a non-empty posts list.")
+    seen: set[str] = set()
+    for index, item in enumerate(posts):
+        if not isinstance(item, dict):
+            raise QueueError(f"Grok-bait calendar entry {index} is not an object.")
+        post_id = str(item.get("id", "")).strip()
+        post_text = str(item.get("post", "")).strip()
+        if not post_id or post_id.casefold() in seen:
+            raise QueueError(f"Missing or duplicate Grok-bait post id at entry {index}.")
+        seen.add(post_id.casefold())
+        if not post_text or len(post_text) > 280 or "@grok" not in post_text.casefold():
+            raise QueueError(f"Invalid or over-length Grok-bait X post at entry {index}.")
+    if payload.get("total_posts") not in (None, len(posts)):
+        raise QueueError("Grok-bait calendar total_posts does not match the posts list.")
+    return posts
+
+
 def _get_live_github_repo_metadata(repo_full_name: str) -> dict | None:
     """Refresh repository status and star count before publishing a curated entry."""
     request = urllib.request.Request(
