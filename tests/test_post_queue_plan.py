@@ -171,8 +171,11 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("steps.post_bot.outputs.skip_reason != 'interval_guard'", workflow)
         self.assertIn("steps.post_bot.outputs.skip_reason != 'no_eligible_source'", workflow)
         self.assertIn("POST_SKIP_REASON", workflow)
-        self.assertIn("Active posting: 4 curated GitHub repository posts/day", workflow)
-        self.assertIn("Builder prompts and comparison memes are disabled", workflow)
+        self.assertIn("Active posting: 4 curated GitHub repository posts/day plus 3 Grok-bait posts/day", workflow)
+        self.assertIn("DID YOU KNOW builder prompts and comparison memes are disabled", workflow)
+        self.assertIn("Total: 9 main posts/day", workflow)
+        self.assertIn("data/grok_bait_x_posts_40_no_self_replies.json", workflow)
+        self.assertIn("grok_bait_post_count", workflow)
         self.assertNotIn("DID YOU KNOW builder prompts: ", workflow)
         self.assertIn("Curated GitHub repository posts", workflow)
         self.assertIn("data/github_repos_x_calendar_100_no_day_numbers.json", post_queue.GITHUB_REPO_CALENDAR_PATH.as_posix())
@@ -282,15 +285,16 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(state["last_post_type"], "github_repo_calendar")
         self.assertEqual(state["github_repo_posts"][-1]["reply_status"], "published")
 
-    async def test_post_queue_enables_only_curated_repository_lane(self):
+    async def test_post_queue_enables_only_repo_and_grok_bait_lanes(self):
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
+        self.assertEqual(post_queue.GROK_BAIT_POSTS_PER_DAY, 3)
         self.assertEqual(post_queue.AI_TECH_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
-        self.assertEqual(post_queue.POSTS_PER_DAY, 4)
+        self.assertEqual(post_queue.POSTS_PER_DAY, 7)
 
-    async def test_queue_stops_when_four_curated_posts_are_complete(self):
+    async def test_queue_stops_when_seven_active_queue_posts_are_complete(self):
         state = post_queue._new_state()
         state["daily_count"] = post_queue.POSTS_PER_DAY
         with (
