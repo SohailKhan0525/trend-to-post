@@ -44,14 +44,12 @@ GROK_BAIT_POSTS_PER_DAY = 3
 LEGACY_TREND_QUOTE_POSTS_PER_DAY = 12  # tolerate state from the previous daily cap
 PERSON_PHOTO_POSTS_PER_DAY = 0  # Disabled: only curated GitHub repositories and fixed community posts remain.
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
-# Allow retries across flaky source searches/provider responses without changing
-# the hard cap of 45 successfully published main posts.
+# Keep source-retry budgets separate from the seven-post daily publication cap.
 AI_GENERATIONS_PER_DAY = 120
 ORIGINAL_POSTS_PER_DAY = 11  # legacy state compatibility only
 # The external dispatcher and scheduled fallback both run every 30 minutes.
-# A 20-minute guard allows the 45-slot daily plan to progress while preventing
-# closely spaced duplicate dispatches. Active lane quotas are 23 builder prompts/repo
-# spotlights and 22 comparison memes, matching the 45-post hard cap.
+# A 20-minute guard allows the seven main-queue slots to progress while preventing
+# closely spaced duplicate dispatches.
 MIN_POST_INTERVAL_MINUTES = 20
 
 
