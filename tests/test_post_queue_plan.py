@@ -33,10 +33,11 @@ def _long_builder_post():
 
 
 class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
-    def test_only_curated_github_repo_lane_is_active(self):
-        self.assertEqual(post_queue.POSTS_PER_DAY, 4)
+    def test_only_curated_github_and_grok_bait_lanes_are_active(self):
+        self.assertEqual(post_queue.POSTS_PER_DAY, 7)
         self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
+        self.assertEqual(post_queue.GROK_BAIT_POSTS_PER_DAY, 3)
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 0)
         state = post_queue._new_state()
         published_lanes = []
@@ -44,12 +45,13 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
             lane = post_queue._select_next_lane(state)
             self.assertIsNotNone(lane)
             lane_name, count_key, limit, _publisher = lane
-            self.assertEqual(lane_name, "github_repo_calendar")
+            self.assertIn(lane_name, {"github_repo_calendar", "grok_bait"})
             self.assertLess(state[count_key], limit)
             state[count_key] += 1
             state["daily_count"] += 1
             published_lanes.append(lane_name)
-        self.assertEqual(published_lanes, ["github_repo_calendar"] * 4)
+        self.assertEqual(published_lanes.count("github_repo_calendar"), 4)
+        self.assertEqual(published_lanes.count("grok_bait"), 3)
         self.assertIsNone(post_queue._select_next_lane(state))
 
     def test_curated_github_calendar_contains_100_unique_under_limit_posts(self):
@@ -58,6 +60,13 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len({item["repo"].casefold() for item in repositories}), 100)
         self.assertTrue(all(len(item["x_post"]) <= 280 for item in repositories))
         self.assertTrue(all(item["url"] in item["x_post"] for item in repositories))
+
+    def test_grok_bait_calendar_contains_40_unique_under_limit_posts(self):
+        posts = post_queue._load_grok_bait_calendar()
+        self.assertEqual(len(posts), 40)
+        self.assertEqual(len({item["id"] for item in posts}), 40)
+        self.assertTrue(all(len(item["post"]) <= 280 for item in posts))
+        self.assertTrue(all("@grok" in item["post"].lower() for item in posts))
 
     def test_mention_posts_are_limited_to_two_in_rolling_48_hours(self):
         from datetime import datetime, timedelta, timezone
@@ -222,10 +231,11 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(result, [])
 
-    async def test_only_repository_posts_remain_active_in_main_queue(self):
+    async def test_only_repository_and_grok_bait_posts_remain_active_in_main_queue(self):
         self.assertEqual(post_queue.TREND_QUOTE_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.BUILDER_TIP_POSTS_PER_DAY, 0)
         self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
+        self.assertEqual(post_queue.GROK_BAIT_POSTS_PER_DAY, 3)
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 0)
 
     async def test_curated_github_repo_lane_uses_json_post_and_self_reply(self):
