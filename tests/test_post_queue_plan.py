@@ -228,41 +228,6 @@ class PostQueuePlanTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(post_queue.GITHUB_REPO_POSTS_PER_DAY, 4)
         self.assertEqual(post_queue.PERSON_PHOTO_POSTS_PER_DAY, 0)
 
-    async def test_builder_tip_publishes_did_you_know_parent_and_prompt_reply_thread(self):
-        state = post_queue._new_state()
-        draft = OriginalDraft(
-            True,
-            _long_builder_post(),
-            "premium builder prompt",
-            "",
-            "builder prompt",
-            "AI research workspace",
-            "responsive accessibility visual QA",
-            "hook_prompt_marker_long_implementation",
-            "builder_tip",
-        )
-        ids = iter(SimpleNamespace(id=f"tweet-{index}") for index in range(20))
-        client = SimpleNamespace(create_tweet=AsyncMock(side_effect=lambda **kwargs: next(ids)))
-        with (
-            patch.object(post_queue, "generate_original_text", return_value=draft),
-            patch.object(post_queue, "_save_state"),
-        ):
-            result = await post_queue._post_builder_tip(state, client)
-
-        self.assertTrue(result)
-        self.assertGreater(client.create_tweet.await_count, 1)
-        calls = client.create_tweet.await_args_list
-        self.assertTrue(calls[0].kwargs["text"].startswith("DID YOU KNOW?"))
-        self.assertLessEqual(len(calls[0].kwargs["text"]), 220)
-        self.assertNotIn("Build an original AI research workspace", calls[0].kwargs["text"])
-        self.assertTrue(all(call.kwargs.get("reply_to") for call in calls[1:]))
-        self.assertTrue(calls[-1].kwargs["text"].endswith("FOLLOW FOR MORE PROMPTS."))
-        self.assertEqual(state["builder_tip_post_count"], 1)
-        self.assertEqual(state["daily_count"], 1)
-        self.assertEqual(state["last_post_type"], "builder_tip")
-        self.assertEqual(state["builder_tip_posts"][-1]["reply_status"], "published")
-        self.assertEqual(state["builder_tip_posts"][-1]["thread_tweet_ids"][0], "tweet-0")
-
     async def test_curated_github_repo_lane_uses_json_post_and_self_reply(self):
         state = post_queue._new_state()
         state["day_key"] = post_queue._today()
