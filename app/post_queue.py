@@ -34,11 +34,13 @@ from .trend_source import (
 
 STATE_PATH = Path("state/post_queue.json")
 GITHUB_REPO_CALENDAR_PATH = Path("data/github_repos_x_calendar_100_no_day_numbers.json")
-POSTS_PER_DAY = 4
+GROK_BAIT_CALENDAR_PATH = Path("data/grok_bait_x_posts_40_no_self_replies.json")
+POSTS_PER_DAY = 7
 COMPANY_POSTS_PER_DAY = DAILY_BRAND_TARGETS
 TREND_QUOTE_POSTS_PER_DAY = 0  # retired: no more X Trends quote-posts
 BUILDER_TIP_POSTS_PER_DAY = 0
 GITHUB_REPO_POSTS_PER_DAY = 4
+GROK_BAIT_POSTS_PER_DAY = 3
 LEGACY_TREND_QUOTE_POSTS_PER_DAY = 12  # tolerate state from the previous daily cap
 PERSON_PHOTO_POSTS_PER_DAY = 0  # Disabled: only curated GitHub repositories and fixed community posts remain.
 AI_TECH_QUOTE_POSTS_PER_DAY = 0
@@ -131,12 +133,16 @@ def _new_state() -> dict:
         "builder_tip_day_key": None,
         "builder_tip_post_count": 0,
         "builder_tip_posts": [],
-        "queue_mode_version": "github_repo_and_community_only_v1",
+        "queue_mode_version": "github_repo_grok_bait_community_only_v2",
         "github_repo_day_key": _today(),
         "github_repo_post_count": 0,
         "github_repo_posts": [],
         "github_repo_next_index": 0,
         "github_repo_skipped": [],
+        "grok_bait_day_key": _today(),
+        "grok_bait_post_count": 0,
+        "grok_bait_posts": [],
+        "grok_bait_next_index": 0,
         "next_lane_index": 0,
     }
 
