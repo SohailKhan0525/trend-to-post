@@ -1984,10 +1984,6 @@ async def post_next(
     except Exception as exc:
         print(f"Lane {lane_name} failed safely; the same planned slot will be retried: {exc}")
 
-    if int(state.get("ai_call_count", 0)) >= AI_GENERATIONS_PER_DAY:
-        print("No post published because the daily AI generation budget was exhausted.")
-        _set_workflow_output("skip_reason", "generation_budget")
-        return False
     print(f"No post published from planned lane {lane_name}; it will be retried on the next dispatch.")
     _set_workflow_output("skip_reason", "generation_failed")
     return False
