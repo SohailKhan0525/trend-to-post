@@ -312,20 +312,27 @@ def _load_state() -> dict:
         state["github_repo_day_key"] = today
         state["github_repo_post_count"] = 0
         state["github_repo_posts"] = []
+        state["grok_bait_day_key"] = today
+        state["grok_bait_post_count"] = 0
+        state["grok_bait_posts"] = []
         state["skipped_person_image_titles"] = []
         state["next_lane_index"] = 0
 
-    # One-time migration: stop counting the retired builder/comparison lanes so the
-    # curated repository queue can resume immediately under its new four-post daily cap.
-    if state.get("queue_mode_version") != "github_repo_and_community_only_v1":
+    # One-time migration: count only the active curated GitHub and Grok-bait lanes.
+    # Retired builder/comparison posts no longer consume the current daily capacity.
+    if state.get("queue_mode_version") != "github_repo_grok_bait_community_only_v2":
         if state.get("github_repo_day_key") != today:
             state["github_repo_day_key"] = today
             state["github_repo_post_count"] = 0
             state["github_repo_posts"] = []
-        state["daily_count"] = int(state.get("github_repo_post_count", 0) or 0)
+        if state.get("grok_bait_day_key") != today:
+            state["grok_bait_day_key"] = today
+            state["grok_bait_post_count"] = 0
+            state["grok_bait_posts"] = []
+        state["daily_count"] = int(state.get("github_repo_post_count", 0) or 0) + int(state.get("grok_bait_post_count", 0) or 0)
         state["builder_tip_post_count"] = 0
         state["person_photo_post_count"] = 0
-        state["queue_mode_version"] = "github_repo_and_community_only_v1"
+        state["queue_mode_version"] = "github_repo_grok_bait_community_only_v2"
 
     # Initialize the new curated-repository lane even when the persisted overall day key
     # already matches today (an in-place rollout from the old random spotlight lane).
@@ -335,6 +342,11 @@ def _load_state() -> dict:
         state["github_repo_posts"] = []
     state.setdefault("github_repo_next_index", 0)
     state.setdefault("github_repo_skipped", [])
+    if state.get("grok_bait_day_key") != today:
+        state["grok_bait_day_key"] = today
+        state["grok_bait_post_count"] = 0
+        state["grok_bait_posts"] = []
+    state.setdefault("grok_bait_next_index", 0)
     state.pop("github_repo_history", None)  # retire the legacy random-repository history
 
     try:
@@ -375,6 +387,20 @@ def _load_state() -> dict:
     if not isinstance(skipped_repos, list):
         raise QueueError("State github_repo_skipped must be a list.")
     state["github_repo_skipped"] = [str(item).strip() for item in skipped_repos if str(item).strip()][-200:]
+
+    try:
+        state["grok_bait_post_count"] = int(state.get("grok_bait_post_count", 0))
+        state["grok_bait_next_index"] = int(state.get("grok_bait_next_index", 0))
+    except (TypeError, ValueError) as exc:
+        raise QueueError("Grok-bait counters must be integers.") from exc
+    if not 0 <= state["grok_bait_post_count"] <= GROK_BAIT_POSTS_PER_DAY:
+        raise QueueError(f"State grok_bait_post_count is outside 0..{GROK_BAIT_POSTS_PER_DAY}.")
+    if state["grok_bait_next_index"] < 0:
+        raise QueueError("State grok_bait_next_index must not be negative.")
+    grok_bait_posts = state.get("grok_bait_posts", [])
+    if not isinstance(grok_bait_posts, list):
+        raise QueueError("State grok_bait_posts must be a list.")
+    state["grok_bait_posts"] = [item for item in grok_bait_posts[-GROK_BAIT_POSTS_PER_DAY:] if isinstance(item, dict)]
 
     builder_posts = state.get("builder_tip_posts", [])
     if not isinstance(builder_posts, list):
