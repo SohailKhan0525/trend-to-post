@@ -1344,6 +1344,79 @@ async def _post_curated_github_repo(state: dict, client: Client) -> bool:
     return True
 
 
+async def _post_grok_bait(state: dict, client: Client) -> bool:
+    """Publish one supplied Grok-bait post without AI generation or a self-reply."""
+    today = _today()
+    if state.get("grok_bait_day_key") != today:
+        state["grok_bait_day_key"] = today
+        state["grok_bait_post_count"] = 0
+        state["grok_bait_posts"] = []
+    if int(state.get("grok_bait_post_count", 0)) >= GROK_BAIT_POSTS_PER_DAY:
+        return False
+    if int(state.get("daily_count", 0)) >= POSTS_PER_DAY:
+        return False
+
+    posts = _load_grok_bait_calendar()
+    index = int(state.get("grok_bait_next_index", 0)) % len(posts)
+    selected = None
+    # The source notes that one entry needs an attached screenshot. This text-only
+    # publisher cannot attach media, so skip that entry safely.
+    for _ in range(len(posts)):
+        item = posts[index]
+        next_index = (index + 1) % len(posts)
+        post_text = str(item.get("post", "")).strip()
+        if item.get("id") == "grok_bait_37" or "screenshot i attach" in post_text.casefold():
+            print(f"Skipping media-dependent Grok-bait entry {item.get('id')}: this workflow publishes text only.")
+            index = next_index
+            continue
+        selected = (item, post_text, next_index)
+        break
+    if selected is None:
+        state["grok_bait_next_index"] = index
+        _save_state(state)
+        return False
+
+    item, post_text, next_index = selected
+    try:
+        tweet = await client.create_tweet(text=post_text)
+    except Exception as exc:
+        raise QueueError(f"Grok-bait main post failed for {item.get('id')}: {exc}") from exc
+    tweet_id = str(getattr(tweet, "id", "") or "")
+    if not tweet_id:
+        raise QueueError(
+            f"X may have accepted Grok-bait post {item.get('id')} but returned no tweet ID; inspect the account before retrying."
+        )
+
+    now = datetime.now(timezone.utc).isoformat()
+    record = {
+        "id": str(item.get("id", "")),
+        "title": str(item.get("title", "")),
+        "post": post_text,
+        "tweet_id": tweet_id,
+        "posted_at": now,
+        "status": "published",
+    }
+    state["grok_bait_posts"] = (state.get("grok_bait_posts", []) + [record])[-GROK_BAIT_POSTS_PER_DAY:]
+    state["grok_bait_post_count"] = int(state.get("grok_bait_post_count", 0)) + 1
+    state["grok_bait_next_index"] = next_index
+    state["daily_count"] = int(state.get("daily_count", 0)) + 1
+    state.update({
+        "day_key": today,
+        "last_tweet_id": tweet_id,
+        "last_posted_at": now,
+        "last_source_tweet_id": None,
+        "last_post_type": "grok_bait",
+        "last_company_handle": None,
+    })
+    _save_state(state)
+    print(
+        f"Published Grok-bait post {item.get('id')}: "
+        f"{state['grok_bait_post_count']}/{GROK_BAIT_POSTS_PER_DAY} today; "
+        f"daily queue slots {state['daily_count']}/{POSTS_PER_DAY}."
+    )
+    return True
+
+
 async def _post_builder_tip(state: dict, client: Client) -> bool:
     """Publish an educational DID YOU KNOW? hook with the reusable prompt in its reply thread."""
     today = _today()
