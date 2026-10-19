@@ -131,6 +131,7 @@ def _new_state() -> dict:
         "builder_tip_day_key": None,
         "builder_tip_post_count": 0,
         "builder_tip_posts": [],
+        "queue_mode_version": "github_repo_and_community_only_v1",
         "github_repo_day_key": _today(),
         "github_repo_post_count": 0,
         "github_repo_posts": [],
@@ -308,6 +309,18 @@ def _load_state() -> dict:
         state["skipped_person_image_titles"] = []
         state["next_lane_index"] = 0
 
+    # One-time migration: stop counting the retired builder/comparison lanes so the
+    # curated repository queue can resume immediately under its new four-post daily cap.
+    if state.get("queue_mode_version") != "github_repo_and_community_only_v1":
+        if state.get("github_repo_day_key") != today:
+            state["github_repo_day_key"] = today
+            state["github_repo_post_count"] = 0
+            state["github_repo_posts"] = []
+        state["daily_count"] = int(state.get("github_repo_post_count", 0) or 0)
+        state["builder_tip_post_count"] = 0
+        state["person_photo_post_count"] = 0
+        state["queue_mode_version"] = "github_repo_and_community_only_v1"
+
     # Initialize the new curated-repository lane even when the persisted overall day key
     # already matches today (an in-place rollout from the old random spotlight lane).
     if state.get("github_repo_day_key") != today:
@@ -459,6 +472,10 @@ def _load_state() -> dict:
         state["next_lane_index"] = int(state.get("next_lane_index", 0)) % 2
     except (TypeError, ValueError) as exc:
         raise QueueError("Visual/AI-tech lane counters must be integers.") from exc
+    # The comparison/photo lane is retired. Clear legacy counts rather than failing
+    # on state left by the previous queue configuration.
+    state["person_photo_post_count"] = 0
+    state["person_photo_posts"] = []
     if not 0 <= state["person_photo_post_count"] <= PERSON_PHOTO_POSTS_PER_DAY:
         raise QueueError(
             f"State person_photo_post_count is outside 0..{PERSON_PHOTO_POSTS_PER_DAY}."
