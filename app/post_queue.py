@@ -2041,6 +2041,7 @@ def _select_next_lane(state: dict) -> tuple[str, str, int, object] | None:
     lanes = (
         ("builder_tip", "builder_tip_post_count", BUILDER_TIP_POSTS_PER_DAY, _post_builder_tip),
         ("github_repo_calendar", "github_repo_post_count", GITHUB_REPO_POSTS_PER_DAY, _post_curated_github_repo),
+        ("grok_bait", "grok_bait_post_count", GROK_BAIT_POSTS_PER_DAY, _post_grok_bait),
         ("comparison_meme", "person_photo_post_count", PERSON_PHOTO_POSTS_PER_DAY, _post_comparison_meme),
     )
     next_slot = min(POSTS_PER_DAY, int(state.get("daily_count", 0)) + 1)
@@ -2081,13 +2082,14 @@ async def post_next(
     if not await client.is_logged_in():
         raise QueueError("X session is not logged in; X auth cookies may be expired.")
 
-    # Only the curated repository lane remains active in the main queue.
-    # Fixed community posts run independently in daily-community-posts.yml.
+    # Curated repository and supplied Grok-bait JSON lanes are active here.
+    # The two fixed community posts run independently in daily-community-posts.yml.
     lane = _select_next_lane(state)
     if lane is None:
         print(
             "Daily content plan complete: "
-            f"curated GitHub repositories {state.get('github_repo_post_count', 0)}/{GITHUB_REPO_POSTS_PER_DAY}."
+            f"curated GitHub repositories {state.get('github_repo_post_count', 0)}/{GITHUB_REPO_POSTS_PER_DAY}; "
+            f"Grok-bait {state.get('grok_bait_post_count', 0)}/{GROK_BAIT_POSTS_PER_DAY}."
         )
         _set_workflow_output("skip_reason", "daily_plan_complete")
         return False
