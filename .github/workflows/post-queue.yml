@@ -1,4 +1,4 @@
-name: Post Curated GitHub Repositories Only
+name: Post Curated GitHub Repositories and Grok-Bait
 
 on:
   workflow_dispatch:
@@ -96,7 +96,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add state/post_queue.json state/company_manual_posts.md state/trend_manual_posts.md
-          git commit -m "chore: update curated repo, builder tip, and comparison queue state"
+          git commit -m "chore: update curated repo and Grok-bait queue state"
 
           for attempt in 1 2 3 4 5; do
             if git push; then
@@ -158,12 +158,13 @@ jobs:
               "## Daily queue progress",
               "",
               f"- UTC date: {state.get('day_key', 'unknown')}",
-          "- Active posting: 4 curated GitHub repository posts/day from the JSON calendar. Two additional fixed community posts/day run separately. Total: 6 main posts/day. Builder prompts and comparison memes are disabled.",
-              f"- Curated queue posts published: {state.get('daily_count', 0)}/4",
+          "- Active posting: 4 curated GitHub repository posts/day plus 3 Grok-bait posts/day from JSON. Two fixed community posts/day run separately. Total: 9 main posts/day. DID YOU KNOW builder prompts and comparison memes are disabled.",
+              f"- Main queue posts published: {state.get('daily_count', 0)}/7",
               f"- This run published a post: {os.environ.get('POST_PUBLISHED', 'unknown')}",
               f"- This run skip reason: {os.environ.get('POST_SKIP_REASON', 'unknown')}",
               f"- X Trends quote posts (retired): {state.get('trend_quote_post_count', 0)}/0",
               f"- Curated GitHub repository posts: {state.get('github_repo_post_count', 0)}/4",
+          f"- Grok-bait posts: {state.get('grok_bait_post_count', 0)}/3",
               f"- Tagged originals in rolling 48h: {len(state.get('mention_post_timestamps', []))}/2",
               f"- Generation attempts: {state.get('ai_call_count', 0)}/120",
               f"- Last successful post: {state.get('last_posted_at') or 'none recorded'}",
