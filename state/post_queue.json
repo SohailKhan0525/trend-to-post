@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-21",
-  "daily_count": 1,
+  "daily_count": 2,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-21T00:01:36.597566+00:00",
+  "last_posted_at": "2026-10-21T00:31:17.681049+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2112695761989484884",
+  "last_tweet_id": "2112703233005089135",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_calendar",
+  "last_post_type": "grok_bait",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -708,7 +708,16 @@
   "github_repo_skipped": [],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
   "grok_bait_day_key": "2026-10-21",
-  "grok_bait_post_count": 0,
-  "grok_bait_posts": [],
-  "grok_bait_next_index": 6
+  "grok_bait_post_count": 1,
+  "grok_bait_posts": [
+    {
+      "id": "grok_bait_07",
+      "title": "The likes test",
+      "post": "@grok, design a 24-hour experiment: hide the like count from people who say “I don’t care about likes.” What’s the hypothesis?",
+      "tweet_id": "2112703233005089135",
+      "posted_at": "2026-10-21T00:31:17.681049+00:00",
+      "status": "published"
+    }
+  ],
+  "grok_bait_next_index": 7
 }
