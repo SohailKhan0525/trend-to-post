@@ -1,10 +1,10 @@
 {
-  "day_key": "2026-10-20",
-  "daily_count": 7,
+  "day_key": "2026-10-21",
+  "daily_count": 1,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-20T03:01:30.240029+00:00",
+  "last_posted_at": "2026-10-21T00:01:36.597566+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2112378646422024607",
+  "last_tweet_id": "2112695761989484884",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -689,84 +689,26 @@
     "DID YOU KNOW?\nShowing line-item invoice delta explanations lets finance teams resolve failed subscription payments instantly without auditing raw ledger exports.\nREPLY PROMPT:\nBuild a production-grade SaaS billing console featuring inline invoice delta explanations, failed payment recovery flows, and instant card update triggers. Adopt a disciplined financial design language utilizing zinc neutrals, a four-pixel spacing grid, and a high-contrast emerald accent token for successful payment resolutions. Implement a split-pane layout that cleanly pairs historical billing line items with a dedicated error recovery drawer while maintaining fixed container boundaries across mobile, tablet, and desktop viewports. Provide fully articulated states for active payment verification spinners, empty invoice history views, hovered line-item breakdowns, error banners for declined card transactions, and disabled update buttons during active gateway processing. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during currency conversion rendering, flawless keyboard navigation through past billing cycles, and robust error handling ensuring dropped card submissions automatically preserve user input state without data loss.\nFOLLOW FOR MORE PROMPTS.",
     "DID YOU KNOW?\nGrouping duplicate support tickets and displaying recent customer history lets agents resolve issues instantly without switching tabs or asking repeat questions.\n\nREPLY PROMPT:\nBuild a production-grade customer support triage inbox featuring automated duplicate ticket clustering, inline customer history timelines, and rapid response macro triggers. Adopt a clean operations design language utilizing cool-grey neutrals, a four-pixel spacing grid, and a vibrant azure accent token for priority status tags. Implement a three-column master-detail layout that cleanly separates the incoming ticket queue from grouped duplicate threads and individual customer profiles across mobile, tablet, and desktop viewports. Provide fully articulated states for real-time incoming message spinners, empty thread queues, hovered list items, error banners for dropped websocket connections, and disabled send buttons during active replies. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during rapid thread switching, flawless keyboard navigation through ticket lists, and robust error handling ensuring interrupted transmissions automatically preserve draft text without data loss.\nFOLLOW FOR MORE PROMPTS."
   ],
-  "github_repo_day_key": "2026-10-20",
-  "github_repo_post_count": 4,
+  "github_repo_day_key": "2026-10-21",
+  "github_repo_post_count": 1,
   "github_repo_posts": [
     {
-      "repo": "Aider-AI/aider",
-      "calendar_index": 8,
-      "post": "The best AI code review starts with a clean diff.\n\naider (~50k★): Git-aware AI pair programming from your terminal. https://github.com/Aider-AI/aider\n\nDo you prefer AI edits as diffs or full rewrites?",
-      "tweet_id": "2112332990101791133",
-      "reply_text": "Commit first so reverting an experiment stays easy.",
-      "reply_tweet_id": "2112332991422693456",
+      "repo": "mattpocock/skills",
+      "calendar_index": 12,
+      "post": "The gap between “AI wrote it” and “I would ship it” is workflow.\n\nskills (~299k★): Engineering-focused skills for AI coding agents. https://github.com/mattpocock/skills\n\nWhat engineering habit should agents learn first?",
+      "tweet_id": "2112695761989484884",
+      "reply_text": "Don't install every skill blindly; keep only what measurably helps.",
+      "reply_tweet_id": "2112695763629117549",
       "reply_status": "published",
-      "posted_at": "2026-10-20T00:00:04.961505+00:00",
-      "status": "published"
-    },
-    {
-      "repo": "OpenHands/OpenHands",
-      "calendar_index": 9,
-      "post": "Could your backlog be written so an AI agent can take the first pass?\n\nOpenHands (~91k★): Open-source agents for bounded software-engineering tasks. https://github.com/OpenHands/OpenHands\n\nWhich repository task is most suitable for delegation?",
-      "tweet_id": "2112348437878558967",
-      "reply_text": "Keep secrets and production credentials out of experimental agent environments.",
-      "reply_tweet_id": "2112348438847508510",
-      "reply_status": "published",
-      "posted_at": "2026-10-20T01:01:27.953684+00:00",
-      "status": "published"
-    },
-    {
-      "repo": "github/spec-kit",
-      "calendar_index": 10,
-      "post": "Most “AI coding” failures start before the first line of code.\n\nspec-kit (~142k★): Structure feature specs and implementation plans. https://github.com/github/spec-kit\n\nDo you write specs before coding?",
-      "tweet_id": "2112363539314909587",
-      "reply_text": "Do not treat generated specs as requirements until a human signs off.",
-      "reply_tweet_id": "2112363540686454932",
-      "reply_status": "published",
-      "posted_at": "2026-10-20T02:01:28.508393+00:00",
-      "status": "published"
-    },
-    {
-      "repo": "anthropics/skills",
-      "calendar_index": 11,
-      "post": "Stop re-explaining the same workflow to your AI every day.\n\nskills (~182k★): Reusable skills for more consistent AI workflows. https://github.com/anthropics/skills\n\nWhat instruction do you repeat to AI most often?",
-      "tweet_id": "2112378646422024607",
-      "reply_text": "Treat third-party skills as code: inspect them before installing.",
-      "reply_tweet_id": "2112378647466344810",
-      "reply_status": "published",
-      "posted_at": "2026-10-20T03:01:30.240029+00:00",
+      "posted_at": "2026-10-21T00:01:36.597566+00:00",
       "status": "published"
     }
   ],
-  "github_repo_next_index": 12,
+  "github_repo_next_index": 13,
   "github_repo_skipped": [],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
-  "grok_bait_day_key": "2026-10-20",
-  "grok_bait_post_count": 3,
-  "grok_bait_posts": [
-    {
-      "id": "grok_bait_04",
-      "title": "Humble announcement translator",
-      "post": "@grok, translate “I’m humbled and excited to announce…” into the version the author said out loud in their room.",
-      "tweet_id": "2112340821596852334",
-      "posted_at": "2026-10-20T00:31:12.062674+00:00",
-      "status": "published"
-    },
-    {
-      "id": "grok_bait_05",
-      "title": "Stealth mode audit",
-      "post": "A founder says they’re in stealth mode. @grok, help me determine whether the company is secret—or the product just isn’t ready.",
-      "tweet_id": "2112355935427674555",
-      "posted_at": "2026-10-20T01:31:15.465583+00:00",
-      "status": "published"
-    },
-    {
-      "id": "grok_bait_06",
-      "title": "The source button",
-      "post": "@grok, propose a new X button for bold claims. It should say: “Source?” or “Did a podcast tell you this?”",
-      "tweet_id": "2112371064701661193",
-      "posted_at": "2026-10-20T02:31:22.604349+00:00",
-      "status": "published"
-    }
-  ],
+  "grok_bait_day_key": "2026-10-21",
+  "grok_bait_post_count": 0,
+  "grok_bait_posts": [],
   "grok_bait_next_index": 6
 }
