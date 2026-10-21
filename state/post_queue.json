@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-21",
-  "daily_count": 5,
+  "daily_count": 6,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-21T02:01:30.261021+00:00",
+  "last_posted_at": "2026-10-21T02:31:12.206328+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2112725934919057464",
+  "last_tweet_id": "2112733409080418324",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_calendar",
+  "last_post_type": "grok_bait",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -730,7 +730,7 @@
   "github_repo_skipped": [],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
   "grok_bait_day_key": "2026-10-21",
-  "grok_bait_post_count": 2,
+  "grok_bait_post_count": 3,
   "grok_bait_posts": [
     {
       "id": "grok_bait_07",
@@ -747,7 +747,15 @@
       "tweet_id": "2112718302716076085",
       "posted_at": "2026-10-21T01:31:10.608553+00:00",
       "status": "published"
+    },
+    {
+      "id": "grok_bait_09",
+      "title": "AI startup completion",
+      "post": "@grok, autocomplete this startup pitch: “We put AI into ___, added a waitlist, and now we’re…” Make the ending realistic.",
+      "tweet_id": "2112733409080418324",
+      "posted_at": "2026-10-21T02:31:12.206328+00:00",
+      "status": "published"
     }
   ],
-  "grok_bait_next_index": 8
+  "grok_bait_next_index": 9
 }
