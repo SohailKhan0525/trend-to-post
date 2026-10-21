@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-21",
-  "daily_count": 3,
+  "daily_count": 4,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-21T01:01:29.318891+00:00",
+  "last_posted_at": "2026-10-21T01:31:10.608553+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2112710830815158754",
+  "last_tweet_id": "2112718302716076085",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_calendar",
+  "last_post_type": "grok_bait",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -719,7 +719,7 @@
   "github_repo_skipped": [],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
   "grok_bait_day_key": "2026-10-21",
-  "grok_bait_post_count": 1,
+  "grok_bait_post_count": 2,
   "grok_bait_posts": [
     {
       "id": "grok_bait_07",
@@ -728,7 +728,15 @@
       "tweet_id": "2112703233005089135",
       "posted_at": "2026-10-21T00:31:17.681049+00:00",
       "status": "published"
+    },
+    {
+      "id": "grok_bait_08",
+      "title": "Good morning at 4 PM",
+      "post": "@grok, please explain why “Good morning, X” posted at 4 PM has the energy of someone waking up from a 3-year nap.",
+      "tweet_id": "2112718302716076085",
+      "posted_at": "2026-10-21T01:31:10.608553+00:00",
+      "status": "published"
     }
   ],
-  "grok_bait_next_index": 7
+  "grok_bait_next_index": 8
 }
