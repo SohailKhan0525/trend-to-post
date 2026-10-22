@@ -1,10 +1,10 @@
 {
-  "day_key": "2026-10-21",
-  "daily_count": 7,
+  "day_key": "2026-10-22",
+  "daily_count": 1,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-21T03:01:32.380024+00:00",
+  "last_posted_at": "2026-10-22T00:01:36.035957+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2112741043204661508",
+  "last_tweet_id": "2113058148022202535",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -689,84 +689,26 @@
     "DID YOU KNOW?\nShowing line-item invoice delta explanations lets finance teams resolve failed subscription payments instantly without auditing raw ledger exports.\nREPLY PROMPT:\nBuild a production-grade SaaS billing console featuring inline invoice delta explanations, failed payment recovery flows, and instant card update triggers. Adopt a disciplined financial design language utilizing zinc neutrals, a four-pixel spacing grid, and a high-contrast emerald accent token for successful payment resolutions. Implement a split-pane layout that cleanly pairs historical billing line items with a dedicated error recovery drawer while maintaining fixed container boundaries across mobile, tablet, and desktop viewports. Provide fully articulated states for active payment verification spinners, empty invoice history views, hovered line-item breakdowns, error banners for declined card transactions, and disabled update buttons during active gateway processing. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during currency conversion rendering, flawless keyboard navigation through past billing cycles, and robust error handling ensuring dropped card submissions automatically preserve user input state without data loss.\nFOLLOW FOR MORE PROMPTS.",
     "DID YOU KNOW?\nGrouping duplicate support tickets and displaying recent customer history lets agents resolve issues instantly without switching tabs or asking repeat questions.\n\nREPLY PROMPT:\nBuild a production-grade customer support triage inbox featuring automated duplicate ticket clustering, inline customer history timelines, and rapid response macro triggers. Adopt a clean operations design language utilizing cool-grey neutrals, a four-pixel spacing grid, and a vibrant azure accent token for priority status tags. Implement a three-column master-detail layout that cleanly separates the incoming ticket queue from grouped duplicate threads and individual customer profiles across mobile, tablet, and desktop viewports. Provide fully articulated states for real-time incoming message spinners, empty thread queues, hovered list items, error banners for dropped websocket connections, and disabled send buttons during active replies. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during rapid thread switching, flawless keyboard navigation through ticket lists, and robust error handling ensuring interrupted transmissions automatically preserve draft text without data loss.\nFOLLOW FOR MORE PROMPTS."
   ],
-  "github_repo_day_key": "2026-10-21",
-  "github_repo_post_count": 4,
+  "github_repo_day_key": "2026-10-22",
+  "github_repo_post_count": 1,
   "github_repo_posts": [
     {
-      "repo": "mattpocock/skills",
-      "calendar_index": 12,
-      "post": "The gap between “AI wrote it” and “I would ship it” is workflow.\n\nskills (~299k★): Engineering-focused skills for AI coding agents. https://github.com/mattpocock/skills\n\nWhat engineering habit should agents learn first?",
-      "tweet_id": "2112695761989484884",
-      "reply_text": "Don't install every skill blindly; keep only what measurably helps.",
-      "reply_tweet_id": "2112695763629117549",
+      "repo": "crewAIInc/crewAI",
+      "calendar_index": 16,
+      "post": "Before hiring an AI team, prove one agent cannot do the job.\n\ncrewAI (~60k★): Coordinate role-based agents and tasks. https://github.com/crewAIInc/crewAI\n\nWhich task deserves a specialist agent?",
+      "tweet_id": "2113058148022202535",
+      "reply_text": "Use multiple agents only when the division of labor improves results.",
+      "reply_tweet_id": "2113058149037158482",
       "reply_status": "published",
-      "posted_at": "2026-10-21T00:01:36.597566+00:00",
-      "status": "published"
-    },
-    {
-      "repo": "openai/openai-agents-python",
-      "calendar_index": 13,
-      "post": "A useful AI agent is a workflow with boundaries, not just a chat box.\n\nopenai-agents-python (~30k★): Python framework for agents, tools, and handoffs. https://github.com/openai/openai-agents-python\n\nWhat tool should your first agent be allowed to use?",
-      "tweet_id": "2112710830815158754",
-      "reply_text": "Keep tools least-privileged and add tests for failure paths.",
-      "reply_tweet_id": "2112710832748478715",
-      "reply_status": "published",
-      "posted_at": "2026-10-21T01:01:29.318891+00:00",
-      "status": "published"
-    },
-    {
-      "repo": "langchain-ai/langchain",
-      "calendar_index": 14,
-      "post": "Building an LLM app? Don't hand-roll every model and tool integration.\n\nlangchain (~148k★): Reusable integrations for LLM apps and workflows. https://github.com/langchain-ai/langchain\n\nWhich integration would save you the most time?",
-      "tweet_id": "2112725934919057464",
-      "reply_text": "Check version-specific docs because APIs evolve quickly.",
-      "reply_tweet_id": "2112725935900573825",
-      "reply_status": "published",
-      "posted_at": "2026-10-21T02:01:30.261021+00:00",
-      "status": "published"
-    },
-    {
-      "repo": "langchain-ai/langgraph",
-      "calendar_index": 15,
-      "post": "The moment your agent needs memory and checkpoints, orchestration matters.\n\nlanggraph (~43.6k★): Stateful agent workflows with checkpoints and human review. https://github.com/langchain-ai/langgraph\n\nWhat should an agent ask a human before proceeding?",
-      "tweet_id": "2112741043204661508",
-      "reply_text": "Use it for a real control-flow need, not just because “agents” are trending.",
-      "reply_tweet_id": "2112741044290994402",
-      "reply_status": "published",
-      "posted_at": "2026-10-21T03:01:32.380024+00:00",
+      "posted_at": "2026-10-22T00:01:36.035957+00:00",
       "status": "published"
     }
   ],
-  "github_repo_next_index": 16,
+  "github_repo_next_index": 17,
   "github_repo_skipped": [],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
-  "grok_bait_day_key": "2026-10-21",
-  "grok_bait_post_count": 3,
-  "grok_bait_posts": [
-    {
-      "id": "grok_bait_07",
-      "title": "The likes test",
-      "post": "@grok, design a 24-hour experiment: hide the like count from people who say “I don’t care about likes.” What’s the hypothesis?",
-      "tweet_id": "2112703233005089135",
-      "posted_at": "2026-10-21T00:31:17.681049+00:00",
-      "status": "published"
-    },
-    {
-      "id": "grok_bait_08",
-      "title": "Good morning at 4 PM",
-      "post": "@grok, please explain why “Good morning, X” posted at 4 PM has the energy of someone waking up from a 3-year nap.",
-      "tweet_id": "2112718302716076085",
-      "posted_at": "2026-10-21T01:31:10.608553+00:00",
-      "status": "published"
-    },
-    {
-      "id": "grok_bait_09",
-      "title": "AI startup completion",
-      "post": "@grok, autocomplete this startup pitch: “We put AI into ___, added a waitlist, and now we’re…” Make the ending realistic.",
-      "tweet_id": "2112733409080418324",
-      "posted_at": "2026-10-21T02:31:12.206328+00:00",
-      "status": "published"
-    }
-  ],
+  "grok_bait_day_key": "2026-10-22",
+  "grok_bait_post_count": 0,
+  "grok_bait_posts": [],
   "grok_bait_next_index": 9
 }
