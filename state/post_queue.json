@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-22",
-  "daily_count": 3,
+  "daily_count": 4,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-22T01:01:28.275212+00:00",
+  "last_posted_at": "2026-10-22T01:31:09.306152+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2113073214368932235",
+  "last_tweet_id": "2113080685246222549",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_calendar",
+  "last_post_type": "grok_bait",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -719,7 +719,7 @@
   "github_repo_skipped": [],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
   "grok_bait_day_key": "2026-10-22",
-  "grok_bait_post_count": 1,
+  "grok_bait_post_count": 2,
   "grok_bait_posts": [
     {
       "id": "grok_bait_10",
@@ -728,7 +728,15 @@
       "tweet_id": "2113065603632374066",
       "posted_at": "2026-10-22T00:31:13.560642+00:00",
       "status": "published"
+    },
+    {
+      "id": "grok_bait_11",
+      "title": "Screenshot recursion",
+      "post": "@grok, map the journey of an X post that screenshots another X post, which screenshots a post about screenshots. I need the family tree.",
+      "tweet_id": "2113080685246222549",
+      "posted_at": "2026-10-22T01:31:09.306152+00:00",
+      "status": "published"
     }
   ],
-  "grok_bait_next_index": 10
+  "grok_bait_next_index": 11
 }
