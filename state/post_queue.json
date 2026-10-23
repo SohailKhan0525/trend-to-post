@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-23",
-  "daily_count": 3,
+  "daily_count": 4,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-23T01:31:17.657164+00:00",
+  "last_posted_at": "2026-10-23T02:01:27.628073+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2113443107891229109",
+  "last_tweet_id": "2113450699732234624",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_calendar",
+  "last_post_type": "grok_bait",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -719,7 +719,7 @@
   "github_repo_skipped": [],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
   "grok_bait_day_key": "2026-10-23",
-  "grok_bait_post_count": 1,
+  "grok_bait_post_count": 2,
   "grok_bait_posts": [
     {
       "id": "grok_bait_13",
@@ -728,7 +728,15 @@
       "tweet_id": "2113427985273639136",
       "posted_at": "2026-10-23T00:31:12.071308+00:00",
       "status": "published"
+    },
+    {
+      "id": "grok_bait_14",
+      "title": "Let that sink in",
+      "post": "@grok, translate “Let that sink in” into plain English, with absolutely no motivational-poster energy.",
+      "tweet_id": "2113450699732234624",
+      "posted_at": "2026-10-23T02:01:27.628073+00:00",
+      "status": "published"
     }
   ],
-  "grok_bait_next_index": 13
+  "grok_bait_next_index": 14
 }
