@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-25",
-  "daily_count": 1,
+  "daily_count": 2,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-25T00:01:36.035554+00:00",
+  "last_posted_at": "2026-10-25T00:31:20.693719+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2114145311480259007",
+  "last_tweet_id": "2114152797025583351",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_calendar",
+  "last_post_type": "grok_bait",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -708,7 +708,16 @@
   "github_repo_skipped": [],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
   "grok_bait_day_key": "2026-10-25",
-  "grok_bait_post_count": 0,
-  "grok_bait_posts": [],
-  "grok_bait_next_index": 18
+  "grok_bait_post_count": 1,
+  "grok_bait_posts": [
+    {
+      "id": "grok_bait_19",
+      "title": "The humblebrag detector",
+      "post": "@grok, build a humblebrag detector that flags sentences like “I’m so tired of all these amazing opportunities.” What should the alert say?",
+      "tweet_id": "2114152797025583351",
+      "posted_at": "2026-10-25T00:31:20.693719+00:00",
+      "status": "published"
+    }
+  ],
+  "grok_bait_next_index": 19
 }
