@@ -1,10 +1,10 @@
 {
-  "day_key": "2026-10-24",
-  "daily_count": 7,
+  "day_key": "2026-10-25",
+  "daily_count": 1,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-24T03:01:29.095758+00:00",
+  "last_posted_at": "2026-10-25T00:01:36.035554+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2113828192926806067",
+  "last_tweet_id": "2114145311480259007",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -689,84 +689,26 @@
     "DID YOU KNOW?\nShowing line-item invoice delta explanations lets finance teams resolve failed subscription payments instantly without auditing raw ledger exports.\nREPLY PROMPT:\nBuild a production-grade SaaS billing console featuring inline invoice delta explanations, failed payment recovery flows, and instant card update triggers. Adopt a disciplined financial design language utilizing zinc neutrals, a four-pixel spacing grid, and a high-contrast emerald accent token for successful payment resolutions. Implement a split-pane layout that cleanly pairs historical billing line items with a dedicated error recovery drawer while maintaining fixed container boundaries across mobile, tablet, and desktop viewports. Provide fully articulated states for active payment verification spinners, empty invoice history views, hovered line-item breakdowns, error banners for declined card transactions, and disabled update buttons during active gateway processing. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during currency conversion rendering, flawless keyboard navigation through past billing cycles, and robust error handling ensuring dropped card submissions automatically preserve user input state without data loss.\nFOLLOW FOR MORE PROMPTS.",
     "DID YOU KNOW?\nGrouping duplicate support tickets and displaying recent customer history lets agents resolve issues instantly without switching tabs or asking repeat questions.\n\nREPLY PROMPT:\nBuild a production-grade customer support triage inbox featuring automated duplicate ticket clustering, inline customer history timelines, and rapid response macro triggers. Adopt a clean operations design language utilizing cool-grey neutrals, a four-pixel spacing grid, and a vibrant azure accent token for priority status tags. Implement a three-column master-detail layout that cleanly separates the incoming ticket queue from grouped duplicate threads and individual customer profiles across mobile, tablet, and desktop viewports. Provide fully articulated states for real-time incoming message spinners, empty thread queues, hovered list items, error banners for dropped websocket connections, and disabled send buttons during active replies. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during rapid thread switching, flawless keyboard navigation through ticket lists, and robust error handling ensuring interrupted transmissions automatically preserve draft text without data loss.\nFOLLOW FOR MORE PROMPTS."
   ],
-  "github_repo_day_key": "2026-10-24",
-  "github_repo_post_count": 4,
+  "github_repo_day_key": "2026-10-25",
+  "github_repo_post_count": 1,
   "github_repo_posts": [
     {
-      "repo": "vitejs/vite",
-      "calendar_index": 24,
-      "post": "Fast feedback changes how quickly you can experiment.\n\nvite (~83k★): Fast frontend dev server and build tool. https://github.com/vitejs/vite\n\nWhat's your favorite frontend dev tool?",
-      "tweet_id": "2113782897933267185",
-      "reply_text": "It is a build tool, not a complete product architecture.",
-      "reply_tweet_id": "2113782899170320661",
+      "repo": "trpc/trpc",
+      "calendar_index": 28,
+      "post": "One shared type can eliminate a surprising amount of glue code.\n\ntrpc (~41k★): End-to-end type-safe APIs for TypeScript apps. https://github.com/trpc/trpc\n\nWould you choose type safety or language neutrality?",
+      "tweet_id": "2114145311480259007",
+      "reply_text": "Choose based on your client/server boundaries and integration needs.",
+      "reply_tweet_id": "2114145312772129130",
       "reply_status": "published",
-      "posted_at": "2026-10-24T00:01:29.927923+00:00",
-      "status": "published"
-    },
-    {
-      "repo": "sveltejs/kit",
-      "calendar_index": 25,
-      "post": "You don't need React for every web product.\n\nkit (~21k★): Full-stack apps with Svelte and routing. https://github.com/sveltejs/kit\n\nWhat makes you choose a frontend framework?",
-      "tweet_id": "2113797980566212778",
-      "reply_text": "Check adapter support and runtime constraints before your deployment choice.",
-      "reply_tweet_id": "2113797982625927279",
-      "reply_status": "published",
-      "posted_at": "2026-10-24T01:01:25.903042+00:00",
-      "status": "published"
-    },
-    {
-      "repo": "remix-run/react-router",
-      "calendar_index": 26,
-      "post": "Routing is architecture, not just a list of URLs.\n\nreact-router (~57k★): React routes, nested layouts, and data loading. https://github.com/remix-run/react-router\n\nDo you prefer file-based or explicit routes?",
-      "tweet_id": "2113813084758245484",
-      "reply_text": "Check current mode and migration guidance before starting a new project.",
-      "reply_tweet_id": "2113813086817894736",
-      "reply_status": "published",
-      "posted_at": "2026-10-24T02:01:27.018496+00:00",
-      "status": "published"
-    },
-    {
-      "repo": "TanStack/query",
-      "calendar_index": 27,
-      "post": "If every screen has its own fetch-and-loading logic, centralize the pattern.\n\nquery (~50k★): Cache and synchronize server data in the UI. https://github.com/TanStack/query\n\nWhat API call in your app needs better caching?",
-      "tweet_id": "2113828192926806067",
-      "reply_text": "Use local component state for local UI concerns; don't put everything in a query cache.",
-      "reply_tweet_id": "2113828194130280491",
-      "reply_status": "published",
-      "posted_at": "2026-10-24T03:01:29.095758+00:00",
+      "posted_at": "2026-10-25T00:01:36.035554+00:00",
       "status": "published"
     }
   ],
-  "github_repo_next_index": 28,
+  "github_repo_next_index": 29,
   "github_repo_skipped": [],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
-  "grok_bait_day_key": "2026-10-24",
-  "grok_bait_post_count": 3,
-  "grok_bait_posts": [
-    {
-      "id": "grok_bait_16",
-      "title": "Big things coming",
-      "post": "@grok, when an account posts “Big things coming 👀,” ask one follow-up question that separates a real launch from a vague teaser.",
-      "tweet_id": "2113790391501938783",
-      "posted_at": "2026-10-24T00:31:16.504525+00:00",
-      "status": "published"
-    },
-    {
-      "id": "grok_bait_17",
-      "title": "Revenue while sleeping",
-      "post": "@grok, a creator says they made money while sleeping. Please investigate whether they also did anything while awake.",
-      "tweet_id": "2113805481072635943",
-      "posted_at": "2026-10-24T01:31:14.122628+00:00",
-      "status": "published"
-    },
-    {
-      "id": "grok_bait_18",
-      "title": "Bio title generator",
-      "post": "@grok, turn “Founder | Creator | Investor | Visionary” into a job title that fits on an actual business card.",
-      "tweet_id": "2113820620794589333",
-      "posted_at": "2026-10-24T02:31:23.668841+00:00",
-      "status": "published"
-    }
-  ],
+  "grok_bait_day_key": "2026-10-25",
+  "grok_bait_post_count": 0,
+  "grok_bait_posts": [],
   "grok_bait_next_index": 18
 }
