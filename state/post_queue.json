@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-25",
-  "daily_count": 4,
+  "daily_count": 5,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-25T01:22:28.354876+00:00",
+  "last_posted_at": "2026-10-25T02:01:30.094520+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2114165663774212133",
+  "last_tweet_id": "2114175485613576665",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "grok_bait",
+  "last_post_type": "github_repo_calendar",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -690,7 +690,7 @@
     "DID YOU KNOW?\nGrouping duplicate support tickets and displaying recent customer history lets agents resolve issues instantly without switching tabs or asking repeat questions.\n\nREPLY PROMPT:\nBuild a production-grade customer support triage inbox featuring automated duplicate ticket clustering, inline customer history timelines, and rapid response macro triggers. Adopt a clean operations design language utilizing cool-grey neutrals, a four-pixel spacing grid, and a vibrant azure accent token for priority status tags. Implement a three-column master-detail layout that cleanly separates the incoming ticket queue from grouped duplicate threads and individual customer profiles across mobile, tablet, and desktop viewports. Provide fully articulated states for real-time incoming message spinners, empty thread queues, hovered list items, error banners for dropped websocket connections, and disabled send buttons during active replies. Ensure all interactive components feature explicit keyboard focus rings, minimum forty-four pixel touch targets, and WCAG AA contrast compliance. Acceptance criteria: zero layout jumps during rapid thread switching, flawless keyboard navigation through ticket lists, and robust error handling ensuring interrupted transmissions automatically preserve draft text without data loss.\nFOLLOW FOR MORE PROMPTS."
   ],
   "github_repo_day_key": "2026-10-25",
-  "github_repo_post_count": 2,
+  "github_repo_post_count": 3,
   "github_repo_posts": [
     {
       "repo": "trpc/trpc",
@@ -713,10 +713,23 @@
       "reply_status": "published",
       "posted_at": "2026-10-25T01:01:32.103065+00:00",
       "status": "published"
+    },
+    {
+      "repo": "better-auth/better-auth",
+      "calendar_index": 31,
+      "post": "Don't roll your own authentication on a weekend.\n\nbetter-auth (~30k★): Configurable authentication building blocks for TypeScript. https://github.com/better-auth/better-auth\n\nWhich auth flow is hardest to get right?",
+      "tweet_id": "2114175485613576665",
+      "reply_text": "Review security advisories and provider settings before production.",
+      "reply_tweet_id": "2114175487832621339",
+      "reply_status": "published",
+      "posted_at": "2026-10-25T02:01:30.094520+00:00",
+      "status": "published"
     }
   ],
-  "github_repo_next_index": 30,
-  "github_repo_skipped": [],
+  "github_repo_next_index": 32,
+  "github_repo_skipped": [
+    "prisma/prisma"
+  ],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
   "grok_bait_day_key": "2026-10-25",
   "grok_bait_post_count": 2,
