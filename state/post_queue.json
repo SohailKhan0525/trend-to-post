@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-26",
-  "daily_count": 5,
+  "daily_count": 6,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-26T02:01:30.923211+00:00",
+  "last_posted_at": "2026-10-26T02:31:19.950663+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2114537876474253408",
+  "last_tweet_id": "2114545380927115269",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_calendar",
+  "last_post_type": "grok_bait",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -732,7 +732,7 @@
   ],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
   "grok_bait_day_key": "2026-10-26",
-  "grok_bait_post_count": 2,
+  "grok_bait_post_count": 3,
   "grok_bait_posts": [
     {
       "id": "grok_bait_22",
@@ -749,7 +749,15 @@
       "tweet_id": "2114528436941369492",
       "posted_at": "2026-10-26T01:24:00.192965+00:00",
       "status": "published"
+    },
+    {
+      "id": "grok_bait_24",
+      "title": "Friday deploy horoscope",
+      "post": "@grok, give developers who deploy on Friday afternoon a horoscope. Their lucky number is the incident ticket they haven’t received yet.",
+      "tweet_id": "2114545380927115269",
+      "posted_at": "2026-10-26T02:31:19.950663+00:00",
+      "status": "published"
     }
   ],
-  "grok_bait_next_index": 23
+  "grok_bait_next_index": 24
 }
