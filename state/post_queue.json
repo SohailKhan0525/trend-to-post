@@ -1,10 +1,10 @@
 {
   "day_key": "2026-10-27",
-  "daily_count": 5,
+  "daily_count": 6,
   "ai_call_count": 0,
-  "last_posted_at": "2026-10-27T02:01:26.693365+00:00",
+  "last_posted_at": "2026-10-27T02:31:20.465367+00:00",
   "last_source_tweet_id": null,
-  "last_tweet_id": "2114900247101259797",
+  "last_tweet_id": "2114907770780786893",
   "posted_source_tweet_ids": [
     "2106147184693620924",
     "2106119810509881791",
@@ -495,7 +495,7 @@
   "company_post_count": 0,
   "company_posted_handles": [],
   "company_manual_posts": [],
-  "last_post_type": "github_repo_calendar",
+  "last_post_type": "grok_bait",
   "last_company_handle": null,
   "brand_draft_day_key": null,
   "trend_manual_post_count": 0,
@@ -733,7 +733,7 @@
   ],
   "queue_mode_version": "github_repo_grok_bait_community_only_v2",
   "grok_bait_day_key": "2026-10-27",
-  "grok_bait_post_count": 2,
+  "grok_bait_post_count": 3,
   "grok_bait_posts": [
     {
       "id": "grok_bait_25",
@@ -750,7 +750,15 @@
       "tweet_id": "2114892648238485646",
       "posted_at": "2026-10-27T01:31:14.958139+00:00",
       "status": "published"
+    },
+    {
+      "id": "grok_bait_27",
+      "title": "Portfolio loading screen",
+      "post": "@grok, review a developer portfolio with 14 animations, 3D text, and zero shipped projects. Give it a brutally fair headline.",
+      "tweet_id": "2114907770780786893",
+      "posted_at": "2026-10-27T02:31:20.465367+00:00",
+      "status": "published"
     }
   ],
-  "grok_bait_next_index": 26
+  "grok_bait_next_index": 27
 }
