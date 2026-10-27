@@ -123,5 +123,19 @@
     "2114770776411041933"
   ],
   "last_posted_at": "2026-10-27T14:27:53.117429+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-27:7",
+    "source": {
+      "id": "2115111201743024209",
+      "text": "AI agents get more interesting once they move past generating answers and start taking actions.\n\nThat’s the direction @meetmotes is exploring: encrypted financial infrastructure built around NFT-owned AI agents.\n\nThese agents can execute DeFi strategies and trade on @Polymarket, https://t.co/vfYaMXsW4a",
+      "author": "Mustyweb3_",
+      "url": "https://x.com/Mustyweb3_/status/2115111201743024209",
+      "created_at": "2026-10-27T15:59:42+00:00",
+      "score": 79.71324663032479
+    },
+    "text": "AI's getting a little too big for its britches\n\nIt seems like AI agents are starting to get their own wallets and are trading on DeFi platforms, because who needs human oversight, anyway?",
+    "prepared_at": "2026-10-27T17:01:38.224400+00:00",
+    "run_id": "40546576401",
+    "run_attempt": "1"
+  }
 }
