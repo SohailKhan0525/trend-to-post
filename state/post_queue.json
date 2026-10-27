@@ -104,5 +104,19 @@
     "2110934209665868196"
   ],
   "last_posted_at": "2026-10-27T03:01:34.504232+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-27:4",
+    "source": {
+      "id": "2114837059462627533",
+      "text": "Announcing three major scientific discoveries, one each in mathematics (harmonic analysis), computer science (complexity theory), and physics (quantum field theory).\n\nAI starting to help us improve our understanding of the universe! https://t.co/VkfacopR2R",
+      "author": "gdb",
+      "url": "https://x.com/gdb/status/2114837059462627533",
+      "created_at": "2026-10-26T21:50:21+00:00",
+      "score": 1210.6117045302362
+    },
+    "text": "Wait, what? AI's getting in on the scientific breakthroughs? Should we start paying it royalties?",
+    "prepared_at": "2026-10-27T10:34:06.922264+00:00",
+    "run_id": "40489441724",
+    "run_attempt": "1"
+  }
 }
