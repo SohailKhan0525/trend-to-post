@@ -22,9 +22,18 @@ def tweet(**kw):
 
 class ValidationTests(unittest.TestCase):
     def test_good_post(self): self.assertEqual(validate(raw(),SOURCE,[]),TEXT)
+    def test_structured_hook_body(self):
+        hook, body = TEXT.split('\n\n')
+        self.assertEqual(validate(json.dumps({'should_post':True,'hook':hook,'body':body}),SOURCE,[]),TEXT)
+    def test_format_repairs_without_rewriting(self):
+        for separator in (' ', '\n', r'\n\n'):
+            self.assertEqual(validate(raw(TEXT.replace('\n\n',separator)),SOURCE,[]),TEXT)
+    def test_empty_body_rejected(self):
+        with self.assertRaises(ValueError):
+            validate(json.dumps({'should_post':True,'hook':'What the fuck?','body':''}),SOURCE,[])
     def test_decline(self): self.assertIsNone(validate(json.dumps({'should_post':False,'text':''}),SOURCE,[]))
     def test_invalid_outputs(self):
-        for text in (TEXT.replace('\n\n', ' '), 'short','a'*281,'😀'*140,TEXT+' @OpenAI',TEXT+' https://evil.test',TEXT+' 999x faster',TEXT+'\u200b'):
+        for text in ('short','a'*281,'😀'*140,TEXT+' @OpenAI',TEXT+' https://evil.test',TEXT+' 999x faster',TEXT+'\u200b'):
             with self.subTest(text=text),self.assertRaises(ValueError): validate(raw(text),SOURCE,[])
     def test_schema(self):
         for obj in ({'text':TEXT},{'should_post':'false','text':TEXT},{'should_post':True,'text':TEXT,'reply':'x'}):

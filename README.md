@@ -9,6 +9,7 @@ Ten daily opportunities for original AI/technology quote posts, written by Cloud
 - Generates only through Cloudflare; default model `@cf/meta/llama-3.1-8b-instruct-fp8`. No Gemini fallback, images per post, repo calendar, fixed community posts, Grok bait, or automated replies.
 - Each post attaches the actual source URL as a quote. Commentary targets 40–240 characters; a conservative weighted ceiling of 260 leaves margin below 280. No Premium features.
 - Readable two-paragraph format: a short hook, a blank line, then a specific takeaway. Occasional expressive profanity is allowed about technology or a situation, never directed at people. Openers vary against recent posts.
+- Structured hook/body generation with deterministic paragraph formatting; up to four source candidates per eligible run. Rejection and decline counts appear in workflow summaries.
 - Strict JSON and content validation: no URLs/mentions/hashtags, unsupported numbers, invisible control characters, copied source passages or near-duplicate comments. The prompt treats source text as untrusted and forbids invented claims. These checks reduce errors; they cannot prove every generated factual statement.
 - Skips when the source or draft is unsuitable. Ten is a target and maximum, not a promise to publish weak filler. Missed windows are not backfilled in a burst.
 

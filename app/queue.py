@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from twikit import Client
 from .sources import discover
-from .writer import generate, validate
+from .writer import generate, validate, DraftError
 
 PATH=Path('state/post_queue.json')
 
@@ -61,11 +61,19 @@ async def prepare():
     c=client()
     if not await c.is_logged_in(): raise ValueError('X session expired; update repository secrets')
     sources=await discover(c,set(state['used_source_ids']),state['history'],now)
-    for source in sources[:2]:
+    print(f"Discovery found {len(sources)} eligible sources.")
+    rejected = 0
+    declined = 0
+    for source in sources[:4]:
         try: text=generate(source,state['history'])
-        except (ValueError,json.JSONDecodeError):
-            print('AI candidate rejected by content validation.'); continue
-        if not text: continue
+        except DraftError as exc:
+            rejected += 1
+            print(f'AI candidate rejected: {exc}')
+            continue
+        if not text:
+            declined += 1
+            print('AI declined this source as unsuitable.')
+            continue
         state['pending']={'slot':slot(now),'source':source,'text':text,'prepared_at':now.isoformat(),
                           'run_id':os.environ.get('GITHUB_RUN_ID','local'),
                           'run_attempt':os.environ.get('GITHUB_RUN_ATTEMPT','1')}
@@ -73,7 +81,11 @@ async def prepare():
         output('prepared','true')
         print('Quote prepared. Publication requires a durable Git reservation.')
         return
-    print('No eligible source or valid draft; skipped rather than filling with stale content.')
+    message = f'No post: {len(sources)} sources, {rejected} rejected drafts, {declined} AI declines.'
+    print('::warning::' + message)
+    if os.environ.get('GITHUB_STEP_SUMMARY'):
+        with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+            f.write(message + '\n')
     output('skip_reason','no_valid_draft')
 
 
