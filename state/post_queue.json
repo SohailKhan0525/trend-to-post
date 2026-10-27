@@ -8,6 +8,14 @@
       "author": "gdb",
       "tweet_id": "2115029303629054422",
       "posted_at": "2026-10-27T10:34:15.159587+00:00"
+    },
+    {
+      "slot": "2026-10-27:6",
+      "text": "what the fuck tech is next?\n\nLooks like your TV just got its own AI assistant, and it's already taking over the living room – talk about a broadcast interruption!",
+      "source_id": "2114770776411041933",
+      "author": "samraaj",
+      "tweet_id": "2115088098145034520",
+      "posted_at": "2026-10-27T14:27:53.117429+00:00"
     }
   ],
   "used_source_ids": [
@@ -111,22 +119,9 @@
     "2110908585739759689",
     "2110924959438791070",
     "2110934209665868196",
-    "2114837059462627533"
+    "2114837059462627533",
+    "2114770776411041933"
   ],
-  "last_posted_at": "2026-10-27T10:34:15.159587+00:00",
-  "pending": {
-    "slot": "2026-10-27:6",
-    "source": {
-      "id": "2114770776411041933",
-      "text": "I vibecoded my TV with claude code.\n\nBuilt a new home screen with no ads, a shared drawing board with my wife, and an ai assistant. https://t.co/fWyC4ohZkF",
-      "author": "samraaj",
-      "url": "https://x.com/samraaj/status/2114770776411041933",
-      "created_at": "2026-10-26T17:26:58+00:00",
-      "score": 195.47937565762712
-    },
-    "text": "what the fuck tech is next?\n\nLooks like your TV just got its own AI assistant, and it's already taking over the living room – talk about a broadcast interruption!",
-    "prepared_at": "2026-10-27T14:27:43.188644+00:00",
-    "run_id": "40521273998",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-27T14:27:53.117429+00:00",
+  "pending": null
 }
