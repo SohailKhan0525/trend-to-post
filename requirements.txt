@@ -1,2 +1,1 @@
 twifork[impersonate]==2.4.0
-Pillow>=10.4.0,<13

@@ -1,179 +1,49 @@
-name: Post Curated GitHub Repositories and Grok-Bait
-
+name: Publish AI and Technology Quotes
 on:
   workflow_dispatch:
   repository_dispatch:
     types: [post-next]
-  # Keep the queue moving even if the external repository_dispatch sender stalls.
+  push:
+    branches: [main]
+    paths: ['app/**', '.github/workflows/post-queue.yml']
   schedule:
-    - cron: "*/30 * * * *"
-
+    - cron: '17,47 * * * *'
 permissions:
   contents: write
-
 concurrency:
   group: x-text-original-queue
   cancel-in-progress: false
-
 jobs:
   post:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 12
+    env:
+      X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
+      X_CT0: ${{ secrets.X_CT0 }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_AI_MODEL: ${{ vars.CLOUDFLARE_AI_MODEL }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-
-      - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
-          python-version: "3.12"
-
-      - name: Install X client
-        run: python -m pip install -r requirements.txt
-
-      - name: Sync latest state
-        shell: bash
-        run: |
-          # GitHub can occasionally return transient 502/503/504 responses.
-          # Retry the sync, and fall back to the checkout if the remote is
-          # temporarily unreachable. The final state push also rebases safely.
-          for attempt in 1 2 3 4 5; do
-            if git fetch --no-tags origin main; then
-              git reset --hard origin/main
-              exit 0
-            fi
-            delay=$((attempt * 5))
-            echo "git fetch failed (attempt $attempt/5); retrying in ${delay}s..."
-            sleep "$delay"
-          done
-
-          echo "GitHub main fetch is temporarily unavailable; continuing from the checked-out commit."
-
-      - name: Validate secrets
-        env:
-          X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
-          X_CT0: ${{ secrets.X_CT0 }}
-        shell: bash
-        run: |
-          test -n "$X_AUTH_TOKEN" || { echo "Missing X_AUTH_TOKEN"; exit 1; }
-          test -n "$X_CT0" || { echo "Missing X_CT0"; exit 1; }
-
-      - name: Validate Python syntax
-        run: python -m compileall -q app
-
-      - name: Run unit tests
-        run: python -m unittest discover -s tests -p "test_*.py"
-
-      - name: Publish the next planned queue post
-        id: post_bot
-        env:
-          X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
-          X_CT0: ${{ secrets.X_CT0 }}
-        run: python -m app post
-
-      - name: Fail visibly when no post was published
-        if: >-
-          steps.post_bot.outcome == 'success' &&
-          steps.post_bot.outputs.published != 'true' &&
-          steps.post_bot.outputs.skip_reason != 'interval_guard' &&
-          steps.post_bot.outputs.skip_reason != 'daily_cap' &&
-          steps.post_bot.outputs.skip_reason != 'daily_plan_complete' &&
-          steps.post_bot.outputs.skip_reason != 'no_eligible_source'
-        shell: bash
-        run: |
-          echo "::error title=Posting step failed::The queue encountered an unexpected failure. See the Publish step logs for details."
-          exit 1
-
-      - name: Commit bot state
-        if: always() && steps.post_bot.outcome != 'skipped'
-        shell: bash
-        run: |
-          if test -z "$(git status --porcelain -- state/post_queue.json state/company_manual_posts.md state/trend_manual_posts.md)"; then
-            echo "No state change."
-            exit 0
-          fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state/post_queue.json state/company_manual_posts.md state/trend_manual_posts.md
-          git commit -m "chore: update curated repo and Grok-bait queue state"
-
-          for attempt in 1 2 3 4 5; do
-            if git push; then
-              exit 0
-            fi
-
-            echo "git push failed (attempt $attempt/5). Retrying the push before fetching."
-            sleep $((attempt * 3))
-
-            if git push; then
-              exit 0
-            fi
-
-            echo "Direct push retry failed; refreshing main before the next attempt."
-            fetched=false
-            for fetch_attempt in 1 2 3; do
-              if git fetch --no-tags origin main; then
-                fetched=true
-                break
-              fi
-              echo "git fetch failed (attempt $fetch_attempt/3); retrying in 5s."
-              sleep 5
-            done
-
-            if test "$fetched" != true; then
-              echo "GitHub is still temporarily unreachable; retrying the push loop."
-              continue
-            fi
-
-            git rebase origin/main || {
-              echo "Unable to rebase bot state onto origin/main."
-              exit 1
-            }
-          done
-
-          echo "Failed to push bot state after 5 attempts."
-          exit 1
-
-
-      - name: Report daily queue progress
-        if: always()
-        env:
-          POST_PUBLISHED: ${{ steps.post_bot.outputs.published }}
-          POST_SKIP_REASON: ${{ steps.post_bot.outputs.skip_reason }}
-        shell: bash
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-
-          state_path = Path("state/post_queue.json")
-          if not state_path.exists():
-              print("Queue state file is missing; no daily progress can be reported.")
-              raise SystemExit(0)
-
-          state = json.loads(state_path.read_text(encoding="utf-8"))
-          lines = [
-              "## Daily queue progress",
-              "",
-              f"- UTC date: {state.get('day_key', 'unknown')}",
-          "- Active posting: 4 curated GitHub repository posts/day plus 3 Grok-bait posts/day from JSON. Two additional fixed community posts/day run separately. Total: 9 main posts/day. DID YOU KNOW builder prompts and comparison memes are disabled.",
-              f"- Main queue posts published: {state.get('daily_count', 0)}/7",
-              f"- This run published a post: {os.environ.get('POST_PUBLISHED', 'unknown')}",
-              f"- This run skip reason: {os.environ.get('POST_SKIP_REASON', 'unknown')}",
-              f"- X Trends quote posts (retired): {state.get('trend_quote_post_count', 0)}/0",
-                  f"- Curated GitHub repository posts: {state.get('github_repo_post_count', 0)}/4",
-              f"- Grok-bait posts: {state.get('grok_bait_post_count', 0)}/3",
-              f"- Tagged originals in rolling 48h: {len(state.get('mention_post_timestamps', []))}/2",
-              f"- Generation attempts: {state.get('ai_call_count', 0)}/120",
-              f"- Last successful post: {state.get('last_posted_at') or 'none recorded'}",
-              f"- Last post type: {state.get('last_post_type') or 'none recorded'}",
-              "",
-          ]
-          print("\n".join(lines))
-          summary_path = os.environ.get("GITHUB_STEP_SUMMARY", "")
-          if summary_path:
-              with open(summary_path, "a", encoding="utf-8") as summary:
-                  summary.write("\n".join(lines))
-          PY
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - name: Prepare one quote
+        id: prepare
+        run: python -m app prepare
+      - name: Persist reservation before contacting X
+        if: steps.prepare.outputs.prepared == 'true'
+        run: bash scripts/commit-state.sh
+      - name: Publish reserved quote once
+        id: publish
+        if: steps.prepare.outputs.prepared == 'true'
+        run: python -m app publish
+      - name: Persist confirmed publication
+        if: always() && steps.publish.outputs.published == 'true'
+        run: bash scripts/commit-state.sh
