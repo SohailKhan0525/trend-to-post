@@ -32,6 +32,14 @@
       "author": "ChatGPT",
       "tweet_id": "2115164484541308993",
       "posted_at": "2026-10-27T19:31:24.860688+00:00"
+    },
+    {
+      "slot": "2026-10-27:9",
+      "text": "AI's getting a little too big for its britches\n\nAnthropic's AI is developing its own drug discovery efforts, because apparently AI can learn a thing or two about the medical industry.",
+      "source_id": "2115178675050307942",
+      "author": "AnthropicAI",
+      "tweet_id": "2115202292572180556",
+      "posted_at": "2026-10-27T22:01:38.844990+00:00"
     }
   ],
   "used_source_ids": [
@@ -138,22 +146,9 @@
     "2114837059462627533",
     "2114770776411041933",
     "2115111201743024209",
-    "2115139248458191070"
+    "2115139248458191070",
+    "2115178675050307942"
   ],
-  "last_posted_at": "2026-10-27T19:31:24.860688+00:00",
-  "pending": {
-    "slot": "2026-10-27:9",
-    "source": {
-      "id": "2115178675050307942",
-      "text": "Over the past few months, Anthropic scientists have engaged in deep research partnerships with six organizations developing new medicines. We've also begun drug discovery efforts of our own.\n\nIn doing so, we’ve learned much more about how Claude can support the many stages of",
-      "author": "AnthropicAI",
-      "url": "https://x.com/AnthropicAI/status/2115178675050307942",
-      "created_at": "2026-10-27T20:27:48+00:00",
-      "score": 1700.3473004695127
-    },
-    "text": "AI's getting a little too big for its britches\n\nAnthropic's AI is developing its own drug discovery efforts, because apparently AI can learn a thing or two about the medical industry.",
-    "prepared_at": "2026-10-27T22:01:28.469251+00:00",
-    "run_id": "40591496500",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-27T22:01:38.844990+00:00",
+  "pending": null
 }
