@@ -31,4 +31,4 @@ Use a separate handle/avatar/email and avoid copying biographies from personal a
 
 ## Voice
 
-Short, specific, curious. A reaction must earn its place by explaining what changed. Prefer "Wait, what? The review step is now the workflow." over a context-free shock hook. Avoid pretending a product claim is independently tested, company affiliation, recycled outrage, engagement bait and excessive emoji.
+Short, specific, curious, and playfully irreverent. Use a short hook, one blank line, then the concrete takeaway. Occasional "what the fuck?", "ohhhhh myyy, what the hell??" or "damn itttt" is welcome when earned; vary it with calmer observations. Direct swearing at the situation, never a person. A reaction must earn its place by explaining what changed. Prefer "Wait, what? The review step is now the workflow." over a context-free shock hook. Avoid pretending a product claim is independently tested, company affiliation, recycled outrage, engagement bait and excessive emoji.

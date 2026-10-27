@@ -11,7 +11,7 @@ from app.sources import candidate,discover
 from app.writer import validate,generate
 
 NOW=datetime(2026,10,27,12,10,tzinfo=timezone.utc)
-TEXT='The interesting part is the workflow change. Who gets to review what the agent changed?'
+TEXT='What the fuck?\n\nThe interesting part is the workflow change. Who gets to review what the agent changed?'
 SOURCE={'id':'123','text':'Claude adds a coding workflow for reviewing agent changes.','author':'builder','url':'https://x.com/builder/status/123'}
 
 def state(): return {'version':2,'history':[],'used_source_ids':[],'last_posted_at':None,'pending':None}
@@ -24,7 +24,7 @@ class ValidationTests(unittest.TestCase):
     def test_good_post(self): self.assertEqual(validate(raw(),SOURCE,[]),TEXT)
     def test_decline(self): self.assertIsNone(validate(json.dumps({'should_post':False,'text':''}),SOURCE,[]))
     def test_invalid_outputs(self):
-        for text in ('short','a'*281,'😀'*140,TEXT+' @OpenAI',TEXT+' https://evil.test',TEXT+' 999x faster',TEXT+'\u200b'):
+        for text in (TEXT.replace('\n\n', ' '), 'short','a'*281,'😀'*140,TEXT+' @OpenAI',TEXT+' https://evil.test',TEXT+' 999x faster',TEXT+'\u200b'):
             with self.subTest(text=text),self.assertRaises(ValueError): validate(raw(text),SOURCE,[])
     def test_schema(self):
         for obj in ({'text':TEXT},{'should_post':'false','text':TEXT},{'should_post':True,'text':TEXT,'reply':'x'}):
