@@ -72,6 +72,14 @@
       "author": "0xshorif",
       "tweet_id": "2115345704738840736",
       "posted_at": "2026-10-28T07:31:31.315348+00:00"
+    },
+    {
+      "slot": "2026-10-28:4",
+      "text": "40% off for OneGov?\n\nThat's steep discount for a government AI integration, but what's the catch? Maybe Claude will be handling all the bureaucratic red tape, but who's controlling the narrative?",
+      "source_id": "2115207004293853358",
+      "author": "AnthropicAI",
+      "tweet_id": "2115383508592197635",
+      "posted_at": "2026-10-28T10:01:44.209490+00:00"
     }
   ],
   "used_source_ids": [
@@ -183,22 +191,9 @@
     "2115200995546566910",
     "2115185849424048564",
     "2115190541688398184",
-    "2115294083120079197"
+    "2115294083120079197",
+    "2115207004293853358"
   ],
-  "last_posted_at": "2026-10-28T07:31:31.315348+00:00",
-  "pending": {
-    "slot": "2026-10-28:4",
-    "source": {
-      "id": "2115207004293853358",
-      "text": "We're expanding our partnership with @USGSA. Under a new OneGov agreement, we are bringing Claude to federal, state, local, tribal, and territorial governments at 40% off.\nhttps://t.co/p0lA6cP2y1",
-      "author": "AnthropicAI",
-      "url": "https://x.com/AnthropicAI/status/2115207004293853358",
-      "created_at": "2026-10-27T22:20:23+00:00",
-      "score": 203.52026406611856
-    },
-    "text": "40% off for OneGov?\n\nThat's steep discount for a government AI integration, but what's the catch? Maybe Claude will be handling all the bureaucratic red tape, but who's controlling the narrative?",
-    "prepared_at": "2026-10-28T10:01:35.110552+00:00",
-    "run_id": "40668792315",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-28T10:01:44.209490+00:00",
+  "pending": null
 }
