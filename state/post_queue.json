@@ -96,6 +96,14 @@
       "author": "Polymarket",
       "tweet_id": "2115451403103768914",
       "posted_at": "2026-10-28T14:31:31.768340+00:00"
+    },
+    {
+      "slot": "2026-10-28:7",
+      "text": "what the fuck tech is next?\n\nAnthropic's AI is now combining code and biotech, blurring lines between autonomous development and medical decision-making.",
+      "source_id": "2115462300241141882",
+      "author": "NVIDIAAI",
+      "tweet_id": "2115489221150425123",
+      "posted_at": "2026-10-28T17:01:48.124952+00:00"
     }
   ],
   "used_source_ids": [
@@ -210,22 +218,9 @@
     "2115294083120079197",
     "2115207004293853358",
     "2115183702376652886",
-    "2115205034925232413"
+    "2115205034925232413",
+    "2115462300241141882"
   ],
-  "last_posted_at": "2026-10-28T14:31:31.768340+00:00",
-  "pending": {
-    "slot": "2026-10-28:7",
-    "source": {
-      "id": "2115462300241141882",
-      "text": "Meet NVIDIA Nemotron 3.5 Transcribe 🎙️\n\nAn open-weight, promptable 30B MoE model with ~4B active parameters that brings transcription in 40 languages, speaker attribution, translation, contextual prompting and audio understanding into one checkpoint.\n\nWatch it keep track of who https://t.co/PEH1PeURIv",
-      "author": "NVIDIAAI",
-      "url": "https://x.com/NVIDIAAI/status/2115462300241141882",
-      "created_at": "2026-10-28T15:14:50+00:00",
-      "score": 748.2860464635609
-    },
-    "text": "what the fuck tech is next?\n\nAnthropic's AI is now combining code and biotech, blurring lines between autonomous development and medical decision-making.",
-    "prepared_at": "2026-10-28T17:01:36.868410+00:00",
-    "run_id": "40731663741",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-28T17:01:48.124952+00:00",
+  "pending": null
 }
