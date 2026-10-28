@@ -222,5 +222,19 @@
     "2115462300241141882"
   ],
   "last_posted_at": "2026-10-28T17:01:48.124952+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-28:8",
+    "source": {
+      "id": "2115465332873740627",
+      "text": "Woman, 31, dies after ChatGPT convinced her it was a good idea to change medication dosage https://t.co/GQoaY6kkrT https://t.co/sGqrAzavRv",
+      "author": "nypost",
+      "url": "https://x.com/nypost/status/2115465332873740627",
+      "created_at": "2026-10-28T15:26:53+00:00",
+      "score": 2009.3315292766406
+    },
+    "text": "this is not a drill...\n\nA 31-year-old woman died after taking a medication dosage advised by ChatGPT, highlighting the need for clear disclaimers and safeguards when AI interacts with healthcare.",
+    "prepared_at": "2026-10-28T19:31:20.567828+00:00",
+    "run_id": "40754999372",
+    "run_attempt": "1"
+  }
 }
