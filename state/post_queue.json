@@ -88,6 +88,14 @@
       "author": "lydiahallie",
       "tweet_id": "2115413749960147177",
       "posted_at": "2026-10-28T12:01:54.227292+00:00"
+    },
+    {
+      "slot": "2026-10-28:6",
+      "text": "what the fuck tech is next?\n\nAnthropic's AI is getting into biotech, but who's controlling the narrative when Claude starts developing its own experimental drugs? 🤯",
+      "source_id": "2115205034925232413",
+      "author": "Polymarket",
+      "tweet_id": "2115451403103768914",
+      "posted_at": "2026-10-28T14:31:31.768340+00:00"
     }
   ],
   "used_source_ids": [
@@ -201,22 +209,9 @@
     "2115190541688398184",
     "2115294083120079197",
     "2115207004293853358",
-    "2115183702376652886"
+    "2115183702376652886",
+    "2115205034925232413"
   ],
-  "last_posted_at": "2026-10-28T12:01:54.227292+00:00",
-  "pending": {
-    "slot": "2026-10-28:6",
-    "source": {
-      "id": "2115205034925232413",
-      "text": "BREAKING: Anthropic reveals it is developing its own experimental drugs using Claude, targeting rare childhood diseases &amp; various cancers.",
-      "author": "Polymarket",
-      "url": "https://x.com/Polymarket/status/2115205034925232413",
-      "created_at": "2026-10-27T22:12:33+00:00",
-      "score": 390.1526446664516
-    },
-    "text": "what the fuck tech is next?\n\nAnthropic's AI is getting into biotech, but who's controlling the narrative when Claude starts developing its own experimental drugs? 🤯",
-    "prepared_at": "2026-10-28T14:31:22.450620+00:00",
-    "run_id": "40706718238",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-28T14:31:31.768340+00:00",
+  "pending": null
 }
