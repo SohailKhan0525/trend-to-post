@@ -56,6 +56,14 @@
       "author": "Prof_Oak_",
       "tweet_id": "2115270198962090260",
       "posted_at": "2026-10-28T02:31:29.029962+00:00"
+    },
+    {
+      "slot": "2026-10-28:2",
+      "text": "Anthropic's AI is getting into biotech? ,\n\nApparently, experts are starting to question whether their agents are still making the key decisions when they delegate work to AI, which is a whole new level of accountability.",
+      "source_id": "2115190541688398184",
+      "author": "AlexTamkin",
+      "tweet_id": "2115307989552734591",
+      "posted_at": "2026-10-28T05:01:39.146111+00:00"
     }
   ],
   "used_source_ids": [
@@ -165,22 +173,9 @@
     "2115139248458191070",
     "2115178675050307942",
     "2115200995546566910",
-    "2115185849424048564"
+    "2115185849424048564",
+    "2115190541688398184"
   ],
-  "last_posted_at": "2026-10-28T02:31:29.029962+00:00",
-  "pending": {
-    "slot": "2026-10-28:2",
-    "source": {
-      "id": "2115190541688398184",
-      "text": "New Anthropic research: How AI agents shape experts' judgment calls\n\nWhen experts delegate work to an agent, do they still make the key decisions? We tested this in a randomized trial with 50 professional data analysts. https://t.co/YyylTuVWkE",
-      "author": "AlexTamkin",
-      "url": "https://x.com/AlexTamkin/status/2115190541688398184",
-      "created_at": "2026-10-27T21:14:58+00:00",
-      "score": 270.42092950109594
-    },
-    "text": "Anthropic's AI is getting into biotech? ,\n\nApparently, experts are starting to question whether their agents are still making the key decisions when they delegate work to AI, which is a whole new level of accountability.",
-    "prepared_at": "2026-10-28T05:01:28.750079+00:00",
-    "run_id": "40635548048",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-28T05:01:39.146111+00:00",
+  "pending": null
 }
