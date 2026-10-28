@@ -80,6 +80,14 @@
       "author": "AnthropicAI",
       "tweet_id": "2115383508592197635",
       "posted_at": "2026-10-28T10:01:44.209490+00:00"
+    },
+    {
+      "slot": "2026-10-28:5",
+      "text": "what the fuck tech is next?\n\nAnthropic's AI is already adapting to the concept of 'plugins' from software, now it's invading biotech with 'autonomous development'. Guess Claude's next?",
+      "source_id": "2115183702376652886",
+      "author": "lydiahallie",
+      "tweet_id": "2115413749960147177",
+      "posted_at": "2026-10-28T12:01:54.227292+00:00"
     }
   ],
   "used_source_ids": [
@@ -192,22 +200,9 @@
     "2115185849424048564",
     "2115190541688398184",
     "2115294083120079197",
-    "2115207004293853358"
+    "2115207004293853358",
+    "2115183702376652886"
   ],
-  "last_posted_at": "2026-10-28T10:01:44.209490+00:00",
-  "pending": {
-    "slot": "2026-10-28:5",
-    "source": {
-      "id": "2115183702376652886",
-      "text": "We're reworking the UI and setup flow for plugins and connectors in Claude. \n\nHow can we make it better for you? All feedback welcome 🙏",
-      "author": "lydiahallie",
-      "url": "https://x.com/lydiahallie/status/2115183702376652886",
-      "created_at": "2026-10-27T20:47:47+00:00",
-      "score": 175.5307950851068
-    },
-    "text": "what the fuck tech is next?\n\nAnthropic's AI is already adapting to the concept of 'plugins' from software, now it's invading biotech with 'autonomous development'. Guess Claude's next?",
-    "prepared_at": "2026-10-28T12:01:37.772760+00:00",
-    "run_id": "40684454916",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-28T12:01:54.227292+00:00",
+  "pending": null
 }
