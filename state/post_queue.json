@@ -48,6 +48,14 @@
       "author": "felixrieseberg",
       "tweet_id": "2115232293929521464",
       "posted_at": "2026-10-28T00:00:51.894322+00:00"
+    },
+    {
+      "slot": "2026-10-28:1",
+      "text": "what the fuck tech is next?\n\nAnthropic's AI just went from code to biotech, because their AI is apparently taking the phrase 'autonomous development' way too literally.",
+      "source_id": "2115185849424048564",
+      "author": "Prof_Oak_",
+      "tweet_id": "2115270198962090260",
+      "posted_at": "2026-10-28T02:31:29.029962+00:00"
     }
   ],
   "used_source_ids": [
@@ -156,22 +164,9 @@
     "2115111201743024209",
     "2115139248458191070",
     "2115178675050307942",
-    "2115200995546566910"
+    "2115200995546566910",
+    "2115185849424048564"
   ],
-  "last_posted_at": "2026-10-28T00:00:51.894322+00:00",
-  "pending": {
-    "slot": "2026-10-28:1",
-    "source": {
-      "id": "2115185849424048564",
-      "text": "Surprise 1: Anthropic acquired a one-person biotech\n.\n.\n.\nSurprise 2: that person is me\nSurprise 3: I’m here to tell you all about it\n\nYes, this is what you think it is; after 6 yrs of increasingly loose anonymity: the Professor Oak reveal post\n\n…and yes, it has gotten so boring",
-      "author": "Prof_Oak_",
-      "url": "https://x.com/Prof_Oak_/status/2115185849424048564",
-      "created_at": "2026-10-27T20:56:19+00:00",
-      "score": 954.1458802468463
-    },
-    "text": "what the fuck tech is next?\n\nAnthropic's AI just went from code to biotech, because their AI is apparently taking the phrase 'autonomous development' way too literally.",
-    "prepared_at": "2026-10-28T02:31:21.035997+00:00",
-    "run_id": "40621400847",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-28T02:31:29.029962+00:00",
+  "pending": null
 }
