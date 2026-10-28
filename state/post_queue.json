@@ -40,6 +40,14 @@
       "author": "AnthropicAI",
       "tweet_id": "2115202292572180556",
       "posted_at": "2026-10-27T22:01:38.844990+00:00"
+    },
+    {
+      "slot": "2026-10-28:0",
+      "text": "AI's getting too big for its britches\n\nAnthropic's AI is now doing its own drug discovery, which is either a medical miracle or a recipe for chaos, depending on how you look at it.",
+      "source_id": "2115200995546566910",
+      "author": "felixrieseberg",
+      "tweet_id": "2115232293929521464",
+      "posted_at": "2026-10-28T00:00:51.894322+00:00"
     }
   ],
   "used_source_ids": [
@@ -147,22 +155,9 @@
     "2114770776411041933",
     "2115111201743024209",
     "2115139248458191070",
-    "2115178675050307942"
+    "2115178675050307942",
+    "2115200995546566910"
   ],
-  "last_posted_at": "2026-10-27T22:01:38.844990+00:00",
-  "pending": {
-    "slot": "2026-10-28:0",
-    "source": {
-      "id": "2115200995546566910",
-      "text": "The coding interview is dead, at least for my team at Anthropic. I've seen enough to know that it no longer provides signal. I removed it from loops this month.\n\nI have a spicy, optimistic take - I think there's an opportunity for junior engineers: https://t.co/PVvpQCbQtK",
-      "author": "felixrieseberg",
-      "url": "https://x.com/felixrieseberg/status/2115200995546566910",
-      "created_at": "2026-10-27T21:56:30+00:00",
-      "score": 900.0592618823888
-    },
-    "text": "AI's getting too big for its britches\n\nAnthropic's AI is now doing its own drug discovery, which is either a medical miracle or a recipe for chaos, depending on how you look at it.",
-    "prepared_at": "2026-10-28T00:00:41.272312+00:00",
-    "run_id": "40605915743",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-28T00:00:51.894322+00:00",
+  "pending": null
 }
