@@ -64,6 +64,14 @@
       "author": "AlexTamkin",
       "tweet_id": "2115307989552734591",
       "posted_at": "2026-10-28T05:01:39.146111+00:00"
+    },
+    {
+      "slot": "2026-10-28:3",
+      "text": "what the fuck tech is next?\n\nAnthropic's AI is going from code to biotech, taking 'autonomous development' literally - now that's a wild experiment in delegation.",
+      "source_id": "2115294083120079197",
+      "author": "0xshorif",
+      "tweet_id": "2115345704738840736",
+      "posted_at": "2026-10-28T07:31:31.315348+00:00"
     }
   ],
   "used_source_ids": [
@@ -174,22 +182,9 @@
     "2115178675050307942",
     "2115200995546566910",
     "2115185849424048564",
-    "2115190541688398184"
+    "2115190541688398184",
+    "2115294083120079197"
   ],
-  "last_posted_at": "2026-10-28T05:01:39.146111+00:00",
-  "pending": {
-    "slot": "2026-10-28:3",
-    "source": {
-      "id": "2115294083120079197",
-      "text": "AI agent needs more than a name. It needs an identity people can recognize and verify.\n\n@agenticscredit sharing its AI agent claim on @moltbook caught my attention. The post includes a verification code, making the process more concrete than simply talking about AI agents.\n\nThis https://t.co/qdM7jZl1e9",
-      "author": "0xshorif",
-      "url": "https://x.com/0xshorif/status/2115294083120079197",
-      "created_at": "2026-10-28T04:06:24+00:00",
-      "score": 236.17501017935334
-    },
-    "text": "what the fuck tech is next?\n\nAnthropic's AI is going from code to biotech, taking 'autonomous development' literally - now that's a wild experiment in delegation.",
-    "prepared_at": "2026-10-28T07:31:22.379753+00:00",
-    "run_id": "40650594337",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-28T07:31:31.315348+00:00",
+  "pending": null
 }
