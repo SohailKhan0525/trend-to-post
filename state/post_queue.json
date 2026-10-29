@@ -267,5 +267,19 @@
     "2115485095251308740"
   ],
   "last_posted_at": "2026-10-29T05:01:42.135331+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-29:3",
+    "source": {
+      "id": "2115565560603824452",
+      "text": "ChatGPT is unifying Chat and Work\n\nI wonder how that changes usage limits https://t.co/doX7VTV3QT",
+      "author": "Angaisb_",
+      "url": "https://x.com/Angaisb_/status/2115565560603824452",
+      "created_at": "2026-10-28T22:05:09+00:00",
+      "score": 205.8081134580088
+    },
+    "text": "ChatGPT's pro upgrade is coming...\n\nNow that ChatGPT unifies with work, its usage limits might finally get a decent reboot, but it's still unclear what that'll look like.",
+    "prepared_at": "2026-10-29T07:31:21.862751+00:00",
+    "run_id": "40835940682",
+    "run_attempt": "1"
+  }
 }
