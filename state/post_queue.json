@@ -136,6 +136,14 @@
       "author": "kloss_xyz",
       "tweet_id": "2115632607673422032",
       "posted_at": "2026-10-29T02:31:34.340417+00:00"
+    },
+    {
+      "slot": "2026-10-29:2",
+      "text": "Anthropic's AI is now getting into biotech...\n\nAnthropic's AI is blurring the lines between autonomous development and medical decision-making, which raises questions about accountability and control in the healthcare industry.",
+      "source_id": "2115485095251308740",
+      "author": "amasad",
+      "tweet_id": "2115670389938672081",
+      "posted_at": "2026-10-29T05:01:42.135331+00:00"
     }
   ],
   "used_source_ids": [
@@ -255,22 +263,9 @@
     "2115465332873740627",
     "2115521147890520503",
     "2115583698074755078",
-    "2115491101062914301"
+    "2115491101062914301",
+    "2115485095251308740"
   ],
-  "last_posted_at": "2026-10-29T02:31:34.340417+00:00",
-  "pending": {
-    "slot": "2026-10-29:2",
-    "source": {
-      "id": "2115485095251308740",
-      "text": "Imagine an alien species lands on Earth. They’re incredibly intelligent, especially good with software and computers, and mostly want to help humans get things done.\n\nBut they’re also unpredictable. They can misunderstand your instructions, and because they’re so powerful, a",
-      "author": "amasad",
-      "url": "https://x.com/amasad/status/2115485095251308740",
-      "created_at": "2026-10-28T16:45:25+00:00",
-      "score": 77.25152901561607
-    },
-    "text": "Anthropic's AI is now getting into biotech...\n\nAnthropic's AI is blurring the lines between autonomous development and medical decision-making, which raises questions about accountability and control in the healthcare industry.",
-    "prepared_at": "2026-10-29T05:01:31.044854+00:00",
-    "run_id": "40820968010",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-29T05:01:42.135331+00:00",
+  "pending": null
 }
