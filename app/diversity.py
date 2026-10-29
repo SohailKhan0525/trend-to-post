@@ -7,6 +7,7 @@ from difflib import SequenceMatcher
 BRANDS = re.compile(r'\b(?:anthropic|openai|chatgpt|claude|opencode|nvidia|gemini|ai)(?:\s+ai)?\b', re.I)
 STOP = set('a an the and or but it its is are was were be been being to of for on in at by with from that this these those now just own your you we our they their has have had can could will would might may gets getting into about as than then so some any all who what which how not more next starts starting'.split())
 STORY_FAMILIES = {
+    'api_credits': r'\bapi credits?\b|\bcredits?\b.{0,24}\bapi\b',
     'ai_drug_discovery': r'\b(?:biotech|drug discovery|experimental drugs|medical decision)\b',
     'speech_to_speech': r'\bspeech[ -]to[ -]speech\b',
 }

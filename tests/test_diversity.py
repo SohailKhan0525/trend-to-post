@@ -28,6 +28,8 @@ class RepetitionRegressionTests(unittest.TestCase):
     def test_same_story_different_author(self):
         old=[{'text':'Old hook\n\nAnthropic is working on drug discovery.', 'posted_at':NOW.isoformat()}]
         self.assertIsNotNone(story_reason('Claude enters biotech with a new announcement',old,NOW))
+    def test_live_preview_api_credit_repeat_is_blocked(self):
+        self.assertIsNotNone(story_reason('Limited API credits for ChatGPT Pro and Business subscribers only.',HISTORY,NOW))
     def test_story_cooldown_expires(self):
         old=[{'text':'Old hook\n\nAnthropic is working on drug discovery.', 'posted_at':(NOW-timedelta(hours=49)).isoformat()}]
         self.assertIsNone(story_reason('Claude enters biotech with a new announcement',old,NOW))
