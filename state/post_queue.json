@@ -160,6 +160,14 @@
       "author": "Polymarket",
       "tweet_id": "2115745886668231008",
       "posted_at": "2026-10-29T10:01:41.958899+00:00"
+    },
+    {
+      "slot": "2026-10-29:5",
+      "text": "what the fuck tech is next?\n\nLooks like Claude's ready-made artifacts for contract review and regulatory scans might be just the beginning – now it's invading business workflow with built-in examples and sharable connectors.",
+      "source_id": "2115467192276025500",
+      "author": "claudeai",
+      "tweet_id": "2115776093634560113",
+      "posted_at": "2026-10-29T12:01:43.668914+00:00"
     }
   ],
   "used_source_ids": [
@@ -282,22 +290,9 @@
     "2115491101062914301",
     "2115485095251308740",
     "2115565560603824452",
-    "2115477105097998365"
+    "2115477105097998365",
+    "2115467192276025500"
   ],
-  "last_posted_at": "2026-10-29T10:01:41.958899+00:00",
-  "pending": {
-    "slot": "2026-10-29:5",
-    "source": {
-      "id": "2115467192276025500",
-      "text": "New in Claude for Legal: a gallery of ready-made artifacts for contract review, regulatory horizon scans, cite checks, and more.\n\nStart from the built-in example, add your own documents and connectors, and share it with anyone across the business. https://t.co/Wn2VK2HeMU",
-      "author": "claudeai",
-      "url": "https://x.com/claudeai/status/2115467192276025500",
-      "created_at": "2026-10-28T15:34:16+00:00",
-      "score": 1539.8061124691578
-    },
-    "text": "what the fuck tech is next?\n\nLooks like Claude's ready-made artifacts for contract review and regulatory scans might be just the beginning – now it's invading business workflow with built-in examples and sharable connectors.",
-    "prepared_at": "2026-10-29T12:01:32.737169+00:00",
-    "run_id": "40869881102",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-29T12:01:43.668914+00:00",
+  "pending": null
 }
