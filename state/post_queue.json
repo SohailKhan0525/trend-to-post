@@ -276,5 +276,19 @@
     "2115565560603824452"
   ],
   "last_posted_at": "2026-10-29T07:31:37.865954+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-29:4",
+    "source": {
+      "id": "2115477105097998365",
+      "text": "JUST IN: Anthropic IPO filing reveals the company holds more cash than nearly every non-bank U.S. company except Berkshire Hathaway &amp; Alphabet.",
+      "author": "Polymarket",
+      "url": "https://x.com/Polymarket/status/2115477105097998365",
+      "created_at": "2026-10-28T16:13:40+00:00",
+      "score": 414.3201149827033
+    },
+    "text": "ohhhhh myyy, what the hell?\n\nAnthropic's huge cash reserves might just fund its AI's speech-to-speech invasion of every industry, making it untraceable and unstoppable.",
+    "prepared_at": "2026-10-29T10:01:29.415474+00:00",
+    "run_id": "40854192775",
+    "run_attempt": "1"
+  }
 }
