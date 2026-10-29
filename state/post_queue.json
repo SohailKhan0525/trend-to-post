@@ -314,5 +314,19 @@
     "2115790892678434965"
   ],
   "last_posted_at": "2026-10-29T17:01:46.356945+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-29:8",
+    "source": {
+      "id": "2115856007846871504",
+      "text": "JUST IN: OpenAI announces it is doubling usage limits for all Pro tiers &amp; Business Premium, effective immediately.",
+      "author": "Polymarket",
+      "url": "https://x.com/Polymarket/status/2115856007846871504",
+      "created_at": "2026-10-29T17:19:17+00:00",
+      "score": 1126.394133086665
+    },
+    "text": "users won't need\n\nto upgrade to Business or Enterprise tiers to get double usage limits, a significant cost savings.",
+    "prepared_at": "2026-10-29T20:01:27.680229+00:00",
+    "run_id": "40945256285",
+    "run_attempt": "1"
+  }
 }
