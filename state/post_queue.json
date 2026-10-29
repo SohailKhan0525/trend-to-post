@@ -240,5 +240,19 @@
     "2115521147890520503"
   ],
   "last_posted_at": "2026-10-28T21:54:38.844423+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-29:0",
+    "source": {
+      "id": "2115583698074755078",
+      "text": "Starting today, eligible ChatGPT Pro and Business subscribers can claim up to $500 per month in API credits to build apps and agents. https://t.co/kcbaKSQh1M",
+      "author": "OpenAIDevs",
+      "url": "https://x.com/OpenAIDevs/status/2115583698074755078",
+      "created_at": "2026-10-28T23:17:13+00:00",
+      "score": 1193.0445498908289
+    },
+    "text": "ChatGPT Pro gets API credits\n\nGuess you can afford some wild experiments now, $500/month is a lot of code to play with.",
+    "prepared_at": "2026-10-29T00:01:34.291752+00:00",
+    "run_id": "40791273035",
+    "run_attempt": "1"
+  }
 }
