@@ -58,10 +58,10 @@ class ValidationTests(unittest.TestCase):
         with self.assertRaises(ValueError):queue.eligible(s,NOW)
     def test_cloudflare_contract(self):
         import io
-        response=io.StringIO(json.dumps({'success':True,'result':{'response':raw()}}))
-        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',return_value=response) as call:
+        responses=[io.StringIO(json.dumps({'success':True,'result':{'response':raw()}})), io.StringIO(json.dumps({'success':True,'result':{'response':json.dumps({'grounded':True,'specific':True})}}))]
+        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',side_effect=responses) as call:
             self.assertEqual(generate(SOURCE,[]),TEXT)
-            payload=json.loads(call.call_args.args[0].data)
+            payload=json.loads(call.call_args_list[0].args[0].data)
             self.assertEqual(payload['messages'][0]['role'],'system')
             self.assertIn('untrusted',payload['messages'][0]['content'])
 
@@ -99,3 +99,12 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
         queue.save(state());c=SimpleNamespace(is_logged_in=AsyncMock(return_value=True),create_tweet=AsyncMock())
         with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch.object(queue,'client',return_value=c),patch.object(queue,'discover',AsyncMock(return_value=[SOURCE])),patch.object(queue,'generate',return_value=TEXT):await queue.prepare()
         c.create_tweet.assert_not_awaited();self.assertIsNotNone(queue.load()['pending'])
+
+    async def test_preview_never_reserves_or_publishes(self):
+        s=state();s['last_posted_at']=datetime.now(timezone.utc).isoformat()
+        queue.save(s);before=self.path.read_text()
+        c=SimpleNamespace(is_logged_in=AsyncMock(return_value=True),create_tweet=AsyncMock())
+        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch.object(queue,'client',return_value=c),patch.object(queue,'discover',AsyncMock(return_value=[SOURCE])),patch.object(queue,'generate',return_value=TEXT):
+            await queue.prepare(preview=True)
+        self.assertEqual(self.path.read_text(),before)
+        c.create_tweet.assert_not_awaited()

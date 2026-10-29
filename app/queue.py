@@ -50,11 +50,11 @@ def client():
     return c
 
 
-async def prepare():
+async def prepare(preview=False):
     output('prepared','false')
     now=datetime.now(timezone.utc)
     state=load()
-    if not eligible(state,now):
+    if not preview and not eligible(state,now):
         print('Slot already used or minimum interval not reached.'); return
     for name in ('CLOUDFLARE_ACCOUNT_ID','CLOUDFLARE_API_TOKEN'):
         if not os.environ.get(name,'').strip(): raise ValueError(f'{name} is required')
@@ -74,6 +74,11 @@ async def prepare():
             declined += 1
             print('AI declined this source as unsuitable.')
             continue
+        if preview:
+            print('QUALITY PREVIEW ONLY — not published:')
+            print(text)
+            print('Source: ' + source['url'])
+            return
         state['pending']={'slot':slot(now),'source':source,'text':text,'prepared_at':now.isoformat(),
                           'run_id':os.environ.get('GITHUB_RUN_ID','local'),
                           'run_attempt':os.environ.get('GITHUB_RUN_ATTEMPT','1')}
@@ -105,7 +110,7 @@ async def publish():
     ident=str(getattr(tweet,'id','') or '')
     if not ident.isdigit(): raise ValueError('X returned no post ID; inspect X before clearing reservation')
     state['history'].append({'slot':pending['slot'],'text':text,'source_id':pending['source']['id'],
-        'author':pending['source']['author'],'tweet_id':ident,'posted_at':now.isoformat()})
+        'author':pending['source']['author'],'source_text':pending['source']['text'], 'tweet_id':ident,'posted_at':now.isoformat()})
     state['history']=state['history'][-500:]
     state['used_source_ids']=(state['used_source_ids']+[pending['source']['id']])[-5000:]
     state['last_posted_at']=now.isoformat();state['pending']=None

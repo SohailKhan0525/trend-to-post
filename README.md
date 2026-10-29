@@ -46,3 +46,14 @@ See [PROFILE.md](PROFILE.md) for identity and audience-building guidance.
 - [Cloudflare REST API](https://developers.cloudflare.com/workers-ai/get-started/rest-api/).
 - [Cloudflare model parameters](https://developers.cloudflare.com/workers-ai/models/llama-3.1-8b-instruct-fp8/).
 - [Cloudflare pricing](https://developers.cloudflare.com/workers-ai/platform/pricing/).
+
+
+## Repetition and grounding controls
+
+The creative writer sees only the current source, a rotating editorial angle, and whether an occasional swear is permitted. Earlier posts are never supplied as creative examples or factual evidence. Swearing is optional in one out of every three publication positions; concrete hooks are the default.
+
+Before reserving a post, the bot rejects repeated hooks against the last 20 posts, punctuation/elongation or company-name variants, recycled bodies against the last 100 posts, and recognizable repeated stories within 48 hours. Different source accounts do not reset the story cooldown. Source text is now retained with successful posts so future checks can compare the underlying event.
+
+Two separate Cloudflare reviews then check source-grounding and story/punchline novelty. The factual reviewer sees only the source and draft; the novelty reviewer treats previous posts as a blacklist, never as facts. Failed or malformed verdicts block publication. These model-based reviews reduce semantic errors but are not a proof of factual accuracy. Existing duplicate posts are left unchanged.
+
+Code pushes run `python -m app preview` to exercise live generation and quality gates without publishing or changing queue state. Normal scheduling still observes the daily cap and duplicate-safe reservation flow. Regression fixtures contain actual previously published repetitive text; tests verify those patterns are rejected.

@@ -1,5 +1,6 @@
 """Recent AI/technology conversations, not the X Trending Topics feed."""
 import re
+from .diversity import story_reason
 from datetime import datetime, timedelta, timezone
 
 QUERIES = ('(ChatGPT OR OpenAI)', '(Claude OR "Claude Code" OR Anthropic)',
@@ -47,6 +48,6 @@ async def discover(client, used, history, now):
         results = await client.search_tweet(query, 'Top', count=20)
         for tweet in results or []:
             item = candidate(tweet, now, used)
-            if item and item['author'].lower() not in recent_authors:
+            if item and item['author'].lower() not in recent_authors and not story_reason(item['text'], history, now):
                 found[item['id']] = item
     return sorted(found.values(), key=lambda p:p['score'], reverse=True)
