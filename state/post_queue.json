@@ -204,6 +204,15 @@
       "source_text": "A few upgrades to the Claude mobile apps this week:\n\nOn iPad and iPhone Duo: what Claude makes now opens beside the chat instead of over it, and goes full screen when you want a closer look. https://t.co/G1OvDYzkpw",
       "tweet_id": "2115927076092178446",
       "posted_at": "2026-10-29T22:01:40.869632+00:00"
+    },
+    {
+      "slot": "2026-10-30:0",
+      "text": "Claude's self-assessment workflow\n\nClaude flags potential misuse and assesses conversation safety after responding.",
+      "source_id": "2115871889549865429",
+      "author": "AnthropicAI",
+      "source_text": "We’ve trained Claude to flag potential misuse in conversations, a technique we call self-assessment. Right after it responds, Claude gives a preliminary safety assessment of the conversation. \n\nSince we began using self-assessment in June, it has surfaced misuse that our other",
+      "tweet_id": "2115964804154446268",
+      "posted_at": "2026-10-30T00:31:36.054369+00:00"
     }
   ],
   "used_source_ids": [
@@ -331,22 +340,9 @@
     "2115719992465305726",
     "2115790892678434965",
     "2115856007846871504",
-    "2115859377488072879"
+    "2115859377488072879",
+    "2115871889549865429"
   ],
-  "last_posted_at": "2026-10-29T22:01:40.869632+00:00",
-  "pending": {
-    "slot": "2026-10-30:0",
-    "source": {
-      "id": "2115871889549865429",
-      "text": "We’ve trained Claude to flag potential misuse in conversations, a technique we call self-assessment. Right after it responds, Claude gives a preliminary safety assessment of the conversation. \n\nSince we began using self-assessment in June, it has surfaced misuse that our other",
-      "author": "AnthropicAI",
-      "url": "https://x.com/AnthropicAI/status/2115871889549865429",
-      "created_at": "2026-10-29T18:22:24+00:00",
-      "score": 644.232960126603
-    },
-    "text": "Claude's self-assessment workflow\n\nClaude flags potential misuse and assesses conversation safety after responding.",
-    "prepared_at": "2026-10-30T00:31:16.927413+00:00",
-    "run_id": "40980177170",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-30T00:31:36.054369+00:00",
+  "pending": null
 }
