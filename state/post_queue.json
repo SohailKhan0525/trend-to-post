@@ -249,6 +249,15 @@
       "source_text": "An IT company has listed a 300-rack AI supercomputer on eBay for $60 million with $50 overnight shipping\n\nIt includes over 9,000 Nvidia A100 GPUs https://t.co/R3iCzZccJE",
       "tweet_id": "2116108284184969346",
       "posted_at": "2026-10-30T10:01:43.988154+00:00"
+    },
+    {
+      "slot": "2026-10-30:5",
+      "text": "Automated ad generation, but at what cost?\n\nFastlane's AI generates thousands of ads without the need for manual creation, highlighting the tradeoff between efficiency and ad uniqueness.",
+      "source_id": "2116049303647260992",
+      "author": "gauravsbuilding",
+      "source_text": "We raised $3.5M to build Claude for Ads.\n\nJust enter your website, and Fastlane studies your market, makes thousands of ads, launches them, and learns from every result.\n\nThis is truly insane. https://t.co/YGojYN1kbw",
+      "tweet_id": "2116138519600967743",
+      "posted_at": "2026-10-30T12:01:53.007382+00:00"
     }
   ],
   "used_source_ids": [
@@ -381,22 +390,9 @@
     "2115923971279614171",
     "2116007258140348441",
     "2115864322597409262",
-    "2115753065588400427"
+    "2115753065588400427",
+    "2116049303647260992"
   ],
-  "last_posted_at": "2026-10-30T10:01:43.988154+00:00",
-  "pending": {
-    "slot": "2026-10-30:5",
-    "source": {
-      "id": "2116049303647260992",
-      "text": "We raised $3.5M to build Claude for Ads.\n\nJust enter your website, and Fastlane studies your market, makes thousands of ads, launches them, and learns from every result.\n\nThis is truly insane. https://t.co/YGojYN1kbw",
-      "author": "gauravsbuilding",
-      "url": "https://x.com/gauravsbuilding/status/2116049303647260992",
-      "created_at": "2026-10-30T06:07:22+00:00",
-      "score": 209.03837620885145
-    },
-    "text": "Automated ad generation, but at what cost?\n\nFastlane's AI generates thousands of ads without the need for manual creation, highlighting the tradeoff between efficiency and ad uniqueness.",
-    "prepared_at": "2026-10-30T12:01:32.939307+00:00",
-    "run_id": "41052246502",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-30T12:01:53.007382+00:00",
+  "pending": null
 }
