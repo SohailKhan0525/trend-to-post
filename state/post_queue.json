@@ -394,5 +394,19 @@
     "2116049303647260992"
   ],
   "last_posted_at": "2026-10-30T12:01:53.007382+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-30:6",
+    "source": {
+      "id": "2116136078348550190",
+      "text": "Sarvam is quietly building a version of opencode for India with local inference. \n\nHave been using it in our internal products. Hope this blows up in coming months.",
+      "author": "dharmeshba",
+      "url": "https://x.com/dharmeshba/status/2116136078348550190",
+      "created_at": "2026-10-30T11:52:11+00:00",
+      "score": 279.02864839913065
+    },
+    "text": "Quietly changing gears\n\nLimited to internal use, not yet publicly available.",
+    "prepared_at": "2026-10-30T14:31:18.037127+00:00",
+    "run_id": "41072224678",
+    "run_attempt": "1"
+  }
 }
