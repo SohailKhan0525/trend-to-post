@@ -222,6 +222,15 @@
       "source_text": "We've raised the max request size for Messages and Token Counting on the Claude API from 32 MB to 128 MB.\n\nImage-heavy requests like long computer-use sessions and big PDFs were previously hitting 32 MB with plenty of context window left. Now you get ~4x more room. https://t.co/KpZrMgWwmH",
       "tweet_id": "2115995003751121394",
       "posted_at": "2026-10-30T02:31:36.301469+00:00"
+    },
+    {
+      "slot": "2026-10-30:2",
+      "text": "Claude's code may be open, but its secrets remain locked.\n\nClaude's subscription allows access to its trained models, but the underlying code and customization options remain closed-source.",
+      "source_id": "2116007258140348441",
+      "author": "thdxr",
+      "source_text": "what if you could use your claude subscription in opencode",
+      "tweet_id": "2116032765699461618",
+      "posted_at": "2026-10-30T05:01:39.305138+00:00"
     }
   ],
   "used_source_ids": [
@@ -351,22 +360,9 @@
     "2115856007846871504",
     "2115859377488072879",
     "2115871889549865429",
-    "2115923971279614171"
+    "2115923971279614171",
+    "2116007258140348441"
   ],
-  "last_posted_at": "2026-10-30T02:31:36.301469+00:00",
-  "pending": {
-    "slot": "2026-10-30:2",
-    "source": {
-      "id": "2116007258140348441",
-      "text": "what if you could use your claude subscription in opencode",
-      "author": "thdxr",
-      "url": "https://x.com/thdxr/status/2116007258140348441",
-      "created_at": "2026-10-30T03:20:18+00:00",
-      "score": 464.9663505251243
-    },
-    "text": "Claude's code may be open, but its secrets remain locked.\n\nClaude's subscription allows access to its trained models, but the underlying code and customization options remain closed-source.",
-    "prepared_at": "2026-10-30T05:01:28.377211+00:00",
-    "run_id": "41006071502",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-30T05:01:39.305138+00:00",
+  "pending": null
 }
