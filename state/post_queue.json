@@ -267,6 +267,15 @@
       "source_text": "Sarvam is quietly building a version of opencode for India with local inference. \n\nHave been using it in our internal products. Hope this blows up in coming months.",
       "tweet_id": "2116176210463961195",
       "posted_at": "2026-10-30T14:31:39.324454+00:00"
+    },
+    {
+      "slot": "2026-10-30:7",
+      "text": "When you're low on reference art, just DALL-e it\n\nCode agents are getting visual help from image generation tools",
+      "source_id": "2116203934033354866",
+      "author": "opencode",
+      "source_text": "image generation has become an important tool for coding agents\n\nyou can use it to generate concept UI or reference art for video games\n\nOpenCode 2.2.3 has an image gen tool that supports image models from OpenAI, Gemini, Grok and more https://t.co/YwBwO0xWNn",
+      "tweet_id": "2116213980926783557",
+      "posted_at": "2026-10-30T17:01:44.254623+00:00"
     }
   ],
   "used_source_ids": [
@@ -401,22 +410,9 @@
     "2115864322597409262",
     "2115753065588400427",
     "2116049303647260992",
-    "2116136078348550190"
+    "2116136078348550190",
+    "2116203934033354866"
   ],
-  "last_posted_at": "2026-10-30T14:31:39.324454+00:00",
-  "pending": {
-    "slot": "2026-10-30:7",
-    "source": {
-      "id": "2116203934033354866",
-      "text": "image generation has become an important tool for coding agents\n\nyou can use it to generate concept UI or reference art for video games\n\nOpenCode 2.2.3 has an image gen tool that supports image models from OpenAI, Gemini, Grok and more https://t.co/YwBwO0xWNn",
-      "author": "opencode",
-      "url": "https://x.com/opencode/status/2116203934033354866",
-      "created_at": "2026-10-30T16:21:49+00:00",
-      "score": 540.8800370894899
-    },
-    "text": "When you're low on reference art, just DALL-e it\n\nCode agents are getting visual help from image generation tools",
-    "prepared_at": "2026-10-30T17:01:32.581900+00:00",
-    "run_id": "41095104793",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-30T17:01:44.254623+00:00",
+  "pending": null
 }
