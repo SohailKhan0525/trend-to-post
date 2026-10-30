@@ -285,6 +285,15 @@
       "source_text": "OpenAI CEO Sam Altman says it’s “quite terrible” that people have so much DRAM sitting in their own PCs instead of being used in data centers.\n\n“Everyone have a bunch of the world’s limited supply of DRAM sitting in their own computer. And be used 5% of the time,” \n\nHe argues https://t.co/CI5nOrAC48",
       "tweet_id": "2116251651577360708",
       "posted_at": "2026-10-30T19:31:25.823830+00:00"
+    },
+    {
+      "slot": "2026-10-30:9",
+      "text": "Home computing hurting the planet\n\nRAM being centralized in data centers might be more efficient, but may sacrifice personal processing power and flexibility",
+      "source_id": "2116213541304746415",
+      "author": "pubity",
+      "source_text": "OpenAI CEO Sam Altman believes people owning RAM is wasteful, and that it belongs in data centers instead.\n\n\"From a global allocation perspective, actually, it’s quite terrible to have everyone have a bunch of the world’s limited supply of DRAM sitting in their own computer.\" https://t.co/3C7ZAkzRbT",
+      "tweet_id": "2116289459776086523",
+      "posted_at": "2026-10-30T22:01:40.131552+00:00"
     }
   ],
   "used_source_ids": [
@@ -421,22 +430,9 @@
     "2116049303647260992",
     "2116136078348550190",
     "2116203934033354866",
-    "2116213547025789184"
+    "2116213547025789184",
+    "2116213541304746415"
   ],
-  "last_posted_at": "2026-10-30T19:31:25.823830+00:00",
-  "pending": {
-    "slot": "2026-10-30:9",
-    "source": {
-      "id": "2116213541304746415",
-      "text": "OpenAI CEO Sam Altman believes people owning RAM is wasteful, and that it belongs in data centers instead.\n\n\"From a global allocation perspective, actually, it’s quite terrible to have everyone have a bunch of the world’s limited supply of DRAM sitting in their own computer.\" https://t.co/3C7ZAkzRbT",
-      "author": "pubity",
-      "url": "https://x.com/pubity/status/2116213541304746415",
-      "created_at": "2026-10-30T17:00:00+00:00",
-      "score": 5107.723641427573
-    },
-    "text": "Home computing hurting the planet\n\nRAM being centralized in data centers might be more efficient, but may sacrifice personal processing power and flexibility",
-    "prepared_at": "2026-10-30T22:01:30.680189+00:00",
-    "run_id": "41135230495",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-30T22:01:40.131552+00:00",
+  "pending": null
 }
