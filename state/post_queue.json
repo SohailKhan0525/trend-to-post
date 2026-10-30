@@ -384,5 +384,19 @@
     "2115753065588400427"
   ],
   "last_posted_at": "2026-10-30T10:01:43.988154+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-30:5",
+    "source": {
+      "id": "2116049303647260992",
+      "text": "We raised $3.5M to build Claude for Ads.\n\nJust enter your website, and Fastlane studies your market, makes thousands of ads, launches them, and learns from every result.\n\nThis is truly insane. https://t.co/YGojYN1kbw",
+      "author": "gauravsbuilding",
+      "url": "https://x.com/gauravsbuilding/status/2116049303647260992",
+      "created_at": "2026-10-30T06:07:22+00:00",
+      "score": 209.03837620885145
+    },
+    "text": "Automated ad generation, but at what cost?\n\nFastlane's AI generates thousands of ads without the need for manual creation, highlighting the tradeoff between efficiency and ad uniqueness.",
+    "prepared_at": "2026-10-30T12:01:32.939307+00:00",
+    "run_id": "41052246502",
+    "run_attempt": "1"
+  }
 }
