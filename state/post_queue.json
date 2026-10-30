@@ -344,5 +344,19 @@
     "2115871889549865429"
   ],
   "last_posted_at": "2026-10-30T00:31:36.054369+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-30:1",
+    "source": {
+      "id": "2115923971279614171",
+      "text": "We've raised the max request size for Messages and Token Counting on the Claude API from 32 MB to 128 MB.\n\nImage-heavy requests like long computer-use sessions and big PDFs were previously hitting 32 MB with plenty of context window left. Now you get ~4x more room. https://t.co/KpZrMgWwmH",
+      "author": "ClaudeDevs",
+      "url": "https://x.com/ClaudeDevs/status/2115923971279614171",
+      "created_at": "2026-10-29T21:49:21+00:00",
+      "score": 771.052479172083
+    },
+    "text": "Uploading big PDFs just got a lot easier\n\nBut still only 128 MB max request size on Claude API",
+    "prepared_at": "2026-10-30T02:31:21.004056+00:00",
+    "run_id": "40992143201",
+    "run_attempt": "1"
+  }
 }
