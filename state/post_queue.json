@@ -240,6 +240,15 @@
       "source_text": "Another DGX Spark joins my lab!\n\nThe RTX PRO 6000s and the additional DGX Spark will help me do things I couldn't do before, and accelerate everything I do - faster and better.\n\nI'd like to thank @NVIDIAAI for sending me these 💚\n\nNo one can deny their local AI efforts. I've been https://t.co/xeQZEjtzJr",
       "tweet_id": "2116070560098820512",
       "posted_at": "2026-10-30T07:31:50.275261+00:00"
+    },
+    {
+      "slot": "2026-10-30:4",
+      "text": "Someone's asking $60 million for a 300-rack supercomputer on eBay\n\n$50 shipping is relatively cheap for a machine with 9,000 GPUs",
+      "source_id": "2115753065588400427",
+      "author": "Dexerto",
+      "source_text": "An IT company has listed a 300-rack AI supercomputer on eBay for $60 million with $50 overnight shipping\n\nIt includes over 9,000 Nvidia A100 GPUs https://t.co/R3iCzZccJE",
+      "tweet_id": "2116108284184969346",
+      "posted_at": "2026-10-30T10:01:43.988154+00:00"
     }
   ],
   "used_source_ids": [
@@ -371,22 +380,9 @@
     "2115871889549865429",
     "2115923971279614171",
     "2116007258140348441",
-    "2115864322597409262"
+    "2115864322597409262",
+    "2115753065588400427"
   ],
-  "last_posted_at": "2026-10-30T07:31:50.275261+00:00",
-  "pending": {
-    "slot": "2026-10-30:4",
-    "source": {
-      "id": "2115753065588400427",
-      "text": "An IT company has listed a 300-rack AI supercomputer on eBay for $60 million with $50 overnight shipping\n\nIt includes over 9,000 Nvidia A100 GPUs https://t.co/R3iCzZccJE",
-      "author": "Dexerto",
-      "url": "https://x.com/Dexerto/status/2115753065588400427",
-      "created_at": "2026-10-29T10:30:14+00:00",
-      "score": 1435.2079879719872
-    },
-    "text": "Someone's asking $60 million for a 300-rack supercomputer on eBay\n\n$50 shipping is relatively cheap for a machine with 9,000 GPUs",
-    "prepared_at": "2026-10-30T10:01:32.772876+00:00",
-    "run_id": "41037646021",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-30T10:01:43.988154+00:00",
+  "pending": null
 }
