@@ -414,5 +414,19 @@
     "2116203934033354866"
   ],
   "last_posted_at": "2026-10-30T17:01:44.254623+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-30:8",
+    "source": {
+      "id": "2116213547025789184",
+      "text": "OpenAI CEO Sam Altman says it’s “quite terrible” that people have so much DRAM sitting in their own PCs instead of being used in data centers.\n\n“Everyone have a bunch of the world’s limited supply of DRAM sitting in their own computer. And be used 5% of the time,” \n\nHe argues https://t.co/CI5nOrAC48",
+      "author": "Pirat_Nation",
+      "url": "https://x.com/Pirat_Nation/status/2116213547025789184",
+      "created_at": "2026-10-30T17:00:01+00:00",
+      "score": 5060.997517471464
+    },
+    "text": "Unused DRAM sits idle most of the time\n\nPeople hoard their PCs' memory, wasting its potential, says OpenAI's Sam Altman.",
+    "prepared_at": "2026-10-30T19:31:16.050675+00:00",
+    "run_id": "41115880275",
+    "run_attempt": "1"
+  }
 }
