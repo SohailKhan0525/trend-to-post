@@ -213,6 +213,15 @@
       "source_text": "We’ve trained Claude to flag potential misuse in conversations, a technique we call self-assessment. Right after it responds, Claude gives a preliminary safety assessment of the conversation. \n\nSince we began using self-assessment in June, it has surfaced misuse that our other",
       "tweet_id": "2115964804154446268",
       "posted_at": "2026-10-30T00:31:36.054369+00:00"
+    },
+    {
+      "slot": "2026-10-30:1",
+      "text": "Uploading big PDFs just got a lot easier\n\nBut still only 128 MB max request size on Claude API",
+      "source_id": "2115923971279614171",
+      "author": "ClaudeDevs",
+      "source_text": "We've raised the max request size for Messages and Token Counting on the Claude API from 32 MB to 128 MB.\n\nImage-heavy requests like long computer-use sessions and big PDFs were previously hitting 32 MB with plenty of context window left. Now you get ~4x more room. https://t.co/KpZrMgWwmH",
+      "tweet_id": "2115995003751121394",
+      "posted_at": "2026-10-30T02:31:36.301469+00:00"
     }
   ],
   "used_source_ids": [
@@ -341,22 +350,9 @@
     "2115790892678434965",
     "2115856007846871504",
     "2115859377488072879",
-    "2115871889549865429"
+    "2115871889549865429",
+    "2115923971279614171"
   ],
-  "last_posted_at": "2026-10-30T00:31:36.054369+00:00",
-  "pending": {
-    "slot": "2026-10-30:1",
-    "source": {
-      "id": "2115923971279614171",
-      "text": "We've raised the max request size for Messages and Token Counting on the Claude API from 32 MB to 128 MB.\n\nImage-heavy requests like long computer-use sessions and big PDFs were previously hitting 32 MB with plenty of context window left. Now you get ~4x more room. https://t.co/KpZrMgWwmH",
-      "author": "ClaudeDevs",
-      "url": "https://x.com/ClaudeDevs/status/2115923971279614171",
-      "created_at": "2026-10-29T21:49:21+00:00",
-      "score": 771.052479172083
-    },
-    "text": "Uploading big PDFs just got a lot easier\n\nBut still only 128 MB max request size on Claude API",
-    "prepared_at": "2026-10-30T02:31:21.004056+00:00",
-    "run_id": "40992143201",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-30T02:31:36.301469+00:00",
+  "pending": null
 }
