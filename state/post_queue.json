@@ -321,6 +321,15 @@
       "source_text": "Nvidia RTX 20, 30 and 40-series GPUs can now unlock their full AI performance thanks to a new UEFI-level tool.\n\nThe open-source project, called nv-uefi-unlocker, works before Nvidia’s drivers load and removes a hardware-level performance limit affecting certain Tensor Core https://t.co/GiYWfceA6D",
       "tweet_id": "2116395152948273448",
       "posted_at": "2026-10-31T05:01:39.287565+00:00"
+    },
+    {
+      "slot": "2026-10-31:3",
+      "text": "AI's lack of self-awareness shown\n\nWhile churning out answers, ChatGPT uses archives of internet data, but it doesn't retain self-awareness or personal experiences like humans do.",
+      "source_id": "2116424676729925721",
+      "author": "goinutsovergeto",
+      "source_text": "chatgpt prem #zonauang",
+      "tweet_id": "2116455574829461601",
+      "posted_at": "2026-10-31T09:01:44.965357+00:00"
     }
   ],
   "used_source_ids": [
@@ -461,22 +470,9 @@
     "2116213541304746415",
     "2116134017192054892",
     "2116074289053175808",
-    "2116303886604739008"
+    "2116303886604739008",
+    "2116424676729925721"
   ],
-  "last_posted_at": "2026-10-31T05:01:39.287565+00:00",
-  "pending": {
-    "slot": "2026-10-31:3",
-    "source": {
-      "id": "2116424676729925721",
-      "text": "chatgpt prem #zonauang",
-      "author": "goinutsovergeto",
-      "url": "https://x.com/goinutsovergeto/status/2116424676729925721",
-      "created_at": "2026-10-31T06:58:58+00:00",
-      "score": 68.3848280246824
-    },
-    "text": "AI's lack of self-awareness shown\n\nWhile churning out answers, ChatGPT uses archives of internet data, but it doesn't retain self-awareness or personal experiences like humans do.",
-    "prepared_at": "2026-10-31T09:01:27.797223+00:00",
-    "run_id": "41186931047",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-31T09:01:44.965357+00:00",
+  "pending": null
 }
