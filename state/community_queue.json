@@ -7,17 +7,17 @@
       "text": "Hey makers, what's the most important thing you cut from your MVP to get it out the door?",
       "tweet_id": "2116570334992470040",
       "posted_at": "2026-10-31T16:37:45.529708+00:00"
+    },
+    {
+      "slot": "2026-10-31:14",
+      "category": "connect",
+      "text": "I'm still trying to figure out how to make my product discoverable. What's the one thing you wish you'd known about getting noticed early on?",
+      "tweet_id": "2116596130603466954",
+      "posted_at": "2026-10-31T18:20:16.062820+00:00"
     }
   ],
-  "last_posted_at": "2026-10-31T16:37:45.529708+00:00",
-  "pending": {
-    "slot": "2026-10-31:14",
-    "category": "connect",
-    "text": "I'm still trying to figure out how to make my product discoverable. What's the one thing you wish you'd known about getting noticed early on?",
-    "prepared_at": "2026-10-31T18:20:11.179189+00:00",
-    "run_id": "41228881088",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-10-31T18:20:16.062820+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-10-31",
     "slots": [
