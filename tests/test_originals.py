@@ -68,12 +68,19 @@ class WriterTests(unittest.TestCase):
         self.assertIsNotNone(validate('The stack can wait.\n\nA tiny working feature beats another weekend choosing a framework.',[{'text':TEXT}]))
     def test_generator_selects_fresh_candidate(self):
         fresh='Boring software is underrated.\n\nA dependable tool beats a beautiful rewrite that never ships.'
-        with patch('app.writer.complete',side_effect=[{'posts':[TEXT,fresh]},{'novel':True}]):
+        with patch('app.writer.complete',side_effect=[{'posts':[TEXT,fresh]}]):
             self.assertEqual(generate({'brief':'A coding opinion','category':'coding_take'},[{'text':TEXT}]),fresh)
-    def test_semantic_repetition_fails_closed(self):
-        for verdict in ({'novel':False},{'novel':'true'},{'yes':True}):
-            with self.subTest(verdict=verdict),patch('app.writer.complete',side_effect=[{'posts':[TEXT]},verdict,{'posts':[TEXT]},verdict]):
-                with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'question'},[{'text':'Earlier unrelated observation.'}])
+    def test_distinct_question_in_same_niche_is_allowed_without_ai_veto(self):
+        previous="Hey makers, what's the most important thing you cut from your MVP to get it out the door?"
+        fresh="Hello founders\n\nWhich small user complaint changed your product more than a feature request?"
+        with patch('app.writer.complete',return_value={'text':fresh}) as call:
+            self.assertEqual(generate({'brief':'Ask about product feedback','category':'question'},[{'text':previous}]),fresh)
+        call.assert_called_once()
+        self.assertNotIn('RECENT',call.call_args.args[1])
+    def test_all_repeated_candidates_are_still_blocked(self):
+        with patch('app.writer.complete',return_value={'text':TEXT}) as call:
+            with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'question'},[{'text':TEXT}])
+        self.assertEqual(call.call_count,2)
     def test_invalid_json_gets_one_bounded_retry(self):
         with patch('app.writer.complete',side_effect=[DraftError('Invalid JSON'),{'text':TEXT}]) as call:
             self.assertEqual(generate({'brief':'Founder question','category':'question'},[]),TEXT)
@@ -99,8 +106,9 @@ class QueueTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.path=Path(self.temp.name)/'state.json'
         self.p=patch.object(queue,'PATH',self.path);self.p.start()
+        self.messages=patch.object(queue,'summary');self.summary=self.messages.start()
         self.env=patch.dict(os.environ,{'GITHUB_RUN_ID':'test','GITHUB_RUN_ATTEMPT':'1','GITHUB_OUTPUT':'','GITHUB_STEP_SUMMARY':''});self.env.start()
-    def tearDown(self):self.env.stop();self.p.stop();self.temp.cleanup()
+    def tearDown(self):self.messages.stop();self.env.stop();self.p.stop();self.temp.cleanup()
     def reserved(self):
         s=state();s['pending']={'slot':datetime.now(timezone.utc).date().isoformat()+':3','category':'question','text':TEXT,'prepared_at':datetime.now(timezone.utc).isoformat(),'run_id':'test','run_attempt':'1'};queue.save(s)
     async def test_standalone_publish_no_quote_or_reply_arguments(self):
@@ -128,3 +136,10 @@ class QueueTests(unittest.IsolatedAsyncioTestCase):
         queue.save(state());before=self.path.read_text()
         with patch.object(queue,'generate',return_value=TEXT),patch.object(queue,'client') as c:await queue.prepare(preview=True)
         c.assert_not_called();self.assertEqual(before,self.path.read_text())
+
+    async def test_due_generation_failure_is_visible_and_does_not_reserve(self):
+        queue.save(state());before=self.path.read_text()
+        with patch.object(queue,'generate',side_effect=DraftError('No fresh candidate')):
+            with self.assertRaises(DraftError):await queue.prepare(start_now=True)
+        self.assertEqual(before,self.path.read_text())
+        self.assertIn('::error::Due post failed generation',self.summary.call_args.args[0])

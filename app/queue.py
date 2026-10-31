@@ -57,8 +57,9 @@ async def prepare(preview=False,start_now=False):
     try:
         text=generate(brief,state['history'])
     except DraftError as exc:
-        summary('::warning::'+str(exc))
-        return
+        output('skip_reason','generation_failed')
+        summary('::error::Due post failed generation: '+str(exc))
+        raise
     if preview:
         summary('PREVIEW ONLY:\n\n'+text)
         return
