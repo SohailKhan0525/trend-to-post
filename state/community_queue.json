@@ -24,7 +24,14 @@
     }
   ],
   "last_posted_at": "2026-10-31T19:01:31.367400+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-10-31:16",
+    "category": "showcase",
+    "text": "Hello indie hackers\n\nComment your latest tool. I'll try it if I need it.",
+    "prepared_at": "2026-10-31T20:01:23.642669+00:00",
+    "run_id": "41236897868",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-10-31",
     "slots": [
