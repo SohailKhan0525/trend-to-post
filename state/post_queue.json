@@ -454,5 +454,19 @@
     "2116074289053175808"
   ],
   "last_posted_at": "2026-10-31T02:31:46.776721+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-31:2",
+    "source": {
+      "id": "2116303886604739008",
+      "text": "Nvidia RTX 20, 30 and 40-series GPUs can now unlock their full AI performance thanks to a new UEFI-level tool.\n\nThe open-source project, called nv-uefi-unlocker, works before Nvidia’s drivers load and removes a hardware-level performance limit affecting certain Tensor Core https://t.co/GiYWfceA6D",
+      "author": "Pirat_Nation",
+      "url": "https://x.com/Pirat_Nation/status/2116303886604739008",
+      "created_at": "2026-10-30T22:59:00+00:00",
+      "score": 188.33409330778372
+    },
+    "text": "GPU's got a chokehold\n\nA UEFI tool unlocks Nvidia's Tensor Core performance, no more throttled AI.",
+    "prepared_at": "2026-10-31T05:01:26.446393+00:00",
+    "run_id": "41170875581",
+    "run_attempt": "1"
+  }
 }
