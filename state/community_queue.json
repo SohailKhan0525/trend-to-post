@@ -45,7 +45,14 @@
     }
   ],
   "last_posted_at": "2026-10-31T22:01:34.061061+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-10-31:19",
+    "category": "coding_take",
+    "text": "Unpopular opinion: Tiny side projects are overengineered because people are too excited to start coding.",
+    "prepared_at": "2026-10-31T23:31:16.596336+00:00",
+    "run_id": "41252853682",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-10-31",
     "slots": [
