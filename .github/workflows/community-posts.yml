@@ -1,13 +1,13 @@
-name: Publish AI and Technology Quotes
+name: Publish Founder and Builder Posts
 on:
   workflow_dispatch:
   repository_dispatch:
     types: [post-next]
   push:
     branches: [main]
-    paths: ['app/**', '.github/workflows/post-queue.yml']
+    paths: ['app/**', '.github/workflows/community-posts.yml']
   schedule:
-    - cron: '17,47 * * * *'
+    - cron: '*/15 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -17,7 +17,7 @@ jobs:
   post:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 10
     env:
       X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
       X_CT0: ${{ secrets.X_CT0 }}
@@ -34,16 +34,13 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
-      - name: Check live writing quality without publishing
-        if: github.event_name == 'push'
-        run: python -m app preview
-      - name: Prepare one quote
+      - name: Generate one due standalone post
         id: prepare
-        run: python -m app prepare
-      - name: Persist reservation before contacting X
+        run: python -m app prepare --start-now
+      - name: Persist reservation before publishing
         if: steps.prepare.outputs.prepared == 'true'
         run: bash scripts/commit-state.sh
-      - name: Publish reserved quote once
+      - name: Publish standalone text once
         id: publish
         if: steps.prepare.outputs.prepared == 'true'
         run: python -m app publish

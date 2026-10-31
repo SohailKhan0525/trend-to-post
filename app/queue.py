@@ -3,16 +3,16 @@ import os
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from twikit import Client
-from .sources import discover
 from .writer import generate, validate, DraftError
+from .schedule import next_due, daily_plan
 
-PATH=Path('state/post_queue.json')
+PATH=Path('state/community_queue.json')
 
 
 def load():
     state=json.loads(PATH.read_text())
-    if state.get('version') != 2 or not isinstance(state.get('history'),list) or not isinstance(state.get('used_source_ids'),list):
-        raise ValueError('Invalid queue state; restore from Git history')
+    if state.get('version')!=3 or not isinstance(state.get('history'),list):
+        raise ValueError('Invalid standalone queue state')
     return state
 
 
@@ -24,99 +24,78 @@ def save(state):
 
 def output(key,value):
     if os.environ.get('GITHUB_OUTPUT'):
-        with open(os.environ['GITHUB_OUTPUT'],'a') as f: f.write(f'{key}={value}\n')
+        with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+            f.write(f'{key}={value}\n')
 
 
-def slot(now):
-    return f'{now.date().isoformat()}:{(now.hour*60+now.minute)//144}'
-
-
-def eligible(state,now):
-    if state.get('pending'):
-        raise ValueError('Unresolved publication reservation. Inspect X and reconcile state before continuing.')
-    today=[p for p in state['history'] if p['posted_at'][:10]==now.date().isoformat()]
-    if len(today)>=10 or any(p['slot']==slot(now) for p in today): return False
-    last=state.get('last_posted_at')
-    if last and now-datetime.fromisoformat(last)<timedelta(minutes=90): return False
-    return True
+def summary(text):
+    print(text)
+    if os.environ.get('GITHUB_STEP_SUMMARY'):
+        with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
+            f.write(text+'\n')
 
 
 def client():
     auth=os.environ.get('X_AUTH_TOKEN','').strip()
     csrf=os.environ.get('X_CT0','').strip()
-    if not auth or not csrf: raise ValueError('X_AUTH_TOKEN and X_CT0 are required')
+    if not auth or not csrf:
+        raise ValueError('X session cookies required')
     c=Client('en-US',impersonate='chrome124')
     c.set_cookies({'auth_token':auth,'ct0':csrf})
     return c
 
 
-async def prepare(preview=False):
+async def prepare(preview=False,start_now=False):
     output('prepared','false')
-    now=datetime.now(timezone.utc)
     state=load()
-    if not preview and not eligible(state,now):
-        print('Slot already used or minimum interval not reached.'); return
-    for name in ('CLOUDFLARE_ACCOUNT_ID','CLOUDFLARE_API_TOKEN'):
-        if not os.environ.get(name,'').strip(): raise ValueError(f'{name} is required')
-    c=client()
-    if not await c.is_logged_in(): raise ValueError('X session expired; update repository secrets')
-    sources=await discover(c,set(state['used_source_ids']),state['history'],now)
-    print(f"Discovery found {len(sources)} eligible sources.")
-    rejected = 0
-    declined = 0
-    for source in sources[:4]:
-        try: text=generate(source,state['history'])
-        except DraftError as exc:
-            rejected += 1
-            print(f'AI candidate rejected: {exc}')
-            continue
-        if not text:
-            declined += 1
-            print('AI declined this source as unsuitable.')
-            continue
-        if preview:
-            print('QUALITY PREVIEW ONLY — not published:')
-            print(text)
-            print('Source: ' + source['url'])
-            return
-        state['pending']={'slot':slot(now),'source':source,'text':text,'prepared_at':now.isoformat(),
-                          'run_id':os.environ.get('GITHUB_RUN_ID','local'),
-                          'run_attempt':os.environ.get('GITHUB_RUN_ATTEMPT','1')}
-        save(state)
-        output('prepared','true')
-        print('Quote prepared. Publication requires a durable Git reservation.')
+    now=datetime.now(timezone.utc)
+    plan=daily_plan(now.date().isoformat())
+    brief=plan[0] if preview else next_due(state,now,start_now)
+    if not brief:
+        summary('No post due yet, slot already used, or daily cap reached.')
         return
-    message = f'No post: {len(sources)} sources, {rejected} rejected drafts, {declined} AI declines.'
-    print('::warning::' + message)
-    if os.environ.get('GITHUB_STEP_SUMMARY'):
-        with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
-            f.write(message + '\n')
-    output('skip_reason','no_valid_draft')
+    try:
+        text=generate(brief,state['history'])
+    except DraftError as exc:
+        summary('::warning::'+str(exc))
+        return
+    if preview:
+        summary('PREVIEW ONLY:\n\n'+text)
+        return
+    state['pending']={'slot':brief['slot'],'category':brief['category'],'text':text,
+        'prepared_at':now.isoformat(),'run_id':os.environ.get('GITHUB_RUN_ID','local'),
+        'run_attempt':os.environ.get('GITHUB_RUN_ATTEMPT','1')}
+    state['plan']={'day':now.date().isoformat(),'slots':plan}
+    save(state)
+    output('prepared','true')
+    summary('Standalone post prepared; awaiting durable reservation.')
 
 
 async def publish():
-    state=load(); pending=state.get('pending')
+    state=load()
+    pending=state.get('pending')
     now=datetime.now(timezone.utc)
-    if not pending: raise ValueError('No publication reservation')
+    if not pending:
+        raise ValueError('No reserved post')
     if pending['run_id']!=os.environ.get('GITHUB_RUN_ID','local') or pending['run_attempt']!=os.environ.get('GITHUB_RUN_ATTEMPT','1'):
         raise ValueError('Reservation belongs to another run; reconcile manually')
-    if now-datetime.fromisoformat(pending['prepared_at'])>timedelta(minutes=20):
-        raise ValueError('Reservation expired; reconcile manually')
-    if pending['slot']!=slot(now): raise ValueError('Slot changed; reconcile manually')
-    text=validate(json.dumps({'should_post':True,'text':pending['text']}),pending['source'],state['history'])
-    c=client()
-    # Do not retry this call: a timeout may mean X published successfully.
-    tweet=await c.create_tweet(text=text,attachment_url=pending['source']['url'])
+    if not timedelta(0)<=now-datetime.fromisoformat(pending['prepared_at'])<=timedelta(minutes=20):
+        raise ValueError('Reservation expired; inspect before clearing')
+    if pending['slot'].split(':')[0]!=now.date().isoformat():
+        raise ValueError('Day changed; reconcile reservation')
+    text=validate(pending['text'],state['history'])
+    # Exactly one attempt. A timeout can mean publication succeeded.
+    tweet=await client().create_tweet(text=text)
     ident=str(getattr(tweet,'id','') or '')
-    if not ident.isdigit(): raise ValueError('X returned no post ID; inspect X before clearing reservation')
-    state['history'].append({'slot':pending['slot'],'text':text,'source_id':pending['source']['id'],
-        'author':pending['source']['author'],'source_text':pending['source']['text'], 'tweet_id':ident,'posted_at':now.isoformat()})
-    state['history']=state['history'][-500:]
-    state['used_source_ids']=(state['used_source_ids']+[pending['source']['id']])[-5000:]
-    state['last_posted_at']=now.isoformat();state['pending']=None
+    if not ident.isdigit():
+        raise ValueError('Missing post ID; inspect X before clearing reservation')
+    state['history'].append({'slot':pending['slot'],'category':pending['category'],
+        'text':text,'tweet_id':ident,'posted_at':now.isoformat()})
+    state['history']=state['history'][-1000:]
+    state['last_posted_at']=now.isoformat()
+    state['pending']=None
     save(state)
     url=f'https://x.com/i/status/{ident}'
-    output('published','true');output('post_url',url)
-    print('Published '+url)
-    if os.environ.get('GITHUB_STEP_SUMMARY'):
-        with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f: f.write(f'Published [{ident}]({url})\n')
+    output('published','true')
+    output('post_url',url)
+    summary('Published '+url)

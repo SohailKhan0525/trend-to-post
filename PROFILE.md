@@ -1,10 +1,10 @@
 # Tiny Signal
 
-An original pseudonymous AI/technology curator. No claim to work at any AI company, and no imitation of a real person's profile.
+An original pseudonymous founder/builder community account. No claim to work at any AI company, and no imitation of a real person's profile.
 
 - Display name: **Tiny Signal**
 - Handle ideas (availability not checked): `@TinySignalAI`, `@TinySignalHQ`, `@SignalSideQuest`
-- Bio: **AI moves fast. I follow the useful bits. Claude, ChatGPT, OpenCode + the occasional wait, what? | Automated AI-assisted curation. Independent.**
+- Bio: **Building, breaking, shipping. Founder conversations, small products + coding opinions. AI-assisted posts. Independent.**
 - Location: **On the internet** (or leave blank).
 - Website: leave blank until you have a destination that does not reveal your identity. Linking this personally named GitHub repository would connect the pseudonym to its owner.
 - Avatar: original ivory robot in a charcoal hood, lime eyes, midnight background; supplied in the conversation.
@@ -12,14 +12,14 @@ An original pseudonymous AI/technology curator. No claim to work at any AI compa
 
 Suggested pinned post (review and publish manually):
 
-> AI moves fast. I'm here for what changes the way we build: Claude, ChatGPT, OpenCode and the weird little details worth noticing. Expect source-linked updates, useful tradeoffs and occasional disbelief. Independent. AI-assisted curation.
+> Building something small? You belong here. Founder conversations, useful little products, coding opinions and the occasional unfinished prototype. Independent. AI-assisted posts.
 
 ## First 30 days
 
 The scheduled posts provide consistency; useful conversations build recognition. There is no guaranteed follower, reply or like count.
 
 1. Spend 15–20 minutes daily reading and personally replying to a few relevant builders. Add a concrete observation or a real question. Never copy the same reply across accounts.
-2. Keep the ten-slot automation as a ceiling. Review published posts daily and correct mistakes openly. If it becomes repetitive, reduce volume rather than adding sensational hooks.
+2. Keep the twenty-slot automation as a ceiling. Review published posts daily and correct mistakes openly. If it becomes repetitive, reduce volume rather than adding sensational hooks.
 3. Each week, manually share one small experiment, comparison or tutorial you actually performed. Say what you tried, what failed and what someone else can reproduce. Do not let AI invent firsthand experience.
 4. Reply personally when someone asks a question. Add a short self-reply with a source or clarification only when it adds value. Automated reply bots are not enabled.
 5. Track weekly: posts published, impressions where visible, profile visits where visible, new followers, substantive replies and the topics that triggered them. Compare median results, not just the biggest outlier. Use only analytics available to your account.

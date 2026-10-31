@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
-if test -z "$(git status --porcelain -- state/post_queue.json)"; then exit 0; fi
+if test -z "$(git status --porcelain -- state/community_queue.json)"; then exit 0; fi
 git config user.name 'github-actions[bot]'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-git add state/post_queue.json
-git commit -m 'chore: persist AI quote queue state'
+git add state/community_queue.json
+git commit -m 'chore: persist standalone community queue state'
 # Never publish after an unsuccessful reservation push. Never rebase conflicting state.
 for attempt in 1 2 3; do
   if git push origin HEAD:main; then exit 0; fi
