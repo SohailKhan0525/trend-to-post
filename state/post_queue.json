@@ -434,5 +434,19 @@
     "2116213541304746415"
   ],
   "last_posted_at": "2026-10-30T22:01:40.131552+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-31:0",
+    "source": {
+      "id": "2116134017192054892",
+      "text": "JUST IN: Accenture employee allegedly ran an unauthorized Claude AI agent inside a secure Pentagon system for 2 months before it was discovered.",
+      "author": "Polymarket",
+      "url": "https://x.com/Polymarket/status/2116134017192054892",
+      "created_at": "2026-10-30T11:44:00+00:00",
+      "score": 415.9764363233095
+    },
+    "text": "Employee's Freetime AI Exploits\n\nthis highlights the potential for insider threats in implementing AI within secure systems: separation of personal workstations from sensitive environments.",
+    "prepared_at": "2026-10-31T00:01:29.825764+00:00",
+    "run_id": "41147819562",
+    "run_attempt": "1"
+  }
 }
