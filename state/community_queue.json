@@ -28,17 +28,17 @@
       "text": "Hello indie hackers\n\nComment your latest tool. I'll try it if I need it.",
       "tweet_id": "2116621594630267316",
       "posted_at": "2026-10-31T20:01:26.830185+00:00"
+    },
+    {
+      "slot": "2026-10-31:17",
+      "category": "connect",
+      "text": "Hello developers\n\nLet's connect with people shipping products.",
+      "tweet_id": "2116636702056083559",
+      "posted_at": "2026-10-31T21:01:28.881004+00:00"
     }
   ],
-  "last_posted_at": "2026-10-31T20:01:26.830185+00:00",
-  "pending": {
-    "slot": "2026-10-31:17",
-    "category": "connect",
-    "text": "Hello developers\n\nLet's connect with people shipping products.",
-    "prepared_at": "2026-10-31T21:01:25.615409+00:00",
-    "run_id": "41241590084",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-10-31T21:01:28.881004+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-10-31",
     "slots": [
