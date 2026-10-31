@@ -464,5 +464,19 @@
     "2116303886604739008"
   ],
   "last_posted_at": "2026-10-31T05:01:39.287565+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-31:3",
+    "source": {
+      "id": "2116424676729925721",
+      "text": "chatgpt prem #zonauang",
+      "author": "goinutsovergeto",
+      "url": "https://x.com/goinutsovergeto/status/2116424676729925721",
+      "created_at": "2026-10-31T06:58:58+00:00",
+      "score": 68.3848280246824
+    },
+    "text": "AI's lack of self-awareness shown\n\nWhile churning out answers, ChatGPT uses archives of internet data, but it doesn't retain self-awareness or personal experiences like humans do.",
+    "prepared_at": "2026-10-31T09:01:27.797223+00:00",
+    "run_id": "41186931047",
+    "run_attempt": "1"
+  }
 }
