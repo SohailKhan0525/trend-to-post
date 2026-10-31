@@ -8,7 +8,7 @@ A daily mix of four founder connection posts, four product invitations, four cod
 
 The voice is casual, playful and concise. Greetings can have one blank line before the invitation. Product invitations make any promise to try something conditional on a real need. Coding hot takes are framed as opinions or jokes. Posts stay below a conservative 260-character weighted ceiling; no Premium features are needed.
 
-Cloudflare generates up to three alternatives. Code rejects repeated wording, recycled sentence fragments, repeated openings, links, unsolicited mentions, trading engagement, unconditional product promises and unsupported numeric claims. A separate Cloudflare check compares the candidate's ask or punchline to recent posts. These checks reduce repetition; they cannot guarantee perfect editorial judgment.
+Cloudflare generates one candidate per request, with at most one correction attempt when output is malformed or repetitive. Code rejects repeated wording, recycled sentence fragments, repeated openings, links, unsolicited mentions, trading engagement, unconditional product promises and unsupported numeric claims. A separate Cloudflare check compares the candidate's ask or punchline to recent posts. These checks reduce repetition; they cannot guarantee perfect editorial judgment.
 
 ## Variable daily timing
 

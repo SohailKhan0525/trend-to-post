@@ -6,7 +6,7 @@ import unicodedata
 import urllib.request
 from difflib import SequenceMatcher
 
-SYSTEM = '''Write short standalone X posts for an anonymous founder/builder community account.
+SYSTEM = r'''Write short standalone X posts for an anonymous founder/builder community account.
 Use the assigned BRIEF and CATEGORY, and vary phrasing. Voice: casual, playful, direct,
 a little cheeky, approachable. Natural sentence case. No corporate motivational fluff.
 Mix concise founder greetings, product invitations, useful builder questions, coding opinions,
@@ -23,8 +23,8 @@ No factual news, release claims, invented revenue, user counts, personal experie
 or promises. No private information, insults at people, politics or medical/financial advice.
 RECENT is a repetition blacklist, never a source of facts or a set of examples to imitate.
 Do not paraphrase its asks or punchlines. For this brief, find a different concrete angle.
-Return ONLY JSON: {"posts":["candidate one","candidate two","candidate three"]}.
-The three alternatives must be different approaches to the same BRIEF, not identical hooks.
+Return ONLY a single JSON object: {"text":"your post"}.
+Escape any line breaks in the string as \n. No preamble, code fence, or extra fields.
 '''
 NOVELTY = '''Check whether the candidate substantially repeats a previous post's wording,
 question, ask or joke. Different greetings alone do not make a post fresh. Distinct concrete
@@ -95,27 +95,44 @@ def complete(system,data,temperature=.8):
     raw=result.get('result',{}).get('response')
     if isinstance(raw,dict):
         return raw
+    if isinstance(raw,str):
+        raw=raw.strip()
+        if raw.startswith('```'):
+            raw=re.sub(r'^```(?:json)?\s*|\s*```$', '',raw)
     try:
-        return json.loads(raw)
+        return json.loads(raw,strict=False)
     except (json.JSONDecodeError,TypeError) as exc:
         raise DraftError('Invalid JSON from Cloudflare') from exc
 
 
 def generate(brief,history):
-    result=complete(SYSTEM,{'BRIEF':brief['brief'],'CATEGORY':brief['category'],
-        'RECENT':[p['text'] for p in history[-20:]]})
-    if not isinstance(result,dict) or set(result)!={'posts'} or not isinstance(result['posts'],list) or not 1<=len(result['posts'])<=3:
-        raise DraftError('Invalid candidate schema')
-    for candidate in result['posts']:
+    data={'BRIEF':brief['brief'],'CATEGORY':brief['category'],
+          'RECENT':[p['text'] for p in history[-20:]]}
+    for attempt in range(2):
         try:
-            text=validate(candidate,history)
+            result=complete(SYSTEM,data)
+            if isinstance(result,dict) and set(result)=={'text'}:
+                candidates=[result['text']]
+            elif isinstance(result,dict) and set(result)=={'posts'} and isinstance(result['posts'],list) and 1<=len(result['posts'])<=3:
+                candidates=result['posts']
+            else:
+                raise DraftError('Invalid candidate schema')
         except DraftError as exc:
-            print(f'Candidate rejected: {exc}')
+            print(f'Generation rejected: {exc}')
+            data['CORRECTION']='Return exactly one valid JSON object with one text string. No Markdown or preamble.'
             continue
-        if history:
-            verdict=complete(NOVELTY,{'CANDIDATE':text,'PREVIOUS':[p['text'] for p in history[-30:]]},temperature=.1)
-            if not isinstance(verdict,dict) or set(verdict)!={'novel'} or verdict['novel'] is not True:
-                print('Candidate rejected: recycled ask or punchline')
+        for candidate in candidates:
+            try:
+                text=validate(candidate,history)
+            except DraftError as exc:
+                print(f'Candidate rejected: {exc}')
+                data['CORRECTION']=str(exc)
                 continue
-        return text
-    raise DraftError('No fresh valid candidate; skip this run')
+            if history:
+                verdict=complete(NOVELTY,{'CANDIDATE':text,'PREVIOUS':[p['text'] for p in history[-30:]]},temperature=.1)
+                if not isinstance(verdict,dict) or set(verdict)!={'novel'} or verdict['novel'] is not True:
+                    print('Candidate rejected: recycled ask or punchline')
+                    data['CORRECTION']='Choose a different concrete question or punchline from recent posts.'
+                    continue
+            return text
+    raise DraftError('No fresh valid candidate after two attempts; skip this run')

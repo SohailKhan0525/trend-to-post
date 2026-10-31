@@ -72,8 +72,21 @@ class WriterTests(unittest.TestCase):
             self.assertEqual(generate({'brief':'A coding opinion','category':'coding_take'},[{'text':TEXT}]),fresh)
     def test_semantic_repetition_fails_closed(self):
         for verdict in ({'novel':False},{'novel':'true'},{'yes':True}):
-            with self.subTest(verdict=verdict),patch('app.writer.complete',side_effect=[{'posts':[TEXT]},verdict]):
+            with self.subTest(verdict=verdict),patch('app.writer.complete',side_effect=[{'posts':[TEXT]},verdict,{'posts':[TEXT]},verdict]):
                 with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'question'},[{'text':'Earlier unrelated observation.'}])
+    def test_invalid_json_gets_one_bounded_retry(self):
+        with patch('app.writer.complete',side_effect=[DraftError('Invalid JSON'),{'text':TEXT}]) as call:
+            self.assertEqual(generate({'brief':'Founder question','category':'question'},[]),TEXT)
+        self.assertEqual(call.call_count,2)
+    def test_two_malformed_responses_stop(self):
+        with patch('app.writer.complete',side_effect=DraftError('Invalid JSON')) as call:
+            with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'question'},[])
+        self.assertEqual(call.call_count,2)
+    def test_model_line_breaks_are_normalized_safely(self):
+        response=io.StringIO(json.dumps({'success':True,'result':{'response':'{"text":"Hello solo founders\n\nWhat are you building for your first customer?"}'}}))
+        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',return_value=response):
+            draft=complete('instructions',{})
+            self.assertIn('\n\n',validate(draft['text'],[]))
     def test_cloudflare_request(self):
         response=io.StringIO(json.dumps({'success':True,'result':{'response':json.dumps({'posts':[TEXT]})}}))
         with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',return_value=response) as call:
