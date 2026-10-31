@@ -31,7 +31,14 @@
     }
   ],
   "last_posted_at": "2026-10-31T20:01:26.830185+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-10-31:17",
+    "category": "connect",
+    "text": "Hello developers\n\nLet's connect with people shipping products.",
+    "prepared_at": "2026-10-31T21:01:25.615409+00:00",
+    "run_id": "41241590084",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-10-31",
     "slots": [
