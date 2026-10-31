@@ -7,25 +7,27 @@ import unicodedata
 import urllib.request
 from difflib import SequenceMatcher
 
-SYSTEM = r'''Write short standalone X posts for an anonymous founder/builder community account.
-Use the assigned BRIEF and CATEGORY, and vary phrasing. Voice: casual, playful, direct,
-a little cheeky, approachable. Natural sentence case. No corporate motivational fluff.
-Mix concise founder greetings, product invitations, useful builder questions, coding opinions,
-and relatable observations. A greeting can have one blank line before the invitation.
-One or two short paragraphs; 25-240 characters total; at most one emoji.
-A product invitation can ask what someone is building and who it helps; trying a product must
-be conditional on a real need. Never promise to buy, promote, follow, like, or use every product.
-A coding hot take is an opinion or joke, never a made-up statistic or a personal attack.
-Playful 'fake founders' humor is allowed without accusing real people of fraud or gatekeeping.
-Do not repeat 'Hello founders' or any opening as a daily signature. Avoid generic 'let's connect'
-as the whole post; say which builders or what conversation. No engagement-for-engagement deals,
-follow-for-follow, like/repost bait, unsolicited mentions, hashtags, links, or automated replies.
-No factual news, release claims, invented revenue, user counts, personal experience, employment,
-or promises. No private information, insults at people, politics or medical/financial advice.
-AVOID_OPENINGS is a blacklist of recent opening phrases, not examples to imitate.
-Use a fresh concrete angle for this brief and the assigned APPROACH.
-Return ONLY a single JSON object: {"text":"your post"}.
-Escape any line breaks in the string as \n. No preamble, code fence, or extra fields.
+SYSTEM = r'''Write ONLY the short X post requested in BRIEF. Follow CATEGORY exactly.
+The owner's preferred examples are:
+CONNECT: "Hello fake founders\n\nLet's connect"
+SHOWCASE: "Hello founders\n\nComment your startup product. I'll try it if I need it."
+CODING_TAKE: "If you're coding 100% on a laptop, you're probably new to coding."
+These are the desired formats and blunt tone. Do not turn them into advice discussions.
+CONNECT: exactly two paragraphs. First is "Hello <audience>" (at most five words).
+Second is a short "Let's connect" invitation (at most twelve words). No questions.
+SHOWCASE: exactly two paragraphs. "Hello <audience>", then a short direct invitation
+starting Comment, Drop or Share and naming a startup, product, project, tool or app.
+You MAY say "I'll try it if I need it". Never promise to use every product.
+CODING_TAKE: exactly one short sentence, at most thirty words. A blunt casual coding opinion
+or playful jab about habits. Begin "If", "Coding", "Unpopular opinion:" or "Hot take:".
+No explanatory follow-up, lessons, numbered lists, engagement question or corporate voice.
+Do not invent a personal product, struggle, experience, revenue, job or life story.
+Never write "I'm still trying", "I wish", "my product", "what do you wish you'd known",
+"what's the most important", "what's your biggest challenge", or coaching questions.
+No generic motivation, advice threads, news, quote-posts, URLs, hashtags, mentions or emojis.
+Use plain casual English with clean blank lines. No preamble, filler or added commentary.
+Repeated greeting FORMATS are intentional; vary the audience or invitation as BRIEF permits.
+Return ONLY JSON {"text":"the post"}; escape line breaks as \n.
 '''
 
 
@@ -39,7 +41,7 @@ def normalized(text):
     return ' '.join(re.findall(r'[a-z0-9]+',re.sub(r'(\w)\1{2,}',r'\1',text)))
 
 
-def validate(text,history):
+def validate(text,history,category=None):
     if not isinstance(text,str):
         raise DraftError('Post must be a string')
     text=unicodedata.normalize('NFC',text).strip().replace(r'\n','\n')
@@ -49,7 +51,7 @@ def validate(text,history):
     if not 1<=len(parts)<=2:
         raise DraftError('Use one or two short paragraphs')
     text='\n\n'.join(parts)
-    if not 25<=sum(1 if ord(c)<128 else 2 for c in text)<=260:
+    if not 20<=sum(1 if ord(c)<128 else 2 for c in text)<=180:
         raise DraftError('Post outside short-post budget')
     if re.search(r'https?://|www\.|@|#|```|\b(?:follow for follow|like for like|repost this|retweet this|guaranteed|million users)\b',text,re.I):
         raise DraftError('Links, mentions or engagement-trading language')
@@ -57,16 +59,32 @@ def validate(text,history):
         raise DraftError('Unconditional product or engagement promise')
     if re.search(r'\d',text) and re.findall(r'\d+',text)!=['100']:
         raise DraftError('Invented numeric claim')
+    if re.search(r"\b(?:i am|i'm|i’m|my product|my startup|i wish|biggest challenge|most important|wish you)\b",text,re.I):
+        raise DraftError('Invented personal story or generic coaching language')
+    if category in {'connect','showcase'}:
+        if len(parts)!=2 or not re.fullmatch(r'Hello [A-Za-z -]+[.!]?',parts[0]) or len(parts[0].split())>5:
+            raise DraftError('Required format: Hello audience, blank line, short invitation')
+        if '?' in text:
+            raise DraftError('Use a direct invitation, not an advice question')
+        if category=='connect' and (not re.match(r"Let['’]s connect\b",parts[1],re.I) or len(parts[1].split())>12):
+            raise DraftError('Connection post must simply invite people to connect')
+        if category=='showcase' and (not re.match(r'(?:Comment|Drop|Share)\b',parts[1],re.I) or not re.search(r'\b(?:startup|product|project|tool|app)\b',parts[1],re.I) or len(parts[1].split())>25):
+            raise DraftError('Product post must directly invite a product or project')
+    elif category=='coding_take':
+        if len(parts)!=1 or len(text.split())>30 or '?' in text or not re.match(r'(?:If\b|Coding\b|Unpopular opinion:|Hot take:)',text,re.I):
+            raise DraftError('Coding take must be one blunt sentence, no follow-up question')
+    elif category is not None:
+        raise DraftError('Unsupported content category')
     norm=normalized(text)
     hook=normalized(parts[0])
     for old in history[-100:]:
         previous=normalized(old['text'])
-        if norm==previous or SequenceMatcher(None,norm,previous).ratio()>=.78:
+        if norm==previous or (category not in {'connect','showcase'} and SequenceMatcher(None,norm,previous).ratio()>=.78):
             raise DraftError('Repeated post or paraphrase')
         current_words=norm.split()
-        if len(current_words)>=6 and any(' '.join(current_words[i:i+6]) in previous for i in range(len(current_words)-5)):
+        if category not in {'connect','showcase'} and len(current_words)>=6 and any(' '.join(current_words[i:i+6]) in previous for i in range(len(current_words)-5)):
             raise DraftError('Recycled sentence fragment')
-    for old in history[-8:]:
+    for old in ([] if category in {'connect','showcase'} else history[-8:]):
         old_hook=normalized(old['text'].split('\n\n')[0])
         if hook==old_hook or (len(hook.split())>=4 and SequenceMatcher(None,hook,old_hook).ratio()>=.85):
             raise DraftError('Repeated opening')
@@ -104,9 +122,9 @@ def complete(system,data,temperature=.8):
 
 def generate(brief,history):
     data={'BRIEF':brief['brief'],'CATEGORY':brief['category'],
-          'AVOID_OPENINGS':[' '.join(p['text'].split()[:6]) for p in history[-8:]]}
+          'RECENT_EXACT_POSTS':[p['text'] for p in history[-8:]]}
     for attempt in range(2):
-        data['APPROACH']=secrets.choice(('A friendly direct invitation.', 'A specific question in plain language.', 'A concise playful observation.', 'An informal two-line conversation starter.'))
+        data['RULE']='Stay exactly in the assigned format. No advice question or personal story.'
         try:
             result=complete(SYSTEM,data)
             if isinstance(result,dict) and set(result)=={'text'}:
@@ -121,7 +139,7 @@ def generate(brief,history):
             continue
         for candidate in candidates:
             try:
-                text=validate(candidate,history)
+                text=validate(candidate,history,brief['category'])
             except DraftError as exc:
                 print(f'Candidate rejected: {exc}')
                 data['CORRECTION']=str(exc)

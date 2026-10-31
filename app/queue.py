@@ -84,7 +84,7 @@ async def publish():
         raise ValueError('Reservation expired; inspect before clearing')
     if pending['slot'].split(':')[0]!=now.date().isoformat():
         raise ValueError('Day changed; reconcile reservation')
-    text=validate(pending['text'],state['history'])
+    text=validate(pending['text'],state['history'],pending['category'])
     # Exactly one attempt. A timeout can mean publication succeeded.
     tweet=await client().create_tweet(text=text)
     ident=str(getattr(tweet,'id','') or '')

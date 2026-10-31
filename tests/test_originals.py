@@ -12,7 +12,7 @@ from app.schedule import daily_plan,next_due
 from app.writer import generate,validate,complete,DraftError
 
 NOW=datetime(2026,10,31,12,0,tzinfo=timezone.utc)
-TEXT="Hello solo founders\n\nWhat part of your MVP did you cut so you could finally ship it?"
+TEXT="Hello solo founders\n\nLet's connect"
 
 def state():return {'version':3,'history':[],'last_posted_at':None,'pending':None}
 
@@ -25,7 +25,7 @@ class ScheduleTests(unittest.TestCase):
             times=[datetime.fromisoformat(p['due_at']) for p in plan]
             self.assertTrue(all(t.date().isoformat()==day for t in times))
             self.assertTrue(all(b-a>=timedelta(minutes=42) for a,b in zip(times,times[1:])))
-            self.assertEqual({c:sum(s['category']==c for s in plan) for c in {s['category'] for s in plan}},{'connect':4,'showcase':4,'coding_take':4,'question':4,'observation':4})
+            self.assertEqual({c:sum(s['category']==c for s in plan) for c in {s['category'] for s in plan}},{'connect':8,'showcase':6,'coding_take':6})
     def test_times_change_daily_but_retries_keep_same_plan(self):
         a=daily_plan('2026-10-31');b=daily_plan('2026-11-01')
         self.assertEqual(a,daily_plan('2026-10-31'))
@@ -61,33 +61,41 @@ class WriterTests(unittest.TestCase):
             with self.subTest(text=text),self.assertRaises(DraftError):validate(text,[])
     def test_exact_and_near_duplicates(self):
         with self.assertRaises(DraftError):validate(TEXT,[{'text':TEXT.lower()}])
-        with self.assertRaises(DraftError):validate(TEXT.replace('solo founders','startup builders'),[{'text':TEXT}])
+        with self.assertRaises(DraftError):validate(TEXT.replace("Let's connect","Let's connect."),[{'text':TEXT}])
     def test_repeated_opening(self):
         with self.assertRaises(DraftError):validate('Hello solo founders\n\nWhich customer conversation changed how you thought about your pricing?',[{'text':TEXT}])
     def test_fresh_take_allowed(self):
-        self.assertIsNotNone(validate('The stack can wait.\n\nA tiny working feature beats another weekend choosing a framework.',[{'text':TEXT}]))
+        self.assertIsNotNone(validate('Hot take: a tiny working feature beats another weekend choosing a framework.',[{'text':TEXT}],'coding_take'))
     def test_generator_selects_fresh_candidate(self):
-        fresh='Boring software is underrated.\n\nA dependable tool beats a beautiful rewrite that never ships.'
+        fresh='Hot take: a dependable tool beats a beautiful rewrite that never ships.'
         with patch('app.writer.complete',side_effect=[{'posts':[TEXT,fresh]}]):
             self.assertEqual(generate({'brief':'A coding opinion','category':'coding_take'},[{'text':TEXT}]),fresh)
-    def test_distinct_question_in_same_niche_is_allowed_without_ai_veto(self):
-        previous="Hey makers, what's the most important thing you cut from your MVP to get it out the door?"
-        fresh="Hello founders\n\nWhich small user complaint changed your product more than a feature request?"
-        with patch('app.writer.complete',return_value={'text':fresh}) as call:
-            self.assertEqual(generate({'brief':'Ask about product feedback','category':'question'},[{'text':previous}]),fresh)
-        call.assert_called_once()
-        self.assertNotIn('RECENT',call.call_args.args[1])
+    def test_requested_formats_pass(self):
+        for category,text in (
+            ('connect',"Hello fake founders\n\nLet's connect"),
+            ('showcase',"Hello founders\n\nComment your startup product. I'll try it if I need it."),
+            ('coding_take',"If you're coding 100% on a laptop, you're probably new to coding.")):
+            self.assertEqual(validate(text,[],category),text)
+    def test_generic_questions_and_personal_stories_fail(self):
+        unwanted=("I'm still trying to figure out how to make my product discoverable. What's the one thing you wish you'd known about getting noticed early on?",
+                  "Hello founders\n\nWhat's your biggest challenge?",
+                  "Hello founders\n\nWhat did you cut from your MVP to ship it?")
+        for text in unwanted:
+            with self.subTest(text=text),self.assertRaises(DraftError):validate(text,[],'connect')
+    def test_greeting_can_repeat_with_different_invitation(self):
+        self.assertIsNotNone(validate("Hello founders\n\nDrop your side project and what it does.",
+            [{'text':"Hello founders\n\nShare your latest tool."}],'showcase'))
     def test_all_repeated_candidates_are_still_blocked(self):
         with patch('app.writer.complete',return_value={'text':TEXT}) as call:
-            with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'question'},[{'text':TEXT}])
+            with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'connect'},[{'text':TEXT}])
         self.assertEqual(call.call_count,2)
     def test_invalid_json_gets_one_bounded_retry(self):
         with patch('app.writer.complete',side_effect=[DraftError('Invalid JSON'),{'text':TEXT}]) as call:
-            self.assertEqual(generate({'brief':'Founder question','category':'question'},[]),TEXT)
+            self.assertEqual(generate({'brief':'Founder question','category':'connect'},[]),TEXT)
         self.assertEqual(call.call_count,2)
     def test_two_malformed_responses_stop(self):
         with patch('app.writer.complete',side_effect=DraftError('Invalid JSON')) as call:
-            with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'question'},[])
+            with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'connect'},[])
         self.assertEqual(call.call_count,2)
     def test_model_line_breaks_are_normalized_safely(self):
         response=io.StringIO(json.dumps({'success':True,'result':{'response':'{"text":"Hello solo founders\n\nWhat are you building for your first customer?"}'}}))
@@ -110,7 +118,7 @@ class QueueTests(unittest.IsolatedAsyncioTestCase):
         self.env=patch.dict(os.environ,{'GITHUB_RUN_ID':'test','GITHUB_RUN_ATTEMPT':'1','GITHUB_OUTPUT':'','GITHUB_STEP_SUMMARY':''});self.env.start()
     def tearDown(self):self.messages.stop();self.env.stop();self.p.stop();self.temp.cleanup()
     def reserved(self):
-        s=state();s['pending']={'slot':datetime.now(timezone.utc).date().isoformat()+':3','category':'question','text':TEXT,'prepared_at':datetime.now(timezone.utc).isoformat(),'run_id':'test','run_attempt':'1'};queue.save(s)
+        s=state();s['pending']={'slot':datetime.now(timezone.utc).date().isoformat()+':3','category':'connect','text':TEXT,'prepared_at':datetime.now(timezone.utc).isoformat(),'run_id':'test','run_attempt':'1'};queue.save(s)
     async def test_standalone_publish_no_quote_or_reply_arguments(self):
         self.reserved();c=SimpleNamespace(create_tweet=AsyncMock(return_value=SimpleNamespace(id='456')))
         with patch.object(queue,'client',return_value=c):await queue.publish()

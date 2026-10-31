@@ -6,27 +6,28 @@ from datetime import datetime, timedelta, timezone
 POSTS_PER_DAY = 20
 MIN_GAP = timedelta(minutes=30)
 BRIEFS = (
-    ('connect', 'Greet early-stage founders and invite a conversation about building before everything looks polished.'),
-    ('showcase', 'Invite a one-sentence product description and who it helps. Make trying it conditional on a real need.'),
-    ('coding_take', 'A playful, debatable opinion about coding from a laptop versus a phone, remote terminal, or server. Make it personal opinion, not a claim that beginners are inferior.'),
-    ('question', 'Ask builders what they cut from an MVP to actually ship it.'),
-    ('observation', 'A short witty observation about spending longer choosing a stack than shipping a feature.'),
-    ('connect', 'Invite solo founders working after their day job to compare notes.'),
-    ('showcase', 'Ask for a tool that removes one annoying repetitive task, plus the task it removes.'),
-    ('coding_take', 'An opinion about reading the diff before trusting an AI coding assistant.'),
-    ('question', 'Ask what feedback made someone change their product rather than add another feature.'),
-    ('observation', 'A playful contrast between a polished landing page and an unfinished core workflow.'),
-    ('connect', 'Invite technical and nontechnical cofounders to discuss the hardest handoff in building together.'),
-    ('showcase', 'Invite a small open-source side project and the problem it solves. Do not promise to star or promote it.'),
-    ('coding_take', 'A debatable opinion about boring dependable software versus rewriting everything with a new framework.'),
-    ('question', 'Ask what founders would validate before spending a weekend building again.'),
-    ('observation', 'A brief relatable joke about debugging a tiny bug that turned out to be a wrong assumption.'),
-    ('connect', 'Greet builders still at their first user and invite an honest conversation without revenue flexes.'),
-    ('showcase', 'Invite a scrappy useful prototype that works even though its design is unfinished.'),
-    ('coding_take', 'A playful opinion about terminal tools, editor extensions and knowing when to stop configuring.'),
-    ('question', 'Ask which small user experience improvement mattered more than a big new feature.'),
-    ('observation', 'A witty observation about collecting ideas versus finishing one tiny working product.'),
+    ('connect', "Hello fake founders. Second line: Let's connect. Keep it this blunt."),
+    ('connect', 'Hello founders. A short invitation to connect.'),
+    ('connect', 'Hello solo founders. A short invitation to connect with other solo builders.'),
+    ('connect', 'Hello indie hackers. A short invitation to connect.'),
+    ('connect', 'Hello side-project builders. A short invitation to connect.'),
+    ('connect', 'Hello bootstrapped founders. A short invitation to connect.'),
+    ('connect', 'Hello developers. A short invitation to connect with people shipping products.'),
+    ('connect', 'Hello first-time founders. A short invitation to connect.'),
+    ('showcase', "Hello founders. Ask them to comment their startup product; say you'll try it if you need it."),
+    ('showcase', 'Hello builders. Ask them to drop the product they are building.'),
+    ('showcase', 'Hello indie hackers. Ask them to share their latest tool.'),
+    ('showcase', 'Hello solo founders. Ask them to comment their startup product and what it does.'),
+    ('showcase', 'Hello developers. Ask them to drop their side-project product.'),
+    ('showcase', "Hello makers. Ask them to share a useful app; you'll check it out if you need it."),
+    ('coding_take', "A blunt playful take in this shape: if you're coding 100% on a laptop you're probably new to coding. One sentence; no explanation."),
+    ('coding_take', 'A blunt one-sentence opinion about configuring an editor instead of writing code.'),
+    ('coding_take', 'A blunt one-sentence opinion about copying AI code without reading it.'),
+    ('coding_take', 'A blunt one-sentence opinion about changing frameworks before finishing a project.'),
+    ('coding_take', 'A blunt one-sentence opinion about collecting tutorials instead of shipping code.'),
+    ('coding_take', 'A blunt one-sentence opinion about overengineering a tiny side project.'),
 )
+
 
 
 def daily_plan(day):
