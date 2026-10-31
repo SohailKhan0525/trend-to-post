@@ -1,15 +1,16 @@
 {
   "version": 3,
-  "history": [],
-  "last_posted_at": null,
-  "pending": {
-    "slot": "2026-10-31:13",
-    "category": "question",
-    "text": "Hey makers, what's the most important thing you cut from your MVP to get it out the door?",
-    "prepared_at": "2026-10-31T16:37:40.844932+00:00",
-    "run_id": "41220579184",
-    "run_attempt": "1"
-  },
+  "history": [
+    {
+      "slot": "2026-10-31:13",
+      "category": "question",
+      "text": "Hey makers, what's the most important thing you cut from your MVP to get it out the door?",
+      "tweet_id": "2116570334992470040",
+      "posted_at": "2026-10-31T16:37:45.529708+00:00"
+    }
+  ],
+  "last_posted_at": "2026-10-31T16:37:45.529708+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-10-31",
     "slots": [
