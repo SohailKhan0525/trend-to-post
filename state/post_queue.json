@@ -312,6 +312,15 @@
       "source_text": "We identified a security incident affecting a modified Claude Code VS Code extension accessed through our Cursor IDE extension marketplace, impacting at most 5,000 users. This malicious version of the extension was not developed by Anthropic. It does not impact other extensions",
       "tweet_id": "2116357435518562315",
       "posted_at": "2026-10-31T02:31:46.776721+00:00"
+    },
+    {
+      "slot": "2026-10-31:2",
+      "text": "GPU's got a chokehold\n\nA UEFI tool unlocks Nvidia's Tensor Core performance, no more throttled AI.",
+      "source_id": "2116303886604739008",
+      "author": "Pirat_Nation",
+      "source_text": "Nvidia RTX 20, 30 and 40-series GPUs can now unlock their full AI performance thanks to a new UEFI-level tool.\n\nThe open-source project, called nv-uefi-unlocker, works before Nvidia’s drivers load and removes a hardware-level performance limit affecting certain Tensor Core https://t.co/GiYWfceA6D",
+      "tweet_id": "2116395152948273448",
+      "posted_at": "2026-10-31T05:01:39.287565+00:00"
     }
   ],
   "used_source_ids": [
@@ -451,22 +460,9 @@
     "2116213547025789184",
     "2116213541304746415",
     "2116134017192054892",
-    "2116074289053175808"
+    "2116074289053175808",
+    "2116303886604739008"
   ],
-  "last_posted_at": "2026-10-31T02:31:46.776721+00:00",
-  "pending": {
-    "slot": "2026-10-31:2",
-    "source": {
-      "id": "2116303886604739008",
-      "text": "Nvidia RTX 20, 30 and 40-series GPUs can now unlock their full AI performance thanks to a new UEFI-level tool.\n\nThe open-source project, called nv-uefi-unlocker, works before Nvidia’s drivers load and removes a hardware-level performance limit affecting certain Tensor Core https://t.co/GiYWfceA6D",
-      "author": "Pirat_Nation",
-      "url": "https://x.com/Pirat_Nation/status/2116303886604739008",
-      "created_at": "2026-10-30T22:59:00+00:00",
-      "score": 188.33409330778372
-    },
-    "text": "GPU's got a chokehold\n\nA UEFI tool unlocks Nvidia's Tensor Core performance, no more throttled AI.",
-    "prepared_at": "2026-10-31T05:01:26.446393+00:00",
-    "run_id": "41170875581",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-31T05:01:39.287565+00:00",
+  "pending": null
 }
