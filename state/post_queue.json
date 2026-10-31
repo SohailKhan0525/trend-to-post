@@ -339,6 +339,15 @@
       "source_text": "Official NVIDIA NVFP4 for DeepSeek v4.1 Flash 1017 is out. It's 81 GB smaller than the official weights.\n\nThe quality looks almost identical 👀 https://t.co/xMWTQz4BWN",
       "tweet_id": "2116485784488599805",
       "posted_at": "2026-10-31T11:01:47.430026+00:00"
+    },
+    {
+      "slot": "2026-10-31:5",
+      "text": "Opening source boosts tests efficacy, speed\n\nBy exposing Autopilot to public scrutiny, the game testing process may become more efficient and bug-ridden games are addressed sooner.",
+      "source_id": "2116191580063404100",
+      "author": "Aura_Assistant",
+      "source_text": "We're open-sourcing Autopilot.\n\nA self-improving agent that plays your game and finds bugs. Unity, Godot and Unreal.\n\n→ 43% more accurate\n→ Almost 2X faster\n→ Beats Claude Code at playtesting\n\nIt’s Computer Use for games – closing the agentic loop and solving the most tedious https://t.co/y3LmV8eERA",
+      "tweet_id": "2116515961003983080",
+      "posted_at": "2026-10-31T13:01:42.070336+00:00"
     }
   ],
   "used_source_ids": [
@@ -481,22 +490,9 @@
     "2116074289053175808",
     "2116303886604739008",
     "2116424676729925721",
-    "2116322012276900024"
+    "2116322012276900024",
+    "2116191580063404100"
   ],
-  "last_posted_at": "2026-10-31T11:01:47.430026+00:00",
-  "pending": {
-    "slot": "2026-10-31:5",
-    "source": {
-      "id": "2116191580063404100",
-      "text": "We're open-sourcing Autopilot.\n\nA self-improving agent that plays your game and finds bugs. Unity, Godot and Unreal.\n\n→ 43% more accurate\n→ Almost 2X faster\n→ Beats Claude Code at playtesting\n\nIt’s Computer Use for games – closing the agentic loop and solving the most tedious https://t.co/y3LmV8eERA",
-      "author": "Aura_Assistant",
-      "url": "https://x.com/Aura_Assistant/status/2116191580063404100",
-      "created_at": "2026-10-30T15:32:44+00:00",
-      "score": 175.13325818280194
-    },
-    "text": "Opening source boosts tests efficacy, speed\n\nBy exposing Autopilot to public scrutiny, the game testing process may become more efficient and bug-ridden games are addressed sooner.",
-    "prepared_at": "2026-10-31T13:01:32.089542+00:00",
-    "run_id": "41203655892",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-31T13:01:42.070336+00:00",
+  "pending": null
 }
