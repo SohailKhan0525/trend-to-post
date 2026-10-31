@@ -330,6 +330,15 @@
       "source_text": "chatgpt prem #zonauang",
       "tweet_id": "2116455574829461601",
       "posted_at": "2026-10-31T09:01:44.965357+00:00"
+    },
+    {
+      "slot": "2026-10-31:4",
+      "text": "81 GB smaller than official weights\n\nNVIDIA's DeepSeek model weighs in with a significant reduction in size for v4.1.",
+      "source_id": "2116322012276900024",
+      "author": "MiaAI_lab",
+      "source_text": "Official NVIDIA NVFP4 for DeepSeek v4.1 Flash 1017 is out. It's 81 GB smaller than the official weights.\n\nThe quality looks almost identical 👀 https://t.co/xMWTQz4BWN",
+      "tweet_id": "2116485784488599805",
+      "posted_at": "2026-10-31T11:01:47.430026+00:00"
     }
   ],
   "used_source_ids": [
@@ -471,22 +480,9 @@
     "2116134017192054892",
     "2116074289053175808",
     "2116303886604739008",
-    "2116424676729925721"
+    "2116424676729925721",
+    "2116322012276900024"
   ],
-  "last_posted_at": "2026-10-31T09:01:44.965357+00:00",
-  "pending": {
-    "slot": "2026-10-31:4",
-    "source": {
-      "id": "2116322012276900024",
-      "text": "Official NVIDIA NVFP4 for DeepSeek v4.1 Flash 1017 is out. It's 81 GB smaller than the official weights.\n\nThe quality looks almost identical 👀 https://t.co/xMWTQz4BWN",
-      "author": "MiaAI_lab",
-      "url": "https://x.com/MiaAI_lab/status/2116322012276900024",
-      "created_at": "2026-10-31T00:11:01+00:00",
-      "score": 100.92033067720513
-    },
-    "text": "81 GB smaller than official weights\n\nNVIDIA's DeepSeek model weighs in with a significant reduction in size for v4.1.",
-    "prepared_at": "2026-10-31T11:01:28.684344+00:00",
-    "run_id": "41195096059",
-    "run_attempt": "1"
-  }
+  "last_posted_at": "2026-10-31T11:01:47.430026+00:00",
+  "pending": null
 }
