@@ -444,5 +444,19 @@
     "2116134017192054892"
   ],
   "last_posted_at": "2026-10-31T00:01:46.766829+00:00",
-  "pending": null
+  "pending": {
+    "slot": "2026-10-31:1",
+    "source": {
+      "id": "2116074289053175808",
+      "text": "We identified a security incident affecting a modified Claude Code VS Code extension accessed through our Cursor IDE extension marketplace, impacting at most 5,000 users. This malicious version of the extension was not developed by Anthropic. It does not impact other extensions",
+      "author": "cursor_ai",
+      "url": "https://x.com/cursor_ai/status/2116074289053175808",
+      "created_at": "2026-10-30T07:46:39+00:00",
+      "score": 505.8949115752986
+    },
+    "text": "Malicious extensions spread beyond control\n\nThe CJIS compromised extension only affected a small group of 5,000 users.",
+    "prepared_at": "2026-10-31T02:31:21.746984+00:00",
+    "run_id": "41160359339",
+    "run_attempt": "1"
+  }
 }
