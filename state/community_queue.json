@@ -35,17 +35,17 @@
       "text": "Hello developers\n\nLet's connect with people shipping products.",
       "tweet_id": "2116636702056083559",
       "posted_at": "2026-10-31T21:01:28.881004+00:00"
+    },
+    {
+      "slot": "2026-10-31:18",
+      "category": "coding_take",
+      "text": "If you're coding 100% on a laptop you're probably new to coding.",
+      "tweet_id": "2116651822308024466",
+      "posted_at": "2026-10-31T22:01:34.061061+00:00"
     }
   ],
-  "last_posted_at": "2026-10-31T21:01:28.881004+00:00",
-  "pending": {
-    "slot": "2026-10-31:18",
-    "category": "coding_take",
-    "text": "If you're coding 100% on a laptop you're probably new to coding.",
-    "prepared_at": "2026-10-31T22:01:30.319701+00:00",
-    "run_id": "41246243060",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-10-31T22:01:34.061061+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-10-31",
     "slots": [
