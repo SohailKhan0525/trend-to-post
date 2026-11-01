@@ -189,19 +189,18 @@
       "text": "do you prefer brainstorming or throwing ideas against a deadline?",
       "tweet_id": "2116976412209168660",
       "posted_at": "2026-11-01T19:31:22.277162+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:41",
+      "category": "coding_take",
+      "topic": "writing tests for the failure that actually happened",
+      "text": "tests are for the stuff you already know you'll mess up, not the edge case that never happens.",
+      "tweet_id": "2116983994613182723",
+      "posted_at": "2026-11-01T20:01:29.759039+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T19:31:22.277162+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:41",
-    "category": "coding_take",
-    "text": "tests are for the stuff you already know you'll mess up, not the edge case that never happens.",
-    "topic": "writing tests for the failure that actually happened",
-    "topic_approval": "d607743fb4ea3b1b8736b43f18c137958378b4a5c76bcdbbbc6d8dc9971a4142",
-    "prepared_at": "2026-11-01T20:01:22.399995+00:00",
-    "run_id": "41344657107",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T20:01:29.759039+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
