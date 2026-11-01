@@ -112,17 +112,17 @@
       "text": "Hello solo founders\n\nLet's connect.",
       "tweet_id": "2116855607554912422",
       "posted_at": "2026-11-01T11:31:19.784566+00:00"
+    },
+    {
+      "slot": "2026-11-01:10",
+      "category": "connect",
+      "text": "Hello fake founders\n\nLet's connect",
+      "tweet_id": "2116870731028119868",
+      "posted_at": "2026-11-01T12:31:25.791376+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T11:31:19.784566+00:00",
-  "pending": {
-    "slot": "2026-11-01:10",
-    "category": "connect",
-    "text": "Hello fake founders\n\nLet's connect",
-    "prepared_at": "2026-11-01T12:31:20.233673+00:00",
-    "run_id": "41306870732",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T12:31:25.791376+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
