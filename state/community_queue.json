@@ -165,19 +165,18 @@
       "text": "Delete your bookmarks or set a default browser search engine instead?",
       "tweet_id": "2116946206639399234",
       "posted_at": "2026-11-01T17:31:20.405202+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:38",
+      "category": "curiosity",
+      "topic": "when a small feature becomes a whole app",
+      "text": "is a note-taking app a todo list with a description field?",
+      "tweet_id": "2116961291285975508",
+      "posted_at": "2026-11-01T18:31:16.803097+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T17:31:20.405202+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:38",
-    "category": "curiosity",
-    "text": "is a note-taking app a todo list with a description field?",
-    "topic": "when a small feature becomes a whole app",
-    "topic_approval": "eb64666705263a623b2aeb7ed17be14996b828a61ebf149ee0e5a6b49f9ab992",
-    "prepared_at": "2026-11-01T18:31:12.438864+00:00",
-    "run_id": "41337014273",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T18:31:16.803097+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
