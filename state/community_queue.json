@@ -115,7 +115,14 @@
     }
   ],
   "last_posted_at": "2026-11-01T11:31:19.784566+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:10",
+    "category": "connect",
+    "text": "Hello fake founders\n\nLet's connect",
+    "prepared_at": "2026-11-01T12:31:20.233673+00:00",
+    "run_id": "41306870732",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
