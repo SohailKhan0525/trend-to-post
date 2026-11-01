@@ -133,19 +133,18 @@
       "text": "If you're collecting tons of coding tutorials, you're probably not shipping code.",
       "tweet_id": "2116916023295369549",
       "posted_at": "2026-11-01T15:31:24.178730+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:32",
+      "category": "relatable",
+      "topic": "a password manager asking for its own password",
+      "text": "A password manager asking for its own password is like your aunt asking you to explain how the internet works.",
+      "tweet_id": "2116922657581220231",
+      "posted_at": "2026-11-01T15:57:46.009346+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T15:31:24.178730+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:32",
-    "category": "relatable",
-    "text": "A password manager asking for its own password is like your aunt asking you to explain how the internet works.",
-    "topic": "a password manager asking for its own password",
-    "topic_approval": "75d7e676370c024e0377aef031324bd05473aed9c0627978d4ff8e30dc80535e",
-    "prepared_at": "2026-11-01T15:57:41.977056+00:00",
-    "run_id": "41323772160",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T15:57:46.009346+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
