@@ -205,19 +205,18 @@
       "text": "setting up a new project and realizing its todo list is already done.",
       "tweet_id": "2116990365131833455",
       "posted_at": "2026-11-01T20:26:48.838861+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:43",
+      "category": "curiosity",
+      "topic": "the feeling after fixing a bug by accident",
+      "text": "do you feel relief or excitement after fixing a bug by accident?",
+      "tweet_id": "2116999107814527360",
+      "posted_at": "2026-11-01T21:01:32.790681+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T20:26:48.838861+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:43",
-    "category": "curiosity",
-    "text": "do you feel relief or excitement after fixing a bug by accident?",
-    "topic": "the feeling after fixing a bug by accident",
-    "topic_approval": "c43b51a097bb0e681e5e3b542dc657473abb62e1b78aea46b6d2df1580ced8d8",
-    "prepared_at": "2026-11-01T21:01:28.485869+00:00",
-    "run_id": "41349794573",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T21:01:32.790681+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
