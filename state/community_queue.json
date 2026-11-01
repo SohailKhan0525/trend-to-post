@@ -173,19 +173,18 @@
       "text": "is a note-taking app a todo list with a description field?",
       "tweet_id": "2116961291285975508",
       "posted_at": "2026-11-01T18:31:16.803097+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:39",
+      "category": "showcase",
+      "topic": "builders: invite a side project with a working demo",
+      "text": "Hello makers\n\nComment your side-project product and show a working demo.",
+      "tweet_id": "2116968943235526896",
+      "posted_at": "2026-11-01T19:01:41.163494+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T18:31:16.803097+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:39",
-    "category": "showcase",
-    "text": "Hello makers\n\nComment your side-project product and show a working demo.",
-    "topic": "builders: invite a side project with a working demo",
-    "topic_approval": "bbd2c42d330e13180d0c79181728097726c71d0d4c808fcd99412043ab0c9aa8",
-    "prepared_at": "2026-11-01T19:01:34.616090+00:00",
-    "run_id": "41339570402",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T19:01:41.163494+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
