@@ -8,8 +8,10 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch,AsyncMock
 from app import queue
-from app.schedule import daily_plan,next_due
-from app.writer import generate,validate,complete,DraftError
+from app.schedule import daily_plan,next_due,POSTS_PER_DAY,MIN_GAP
+from app.content import DAILY_MIX
+from app.policy import approval_digest,REVIEW_SYSTEM
+from app.writer import generate,validate,complete,review_topics,DraftError
 
 NOW=datetime(2026,10,31,12,0,tzinfo=timezone.utc)
 TEXT="Hello solo founders\n\nLet's connect"
@@ -17,15 +19,17 @@ TEXT="Hello solo founders\n\nLet's connect"
 def state():return {'version':3,'history':[],'last_posted_at':None,'pending':None}
 
 class ScheduleTests(unittest.TestCase):
-    def test_twenty_unique_spread_slots_and_balanced_categories(self):
+    def test_fifty_unique_spread_slots_and_balanced_categories(self):
         for day in ('2026-10-31','2026-11-01','2026-12-31'):
             plan=daily_plan(day)
-            self.assertEqual(len(plan),20)
-            self.assertEqual(len({s['slot'] for s in plan}),20)
+            self.assertEqual(len(plan),50)
+            self.assertEqual(len({s['slot'] for s in plan}),50)
+            self.assertEqual(len({s['topic'] for s in plan}),50)
             times=[datetime.fromisoformat(p['due_at']) for p in plan]
             self.assertTrue(all(t.date().isoformat()==day for t in times))
-            self.assertTrue(all(b-a>=timedelta(minutes=42) for a,b in zip(times,times[1:])))
-            self.assertEqual({c:sum(s['category']==c for s in plan) for c in {s['category'] for s in plan}},{'connect':8,'showcase':6,'coding_take':6})
+            self.assertTrue(all(b-a>=timedelta(minutes=22.8) for a,b in zip(times,times[1:])))
+            self.assertTrue(all(a['category']!=b['category'] for a,b in zip(plan,plan[1:])))
+            self.assertEqual({c:sum(s['category']==c for s in plan) for c in {s['category'] for s in plan}},DAILY_MIX)
     def test_times_change_daily_but_retries_keep_same_plan(self):
         a=daily_plan('2026-10-31');b=daily_plan('2026-11-01')
         self.assertEqual(a,daily_plan('2026-10-31'))
@@ -51,6 +55,26 @@ class ScheduleTests(unittest.TestCase):
         now=NOW.replace(hour=0,minute=0)
         self.assertIsNone(next_due(state(),now))
         self.assertEqual(next_due(state(),now,True)['slot'],daily_plan(now.date().isoformat())[0]['slot'])
+    def test_five_minute_dispatch_can_deliver_all_fifty_without_bursts(self):
+        s=state()
+        midnight=NOW.replace(hour=0,minute=0)
+        for day in range(3):
+            for minute in range(3,1440,5):
+                now=midnight+timedelta(days=day,minutes=minute)
+                brief=next_due(s,now)
+                if brief:
+                    if s['last_posted_at']:
+                        self.assertGreaterEqual(now-datetime.fromisoformat(s['last_posted_at']),MIN_GAP)
+                    s['history'].append({'slot':brief['slot'],'posted_at':now.isoformat()})
+                    s['last_posted_at']=now.isoformat()
+            self.assertEqual(len(s['history']),(day+1)*POSTS_PER_DAY)
+    def test_rollout_does_not_collide_with_old_slots_or_reset_daily_cap(self):
+        s=state();today=NOW.date().isoformat()
+        s['history']=[{'slot':f'{today}:{i}','posted_at':NOW.isoformat()} for i in range(20)]
+        brief=next_due(s,NOW)
+        self.assertIn(':conversation-v2:',brief['slot'])
+        s['history'] += [{'slot':f'{today}:conversation-v2:{i}','posted_at':NOW.isoformat()} for i in range(30)]
+        self.assertIsNone(next_due(s,NOW))
 
 class WriterTests(unittest.TestCase):
     def test_short_original_and_optional_blank_line(self):
@@ -68,13 +92,18 @@ class WriterTests(unittest.TestCase):
         self.assertIsNotNone(validate('Hot take: a tiny working feature beats another weekend choosing a framework.',[{'text':TEXT}],'coding_take'))
     def test_generator_selects_fresh_candidate(self):
         fresh='Hot take: a dependable tool beats a beautiful rewrite that never ships.'
-        with patch('app.writer.complete',side_effect=[{'posts':[TEXT,fresh]}]):
+        with patch('app.writer.complete',side_effect=[{'posts':[TEXT,fresh]},{'allowed':True}]):
             self.assertEqual(generate({'brief':'A coding opinion','category':'coding_take'},[{'text':TEXT}]),fresh)
     def test_requested_formats_pass(self):
         for category,text in (
             ('connect',"Hello fake founders\n\nLet's connect"),
             ('showcase',"Hello founders\n\nComment your startup product. I'll try it if I need it."),
-            ('coding_take',"If you're coding 100% on a laptop, you're probably new to coding.")):
+            ('coding_take',"If you're coding 100% on a laptop, you're probably new to coding."),
+            ('curiosity','is there a word between yes and no?'),
+            ('choice','would you rather lose your bookmarks or your screenshots?'),
+            ('relatable','a temporary fix has suspiciously permanent energy.'),
+            ('ai_question','what do you check first in AI-generated code?'),
+            ('coding_take','Your editor theme is not a product feature.')):
             self.assertEqual(validate(text,[],category),text)
     def test_generic_questions_and_personal_stories_fail(self):
         unwanted=("I'm still trying to figure out how to make my product discoverable. What's the one thing you wish you'd known about getting noticed early on?",
@@ -90,9 +119,9 @@ class WriterTests(unittest.TestCase):
             with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'connect'},[{'text':TEXT}])
         self.assertEqual(call.call_count,2)
     def test_invalid_json_gets_one_bounded_retry(self):
-        with patch('app.writer.complete',side_effect=[DraftError('Invalid JSON'),{'text':TEXT}]) as call:
+        with patch('app.writer.complete',side_effect=[DraftError('Invalid JSON'),{'text':TEXT},{'allowed':True}]) as call:
             self.assertEqual(generate({'brief':'Founder question','category':'connect'},[]),TEXT)
-        self.assertEqual(call.call_count,2)
+        self.assertEqual(call.call_count,3)
     def test_two_malformed_responses_stop(self):
         with patch('app.writer.complete',side_effect=DraftError('Invalid JSON')) as call:
             with self.assertRaises(DraftError):generate({'brief':'Founder question','category':'connect'},[])
@@ -109,6 +138,38 @@ class WriterTests(unittest.TestCase):
             request=call.call_args.args[0]
             self.assertIn('/ai/run/@cf/',request.full_url)
             self.assertEqual(json.loads(request.data)['messages'][0]['content'],'instructions')
+    def test_questions_need_one_question_without_an_answer(self):
+        for text in ('is there a word between yes and no? Maybe.',
+                     'Tabs or spaces? And why?', 'Is there a word for this feeling'):
+            with self.subTest(text=text),self.assertRaises(DraftError):validate(text,[],'curiosity')
+    def test_politics_countries_and_national_flags_are_rejected(self):
+        for text in ('Which political party makes the best software?',
+                     'Which country has the best developers?', 'Coding in India is pretty interesting.',
+                     'What do you think about the president?', 'Hello developers 🇯🇵 let us connect today.'):
+            with self.subTest(text=text),self.assertRaises(DraftError):validate(text,[])
+    def test_semantic_review_is_strict_and_fail_closed(self):
+        for verdict in ({'allowed':False},{'allowed':'true'},{'allowed':1},{},{'allowed':True,'reason':'ok'},None):
+            with self.subTest(verdict=verdict),patch('app.writer.complete',return_value=verdict),self.assertRaises(DraftError):
+                review_topics('What language do you use to chat with your AI assistant?')
+        with patch('app.writer.complete',return_value={'allowed':True}) as call:
+            review_topics('is there a word between yes and no?')
+        self.assertEqual(call.call_args.args[0],REVIEW_SYSTEM)
+        self.assertEqual(call.call_args.kwargs['temperature'],0)
+    def test_topic_rejection_regenerates_and_reviews_new_text(self):
+        rejected='Which place has the smartest founders?'
+        approved='is there a word between yes and no?'
+        with patch('app.writer.complete',side_effect=[{'text':rejected},{'allowed':False},{'text':approved},{'allowed':True}]) as call:
+            self.assertEqual(generate({'category':'curiosity','brief':'a curious word question'},[]),approved)
+        self.assertEqual(call.call_count,4)
+    def test_topic_service_outage_never_returns_unreviewed_text(self):
+        with patch('app.writer.complete',side_effect=[{'text':'is there a word between yes and no?'},TimeoutError]):
+            with self.assertRaises(TimeoutError):generate({'category':'curiosity','brief':'a word question'},[])
+    def test_exact_duplicate_is_remembered_beyond_two_days(self):
+        history=[{'text':TEXT}]+[{'text':f'distinct older sample {i}'} for i in range(500)]
+        with self.assertRaises(DraftError):validate(TEXT,history,'connect')
+    def test_unicode_normalization_keeps_words_for_duplicates(self):
+        text='¿Existe una palabra entre sí y no?'
+        with self.assertRaises(DraftError):validate(text,[{'text':text}], 'curiosity')
 
 class QueueTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
@@ -118,7 +179,7 @@ class QueueTests(unittest.IsolatedAsyncioTestCase):
         self.env=patch.dict(os.environ,{'GITHUB_RUN_ID':'test','GITHUB_RUN_ATTEMPT':'1','GITHUB_OUTPUT':'','GITHUB_STEP_SUMMARY':''});self.env.start()
     def tearDown(self):self.messages.stop();self.env.stop();self.p.stop();self.temp.cleanup()
     def reserved(self):
-        s=state();s['pending']={'slot':datetime.now(timezone.utc).date().isoformat()+':3','category':'connect','text':TEXT,'prepared_at':datetime.now(timezone.utc).isoformat(),'run_id':'test','run_attempt':'1'};queue.save(s)
+        s=state();s['pending']={'slot':datetime.now(timezone.utc).date().isoformat()+':3','category':'connect','text':TEXT,'topic_approval':approval_digest(TEXT),'prepared_at':datetime.now(timezone.utc).isoformat(),'run_id':'test','run_attempt':'1'};queue.save(s)
     async def test_standalone_publish_no_quote_or_reply_arguments(self):
         self.reserved();c=SimpleNamespace(create_tweet=AsyncMock(return_value=SimpleNamespace(id='456')))
         with patch.object(queue,'client',return_value=c):await queue.publish()
@@ -144,6 +205,17 @@ class QueueTests(unittest.IsolatedAsyncioTestCase):
         queue.save(state());before=self.path.read_text()
         with patch.object(queue,'generate',return_value=TEXT),patch.object(queue,'client') as c:await queue.prepare(preview=True)
         c.assert_not_called();self.assertEqual(before,self.path.read_text())
+    async def test_all_category_preview_cannot_change_state_or_publish(self):
+        queue.save(state());before=self.path.read_text()
+        with patch.object(queue,'generate',return_value=TEXT) as g,patch.object(queue,'client') as c:
+            await queue.prepare(preview=True,all_categories=True)
+        c.assert_not_called();self.assertEqual(before,self.path.read_text())
+        self.assertEqual({call.args[0]['category'] for call in g.call_args_list},set(DAILY_MIX))
+    async def test_modified_or_unreviewed_reservation_cannot_publish(self):
+        for approval in (None,'old-policy-digest',approval_digest('different text')):
+            self.reserved();s=queue.load();s['pending']['topic_approval']=approval;queue.save(s)
+            with patch.object(queue,'client') as c,self.assertRaises(ValueError):await queue.publish()
+            c.assert_not_called();self.assertIsNotNone(queue.load()['pending'])
 
     async def test_due_generation_failure_is_visible_and_does_not_reserve(self):
         queue.save(state());before=self.path.read_text()

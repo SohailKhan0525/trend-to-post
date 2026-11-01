@@ -2,44 +2,34 @@
 import hashlib
 import random
 from datetime import datetime, timedelta, timezone
+from .content import DAILY_MIX, TOPICS, FORMATS
 
-POSTS_PER_DAY = 20
-MIN_GAP = timedelta(minutes=30)
-BRIEFS = (
-    ('connect', "Hello fake founders. Second line: Let's connect. Keep it this blunt."),
-    ('connect', 'Hello founders. A short invitation to connect.'),
-    ('connect', 'Hello solo founders. A short invitation to connect with other solo builders.'),
-    ('connect', 'Hello indie hackers. A short invitation to connect.'),
-    ('connect', 'Hello side-project builders. A short invitation to connect.'),
-    ('connect', 'Hello bootstrapped founders. A short invitation to connect.'),
-    ('connect', 'Hello developers. A short invitation to connect with people shipping products.'),
-    ('connect', 'Hello first-time founders. A short invitation to connect.'),
-    ('showcase', "Hello founders. Ask them to comment their startup product; say you'll try it if you need it."),
-    ('showcase', 'Hello builders. Ask them to drop the product they are building.'),
-    ('showcase', 'Hello indie hackers. Ask them to share their latest tool.'),
-    ('showcase', 'Hello solo founders. Ask them to comment their startup product and what it does.'),
-    ('showcase', 'Hello developers. Ask them to drop their side-project product.'),
-    ('showcase', "Hello makers. Ask them to share a useful app; you'll check it out if you need it."),
-    ('coding_take', "A blunt playful take in this shape: if you're coding 100% on a laptop you're probably new to coding. One sentence; no explanation."),
-    ('coding_take', 'A blunt one-sentence opinion about configuring an editor instead of writing code.'),
-    ('coding_take', 'A blunt one-sentence opinion about copying AI code without reading it.'),
-    ('coding_take', 'A blunt one-sentence opinion about changing frameworks before finishing a project.'),
-    ('coding_take', 'A blunt one-sentence opinion about collecting tutorials instead of shipping code.'),
-    ('coding_take', 'A blunt one-sentence opinion about overengineering a tiny side project.'),
-)
-
-
+POSTS_PER_DAY = 50
+MIN_GAP = timedelta(minutes=15)
+PLAN_VERSION = 'conversation-v2'
 
 def daily_plan(day):
-    rng = random.Random(int(hashlib.sha256(('founder-originals-v1:'+day).encode()).hexdigest(),16))
-    briefs = list(BRIEFS)
-    rng.shuffle(briefs)
+    rng = random.Random(int(hashlib.sha256((PLAN_VERSION+':'+day).encode()).hexdigest(),16))
+    pools = {category:rng.sample(TOPICS[category], count) for category, count in DAILY_MIX.items()}
+    briefs = []
+    # Random interleaving, with a feasibility check so no repeated category is
+    # forced at the end. For a suffix after c, c can occupy at most half its slots.
+    while any(pools.values()):
+        total = sum(map(len,pools.values()))
+        options = [c for c,topics in pools.items() if topics and (not briefs or c!=briefs[-1][0])
+                   and all(len(items)-(k==c) <= ((total-1)//2 if k==c else total//2)
+                           for k,items in pools.items())]
+        category = rng.choices(options, weights=[len(pools[c]) for c in options])[0]
+        briefs.append((category,pools[category].pop()))
     midnight = datetime.fromisoformat(day).replace(tzinfo=timezone.utc)
-    # A different minute in every 72-minute band. At least 42 minutes between slots,
-    # including the midnight boundary; no clusters or catch-up bursts.
-    return [{'slot':f'{day}:{i}', 'due_at':(midnight+timedelta(minutes=i*72+rng.randint(10,40))).isoformat(),
-             'category':category,'brief':brief}
-            for i,(category,brief) in enumerate(briefs)]
+    # 28.8-minute bands, offset 11..17 minutes; minimum planned gap is 22.8 minutes,
+    # including midnight. Versioned slots cannot collide with the old 20-slot plan.
+    return [{'slot':f'{day}:{PLAN_VERSION}:{i}',
+             'due_at':(midnight+timedelta(seconds=i*86400//POSTS_PER_DAY,
+                                       minutes=rng.randint(11,17))).isoformat(),
+             'category':category, 'topic':topic,
+             'brief':FORMATS[category]+' Topic: '+topic}
+            for i,(category,topic) in enumerate(briefs)]
 
 
 def next_due(state, now, start_now=False):
@@ -57,6 +47,6 @@ def next_due(state, now, start_now=False):
     if due:
         return None if due[-1]['slot'] in used else due[-1]  # Missed earlier windows expire; never burst to fill them.
     if start_now and not state['history']:
-        # First launch only. Consume a real slot, so launch cannot create post #21.
+        # First launch only. Consume a real slot, so launch cannot exceed the cap.
         return daily_plan(today)[0]
     return None

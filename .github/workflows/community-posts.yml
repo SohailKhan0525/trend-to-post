@@ -1,4 +1,4 @@
-name: Publish Founder and Builder Posts
+name: Publish Conversation Posts
 on:
   workflow_dispatch:
   repository_dispatch:
@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths: ['app/**', '.github/workflows/community-posts.yml']
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '3-58/5 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -34,9 +34,9 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
-      - name: Preview strict writing style
+      - name: Preview all conversation styles and topic checks
         if: github.event_name == 'push'
-        run: python -m app preview
+        run: python -m app preview --all-categories
       - name: Generate one due standalone post
         id: prepare
         run: python -m app prepare --start-now

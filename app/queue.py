@@ -5,6 +5,7 @@ from pathlib import Path
 from twikit import Client
 from .writer import generate, validate, DraftError
 from .schedule import next_due, daily_plan
+from .policy import approval_digest
 
 PATH=Path('state/community_queue.json')
 
@@ -45,11 +46,22 @@ def client():
     return c
 
 
-async def prepare(preview=False,start_now=False):
+async def prepare(preview=False,start_now=False,all_categories=False):
     output('prepared','false')
     state=load()
     now=datetime.now(timezone.utc)
     plan=daily_plan(now.date().isoformat())
+    if preview and all_categories:
+        preview_history=list(state['history'])
+        seen=set()
+        for item in plan:
+            if item['category'] in seen:
+                continue
+            seen.add(item['category'])
+            text=generate(item,preview_history)
+            preview_history.append({'text':text,'category':item['category']})
+            summary('PREVIEW ONLY ('+item['category']+'):\n\n'+text+'\n')
+        return
     brief=plan[0] if preview else next_due(state,now,start_now)
     if not brief:
         summary('No post due yet, slot already used, or daily cap reached.')
@@ -64,6 +76,7 @@ async def prepare(preview=False,start_now=False):
         summary('PREVIEW ONLY:\n\n'+text)
         return
     state['pending']={'slot':brief['slot'],'category':brief['category'],'text':text,
+        'topic':brief.get('topic'),'topic_approval':approval_digest(text),
         'prepared_at':now.isoformat(),'run_id':os.environ.get('GITHUB_RUN_ID','local'),
         'run_attempt':os.environ.get('GITHUB_RUN_ATTEMPT','1')}
     state['plan']={'day':now.date().isoformat(),'slots':plan}
@@ -85,13 +98,15 @@ async def publish():
     if pending['slot'].split(':')[0]!=now.date().isoformat():
         raise ValueError('Day changed; reconcile reservation')
     text=validate(pending['text'],state['history'],pending['category'])
+    if pending.get('topic_approval')!=approval_digest(text):
+        raise ValueError('Reserved text lacks current topic approval; inspect before continuing')
     # Exactly one attempt. A timeout can mean publication succeeded.
     tweet=await client().create_tweet(text=text)
     ident=str(getattr(tweet,'id','') or '')
     if not ident.isdigit():
         raise ValueError('Missing post ID; inspect X before clearing reservation')
     state['history'].append({'slot':pending['slot'],'category':pending['category'],
-        'text':text,'tweet_id':ident,'posted_at':now.isoformat()})
+        'topic':pending.get('topic'),'text':text,'tweet_id':ident,'posted_at':now.isoformat()})
     state['history']=state['history'][-1000:]
     state['last_posted_at']=now.isoformat()
     state['pending']=None
