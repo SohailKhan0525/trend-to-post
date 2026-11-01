@@ -108,7 +108,14 @@
     }
   ],
   "last_posted_at": "2026-11-01T10:01:31.600648+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:9",
+    "category": "connect",
+    "text": "Hello solo founders\n\nLet's connect.",
+    "prepared_at": "2026-11-01T11:31:16.698012+00:00",
+    "run_id": "41302220451",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
