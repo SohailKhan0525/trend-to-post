@@ -245,19 +245,18 @@
       "text": "does another person's empty space in a chat mean they're thinking?",
       "tweet_id": "2117029351904702576",
       "posted_at": "2026-11-01T23:01:43.879151+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:49",
+      "category": "curiosity",
+      "topic": "the difference between simple and unfinished",
+      "text": "does a website with incomplete features feel unfinished or still in progress?",
+      "tweet_id": "2117041644528975982",
+      "posted_at": "2026-11-01T23:50:34.669629+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T23:01:43.879151+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:49",
-    "category": "curiosity",
-    "text": "does a website with incomplete features feel unfinished or still in progress?",
-    "topic": "the difference between simple and unfinished",
-    "topic_approval": "07b099cd32a58a3232f98080afe623b7e0ccd3e6da31c0f0166cf32d94a8f2cf",
-    "prepared_at": "2026-11-01T23:50:30.920755+00:00",
-    "run_id": "41364037854",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T23:50:34.669629+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
