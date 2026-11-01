@@ -59,7 +59,14 @@
     }
   ],
   "last_posted_at": "2026-11-01T01:01:36.866752+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:1",
+    "category": "connect",
+    "text": "Hello indie hackers\n\nLet's connect with fellow founders who are building something new.",
+    "prepared_at": "2026-11-01T02:01:23.870644+00:00",
+    "run_id": "41263437820",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
