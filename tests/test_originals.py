@@ -101,6 +101,7 @@ class WriterTests(unittest.TestCase):
             ('coding_take',"If you're coding 100% on a laptop, you're probably new to coding."),
             ('curiosity','is there a word between yes and no?'),
             ('choice','would you rather lose your bookmarks or your screenshots?'),
+            ('choice','tabs or spaces?'),
             ('relatable','a temporary fix has suspiciously permanent energy.'),
             ('ai_question','what do you check first in AI-generated code?'),
             ('coding_take','Your editor theme is not a product feature.')):
@@ -147,6 +148,9 @@ class WriterTests(unittest.TestCase):
             validate('A password manager asking for its own password is like your aunt asking you to explain how the internet works.',[],'relatable')
     def test_hundred_percent_does_not_allow_other_fake_percentages(self):
         with self.assertRaises(DraftError):validate('100% effort produces 90% better code every single time.',[],'coding_take')
+    def test_everyday_loading_percentage_is_not_an_invented_statistic(self):
+        text='a loading bar at 99% has commitment issues.'
+        self.assertEqual(validate(text,[],'relatable'),text)
     def test_politics_countries_and_national_flags_are_rejected(self):
         for text in ('Which political party makes the best software?',
                      'Which country has the best developers?', 'Coding in India is pretty interesting.',

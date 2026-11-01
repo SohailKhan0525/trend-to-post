@@ -49,6 +49,8 @@ flags, national stereotypes/comparisons, geopolitics and wars. Even neutral ment
 or jokes are forbidden. Stay with ordinary life, language, technology, AI and building.
 No personal attacks, slurs, explicit sexual content or invented personal experiences.
 No news, made-up statistics, revenue claims, achievements or supposed algorithm hacks.
+Small everyday quantities and UI percentages (a loading bar or battery) are fine;
+never turn a number into an unsupported performance or growth claim.
 No "I'm still trying", "my product", "biggest challenge", "what do you wish you'd known",
 generic coaching, fake urgency or hooks such as "only geniuses can answer".
 No begging for likes/replies/reposts/follows, engagement trades, rewards, hashtags,
@@ -80,7 +82,7 @@ def validate(text,history,category=None):
     if not 1<=len(parts)<=2:
         raise DraftError('Use one or two short paragraphs')
     text='\n\n'.join(parts)
-    if not 20<=sum(1 if ord(c)<128 else 2 for c in text)<=160:
+    if not 12<=sum(1 if ord(c)<128 else 2 for c in text)<=160:
         raise DraftError('Post outside short-post budget')
     if has_excluded_terms(text):
         raise DraftError('Politics or country-related topic is excluded')
@@ -93,7 +95,9 @@ def validate(text,history,category=None):
     if re.search(r'\b(?:i will|i.ll)\s+(?:buy|use|promote|follow)\s+(?:every|all|any)\b',text,re.I):
         raise DraftError('Unconditional product or engagement promise')
     percentages=re.findall(r'\b(\d+(?:\.\d+)?)\s*%',text)
-    if any(int(number)>100 for number in re.findall(r'\d+',text)) or re.search(r'[$€£]',text) or any(value!='100' for value in percentages):
+    ui_percentage=category=='relatable' and re.search(r'\b(?:progress|loading|battery|download|upload|charge)\b',text,re.I)
+    numeric_claim=re.search(r'\d+(?:\.\d+)?\s*%\s*(?:more|less|better|faster|slower|growth|increase|accuracy|engagement|success)',text,re.I)
+    if any(int(number)>100 for number in re.findall(r'\d+',text)) or re.search(r'[$€£]',text) or numeric_claim or (not ui_percentage and any(value!='100' for value in percentages)):
         raise DraftError('Invented numeric claim')
     if re.search(r"\b(?:i am|i'm|i’m|my product|my startup|i wish|biggest challenge|most important|wish you)\b",text,re.I):
         raise DraftError('Invented personal story or generic coaching language')
@@ -105,15 +109,15 @@ def validate(text,history,category=None):
         if category=='connect' and (not re.match(r"Let['’]s connect\b",parts[1],re.I) or len(parts[1].split())>8):
             raise DraftError('Connection post must simply invite people to connect')
         if category=='showcase' and (not re.match(r'(?:Comment|Drop|Share)\b',parts[1],re.I) or not re.search(r'\b(?:startup|product|project|tool|app)\b',parts[1],re.I) or len(parts[1].split())>18):
-            raise DraftError('Product post must directly invite a product or project')
+            raise DraftError('Start Comment/Drop/Share, name a product/project/tool/app, use at most 18 words')
     elif category in {'curiosity','choice','ai_question'}:
         limit={'curiosity':12,'choice':14,'ai_question':14}[category]
         if len(parts)!=1 or len(text.split())>limit or text.count('?')!=1 or not text.endswith('?'):
-            raise DraftError('Use one short answerable question and nothing after it')
+            raise DraftError(f'Use one question of at most {limit} words, end with ?, add no answer')
     elif category in {'coding_take','relatable'}:
         limit=18 if category=='coding_take' else 14
         if len(parts)!=1 or len(text.split())>limit or '?' in text or re.search(r'[.!]\s+\S',text):
-            raise DraftError('Use one short observation or opinion, no follow-up')
+            raise DraftError(f'Use one observation or opinion of at most {limit} words, no follow-up')
     elif category is not None:
         raise DraftError('Unsupported content category')
     norm=normalized(text)
