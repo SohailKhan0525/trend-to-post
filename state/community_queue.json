@@ -49,17 +49,17 @@
       "text": "Unpopular opinion: Tiny side projects are overengineered because people are too excited to start coding.",
       "tweet_id": "2116674419020140716",
       "posted_at": "2026-10-31T23:31:21.523119+00:00"
+    },
+    {
+      "slot": "2026-11-01:0",
+      "category": "coding_take",
+      "text": "If you copy AI code without reading it, you're gonna get owned by its edge cases.",
+      "tweet_id": "2116697132707029315",
+      "posted_at": "2026-11-01T01:01:36.866752+00:00"
     }
   ],
-  "last_posted_at": "2026-10-31T23:31:21.523119+00:00",
-  "pending": {
-    "slot": "2026-11-01:0",
-    "category": "coding_take",
-    "text": "If you copy AI code without reading it, you're gonna get owned by its edge cases.",
-    "prepared_at": "2026-11-01T01:01:33.635225+00:00",
-    "run_id": "41259286575",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T01:01:36.866752+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
