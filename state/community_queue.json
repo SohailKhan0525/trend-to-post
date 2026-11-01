@@ -80,7 +80,14 @@
     }
   ],
   "last_posted_at": "2026-11-01T04:31:18.532629+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:5",
+    "category": "connect",
+    "text": "Hello side-project builders\n\nLet's connect.",
+    "prepared_at": "2026-11-01T06:31:16.847424+00:00",
+    "run_id": "41281150621",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
