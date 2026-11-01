@@ -84,17 +84,17 @@
       "text": "Hello side-project builders\n\nLet's connect.",
       "tweet_id": "2116780108803703279",
       "posted_at": "2026-11-01T06:31:19.835263+00:00"
+    },
+    {
+      "slot": "2026-11-01:6",
+      "category": "coding_take",
+      "text": "If your editor is more configured than your code, you're overcomplicating things.",
+      "tweet_id": "2116810289161097507",
+      "posted_at": "2026-11-01T08:31:15.413913+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T06:31:19.835263+00:00",
-  "pending": {
-    "slot": "2026-11-01:6",
-    "category": "coding_take",
-    "text": "If your editor is more configured than your code, you're overcomplicating things.",
-    "prepared_at": "2026-11-01T08:31:12.145391+00:00",
-    "run_id": "41289187378",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T08:31:15.413913+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
