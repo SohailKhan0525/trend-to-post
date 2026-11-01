@@ -122,7 +122,14 @@
     }
   ],
   "last_posted_at": "2026-11-01T12:31:25.791376+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:11",
+    "category": "coding_take",
+    "text": "If your side project is more complex than a personal notes app, you're overengineering.",
+    "prepared_at": "2026-11-01T14:01:31.144823+00:00",
+    "run_id": "41314065116",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
