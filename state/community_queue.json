@@ -200,7 +200,16 @@
     }
   ],
   "last_posted_at": "2026-11-01T20:01:29.759039+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:conversation-v2:42",
+    "category": "relatable",
+    "text": "setting up a new project and realizing its todo list is already done.",
+    "topic": "a simple setup step that becomes an entire evening",
+    "topic_approval": "10864a358bf201a250e71ede93f1dc68b21f051d6ca9757ad2bbd6c142167ed4",
+    "prepared_at": "2026-11-01T20:26:40.649646+00:00",
+    "run_id": "41346853664",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
