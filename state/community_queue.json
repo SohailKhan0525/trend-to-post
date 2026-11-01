@@ -213,19 +213,18 @@
       "text": "do you feel relief or excitement after fixing a bug by accident?",
       "tweet_id": "2116999107814527360",
       "posted_at": "2026-11-01T21:01:32.790681+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:44",
+      "category": "connect",
+      "topic": "solo builders working on small useful tools",
+      "text": "Hello solo builders\n\nLet's connect about our tiny, practical tools.",
+      "tweet_id": "2117006610425925901",
+      "posted_at": "2026-11-01T21:31:21.980720+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T21:01:32.790681+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:44",
-    "category": "connect",
-    "text": "Hello solo builders\n\nLet's connect about our tiny, practical tools.",
-    "topic": "solo builders working on small useful tools",
-    "topic_approval": "d410fb14912ea14f47d3a4f0d698550cc08a302ab8e0626ade039e940061e578",
-    "prepared_at": "2026-11-01T21:31:16.968485+00:00",
-    "run_id": "41352403318",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T21:31:21.980720+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
