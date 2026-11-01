@@ -77,17 +77,17 @@
       "text": "Hello solo founders\n\nComment your startup product and what it does. I'll try it if I need it.",
       "tweet_id": "2116749904500383991",
       "posted_at": "2026-11-01T04:31:18.532629+00:00"
+    },
+    {
+      "slot": "2026-11-01:5",
+      "category": "connect",
+      "text": "Hello side-project builders\n\nLet's connect.",
+      "tweet_id": "2116780108803703279",
+      "posted_at": "2026-11-01T06:31:19.835263+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T04:31:18.532629+00:00",
-  "pending": {
-    "slot": "2026-11-01:5",
-    "category": "connect",
-    "text": "Hello side-project builders\n\nLet's connect.",
-    "prepared_at": "2026-11-01T06:31:16.847424+00:00",
-    "run_id": "41281150621",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T06:31:19.835263+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
