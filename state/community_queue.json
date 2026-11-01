@@ -66,7 +66,14 @@
     }
   ],
   "last_posted_at": "2026-11-01T02:01:27.851824+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:2",
+    "category": "showcase",
+    "text": "Hello developers\n\nComment your side-project product. I'll try it if I need it.",
+    "prepared_at": "2026-11-01T02:37:56.674015+00:00",
+    "run_id": "41265987425",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
