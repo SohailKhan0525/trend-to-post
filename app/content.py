@@ -94,11 +94,11 @@ TOPICS = {
 }
 
 FORMATS = {
-    'curiosity': 'One curious, easy-to-answer question. At most 18 words. No answer or explanation.',
-    'choice': 'One question with two concrete relatable choices. At most 22 words. No right answer.',
-    'relatable': 'One short observation or playful joke. At most 26 words. No question or lesson.',
-    'coding_take': 'One playful coding opinion. At most 30 words. No forced Hot take prefix, explanation or question.',
-    'ai_question': 'One specific question about using AI tools. At most 24 words. No news or benchmark claims.',
+    'curiosity': 'One curious, easy-to-answer question. At most 12 words. No answer or explanation.',
+    'choice': 'One question with two concrete relatable choices. At most 14 words. No right answer.',
+    'relatable': 'One short observation or playful joke. At most 14 words. No question, comparison or lesson.',
+    'coding_take': 'One playful coding opinion. At most 18 words. No forced Hot take prefix, explanation or question.',
+    'ai_question': 'One specific question about using AI tools. At most 14 words. No news or benchmark claims.',
     'showcase': 'Hello <audience>, blank line, then Comment/Drop/Share with a specific product invitation. No question.',
     'connect': 'Hello <audience>, blank line, then a short Let\'s connect invitation. No question.',
 }

@@ -14,29 +14,34 @@ corporate account, motivational speaker or engagement marketer. Lowercase is wel
 Use simple English that a global tech audience can understand. Slang is fine;
 occasional "damn" or "what the hell" is allowed but never a compulsory opener.
 One clear thought. No preamble, explanation, answer to your own question or filler.
+Aim for 6-12 words. Use the smallest natural sentence; do not fill the word budget.
+No forced analogies, family-member comparisons, abstract analysis or padded setup.
 
 STYLE REFERENCES, not a bank to copy every day:
 "is there a word between yes and no?"
 "how many saved tutorials count as a hobby?"
 "would you rather lose your bookmarks or your screenshots?"
 "a temporary fix has suspiciously permanent energy."
+"is a bookmark a plan or a lie?"
+"do you trust code you can't explain?"
+"password managers are passwords with responsibilities."
 "Hello fake founders\n\nLet's connect"
 "Hello founders\n\nComment your startup product. I'll try it if I need it."
 The owner's laptop-coding example is a playful take, not evidence of coding ability.
 
-CURIOSITY: one genuinely answerable question, <=18 words. A tiny word puzzle,
+CURIOSITY: one genuinely answerable question, <=12 words. A tiny word puzzle,
 odd everyday thought or gentle ambiguity. No obvious trivia with a single factual answer.
-CHOICE: one question, <=22 words, two relatable concrete choices; no good-versus-evil straw man.
-AI_QUESTION: one specific question about using AI tools, <=24 words; no invented capabilities.
-RELATABLE: one observation or joke, <=26 words, about a recognizable everyday/tech situation.
-CODING_TAKE: one playful opinion, <=30 words. Vary the opening; no required Hot take prefix.
+CHOICE: one question, <=14 words, two relatable concrete choices; no good-versus-evil straw man.
+AI_QUESTION: one specific question about using AI tools, <=14 words; no invented capabilities.
+RELATABLE: one observation or joke, <=14 words, about a recognizable everyday/tech situation.
+CODING_TAKE: one playful opinion, <=18 words. Vary the opening; no required Hot take prefix.
 CONNECT: exactly two paragraphs: Hello <audience> (<=5 words), then Let's connect
-and a short specific invitation (<=12 words). At most one such slot per day.
+and a short specific invitation (<=8 words). At most one such slot per day.
 SHOWCASE: exactly two paragraphs: Hello <audience> (<=5 words), then Comment/Drop/Share
-and a specific startup/product/project/tool/app invitation (<=25 words).
+and a specific startup/product/project/tool/app invitation (<=18 words).
 Any promise to try a product MUST be conditional on a real need; no fake endorsement.
 Question categories: one question mark at the end, one paragraph, no second question.
-Other categories: no question. All posts: <=200 weighted characters.
+Other categories: no question. All posts: <=160 weighted characters.
 
 ABSOLUTE EXCLUSIONS in any language: politics, parties, politicians, elections,
 government, public policy, countries, country-related places/events, nationalities,
@@ -75,7 +80,7 @@ def validate(text,history,category=None):
     if not 1<=len(parts)<=2:
         raise DraftError('Use one or two short paragraphs')
     text='\n\n'.join(parts)
-    if not 20<=sum(1 if ord(c)<128 else 2 for c in text)<=200:
+    if not 20<=sum(1 if ord(c)<128 else 2 for c in text)<=160:
         raise DraftError('Post outside short-post budget')
     if has_excluded_terms(text):
         raise DraftError('Politics or country-related topic is excluded')
@@ -87,7 +92,8 @@ def validate(text,history,category=None):
         raise DraftError('Engagement bait instead of a real conversation')
     if re.search(r'\b(?:i will|i.ll)\s+(?:buy|use|promote|follow)\s+(?:every|all|any)\b',text,re.I):
         raise DraftError('Unconditional product or engagement promise')
-    if any(int(number)>100 for number in re.findall(r'\d+',text)) or re.search(r'[$€£]|\b\d+(?:\.\d+)?\s*%',text) and '100%' not in text:
+    percentages=re.findall(r'\b(\d+(?:\.\d+)?)\s*%',text)
+    if any(int(number)>100 for number in re.findall(r'\d+',text)) or re.search(r'[$€£]',text) or any(value!='100' for value in percentages):
         raise DraftError('Invented numeric claim')
     if re.search(r"\b(?:i am|i'm|i’m|my product|my startup|i wish|biggest challenge|most important|wish you)\b",text,re.I):
         raise DraftError('Invented personal story or generic coaching language')
@@ -96,16 +102,16 @@ def validate(text,history,category=None):
             raise DraftError('Required format: Hello audience, blank line, short invitation')
         if '?' in text:
             raise DraftError('Use a direct invitation, not an advice question')
-        if category=='connect' and (not re.match(r"Let['’]s connect\b",parts[1],re.I) or len(parts[1].split())>12):
+        if category=='connect' and (not re.match(r"Let['’]s connect\b",parts[1],re.I) or len(parts[1].split())>8):
             raise DraftError('Connection post must simply invite people to connect')
-        if category=='showcase' and (not re.match(r'(?:Comment|Drop|Share)\b',parts[1],re.I) or not re.search(r'\b(?:startup|product|project|tool|app)\b',parts[1],re.I) or len(parts[1].split())>25):
+        if category=='showcase' and (not re.match(r'(?:Comment|Drop|Share)\b',parts[1],re.I) or not re.search(r'\b(?:startup|product|project|tool|app)\b',parts[1],re.I) or len(parts[1].split())>18):
             raise DraftError('Product post must directly invite a product or project')
     elif category in {'curiosity','choice','ai_question'}:
-        limit={'curiosity':18,'choice':22,'ai_question':24}[category]
+        limit={'curiosity':12,'choice':14,'ai_question':14}[category]
         if len(parts)!=1 or len(text.split())>limit or text.count('?')!=1 or not text.endswith('?'):
             raise DraftError('Use one short answerable question and nothing after it')
     elif category in {'coding_take','relatable'}:
-        limit=30 if category=='coding_take' else 26
+        limit=18 if category=='coding_take' else 14
         if len(parts)!=1 or len(text.split())>limit or '?' in text or re.search(r'[.!]\s+\S',text):
             raise DraftError('Use one short observation or opinion, no follow-up')
     elif category is not None:

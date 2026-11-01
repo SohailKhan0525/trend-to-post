@@ -20,7 +20,7 @@ The owner's new reference is **“is there a word between yes and no?”**. Othe
 
 Topics are sampled from larger pools every day and adjacent slots use different formats. Most posts have one line. A question gets one question mark and no answer or explanation. Greetings retain the owner's two-paragraph layout. Coding takes no longer require a particular opening phrase, which previously rejected otherwise valid drafts.
 
-No invented personal struggles, achievements, product ownership, statistics, news or capabilities. No generic coaching, fake urgency, engagement trades, requests for likes/follows, or copied viral posts. A product invitation cannot promise to try every product. Text stays within a conservative 200-character weighted ceiling, below the standard X post limit.
+Aim for 6–12 words, with enforced limits of 12 for curiosity, 14 for choices/observations/AI questions, and 18 for coding takes. No invented personal struggles, achievements, product ownership, statistics, news or capabilities. No generic coaching, fake urgency, engagement trades, requests for likes/follows, or copied viral posts. A product invitation cannot promise to try every product. Text stays within a conservative 160-character weighted ceiling, below the standard X post limit.
 
 ## Excluded topics and duplication
 

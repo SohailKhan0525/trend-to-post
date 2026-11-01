@@ -142,6 +142,11 @@ class WriterTests(unittest.TestCase):
         for text in ('is there a word between yes and no? Maybe.',
                      'Tabs or spaces? And why?', 'Is there a word for this feeling'):
             with self.subTest(text=text),self.assertRaises(DraftError):validate(text,[],'curiosity')
+    def test_padded_observation_is_rejected(self):
+        with self.assertRaises(DraftError):
+            validate('A password manager asking for its own password is like your aunt asking you to explain how the internet works.',[],'relatable')
+    def test_hundred_percent_does_not_allow_other_fake_percentages(self):
+        with self.assertRaises(DraftError):validate('100% effort produces 90% better code every single time.',[],'coding_take')
     def test_politics_countries_and_national_flags_are_rejected(self):
         for text in ('Which political party makes the best software?',
                      'Which country has the best developers?', 'Coding in India is pretty interesting.',
