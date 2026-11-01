@@ -73,7 +73,14 @@
     }
   ],
   "last_posted_at": "2026-11-01T02:38:00.098930+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:3",
+    "category": "showcase",
+    "text": "Hello solo founders\n\nComment your startup product and what it does. I'll try it if I need it.",
+    "prepared_at": "2026-11-01T04:31:14.420949+00:00",
+    "run_id": "41273392059",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
