@@ -149,19 +149,18 @@
       "text": "Do you ship a rough prototype or a polished demo for a first-time pitch?",
       "tweet_id": "2116931107362873723",
       "posted_at": "2026-11-01T16:31:20.686483+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:34",
+      "category": "ai_question",
+      "topic": "which harmless daily chore an AI assistant should handle",
+      "text": "Would an AI assistant help most with planning daily to-do lists or sending emails?",
+      "tweet_id": "2116938722448990636",
+      "posted_at": "2026-11-01T17:01:36.233006+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T16:31:20.686483+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:34",
-    "category": "ai_question",
-    "text": "Would an AI assistant help most with planning daily to-do lists or sending emails?",
-    "topic": "which harmless daily chore an AI assistant should handle",
-    "topic_approval": "2a153674aa3355af9e633d82d30ebe5e4a5f645fa94d0721819ec93b357fafa6",
-    "prepared_at": "2026-11-01T17:01:30.357298+00:00",
-    "run_id": "41329280045",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T17:01:36.233006+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
