@@ -129,7 +129,14 @@
     }
   ],
   "last_posted_at": "2026-11-01T14:01:34.480036+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:12",
+    "category": "coding_take",
+    "text": "If you're collecting tons of coding tutorials, you're probably not shipping code.",
+    "prepared_at": "2026-11-01T15:31:19.692067+00:00",
+    "run_id": "41321616210",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
