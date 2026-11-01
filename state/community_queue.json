@@ -237,19 +237,18 @@
       "text": "should an AI assistant show its rewritten code changes before or after explaining them?",
       "tweet_id": "2117021705109430588",
       "posted_at": "2026-11-01T22:31:20.797357+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:47",
+      "category": "curiosity",
+      "topic": "whether silence in a chat means agreement",
+      "text": "does another person's empty space in a chat mean they're thinking?",
+      "tweet_id": "2117029351904702576",
+      "posted_at": "2026-11-01T23:01:43.879151+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T22:31:20.797357+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:47",
-    "category": "curiosity",
-    "text": "does another person's empty space in a chat mean they're thinking?",
-    "topic": "whether silence in a chat means agreement",
-    "topic_approval": "33a79705b850158d22a8c0437abefee6cc6c5e86f8cacb44194bb26b29cb8e4b",
-    "prepared_at": "2026-11-01T23:01:38.611307+00:00",
-    "run_id": "41360007336",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T23:01:43.879151+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
