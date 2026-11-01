@@ -221,19 +221,18 @@
       "text": "Hello solo builders\n\nLet's connect about our tiny, practical tools.",
       "tweet_id": "2117006610425925901",
       "posted_at": "2026-11-01T21:31:21.980720+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:45",
+      "category": "curiosity",
+      "topic": "a word between yes and no",
+      "text": "is there a word between 'in progress' and 'done'?",
+      "tweet_id": "2117014196575424819",
+      "posted_at": "2026-11-01T22:01:30.648409+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T21:31:21.980720+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:45",
-    "category": "curiosity",
-    "text": "is there a word between 'in progress' and 'done'?",
-    "topic": "a word between yes and no",
-    "topic_approval": "8666254290dca53846533ad21bb987bdd1daec7f0fe2a07470d897bd533d9000",
-    "prepared_at": "2026-11-01T22:01:26.001363+00:00",
-    "run_id": "41354952871",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T22:01:30.648409+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
