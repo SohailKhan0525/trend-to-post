@@ -70,17 +70,17 @@
       "text": "Hello developers\n\nComment your side-project product. I'll try it if I need it.",
       "tweet_id": "2116721389688520962",
       "posted_at": "2026-11-01T02:38:00.098930+00:00"
+    },
+    {
+      "slot": "2026-11-01:3",
+      "category": "showcase",
+      "text": "Hello solo founders\n\nComment your startup product and what it does. I'll try it if I need it.",
+      "tweet_id": "2116749904500383991",
+      "posted_at": "2026-11-01T04:31:18.532629+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T02:38:00.098930+00:00",
-  "pending": {
-    "slot": "2026-11-01:3",
-    "category": "showcase",
-    "text": "Hello solo founders\n\nComment your startup product and what it does. I'll try it if I need it.",
-    "prepared_at": "2026-11-01T04:31:14.420949+00:00",
-    "run_id": "41273392059",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T04:31:18.532629+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
