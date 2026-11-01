@@ -98,17 +98,17 @@
       "text": "Hello first-time founders\n\nLet's connect with fellow founders who are building something new.",
       "tweet_id": "2116817917136531673",
       "posted_at": "2026-11-01T09:01:34.114472+00:00"
+    },
+    {
+      "slot": "2026-11-01:8",
+      "category": "showcase",
+      "text": "Hello solo founders\n\nComment your startup product and what it does.",
+      "tweet_id": "2116833005801226534",
+      "posted_at": "2026-11-01T10:01:31.600648+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T09:01:34.114472+00:00",
-  "pending": {
-    "slot": "2026-11-01:8",
-    "category": "showcase",
-    "text": "Hello solo founders\n\nComment your startup product and what it does.",
-    "prepared_at": "2026-11-01T10:01:26.234745+00:00",
-    "run_id": "41295597227",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T10:01:31.600648+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
