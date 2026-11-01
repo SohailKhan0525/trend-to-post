@@ -52,129 +52,136 @@
     }
   ],
   "last_posted_at": "2026-10-31T23:31:21.523119+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:0",
+    "category": "coding_take",
+    "text": "If you copy AI code without reading it, you're gonna get owned by its edge cases.",
+    "prepared_at": "2026-11-01T01:01:33.635225+00:00",
+    "run_id": "41259286575",
+    "run_attempt": "1"
+  },
   "plan": {
-    "day": "2026-10-31",
+    "day": "2026-11-01",
     "slots": [
       {
-        "slot": "2026-10-31:0",
-        "due_at": "2026-10-31T00:16:00+00:00",
-        "category": "connect",
-        "brief": "Hello solo founders. A short invitation to connect with other solo builders."
-      },
-      {
-        "slot": "2026-10-31:1",
-        "due_at": "2026-10-31T01:47:00+00:00",
-        "category": "coding_take",
-        "brief": "A blunt one-sentence opinion about changing frameworks before finishing a project."
-      },
-      {
-        "slot": "2026-10-31:2",
-        "due_at": "2026-10-31T02:58:00+00:00",
-        "category": "connect",
-        "brief": "Hello bootstrapped founders. A short invitation to connect."
-      },
-      {
-        "slot": "2026-10-31:3",
-        "due_at": "2026-10-31T04:15:00+00:00",
-        "category": "showcase",
-        "brief": "Hello makers. Ask them to share a useful app; you'll check it out if you need it."
-      },
-      {
-        "slot": "2026-10-31:4",
-        "due_at": "2026-10-31T05:28:00+00:00",
-        "category": "showcase",
-        "brief": "Hello founders. Ask them to comment their startup product; say you'll try it if you need it."
-      },
-      {
-        "slot": "2026-10-31:5",
-        "due_at": "2026-10-31T06:17:00+00:00",
-        "category": "showcase",
-        "brief": "Hello builders. Ask them to drop the product they are building."
-      },
-      {
-        "slot": "2026-10-31:6",
-        "due_at": "2026-10-31T07:47:00+00:00",
-        "category": "showcase",
-        "brief": "Hello developers. Ask them to drop their side-project product."
-      },
-      {
-        "slot": "2026-10-31:7",
-        "due_at": "2026-10-31T08:58:00+00:00",
-        "category": "connect",
-        "brief": "Hello founders. A short invitation to connect."
-      },
-      {
-        "slot": "2026-10-31:8",
-        "due_at": "2026-10-31T10:06:00+00:00",
+        "slot": "2026-11-01:0",
+        "due_at": "2026-11-01T00:17:00+00:00",
         "category": "coding_take",
         "brief": "A blunt one-sentence opinion about copying AI code without reading it."
       },
       {
-        "slot": "2026-10-31:9",
-        "due_at": "2026-10-31T11:27:00+00:00",
-        "category": "showcase",
-        "brief": "Hello solo founders. Ask them to comment their startup product and what it does."
-      },
-      {
-        "slot": "2026-10-31:10",
-        "due_at": "2026-10-31T12:38:00+00:00",
-        "category": "connect",
-        "brief": "Hello first-time founders. A short invitation to connect."
-      },
-      {
-        "slot": "2026-10-31:11",
-        "due_at": "2026-10-31T13:31:00+00:00",
-        "category": "connect",
-        "brief": "Hello side-project builders. A short invitation to connect."
-      },
-      {
-        "slot": "2026-10-31:12",
-        "due_at": "2026-10-31T15:02:00+00:00",
-        "category": "coding_take",
-        "brief": "A blunt one-sentence opinion about collecting tutorials instead of shipping code."
-      },
-      {
-        "slot": "2026-10-31:13",
-        "due_at": "2026-10-31T16:14:00+00:00",
+        "slot": "2026-11-01:1",
+        "due_at": "2026-11-01T01:36:00+00:00",
         "category": "connect",
         "brief": "Hello indie hackers. A short invitation to connect."
       },
       {
-        "slot": "2026-10-31:14",
-        "due_at": "2026-10-31T17:19:00+00:00",
-        "category": "connect",
-        "brief": "Hello fake founders. Second line: Let's connect. Keep it this blunt."
-      },
-      {
-        "slot": "2026-10-31:15",
-        "due_at": "2026-10-31T18:23:00+00:00",
-        "category": "coding_take",
-        "brief": "A blunt one-sentence opinion about configuring an editor instead of writing code."
-      },
-      {
-        "slot": "2026-10-31:16",
-        "due_at": "2026-10-31T19:43:00+00:00",
+        "slot": "2026-11-01:2",
+        "due_at": "2026-11-01T02:35:00+00:00",
         "category": "showcase",
-        "brief": "Hello indie hackers. Ask them to share their latest tool."
+        "brief": "Hello developers. Ask them to drop their side-project product."
       },
       {
-        "slot": "2026-10-31:17",
-        "due_at": "2026-10-31T20:58:00+00:00",
+        "slot": "2026-11-01:3",
+        "due_at": "2026-11-01T04:02:00+00:00",
+        "category": "showcase",
+        "brief": "Hello solo founders. Ask them to comment their startup product and what it does."
+      },
+      {
+        "slot": "2026-11-01:4",
+        "due_at": "2026-11-01T05:08:00+00:00",
         "category": "connect",
         "brief": "Hello developers. A short invitation to connect with people shipping products."
       },
       {
-        "slot": "2026-10-31:18",
-        "due_at": "2026-10-31T21:54:00+00:00",
+        "slot": "2026-11-01:5",
+        "due_at": "2026-11-01T06:10:00+00:00",
+        "category": "connect",
+        "brief": "Hello side-project builders. A short invitation to connect."
+      },
+      {
+        "slot": "2026-11-01:6",
+        "due_at": "2026-11-01T07:51:00+00:00",
+        "category": "coding_take",
+        "brief": "A blunt one-sentence opinion about configuring an editor instead of writing code."
+      },
+      {
+        "slot": "2026-11-01:7",
+        "due_at": "2026-11-01T08:53:00+00:00",
+        "category": "connect",
+        "brief": "Hello first-time founders. A short invitation to connect."
+      },
+      {
+        "slot": "2026-11-01:8",
+        "due_at": "2026-11-01T09:53:00+00:00",
+        "category": "showcase",
+        "brief": "Hello builders. Ask them to drop the product they are building."
+      },
+      {
+        "slot": "2026-11-01:9",
+        "due_at": "2026-11-01T11:11:00+00:00",
+        "category": "connect",
+        "brief": "Hello solo founders. A short invitation to connect with other solo builders."
+      },
+      {
+        "slot": "2026-11-01:10",
+        "due_at": "2026-11-01T12:21:00+00:00",
+        "category": "connect",
+        "brief": "Hello fake founders. Second line: Let's connect. Keep it this blunt."
+      },
+      {
+        "slot": "2026-11-01:11",
+        "due_at": "2026-11-01T13:34:00+00:00",
+        "category": "coding_take",
+        "brief": "A blunt one-sentence opinion about overengineering a tiny side project."
+      },
+      {
+        "slot": "2026-11-01:12",
+        "due_at": "2026-11-01T14:44:00+00:00",
+        "category": "coding_take",
+        "brief": "A blunt one-sentence opinion about collecting tutorials instead of shipping code."
+      },
+      {
+        "slot": "2026-11-01:13",
+        "due_at": "2026-11-01T15:56:00+00:00",
         "category": "coding_take",
         "brief": "A blunt playful take in this shape: if you're coding 100% on a laptop you're probably new to coding. One sentence; no explanation."
       },
       {
-        "slot": "2026-10-31:19",
-        "due_at": "2026-10-31T23:21:00+00:00",
+        "slot": "2026-11-01:14",
+        "due_at": "2026-11-01T17:20:00+00:00",
+        "category": "connect",
+        "brief": "Hello founders. A short invitation to connect."
+      },
+      {
+        "slot": "2026-11-01:15",
+        "due_at": "2026-11-01T18:36:00+00:00",
+        "category": "showcase",
+        "brief": "Hello makers. Ask them to share a useful app; you'll check it out if you need it."
+      },
+      {
+        "slot": "2026-11-01:16",
+        "due_at": "2026-11-01T19:23:00+00:00",
+        "category": "connect",
+        "brief": "Hello bootstrapped founders. A short invitation to connect."
+      },
+      {
+        "slot": "2026-11-01:17",
+        "due_at": "2026-11-01T20:53:00+00:00",
+        "category": "showcase",
+        "brief": "Hello founders. Ask them to comment their startup product; say you'll try it if you need it."
+      },
+      {
+        "slot": "2026-11-01:18",
+        "due_at": "2026-11-01T22:05:00+00:00",
+        "category": "showcase",
+        "brief": "Hello indie hackers. Ask them to share their latest tool."
+      },
+      {
+        "slot": "2026-11-01:19",
+        "due_at": "2026-11-01T23:20:00+00:00",
         "category": "coding_take",
-        "brief": "A blunt one-sentence opinion about overengineering a tiny side project."
+        "brief": "A blunt one-sentence opinion about changing frameworks before finishing a project."
       }
     ]
   }
