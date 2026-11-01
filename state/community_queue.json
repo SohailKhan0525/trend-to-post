@@ -87,7 +87,14 @@
     }
   ],
   "last_posted_at": "2026-11-01T06:31:19.835263+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:6",
+    "category": "coding_take",
+    "text": "If your editor is more configured than your code, you're overcomplicating things.",
+    "prepared_at": "2026-11-01T08:31:12.145391+00:00",
+    "run_id": "41289187378",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
