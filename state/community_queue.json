@@ -141,19 +141,18 @@
       "text": "A password manager asking for its own password is like your aunt asking you to explain how the internet works.",
       "tweet_id": "2116922657581220231",
       "posted_at": "2026-11-01T15:57:46.009346+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:33",
+      "category": "choice",
+      "topic": "fast rough prototype or slow polished demo",
+      "text": "Do you ship a rough prototype or a polished demo for a first-time pitch?",
+      "tweet_id": "2116931107362873723",
+      "posted_at": "2026-11-01T16:31:20.686483+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T15:57:46.009346+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:33",
-    "category": "choice",
-    "text": "Do you ship a rough prototype or a polished demo for a first-time pitch?",
-    "topic": "fast rough prototype or slow polished demo",
-    "topic_approval": "a36ef4c4c8e07a29eabc1a502a4c3472751ebdbf4d6c27838abc361d09dfa139",
-    "prepared_at": "2026-11-01T16:31:15.974778+00:00",
-    "run_id": "41326727853",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T16:31:20.686483+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
