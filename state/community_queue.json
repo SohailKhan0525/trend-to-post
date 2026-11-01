@@ -229,19 +229,18 @@
       "text": "is there a word between 'in progress' and 'done'?",
       "tweet_id": "2117014196575424819",
       "posted_at": "2026-11-01T22:01:30.648409+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:46",
+      "category": "ai_question",
+      "topic": "whether an assistant should explain the change before or after showing code",
+      "text": "should an AI assistant show its rewritten code changes before or after explaining them?",
+      "tweet_id": "2117021705109430588",
+      "posted_at": "2026-11-01T22:31:20.797357+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T22:01:30.648409+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:46",
-    "category": "ai_question",
-    "text": "should an AI assistant show its rewritten code changes before or after explaining them?",
-    "topic": "whether an assistant should explain the change before or after showing code",
-    "topic_approval": "bd19371ca2f171d5a2d295e11c0ff9b3b339dffefac3cb22e17f720cda557f4d",
-    "prepared_at": "2026-11-01T22:31:15.131009+00:00",
-    "run_id": "41357517371",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T22:31:20.797357+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
