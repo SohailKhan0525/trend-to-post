@@ -216,7 +216,16 @@
     }
   ],
   "last_posted_at": "2026-11-01T21:01:32.790681+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:conversation-v2:44",
+    "category": "connect",
+    "text": "Hello solo builders\n\nLet's connect about our tiny, practical tools.",
+    "topic": "solo builders working on small useful tools",
+    "topic_approval": "d410fb14912ea14f47d3a4f0d698550cc08a302ab8e0626ade039e940061e578",
+    "prepared_at": "2026-11-01T21:31:16.968485+00:00",
+    "run_id": "41352403318",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
