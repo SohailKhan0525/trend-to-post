@@ -181,19 +181,18 @@
       "text": "Hello makers\n\nComment your side-project product and show a working demo.",
       "tweet_id": "2116968943235526896",
       "posted_at": "2026-11-01T19:01:41.163494+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:40",
+      "category": "curiosity",
+      "topic": "a name for liking an idea more than doing it",
+      "text": "do you prefer brainstorming or throwing ideas against a deadline?",
+      "tweet_id": "2116976412209168660",
+      "posted_at": "2026-11-01T19:31:22.277162+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T19:01:41.163494+00:00",
-  "pending": {
-    "slot": "2026-11-01:conversation-v2:40",
-    "category": "curiosity",
-    "text": "do you prefer brainstorming or throwing ideas against a deadline?",
-    "topic": "a name for liking an idea more than doing it",
-    "topic_approval": "e3d213698c91751ff94098f09482dab61a496a46a7a9299ef8c50efdb9473aac",
-    "prepared_at": "2026-11-01T19:31:15.821721+00:00",
-    "run_id": "41342117241",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T19:31:22.277162+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
