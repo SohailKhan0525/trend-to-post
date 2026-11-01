@@ -91,17 +91,17 @@
       "text": "If your editor is more configured than your code, you're overcomplicating things.",
       "tweet_id": "2116810289161097507",
       "posted_at": "2026-11-01T08:31:15.413913+00:00"
+    },
+    {
+      "slot": "2026-11-01:7",
+      "category": "connect",
+      "text": "Hello first-time founders\n\nLet's connect with fellow founders who are building something new.",
+      "tweet_id": "2116817917136531673",
+      "posted_at": "2026-11-01T09:01:34.114472+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T08:31:15.413913+00:00",
-  "pending": {
-    "slot": "2026-11-01:7",
-    "category": "connect",
-    "text": "Hello first-time founders\n\nLet's connect with fellow founders who are building something new.",
-    "prepared_at": "2026-11-01T09:01:30.250338+00:00",
-    "run_id": "41291261827",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-01T09:01:34.114472+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-01",
     "slots": [
