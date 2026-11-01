@@ -136,129 +136,368 @@
     }
   ],
   "last_posted_at": "2026-11-01T15:31:24.178730+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-01:conversation-v2:32",
+    "category": "relatable",
+    "text": "A password manager asking for its own password is like your aunt asking you to explain how the internet works.",
+    "topic": "a password manager asking for its own password",
+    "topic_approval": "75d7e676370c024e0377aef031324bd05473aed9c0627978d4ff8e30dc80535e",
+    "prepared_at": "2026-11-01T15:57:41.977056+00:00",
+    "run_id": "41323772160",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-01",
     "slots": [
       {
-        "slot": "2026-11-01:0",
-        "due_at": "2026-11-01T00:17:00+00:00",
-        "category": "coding_take",
-        "brief": "A blunt one-sentence opinion about copying AI code without reading it."
-      },
-      {
-        "slot": "2026-11-01:1",
-        "due_at": "2026-11-01T01:36:00+00:00",
-        "category": "connect",
-        "brief": "Hello indie hackers. A short invitation to connect."
-      },
-      {
-        "slot": "2026-11-01:2",
-        "due_at": "2026-11-01T02:35:00+00:00",
+        "slot": "2026-11-01:conversation-v2:0",
+        "due_at": "2026-11-01T00:14:00+00:00",
         "category": "showcase",
-        "brief": "Hello developers. Ask them to drop their side-project product."
+        "topic": "developers: invite a tool that removes a tedious step",
+        "brief": "Hello <audience>, blank line, then Comment/Drop/Share with a specific product invitation. No question. Topic: developers: invite a tool that removes a tedious step"
       },
       {
-        "slot": "2026-11-01:3",
-        "due_at": "2026-11-01T04:02:00+00:00",
-        "category": "showcase",
-        "brief": "Hello solo founders. Ask them to comment their startup product and what it does."
+        "slot": "2026-11-01:conversation-v2:1",
+        "due_at": "2026-11-01T00:43:48+00:00",
+        "category": "relatable",
+        "topic": "a progress bar that gets stuck near the end",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: a progress bar that gets stuck near the end"
       },
       {
-        "slot": "2026-11-01:4",
-        "due_at": "2026-11-01T05:08:00+00:00",
-        "category": "connect",
-        "brief": "Hello developers. A short invitation to connect with people shipping products."
+        "slot": "2026-11-01:conversation-v2:2",
+        "due_at": "2026-11-01T01:08:36+00:00",
+        "category": "ai_question",
+        "topic": "whether an AI assistant should offer one option or several",
+        "brief": "One specific question about using AI tools. At most 24 words. No news or benchmark claims. Topic: whether an AI assistant should offer one option or several"
       },
       {
-        "slot": "2026-11-01:5",
-        "due_at": "2026-11-01T06:10:00+00:00",
-        "category": "connect",
-        "brief": "Hello side-project builders. A short invitation to connect."
+        "slot": "2026-11-01:conversation-v2:3",
+        "due_at": "2026-11-01T01:43:24+00:00",
+        "category": "curiosity",
+        "topic": "whether a saved bookmark counts as a plan",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: whether a saved bookmark counts as a plan"
       },
       {
-        "slot": "2026-11-01:6",
-        "due_at": "2026-11-01T07:51:00+00:00",
+        "slot": "2026-11-01:conversation-v2:4",
+        "due_at": "2026-11-01T02:10:12+00:00",
+        "category": "ai_question",
+        "topic": "whether AI should ask a question or make an assumption",
+        "brief": "One specific question about using AI tools. At most 24 words. No news or benchmark claims. Topic: whether AI should ask a question or make an assumption"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:5",
+        "due_at": "2026-11-01T02:40:00+00:00",
+        "category": "choice",
+        "topic": "paper notes or a notes app",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: paper notes or a notes app"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:6",
+        "due_at": "2026-11-01T03:04:48+00:00",
+        "category": "curiosity",
+        "topic": "whether deleting a draft counts as progress",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: whether deleting a draft counts as progress"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:7",
+        "due_at": "2026-11-01T03:32:36+00:00",
+        "category": "choice",
+        "topic": "fix an old annoyance or add a new feature",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: fix an old annoyance or add a new feature"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:8",
+        "due_at": "2026-11-01T04:06:24+00:00",
+        "category": "ai_question",
+        "topic": "what you check first in AI-generated code",
+        "brief": "One specific question about using AI tools. At most 24 words. No news or benchmark claims. Topic: what you check first in AI-generated code"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:9",
+        "due_at": "2026-11-01T04:31:12+00:00",
+        "category": "relatable",
+        "topic": "opening the fridge like refreshing a feed",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: opening the fridge like refreshing a feed"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:10",
+        "due_at": "2026-11-01T05:04:00+00:00",
+        "category": "curiosity",
+        "topic": "a word for finding something just after replacing it",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: a word for finding something just after replacing it"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:11",
+        "due_at": "2026-11-01T05:27:48+00:00",
+        "category": "relatable",
+        "topic": "an update arriving just before work starts",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: an update arriving just before work starts"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:12",
+        "due_at": "2026-11-01T05:57:36+00:00",
         "category": "coding_take",
-        "brief": "A blunt one-sentence opinion about configuring an editor instead of writing code."
+        "topic": "a useful error message as a product feature",
+        "brief": "One playful coding opinion. At most 30 words. No forced Hot take prefix, explanation or question. Topic: a useful error message as a product feature"
       },
       {
-        "slot": "2026-11-01:7",
-        "due_at": "2026-11-01T08:53:00+00:00",
-        "category": "connect",
-        "brief": "Hello first-time founders. A short invitation to connect."
+        "slot": "2026-11-01:conversation-v2:13",
+        "due_at": "2026-11-01T06:29:24+00:00",
+        "category": "choice",
+        "topic": "voice notes or typed messages",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: voice notes or typed messages"
       },
       {
-        "slot": "2026-11-01:8",
-        "due_at": "2026-11-01T09:53:00+00:00",
+        "slot": "2026-11-01:conversation-v2:14",
+        "due_at": "2026-11-01T06:57:12+00:00",
+        "category": "relatable",
+        "topic": "forgetting the clever shortcut when it is needed",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: forgetting the clever shortcut when it is needed"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:15",
+        "due_at": "2026-11-01T07:29:00+00:00",
+        "category": "choice",
+        "topic": "quiet workspace or background music",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: quiet workspace or background music"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:16",
+        "due_at": "2026-11-01T07:56:48+00:00",
+        "category": "curiosity",
+        "topic": "the boundary between a tool and a distraction",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: the boundary between a tool and a distraction"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:17",
+        "due_at": "2026-11-01T08:23:36+00:00",
         "category": "showcase",
-        "brief": "Hello builders. Ask them to drop the product they are building."
+        "topic": "makers: invite a simple app for staying organized",
+        "brief": "Hello <audience>, blank line, then Comment/Drop/Share with a specific product invitation. No question. Topic: makers: invite a simple app for staying organized"
       },
       {
-        "slot": "2026-11-01:9",
-        "due_at": "2026-11-01T11:11:00+00:00",
-        "category": "connect",
-        "brief": "Hello solo founders. A short invitation to connect with other solo builders."
+        "slot": "2026-11-01:conversation-v2:18",
+        "due_at": "2026-11-01T08:52:24+00:00",
+        "category": "ai_question",
+        "topic": "the first thing you remove from a ChatGPT draft",
+        "brief": "One specific question about using AI tools. At most 24 words. No news or benchmark claims. Topic: the first thing you remove from a ChatGPT draft"
       },
       {
-        "slot": "2026-11-01:10",
-        "due_at": "2026-11-01T12:21:00+00:00",
-        "category": "connect",
-        "brief": "Hello fake founders. Second line: Let's connect. Keep it this blunt."
+        "slot": "2026-11-01:conversation-v2:19",
+        "due_at": "2026-11-01T09:18:12+00:00",
+        "category": "curiosity",
+        "topic": "whether a messy desk can feel organized",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: whether a messy desk can feel organized"
       },
       {
-        "slot": "2026-11-01:11",
-        "due_at": "2026-11-01T13:34:00+00:00",
+        "slot": "2026-11-01:conversation-v2:20",
+        "due_at": "2026-11-01T09:51:00+00:00",
+        "category": "choice",
+        "topic": "perfect naming or readable comments",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: perfect naming or readable comments"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:21",
+        "due_at": "2026-11-01T10:19:48+00:00",
         "category": "coding_take",
-        "brief": "A blunt one-sentence opinion about overengineering a tiny side project."
+        "topic": "the naming of a temporary variable",
+        "brief": "One playful coding opinion. At most 30 words. No forced Hot take prefix, explanation or question. Topic: the naming of a temporary variable"
       },
       {
-        "slot": "2026-11-01:12",
-        "due_at": "2026-11-01T14:44:00+00:00",
+        "slot": "2026-11-01:conversation-v2:22",
+        "due_at": "2026-11-01T10:48:36+00:00",
+        "category": "relatable",
+        "topic": "a notes app full of ideas with no context",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: a notes app full of ideas with no context"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:23",
+        "due_at": "2026-11-01T11:19:24+00:00",
         "category": "coding_take",
-        "brief": "A blunt one-sentence opinion about collecting tutorials instead of shipping code."
+        "topic": "a readable function versus a clever one-liner",
+        "brief": "One playful coding opinion. At most 30 words. No forced Hot take prefix, explanation or question. Topic: a readable function versus a clever one-liner"
       },
       {
-        "slot": "2026-11-01:13",
-        "due_at": "2026-11-01T15:56:00+00:00",
+        "slot": "2026-11-01:conversation-v2:24",
+        "due_at": "2026-11-01T11:43:12+00:00",
+        "category": "curiosity",
+        "topic": "whether an unread notification still feels like a task",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: whether an unread notification still feels like a task"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:25",
+        "due_at": "2026-11-01T12:15:00+00:00",
+        "category": "choice",
+        "topic": "search documentation or read it in order",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: search documentation or read it in order"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:26",
+        "due_at": "2026-11-01T12:39:48+00:00",
         "category": "coding_take",
-        "brief": "A blunt playful take in this shape: if you're coding 100% on a laptop you're probably new to coding. One sentence; no explanation."
+        "topic": "an honest loading state versus a frozen button",
+        "brief": "One playful coding opinion. At most 30 words. No forced Hot take prefix, explanation or question. Topic: an honest loading state versus a frozen button"
       },
       {
-        "slot": "2026-11-01:14",
-        "due_at": "2026-11-01T17:20:00+00:00",
-        "category": "connect",
-        "brief": "Hello founders. A short invitation to connect."
+        "slot": "2026-11-01:conversation-v2:27",
+        "due_at": "2026-11-01T13:09:36+00:00",
+        "category": "choice",
+        "topic": "automatic saves or an obvious save button",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: automatic saves or an obvious save button"
       },
       {
-        "slot": "2026-11-01:15",
-        "due_at": "2026-11-01T18:36:00+00:00",
+        "slot": "2026-11-01:conversation-v2:28",
+        "due_at": "2026-11-01T13:42:24+00:00",
+        "category": "relatable",
+        "topic": "naming files final and then editing them again",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: naming files final and then editing them again"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:29",
+        "due_at": "2026-11-01T14:10:12+00:00",
+        "category": "coding_take",
+        "topic": "deleting unused code",
+        "brief": "One playful coding opinion. At most 30 words. No forced Hot take prefix, explanation or question. Topic: deleting unused code"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:30",
+        "due_at": "2026-11-01T14:41:00+00:00",
+        "category": "relatable",
+        "topic": "losing a thought while unlocking a phone",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: losing a thought while unlocking a phone"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:31",
+        "due_at": "2026-11-01T15:07:48+00:00",
+        "category": "coding_take",
+        "topic": "a terminal theme versus a working deployment",
+        "brief": "One playful coding opinion. At most 30 words. No forced Hot take prefix, explanation or question. Topic: a terminal theme versus a working deployment"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:32",
+        "due_at": "2026-11-01T15:32:36+00:00",
+        "category": "relatable",
+        "topic": "a password manager asking for its own password",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: a password manager asking for its own password"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:33",
+        "due_at": "2026-11-01T16:02:24+00:00",
+        "category": "choice",
+        "topic": "fast rough prototype or slow polished demo",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: fast rough prototype or slow polished demo"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:34",
+        "due_at": "2026-11-01T16:34:12+00:00",
+        "category": "ai_question",
+        "topic": "which harmless daily chore an AI assistant should handle",
+        "brief": "One specific question about using AI tools. At most 24 words. No news or benchmark claims. Topic: which harmless daily chore an AI assistant should handle"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:35",
+        "due_at": "2026-11-01T17:04:00+00:00",
+        "category": "relatable",
+        "topic": "turning a break into another screen",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: turning a break into another screen"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:36",
+        "due_at": "2026-11-01T17:30:48+00:00",
+        "category": "choice",
+        "topic": "delete bookmarks or organize them",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: delete bookmarks or organize them"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:37",
+        "due_at": "2026-11-01T18:02:36+00:00",
+        "category": "coding_take",
+        "topic": "rewriting working code out of boredom",
+        "brief": "One playful coding opinion. At most 30 words. No forced Hot take prefix, explanation or question. Topic: rewriting working code out of boredom"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:38",
+        "due_at": "2026-11-01T18:25:24+00:00",
+        "category": "curiosity",
+        "topic": "when a small feature becomes a whole app",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: when a small feature becomes a whole app"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:39",
+        "due_at": "2026-11-01T18:54:12+00:00",
         "category": "showcase",
-        "brief": "Hello makers. Ask them to share a useful app; you'll check it out if you need it."
+        "topic": "builders: invite a side project with a working demo",
+        "brief": "Hello <audience>, blank line, then Comment/Drop/Share with a specific product invitation. No question. Topic: builders: invite a side project with a working demo"
       },
       {
-        "slot": "2026-11-01:16",
-        "due_at": "2026-11-01T19:23:00+00:00",
-        "category": "connect",
-        "brief": "Hello bootstrapped founders. A short invitation to connect."
+        "slot": "2026-11-01:conversation-v2:40",
+        "due_at": "2026-11-01T19:28:00+00:00",
+        "category": "curiosity",
+        "topic": "a name for liking an idea more than doing it",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: a name for liking an idea more than doing it"
       },
       {
-        "slot": "2026-11-01:17",
-        "due_at": "2026-11-01T20:53:00+00:00",
-        "category": "showcase",
-        "brief": "Hello founders. Ask them to comment their startup product; say you'll try it if you need it."
-      },
-      {
-        "slot": "2026-11-01:18",
-        "due_at": "2026-11-01T22:05:00+00:00",
-        "category": "showcase",
-        "brief": "Hello indie hackers. Ask them to share their latest tool."
-      },
-      {
-        "slot": "2026-11-01:19",
-        "due_at": "2026-11-01T23:20:00+00:00",
+        "slot": "2026-11-01:conversation-v2:41",
+        "due_at": "2026-11-01T19:51:48+00:00",
         "category": "coding_take",
-        "brief": "A blunt one-sentence opinion about changing frameworks before finishing a project."
+        "topic": "writing tests for the failure that actually happened",
+        "brief": "One playful coding opinion. At most 30 words. No forced Hot take prefix, explanation or question. Topic: writing tests for the failure that actually happened"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:42",
+        "due_at": "2026-11-01T20:20:36+00:00",
+        "category": "relatable",
+        "topic": "a simple setup step that becomes an entire evening",
+        "brief": "One short observation or playful joke. At most 26 words. No question or lesson. Topic: a simple setup step that becomes an entire evening"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:43",
+        "due_at": "2026-11-01T20:55:24+00:00",
+        "category": "curiosity",
+        "topic": "the feeling after fixing a bug by accident",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: the feeling after fixing a bug by accident"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:44",
+        "due_at": "2026-11-01T21:20:12+00:00",
+        "category": "connect",
+        "topic": "solo builders working on small useful tools",
+        "brief": "Hello <audience>, blank line, then a short Let's connect invitation. No question. Topic: solo builders working on small useful tools"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:45",
+        "due_at": "2026-11-01T21:49:00+00:00",
+        "category": "curiosity",
+        "topic": "a word between yes and no",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: a word between yes and no"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:46",
+        "due_at": "2026-11-01T22:15:48+00:00",
+        "category": "ai_question",
+        "topic": "whether an assistant should explain the change before or after showing code",
+        "brief": "One specific question about using AI tools. At most 24 words. No news or benchmark claims. Topic: whether an assistant should explain the change before or after showing code"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:47",
+        "due_at": "2026-11-01T22:45:36+00:00",
+        "category": "curiosity",
+        "topic": "whether silence in a chat means agreement",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: whether silence in a chat means agreement"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:48",
+        "due_at": "2026-11-01T23:14:24+00:00",
+        "category": "choice",
+        "topic": "simple interface or more control",
+        "brief": "One question with two concrete relatable choices. At most 22 words. No right answer. Topic: simple interface or more control"
+      },
+      {
+        "slot": "2026-11-01:conversation-v2:49",
+        "due_at": "2026-11-01T23:47:12+00:00",
+        "category": "curiosity",
+        "topic": "the difference between simple and unfinished",
+        "brief": "One curious, easy-to-answer question. At most 18 words. No answer or explanation. Topic: the difference between simple and unfinished"
       }
     ]
   }
