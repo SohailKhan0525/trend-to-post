@@ -13,6 +13,21 @@ from .http import canonical,LinkError
 PATH=Path('state/resources_queue.json')
 LEGACY_PATH=Path('state/community_queue.json')
 RETIRED_PATH=Path('state/post_queue.json')
+# twifork calls its card_uri argument poll_uri. This removal sentinel is not a
+# poll: it tells X to omit the automatically generated website card.
+NO_LINK_PREVIEW='tombstone://card'
+
+
+def website_card_present(tweet):
+    data=getattr(tweet,'_data',None)
+    if isinstance(data,dict):
+        card=data.get('card')
+        if not card:return False
+        name=card.get('legacy',{}).get('name','') if isinstance(card,dict) else ''
+        return name not in {'tombstone','tombstone://card'}
+    value=getattr(tweet,'has_card',None)
+    if type(value) is bool:return value
+    raise ValueError('Website card metadata unavailable')
 
 
 def new_state(legacy=None):
@@ -76,6 +91,8 @@ def claim(state,resources):
 async def prepare(preview=False,start_now=False,all_categories=False):
     output('prepared','false');output('state_changed','false')
     state=load();now=datetime.now(timezone.utc)
+    if state.get('pause_reason'):
+        raise ValueError('Publishing paused after an unexpected website card; inspect before resuming')
     plan=daily_plan(now.date().isoformat())
     briefs=[plan[0]] if preview else [next_due(state,now,start_now)]
     if preview and all_categories:
@@ -138,13 +155,29 @@ async def publish():
         state['pending']=None;save(state);output('state_changed','true')
         summary('::warning::Link/content recheck failed before sending; reservation released, URLs remain retired.');return
     # Exactly one outbound attempt. Timeouts and all uncertain outcomes keep pending.
-    tweet=await client().create_tweet(text=text)
+    connection=client()
+    tweet=await connection.create_tweet(text=text,poll_uri=NO_LINK_PREVIEW)
     ident=str(getattr(tweet,'id','') or '')
     if not ident.isdigit():raise ValueError('No real post ID; inspect X before clearing the reservation')
     state['history'].append({'slot':pending['slot'],'audience':audience,'text':text,
-        'resources':resources,'tweet_id':ident,'posted_at':now.isoformat()})
+        'resources':resources,'tweet_id':ident,'posted_at':now.isoformat(),
+        'website_card_requested':False,'website_card_status':'unverified'})
     state['history']=state['history'][-1000:]
     # Permanent URL and content ledgers are NEVER trimmed with the post history.
     state['last_posted_at']=now.isoformat();state['pending']=None;save(state)
     output('state_changed','true');output('published','true');output('post_url','https://x.com/i/status/'+ident)
     summary('Published https://x.com/i/status/'+ident)
+    # A read failure must never turn a successful publication into another send.
+    # The real post ID is saved and exposed to the persistence step before reading.
+    try:
+        confirmed=await connection.get_tweet_by_id(ident)
+        has_card=website_card_present(confirmed)
+        state['history'][-1]['website_card_status']='present' if has_card else 'absent'
+        if has_card:
+            state['pause_reason']='X returned a website card despite explicit suppression'
+            summary('::warning::Unexpected website card detected. Future publishing paused; the confirmed post will not be resent.')
+        else:
+            summary('X readback verified: no website preview card.')
+        save(state)
+    except Exception as exc:
+        summary('::warning::Post confirmed; preview readback unavailable ('+type(exc).__name__+'). No resend attempted.')

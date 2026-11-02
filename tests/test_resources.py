@@ -13,7 +13,8 @@ from app.http import canonical,assert_public,fetch,Page,LinkError
 from app.resources import inspect,discover,_is_fresh
 from app.schedule import daily_plan,next_due,MIN_GAP
 from app.audiences import DAILY_MIX
-from app.writer import generate,render,review,complete,approval_digest,DraftError
+from app.writer import generate,render,review,complete,approval_digest,validate_grounding,DraftError
+from twikit.client.gql import GQLClient
 
 NOW=datetime(2026,11,2,12,0,tzinfo=timezone.utc)
 SOURCE={'id':'one','root':'https://docs.example.com/guide/','hosts':['docs.example.com'],'paths':['/guide/'],'audiences':['vibecoders']}
@@ -113,6 +114,10 @@ class ScheduleTests(unittest.TestCase):
 
 
 class WriterTests(unittest.TestCase):
+    def test_vague_labels_do_not_explain_a_specific_resource(self):
+        resource=dict(pair()[0],title='The 10 Best Social Media Dashboard Tools & Apps')
+        with self.assertRaises(DraftError):validate_grounding(['Social guide'],[resource])
+        validate_grounding(['Social media dashboard tools'],[resource])
     def test_layout_two_urls_and_follow_line(self):
         text=render('vibecoders',LABELS,pair())
         self.assertTrue(text.startswith('For vibecoders\n\n'));self.assertEqual(text.count('https://'),2)
@@ -156,10 +161,30 @@ class QueueTests(unittest.IsolatedAsyncioTestCase):
         s['pending']={'slot':datetime.now(timezone.utc).date().isoformat()+':resources-v1:2','audience':'vibecoders','labels':LABELS,'resources':resources,'text':render('vibecoders',LABELS,resources),'approval':approval_digest('vibecoders',LABELS,resources),'prepared_at':datetime.now(timezone.utc).isoformat(),'run_id':'test','run_attempt':'1'};queue.save(s)
     def network(self):return patch.object(queue,'inspect',side_effect=pair()),patch.object(queue,'source_for',return_value=SOURCE),patch.object(queue,'review')
     async def test_publish_once_and_keep_permanent_urls(self):
-        self.reserved();c=SimpleNamespace(create_tweet=AsyncMock(return_value=SimpleNamespace(id='456')));a,b,d=self.network()
+        self.reserved();c=SimpleNamespace(create_tweet=AsyncMock(return_value=SimpleNamespace(id='456')),get_tweet_by_id=AsyncMock(return_value=SimpleNamespace(_data={})));a,b,d=self.network()
         with a,b,d,patch.object(queue,'client',return_value=c):await queue.publish()
-        c.create_tweet.assert_awaited_once_with(text=render('vibecoders',LABELS,pair()))
+        c.create_tweet.assert_awaited_once_with(text=render('vibecoders',LABELS,pair()),poll_uri=queue.NO_LINK_PREVIEW)
         self.assertIsNone(queue.load()['pending']);self.assertEqual(len(queue.load()['used_urls']),2)
+        self.assertEqual(queue.load()['history'][-1]['website_card_status'],'absent')
+    async def test_real_sdk_sends_card_suppression_without_a_poll_or_media(self):
+        gql=GQLClient(SimpleNamespace());gql.gql_post=AsyncMock(return_value=({},None))
+        await gql.create_tweet(False,'two real links',[],queue.NO_LINK_PREVIEW,None,None,None,False,None,None,None)
+        variables=gql.gql_post.call_args.args[1]
+        self.assertEqual(variables['card_uri'],'tombstone://card')
+        self.assertEqual(variables['media']['media_entities'],[])
+        self.assertNotIn('reply',variables);self.assertNotIn('attachment_url',variables)
+    async def test_readback_failure_never_reposts_a_confirmed_post(self):
+        self.reserved();c=SimpleNamespace(create_tweet=AsyncMock(return_value=SimpleNamespace(id='456')),get_tweet_by_id=AsyncMock(side_effect=TimeoutError));a,b,d=self.network()
+        with a,b,d,patch.object(queue,'client',return_value=c):await queue.publish()
+        c.create_tweet.assert_awaited_once();self.assertIsNone(queue.load()['pending'])
+        self.assertEqual(queue.load()['history'][-1]['tweet_id'],'456')
+        self.assertEqual(queue.load()['history'][-1]['website_card_status'],'unverified')
+    async def test_unexpected_card_records_success_and_pauses_future_sends(self):
+        self.reserved();c=SimpleNamespace(create_tweet=AsyncMock(return_value=SimpleNamespace(id='456')),get_tweet_by_id=AsyncMock(return_value=SimpleNamespace(_data={'card':{'legacy':{'name':'summary_large_image'}}})));a,b,d=self.network()
+        with a,b,d,patch.object(queue,'client',return_value=c):await queue.publish()
+        s=queue.load();self.assertIsNone(s['pending']);self.assertIn('pause_reason',s)
+        self.assertEqual(s['history'][-1]['website_card_status'],'present')
+        with self.assertRaises(ValueError):await queue.prepare(start_now=True)
     async def test_timeout_keeps_reservation(self):
         self.reserved();c=SimpleNamespace(create_tweet=AsyncMock(side_effect=TimeoutError));a,b,d=self.network()
         with a,b,d,patch.object(queue,'client',return_value=c),self.assertRaises(TimeoutError):await queue.publish()

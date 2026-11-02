@@ -53,9 +53,17 @@ No fake experience, unsupported benefits, invented free plans, fabricated statis
 
 Standard X account limits are respected: each URL counts as 23 weighted characters, and posts stay below a conservative 260-character weighted ceiling. No Premium subscription or new paid API service is enabled.
 
+## Plain links without website preview cards
+
+Every new publication explicitly sends X's `card_uri=tombstone://card` removal setting. The existing twifork client exposes this field through its historically named `poll_uri` argument; no poll, image attachment, quote or reply is created. Both verified HTTPS links remain intact and clickable.
+
+After confirmation, the bot reads the real post back and records `website_card_status` as `absent`, `present` or `unverified`. An unexpected card pauses future publishing through `pause_reason`; readback failures cannot trigger a duplicate send. X controls final rendering, so this is checked in returned post metadata rather than assumed from the outgoing request. The change applies to future posts. Existing posts are preserved.
+
+Labels also require specific title words and a resource type/task when the title supplies one. Generic captions such as "Social guide" are rejected when the page is specifically about social media dashboard tools. This improves reader clarity; it does not guarantee impressions, likes or replies.
+
 ## State and crash recovery
 
-The workflow tests, prepares one due post, commits the permanent claims and reservation, rechecks both pages, sends `create_tweet(text=...)` once, then commits confirmation with the real X ID.
+The workflow tests, prepares one due post, commits the permanent claims and reservation, rechecks both pages, sends one card-suppressed `create_tweet` request, then commits confirmation with the real X ID and preview-readback result.
 
 A timeout, missing post ID, cancelled run or failed final push leaves a durable unresolved reservation. Later runs stop. Inspect X before reconciling; never clear a reservation just because a job failed. If published, record its real ID and timestamp and clear `pending`; if definitely unpublished, clear `pending` while keeping the URL claims retired. Commit the correction before resuming.
 

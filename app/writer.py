@@ -69,6 +69,15 @@ def validate_grounding(labels,resources):
         supported=title|words(resource['excerpt'])
         if not content or not content.issubset(supported) or not content.intersection(title):
             raise DraftError('Use matching page title words; do not invent or swap label details')
+        meaningful=title-generic-{'best','top','here','s','how','which','what','why',
+                                  'you','get','find','is','are','right','from','with'}
+        meaningful={word for word in meaningful if not word.isdigit()}
+        if len(content.intersection(meaningful))<min(2,len(meaningful)):
+            raise DraftError('Use specific title words, not a vague topic plus guide')
+        kinds=title&{'tutorial','cheatsheet','checklist','template','course','tool',
+                     'dashboard','component','interview','schedule','handbook'}
+        if kinds and not content.intersection(kinds):
+            raise DraftError('Name the actual resource type or task from its title')
 
 
 def render(audience,labels,resources):
@@ -135,13 +144,15 @@ def review(audience,labels,resources):
 def label_options(resource):
     """Extract candidate phrases; the model can select but cannot invent claims."""
     stop={'a','an','the','for','to','of','and','with','in','on','your','how','which',
-          'what','why','get','you','find','is','are','its','our','right','from'}
+          'what','why','get','you','find','is','are','its','our','right','from',
+          'here','s','best','top','ultimate'}
     # Keep the page title separate from the site's branding. Never create a
     # phrase by crossing "... | Site name" or picking a random middle window.
     main=re.split(r'\s+[|–—]\s*|\s+-\s+|:\s+',resource['title'],maxsplit=1)[0]
     main=re.sub(r'^\s*\[[^]]+\]\s*','',main)
+    main=main.replace('&',' and ')
     words=re.findall(r'[A-Za-z0-9]+(?:[+-]+)?',main)[:24]
-    while words and words[0].casefold() in stop:words.pop(0)
+    while words and (words[0].casefold() in stop or words[0].isdigit()):words.pop(0)
     preferred=' '.join(words)
     options=[]
     def add(label):
