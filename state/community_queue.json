@@ -400,7 +400,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T10:31:19.928931+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:23",
+    "category": "choice",
+    "text": "Should an AI assistant automatically restart a failed build or ask for manual recovery?",
+    "topic": "a useful error message or automatic recovery",
+    "topic_approval": "c8eda0ec5aec4d0ea50310def0516e884a8b8863e70f130e427bb3fb60623a10",
+    "prepared_at": "2026-11-02T11:31:21.306425+00:00",
+    "run_id": "41437449783",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
