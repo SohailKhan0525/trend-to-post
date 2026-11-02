@@ -7301,10 +7301,6 @@
       "source_id": "webdev"
     },
     {
-      "url": "https://web.dev/learn/css",
-      "source_id": "webdev"
-    },
-    {
       "url": "https://web.dev/learn/performance",
       "source_id": "webdev"
     },
@@ -13049,10 +13045,6 @@
       "source_id": "freecodecamp"
     },
     {
-      "url": "https://www.freecodecamp.org/news/secure-your-ai-agents-free-model-context-protocol-mcp-security-course",
-      "source_id": "freecodecamp"
-    },
-    {
       "url": "https://www.freecodecamp.org/news/how-to-use-classes-in-javascript-handbook",
       "source_id": "freecodecamp"
     },
@@ -15511,6 +15503,10 @@
     {
       "url": "https://blog.hubspot.com/marketing/marketing-audit",
       "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/training",
+      "source_id": "microsoftlearn"
     }
   ],
   "discovery_cursors": {
@@ -15518,7 +15514,7 @@
     "creators": 2,
     "marketers": 6,
     "CEOs": 2,
-    "students": 2,
+    "students": 4,
     "vibecoders": 4,
     "founders": 2,
     "job seekers": 2
