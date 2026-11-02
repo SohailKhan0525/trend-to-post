@@ -118,9 +118,9 @@ class WriterTests(unittest.TestCase):
         self.assertTrue(text.startswith('For vibecoders\n\n'));self.assertEqual(text.count('https://'),2)
         self.assertTrue(text.endswith('Thank me later.\nFollow for more useful links.'))
     def test_model_cannot_change_urls(self):
-        with patch('app.writer.complete',side_effect=[{'choices':[0,0]},GOOD]):self.assertEqual(generate('vibecoders',pair()),LABELS)
+        with patch('app.writer.complete',side_effect=[{'choices':['A','A']},GOOD]):self.assertEqual(generate('vibecoders',pair()),LABELS)
         with patch('app.writer.complete',return_value={'urls':['https://invented.invalid/']}) as call,self.assertRaises(DraftError):generate('vibecoders',pair())
-        self.assertEqual(call.call_count,2)
+        self.assertEqual(call.call_count,3)
     def test_model_cannot_invent_a_label_or_select_outside_the_options(self):
         for result in ({'choices':[999,0]},{'choices':[True,0]},{'labels':LABELS}):
             with patch('app.writer.complete',return_value=result),self.assertRaises(DraftError):generate('vibecoders',pair())

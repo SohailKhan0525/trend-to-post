@@ -45,7 +45,7 @@ Migration preserves the old post history, counts it toward rollout-day limits an
 
 ## Strict writing rules
 
-Code extracts factual label options from each matching page title. Cloudflare selects one option per resource using exactly two validated indices. Each resulting label is 2–6 words and at most 42 characters. Local checks reject invented wording, invalid choices and swapped details before the separate semantic review. Code constructs the whole post, so the model cannot add a third link, alter URLs, change the CTA or turn it into an old question post.
+Code extracts factual label options from each matching page title. Cloudflare selects one option per resource using exactly two validated letter keys. There are at most three attempts. Each resulting label is 2–6 words and at most 42 characters. Local checks reject invented wording, invalid choices and swapped details before the separate semantic review. Code constructs the whole post, so the model cannot add a third link, alter URLs, change the CTA or turn it into an old question post. Automatic deployment previews check one pair; the optional all-audience preview is an editorial audit, not a dependency that can block an unrelated due post.
 
 No politics, political parties, politicians, elections, government, countries, nationalities, national comparisons, geopolitics or wars. Country-topic restrictions apply to neutral mentions too. Software terms such as CSS borders and feature flags do not become political merely because of those words.
 
