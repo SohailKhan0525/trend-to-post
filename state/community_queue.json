@@ -304,7 +304,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T03:01:35.164925+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:6",
+    "category": "coding_take",
+    "text": "too many tutorials make it easy to forget how to write a simple script.",
+    "topic": "collecting tutorials instead of experimenting",
+    "topic_approval": "c5db5215408bc79f1aabb75b8d7d031b6aa7501c760f44c520ff503e8437430f",
+    "prepared_at": "2026-11-02T03:31:15.404134+00:00",
+    "run_id": "41383526692",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
