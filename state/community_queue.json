@@ -264,7 +264,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T00:31:20.914881+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:1",
+    "category": "connect",
+    "text": "Hello solo side-project builders\n\nLet's connect about your abandoned prototypes.",
+    "topic": "fake founders with unfinished side projects",
+    "topic_approval": "bfe22dbfaccc750d94080c2a04265c2e63a42f037ca30cd6c60e728aa2522001",
+    "prepared_at": "2026-11-02T01:01:33.532425+00:00",
+    "run_id": "41370236204",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
