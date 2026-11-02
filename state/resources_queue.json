@@ -743,7 +743,43 @@
     }
   ],
   "last_posted_at": "2026-11-02T22:31:21.558969+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:resources-v1:47",
+    "audience": "marketers",
+    "labels": [
+      "Zapier feature guides",
+      "Grow Ecommerce Sales Through Email"
+    ],
+    "resources": [
+      {
+        "url": "https://zapier.com/blog/all-articles/zapier-feature-guides/",
+        "title": "Zapier feature guides Articles, Page 1 | Zapier Blog",
+        "excerpt": "Loading Get productivity tips delivered straight to your inbox Email * Subscribe We’ll email you 1-3 times per week—and never share your information. Improve your productivity automatically. Use Zapier to get your apps working together. Sign up See how Zapier works",
+        "aliases": [
+          "https://zapier.com/blog/all-articles/zapier-feature-guides"
+        ],
+        "fingerprint": "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
+        "source_id": "zapier",
+        "verified_at": "2026-11-02T23:01:36.552193+00:00"
+      },
+      {
+        "url": "https://mailchimp.com/resources/ecommerce-email-marketing/",
+        "title": "How to Grow Ecommerce Sales Through Email Marketing | Mailchimp",
+        "excerpt": "Digital marketing can feel like a constant guessing game. One minute, your products appear at the top of Google searches, and the next minute, they vanish. Facebook ads that once brought in steady sales now cost twice as much for half the results. Here’s the good news: Email marketing puts you in charge. You don’t have to worry about the ever-changing rules of social media platforms or search engines. With email, you have a direct line to your customers, allowing you to deliver valuable content straight to their inboxes. Whether welcoming new subscribers or bringing back old customers, every email is a chance to grow your online store. Best of all, you don’t need a huge marketing budget or team of experts to do it right. Simply use this guide to learn the e-commerce email marketing strategies you need to drive sales and build customer loyalty. The basics of e-commerce email marketing E-commerce email marketing is about using email to connect with your valuable customers and sell products online. It’s how you share products, announce sales, and build lasting customer relationships wit",
+        "aliases": [
+          "https://mailchimp.com/resources/ecommerce-email-marketing"
+        ],
+        "fingerprint": "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
+        "source_id": "mailchimp",
+        "verified_at": "2026-11-02T23:01:36.662137+00:00"
+      }
+    ],
+    "text": "For marketers\n\nZapier feature guides\nhttps://zapier.com/blog/all-articles/zapier-feature-guides/\n\nGrow Ecommerce Sales Through Email\nhttps://mailchimp.com/resources/ecommerce-email-marketing/\n\nThank me later.\nFollow for more useful links.",
+    "approval": "2a0a57bef330d2a6e3a6c0480091dd6f42fb676394eafa36ef661f0d630aaa11",
+    "prepared_at": "2026-11-02T23:01:34.365985+00:00",
+    "run_id": "41542061883",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
@@ -754,6 +790,7 @@
     "https://buffer.com/resources/schedule-to-bluesky",
     "https://buffer.com/resources/tiktok-live",
     "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
+    "https://mailchimp.com/resources/ecommerce-email-marketing",
     "https://rework.withgoogle.com",
     "https://rework.withgoogle.com/intl/en",
     "https://support.bolt.new",
@@ -774,11 +811,14 @@
     "https://vite.dev/guide",
     "https://www.atlassian.com/team-playbook/examples/people-team",
     "https://www.atlassian.com/team-playbook/plays",
-    "https://www.todoist.com/productivity-methods"
+    "https://www.todoist.com/productivity-methods",
+    "https://zapier.com/blog/all-articles/zapier-feature-guides"
   ],
   "used_fingerprints": [
     "01ef903b40418c5ed02e67cce1ac3bc0163924244e3978ea10e12aa53c68a217",
     "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
+    "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
+    "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
     "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
     "603b0c57b200f0fee80c970e0e7438932d43dca0c2dd8c7fc8eeea4201c468f5",
     "7dae16ed58fc3b34f9a7d33c6e4c5a7c0f96c35465deb5ceb45f98d8bcbc8ff8",
@@ -6661,10 +6701,6 @@
     },
     {
       "url": "https://www.atlassian.com/team-playbook/examples/goal-setting",
-      "source_id": "atlassian"
-    },
-    {
-      "url": "https://www.atlassian.com/team-playbook/examples/people-team",
       "source_id": "atlassian"
     },
     {
@@ -13304,10 +13340,6 @@
       "source_id": "ahrefs"
     },
     {
-      "url": "https://ahrefs.com/blog/ai-overviews-on-branded-searches",
-      "source_id": "ahrefs"
-    },
-    {
       "url": "https://ahrefs.com/blog/serp-data-update",
       "source_id": "ahrefs"
     },
@@ -13421,10 +13453,6 @@
     },
     {
       "url": "https://basecamp.com/shapeup/1.3-chapter-04",
-      "source_id": "shapeup"
-    },
-    {
-      "url": "https://basecamp.com/shapeup",
       "source_id": "shapeup"
     },
     {
@@ -13546,12 +13574,208 @@
     {
       "url": "https://rework.withgoogle.com/intl/en/guides/following-the-data-the-research-behind-great-managers",
       "source_id": "rework"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/how-we-work-at-zapier",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/create-google-docs-template",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/meta-ai-muse-spark",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/company-news",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/app-of-the-day",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/app-comparisons",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/partner-case-studies",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/productivity",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/slack-to-do-list",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/best-apps",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/zapier-copilot-guide",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/productivity-extensions-for-chrome",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/app-tips",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/remote-work-tips",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/app-tutorials",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/link-spreadsheet-data",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/google-ai-mode",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/changelog",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/get-started-with-zapier",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/perplexity-ai",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/customers",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/google-gemini",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/zapier-ai-guide",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/inbox-zero",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/recover-deleted-files-google-drive",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/company-initiatives",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/automation-inspiration",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/productivity-tips",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/platform-tips",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/zapier-mcp-guide",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/how-to-create-ai-agents",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-orchestration",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/zapier-feature-guides",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/openai-models",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/create-custom-ai-chatbots-with-interfaces",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/openai-playground",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/business-tips",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/grok-bot",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/what-are-webhooks",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/how-does-chatgpt-work",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/what-you-should-automate",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/product-news",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/gmail-signature-template",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/feeds/latest",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/zapier-tutorials",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/all-articles/marketing-tips",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://zapier.com/blog/generate-direct-dropbox-link",
+      "source_id": "zapier"
     }
   ],
   "discovery_cursors": {
     "business owners": 4,
     "creators": 2,
-    "marketers": 4,
+    "marketers": 6,
     "CEOs": 2,
     "students": 2,
     "vibecoders": 4,
