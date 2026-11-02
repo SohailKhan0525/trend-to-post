@@ -770,11 +770,7 @@
       "source_id": "opencode"
     },
     {
-      "url": "https://learn.microsoft.com/en-us/training/",
-      "source_id": "microsoftlearn"
-    },
-    {
-      "url": "https://www.freecodecamp.org/news/",
+      "url": "https://www.freecodecamp.org/news",
       "source_id": "freecodecamp"
     },
     {
@@ -784,10 +780,6 @@
     {
       "url": "https://openstax.org/subjects/science",
       "source_id": "openstax"
-    },
-    {
-      "url": "https://www.techinterviewhandbook.org/software-engineering-interview-guide/",
-      "source_id": "interviewhandbook"
     },
     {
       "url": "https://blog.hubspot.com/marketing",
@@ -800,10 +792,6 @@
     {
       "url": "https://buffer.com/resources",
       "source_id": "buffer"
-    },
-    {
-      "url": "https://www.coursera.org/articles",
-      "source_id": "coursera"
     },
     {
       "url": "https://careerservices.fas.harvard.edu/resources/",
@@ -12944,6 +12932,258 @@
     {
       "url": "https://react.dev/learn/managing-state",
       "source_id": "react"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/the-python-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/the-java-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/build-a-hybrid-search-engine-in-postgresql-bm25-vector-retrieval",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-wearables-can-adapt-when-pregnancy-changes-a-user-s-regular-baseline",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/secure-your-ai-agents-free-model-context-protocol-mcp-security-course",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-use-classes-in-javascript-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-neural-networks-work-why-straight-lines-aren-t-enough",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-linux-for-beginners-book-basic-to-advanced",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/high-speed-decision-pipelines-jev-and-prefill-only-inference-from-scratch",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-build-scalable-access-control-for-your-web-app",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/academic-honesty-policy",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/cloud-service-models-explained-iaas-vs-paas-vs-saas",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/code-of-conduct",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/the-docker-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-model-context-protocol-mcp-security",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/support",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/python-in-marketing-a-practical-book",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-make-your-coding-agent-check-its-work-in-the-browser",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/become-a-full-stack-developer-and-get-a-job",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/front-end-javascript-development-react-angular-vue-compared",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-to-code-book",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/the-express-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-write-clean-code",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-python-for-javascript-developers-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/command-line-for-beginners",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-typescript-with-react-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/build-with-gemini-4-argon-fast-track-api-crash-course",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-build-a-command-line-weather-app-with-python",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/build-publish-native-android-app-from-jetpack-compose-to-google-play-store-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-build-passkey-authentication-with-webauthn-next-js-and-nestjs",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-golang-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-build-a-website-user-interface-faster-using-ai-prompts",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-build-an-ai-agent-harness-from-scratch-in-typescript",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/terms-of-service",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-noise-cancelling-headphones-work",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/react-for-beginners-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/python-code-examples-sample-script-coding-tutorial-for-beginners",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/build-crud-operations-with-dotnet-core-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/agentic-ai-reliability-book-build-a-testing-harness",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/building-consuming-and-documenting-a-graphql-api",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-continuous-integration-delivery-and-deployment",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/copyright-policy",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-detect-financial-fraud-patterns-with-knowledge-graphs-a-production-guide",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/complete-guide-to-css-transform-functions-and-properties",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/what-is-programming-tutorial-for-beginners",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-build-an-ai-chatbot-with-redis-python-and-gpt",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/detect-operational-drift-before-incident",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-real-world-penetration-testing-hands-on-ethical-hacking-crash-course",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/rest-api-design-best-practices-build-a-rest-api",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/the-php-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/get-started-with-nodejs",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/an-introduction-to-software-architecture-patterns",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/what-is-model-distillation-a-guide-for-developers",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/shop",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/clustering-in-python-a-machine-learning-handbook",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/about",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/sponsors",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-build-a-simple-data-analyzer-in-python-with-pandas",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/build-consume-and-document-a-rest-api",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/ai-search-visibility",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-javascript-for-beginners",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/diagnose-vite-not-found-npm-ci-container-build",
+      "source_id": "freecodecamp"
     }
   ],
   "discovery_cursors": {
@@ -12953,6 +13193,7 @@
     "CEOs": 2,
     "students": 2,
     "vibecoders": 4,
-    "founders": 2
+    "founders": 2,
+    "job seekers": 2
   }
 }
