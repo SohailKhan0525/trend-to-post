@@ -644,7 +644,43 @@
     }
   ],
   "last_posted_at": "2026-11-02T20:02:05.697542+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:resources-v1:42",
+    "audience": "founders",
+    "labels": [
+      "Bolt Help Center",
+      "Pi with AI Gateway"
+    ],
+    "resources": [
+      {
+        "url": "https://support.bolt.new/",
+        "title": "Bolt Help Center: guides and support for building with Bolt - Bolt",
+        "excerpt": "​ Get started with Bolt New to Bolt? Watch this overview, then follow the QuickStart guide to build and publish your first app. ​ What you can build Bolt builds websites and apps, including marketing sites, portfolios, online stores, dashboards, and internal tools. You can also build presentations with Bolt Slides . Each example below is a real project that you can copy for free from the Bolt Templates marketplace. Browse the Bolt Templates marketplace , or start building in Bolt to bring your own idea to life. ​ Get the most out of Bolt Use Plan Mode : Talk through your idea with Bolt before it writes any code. Write better prompts : Describe your idea clearly to get better results. Build one step at a time : Finish and test each layer of your project before you start the next. Manage project context : Keep Bolt’s working memory small so responses stay fast and accurate. Use tokens efficiently : Avoid the common causes of token waste. ​ Popular docs Database Store and manage data with Bolt Database. Publish Publish your project to a live website. Connect a domain Connect a domain th",
+        "aliases": [
+          "https://support.bolt.new"
+        ],
+        "fingerprint": "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336",
+        "source_id": "bolt",
+        "verified_at": "2026-11-02T20:31:20.956870+00:00"
+      },
+      {
+        "url": "https://vercel.com/docs/ai-gateway/coding-agents/pi",
+        "title": "Pi with AI Gateway",
+        "excerpt": "Copy page Copy page Pi with AI Gateway Copy page Copy page Pi is an open-source terminal coding agent. It ships a first-class vercel-ai-gateway provider, so it already knows the gateway's base URL and model catalog and only needs your API key. Set up with the Vercel CLI Run the Vercel CLI setup command for Pi: terminal npx vercel@latest ai-gateway setup --agent pi This command: Provisions an AI Gateway API key, or reuses one you pass with --key . Writes the key to Pi's auth file ( ~/.pi/agent/auth.json , or $PI_CODING_AGENT_DIR/auth.json when that variable is set) under the vercel-ai-gateway provider key, with owner-only ( 0600 ) permissions. Backs up any file it changes alongside the original as .bak . Add --dry-run to preview changes without writing them. The Vercel CLI configures Pi but doesn't install it. Install Pi before starting it: terminal npm install -g @earendil-works/pi-coding-agent Pi always keeps the key in auth.json , so the command writes it there even in macOS Keychain mode. Pi reads its agent directory from $PI_CODING_AGENT_DIR when that variable is set, and falls b",
+        "aliases": [
+          "https://vercel.com/docs/ai-gateway/coding-agents/pi"
+        ],
+        "fingerprint": "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
+        "source_id": "vercel",
+        "verified_at": "2026-11-02T20:31:20.894461+00:00"
+      }
+    ],
+    "text": "For founders\n\nBolt Help Center\nhttps://support.bolt.new/\n\nPi with AI Gateway\nhttps://vercel.com/docs/ai-gateway/coding-agents/pi\n\nThank me later.\nFollow for more useful links.",
+    "approval": "03d21d6d12dc0829de8438915a81b210e21a9de74a5e3cb7f4f7fc863e3d0955",
+    "prepared_at": "2026-11-02T20:31:19.121024+00:00",
+    "run_id": "41519906406",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://asana.com/resources",
     "https://blog.hubspot.com/marketing/landing-page-design",
@@ -654,6 +690,7 @@
     "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
     "https://rework.withgoogle.com",
     "https://rework.withgoogle.com/intl/en",
+    "https://support.bolt.new",
     "https://t.co/3C7ZAkzRbT",
     "https://t.co/CI5nOrAC48",
     "https://t.co/G1OvDYzkpw",
@@ -667,6 +704,7 @@
     "https://t.co/xeQZEjtzJr",
     "https://t.co/y3LmV8eERA",
     "https://t.co/ziy1HSr6sJ",
+    "https://vercel.com/docs/ai-gateway/coding-agents/pi",
     "https://vite.dev/guide",
     "https://www.atlassian.com/team-playbook/plays",
     "https://www.todoist.com/productivity-methods"
@@ -681,7 +719,9 @@
     "a3b6c13e1f51d488e5f73088fd9ba36210884fbe103366f9deb3e2c976368442",
     "c7820cffbf6d3b90dc519535ea54f219b0616d1590e37bb06eea411e3d499eb6",
     "cacde2df75a15fc604422ca39445bb1a98d6d3ec80734e50f054afae0c29230d",
-    "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737"
+    "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
+    "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
+    "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336"
   ],
   "catalog": [
     {
@@ -727,10 +767,6 @@
     {
       "url": "https://vercel.com/docs",
       "source_id": "vercel"
-    },
-    {
-      "url": "https://vite.dev/guide/",
-      "source_id": "vite"
     },
     {
       "url": "https://opencode.ai/docs/",
@@ -6933,10 +6969,6 @@
       "source_id": "mdn"
     },
     {
-      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
-      "source_id": "mdn"
-    },
-    {
       "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties",
       "source_id": "mdn"
     },
@@ -7223,6 +7255,5330 @@
     {
       "url": "https://web.dev/learn/javascript",
       "source_id": "webdev"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-hooks/send-email-hook",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/migrating-within-supabase",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-smtp",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/structured-unstructured",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/rest/generating-python-types",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/disk-iops",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/error-handling",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/rest/auto-generated-docs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-swift",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/restore-from-platform",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/examples/building-chatgpt-plugins",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/server-side/migrating-to-ssr-from-auth-helpers",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/resources/glossary",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/testing",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/quickstart",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/features",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/uuid-ossp",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/oauth-server/getting-started",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/views",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/graphql/views",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/sso/login-flows",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/rag-with-permissions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/running-multiple-local-projects",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/sso/choosing-login-flow",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/airtable",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/ruby-on-rails",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/postgres-log-config",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/sentry-monitoring",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/examples/openai",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-hooks/send-sms-hook",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/network-restrictions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/shopify",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/architecture",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/quickstarts/nextjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/free-project-pausing",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/first-row-in-group",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/analytics/creating-analytics-buckets",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/python/collections",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-github",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/http",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/aws-marketplace/getting-started",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/oauth-server/mcp-authentication",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/tls",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-kotlin",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/secure-data",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/queues/expose-self-hosted-queues",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/snowflake",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/kysely-postgres",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/realtime-user-presence",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/automate-with-agents",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/vector/querying-vectors",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/declarative-database-schemas",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-workos",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/query-optimization",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/github-actions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai-tools",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/auth-legacy-jwt",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/integrations/supabase-for-platforms",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/ipv4",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/flask",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/graphql/functions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/signout",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/gravatar",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/cascade-deletes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/google-colab",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/integrations/fireworks-ai",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/branching/configuration",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/vector/storing-vectors",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-proxy-https",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pgrouting",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/upgrading",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pgsodium",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/uploads/standard-uploads",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/database-size",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/monthly-active-users",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/clickhouse",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/automatic-embeddings",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/rest/postgrest-error-codes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/metrics/grafana-self-hosted",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-linkedin",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/uploads/file-limits",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/edge-function-invocations",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-bitbucket",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/quickstarts/astrojs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-saml-sso",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/automatic-retries-in-supabase-js",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/security/access-control",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/which-version-of-postgres",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/graphql/with-relay",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/drizzle",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-ionic-vue",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/third-party/auth0",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/sql-to-rest",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/overview",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/cli/getting-started",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/pipelines",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/get-set-up-for-billing",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/concepts",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/metrics/grafana-cloud",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pg_hashids",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/api-keys",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/astrojs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/identities",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/cost-control",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/queues",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/debugging/logs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/multi-factor-authentication",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/going-to-prod",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/indexes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/hugging-face",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-captcha",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/sso/testing-best-practices",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/third-party/custom-oidc",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-gitlab",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/advanced-mfa-phone",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/auth-send-email-hook-react-email-resend",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/cdn/smart-cdn",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-identity-linking",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/function-configuration",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/automate-with-agents/performance",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/custom-claims-and-role-based-access-control-rbac",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/hono",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/reports",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/buckets/fundamentals",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-notion",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/passwords",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/local-and-hosted-projects",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/solidjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/plv8",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/error_codes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/dynamodb",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/examples/mixpeek-video-search",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/manual-replication-setup",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/telegram-bot",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/cloudflare-d1",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/log-field-reference",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/database-migrations",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/server-side/creating-a-client",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/platform-security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/handling-errors-in-supabase-js",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/graphql/computed-fields",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/storage-size",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/reflex",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/authorization",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/cloudflare-turnstile",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/uploads/resumable-uploads",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/npm-security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/image-manipulation",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/queues/quickstart",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-subscription",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-twitch",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/rate-limits",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-slack",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/integrations/amazon-bedrock",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/architecture",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-hooks/before-user-created-hook",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-mfa/phone",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-ionic-angular",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/s3_vectors",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/slack-bot-mention",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/langchain",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pgmq",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/sentry-monitoring",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/hipaa-projects",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/mssql",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/hubspot",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/integrations/llamaindex",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/phone-login",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/ephemeral-storage",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/supavisor",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-discord",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/analytics/query-with-postgres",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/deploy",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-figma",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/postgres-upgrade-17",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/native-mobile-deep-linking",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/pipelines/snowflake",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/sveltekit",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/hypopg",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/jwt-fields",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-anonymous",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/branching",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/read-replicas",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/openapi",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/joins-and-nesting",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/index_advisor",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/flutter",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/graphql/with-apollo",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/screenshots",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/mfa/org-mfa-enforcement",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/examples/semantic-image-search-amazon-titan",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/connecting-to-postgres/serverless-drivers",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/redirect-urls",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-auth-keys",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/using-custom-schemas",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/websockets",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/billing-faq",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/disk-size",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/bigquery",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/getting_started",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/examples/nextjs-vector-search",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/credits",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/log-drains",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/logs-ingest",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/quickstarts/generate-text-embeddings",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/ai-models",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/branching/github-integration",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/your-monthly-invoice",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/redis",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/signing-keys",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/migrating-to-pg-partman",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/read-replicas/getting-started",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/s3/compatibility",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/compute",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/aws-marketplace/account-setup",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/routing",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/jwts",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/users",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/elevenlabs-generate-speech-stream",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/debugging-tools",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/backups",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/mysql",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/shared-responsibility-model",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/analytics/introduction",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/sessions/pkce-flow",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/realtime-peak-connections",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/cli/migrating-to-v3",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/aws-marketplace/manage-your-subscription",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/dart-edge",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/sso/enterprise-mcp-authentication",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/duckdb",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/quickstarts/face-similarity",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/log-slow-queries",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/performance",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/storage-image-transformations",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/read-replicas",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/integrations/build-a-supabase-oauth-integration",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/monthly-active-users-sso",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/branching",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/sso",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/tables",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/semantic-search",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/nextjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/client-side-tracing",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-zoom",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/debugging-functions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pgroonga",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/migrating-within-supabase/backup-restore",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/json",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/metrics",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/quickstart",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pgjwt",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/cron/quickstart",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-phone-mfa",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/uploads/s3-uploads",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/architecture",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/subscribing-to-database-changes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/presence",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/quickstart",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/integrations/roboflow",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/aws-marketplace/faq",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/cdn/purge-cdn-cache",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/tanstack",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/unit-test",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/access-control",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/temporary-access",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/vector/introduction",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/oauth-server/token-security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/multigres/compatibility",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/regional-invocation",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/dbeaver",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/settings",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/full-text-search",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/quickstarts/react",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/terraform/reference",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/sessions/implicit-flow",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/project-transfer",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/advisors",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/vector/creating-vector-buckets",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/debugging/error-codes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/docker-and-native-runtimes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/roles",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/management/copy-move-objects",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/sessions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-custom-oauth-providers",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/maturity-model",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/vector/limits",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/elevenlabs-transcribe-speech",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/partitions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/ci/testing",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/accessing-postgres",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/pipelines/clickhouse",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/going-into-prod",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/managing-user-data",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/cli-workflows",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/vue",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/passkeys",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/python/api",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/configuration",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/password-security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/production/scaling",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/testing/overview",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/database-migrations",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/python-clients",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-hooks/mfa-verification-hook",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/choosing-compute-addon",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/cdn/metrics",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pgaudit",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/cors",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/http-methods",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/connecting-to-postgres",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai-tools/ai-prompts",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/queues/pgmq",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/realtime-with-nextjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/data-deletion",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/clerk",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/infura",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/creating-routes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-hooks",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/integrations/partner-catalog",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/integrations/partner-integration-guide",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/schema/design",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/queues/consuming-messages-with-edge-functions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/serving/bandwidth",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/gdpr-compliance",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/server-side",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/quickstarts/with-expo-react-native-social-sign-in",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/og-image",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/automate-with-agents/security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/connecting-to-postgres/pooling-and-limits",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/updating",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/schedule-functions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/enums",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/vector-indexes/hnsw-indexes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pgtap",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/sso/okta",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pg_cron",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/background-tasks",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai-tools/plugins",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/regions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/product-security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/production-checklist",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/s3/authentication",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/webhooks",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/import-data",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres-js",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-refine",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/cron",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/docker",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pg_plan_filter",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/the-supabase-way-to-build",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/restoring-downloaded-backup",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pg_stat_statements",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/securing-your-api",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/sso/multiple-providers",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/buckets/creating-buckets",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/firebase",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/pgadmin",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/third-party/workos",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/analytics/examples/duckdb",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/metabase",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/custom-postgres-config",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/serving/downloads",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/connect-to-postgres",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/integrations/build-a-supabase-oauth-integration/oauth-scopes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/vector-indexes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/rest/generating-types",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/event-triggers",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/ssl-enforcement",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/postgis",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/point-in-time-recovery",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/analytics/connecting-to-analytics-bucket",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/permissions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-email-passwordless",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/protocol",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/egress",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai-tools/ai-skills",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-svelte",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pgvector",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/logs-query",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/rotate-leaked-api-keys",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/audit-logs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/realtime-listening-flutter",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/graphql/api",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/rum",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/s3",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/refine",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/postgres_fdw",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/secrets",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/cli/testing-and-linting",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/graphql/configuration",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/reports",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-angular",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/metrics/vendor-agnostic",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/sql-to-api",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-web3",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/examples/image-search-openai-clip",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-vue-3",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/python/indexes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pg_partman",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-keycloak",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/sso/azure",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/customizing-email-templates",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-passkeys",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/reactjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/overview",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/serving/image-transformations",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/managing-environments",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/prisma/prisma-troubleshooting",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/dependencies",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/amazon-bedrock-image-generator",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/automate-with-agents/health",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/logs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/ios-swiftui",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-envoy",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/automate-with-agents/usage",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-solidjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/auth0",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-auth-hooks",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/oauth-server/oauth-flows",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/compression",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/resources",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/managing-config",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-mfa",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/branching/troubleshooting",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/concepts",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-azure",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/orioledb",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/testing/pgtap-extended",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/calendly",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/schema/custom-roles",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/detecting",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/debugging/error-codes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-oauth",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/kotlin",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/orb",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/custom-domains",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/limits",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/branching/working-with-branches",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/custom-oauth-providers",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-spotify",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/plpgsql_check",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-apple",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/pipelines",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/testing-row-level-security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/integrations",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/realtime-messages",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/triggers",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/rate-limiting",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/monthly-active-users-third-party",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/cognito",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/vault",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/cron/install",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/roles-superuser",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/webhooks",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/branching/integrations",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/psql",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/connection-management",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/oauth-server",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-redwoodjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/server-side/advanced-guide",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/integrations/stripe-projects",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pg_repack",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/beekeeper-studio",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/security-testing",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/team-database-access",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai-tools/mcp",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/quickstarts/react-native",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/examples/headless-vector-search",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/timescaledb",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/third-party/aws-cognito",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/disk-throughput",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/privatelink",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/setup-replication-external",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-expo-react-native",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/platform-audit-logs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/auth-headers",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/limits",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/remove-superuser-access",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/enable-mcp",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/quickstarts/hello-world",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/stripe",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/storage-caching",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-email-templates",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/expo-react-native",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-google",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/postgres-connection-logging",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/laravel",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/wasm",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/send-emails",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/broadcast",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-react",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/timeouts",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/mcp-server-mcp-lite",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/upstash-redis",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/diff-engines",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/third-party/clerk",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pg_graphql",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/column-level-security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development/seeding-your-database",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/advanced-log-filtering",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/multigres",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/testing-auth-flows",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/graphql",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pg_net",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/row-level-security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/postgres-changes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-sveltekit",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/auth",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/notion",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/management/download-objects",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/quickstarts/text-deduplication",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/aws-marketplace",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/migrating-within-supabase/dashboard-restore",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/sso/gsuite",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/architecture",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/python/metadata",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/engineering-for-scale",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/configure-logging",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/row-level-security-performance",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/aws-marketplace/invoices",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/queues/api",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/enterprise-sso",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/migrating-to-new-api-keys",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/quickstart-dashboard",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/local-development",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/enterprise-sso/auth-sso-saml",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/log-drains",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/logflare",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/discord-bot",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/query-plans",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/vector-columns",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/examples/huggingface-image-captioning",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/slack",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/branching/dashboard",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/status-codes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-kakao",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/push-notifications",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-ionic-react",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/custom-postgres-extensions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/logs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/ipv4-address",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/arrays",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/ci/generating-types",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-s3",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/iceberg",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-hooks/password-verification-hook",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/third-party/firebase-auth",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/delete-project",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/custom-email-templates",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/integrations/vercel-marketplace",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/pg_jsonschema",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/hybrid-search",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/vector/local-development",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-mfa/totp",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/cdn/fundamentals",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/recursive-functions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/paddle",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/functions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/manual-replication-faq",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-nextjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/analytics/limits",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/billing-on-supabase",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/spring-boot",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-twitter",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai-tools/byo-mcp",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/nuxtjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/social-sign-in/auth-facebook",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/integrations/vercel-preview-branches",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/clone-project",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/benchmarks",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/manual-replication-monitoring",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/resumable-websockets",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/security/ownership",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/postgres/dropping-all-tables-in-schema",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/analytics/examples/apache-spark",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/logging",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/personal-access-tokens",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/prisma",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/vecs-python-client",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/vector-indexes/ivf-indexes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/choosing-a-server-package",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/hipaa-compliance",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/terraform/tutorial",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/pipelines-faq",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/cal",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/development-tips",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/ci/backups",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/general-configuration",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/pipelines/ducklake",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/error-codes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/development-environment",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/observability/inspect",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/self-hosted-functions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/deployment/terraform",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/api/rest/client-libs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-flutter",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/vector/working-with-indexes",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/pipelines/bigquery",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/management/delete-objects",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/schema/helper-functions",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai/keyword-search",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/stripe-webhooks",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/security/soc-2-compliance",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/functions/examples/semantic-search",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/self-hosting/copy-from-platform-s3",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/analytics/examples/pyiceberg",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/third-party/overview",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/ai",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/replication/pipelines-monitoring",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/quickstarts/redwoodjs",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/extensions/wrappers/mongodb",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/compute-and-disk",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/graphql/security",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/auth/auth-hooks/custom-access-token-hook",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/platform/manage-your-usage/custom-domains",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started/tutorials/with-nuxt-3",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/access-groups/reads-an-access-group-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/global-config/update-global-config-items-in-batch",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/domains-registrar/get-a-domain-s-transfer-status",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/project-configuration/vercel-json",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/request_header_too_large",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/checks/creates-a-new-check",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/project-routes/get-project-routing-rules",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/rate-limits",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/feature-flags/create-a-segment",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/domains/remove-a-domain-by-name",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/marketplace/get-integration-resources",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/dns/update-an-existing-dns-record",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vcr/delete-a-repository-image",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/artifacts/download-a-cache-artifact",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/cms/makeswift",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/deployments/get_deployment_file_contents",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/cms/dato-cms",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags/vercel-flags/dashboard/archive",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/markdown-access",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/access-groups",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/routing-rules",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/teams/delete-a-team",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/access-groups/read_access_group",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/platforms/multi-tenant-platforms/reference",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/microfrontends/create-a-microfrontends-group-with-applications",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/function_response_payload_too_large",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/nextjs_missing_next13_typescript_plugin",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployments/promote-preview-to-production",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/rolling-release/complete-the-rolling-release-for-the-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/software-factory/ai-sdk",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/connect/create-a-connect-authorization-request",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/internal_microfrontends_unexpected_error",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/certs/upload-a-cert",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/middleware_invocation_failed",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/protected-git-scopes",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/web-analytics/counts-custom-events",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/kms/sign-a-message",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/customize",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/kms/list-issuers",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/list",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/ai-gateway/list-virtual-model-configs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/openhands",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-harnesses/eve",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/too_many_filesystem_checks",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/untagged/createapikeys",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/projects/move-a-project-domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/nextjs_missing_security_headers",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/openresponses/advanced",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains/list_supported_tlds",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/marketplace/invoice-actions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/activity-log",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/bulk-redirects/stages-new-redirects-for-a-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/getting-started/realtime",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/mount-remote-storage",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-blob/examples",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/stop-a-session",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/checks-v2/create-a-check",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/rolling-releases",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/domains-registrar/buy-a-domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/list-drives",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/networking/delete-a-secure-compute-network",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/nextjs_no_dynamic_auto",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/marketplace/submit-billing-data",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/project-routes/edit-a-routing-rule",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vcr/list-repository-permissions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/integrations/list-integration-billing-plans",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/openresponses/reasoning",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/authentication/sso-token-exchange",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/reasoning/google",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/junie",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains/create_record",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/domains/working-with-nameservers",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/nextjs_use_next_image",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/bisect",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/authentication-and-byok/byok",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/billing/list-focus-contract-commitments",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/checks-v2/get-a-check-run",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/projects/create-a-trace-session-token-for-a-deployment",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/integrations-for-models/togetherai",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/integrations",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/create-a-snapshot-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployment-protection/methods-to-protect-deployments/trusted-ips",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/networking/bring-your-own-cloud/connect-aws-account",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/mcp",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/checks-v2/list-all-checks-for-a-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags/vercel-flags/sdks/flags-sdk",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/marketplace/update-installation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/frameworks/full-stack",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/query/monitoring/quickstart",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/domains/get-information-for-a-single-domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains/get_contact_info_schema",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/ecosystem/openai-sdk",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/anthropic-messages-api/tool-calling",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags/vercel-flags/sdks/openfeature",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags/vercel-flags/limits-and-pricing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/kms/quickstart",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/domains-registrar/update-auto-renew-for-a-domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags/vercel-flags/cli/clean-up-after-rollout",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/partner/update-installation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/fast-mode",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/get-log-lines-for-a-specific-task-run-attempt",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/ecosystem/framework-integrations",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-blob/public-storage",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-blob/security",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/vercel-ci/get_vercel_ci_invocation_tree",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/networking/update_connector",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/project-routes/promote-restore-or-discard-a-routing-rule-version",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/frameworks/full-stack/vite-with-nitro",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/marketplace/delete-integration-resource",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/caching/artifact_query",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/connect/get-a-connector",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/chat-sdk/integrations/connect",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/concepts/multi-agent",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-harnesses/opencode",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/modalities/image-generation/openai",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vercel-ci/create-a-github-pull-request-that-adds-vercel-ci-tags-for-the-completed-analysis",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployments/deploy-without-logging-in",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/projects/deploy-from-cli",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/global-config/get-a-global-config",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/get-a-session",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/workspace_missing_package_json",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/deployments/list-deployments",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/package_json_side_effects_required",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent/chat",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/internal_function_not_ready",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/analytics/redacting-sensitive-data",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/connect/eject-a-managed-connector",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/nextjs_unneeded_get_server_side_props",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/projects/update-protection-bypass-for-automation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/projects/get-a-project-trace-by-request-id",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/quickstart",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/internal_deployment_fetch_failed",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/openai-chat-completions/tool-calling",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/connect/list-connectors",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/bulk-redirects/restore-staged-project-level-redirects-to-their-production-version",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/feature-flags/get-all-sdk-keys",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/kms/create-a-signing-key",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/connect/get-a-connector",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/concepts/drives",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/domains/working-with-domains/assign-domain-to-a-git-branch",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/platforms/multi-tenant-platforms",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/domains/domain-connect",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/environment-variables/manage-across-environments",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/domains-registrar/renew-a-domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/global-config/global-config-integrations/split-global-config",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/create-a-flag",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/ecosystem/agentenv",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/projects/update-protection-bypass-for-automation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/concepts/runtimes",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/caching",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/project-routes/add-a-routing-rule",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/certs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/teams/get-access-request-status",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions/runtimes/container",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/chat-sdk/integrations/sandbox",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/deployments/delete-a-deployment",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/access-groups/create-an-access-group-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/ecosystem",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/integrations-for-models/openai",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/create-an-sdk-key",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/networking",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/modalities/video-generation/motion-control",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/checks/creating-checks",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/get-an-invocation-with-its-jobs-and-tasks",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/kms/delete-an-issuer",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/networking/get_connector_project_connection",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-toolbar/managing-toolbar",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/networking/secure-compute",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/rolling-releases/get_rolling_release_billing_status",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/concepts/secure-compute",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/security-and-compliance/safety-identifiers",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployment-protection",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vercel-ci/list-all-attempts-for-an-invocation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/security/update-attack-challenge-mode",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/target",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/microfrontends/configuration",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/organizations",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/function_invocation_timeout",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/alias",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/web-search",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/project-routes/delete-routing-rules",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/analytics/limits-and-pricing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/drains/retrieve-a-list-of-all-drains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/artifacts/get-status-of-remote-caching-for-this-principal",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/upgrade",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/run-commands-in-sandbox",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/marketplace/delete-an-existing-experimentation-item",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/modalities/realtime",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/getting-started/migrate-to-ai-gateway",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/ecosystem/framework-integrations/litellm",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/teams/list_user_events",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/anthropic-messages-api/messages",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-firewall/vercel-waf",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/connect/list-connectors-for-a-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/create-a-snapshot-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/query",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/agent",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/ecosystem/anthropic-sdk",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vcr/list-repository-images",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/openai-chat-completions/streaming",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/ai-gateway/delete-virtual-model-config-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/teams/list-all-teams",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rbac/access-roles",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/routing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/ecosystem/framework-integrations/xcode",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/teams/list-team-members",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/openai-chat-completions/rest-api",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/project-routes/get-project-routing-rules",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/user/list-user-events",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/projects/retrieve-the-environment-variables-of-a-project-by-id-or-name",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/storage/get-a-store",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/feature-flags/connect-a-project-to-the-flags-of-this-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/authentication-and-byok/oidc",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-blob/using-blob-sdk",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent/chat/github",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-toolbar/interaction-timing-tool",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ci/configuration",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/connect/disconnect-a-connector-from-a-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/checks/rerequest_check",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/list-commands",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions/runtimes/python/api-directory",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/certs/get-cert-by-id",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/vercel-ci/get_vercel_ci_invocation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags/vercel-flags/cli/set-up-flags-explorer",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/create-a-github-pull-request-that-adds-vercel-ci-tags-for-the-completed-analysis",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/security/pci-dss",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cdn",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vcr/delete-an-image-manifest",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/certs/get-certs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/marketplace/update-installation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/connect/frameworks/authjs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/list-all-flags-for-a-team",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/workspace_missing_conformance_script",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/kms/sign-a-token",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/list-attribute-label-counts",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/delete-a-drive",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/feedback",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vercel-ci/list-job-definitions-for-an-invocation-attempt",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rbac/access-roles/team-level-roles",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/vercel/rotate-installation-credential",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/authentication/delete-an-authentication-token",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/products",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags/marketplace",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/vercel-ci/get_vercel_ci_job_definition",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/environment-variables/filter_project_envs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/chat-sdk/integrations/ai-gateway",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/agent-runs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/read-a-file",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/toolbar/edit_toolbar_message",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/plans/pro-plan/trials",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/look-up-attribute-labels",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/connect/concepts/connectors",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/marketplace/patch-an-existing-experimentation-item",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-harnesses/fx",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/platforms/platform-elements/blocks/deploy-popover",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/frameworks/full-stack/nuxt",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/get-project-flag-settings",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/domains/pre-generating-ssl-certs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/webhooks/webhooks-api",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/build-output-api/daemons",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/modalities/realtime/gpt-live",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains/create_or_transfer_domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/teams/update-team-directory-sync-role-mappings",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/batch-processing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/domains-registrar/get-supported-tlds",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/vercel-ci/list_vercel_ci_task_definitions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/platforms/multi-tenant-platforms/configuring-domains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/caching/upload_artifact",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/list-flags",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/projects/accept-project-transfer-request",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/ecosystem/framework-integrations/tanstack-ai",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/model-fallbacks",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/access-groups/update-an-access-group-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/optimized_external_image_request_unauthorized",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/list-all-flags-for-a-team-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/marketplace/get-integration-resource",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/getting-started",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/ai-gateway/get-virtual-model-config",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/openresponses/text-generation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/internal_unexpected_error",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/microfrontends/routing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/env",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/drains/using-drains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-harnesses/observability",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/projectmembers/list-project-members",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/get-a-specific-invocation-attempt",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/ecosystem/cursor",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/frameworks/backend/fastapi",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/opencode",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/observability-and-spend/usage",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/routing/update_bulk_redirect_version",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/networking/update-a-secure-compute-network",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/ai-gateway/list-ai-gateway-budget-defaults",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/observability/create_observability_query",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/automatic-caching",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/rest-api",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/oidc/gcp",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/ai-gateway/create-a-byok-credential",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/environment/create-a-custom-environment-for-the-current-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/kms/activate-a-signing-key",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/bulk-redirects/get-the-version-history-for-a-project-s-redirects",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-firewall/vercel-waf/trusted-ip-access",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/amp",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/ecosystem/flue",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/how-vercel-cdn-works",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/mcp/deploy-mcp-servers-to-vercel",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vcr/clear-all-repository-permissions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployment-protection/protected-source-maps",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/partial-prerendering/quickstart",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/deployments/cancel-a-deployment",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/chat-sdk/eve",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/global-config/get-global-config-backup",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/sandboxes/create_sandboxes_v4",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/create-a-named-sandbox-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/marketplace/get-the-data-of-a-user-provided-global-config",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/cohere-rerank",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/concepts/snapshots",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/kill-a-command",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/networking/configures-static-ips-for-a-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/global-config/get-global-config-items",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployments/logs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/container-registry/limits-and-pricing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/workflows/concepts",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/dns_hostname_resolved_private",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/vercel/post-v1-installations-resources-experimentation-items",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/openai-codex",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains/get_bulk_price",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vcr/get-blob-upload-status",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/security/read-firewall-configuration",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/observability-and-spend",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/projects/point-production-traffic-to-a-given-deployment",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/marketplace/create-one-or-multiple-experimentation-items",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/build",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/connect/observability",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/deploy-hooks",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/hermes",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/rolling-releases/complete_rolling_release",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/ai-gateway/create-rule",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/kms/sign-a-message",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/aliases/list-aliases",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/custom-rules/forbidden-imports",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/deployment-integration-action",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ci/guides/github-comments",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/projects/get_project_domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/teams/create-a-team",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vcr/start-a-blob-upload",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/key-management/list_kms_issuers",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/daemons/config-reference",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/storage/create-a-blob-store",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/integration-image-guidelines",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/connect/frameworks/better-auth",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/access-groups/creates-an-access-group",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/edge-cache/invalidate-by-tag",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/domains-registrar/update-auto-renew-for-a-domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions/runtimes/python",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/feature-flags/list_team_flags",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/documentation/search_vercel_documentation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vercel-ci/search-the-task-logs-of-several-invocation-attempts",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/global-config/delete-one-or-more-global-config-tokens",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/vercel/get-integration-resource",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/deployments/list_deployment_files",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/key-management/activate_kms_signing_key",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/incremental-static-regeneration",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/projects/point-production-traffic-to-a-previous-production-deployment-by-id",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/production-checklist",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/networking/update-a-privatelink-endpoint",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/about-telemetry",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/deploy",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/microfrontends/list-projects-in-a-microfrontends-group",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/monorepos/turborepo",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/projects/git_namespaces",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/install-an-integration/manage-integrations-reference",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/internal_cache_error",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/internal_unarchive_failed",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/aider",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/networking/delete-a-privatelink-endpoint",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/daemons/override-a-project-daemon-s-instance-counts",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/project-routes/get-routing-rule-version-history",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/networking/create-a-secure-compute-network",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/integrations-for-models/adding-a-model",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/observability/updates-a-disabled-observability-plus-project-setting",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/microfrontends/managing-microfrontends/vercel-toolbar",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployment-protection/methods-to-protect-deployments/vercel-authentication",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/frameworks/backend/celery",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent/pr-review/usage",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rbac",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/artifacts/record-an-artifacts-cache-usage-event",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/ecosystem/framework-integrations/pydantic-ai",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/projectmembers/adds-a-new-member-to-a-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/routing/list_deployment_aliases",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deploy-hooks",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/getting-started/decision",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/sandbox_not_listening",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/get-a-snapshot",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/connect/list-connectors",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/custom-error-pages",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/package_json_description_required",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/edge-cache/dangerously-delete-by-source-image",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/marketplace/get-the-data-of-a-user-provided-global-config-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/bfcache_integrity_no_unload_listeners",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployments/vercel-ignore",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/project-configuration/global-configuration",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/getting-started/image",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/external-platforms/azure",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/alerts/configure-alerts",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/aliases/delete-an-alias",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/teams/list_team_members",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-firewall/firewall-api",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/feature-flags/create_flag",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/billing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/typesafe",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/projects/verify_project_domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/dns/list-existing-dns-records",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/platforms/multi-project-platforms/quickstart",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/domains/working-with-ssl",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/access-groups/list_access_groups",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vcr/download-a-blob",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/organizations/delete-team-from-organization",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/git/vercel-for-gitlab",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/domains/list-project-domains-by-apex-domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/domains/free-domain-with-pro",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/feature-flags/list-team-project-flag-settings",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/activity",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/global-config/get_edge_config_tokens",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/approval-checklist",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vcr/delete-an-image-manifest",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/token-pass/coding-agents",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/connect/concepts",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/projects/get_project_deployment_protection",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/examples/project-management",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/modalities/text-generation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/access-groups/reads-an-access-group",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/delete-an-sdk-key",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-blob",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/curl",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/deployments/get-deployment-file-contents",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/fork-a-named-sandbox-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/security/create-system-bypass-rule",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/frameworks/frontend/create-react-app",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/billing/purchase-credits",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/daemons/managing-daemons",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/user/list-user-events",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/update-network-policy",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/observability",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/projects/point-production-traffic-to-a-previous-production-deployment-by-id",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains/list_domains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/organizations/list-organizations",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/domains/add-an-existing-domain-to-the-vercel-platform",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/projects/list_projects",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/feature-flags/list-flags-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/session-affinity",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/checks-v2/list-check-runs-for-a-deployment",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vcr/get-a-repository",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/comments/integrations",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/botid/advanced-configuration",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/get-a-specific-job-run-attempt",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/python",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/microfrontends",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/modalities/video-generation/reference-to-video",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vcr/get-a-repository-image",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/list-team-project-flag-settings",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployment-protection/methods-to-protect-deployments",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/frameworks/frontend/vite",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/global-config/global-config-integrations",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/sandboxes",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/harbor",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/feature-flags/get-a-flag",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-toolbar/in-production-and-localhost",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/marketplace/get-invoice",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/ai-gateway/archive-ai-gateway-budget-default",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/ai-gateway/update-an-ai-gateway-api-key-budget",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/bulk-redirects/delete-project-level-redirects",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/connect/frameworks/ai-sdk-and-mcp",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/regions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions/runtimes/go",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/observability/insights",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions/quickstart",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/examples/domain-management",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/domains/add-an-existing-domain-to-the-vercel-platform",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/switch",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/connect",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deploy-button/callback",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-toolbar/layout-shift-tool",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/frameworks/backend/elysia",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/token-pass",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/global-config/get-global-config-backups",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/integrations/search_repo",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/checks/update-a-check",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/create-a-named-sandbox-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/create-a-directory",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/redeploy",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/forge",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/no_dangerous_html",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/ecosystem/framework-integrations/llamaindex",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/list-sessions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vcr/list-repositories",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/sandbox_not_found",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/analytics/quickstart",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/webhooks",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/list-flag-versions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/projects/remove-an-environment-variable",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/cursor",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/not_found",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/services",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/provider-timeouts",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/teams/get_team",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/cms/contentful",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sign-in-with-vercel/consent-page",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/access-groups/delete-an-access-group-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/caching/cache-status",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/malformed_request_header",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/organizations",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/platforms/multi-tenant-platforms/custom-subpaths",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions/runtimes/node-js",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags/vercel-flags/dashboard/segments",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/modalities/video-generation/video-extension",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/access-groups/update-an-access-group",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/code-owners/cli",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/pi",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/get-log-lines-for-the-tasks-of-an-invocation-attempt",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains/get_domains_records_by_record_id",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/chat-sdk/frameworks/nextjs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/notebooks",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/nextjs_no_before_interactive",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vcr/check-if-a-blob-exists",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/kms/activate-a-signing-key",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/connect/get-a-connector-project-connection",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/incremental-static-regeneration/limits-and-pricing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/kms/get-an-issuer",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/concepts/regions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/plans/hobby",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/claude-code",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/global-config/using-global-config",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/search-the-task-logs-of-several-invocation-attempts",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/vcr",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-firewall/vercel-waf/system-bypass-rules",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/chat-sdk",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/ai-gateway/list-byok-credentials",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/flags/observability",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/list-sessions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/microfrontends",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/vercel/import-resource",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/no_response_from_function",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployment-protection/methods-to-bypass-deployment-protection/options-allowlist",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/sandboxes/delete-a-sandbox",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/internal_function_invocation_timeout",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vercel-ci/list-discovered-tasks-for-a-completed-vercel-ci-task-analysis",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/marketplace/push-data-into-a-user-provided-global-config",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/external-platforms/kubernetes",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/access-groups/delete-an-access-group-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/router_external_target_handshake_error",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/internal_router_cannot_parse_path",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/routing/project-routing-rules",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/list-sandboxes",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/openresponses/structured-outputs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cron-jobs/manage-cron-jobs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/speed-insights/privacy-policy",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains/get_domain_price",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/projects/create_git_project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/drains/create-a-new-drain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/get-log-lines-for-a-specific-job-run-attempt",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/accounts/access-tokens",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/feature-flags/create_sdk_key",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/security/returns-activated-waf-config-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/comments/how-comments-work",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/upgrade-integration",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/deployment-protection/methods-to-protect-deployments/password-protection",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/anthropic-messages-api/reasoning",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/environment/retrieve-the-decrypted-value-of-a-shared-environment-variable-by-id",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/ai-gateway/update-virtual-model-config-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/global-config/get_edge_config_item",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/security/update-firewall-configuration",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/feature-flags/list-all-flags-for-a-team-1",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/drains/reference/speed-insights",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/authentication/list-auth-tokens",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/partner/get-installation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/access-groups/reads-an-access-group-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/domains/working-with-domains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/ai-gateway/update-rule",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/security/read-firewall-configuration",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/organizations/create-an-organization",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/environment-variables/reserved-environment-variables",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/inputs-and-tools/audio-input",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions/websockets",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/inspect",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/no_document_write",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/connect/concepts/installations",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/nextjs_use_next_font",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/user/get-the-user",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/openresponses/images",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/package_management_required_readme",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/execute-a-command",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/vercel",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/oidc",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/marketplace/update-resource",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/domains-registrar/get-the-auth-code-for-a-domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/init",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/teams/invite-a-user",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sandboxes/get-a-snapshot",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/projects/list_project_domains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/rolling-release/get-the-active-rolling-release-information-for-a-project",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/link",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/release-phases/public-beta-agreement",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/modalities/image-generation/ai-sdk",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/global-config/migration-guide",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/two-factor-enforcement",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/sandbox",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/whoami",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/teams/delete-a-team-invite-code",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/changelog",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/platforms/multi-project-platforms/reference",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/speed-insights",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/chatbox",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/organizations/update-an-organization",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/speed-insights/quickstart",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/observability/lists-disabled-observability-plus-projects",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/conductor",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/ecosystem/paseo",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/frameworks/full-stack/tanstack-start",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/toolbar",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/custom-rules/forbidden-packages",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cdn-security/encryption",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/kms/concepts/authentication",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/drains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/range_missing_unit",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cli/ci",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/domains/search_domains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sign-in-with-vercel/troubleshooting",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/environment/create-one-or-more-shared-environment-variables",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/package_json_type_required",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/authentication/get-auth-token-metadata",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/analytics/web-analytics-api",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/builds/build-queues",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/examples/logs-monitoring",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/domains-registrar/get-the-auth-code-for-a-domain",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/ai-gateway/delete-rule",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/observability-and-spend/logs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/release-phases",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vcr/delete-a-repository-image",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions/streaming-functions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/feature-flags/list-all-flags-for-a-team",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-blob/usage-and-pricing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/ecosystem/stripe-billing",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/web-analytics/aggregates-custom-events",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/vcr/delete-a-blob",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/plans/pro-plan",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/errors/middleware_runtime_deprecated",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/sdks-and-apis/responses/images",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/platforms/platform-elements/actions/deploy-files",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/domains/working-with-domains/view-and-search-domains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/nextjs_safe_next_public_env_usage",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/audit-log/migrating-to-drains",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/checks-v2/get-a-check",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/conformance/rules/require_docs_on_exported_functions",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/marketplace/finalize-installation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/feature-flags/get-all-sdk-keys",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rbac/access-roles/project-level-roles",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/partner/delete-installation",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/connect/ts-sdk-reference",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/connect/frameworks/chat-sdk",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/analytics/filtering",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/security",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/builds/managing-builds",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/networking/create-a-secure-compute-network",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/observability/get_runtime_errors",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/install-an-integration/secure-your-resource",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/retry-a-terminal-vercel-ci-invocation-attempt",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/vercel/revoke-installation-credential",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/list-invocations-for-a-team-optionally-filtered-by-repository-and-invocation-metadata",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/sandbox/concepts/authentication",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/microfrontends/managing-microfrontends",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/chat-sdk/frameworks/hono",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/integrations/list_integration_billing_plans",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/ecosystem/framework-integrations/wordpress",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/deployments/list_deployments",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/integrations/create-integration/marketplace-api/reference/partner/accept-resource-transfer",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/drains/reference/analytics",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/projects",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/cron-jobs/quickstart",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-blob/server-upload",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/firewall/put_firewall_config",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/deployments/cancel-a-deployment",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/functions/runtimes/wasm",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/coding-agents/qwen",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/marketplace/get-member-information",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/agent-resources/vercel-mcp/tools/teams/get_auth_user",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/ai-gateway/models-and-providers/reasoning/anthropic",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/billing/list-focus-billing-charges",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/vercel-toolbar/in-production-and-localhost/add-to-production",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/botid/verify-on-page-load",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vercel.com/docs/rest-api/sdk/vcr/push-an-image-manifest",
+      "source_id": "vercel"
     }
   ],
   "discovery_cursors": {
@@ -7231,6 +12587,7 @@
     "marketers": 2,
     "CEOs": 2,
     "students": 2,
-    "vibecoders": 2
+    "vibecoders": 2,
+    "founders": 2
   }
 }
