@@ -95,6 +95,40 @@
       "posted_at": "2026-11-02T18:31:34.168849+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-02:resources-v1:39",
+      "audience": "CEOs",
+      "text": "For CEOs\n\nWork Task and Project Management Resources\nhttps://asana.com/resources\n\nGoogle re Work\nhttps://rework.withgoogle.com/intl/en/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://asana.com/resources",
+          "title": "Work, Task & Project Management Resources • Asana • Asana Asana Home",
+          "excerpt": "Resource center Explore the resource center View demo Work management Resources to help you better coordinate plans, projects, and processes with Asana. Project planning Resources to help you organize and track everything in Asana for successful projects. Workflow automation Resources to help you build intelligent workflows in Asana for business agility. AI at work Resources to help your team get more efficient and achieve growth with AI. Strategic planning Resources to help you map out large-scale strategies in Asana. Team growth & focus Resources for managers and leaders to boost personal productivity and team output. Browse by department Discover resources designed to help your team. Marketing Make a bigger impact with every campaign. Operations Improve processes across your organization. IT Streamline intake and automate workflows. Featured collections Get started with Asana Find step-by-step guides, trainings, and tips to help you and your team get to work fast. Learn from real teams using AI Discover practical ways teams are using AI inside and outside Asana to make a bigger im",
+          "aliases": [
+            "https://asana.com/resources"
+          ],
+          "fingerprint": "01ef903b40418c5ed02e67cce1ac3bc0163924244e3978ea10e12aa53c68a217",
+          "source_id": "asana",
+          "verified_at": "2026-11-02T19:01:35.243301+00:00"
+        },
+        {
+          "url": "https://rework.withgoogle.com/intl/en/",
+          "title": "Google re:Work",
+          "excerpt": "Make work better Explore proven practices, real examples, and research from Google and other institutions to foster a people-first approach that drives success for your organization. Learn more about Google re:Work Latest Articles Manager Effectiveness Your team doesn't need an all-knowing leader. They need a transparent learner. August 2025 Manager Effectiveness Following the data: The research behind great managers August 2025 Hiring & Onboarding A data-driven approach to optimizing employee onboarding August 2025 1 / Explore by topic Hiring & Onboarding Data & Analytics Learning & Development Org Management Manager Effectiveness Hiring & Onboarding Hiring & Onboarding Effective hiring means laying a strong foundation to ensure you recruit and onboard the right talent for your organization. Get guidance on proven frameworks for job requirements, interviews, and more. Learn more Data & Analytics Data & Analytics Leverage social and data science research to evaluate the effectiveness of HR practices, programs, and processes so you can make informed decisions. Learn more Learning & De",
+          "aliases": [
+            "https://rework.withgoogle.com",
+            "https://rework.withgoogle.com/intl/en"
+          ],
+          "fingerprint": "603b0c57b200f0fee80c970e0e7438932d43dca0c2dd8c7fc8eeea4201c468f5",
+          "source_id": "rework",
+          "verified_at": "2026-11-02T19:01:37.996382+00:00"
+        }
+      ],
+      "tweet_id": "2117331454950523316",
+      "posted_at": "2026-11-02T19:02:08.970641+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -576,45 +610,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T18:31:34.168849+00:00",
-  "pending": {
-    "slot": "2026-11-02:resources-v1:39",
-    "audience": "CEOs",
-    "labels": [
-      "Work Task and Project Management Resources",
-      "Google re Work"
-    ],
-    "resources": [
-      {
-        "url": "https://asana.com/resources",
-        "title": "Work, Task & Project Management Resources • Asana • Asana Asana Home",
-        "excerpt": "Resource center Explore the resource center View demo Work management Resources to help you better coordinate plans, projects, and processes with Asana. Project planning Resources to help you organize and track everything in Asana for successful projects. Workflow automation Resources to help you build intelligent workflows in Asana for business agility. AI at work Resources to help your team get more efficient and achieve growth with AI. Strategic planning Resources to help you map out large-scale strategies in Asana. Team growth & focus Resources for managers and leaders to boost personal productivity and team output. Browse by department Discover resources designed to help your team. Marketing Make a bigger impact with every campaign. Operations Improve processes across your organization. IT Streamline intake and automate workflows. Featured collections Get started with Asana Find step-by-step guides, trainings, and tips to help you and your team get to work fast. Learn from real teams using AI Discover practical ways teams are using AI inside and outside Asana to make a bigger im",
-        "aliases": [
-          "https://asana.com/resources"
-        ],
-        "fingerprint": "01ef903b40418c5ed02e67cce1ac3bc0163924244e3978ea10e12aa53c68a217",
-        "source_id": "asana",
-        "verified_at": "2026-11-02T19:01:35.243301+00:00"
-      },
-      {
-        "url": "https://rework.withgoogle.com/intl/en/",
-        "title": "Google re:Work",
-        "excerpt": "Make work better Explore proven practices, real examples, and research from Google and other institutions to foster a people-first approach that drives success for your organization. Learn more about Google re:Work Latest Articles Manager Effectiveness Your team doesn't need an all-knowing leader. They need a transparent learner. August 2025 Manager Effectiveness Following the data: The research behind great managers August 2025 Hiring & Onboarding A data-driven approach to optimizing employee onboarding August 2025 1 / Explore by topic Hiring & Onboarding Data & Analytics Learning & Development Org Management Manager Effectiveness Hiring & Onboarding Hiring & Onboarding Effective hiring means laying a strong foundation to ensure you recruit and onboard the right talent for your organization. Get guidance on proven frameworks for job requirements, interviews, and more. Learn more Data & Analytics Data & Analytics Leverage social and data science research to evaluate the effectiveness of HR practices, programs, and processes so you can make informed decisions. Learn more Learning & De",
-        "aliases": [
-          "https://rework.withgoogle.com",
-          "https://rework.withgoogle.com/intl/en"
-        ],
-        "fingerprint": "603b0c57b200f0fee80c970e0e7438932d43dca0c2dd8c7fc8eeea4201c468f5",
-        "source_id": "rework",
-        "verified_at": "2026-11-02T19:01:37.996382+00:00"
-      }
-    ],
-    "text": "For CEOs\n\nWork Task and Project Management Resources\nhttps://asana.com/resources\n\nGoogle re Work\nhttps://rework.withgoogle.com/intl/en/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "6c8690bc3d5bd4ba94f2bb410706479e57f81da79ee70ed5e99904d001167187",
-    "prepared_at": "2026-11-02T19:01:33.470417+00:00",
-    "run_id": "41506017557",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T19:02:08.970641+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://blog.hubspot.com/marketing/landing-page-design",
