@@ -1,96 +1,76 @@
-# Conversation Posts
+# Kit's Bookmarks — Useful Links
 
-Cloudflare Workers AI writes short, playful standalone posts for X. The owner-requested target is **50 posts per UTC day**, spread across changing daily times. Quote/repost automation remains removed.
+The current format is a short recommendation for a specific audience, with **exactly two real URLs**. Cloudflare Workers AI writes grounded labels. Code supplies the checked URLs, layout, limits and history.
 
-## Voice and content
+```text
+For vibecoders
 
-Write like a curious person texting a friend: one clear thought, simple English, occasional slang, no forced catchphrase. Lowercase is welcome. Mild profanity is optional, never a compulsory opening. English is the default for a consistent global tech audience; switching languages is not treated as a reach trick.
+[short label from the actual page]
+[first verified URL]
 
-The owner's new reference is **“is there a word between yes and no?”**. Other shapes include a small everyday puzzle, a choice between two relatable options, a recognizable tech frustration, or a playful coding opinion. References guide the tone; they are not a bank to recycle daily.
+[short label from the actual page]
+[second verified URL]
 
-| Format | Daily opportunities |
-| --- | ---: |
-| Curiosity / everyday word questions | 12 |
-| Two concrete choices | 10 |
-| Relatable observations / humor | 10 |
-| Playful coding takes | 8 |
-| Specific AI-tool questions | 6 |
-| Product invitations | 3 |
-| Connection invitation | 1 |
-
-Topics are sampled from larger pools every day and adjacent slots use different formats. Most posts have one line. A question gets one question mark and no answer or explanation. Greetings retain the owner's two-paragraph layout. Coding takes no longer require a particular opening phrase, which previously rejected otherwise valid drafts.
-
-Aim for 6–12 words, with enforced limits of 12 for curiosity, 14 for choices/observations/AI questions, and 18 for coding takes. No invented personal struggles, achievements, product ownership, statistics, news or capabilities. No generic coaching, fake urgency, engagement trades, requests for likes/follows, or copied viral posts. A product invitation cannot promise to try every product. Text stays within a conservative 160-character weighted ceiling, below the standard X post limit.
-
-## Excluded topics and duplication
-
-**No politics, political parties, politicians, elections, government, public policy, countries, nationalities, flags, national comparisons, geopolitics, wars or country-related places/events.** Neutral references and jokes are excluded too.
-
-Enforcement has three layers:
-
-1. Explicit generation instructions and brief pools limited to ordinary life, language, coding, AI and building.
-2. Local format, keyword, flag and repetition checks.
-3. A separate Cloudflare topic classifier that must return exactly `{"allowed":true}`. A negative, ambiguous, malformed or unavailable review cannot approve a draft. The reviewer checks only excluded topics, not novelty or popularity.
-
-The exact approved text and policy revision are hashed into the durable reservation. Publication repeats local validation and checks that approval matches the text; an edited or old unreviewed reservation cannot be published automatically. These layers reduce mistakes; an AI classifier is not a guarantee of perfect semantic judgment.
-
-Exact normalized repeats are checked against up to 1,000 confirmed posts (roughly 20 full days). Near-duplicates and recycled fragments are checked against 150. Unicode words remain intact during normalization. The model sees recent posts and recent examples from its own category, plus the rejected text when correcting a draft. There are at most two generation attempts; no unsafe fallback or recycled filler to meet a quota.
-
-## What the research supports
-
-Research checked on 1 November 2026:
-
-- [X's posting guidance](https://business.x.com/en/basics/get-your-business-started-with-x) recommends concise, conversational writing and engaging with other accounts.
-- [X's community guidance](https://business.x.com/en/basics/community-management) recommends questions and genuine one-to-one conversation. Replies can help create relationships and discovery.
-- [The published For You ranking system](https://github.com/xai-org/x-algorithm) predicts a viewer's reactions, including positive and negative actions. Its weights do not multiply raw engagement counts. It also reduces successive appearances from the same author within a feed. There is no supported “one reply equals N likes” shortcut or guaranteed viral wording.
-- [X's authenticity policy](https://help.x.com/en/rules-and-policies/authenticity) prohibits repetitive content spam and artificial amplification. [Automation rules](https://help.x.com/en/rules-and-policies/x-automation) also restrict duplicate automated posts and unsolicited automated engagement.
-
-**Editorial inference:** questions that are easy to understand and worth answering, concrete shared experiences and varied wording are better experiments than fifty variants of “let's connect.” This is a hypothesis for this account, not a proven uplift. Fifty is the owner's requested volume, not a research-backed optimum or promise of impressions.
-
-For a seven-day trial, manually record each post's impressions, likes, replies and profile visits at the same age (for example, after 24 hours), where X exposes those metrics. Compare the median results for each category and replies/likes per 1,000 impressions, not just total activity. Keep formats that produce relevant conversations; revise or reduce weak ones. Missing metrics are unknown, not zero. The bot records category and topic but does not claim to measure or optimize impressions automatically.
-
-Spend time answering real replies and joining relevant conversations personally. No automatic likes, follow exchanges, unsolicited replies, DMs or fabricated engagement are added. No growth outcome is guaranteed.
-
-## Variable daily timing
-
-The UTC day has 50 bands of 28.8 minutes. A date-seeded offset of 11–17 minutes inside each band creates a new, reproducible timetable every day. Planned slots are at least 22.8 minutes apart, including midnight. Actual publication has a 15-minute minimum gap and a hard daily cap of 50, including posts from the old plan on the rollout day.
-
-The **Publish Conversation Posts** workflow checks every five minutes, offset from the top of the hour. The existing external `post-next` dispatcher still works. GitHub [documents schedule delays and dropped runs](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule), so 50 is a target and maximum, not a delivery guarantee. A dispatcher running only every 30 minutes cannot deliver all 50 opportunities by itself.
-
-Only the latest due slot can run. Older missed opportunities expire; downtime cannot create a catch-up burst. A partial rollout day has fewer opportunities. Versioned slot IDs avoid collisions with the retired 20-slot timetable. The UTC count resets at 05:30 in Asia/Kolkata.
-
-## Setup and operation
-
-Existing GitHub Actions secrets are reused:
-
-- `X_AUTH_TOKEN` and `X_CT0` for the existing X session client.
-- `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` for Workers AI.
-- Optional repository variable `CLOUDFLARE_AI_MODEL`; default `@cf/meta/llama-3.1-8b-instruct-fp8`.
-
-No secret values are read from GitHub or printed. No paid plan or billing upgrade is enabled. Generation plus topic review normally uses two Workers AI calls per accepted post, with bounded correction attempts. Allocation, permissions and X session validity still apply. The existing session client is retained at the owner's request; X's automation rules restrict non-API automation and the client may break or be restricted.
-
-Code pushes run tests and preview all seven styles before preparing a due post. Scheduled runs and `post-next` dispatches use the same content and topic checks. Disable the workflow in Actions to stop it.
-
-```sh
-python -m app preview                   # One preview, no publishing or state changes
-python -m app preview --all-categories  # Seven previews, no publishing or state changes
-python -m app prepare --start-now       # Reserve one due post; launch exception only on an empty history
+Thank me later.
+Follow for more useful links.
 ```
 
-## Publication and crash protection
+The conversation/question workflow and quote/repost workflow have been removed. Existing X posts and retired state files are kept. Nothing deletes old posts.
 
-Active state is `state/community_queue.json`. The old `state/post_queue.json` is a retired record and is never read by the publisher. Do not overwrite live state when deploying code changes.
+## Daily rotation and limits
 
-The workflow saves and commits a reservation before calling `create_tweet(text=...)` exactly once. It then commits confirmation with the real X post ID. No quote attachment or automated reply is sent. A timeout, missing ID, cancelled run or failed final state push leaves an unresolved reservation; later runs stop to avoid duplicate publication.
+The target and hard cap are **50 posts per UTC day**: vibecoders 6, developers 6, students 7, founders 5, business owners 6, CEOs 4, designers 4, marketers 4, creators 4 and job seekers 4. These are broad useful-resource audiences, without political or geographic targeting.
 
-To recover, disable the workflow and inspect X. If the reserved text was published, record its real `tweet_id`, `slot`, `category`, `text` and `posted_at` in history, update `last_posted_at`, and clear `pending`. If definitely not published, clear `pending`. Commit the correction before re-enabling. Never clear a reservation merely because a job failed. Posts already on X are not deleted.
+Every full day has 50 date-seeded opportunities in 28.8-minute bands, with a varying 11–17-minute offset. Planned separation is at least 22.8 minutes; actual publications must be at least 15 minutes apart. Adjacent formats target different audiences. Old posts from the rollout day count toward the 50-post cap.
 
-## Verification
+`Publish Useful Links` checks every five minutes and supports the existing `post-next` dispatcher. GitHub scheduling delays, runner outages, exhausted quotas or lack of suitable fresh URLs can reduce delivery. Missed opportunities expire; there is no catch-up burst. Fifty posts requires 100 genuinely fresh URLs daily, so a finite library cannot guarantee this volume forever. The bot discovers additional pages on approved sites and skips rather than inventing or reusing links.
+
+## How links are found and checked
+
+`data/sources.json` is the reviewed first-party source list. It covers practical documentation, tools, tutorials, learning material and work guides. Each source has exact allowed hosts, path prefixes and suitable audiences.
+
+Discovery reads actual links from source pages and sitemaps advertised in their `robots.txt`. It never asks a language model to invent URLs or fabricates article paths. HTTPS, hostname, DNS and redirect checks prevent requests to unapproved/private destinations. Reads, redirects, probe batches and catalog size are bounded. Challenge pages, access failures, soft 404s, insufficient content and obvious login gates are rejected. No bypass of blocked sources is attempted.
+
+Before reservation, each selected page must return HTTP 200 with readable HTML, a title and content. Two different sites are required, with at most six published URLs from one domain per UTC day. Local excluded-topic checks scan extracted page text; Cloudflare separately reviews both excerpts and the proposed labels for topic restrictions, audience fit and factual support.
+
+Both links are fetched again immediately before sending. A changed destination or failed review cancels that attempt before contacting X. A resource working now can change or fail later; verification is a point-in-time check, not a lifetime guarantee. The bot does not claim everything is free, personally tested or endorsed.
+
+## Permanent non-repetition
+
+`state/resources_queue.json` holds permanent `used_urls` and `used_fingerprints` ledgers. They are **never trimmed** when the recent post history is shortened.
+
+The ledger records original URLs, redirects, declared canonical aliases and content fingerprints. Tracking parameters, fragments and trailing-slash variants collapse to the same identity. Clean, query-free URLs are used in posts. URL claims are committed before sending to X; uncertain outcomes can never automatically recycle those links. A definitively rejected pre-send attempt burns its claims conservatively as well.
+
+Migration preserves the old post history, counts it toward rollout-day limits and imports known outbound URLs from retired state. An unresolved old reservation blocks migration until reconciled. The old files remain untouched. Undisclosed or unrecorded posts made outside this bot cannot be deduplicated without importing their destination URLs into the ledger.
+
+## Strict writing rules
+
+Cloudflare returns only two labels, each 2–6 words and at most 42 characters. Labels must describe the matching page's actual evidence. Code constructs the whole post, so the model cannot add a third link, alter URLs, change the CTA or turn it into an old question post.
+
+No politics, political parties, politicians, elections, government, countries, nationalities, national comparisons, geopolitics or wars. Country-topic restrictions apply to neutral mentions too. Software terms such as CSS borders and feature flags do not become political merely because of those words.
+
+No fake experience, unsupported benefits, invented free plans, fabricated statistics, guarantees, copied viral posts, insults, hashtags, mentions, quote-posts or automated replies. A separate strict boolean review must approve topic, relevance and grounding. Malformed decisions and service outages do not approve a draft. AI judgment can still make mistakes; explicit rules and local checks supplement it.
+
+Standard X account limits are respected: each URL counts as 23 weighted characters, and posts stay below a conservative 260-character weighted ceiling. No Premium subscription or new paid API service is enabled.
+
+## State and crash recovery
+
+The workflow tests, prepares one due post, commits the permanent claims and reservation, rechecks both pages, sends `create_tweet(text=...)` once, then commits confirmation with the real X ID.
+
+A timeout, missing post ID, cancelled run or failed final push leaves a durable unresolved reservation. Later runs stop. Inspect X before reconciling; never clear a reservation just because a job failed. If published, record its real ID and timestamp and clear `pending`; if definitely unpublished, clear `pending` while keeping the URL claims retired. Commit the correction before resuming.
+
+## Existing configuration
+
+Existing Actions secrets are reused: `X_AUTH_TOKEN`, `X_CT0`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`. Optional `CLOUDFLARE_AI_MODEL` is a repository variable; default `@cf/meta/llama-3.1-8b-instruct-fp8`.
+
+No secret values are read from GitHub or printed. The owner's existing X session client is retained; session expiry and platform restrictions still apply. Workers AI quotas and permissions also affect availability.
 
 ```sh
-python -m pip install -r requirements.txt
-python -m compileall -q app
+python -m app preview                   # Real URL checks + Cloudflare preview, no publication/state write
+python -m app preview --all-categories  # One preview per audience; may take several minutes
+python -m app prepare --start-now       # Reserve one due opportunity
+python -m app publish                   # Requires this run's already-committed reservation
 python -m unittest discover -s tests -v
 ```
 
-Tests cover a three-day five-minute schedule simulation, the 50-post cap, rollout migration, category variety, duplicate rejection, requested writing formats, excluded-topic checks, malformed/outage review decisions, approval-bound reservations, previews and uncertain publication outcomes. A successful unit test is not evidence of a live post; use the workflow's real X link to confirm delivery.
+Profile copy and assets are described in `PROFILE.md`. Profile changes require access to X's profile editor; committing profile copy does not itself update the account.

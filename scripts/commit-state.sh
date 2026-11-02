@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
-if test -z "$(git status --porcelain -- state/community_queue.json)"; then exit 0; fi
+state_path="${1:-state/resources_queue.json}"
+case "$state_path" in
+  state/resources_queue.json|state/profile_applied.json) ;;
+  *) exit 1 ;;
+esac
+if test -z "$(git status --porcelain -- "$state_path")"; then exit 0; fi
 git config user.name 'github-actions[bot]'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-git add state/community_queue.json
-git commit -m 'chore: persist standalone community queue state'
-# Never publish after an unsuccessful reservation push. Never rebase conflicting state.
+git add "$state_path"
+git commit -m 'chore: persist verified resource automation state'
 for attempt in 1 2 3; do
   if git push origin HEAD:main; then exit 0; fi
   git fetch origin main
