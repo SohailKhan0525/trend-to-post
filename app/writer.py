@@ -14,6 +14,9 @@ POLICY_VERSION='verified-resource-pairs-v1'
 SYSTEM='''Write exactly two short labels for the two supplied verified resources.
 Return ONLY JSON {"labels":["label for resource 1","label for resource 2"]}.
 Each label: 2-6 words, at most 42 characters, plain English, specific and useful.
+Use actual words from the MATCHING page's title/excerpt, preferably a short title
+phrase. Include a distinctive word from that page's title. Do not swap labels
+between pages or use unsupported synonyms. Generic guide/docs/tutorial is fine.
 Describe what the linked page actually offers to AUDIENCE. Use only its title and
 excerpt as evidence. Never invent a feature, free plan, endorsement, result or guarantee.
 Do not write URLs, an introduction, hashtags, emojis, a follow line or personal story.
@@ -64,10 +67,29 @@ def validate_labels(labels):
     return labels
 
 
+def validate_grounding(labels,resources):
+    generic={'a','an','the','for','to','of','and','with','in','on','your','how',
+             'guide','docs','tutorial','resource','overview','introduction',
+             'documentation','learn','learning','practical'}
+    def words(text):
+        def stem(word):
+            if len(word)>5 and word.endswith('ing'):return word[:-3]
+            if len(word)>4 and word.endswith('s'):return word[:-1]
+            return word
+        return {stem(w) for w in re.findall(r'[a-z0-9]+',text.casefold())}
+    for label,resource in zip(labels,resources):
+        content=words(label)-generic
+        title=words(resource['title'])
+        supported=title|words(resource['excerpt'])
+        if not content or not content.issubset(supported) or not content.intersection(title):
+            raise DraftError('Use matching page title words; do not invent or swap label details')
+
+
 def render(audience,labels,resources):
     if audience not in DAILY_MIX or len(resources)!=2:
         raise DraftError('Unsupported audience or resource count')
     validate_labels(labels)
+    validate_grounding(labels,resources)
     urls=[r['url'] for r in resources]
     if any(canonical(u)!=u.rstrip('/') for u in urls) or canonical(urls[0])==canonical(urls[1]) or domain(urls[0])==domain(urls[1]):
         raise DraftError('Use two distinct clean HTTPS URLs from different sites')
@@ -116,7 +138,9 @@ def complete(system,data,temperature=.8,max_tokens=450):
 
 
 def review(audience,labels,resources):
-    verdict=complete(REVIEW_SYSTEM,{'AUDIENCE':audience,'LABELS':labels,'RESOURCES':evidence(resources)},temperature=0,max_tokens=80)
+    validate_labels(labels)
+    validate_grounding(labels,resources)
+    verdict=complete(REVIEW_SYSTEM,{'AUDIENCE':audience,'LABELS':labels,'RESOURCES':evidence(resources)},temperature=0,max_tokens=180)
     if not isinstance(verdict,dict) or set(verdict)!={'allowed','relevant','grounded'} or any(type(v) is not bool for v in verdict.values()):
         raise DraftError('Resource review returned an invalid decision')
     if not all(verdict.values()):raise DraftError('Resource review rejected topic, audience fit or unsupported label')
@@ -126,7 +150,7 @@ def generate(audience,resources):
     data={'AUDIENCE':audience,'RESOURCES':evidence(resources)}
     for _ in range(2):
         try:
-            result=complete(SYSTEM,data,max_tokens=160)
+            result=complete(SYSTEM,data,max_tokens=384)
             if not isinstance(result,dict) or set(result)!={'labels'}:raise DraftError('Return one JSON labels array only')
             labels=validate_labels(result['labels'])
             render(audience,labels,resources)
@@ -134,5 +158,5 @@ def generate(audience,resources):
             return labels
         except DraftError as exc:
             print('Resource draft rejected: '+str(exc))
-            data['CORRECTION']=str(exc)
+            data['CORRECTION']=str(exc)+' Return ONLY valid JSON {"labels":["short title phrase 1","short title phrase 2"]}. No prose or Markdown.'
     raise DraftError('No approved labels after two attempts')

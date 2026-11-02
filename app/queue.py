@@ -88,7 +88,16 @@ async def prepare(preview=False,start_now=False,all_categories=False):
             if preview:raise LinkError('Not enough working unused links for the preview audience')
             save(state);output('state_changed','true');output('skip_reason','fresh_link_pool_low')
             summary('::warning::Not enough verified unused links for this audience; no post sent.');return
-        labels=generate(brief['audience'],resources)
+        try:
+            labels=generate(brief['audience'],resources)
+        except DraftError:
+            if not preview:
+                # Keep discovery progress so a bad pair cannot trap every retry
+                # on the same two pages. No URL claim or X request exists yet.
+                rejected=set().union(*(set(r['aliases']) for r in resources))
+                state['catalog']=[c for c in state['catalog'] if canonical(c['url']) not in rejected]
+                save(state);output('state_changed','true')
+            raise
         text=render(brief['audience'],labels,resources)
         if preview:
             summary('PREVIEW ONLY ('+brief['audience']+'):\n\n'+text+'\n')
@@ -123,7 +132,7 @@ async def publish():
             if canonical(old['url'])!=canonical(new['url']) or not set(new['aliases']).issubset(old['aliases']):
                 raise LinkError('Resource destination changed after reservation')
         review(audience,labels,fresh)
-    except (LinkError,DraftError):
+    except (LinkError,DraftError,OSError,ValueError):
         # This path is known NOT to have contacted X. Burn the URL claims and
         # release the reservation safely; unknown outcomes after create_tweet do not.
         state['pending']=None;save(state);output('state_changed','true')

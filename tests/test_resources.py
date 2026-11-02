@@ -127,6 +127,11 @@ class WriterTests(unittest.TestCase):
     def test_topic_grounding_and_relevance_fail_closed(self):
         for verdict in ({'allowed':False,'grounded':True,'relevant':True},{'allowed':True,'grounded':False,'relevant':True},{'allowed':True,'grounded':True,'relevant':False},{'allowed':'true','grounded':True,'relevant':True},{},None):
             with patch('app.writer.complete',return_value=verdict),self.assertRaises(DraftError):review('vibecoders',LABELS,pair())
+    def test_crossed_or_invented_labels_are_rejected_before_ai_review(self):
+        resources=pair()
+        for labels in (list(reversed(LABELS)),['Managerial research guide',LABELS[1]],['Free unlimited deployment',LABELS[1]]):
+            with patch('app.writer.complete',return_value=GOOD) as call,self.assertRaises(DraftError):review('vibecoders',labels,resources)
+            call.assert_not_called()
     def test_review_outage_never_approves(self):
         with patch('app.writer.complete',side_effect=TimeoutError),self.assertRaises(TimeoutError):review('vibecoders',LABELS,pair())
     def test_cloudflare_contract(self):
@@ -160,6 +165,14 @@ class QueueTests(unittest.IsolatedAsyncioTestCase):
         self.reserved()
         with patch.object(queue,'source_for',return_value=SOURCE),patch.object(queue,'inspect',side_effect=LinkError('broken')),patch.object(queue,'client') as c:await queue.publish()
         c.assert_not_called();self.assertIsNone(queue.load()['pending']);self.assertEqual(len(queue.load()['used_urls']),2)
+    async def test_review_outage_before_send_releases_but_never_reuses_urls(self):
+        self.reserved();a,b,d=self.network()
+        with a,b,patch.object(queue,'review',side_effect=TimeoutError),patch.object(queue,'client') as c:await queue.publish()
+        c.assert_not_called();self.assertIsNone(queue.load()['pending']);self.assertEqual(len(queue.load()['used_urls']),2)
+    async def test_failed_label_pair_does_not_trap_future_discovery(self):
+        s=state();s['catalog']=[{'url':r['url'],'source_id':r['source_id']} for r in pair()];queue.save(s)
+        with patch.object(queue,'find_pair',return_value=pair()),patch.object(queue,'generate',side_effect=DraftError('no valid labels')),patch.object(queue,'client') as c,self.assertRaises(DraftError):await queue.prepare(start_now=True)
+        c.assert_not_called();self.assertFalse(queue.load()['catalog']);self.assertIsNone(queue.load()['pending']);self.assertFalse(queue.load()['used_urls'])
     async def test_modified_text_and_old_run_are_rejected(self):
         self.reserved();s=queue.load();s['pending']['text']+='extra';queue.save(s)
         with patch.object(queue,'client') as c,self.assertRaises(ValueError):await queue.publish()

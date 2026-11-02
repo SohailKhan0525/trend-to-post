@@ -45,7 +45,7 @@ Migration preserves the old post history, counts it toward rollout-day limits an
 
 ## Strict writing rules
 
-Cloudflare returns only two labels, each 2–6 words and at most 42 characters. Labels must describe the matching page's actual evidence. Code constructs the whole post, so the model cannot add a third link, alter URLs, change the CTA or turn it into an old question post.
+Cloudflare returns only two labels, each 2–6 words and at most 42 characters. Labels must use words from the matching page's actual title/excerpt, including a distinctive title word. Local checks reject invented wording and swapped labels before the separate semantic review. Code constructs the whole post, so the model cannot add a third link, alter URLs, change the CTA or turn it into an old question post.
 
 No politics, political parties, politicians, elections, government, countries, nationalities, national comparisons, geopolitics or wars. Country-topic restrictions apply to neutral mentions too. Software terms such as CSS borders and feature flags do not become political merely because of those words.
 
