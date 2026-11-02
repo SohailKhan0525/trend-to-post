@@ -349,19 +349,18 @@
       "text": "should an old, unused feature be labeled retired or cancelled?",
       "tweet_id": "2117142497688510682",
       "posted_at": "2026-11-02T06:31:20.122905+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:15",
+      "category": "ai_question",
+      "topic": "whether an assistant should explain the change before or after showing code",
+      "text": "should an AI assistant explain its rewritten code before or after showing the changes?",
+      "tweet_id": "2117157631454515356",
+      "posted_at": "2026-11-02T07:31:28.264224+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T06:31:20.122905+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:15",
-    "category": "ai_question",
-    "text": "should an AI assistant explain its rewritten code before or after showing the changes?",
-    "topic": "whether an assistant should explain the change before or after showing code",
-    "topic_approval": "e67e695b16951201f7f9175b53601294e095d00b7ba8461bdb6301323d1886c2",
-    "prepared_at": "2026-11-02T07:31:23.459853+00:00",
-    "run_id": "41406807868",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T07:31:28.264224+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
