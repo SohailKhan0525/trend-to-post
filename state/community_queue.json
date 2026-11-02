@@ -328,7 +328,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T04:31:22.514611+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:9",
+    "category": "ai_question",
+    "text": "should an ai tool give instant feedback or show changes first, then explain?",
+    "topic": "whether a short or detailed prompt feels easier to revise",
+    "topic_approval": "99ade36c042d60d3e46890203504a27cc4de9e8994dcf67aaa24d9e293a1412c",
+    "prepared_at": "2026-11-02T05:01:27.386564+00:00",
+    "run_id": "41391593938",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
