@@ -136,7 +136,12 @@ def label_options(resource):
     """Extract candidate phrases; the model can select but cannot invent claims."""
     stop={'a','an','the','for','to','of','and','with','in','on','your','how','which',
           'what','why','get','you','find','is','are','its','our','right','from'}
-    words=re.findall(r'[A-Za-z0-9]+(?:[+-]+)?',resource['title'])[:24]
+    # Keep the page title separate from the site's branding. Never create a
+    # phrase by crossing "... | Site name" or picking a random middle window.
+    main=re.split(r'\s+[|–—]\s*|\s+-\s+|:\s+',resource['title'],maxsplit=1)[0]
+    main=re.sub(r'^\s*\[[^]]+\]\s*','',main)
+    words=re.findall(r'[A-Za-z0-9]+(?:[+-]+)?',main)[:24]
+    while words and words[0].casefold() in stop:words.pop(0)
     preferred=' '.join(words)
     options=[]
     def add(label):
@@ -147,15 +152,16 @@ def label_options(resource):
             validate_grounding([label],[resource])
         except DraftError:return
         options.append(label)
-    add(preferred)
-    spans=[]
-    for length in range(2,7):
-        for start in range(len(words)-length+1):
-            chunk=words[start:start+length]
-            if chunk[0].casefold() in stop or chunk[-1].casefold() in stop:continue
-            score=sum(w.casefold() not in stop for w in chunk)/length+min(length,4)/10-start/100
-            spans.append((score,' '.join(chunk)))
-    for _,label in sorted(spans,reverse=True):add(label)
+    if len(words)<=6:add(preferred)
+    head=[]
+    for word in words:
+        if word.casefold() in {'for','with','of','to','on','in','and'}:break
+        head.append(word)
+    if 2<=len(head)<=6:add(' '.join(head))
+    incomplete=stop|{'common','basic','advanced','first','next','new','complete',
+                     'easy','quick','simple','personalized','best','ultimate'}
+    for length in range(min(6,len(words)),1,-1):
+        if words[length-1].casefold() not in incomplete:add(' '.join(words[:length]))
     for word in words:
         if word.casefold() not in stop:add(word+' guide')
     if not options:raise DraftError('Resource title has no usable factual label')
