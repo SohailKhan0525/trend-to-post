@@ -421,19 +421,18 @@
       "text": "Do you rely on keyboard shortcuts or memorize button names for your workflow?",
       "tweet_id": "2117233099230576726",
       "posted_at": "2026-11-02T12:31:21.013762+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:27",
+      "category": "choice",
+      "topic": "finish a small project or start an exciting one",
+      "text": "Should you complete a small side project or start a thrilling unknown one tonight?",
+      "tweet_id": "2117248262306718079",
+      "posted_at": "2026-11-02T13:31:36.168806+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T12:31:21.013762+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:27",
-    "category": "choice",
-    "text": "Should you complete a small side project or start a thrilling unknown one tonight?",
-    "topic": "finish a small project or start an exciting one",
-    "topic_approval": "e63c7f5d0c10b7cd4207c7a77182a14792c82fd2e6175d0dcd78845712f23d71",
-    "prepared_at": "2026-11-02T13:31:26.692354+00:00",
-    "run_id": "41453651921",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T13:31:36.168806+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
