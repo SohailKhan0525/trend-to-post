@@ -397,19 +397,18 @@
       "text": "unlocking a project just to remember you never started it last night",
       "tweet_id": "2117202896135880882",
       "posted_at": "2026-11-02T10:31:19.928931+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:23",
+      "category": "choice",
+      "topic": "a useful error message or automatic recovery",
+      "text": "Should an AI assistant automatically restart a failed build or ask for manual recovery?",
+      "tweet_id": "2117218024608391267",
+      "posted_at": "2026-11-02T11:31:26.969662+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T10:31:19.928931+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:23",
-    "category": "choice",
-    "text": "Should an AI assistant automatically restart a failed build or ask for manual recovery?",
-    "topic": "a useful error message or automatic recovery",
-    "topic_approval": "c8eda0ec5aec4d0ea50310def0516e884a8b8863e70f130e427bb3fb60623a10",
-    "prepared_at": "2026-11-02T11:31:21.306425+00:00",
-    "run_id": "41437449783",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T11:31:26.969662+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
