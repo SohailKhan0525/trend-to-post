@@ -469,19 +469,18 @@
       "text": "do saved bookmarks count as plans or just lazy notes?",
       "tweet_id": "2117286053287809341",
       "posted_at": "2026-11-02T16:01:46.495352+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:33",
+      "category": "coding_take",
+      "topic": "writing tests for the failure that actually happened",
+      "text": "tests are for the script you know you'll accidentally modify first.",
+      "tweet_id": "2117293507345809729",
+      "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T16:01:46.495352+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:33",
-    "category": "coding_take",
-    "text": "tests are for the script you know you'll accidentally modify first.",
-    "topic": "writing tests for the failure that actually happened",
-    "topic_approval": "80c56937c45bcfab33ec4a6ce867556cd377365a88bdb2ef7be0130d2df27315",
-    "prepared_at": "2026-11-02T16:31:17.632821+00:00",
-    "run_id": "41482238516",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T16:31:23.528045+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
