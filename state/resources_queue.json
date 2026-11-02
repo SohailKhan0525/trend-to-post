@@ -13297,10 +13297,6 @@
       "source_id": "ahrefs"
     },
     {
-      "url": "https://ahrefs.com/blog/query-fan-out-chatgpt",
-      "source_id": "ahrefs"
-    },
-    {
       "url": "https://ahrefs.com/blog/ai-marketing-trends",
       "source_id": "ahrefs"
     },
@@ -13429,10 +13425,6 @@
       "source_id": "mailchimp"
     },
     {
-      "url": "https://mailchimp.com/resources/ecommerce-email-marketing",
-      "source_id": "mailchimp"
-    },
-    {
       "url": "https://mailchimp.com/resources/the-new-ecommerce-calendar",
       "source_id": "mailchimp"
     },
@@ -13538,10 +13530,6 @@
     },
     {
       "url": "https://rework.withgoogle.com/intl/en/subjects/hiring",
-      "source_id": "rework"
-    },
-    {
-      "url": "https://rework.withgoogle.com/intl/en/guides/a-data-driven-approach-to-optimizing-employee-onboarding",
       "source_id": "rework"
     },
     {
@@ -13673,10 +13661,6 @@
       "source_id": "zapier"
     },
     {
-      "url": "https://zapier.com/blog/inbox-zero",
-      "source_id": "zapier"
-    },
-    {
       "url": "https://zapier.com/blog/recover-deleted-files-google-drive",
       "source_id": "zapier"
     },
@@ -13706,10 +13690,6 @@
     },
     {
       "url": "https://zapier.com/blog/ai-orchestration",
-      "source_id": "zapier"
-    },
-    {
-      "url": "https://zapier.com/blog/all-articles/zapier-feature-guides",
       "source_id": "zapier"
     },
     {
@@ -13767,10 +13747,1774 @@
     {
       "url": "https://zapier.com/blog/generate-direct-dropbox-link",
       "source_id": "zapier"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/blogging-myths-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/brand-visibility",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/rfps",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/write-linkedin-recommendation",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/hubspot-starter-story-acquisition",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/you-need-to-be-an-event-business",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/openai-ceo-fired",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/skyscraper-technique-drive-traffic",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/offer-letter-template",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/website-payments-checklist",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/venture-capital-crm",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/fashion-brands-on-instagram",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-embed-instagram-photos-videos",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/webinar-titles",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/etl-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/evolution-of-search",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/nonprofit-marketing-statistics",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/permission-marketing-automation",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-myths",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/bad-marketing-advice-list",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/plan-social-media-strategy-stats",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/blogging-time-benchmark",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/meta-ai-bots",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-regulation-in-uk",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/free-website-builders",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/decision-tree",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/pinterest-custom-pin-it-url",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-best-time-post",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketers-guide-understanding-statistical-significance",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/the-ultimate-guide-to-facebook-privacy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-repost-on-instagram",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/safeguarding-artistic-rights",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/10-examples-of-effective-re-engagement-emails",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/chamberlain-coffee",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/youtube-description-template",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/anchor-text",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/grow-your-personal-brand-minority-creator",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/web-design-trends-2017",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/generative-ai-video-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-wordpress-themes",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/blog-niche-ideas",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/sick-email-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/gen-z-social-apps",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/get-more-views-on-youtube",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-get-a-job",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/productivity-roadblocks-ai",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-crm-for-hr",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-email-deliverability-optimization",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/b2c-marketing-trends",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/grammar-data-promotion",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/flash-sale-guide",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/gemini-ultra",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/data-integrity",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-ensure-your-blog-is-set-up-right",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/try-before-you-buy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-generated-image-mistakes",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/high-impact-marketing-channels-list",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/plan-instagram-posts",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-at-inbound",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-emojis-infographic",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/why-use-instagram-business",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/search-has-changed-content-needs-to-evolve",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-consumers-learn-about-products",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/science-of-quitting-instagram",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/pinterest-categories",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-build-the-strongest-small-marketing-team",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/aeo-guide-for-founders",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-manage-my-contact-list-in-excel",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/product-placement-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/local-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/generative-engine-optimization",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/unglamorous-truths-about-content-marketing-tl",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/visual-content-types",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/buyer-persona-research",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/boosted-posts-vs-ad",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/7-eleven-soared-in-japan-liquid-death-flopped-in-the-uk",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/social-media-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/pivot-to-video-is-misguided",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-post-template",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/facebook-audience-insights-guide",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/loop-marketing-strategy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/search-ad-copy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/reddit-stats",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/perceptual-set-theory-conversions",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/inclusive-youtube-strategy-0",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/porters-five-forces",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/look-back-20-years-website-design",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/aeo-keyword-research",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/competitor-analysis-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-predictions-experts",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/improve-ad",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/market-research-definition",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/facebook-organic-reach-declining",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/apps-for-removing-duplicate-contacts",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-data-privacy-benefits-marketers",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-story-ads",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/mentor-tips-positive-impact",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-brief",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/direct-response-copywriting",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-automation-software-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/australian-websites",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-make-visual-cta-for-social-media-quick-tip-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/content-format-types-that-earn-citations",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/profound-vs-peec-ai",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/psychological-design-principles",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/anticipated-marketing-challenges",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/b2b-telemarketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/black-friday-ads",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/url-structure-search-friendly",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/10-hard-truths-about-management-no-one-tells-you",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/creator-economy-market-size",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/email-list-segmentation",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-brand-personality",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/online-ad-alternatives",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/cognitive-computing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/business-metrics",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/forms-chat-phone-buyer-journey",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/aeo-page-structure",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/confirmation-email-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/i-took-a-deep-dive-into-the-marketing-funnel-heres-what-i-learned",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/free-visual-content-tools-list",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/job-search-process",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/algorithmic-bias",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/demand-driven-pricing-telfar",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/tiktok-tricks",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ad-management-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-ai-search-optimization-works",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/smart-goal-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-cybersecurity",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-add-html-embed-codes-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-assistant",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/elements-flawless-product-launch-li",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/interactive-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/one-pager",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/websites-that-drive-registrations-for-publishing-events",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/data-visualization-resources",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/human-attention-span-decreased",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/email-persuasion-techniques",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-trivia",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-search-kpis",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-crm-for-roofing-companies",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/video-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-consumers-do-on-social-media",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/enterprise-marketing-automation",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/choosing-fonts-guide",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-guide",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/b2b-marketing-analytics",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/sample-business-plans",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/aravind-srinivas-talks-search",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-an-attribution-window-in-marketing-what-marketers-need-to-know",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/keep-up-with-latest-social-trends",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/attraction-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/seo",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-lite",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/employee-mentorship-program",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/impression-shares",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ppc-landing-pages",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/content-and-media-strategy-report",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-budget-percentage",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/this-newsletter-growth-trend-is-straight-from-wall-street",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-email-marketing-tools-for-real-estate",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/design-creative-podcasts",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/google-posts",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-operator-boost-conversions",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-for-graphic-design",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/receive-payments-online-for-free",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/semantic-search",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/digital-credentials",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/was-it-written-by-ai",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/social-media-shopping-case-studies",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/personalize-content-by-referral-source",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/invoice-samples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/small-business-marketing-guide",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-brand-colors-in-powerpoint-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-target-audience",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/b2b-lead-generation",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-collab-post",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-search-behaviors-are-changing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/5-common-data-integration-challenges-and-how-to-solve-them",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/google-business-tools-for-marketers",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/faqs-for-aeo",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-write-a-video-script-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-persona",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-create-email-newsletters-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-story-dimensions",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/seo-predictions",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/it-business-data-sync",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/forget-b2b-or-b2c-its-time-for-b2h",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/podcast-advertising-tips",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/start-minority-owned-business",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/cutting-costs-in-business",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/turning-data-thought-leadership-into-growth-channel",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/writing-tagline-pitching",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/google-ads-certification",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/monetize-facebook-traffic-with-messenger",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/a-look-back-at-googles-biggest-artificial-intelligence-projects",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/rsla-remarketing-lists-for-search-ads",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/local-pr",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/create-landing-page-on-facebook",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-start-ecommerce-business",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/inclusive-ecommerce-website-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/inclusive-marketing-strategies",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/data-governance",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-behavioral-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/tiktok-attribution-manager",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/meme-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/launch-online-learning-academy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/the-benefits-of-business-blogging-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/unsubscribe-button-best-practices",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-tips-newsletters-youtube-x",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-get-paid-for-reels-on-instagram",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ecommerce-statistics",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/tiktok-trends",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-a-permalink",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/job-inquiry-email",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/6-predictions-for-the-convergence-of-iot-and-digital-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/early-q4-business-data",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-for-influencer-outreach",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/do-not-reply-email",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/market-penetration",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/seo-heist",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/9-components-optimized-marketing-emails-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/concept-map",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-ethics",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/expert-power",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-crm-for-social-media",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/brand-awareness-gen-z",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/new-york-logo-flop",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-api-guide",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/copywriting-lessons-joanna-wiebe",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/why-snapchat-for-business",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/facebook-ads-vs-google-ads",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/zero-employee-marketing-agency",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-often-to-run-prompt-tracking",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/cost-effective-ways-your-nonprofit-can-say-thank-you",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/content-distribution-ideas",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/creativity-event-tips-sxsw-president",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/socially-responsible-brands",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/in-stream-video-ad-data",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/b2b2c-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/contextual-targeting",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/strategies-saas-businesses-grow",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/copywriting-inspiration-list",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-story-formats",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-tool-sprawl",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/enable-https-on-your-website",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/co-marketing-partner-tips",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/linkedin-advertising-campaigns",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-content-creators-are-tackling-the-new-instagram-threads",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/state-of-content-marketing-infographic",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-regulation-in-eu",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/stanley-cup-car-fire",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/aeo-guide-for-marketing-operations",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/most-expensive-keywords-google",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/chatgpt-o3-marketing-campaigns",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/advertising-metrics-roas-buckets",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-ugc",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/emotions-in-advertising-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/experience-disruptors-a-new-breed-of-growth-leaders",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-platform",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/call-to-action-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-writing-tools-blogging",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/healthcare-marketing-metrics",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/product-photography-tips",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/write-compelling-copy-tips",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-crm-software-for-staffing-agencies",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/hubspot-google-analytics-glossary",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/facebook-ad-strategy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/blog-versus-advertorial",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/millennial-stats",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/form-analytics",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/google-disavow",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/events-and-conferences-for-lgbtq-entrepreneurs",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/profound-vs-bluefish",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/six-steps-to-acing-your-startups-content-strategy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/native-entrepreneurs-different-sectors",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/decision-making",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/google-discover",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-motivational-podcasts",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-experimentation",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/get-traffic-pinterest",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/tiktok-ban",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/coolest-google-doodles",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/google-logo-history",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/optimize-email-mobile-list",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/landing-page-myths-list",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-giveaway",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/why-consumers-dont-shop-on-social-media",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/learn-seo",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-the-business-landscape-could-change-in-web-3",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/halloween-puns",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/short-form-video-trends",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/email-opt-in-wording-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/10-best-storytellers",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-search-strategy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/social-media-authenticity",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/wendys-roast-day-tiktok",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/scrunch-vs-semrush",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/beginner-inbound-lead-generation-guide-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/dry-january",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-embed-pinterest-boards-on-your-website-quick-tip",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-multi-channel-marketing-faqs-ht",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/twitter-increase-clickthrough-rate",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/the-trust-factor-for-brand-credibility",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-write-budget-proposal",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/google-cache",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/rfp-template",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-search-visibility",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/creator-economy-stats",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/build-inbound-links",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/luxury-brand-marketing-strategy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/seo-educational-resources-framework",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/blog-strategy-quality-quantity",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/benefit-segmentation",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-to-gen-z",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/optimize-tiktok-bio",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/reasons-attend-inbound-2021",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/brand-voice-tips",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/dofollow-link",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/facebook-is-redesigning-its-news-feed-what-marketers-need-to-know",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/switch-creator-platforms",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/pricing-page-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-the-scarcity-principle-can-transform-e-commerce",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/software-platform",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-generate-more-leads-with-slideshare",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-a-blog",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/data-tracking",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/examples-of-user-generated-content",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/effective-marketing-collateral-list",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/gif-websites",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/the-charles-bukowski-guide-to-copywriting",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/7-things-creators-should-know-about-marketing-their-book",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/social-media-engagement-industry-benchmarks",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-create-a-snapchat-story",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-a-focus-group",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/whatsapp-payments",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/demand-gen-trends-software",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-dsp",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/app-integrations-to-improve-customer-experience",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ethical-decision-making",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/brands-on-whatsapp",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/create-location-on-instagram",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/engagement-after-facebook-news-feed-algorithm-change",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-grammar-checker",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/design-website-experiments",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/creator-economy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/product-seo",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-influencer-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/sampling-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/unstructured-data",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/enterprise-seo",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/search-engine-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-monetize-a-blog",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/design-ecommerce-conversions",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-stories-guide",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/digital-creator",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/grand-opening",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/what-is-dedicated-ip-email-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/b2b-seo-strategy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/happy-customers-marketing-opportunity",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/responsive-web-design",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/analytical-skills",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-marketing-processes",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ultimate-editing-checklist",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/micro-conversion",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-tools-for-ecommerce",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/blogging-trends-to-leverage-according-to-hubspot-leaders",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/a-b-test-landing-page-form-copy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/dunning-kruger",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/new-instagram-features",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/newsletter-growth-marketing-ideas",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/crm-email-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ai-agents-for-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/aeo-b2b-strategy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/landing-page-examples-list",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-does-the-instagram-algorithm-work",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/account-based-marketing-software",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/internal-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/nonprofits-social-media-marketing-data",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/mac-pc-advertising-history",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/call-to-action-formulas",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/ecommerce-content-ideas-for-your-website",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/aeo-mentions-vs-citations",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/youtube-thumbnail",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/intent-based-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/video-trends-to-watch",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/promote-business-on-facebook",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/community-management-vs-social-media-management",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/the-ultimate-guide-to-non_awkward-effective-networking",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/machine-learning-vs-ai",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/facebook-engagement",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/aeo-guide-for-marketing-leaders",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/crm-marketing-automation",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/content-monitoring",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/tiktok-sponsorships",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/go-to-market-teams-ai",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/answer-engine-optimization",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-brands-build-communities",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/data-driven-decision-making",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/should-your-brand-be-on-threads",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/15-weird-and-wonderful-company-holiday-cards",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/free-saas-mini-tool-marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/pop-up-forms-analysis",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/hubspot-blog-marketing-industry-trends-report",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/history-of-online-advertising",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/snapchat-vs.-tiktok",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/relationship-cultivation-strategies-events",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/email-delivery-deliverability",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/survey-email-examples",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/data-science-artificial-intelligence",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/most-followed-tiktok-accounts",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/behavioral-science-billboard",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-prepare-an-advertising-plan",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-crm-for-business-brokers",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/content-structuring-themes-ai-search",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/instagram-marketing-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/understanding-facebook-edgerank-algorithm-infographic",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/free-email-preview-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/leadership-vs-management",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/best-keyword-research-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-deepfakes-impact-influencers",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-budget-templates-for-better-management",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/visual-content-marketing-strategy",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/online-marketing-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/keywords",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/make-your-business-more-organized",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/psychology-personalization",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/corporate-events",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/email-marketing-beginners-guide",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/email-marketing-trends",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/site-search",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/sql-tutorial-introduction",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/webinar-stats",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/how-to-create-a-trade-show-booth",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/video-metrics-your-boss-actually-cares-about",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/nissan-lofi-ad",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/content-marketing-tools",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/consumer-behavior-predictions",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/tiktok-seo",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/x-creator-pay",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing/marketing-audit",
+      "source_id": "hubspotmarketing"
     }
   ],
   "discovery_cursors": {
-    "business owners": 4,
+    "business owners": 6,
     "creators": 2,
     "marketers": 6,
     "CEOs": 2,
