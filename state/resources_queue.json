@@ -195,6 +195,39 @@
       "posted_at": "2026-11-02T20:31:26.633900+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-02:resources-v1:45",
+      "audience": "marketers",
+      "text": "For marketers\n\nDisruptive AI Video Trends\nhttps://blog.hubspot.com/marketing/ai-video-trends\n\nBulk Upload\nhttps://buffer.com/resources/introducing-bulk-upload/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://blog.hubspot.com/marketing/ai-video-trends",
+          "title": "Disruptive AI Video Trends that are Transforming Marketing",
+          "excerpt": "Home Marketing Disruptive AI Video Trends that are Transforming Marketing Disruptive AI Video Trends that are Transforming Marketing Written by: Kipp Bodnar and Kieran Flanagan THE STATE OF AI IN 2026 New research into how marketers are using AI and key insights into the future of marketing with AI. Download the Free Report Updated: 10/06/25 AI-generated video content is turning the marketing world on its head. But what trends should marketers be focusing on to stay ahead of the competition? If you've been following the latest buzz in AI marketing trends — and you should be — you know that AI video tools are at the forefront of this change. Whether it’s trained ad avatars or hyper-personalized video scripts, these technologies are irreversibly changing how we create content and engage with our audiences. But with such rapid innovation, what’s actually worth the hype? Kieran and I experimented with some of these new developments in a recent episode of Marketing Against the Grain , including a viral AI video on Twitter and an AI-generated ad created in less than 15 minutes. Among the m",
+          "aliases": [
+            "https://blog.hubspot.com/marketing/ai-video-trends"
+          ],
+          "fingerprint": "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
+          "source_id": "hubspotmarketing",
+          "verified_at": "2026-11-02T22:01:46.027704+00:00"
+        },
+        {
+          "url": "https://buffer.com/resources/introducing-bulk-upload/",
+          "title": "Bulk Upload: How to Turn a Spreadsheet Into Scheduled Posts in Seconds",
+          "excerpt": "Bulk Upload: How to Turn a Spreadsheet Into Scheduled Posts in Seconds Social Media Marketing Published Aug 26, 2026 Bulk upload lets you schedule a batch of posts from one CSV, on every Buffer plan, including Free. Here's how to build the file and upload it. Reading time 9 minute read Author Kirsti Lang Senior Content Writer @ Buffer Photo Credit: Batch baking, batch posting: same principle, fewer... crumbs? Photo by Taylor Grote on Unsplash If, like me, you love a bit of content batching — I bet you have a spreadsheet for that. 👀 What if I told you *waggles eyebrows* that you don't have to manually copy-paste every single post into your social media scheduling tool ? Bulk Upload does that in one go. You build a CSV, upload it to a channel, and the posts land in your queue or your drafts. It's available on every Buffer plan, including Free. Below are instructions for creating the spreadsheet, uploading it, and a bit of troubleshooting advice (just in case). Bye-bye, busywork! Jump to a section: Key takeaways What Buffer’s Bulk Upload does How many posts you can upload on each plan H",
+          "aliases": [
+            "https://buffer.com/resources/introducing-bulk-upload"
+          ],
+          "fingerprint": "a2b56537579ddd5d7ac2b27c27c4daf0673e455fb513ec4d9745c8b65d1d9f56",
+          "source_id": "buffer",
+          "verified_at": "2026-11-02T22:01:46.938108+00:00"
+        }
+      ],
+      "tweet_id": "2117376691026952402",
+      "posted_at": "2026-11-02T22:01:53.364888+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -676,44 +709,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T20:31:26.633900+00:00",
-  "pending": {
-    "slot": "2026-11-02:resources-v1:45",
-    "audience": "marketers",
-    "labels": [
-      "Disruptive AI Video Trends",
-      "Bulk Upload"
-    ],
-    "resources": [
-      {
-        "url": "https://blog.hubspot.com/marketing/ai-video-trends",
-        "title": "Disruptive AI Video Trends that are Transforming Marketing",
-        "excerpt": "Home Marketing Disruptive AI Video Trends that are Transforming Marketing Disruptive AI Video Trends that are Transforming Marketing Written by: Kipp Bodnar and Kieran Flanagan THE STATE OF AI IN 2026 New research into how marketers are using AI and key insights into the future of marketing with AI. Download the Free Report Updated: 10/06/25 AI-generated video content is turning the marketing world on its head. But what trends should marketers be focusing on to stay ahead of the competition? If you've been following the latest buzz in AI marketing trends — and you should be — you know that AI video tools are at the forefront of this change. Whether it’s trained ad avatars or hyper-personalized video scripts, these technologies are irreversibly changing how we create content and engage with our audiences. But with such rapid innovation, what’s actually worth the hype? Kieran and I experimented with some of these new developments in a recent episode of Marketing Against the Grain , including a viral AI video on Twitter and an AI-generated ad created in less than 15 minutes. Among the m",
-        "aliases": [
-          "https://blog.hubspot.com/marketing/ai-video-trends"
-        ],
-        "fingerprint": "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
-        "source_id": "hubspotmarketing",
-        "verified_at": "2026-11-02T22:01:46.027704+00:00"
-      },
-      {
-        "url": "https://buffer.com/resources/introducing-bulk-upload/",
-        "title": "Bulk Upload: How to Turn a Spreadsheet Into Scheduled Posts in Seconds",
-        "excerpt": "Bulk Upload: How to Turn a Spreadsheet Into Scheduled Posts in Seconds Social Media Marketing Published Aug 26, 2026 Bulk upload lets you schedule a batch of posts from one CSV, on every Buffer plan, including Free. Here's how to build the file and upload it. Reading time 9 minute read Author Kirsti Lang Senior Content Writer @ Buffer Photo Credit: Batch baking, batch posting: same principle, fewer... crumbs? Photo by Taylor Grote on Unsplash If, like me, you love a bit of content batching — I bet you have a spreadsheet for that. 👀 What if I told you *waggles eyebrows* that you don't have to manually copy-paste every single post into your social media scheduling tool ? Bulk Upload does that in one go. You build a CSV, upload it to a channel, and the posts land in your queue or your drafts. It's available on every Buffer plan, including Free. Below are instructions for creating the spreadsheet, uploading it, and a bit of troubleshooting advice (just in case). Bye-bye, busywork! Jump to a section: Key takeaways What Buffer’s Bulk Upload does How many posts you can upload on each plan H",
-        "aliases": [
-          "https://buffer.com/resources/introducing-bulk-upload"
-        ],
-        "fingerprint": "a2b56537579ddd5d7ac2b27c27c4daf0673e455fb513ec4d9745c8b65d1d9f56",
-        "source_id": "buffer",
-        "verified_at": "2026-11-02T22:01:46.938108+00:00"
-      }
-    ],
-    "text": "For marketers\n\nDisruptive AI Video Trends\nhttps://blog.hubspot.com/marketing/ai-video-trends\n\nBulk Upload\nhttps://buffer.com/resources/introducing-bulk-upload/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "f003ed5c204702f396965214b0d37bb3a07c59b292c20df0af5d6760f89db209",
-    "prepared_at": "2026-11-02T22:01:38.991837+00:00",
-    "run_id": "41533576356",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T22:01:53.364888+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://blog.hubspot.com/marketing/ai-video-trends",
