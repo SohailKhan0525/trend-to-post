@@ -31,6 +31,37 @@
       ],
       "tweet_id": "2117302335118475352",
       "posted_at": "2026-11-02T17:06:25.973057+00:00"
+    },
+    {
+      "slot": "2026-11-02:resources-v1:36",
+      "audience": "creators",
+      "text": "For creators\n\nSocial guide\nhttps://blog.hubspot.com/marketing/social-media-dashboard-tools\n\nBluesky guide\nhttps://buffer.com/resources/schedule-to-bluesky/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://blog.hubspot.com/marketing/social-media-dashboard-tools",
+          "title": "The 10 Best Social Media Dashboard Tools & Apps",
+          "excerpt": "Home Marketing The 10 Best Social Media Dashboard Tools & Apps The 10 Best Social Media Dashboard Tools & Apps Written by: Kayla Carmicheal HUBSPOT'S SOCIAL MEDIA SOFTWARE Connect with the people you care about across every social platform. Learn More Updated: 08/28/26 When implementing your social media strategy, it's easy to realize that manually posting on multiple different websites, multiple times a day, isn't optimal for your busy schedule. But it's not easy to tell from a baseline or pricing page which tools are not only the best for efficiency but best for your business. Instead of spending hours of extra research combing through all of your options and sitting through countless demos and free trials, we've compiled a list of the best social media dashboards that fit your budget and brand. Here’s what we’ll cover: What is a social media dashboard What to include in your social media dashboard Best social media dashboards Free social media dashboards What is a Social Media Dashboard Keeping track of social media activity can be challenging if you don’t have the right tools. A ",
+          "aliases": [
+            "https://blog.hubspot.com/marketing/social-media-dashboard-tools"
+          ],
+          "fingerprint": "a3b6c13e1f51d488e5f73088fd9ba36210884fbe103366f9deb3e2c976368442",
+          "source_id": "hubspotmarketing",
+          "verified_at": "2026-11-02T17:35:38.729176+00:00"
+        },
+        {
+          "url": "https://buffer.com/resources/schedule-to-bluesky/",
+          "title": "Here’s How to Schedule on Bluesky in 2026",
+          "excerpt": "Here’s How to Schedule, Crosspost, and More on Bluesky Bluesky Published Jul 24, 2026 A step-by-step guide to scheduling Bluesky posts, cross-posting to other platforms like X or Mastodon, and even creating threads. Reading time 8 minute read Author Kirsti Lang Senior Content Writer @ Buffer With more than 40 million registered users, Bluesky is one of the fastest-growing social networks out there. Among the new wave of fediverse platforms and decentralized networks, Bluesky is possibly the easiest to get to grips with, thanks to its clean interface and ever-increasing community of all sorts of creators. From science to K-pop, there’s a space for everyone on the network. If you’re new to Bluesky and the world of decentralized social media , here’s a quick summary: Bluesky was created by former Twitter CEO Jack Dorsey, and is a decentralized social network built on an open-source protocol called AT Protocol. With the protocol, Bluesky’s mission is to create “an open foundation for the social internet so that we can all shape its future” because “social media is too important to be con",
+          "aliases": [
+            "https://buffer.com/resources/schedule-to-bluesky"
+          ],
+          "fingerprint": "9228738c195b0fecff14f1b1d8b734597fa0811f1298baac3e788e069247f2ac",
+          "source_id": "buffer",
+          "verified_at": "2026-11-02T17:35:40.239865+00:00"
+        }
+      ],
+      "tweet_id": "2117309710844186928",
+      "posted_at": "2026-11-02T17:35:44.919725+00:00"
     }
   ],
   "legacy_history": [
@@ -512,44 +543,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T17:06:25.973057+00:00",
-  "pending": {
-    "slot": "2026-11-02:resources-v1:36",
-    "audience": "creators",
-    "labels": [
-      "Social guide",
-      "Bluesky guide"
-    ],
-    "resources": [
-      {
-        "url": "https://blog.hubspot.com/marketing/social-media-dashboard-tools",
-        "title": "The 10 Best Social Media Dashboard Tools & Apps",
-        "excerpt": "Home Marketing The 10 Best Social Media Dashboard Tools & Apps The 10 Best Social Media Dashboard Tools & Apps Written by: Kayla Carmicheal HUBSPOT'S SOCIAL MEDIA SOFTWARE Connect with the people you care about across every social platform. Learn More Updated: 08/28/26 When implementing your social media strategy, it's easy to realize that manually posting on multiple different websites, multiple times a day, isn't optimal for your busy schedule. But it's not easy to tell from a baseline or pricing page which tools are not only the best for efficiency but best for your business. Instead of spending hours of extra research combing through all of your options and sitting through countless demos and free trials, we've compiled a list of the best social media dashboards that fit your budget and brand. Here’s what we’ll cover: What is a social media dashboard What to include in your social media dashboard Best social media dashboards Free social media dashboards What is a Social Media Dashboard Keeping track of social media activity can be challenging if you don’t have the right tools. A ",
-        "aliases": [
-          "https://blog.hubspot.com/marketing/social-media-dashboard-tools"
-        ],
-        "fingerprint": "a3b6c13e1f51d488e5f73088fd9ba36210884fbe103366f9deb3e2c976368442",
-        "source_id": "hubspotmarketing",
-        "verified_at": "2026-11-02T17:35:38.729176+00:00"
-      },
-      {
-        "url": "https://buffer.com/resources/schedule-to-bluesky/",
-        "title": "Here’s How to Schedule on Bluesky in 2026",
-        "excerpt": "Here’s How to Schedule, Crosspost, and More on Bluesky Bluesky Published Jul 24, 2026 A step-by-step guide to scheduling Bluesky posts, cross-posting to other platforms like X or Mastodon, and even creating threads. Reading time 8 minute read Author Kirsti Lang Senior Content Writer @ Buffer With more than 40 million registered users, Bluesky is one of the fastest-growing social networks out there. Among the new wave of fediverse platforms and decentralized networks, Bluesky is possibly the easiest to get to grips with, thanks to its clean interface and ever-increasing community of all sorts of creators. From science to K-pop, there’s a space for everyone on the network. If you’re new to Bluesky and the world of decentralized social media , here’s a quick summary: Bluesky was created by former Twitter CEO Jack Dorsey, and is a decentralized social network built on an open-source protocol called AT Protocol. With the protocol, Bluesky’s mission is to create “an open foundation for the social internet so that we can all shape its future” because “social media is too important to be con",
-        "aliases": [
-          "https://buffer.com/resources/schedule-to-bluesky"
-        ],
-        "fingerprint": "9228738c195b0fecff14f1b1d8b734597fa0811f1298baac3e788e069247f2ac",
-        "source_id": "buffer",
-        "verified_at": "2026-11-02T17:35:40.239865+00:00"
-      }
-    ],
-    "text": "For creators\n\nSocial guide\nhttps://blog.hubspot.com/marketing/social-media-dashboard-tools\n\nBluesky guide\nhttps://buffer.com/resources/schedule-to-bluesky/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "33b45d2fbfb36eb84213fe2524e4457434305304dc5af265a14145acccf171aa",
-    "prepared_at": "2026-11-02T17:35:34.974253+00:00",
-    "run_id": "41492491740",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T17:35:44.919725+00:00",
+  "pending": null,
   "used_urls": [
     "https://blog.hubspot.com/marketing/social-media-dashboard-tools",
     "https://buffer.com/resources/schedule-to-bluesky",
