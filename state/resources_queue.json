@@ -129,6 +129,39 @@
       "posted_at": "2026-11-02T19:02:08.970641+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-02:resources-v1:41",
+      "audience": "vibecoders",
+      "text": "For vibecoders\n\nCSS layout cookbook\nhttps://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook\n\nGetting Started\nhttps://vite.dev/guide/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
+          "title": "CSS layout cookbook - CSS | MDN MDN MDN Mozilla",
+          "excerpt": "CSS layout cookbook The CSS layout cookbook aims to bring together recipes for common layout patterns, things you might need to implement in your own sites. In addition to providing code you can use as a starting point in your projects, these recipes highlight the different ways layout specifications can be used, and the choices you can make as a developer. Note: If you are new to CSS layout then you might first like to take a look at our CSS layout learning module , as this will give you the basic grounding you need to make use of the recipes here. The Recipes Recipe Description Layout Methods Media objects A two-column box with an image on one side and descriptive text on the other, e.g., a social media post. CSS grid , float fallback, fit-content sizing Columns When to choose multi-column layout, flexbox or grid for your columns. CSS grid , Multicol , Flexbox Center an element How to center an item horizontally and vertically. Flexbox , Box Alignment Sticky footers Creating a footer which sits at the bottom of the container or viewport when the content is shorter. CSS grid , Flexb",
+          "aliases": [
+            "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook"
+          ],
+          "fingerprint": "90a60a1c1664c72005696eade46592b7802336c2b078c6ae632296bda56d35fb",
+          "source_id": "mdn",
+          "verified_at": "2026-11-02T20:01:59.689794+00:00"
+        },
+        {
+          "url": "https://vite.dev/guide/",
+          "title": "Getting Started | Vite",
+          "excerpt": "Getting Started ​ Overview ​ Vite (French word for \"quick\", pronounced /viːt/ , like \"veet\") is a build tool that aims to provide a faster and leaner development experience for modern web projects. It consists of two major parts: A dev server that provides rich feature enhancements over native ES modules , for example extremely fast Hot Module Replacement (HMR) . A build command that bundles your code with Rolldown , pre-configured to output highly optimized static assets for production. Vite is opinionated and comes with sensible defaults out of the box. Read about what's possible in the Features Guide . Support for frameworks or integration with other tools is possible through Plugins . The Config Section explains how to adapt Vite to your project if needed. Vite is also highly extensible via its Plugin API and JavaScript API with full typing support. You can learn more about the rationale behind the project in the Why Vite section. Learn Vite through interactive tutorials on Scrimba Browser Support ​ During development, Vite assumes that a modern browser is used. This means the br",
+          "aliases": [
+            "https://vite.dev/guide"
+          ],
+          "fingerprint": "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
+          "source_id": "vite",
+          "verified_at": "2026-11-02T20:01:59.609236+00:00"
+        }
+      ],
+      "tweet_id": "2117346541816172995",
+      "posted_at": "2026-11-02T20:02:05.697542+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -610,44 +643,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T19:02:08.970641+00:00",
-  "pending": {
-    "slot": "2026-11-02:resources-v1:41",
-    "audience": "vibecoders",
-    "labels": [
-      "CSS layout cookbook",
-      "Getting Started"
-    ],
-    "resources": [
-      {
-        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
-        "title": "CSS layout cookbook - CSS | MDN MDN MDN Mozilla",
-        "excerpt": "CSS layout cookbook The CSS layout cookbook aims to bring together recipes for common layout patterns, things you might need to implement in your own sites. In addition to providing code you can use as a starting point in your projects, these recipes highlight the different ways layout specifications can be used, and the choices you can make as a developer. Note: If you are new to CSS layout then you might first like to take a look at our CSS layout learning module , as this will give you the basic grounding you need to make use of the recipes here. The Recipes Recipe Description Layout Methods Media objects A two-column box with an image on one side and descriptive text on the other, e.g., a social media post. CSS grid , float fallback, fit-content sizing Columns When to choose multi-column layout, flexbox or grid for your columns. CSS grid , Multicol , Flexbox Center an element How to center an item horizontally and vertically. Flexbox , Box Alignment Sticky footers Creating a footer which sits at the bottom of the container or viewport when the content is shorter. CSS grid , Flexb",
-        "aliases": [
-          "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook"
-        ],
-        "fingerprint": "90a60a1c1664c72005696eade46592b7802336c2b078c6ae632296bda56d35fb",
-        "source_id": "mdn",
-        "verified_at": "2026-11-02T20:01:59.689794+00:00"
-      },
-      {
-        "url": "https://vite.dev/guide/",
-        "title": "Getting Started | Vite",
-        "excerpt": "Getting Started ​ Overview ​ Vite (French word for \"quick\", pronounced /viːt/ , like \"veet\") is a build tool that aims to provide a faster and leaner development experience for modern web projects. It consists of two major parts: A dev server that provides rich feature enhancements over native ES modules , for example extremely fast Hot Module Replacement (HMR) . A build command that bundles your code with Rolldown , pre-configured to output highly optimized static assets for production. Vite is opinionated and comes with sensible defaults out of the box. Read about what's possible in the Features Guide . Support for frameworks or integration with other tools is possible through Plugins . The Config Section explains how to adapt Vite to your project if needed. Vite is also highly extensible via its Plugin API and JavaScript API with full typing support. You can learn more about the rationale behind the project in the Why Vite section. Learn Vite through interactive tutorials on Scrimba Browser Support ​ During development, Vite assumes that a modern browser is used. This means the br",
-        "aliases": [
-          "https://vite.dev/guide"
-        ],
-        "fingerprint": "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
-        "source_id": "vite",
-        "verified_at": "2026-11-02T20:01:59.609236+00:00"
-      }
-    ],
-    "text": "For vibecoders\n\nCSS layout cookbook\nhttps://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook\n\nGetting Started\nhttps://vite.dev/guide/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "a9a2c22b42e9301b4c42a967593cbcaffda1bacba21c011fafc42e003fe614ed",
-    "prepared_at": "2026-11-02T20:01:32.893398+00:00",
-    "run_id": "41515311270",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T20:02:05.697542+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://blog.hubspot.com/marketing/landing-page-design",
