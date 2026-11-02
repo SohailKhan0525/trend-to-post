@@ -413,19 +413,18 @@
       "text": "Hello developers\n\nComment your tool that converts markdown tables into nice-looking tables in your docs.",
       "tweet_id": "2117225619771785300",
       "posted_at": "2026-11-02T12:01:37.687761+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:25",
+      "category": "choice",
+      "topic": "keyboard shortcuts or clicking familiar buttons",
+      "text": "Do you rely on keyboard shortcuts or memorize button names for your workflow?",
+      "tweet_id": "2117233099230576726",
+      "posted_at": "2026-11-02T12:31:21.013762+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T12:01:37.687761+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:25",
-    "category": "choice",
-    "text": "Do you rely on keyboard shortcuts or memorize button names for your workflow?",
-    "topic": "keyboard shortcuts or clicking familiar buttons",
-    "topic_approval": "8afd06d9bf78f7671802c33e6cef950fac8fc417fa7c094cb56f42f3e61744b1",
-    "prepared_at": "2026-11-02T12:31:16.808090+00:00",
-    "run_id": "41445343511",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T12:31:21.013762+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
