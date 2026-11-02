@@ -437,19 +437,18 @@
       "text": "unlocking your laptop to remember you forgot to save the pdf reader.",
       "tweet_id": "2117255868832158183",
       "posted_at": "2026-11-02T14:01:49.615739+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:29",
+      "category": "coding_take",
+      "topic": "configuring an editor instead of finishing code",
+      "text": "i'd rather configure an editor to save time than finish coding in the wrong one.",
+      "tweet_id": "2117263321489650131",
+      "posted_at": "2026-11-02T14:31:26.631704+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T14:01:49.615739+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:29",
-    "category": "coding_take",
-    "text": "i'd rather configure an editor to save time than finish coding in the wrong one.",
-    "topic": "configuring an editor instead of finishing code",
-    "topic_approval": "7c28f16d6099e1d96153da9dcbc778a758271a1fcd383b5b1eaf85deb8a50b1e",
-    "prepared_at": "2026-11-02T14:31:21.191664+00:00",
-    "run_id": "41462693709",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T14:31:26.631704+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
