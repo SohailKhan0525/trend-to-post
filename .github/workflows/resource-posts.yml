@@ -34,9 +34,9 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
-      - name: Preview a real verified resource pair
+      - name: Preview real verified pairs across every audience
         if: github.event_name == 'push'
-        run: python -m app preview
+        run: python -m app preview --all-categories
       - name: Find two unused links and prepare one due post
         id: prepare
         run: python -m app prepare --start-now

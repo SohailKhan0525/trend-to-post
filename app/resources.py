@@ -120,7 +120,8 @@ def discover(source,seed):
         root=fetch(source['root'],source['hosts'])
         doc=Document();doc.feed(root.body.decode('utf-8',errors='replace'))
         links.extend(urljoin(root.url,u) for u in doc.links)
-    except LinkError:pass
+        print(f"Discovery {source['id']}: {len(doc.links)} page links read")
+    except LinkError as exc:print(f"Discovery {source['id']}: source page skipped ({exc})")
     try:
         robots=fetch('https://'+urlsplit(source['root']).hostname+'/robots.txt',source['hosts'])
         maps=re.findall(r'^Sitemap:\s*(https://\S+)',robots.body.decode('utf-8',errors='replace'),re.I|re.M)
@@ -128,9 +129,10 @@ def discover(source,seed):
         for sitemap in maps[:1]:
             try:links.extend(_sitemap_links(sitemap,source,seed))
             except (LinkError,ET.ParseError,OSError):continue
-    except LinkError:pass
+    except LinkError as exc:print(f"Discovery {source['id']}: robots/sitemap skipped ({exc})")
     accepted=list(dict.fromkeys(canonical(u) for u in links if eligible(u,source)))
     random.Random(seed).shuffle(accepted)
+    print(f"Discovery {source['id']}: {len(accepted)} eligible URLs")
     return [{'url':u,'source_id':source['id']} for u in accepted[:700]]
 
 

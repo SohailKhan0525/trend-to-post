@@ -240,7 +240,8 @@
     "id": "freecodecamp",
     "root": "https://www.freecodecamp.org/news/",
     "hosts": [
-      "www.freecodecamp.org"
+      "www.freecodecamp.org",
+      "freecodecamp.org"
     ],
     "paths": [
       "/news/"
@@ -268,7 +269,8 @@
     "id": "openlearn",
     "root": "https://www.open.edu/openlearn/free-courses/full-catalogue",
     "hosts": [
-      "www.open.edu"
+      "www.open.edu",
+      "open.edu"
     ],
     "paths": [
       "/openlearn/science-maths-technology/",
@@ -297,7 +299,8 @@
     "id": "khan",
     "root": "https://www.khanacademy.org/math",
     "hosts": [
-      "www.khanacademy.org"
+      "www.khanacademy.org",
+      "khanacademy.org"
     ],
     "paths": [
       "/math/",
@@ -328,7 +331,8 @@
     "id": "interviewhandbook",
     "root": "https://www.techinterviewhandbook.org/software-engineering-interview-guide/",
     "hosts": [
-      "www.techinterviewhandbook.org"
+      "www.techinterviewhandbook.org",
+      "techinterviewhandbook.org"
     ],
     "paths": [
       "/software-engineering-interview-guide/",
@@ -347,7 +351,8 @@
     "id": "atlassian",
     "root": "https://www.atlassian.com/team-playbook/plays",
     "hosts": [
-      "www.atlassian.com"
+      "www.atlassian.com",
+      "atlassian.com"
     ],
     "paths": [
       "/team-playbook/"
@@ -411,7 +416,8 @@
     "id": "ycombinator",
     "root": "https://www.ycombinator.com/library",
     "hosts": [
-      "www.ycombinator.com"
+      "www.ycombinator.com",
+      "ycombinator.com"
     ],
     "paths": [
       "/library/"
@@ -502,7 +508,8 @@
     "id": "figma",
     "root": "https://www.figma.com/resource-library/",
     "hosts": [
-      "www.figma.com"
+      "www.figma.com",
+      "figma.com"
     ],
     "paths": [
       "/resource-library/"
@@ -516,7 +523,8 @@
     "id": "nngroup",
     "root": "https://www.nngroup.com/articles/",
     "hosts": [
-      "www.nngroup.com"
+      "www.nngroup.com",
+      "nngroup.com"
     ],
     "paths": [
       "/articles/"
@@ -531,7 +539,8 @@
     "id": "a11y",
     "root": "https://www.a11yproject.com/checklist/",
     "hosts": [
-      "www.a11yproject.com"
+      "www.a11yproject.com",
+      "a11yproject.com"
     ],
     "paths": [
       "/checklist/",
@@ -548,7 +557,8 @@
     "id": "canvalearn",
     "root": "https://www.canva.com/learn/",
     "hosts": [
-      "www.canva.com"
+      "www.canva.com",
+      "canva.com"
     ],
     "paths": [
       "/learn/"
@@ -563,7 +573,8 @@
     "id": "adobelearn",
     "root": "https://www.adobe.com/learn/",
     "hosts": [
-      "www.adobe.com"
+      "www.adobe.com",
+      "adobe.com"
     ],
     "paths": [
       "/learn/"
@@ -577,7 +588,8 @@
     "id": "notion",
     "root": "https://www.notion.com/help/guides",
     "hosts": [
-      "www.notion.com"
+      "www.notion.com",
+      "notion.com"
     ],
     "paths": [
       "/help/guides/"
@@ -607,7 +619,8 @@
     "id": "todoist",
     "root": "https://www.todoist.com/productivity-methods",
     "hosts": [
-      "www.todoist.com"
+      "www.todoist.com",
+      "todoist.com"
     ],
     "paths": [
       "/productivity-methods/",
@@ -655,7 +668,8 @@
     "id": "coursera",
     "root": "https://www.coursera.org/articles",
     "hosts": [
-      "www.coursera.org"
+      "www.coursera.org",
+      "coursera.org"
     ],
     "paths": [
       "/articles/"

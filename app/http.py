@@ -82,7 +82,7 @@ def fetch(url,hosts):
                 redirects.append(current)
                 current=urljoin(current,exc.headers['Location'])
                 continue
-            raise LinkError('HTTP verification failed') from exc
+            raise LinkError(f'HTTP verification failed ({exc.code})') from exc
         except (OSError,urllib.error.URLError) as exc:
             raise LinkError('Network verification failed') from exc
         with response:

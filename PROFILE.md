@@ -17,3 +17,5 @@ Visual identity: a single vermilion bookmark, warm ivory paper and black ink. No
 Avatar and banner were generated together for this identity. The banner reads "Kit's Bookmarks" and "Two links. Worth your time." Keep its lower-left area clear for the avatar.
 
 The profile editor must confirm the real account changes. This document is copy and implementation guidance, not evidence that the account has been changed. Existing posts remain.
+
+Ready-to-upload files: [avatar](profile/avatar.jpg) (400×400 JPEG) and [banner](profile/banner.jpg) (1500×500 JPEG). Both are under X's image size limits.
