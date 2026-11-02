@@ -296,7 +296,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T02:31:22.883846+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:5",
+    "category": "relatable",
+    "text": "when you finally name a file and later realize you named it all wrong",
+    "topic": "naming files final and then editing them again",
+    "topic_approval": "01131a1010e30d77c4e5ea6df1286879079fd6250ecc3a8ae19d787695337fe8",
+    "prepared_at": "2026-11-02T03:01:31.165431+00:00",
+    "run_id": "41380764914",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
