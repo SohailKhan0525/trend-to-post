@@ -1,6 +1,38 @@
 {
   "version": 4,
-  "history": [],
+  "history": [
+    {
+      "slot": "2026-11-02:resources-v1:35",
+      "audience": "business owners",
+      "text": "For business owners\n\nProductivity method quiz\nhttps://www.todoist.com/productivity-methods\n\nTeam exercise collection\nhttps://www.atlassian.com/team-playbook/plays\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.todoist.com/productivity-methods",
+          "title": "[Quiz] Which productivity method is right for you? Get a personalized recommendation",
+          "excerpt": "Or explore on your own Getting Things Done (GTD) Systematize the clutter in your brain and get things done Popular Task management Kanban Move your project through a visual pipeline from start to finish Popular Task management Teamwork Prioritization Time Blocking ...and its cousins task batching and day theming. Control your schedule so it doesn't control you Popular Focus Time management Eat the Frog If it's your job to eat a frog, it's best to do it first thing in the morning Popular Focus Procrastination Prioritization The Pomodoro Technique Beat procrastination and improve your focus one pomodoro at a time Popular Time management Procrastination Focus The Eisenhower Matrix Avoid the \"Urgency Trap\" with Dwight D. Eisenhower's famous prioritization framework Popular Prioritization Systemist Follow Todoist's founder's personal productivity system Task management Prioritization The Medium Method Want to be more productive? Don't go (completely) paperless Task management Prioritization Objectives & Key Results (OKRs) Set rigorous goals that align big-picture priorities with day-to-da",
+          "aliases": [
+            "https://www.todoist.com/productivity-methods"
+          ],
+          "fingerprint": "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
+          "source_id": "todoist",
+          "verified_at": "2026-11-02T17:06:20.981823+00:00"
+        },
+        {
+          "url": "https://www.atlassian.com/team-playbook/plays",
+          "title": "Find Your Team Plays | Atlassian",
+          "excerpt": "Find the right Plays for your team Exercises designed to improve how you work. Try the Play recommendation quiz to get started. | Most popular All Plays Retrospective OKRs Roles and responsibilities Health monitor DACI User manual Working agreements Align work to goals All plays Goal-setting Prioritization Decision-making Plan & track work All plays Clarifying roles Project planning Productivity Collaboration Unleash knowledge All plays Communication Debriefs Meetings Culture Connection Make AI part of the team All plays Optimize with AI Build with AI Innovate with AI Team plays / Most popular All Plays All Plays Retrospective OKRs Roles and responsibilities Health monitor DACI User manual Working agreements Align work to goals All plays All plays Goal-setting Prioritization Decision-making Plan & track work All plays All plays Clarifying roles Project planning Productivity Collaboration Unleash knowledge All plays All plays Communication Debriefs Meetings Culture Connection Make AI part of the team All plays All plays Optimize with AI Build with AI Innovate with AI 95 Results × Stay",
+          "aliases": [
+            "https://www.atlassian.com/team-playbook/plays"
+          ],
+          "fingerprint": "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
+          "source_id": "atlassian",
+          "verified_at": "2026-11-02T17:06:20.964199+00:00"
+        }
+      ],
+      "tweet_id": "2117302335118475352",
+      "posted_at": "2026-11-02T17:06:25.973057+00:00"
+    }
+  ],
   "legacy_history": [
     {
       "slot": "2026-10-31:13",
@@ -480,44 +512,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T16:31:23.528045+00:00",
-  "pending": {
-    "slot": "2026-11-02:resources-v1:35",
-    "audience": "business owners",
-    "labels": [
-      "Productivity method quiz",
-      "Team exercise collection"
-    ],
-    "resources": [
-      {
-        "url": "https://www.todoist.com/productivity-methods",
-        "title": "[Quiz] Which productivity method is right for you? Get a personalized recommendation",
-        "excerpt": "Or explore on your own Getting Things Done (GTD) Systematize the clutter in your brain and get things done Popular Task management Kanban Move your project through a visual pipeline from start to finish Popular Task management Teamwork Prioritization Time Blocking ...and its cousins task batching and day theming. Control your schedule so it doesn't control you Popular Focus Time management Eat the Frog If it's your job to eat a frog, it's best to do it first thing in the morning Popular Focus Procrastination Prioritization The Pomodoro Technique Beat procrastination and improve your focus one pomodoro at a time Popular Time management Procrastination Focus The Eisenhower Matrix Avoid the \"Urgency Trap\" with Dwight D. Eisenhower's famous prioritization framework Popular Prioritization Systemist Follow Todoist's founder's personal productivity system Task management Prioritization The Medium Method Want to be more productive? Don't go (completely) paperless Task management Prioritization Objectives & Key Results (OKRs) Set rigorous goals that align big-picture priorities with day-to-da",
-        "aliases": [
-          "https://www.todoist.com/productivity-methods"
-        ],
-        "fingerprint": "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
-        "source_id": "todoist",
-        "verified_at": "2026-11-02T17:06:20.981823+00:00"
-      },
-      {
-        "url": "https://www.atlassian.com/team-playbook/plays",
-        "title": "Find Your Team Plays | Atlassian",
-        "excerpt": "Find the right Plays for your team Exercises designed to improve how you work. Try the Play recommendation quiz to get started. | Most popular All Plays Retrospective OKRs Roles and responsibilities Health monitor DACI User manual Working agreements Align work to goals All plays Goal-setting Prioritization Decision-making Plan & track work All plays Clarifying roles Project planning Productivity Collaboration Unleash knowledge All plays Communication Debriefs Meetings Culture Connection Make AI part of the team All plays Optimize with AI Build with AI Innovate with AI Team plays / Most popular All Plays All Plays Retrospective OKRs Roles and responsibilities Health monitor DACI User manual Working agreements Align work to goals All plays All plays Goal-setting Prioritization Decision-making Plan & track work All plays All plays Clarifying roles Project planning Productivity Collaboration Unleash knowledge All plays All plays Communication Debriefs Meetings Culture Connection Make AI part of the team All plays All plays Optimize with AI Build with AI Innovate with AI 95 Results × Stay",
-        "aliases": [
-          "https://www.atlassian.com/team-playbook/plays"
-        ],
-        "fingerprint": "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
-        "source_id": "atlassian",
-        "verified_at": "2026-11-02T17:06:20.964199+00:00"
-      }
-    ],
-    "text": "For business owners\n\nProductivity method quiz\nhttps://www.todoist.com/productivity-methods\n\nTeam exercise collection\nhttps://www.atlassian.com/team-playbook/plays\n\nThank me later.\nFollow for more useful links.",
-    "approval": "9870f3a35e0df406a75ab3c3884d530420e0609ac475fcde61f52bbb8825c2ae",
-    "prepared_at": "2026-11-02T17:06:19.015630+00:00",
-    "run_id": "41487779628",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T17:06:25.973057+00:00",
+  "pending": null,
   "used_urls": [
     "https://t.co/3C7ZAkzRbT",
     "https://t.co/CI5nOrAC48",
