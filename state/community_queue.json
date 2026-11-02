@@ -333,19 +333,18 @@
       "text": "should an ai tool give instant feedback or show changes first, then explain?",
       "tweet_id": "2117119896928813372",
       "posted_at": "2026-11-02T05:01:31.571309+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:11",
+      "category": "coding_take",
+      "topic": "rewriting working code out of boredom",
+      "text": "typing out working code just to see if it's really that simple is fascinatingly frustrating.",
+      "tweet_id": "2117135002148438280",
+      "posted_at": "2026-11-02T06:01:33.048647+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T05:01:31.571309+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:11",
-    "category": "coding_take",
-    "text": "typing out working code just to see if it's really that simple is fascinatingly frustrating.",
-    "topic": "rewriting working code out of boredom",
-    "topic_approval": "d47ea4697c0d5baca322da8a497b2db7a182539d5b75cb1b40df624824fda2af",
-    "prepared_at": "2026-11-02T06:01:28.276750+00:00",
-    "run_id": "41397354644",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T06:01:33.048647+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
