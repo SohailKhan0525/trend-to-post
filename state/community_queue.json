@@ -464,7 +464,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T15:31:20.612864+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:32",
+    "category": "curiosity",
+    "text": "do saved bookmarks count as plans or just lazy notes?",
+    "topic": "whether a saved bookmark counts as a plan",
+    "topic_approval": "5aae0157178a10522db29ccaec248b3179309f6b864c2c0255ef41bed097e91a",
+    "prepared_at": "2026-11-02T16:01:42.444102+00:00",
+    "run_id": "41477328788",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
