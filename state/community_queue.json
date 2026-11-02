@@ -381,19 +381,18 @@
       "text": "unlocking your phone to realize you forgot what you were looking for",
       "tweet_id": "2117180351726649517",
       "posted_at": "2026-11-02T09:01:45.174824+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:20",
+      "category": "choice",
+      "topic": "delete bookmarks or organize them",
+      "text": "do you delete bookmarks or let them clutter your browser forever?",
+      "tweet_id": "2117195414827098275",
+      "posted_at": "2026-11-02T10:01:36.517655+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T09:01:45.174824+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:20",
-    "category": "choice",
-    "text": "do you delete bookmarks or let them clutter your browser forever?",
-    "topic": "delete bookmarks or organize them",
-    "topic_approval": "ab89f68a8023ab0055b18fe69e27c817a1b43051ae5f41999942bdea9b831d3f",
-    "prepared_at": "2026-11-02T10:01:31.433384+00:00",
-    "run_id": "41425357577",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T10:01:36.517655+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
