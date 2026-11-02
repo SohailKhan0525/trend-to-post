@@ -461,19 +461,18 @@
       "text": "comment your least favorite file format for documentation, one that always causes more annoyance than clarity.",
       "tweet_id": "2117278396497748467",
       "posted_at": "2026-11-02T15:31:20.612864+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:32",
+      "category": "curiosity",
+      "topic": "whether a saved bookmark counts as a plan",
+      "text": "do saved bookmarks count as plans or just lazy notes?",
+      "tweet_id": "2117286053287809341",
+      "posted_at": "2026-11-02T16:01:46.495352+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T15:31:20.612864+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:32",
-    "category": "curiosity",
-    "text": "do saved bookmarks count as plans or just lazy notes?",
-    "topic": "whether a saved bookmark counts as a plan",
-    "topic_approval": "5aae0157178a10522db29ccaec248b3179309f6b864c2c0255ef41bed097e91a",
-    "prepared_at": "2026-11-02T16:01:42.444102+00:00",
-    "run_id": "41477328788",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T16:01:46.495352+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
