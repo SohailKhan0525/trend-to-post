@@ -228,6 +228,39 @@
       "posted_at": "2026-11-02T22:01:53.364888+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-02:resources-v1:46",
+      "audience": "business owners",
+      "text": "For business owners\n\nShape Up\nhttps://basecamp.com/shapeup\n\nPeople Team\nhttps://www.atlassian.com/team-playbook/examples/people-team\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://basecamp.com/shapeup",
+          "title": "Shape Up: Stop Running in Circles and Ship Work that Matters",
+          "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. ← Basecamp.com Shape Up Stop Running in Circles and Ship Work that Matters by Ryan Singer Buy the print edition Start reading → Introduction Foreword by Jason Fried Acknowledgements Chapter 1 Introduction Growing pains Six-week cycles Shaping the work Making teams responsible Targeting risk How this book is organized Part 1: Shaping Chapter 2 Principles of Shaping Wireframes are too concrete Words are too abstract Case study: The Dot Grid Calendar Property 1: It’s rough Property 2: It’s solved Property 3: It’s bounded Who shapes Two tracks Steps to shaping Chapter 3 Set Boundaries Setting the appetite Fixed time, variable scope \"Good\" is relative Responding to raw ideas Narrow down the problem Case study: Defining \"calendar\" Watch out for grab-bags Boundaries in place Chapter 4 Find the Elements Move at the right speed Breadboarding Fat marker sketches Elements are the output Room for designers Not deliverable yet No conveyor belt Chapter 5 Risks and Ra",
+          "aliases": [
+            "https://basecamp.com/shapeup"
+          ],
+          "fingerprint": "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
+          "source_id": "shapeup",
+          "verified_at": "2026-11-02T22:31:16.562691+00:00"
+        },
+        {
+          "url": "https://www.atlassian.com/team-playbook/examples/people-team",
+          "title": "People Team is the new HR | Atlassian",
+          "excerpt": "Moving from an HR team to a People team Cross-functional people teams that include talent and recruiting specialists, business partners, and rewards managers are the future of HR. But new ways of managing dependencies and making decisions across functions can feel awkward at first. Here are four go-to plays that'll help you build the deep collaboration muscles you need to get work done and change your culture. Top 4 plays for becoming a people team Help diverse HR functions collaborate closely for the first time so your projects aren't mired in a clusterf*ck. Project Poster A project poster helps you articulate why the project fits with your broader strategies. You'll also think through the problem you're trying to solve, assumptions you're making, and envision what the solution might look like. Start play DACI As a cross-functional team, you'll now have to take more diverse factors into account when making decisions. Use this play to determine what each person's role is in the decision-making process and lay out the various options you're considering. Start play Experience Canvas Ge",
+          "aliases": [
+            "https://www.atlassian.com/team-playbook/examples/people-team"
+          ],
+          "fingerprint": "7dae16ed58fc3b34f9a7d33c6e4c5a7c0f96c35465deb5ceb45f98d8bcbc8ff8",
+          "source_id": "atlassian",
+          "verified_at": "2026-11-02T22:31:16.548803+00:00"
+        }
+      ],
+      "tweet_id": "2117384105704984797",
+      "posted_at": "2026-11-02T22:31:21.558969+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -709,44 +742,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T22:01:53.364888+00:00",
-  "pending": {
-    "slot": "2026-11-02:resources-v1:46",
-    "audience": "business owners",
-    "labels": [
-      "Shape Up",
-      "People Team"
-    ],
-    "resources": [
-      {
-        "url": "https://basecamp.com/shapeup",
-        "title": "Shape Up: Stop Running in Circles and Ship Work that Matters",
-        "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. ← Basecamp.com Shape Up Stop Running in Circles and Ship Work that Matters by Ryan Singer Buy the print edition Start reading → Introduction Foreword by Jason Fried Acknowledgements Chapter 1 Introduction Growing pains Six-week cycles Shaping the work Making teams responsible Targeting risk How this book is organized Part 1: Shaping Chapter 2 Principles of Shaping Wireframes are too concrete Words are too abstract Case study: The Dot Grid Calendar Property 1: It’s rough Property 2: It’s solved Property 3: It’s bounded Who shapes Two tracks Steps to shaping Chapter 3 Set Boundaries Setting the appetite Fixed time, variable scope \"Good\" is relative Responding to raw ideas Narrow down the problem Case study: Defining \"calendar\" Watch out for grab-bags Boundaries in place Chapter 4 Find the Elements Move at the right speed Breadboarding Fat marker sketches Elements are the output Room for designers Not deliverable yet No conveyor belt Chapter 5 Risks and Ra",
-        "aliases": [
-          "https://basecamp.com/shapeup"
-        ],
-        "fingerprint": "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
-        "source_id": "shapeup",
-        "verified_at": "2026-11-02T22:31:16.562691+00:00"
-      },
-      {
-        "url": "https://www.atlassian.com/team-playbook/examples/people-team",
-        "title": "People Team is the new HR | Atlassian",
-        "excerpt": "Moving from an HR team to a People team Cross-functional people teams that include talent and recruiting specialists, business partners, and rewards managers are the future of HR. But new ways of managing dependencies and making decisions across functions can feel awkward at first. Here are four go-to plays that'll help you build the deep collaboration muscles you need to get work done and change your culture. Top 4 plays for becoming a people team Help diverse HR functions collaborate closely for the first time so your projects aren't mired in a clusterf*ck. Project Poster A project poster helps you articulate why the project fits with your broader strategies. You'll also think through the problem you're trying to solve, assumptions you're making, and envision what the solution might look like. Start play DACI As a cross-functional team, you'll now have to take more diverse factors into account when making decisions. Use this play to determine what each person's role is in the decision-making process and lay out the various options you're considering. Start play Experience Canvas Ge",
-        "aliases": [
-          "https://www.atlassian.com/team-playbook/examples/people-team"
-        ],
-        "fingerprint": "7dae16ed58fc3b34f9a7d33c6e4c5a7c0f96c35465deb5ceb45f98d8bcbc8ff8",
-        "source_id": "atlassian",
-        "verified_at": "2026-11-02T22:31:16.548803+00:00"
-      }
-    ],
-    "text": "For business owners\n\nShape Up\nhttps://basecamp.com/shapeup\n\nPeople Team\nhttps://www.atlassian.com/team-playbook/examples/people-team\n\nThank me later.\nFollow for more useful links.",
-    "approval": "9f864655b9dfbbf2ea182a93a0aee02ba571d5c4d9dedc32dd0df4aea12e70cd",
-    "prepared_at": "2026-11-02T22:31:15.878049+00:00",
-    "run_id": "41537920034",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T22:31:21.558969+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
