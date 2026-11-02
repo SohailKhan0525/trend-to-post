@@ -253,19 +253,18 @@
       "text": "does a website with incomplete features feel unfinished or still in progress?",
       "tweet_id": "2117041644528975982",
       "posted_at": "2026-11-01T23:50:34.669629+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:0",
+      "category": "choice",
+      "topic": "fast rough prototype or slow polished demo",
+      "text": "Do you prioritize a demo that dazzles or one that solves a real problem?",
+      "tweet_id": "2117051904148856903",
+      "posted_at": "2026-11-02T00:31:20.914881+00:00"
     }
   ],
-  "last_posted_at": "2026-11-01T23:50:34.669629+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:0",
-    "category": "choice",
-    "text": "Do you prioritize a demo that dazzles or one that solves a real problem?",
-    "topic": "fast rough prototype or slow polished demo",
-    "topic_approval": "7568f7cff3e2e6b9fb1bc0af7047d1ac679ef1a31f0d936ae6e5a722ce83f74a",
-    "prepared_at": "2026-11-02T00:31:16.703468+00:00",
-    "run_id": "41367567920",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T00:31:20.914881+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
