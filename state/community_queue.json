@@ -408,7 +408,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T11:31:26.969662+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:24",
+    "category": "showcase",
+    "text": "Hello developers\n\nComment your tool that converts markdown tables into nice-looking tables in your docs.",
+    "topic": "developers: invite a tool that removes a tedious step",
+    "topic_approval": "65fc3943d6eabd255715536f6a074561b706ec270096b33a393601e6db049414",
+    "prepared_at": "2026-11-02T12:01:31.404002+00:00",
+    "run_id": "41441321621",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
