@@ -730,7 +730,7 @@
       "source_id": "webdev"
     },
     {
-      "url": "https://developer.chrome.com/docs/devtools/",
+      "url": "https://developer.chrome.com/docs/devtools",
       "source_id": "chrome"
     },
     {
@@ -768,14 +768,6 @@
     {
       "url": "https://opencode.ai/docs/",
       "source_id": "opencode"
-    },
-    {
-      "url": "https://docs.lovable.dev/",
-      "source_id": "lovable"
-    },
-    {
-      "url": "https://support.bolt.new/",
-      "source_id": "bolt"
     },
     {
       "url": "https://learn.microsoft.com/en-us/training/",
@@ -7214,10 +7206,6 @@
       "source_id": "webdev"
     },
     {
-      "url": "https://web.dev/learn/testing",
-      "source_id": "webdev"
-    },
-    {
       "url": "https://web.dev/learn/images",
       "source_id": "webdev"
     },
@@ -11886,10 +11874,6 @@
       "source_id": "vercel"
     },
     {
-      "url": "https://vercel.com/docs/ai-gateway/coding-agents/pi",
-      "source_id": "vercel"
-    },
-    {
       "url": "https://vercel.com/docs/rest-api/sdk/vercel-ci/get-log-lines-for-the-tasks-of-an-invocation-attempt",
       "source_id": "vercel"
     },
@@ -12576,6 +12560,390 @@
     {
       "url": "https://vercel.com/docs/rest-api/sdk/vcr/push-an-image-manifest",
       "source_id": "vercel"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/developer-resources",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/device-mode/override-user-agent",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/elements",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/network",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/application",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/coverage",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/security",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/rendering",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/settings/ai-innovations",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/performance-monitor",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/recorder/overview",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/settings",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/lighthouse",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/accessibility/reference",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/whats-new",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/ai-assistance/get-started",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/console",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/issues",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/protocol-monitor",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/network/overview",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/media-panel",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/css",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/agents/get-started",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/workspaces",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/changes",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/sensors",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/overview",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/request-conditions",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/animations",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/autofill",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/release-notes",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/sources",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/memory",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/layers",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/css/animations",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/webauthn",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/ai-assistance/data-usage-and-enterprise-controls",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/performance/overview",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/memory-inspector",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/quick-source",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/ai-assistance/code-generation",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/webaudio",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/progressive-web-apps",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/ai-assistance/chat",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/dom",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/css-overview",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://react.dev/learn/thinking-in-react",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/escape-hatches",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/reacting-to-input-with-state",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/state-as-a-snapshot",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/react-compiler/debugging",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/installation",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/scaling-up-with-reducer-and-context",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/separating-events-from-effects",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/your-first-component",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/adding-interactivity",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/lifecycle-of-reactive-effects",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/you-might-not-need-an-effect",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/react-compiler",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/react-developer-tools",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/tutorial-tic-tac-toe",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/manipulating-the-dom-with-refs",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/react-compiler/installation",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/add-react-to-an-existing-project",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/setup",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/typescript",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/responding-to-events",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/keeping-components-pure",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/preserving-and-resetting-state",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/editor-setup",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/build-a-react-app-from-scratch",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/conditional-rendering",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/understanding-your-ui-as-a-tree",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/referencing-values-with-refs",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/react-compiler/introduction",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/synchronizing-with-effects",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/choosing-the-state-structure",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/updating-arrays-in-state",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/writing-markup-with-jsx",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/react-compiler/incremental-adoption",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/passing-data-deeply-with-context",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/extracting-state-logic-into-a-reducer",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/render-and-commit",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/updating-objects-in-state",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/sharing-state-between-components",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/state-a-components-memory",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/removing-effect-dependencies",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/creating-a-react-app",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/importing-and-exporting-components",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/javascript-in-jsx-with-curly-braces",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/describing-the-ui",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/passing-props-to-a-component",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/queueing-a-series-of-state-updates",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/rendering-lists",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/reusing-logic-with-custom-hooks",
+      "source_id": "react"
+    },
+    {
+      "url": "https://react.dev/learn/managing-state",
+      "source_id": "react"
     }
   ],
   "discovery_cursors": {
@@ -12584,7 +12952,7 @@
     "marketers": 2,
     "CEOs": 2,
     "students": 2,
-    "vibecoders": 2,
+    "vibecoders": 4,
     "founders": 2
   }
 }
