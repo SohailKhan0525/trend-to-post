@@ -1,0 +1,727 @@
+{
+  "version": 4,
+  "history": [],
+  "legacy_history": [
+    {
+      "slot": "2026-10-31:13",
+      "category": "question",
+      "text": "Hey makers, what's the most important thing you cut from your MVP to get it out the door?",
+      "tweet_id": "2116570334992470040",
+      "posted_at": "2026-10-31T16:37:45.529708+00:00"
+    },
+    {
+      "slot": "2026-10-31:14",
+      "category": "connect",
+      "text": "I'm still trying to figure out how to make my product discoverable. What's the one thing you wish you'd known about getting noticed early on?",
+      "tweet_id": "2116596130603466954",
+      "posted_at": "2026-10-31T18:20:16.062820+00:00"
+    },
+    {
+      "slot": "2026-10-31:15",
+      "category": "coding_take",
+      "text": "Unpopular opinion: People spend too much time configuring editors instead of writing code.",
+      "tweet_id": "2116606512743448939",
+      "posted_at": "2026-10-31T19:01:31.367400+00:00"
+    },
+    {
+      "slot": "2026-10-31:16",
+      "category": "showcase",
+      "text": "Hello indie hackers\n\nComment your latest tool. I'll try it if I need it.",
+      "tweet_id": "2116621594630267316",
+      "posted_at": "2026-10-31T20:01:26.830185+00:00"
+    },
+    {
+      "slot": "2026-10-31:17",
+      "category": "connect",
+      "text": "Hello developers\n\nLet's connect with people shipping products.",
+      "tweet_id": "2116636702056083559",
+      "posted_at": "2026-10-31T21:01:28.881004+00:00"
+    },
+    {
+      "slot": "2026-10-31:18",
+      "category": "coding_take",
+      "text": "If you're coding 100% on a laptop you're probably new to coding.",
+      "tweet_id": "2116651822308024466",
+      "posted_at": "2026-10-31T22:01:34.061061+00:00"
+    },
+    {
+      "slot": "2026-10-31:19",
+      "category": "coding_take",
+      "text": "Unpopular opinion: Tiny side projects are overengineered because people are too excited to start coding.",
+      "tweet_id": "2116674419020140716",
+      "posted_at": "2026-10-31T23:31:21.523119+00:00"
+    },
+    {
+      "slot": "2026-11-01:0",
+      "category": "coding_take",
+      "text": "If you copy AI code without reading it, you're gonna get owned by its edge cases.",
+      "tweet_id": "2116697132707029315",
+      "posted_at": "2026-11-01T01:01:36.866752+00:00"
+    },
+    {
+      "slot": "2026-11-01:1",
+      "category": "connect",
+      "text": "Hello indie hackers\n\nLet's connect with fellow founders who are building something new.",
+      "tweet_id": "2116712194490380774",
+      "posted_at": "2026-11-01T02:01:27.851824+00:00"
+    },
+    {
+      "slot": "2026-11-01:2",
+      "category": "showcase",
+      "text": "Hello developers\n\nComment your side-project product. I'll try it if I need it.",
+      "tweet_id": "2116721389688520962",
+      "posted_at": "2026-11-01T02:38:00.098930+00:00"
+    },
+    {
+      "slot": "2026-11-01:3",
+      "category": "showcase",
+      "text": "Hello solo founders\n\nComment your startup product and what it does. I'll try it if I need it.",
+      "tweet_id": "2116749904500383991",
+      "posted_at": "2026-11-01T04:31:18.532629+00:00"
+    },
+    {
+      "slot": "2026-11-01:5",
+      "category": "connect",
+      "text": "Hello side-project builders\n\nLet's connect.",
+      "tweet_id": "2116780108803703279",
+      "posted_at": "2026-11-01T06:31:19.835263+00:00"
+    },
+    {
+      "slot": "2026-11-01:6",
+      "category": "coding_take",
+      "text": "If your editor is more configured than your code, you're overcomplicating things.",
+      "tweet_id": "2116810289161097507",
+      "posted_at": "2026-11-01T08:31:15.413913+00:00"
+    },
+    {
+      "slot": "2026-11-01:7",
+      "category": "connect",
+      "text": "Hello first-time founders\n\nLet's connect with fellow founders who are building something new.",
+      "tweet_id": "2116817917136531673",
+      "posted_at": "2026-11-01T09:01:34.114472+00:00"
+    },
+    {
+      "slot": "2026-11-01:8",
+      "category": "showcase",
+      "text": "Hello solo founders\n\nComment your startup product and what it does.",
+      "tweet_id": "2116833005801226534",
+      "posted_at": "2026-11-01T10:01:31.600648+00:00"
+    },
+    {
+      "slot": "2026-11-01:9",
+      "category": "connect",
+      "text": "Hello solo founders\n\nLet's connect.",
+      "tweet_id": "2116855607554912422",
+      "posted_at": "2026-11-01T11:31:19.784566+00:00"
+    },
+    {
+      "slot": "2026-11-01:10",
+      "category": "connect",
+      "text": "Hello fake founders\n\nLet's connect",
+      "tweet_id": "2116870731028119868",
+      "posted_at": "2026-11-01T12:31:25.791376+00:00"
+    },
+    {
+      "slot": "2026-11-01:11",
+      "category": "coding_take",
+      "text": "If your side project is more complex than a personal notes app, you're overengineering.",
+      "tweet_id": "2116893416508522731",
+      "posted_at": "2026-11-01T14:01:34.480036+00:00"
+    },
+    {
+      "slot": "2026-11-01:12",
+      "category": "coding_take",
+      "text": "If you're collecting tons of coding tutorials, you're probably not shipping code.",
+      "tweet_id": "2116916023295369549",
+      "posted_at": "2026-11-01T15:31:24.178730+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:32",
+      "category": "relatable",
+      "topic": "a password manager asking for its own password",
+      "text": "A password manager asking for its own password is like your aunt asking you to explain how the internet works.",
+      "tweet_id": "2116922657581220231",
+      "posted_at": "2026-11-01T15:57:46.009346+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:33",
+      "category": "choice",
+      "topic": "fast rough prototype or slow polished demo",
+      "text": "Do you ship a rough prototype or a polished demo for a first-time pitch?",
+      "tweet_id": "2116931107362873723",
+      "posted_at": "2026-11-01T16:31:20.686483+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:34",
+      "category": "ai_question",
+      "topic": "which harmless daily chore an AI assistant should handle",
+      "text": "Would an AI assistant help most with planning daily to-do lists or sending emails?",
+      "tweet_id": "2116938722448990636",
+      "posted_at": "2026-11-01T17:01:36.233006+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:36",
+      "category": "choice",
+      "topic": "delete bookmarks or organize them",
+      "text": "Delete your bookmarks or set a default browser search engine instead?",
+      "tweet_id": "2116946206639399234",
+      "posted_at": "2026-11-01T17:31:20.405202+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:38",
+      "category": "curiosity",
+      "topic": "when a small feature becomes a whole app",
+      "text": "is a note-taking app a todo list with a description field?",
+      "tweet_id": "2116961291285975508",
+      "posted_at": "2026-11-01T18:31:16.803097+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:39",
+      "category": "showcase",
+      "topic": "builders: invite a side project with a working demo",
+      "text": "Hello makers\n\nComment your side-project product and show a working demo.",
+      "tweet_id": "2116968943235526896",
+      "posted_at": "2026-11-01T19:01:41.163494+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:40",
+      "category": "curiosity",
+      "topic": "a name for liking an idea more than doing it",
+      "text": "do you prefer brainstorming or throwing ideas against a deadline?",
+      "tweet_id": "2116976412209168660",
+      "posted_at": "2026-11-01T19:31:22.277162+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:41",
+      "category": "coding_take",
+      "topic": "writing tests for the failure that actually happened",
+      "text": "tests are for the stuff you already know you'll mess up, not the edge case that never happens.",
+      "tweet_id": "2116983994613182723",
+      "posted_at": "2026-11-01T20:01:29.759039+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:42",
+      "category": "relatable",
+      "topic": "a simple setup step that becomes an entire evening",
+      "text": "setting up a new project and realizing its todo list is already done.",
+      "tweet_id": "2116990365131833455",
+      "posted_at": "2026-11-01T20:26:48.838861+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:43",
+      "category": "curiosity",
+      "topic": "the feeling after fixing a bug by accident",
+      "text": "do you feel relief or excitement after fixing a bug by accident?",
+      "tweet_id": "2116999107814527360",
+      "posted_at": "2026-11-01T21:01:32.790681+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:44",
+      "category": "connect",
+      "topic": "solo builders working on small useful tools",
+      "text": "Hello solo builders\n\nLet's connect about our tiny, practical tools.",
+      "tweet_id": "2117006610425925901",
+      "posted_at": "2026-11-01T21:31:21.980720+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:45",
+      "category": "curiosity",
+      "topic": "a word between yes and no",
+      "text": "is there a word between 'in progress' and 'done'?",
+      "tweet_id": "2117014196575424819",
+      "posted_at": "2026-11-01T22:01:30.648409+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:46",
+      "category": "ai_question",
+      "topic": "whether an assistant should explain the change before or after showing code",
+      "text": "should an AI assistant show its rewritten code changes before or after explaining them?",
+      "tweet_id": "2117021705109430588",
+      "posted_at": "2026-11-01T22:31:20.797357+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:47",
+      "category": "curiosity",
+      "topic": "whether silence in a chat means agreement",
+      "text": "does another person's empty space in a chat mean they're thinking?",
+      "tweet_id": "2117029351904702576",
+      "posted_at": "2026-11-01T23:01:43.879151+00:00"
+    },
+    {
+      "slot": "2026-11-01:conversation-v2:49",
+      "category": "curiosity",
+      "topic": "the difference between simple and unfinished",
+      "text": "does a website with incomplete features feel unfinished or still in progress?",
+      "tweet_id": "2117041644528975982",
+      "posted_at": "2026-11-01T23:50:34.669629+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:0",
+      "category": "choice",
+      "topic": "fast rough prototype or slow polished demo",
+      "text": "Do you prioritize a demo that dazzles or one that solves a real problem?",
+      "tweet_id": "2117051904148856903",
+      "posted_at": "2026-11-02T00:31:20.914881+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:1",
+      "category": "connect",
+      "topic": "fake founders with unfinished side projects",
+      "text": "Hello solo side-project builders\n\nLet's connect about your abandoned prototypes.",
+      "tweet_id": "2117059533637906647",
+      "posted_at": "2026-11-02T01:01:39.744643+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:2",
+      "category": "ai_question",
+      "topic": "which harmless daily chore an AI assistant should handle",
+      "text": "Should an AI assistant handle grocery shopping lists or calendar event invitations?",
+      "tweet_id": "2117067003622031759",
+      "posted_at": "2026-11-02T01:31:20.698165+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:3",
+      "category": "relatable",
+      "topic": "a tiny typo surviving many reviews",
+      "text": "typos seem to thrive in code comments more than commit messages.",
+      "tweet_id": "2117074616644718843",
+      "posted_at": "2026-11-02T02:01:35.787472+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:4",
+      "category": "choice",
+      "topic": "perfect naming or readable comments",
+      "text": "Do you name a project based on its first feature or its final goal?",
+      "tweet_id": "2117082111525970283",
+      "posted_at": "2026-11-02T02:31:22.883846+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:5",
+      "category": "relatable",
+      "topic": "naming files final and then editing them again",
+      "text": "when you finally name a file and later realize you named it all wrong",
+      "tweet_id": "2117089713282498766",
+      "posted_at": "2026-11-02T03:01:35.164925+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:6",
+      "category": "coding_take",
+      "topic": "collecting tutorials instead of experimenting",
+      "text": "too many tutorials make it easy to forget how to write a simple script.",
+      "tweet_id": "2117097197334589826",
+      "posted_at": "2026-11-02T03:31:19.385746+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:7",
+      "category": "ai_question",
+      "topic": "whether AI should ask a question or make an assumption",
+      "text": "Should an AI tool ask or assume you want a deadline for every task?",
+      "tweet_id": "2117101681175658582",
+      "posted_at": "2026-11-02T03:49:08.404139+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:8",
+      "category": "choice",
+      "topic": "voice notes or typed messages",
+      "text": "do you clear your sent messages or keep the record of your voice notes?",
+      "tweet_id": "2117112309768400899",
+      "posted_at": "2026-11-02T04:31:22.514611+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:9",
+      "category": "ai_question",
+      "topic": "whether a short or detailed prompt feels easier to revise",
+      "text": "should an ai tool give instant feedback or show changes first, then explain?",
+      "tweet_id": "2117119896928813372",
+      "posted_at": "2026-11-02T05:01:31.571309+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:11",
+      "category": "coding_take",
+      "topic": "rewriting working code out of boredom",
+      "text": "typing out working code just to see if it's really that simple is fascinatingly frustrating.",
+      "tweet_id": "2117135002148438280",
+      "posted_at": "2026-11-02T06:01:33.048647+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:13",
+      "category": "choice",
+      "topic": "rename a confusing function or explain it in a comment",
+      "text": "should an old, unused feature be labeled retired or cancelled?",
+      "tweet_id": "2117142497688510682",
+      "posted_at": "2026-11-02T06:31:20.122905+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:15",
+      "category": "ai_question",
+      "topic": "whether an assistant should explain the change before or after showing code",
+      "text": "should an AI assistant explain its rewritten code before or after showing the changes?",
+      "tweet_id": "2117157631454515356",
+      "posted_at": "2026-11-02T07:31:28.264224+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:16",
+      "category": "relatable",
+      "topic": "a password manager asking for its own password",
+      "text": "a password manager asking its own password feels like a disturbing paradox.",
+      "tweet_id": "2117165223635546416",
+      "posted_at": "2026-11-02T08:01:38.420918+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:17",
+      "category": "ai_question",
+      "topic": "whether an AI assistant should offer one option or several",
+      "text": "should an ai assistant offer 1 main option for a task or multiple alternatives?",
+      "tweet_id": "2117172703408877764",
+      "posted_at": "2026-11-02T08:31:21.695496+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:18",
+      "category": "relatable",
+      "topic": "losing a thought while unlocking a phone",
+      "text": "unlocking your phone to realize you forgot what you were looking for",
+      "tweet_id": "2117180351726649517",
+      "posted_at": "2026-11-02T09:01:45.174824+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:20",
+      "category": "choice",
+      "topic": "delete bookmarks or organize them",
+      "text": "do you delete bookmarks or let them clutter your browser forever?",
+      "tweet_id": "2117195414827098275",
+      "posted_at": "2026-11-02T10:01:36.517655+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:21",
+      "category": "relatable",
+      "topic": "a simple setup step that becomes an entire evening",
+      "text": "unlocking a project just to remember you never started it last night",
+      "tweet_id": "2117202896135880882",
+      "posted_at": "2026-11-02T10:31:19.928931+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:23",
+      "category": "choice",
+      "topic": "a useful error message or automatic recovery",
+      "text": "Should an AI assistant automatically restart a failed build or ask for manual recovery?",
+      "tweet_id": "2117218024608391267",
+      "posted_at": "2026-11-02T11:31:26.969662+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:24",
+      "category": "showcase",
+      "topic": "developers: invite a tool that removes a tedious step",
+      "text": "Hello developers\n\nComment your tool that converts markdown tables into nice-looking tables in your docs.",
+      "tweet_id": "2117225619771785300",
+      "posted_at": "2026-11-02T12:01:37.687761+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:25",
+      "category": "choice",
+      "topic": "keyboard shortcuts or clicking familiar buttons",
+      "text": "Do you rely on keyboard shortcuts or memorize button names for your workflow?",
+      "tweet_id": "2117233099230576726",
+      "posted_at": "2026-11-02T12:31:21.013762+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:27",
+      "category": "choice",
+      "topic": "finish a small project or start an exciting one",
+      "text": "Should you complete a small side project or start a thrilling unknown one tonight?",
+      "tweet_id": "2117248262306718079",
+      "posted_at": "2026-11-02T13:31:36.168806+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:28",
+      "category": "relatable",
+      "topic": "forgetting the clever shortcut when it is needed",
+      "text": "unlocking your laptop to remember you forgot to save the pdf reader.",
+      "tweet_id": "2117255868832158183",
+      "posted_at": "2026-11-02T14:01:49.615739+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:29",
+      "category": "coding_take",
+      "topic": "configuring an editor instead of finishing code",
+      "text": "i'd rather configure an editor to save time than finish coding in the wrong one.",
+      "tweet_id": "2117263321489650131",
+      "posted_at": "2026-11-02T14:31:26.631704+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:30",
+      "category": "relatable",
+      "topic": "an update arriving just before work starts",
+      "text": "unlocking your laptop to find the task was due yesterday, champion.",
+      "tweet_id": "2117270937108459752",
+      "posted_at": "2026-11-02T15:01:42.067528+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:31",
+      "category": "coding_take",
+      "topic": "documentation that includes a working example",
+      "text": "comment your least favorite file format for documentation, one that always causes more annoyance than clarity.",
+      "tweet_id": "2117278396497748467",
+      "posted_at": "2026-11-02T15:31:20.612864+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:32",
+      "category": "curiosity",
+      "topic": "whether a saved bookmark counts as a plan",
+      "text": "do saved bookmarks count as plans or just lazy notes?",
+      "tweet_id": "2117286053287809341",
+      "posted_at": "2026-11-02T16:01:46.495352+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:33",
+      "category": "coding_take",
+      "topic": "writing tests for the failure that actually happened",
+      "text": "tests are for the script you know you'll accidentally modify first.",
+      "tweet_id": "2117293507345809729",
+      "posted_at": "2026-11-02T16:31:23.528045+00:00"
+    }
+  ],
+  "last_posted_at": "2026-11-02T16:31:23.528045+00:00",
+  "pending": {
+    "slot": "2026-11-02:resources-v1:35",
+    "audience": "business owners",
+    "labels": [
+      "Productivity method quiz",
+      "Team exercise collection"
+    ],
+    "resources": [
+      {
+        "url": "https://www.todoist.com/productivity-methods",
+        "title": "[Quiz] Which productivity method is right for you? Get a personalized recommendation",
+        "excerpt": "Or explore on your own Getting Things Done (GTD) Systematize the clutter in your brain and get things done Popular Task management Kanban Move your project through a visual pipeline from start to finish Popular Task management Teamwork Prioritization Time Blocking ...and its cousins task batching and day theming. Control your schedule so it doesn't control you Popular Focus Time management Eat the Frog If it's your job to eat a frog, it's best to do it first thing in the morning Popular Focus Procrastination Prioritization The Pomodoro Technique Beat procrastination and improve your focus one pomodoro at a time Popular Time management Procrastination Focus The Eisenhower Matrix Avoid the \"Urgency Trap\" with Dwight D. Eisenhower's famous prioritization framework Popular Prioritization Systemist Follow Todoist's founder's personal productivity system Task management Prioritization The Medium Method Want to be more productive? Don't go (completely) paperless Task management Prioritization Objectives & Key Results (OKRs) Set rigorous goals that align big-picture priorities with day-to-da",
+        "aliases": [
+          "https://www.todoist.com/productivity-methods"
+        ],
+        "fingerprint": "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
+        "source_id": "todoist",
+        "verified_at": "2026-11-02T17:06:20.981823+00:00"
+      },
+      {
+        "url": "https://www.atlassian.com/team-playbook/plays",
+        "title": "Find Your Team Plays | Atlassian",
+        "excerpt": "Find the right Plays for your team Exercises designed to improve how you work. Try the Play recommendation quiz to get started. | Most popular All Plays Retrospective OKRs Roles and responsibilities Health monitor DACI User manual Working agreements Align work to goals All plays Goal-setting Prioritization Decision-making Plan & track work All plays Clarifying roles Project planning Productivity Collaboration Unleash knowledge All plays Communication Debriefs Meetings Culture Connection Make AI part of the team All plays Optimize with AI Build with AI Innovate with AI Team plays / Most popular All Plays All Plays Retrospective OKRs Roles and responsibilities Health monitor DACI User manual Working agreements Align work to goals All plays All plays Goal-setting Prioritization Decision-making Plan & track work All plays All plays Clarifying roles Project planning Productivity Collaboration Unleash knowledge All plays All plays Communication Debriefs Meetings Culture Connection Make AI part of the team All plays All plays Optimize with AI Build with AI Innovate with AI 95 Results × Stay",
+        "aliases": [
+          "https://www.atlassian.com/team-playbook/plays"
+        ],
+        "fingerprint": "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
+        "source_id": "atlassian",
+        "verified_at": "2026-11-02T17:06:20.964199+00:00"
+      }
+    ],
+    "text": "For business owners\n\nProductivity method quiz\nhttps://www.todoist.com/productivity-methods\n\nTeam exercise collection\nhttps://www.atlassian.com/team-playbook/plays\n\nThank me later.\nFollow for more useful links.",
+    "approval": "9870f3a35e0df406a75ab3c3884d530420e0609ac475fcde61f52bbb8825c2ae",
+    "prepared_at": "2026-11-02T17:06:19.015630+00:00",
+    "run_id": "41487779628",
+    "run_attempt": "1"
+  },
+  "used_urls": [
+    "https://t.co/3C7ZAkzRbT",
+    "https://t.co/CI5nOrAC48",
+    "https://t.co/G1OvDYzkpw",
+    "https://t.co/GiYWfceA6D",
+    "https://t.co/KpZrMgWwmH",
+    "https://t.co/MSd8PuWAz0",
+    "https://t.co/R3iCzZccJE",
+    "https://t.co/YGojYN1kbw",
+    "https://t.co/YwBwO0xWNn",
+    "https://t.co/xMWTQz4BWN",
+    "https://t.co/xeQZEjtzJr",
+    "https://t.co/y3LmV8eERA",
+    "https://t.co/ziy1HSr6sJ",
+    "https://www.atlassian.com/team-playbook/plays",
+    "https://www.todoist.com/productivity-methods"
+  ],
+  "used_fingerprints": [
+    "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
+    "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737"
+  ],
+  "catalog": [
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://web.dev/learn/",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/",
+      "source_id": "chrome"
+    },
+    {
+      "url": "https://react.dev/learn",
+      "source_id": "react"
+    },
+    {
+      "url": "https://nextjs.org/docs",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://docs.astro.build/en/guides/",
+      "source_id": "astro"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/installation/using-vite",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/getting-started",
+      "source_id": "supabase"
+    },
+    {
+      "url": "https://developers.cloudflare.com/workers/",
+      "source_id": "cloudflare"
+    },
+    {
+      "url": "https://vercel.com/docs",
+      "source_id": "vercel"
+    },
+    {
+      "url": "https://vite.dev/guide/",
+      "source_id": "vite"
+    },
+    {
+      "url": "https://opencode.ai/docs/",
+      "source_id": "opencode"
+    },
+    {
+      "url": "https://docs.lovable.dev/",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://support.bolt.new/",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/training/",
+      "source_id": "microsoftlearn"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://www.open.edu/openlearn/free-courses/full-catalogue",
+      "source_id": "openlearn"
+    },
+    {
+      "url": "https://openstax.org/subjects/science",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://www.khanacademy.org/math",
+      "source_id": "khan"
+    },
+    {
+      "url": "https://roadmap.sh/guides",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://www.techinterviewhandbook.org/software-engineering-interview-guide/",
+      "source_id": "interviewhandbook"
+    },
+    {
+      "url": "https://www.atlassian.com/team-playbook/plays",
+      "source_id": "atlassian"
+    },
+    {
+      "url": "https://basecamp.com/shapeup",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://rework.withgoogle.com/",
+      "source_id": "rework"
+    },
+    {
+      "url": "https://www.ycombinator.com/library",
+      "source_id": "ycombinator"
+    },
+    {
+      "url": "https://blog.hubspot.com/marketing",
+      "source_id": "hubspotmarketing"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://buffer.com/resources/",
+      "source_id": "buffer"
+    },
+    {
+      "url": "https://ahrefs.com/blog/",
+      "source_id": "ahrefs"
+    },
+    {
+      "url": "https://mailchimp.com/resources/",
+      "source_id": "mailchimp"
+    },
+    {
+      "url": "https://www.figma.com/resource-library/",
+      "source_id": "figma"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.a11yproject.com/checklist/",
+      "source_id": "a11y"
+    },
+    {
+      "url": "https://www.canva.com/learn/",
+      "source_id": "canvalearn"
+    },
+    {
+      "url": "https://www.adobe.com/learn/",
+      "source_id": "adobelearn"
+    },
+    {
+      "url": "https://www.notion.com/help/guides",
+      "source_id": "notion"
+    },
+    {
+      "url": "https://help.obsidian.md/",
+      "source_id": "obsidian"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://zapier.com/blog/productivity/",
+      "source_id": "zapier"
+    },
+    {
+      "url": "https://asana.com/resources",
+      "source_id": "asana"
+    },
+    {
+      "url": "https://www.coursera.org/articles",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://careerservices.fas.harvard.edu/resources/",
+      "source_id": "harvardcareers"
+    },
+    {
+      "url": "https://www.atlassian.com/team-playbook",
+      "source_id": "atlassian"
+    }
+  ],
+  "discovery_cursors": {
+    "business owners": 2
+  }
+}
