@@ -368,7 +368,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T08:01:38.420918+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:17",
+    "category": "ai_question",
+    "text": "should an ai assistant offer 1 main option for a task or multiple alternatives?",
+    "topic": "whether an AI assistant should offer one option or several",
+    "topic_approval": "51eb6289a5fd8d48109dab0538946ddcaad4aca2fd37661cec1949140c5f2071",
+    "prepared_at": "2026-11-02T08:31:17.076153+00:00",
+    "run_id": "41413644729",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
