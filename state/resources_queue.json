@@ -648,11 +648,11 @@
   ],
   "catalog": [
     {
-      "url": "https://developer.mozilla.org/en-US/docs/Web/",
+      "url": "https://developer.mozilla.org/en-US/docs/Web",
       "source_id": "mdn"
     },
     {
-      "url": "https://web.dev/learn/",
+      "url": "https://web.dev/learn",
       "source_id": "webdev"
     },
     {
@@ -716,10 +716,6 @@
       "source_id": "freecodecamp"
     },
     {
-      "url": "https://ocw.mit.edu/courses/",
-      "source_id": "mitocw"
-    },
-    {
       "url": "https://www.open.edu/openlearn/free-courses/full-catalogue",
       "source_id": "openlearn"
     },
@@ -728,20 +724,8 @@
       "source_id": "openstax"
     },
     {
-      "url": "https://www.khanacademy.org/math",
-      "source_id": "khan"
-    },
-    {
-      "url": "https://roadmap.sh/guides",
-      "source_id": "roadmap"
-    },
-    {
       "url": "https://www.techinterviewhandbook.org/software-engineering-interview-guide/",
       "source_id": "interviewhandbook"
-    },
-    {
-      "url": "https://rework.withgoogle.com/",
-      "source_id": "rework"
     },
     {
       "url": "https://blog.hubspot.com/marketing",
@@ -754,10 +738,6 @@
     {
       "url": "https://buffer.com/resources",
       "source_id": "buffer"
-    },
-    {
-      "url": "https://asana.com/resources",
-      "source_id": "asana"
     },
     {
       "url": "https://www.coursera.org/articles",
@@ -6870,12 +6850,349 @@
     {
       "url": "https://www.atlassian.com/team-playbook/examples",
       "source_id": "atlassian"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/XML/XSLT",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Cheatsheet",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/WebDriver",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/Performance",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/contributors.txt",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Guides",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/URI",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Shapes/Shape_generator",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_objects",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/File_System_API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Box_model/Introduction",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/XML/Guides/OpenSearch",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Push_API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/History_API/Working_with_the_History_API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook/Center_an_element",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/WebAssembly",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Using",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook/Card",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Color_format_converter",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Applying_color",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Color_mixer",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/XML/XPath",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_classes",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Backgrounds_and_borders/Box-shadow_generator",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/XML/Guides/XML_introduction",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/XML/EXSLT",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Date_and_time_formats",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Responsive_images",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook/Column_layouts",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Backgrounds_and_borders/Border-radius_generator",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/MathML",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/XML",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/Media",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Backgrounds_and_borders/Border-image_generator",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/SVG",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/Security",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://web.dev/learn/accessibility",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/testing",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/images",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/ai",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/css",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/performance",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/html",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/forms",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/pwa",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/design",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/javascript",
+      "source_id": "webdev"
     }
   ],
   "discovery_cursors": {
     "business owners": 2,
     "creators": 2,
     "marketers": 2,
-    "CEOs": 2
+    "CEOs": 2,
+    "students": 2
   }
 }
