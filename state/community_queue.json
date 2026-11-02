@@ -392,7 +392,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T10:01:36.517655+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:21",
+    "category": "relatable",
+    "text": "unlocking a project just to remember you never started it last night",
+    "topic": "a simple setup step that becomes an entire evening",
+    "topic_approval": "36d86c14da07880c4db888a1da1ffe1c339be96de4a4f10f9fa1275f9c1a37c6",
+    "prepared_at": "2026-11-02T10:31:15.813062+00:00",
+    "run_id": "41429427676",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
