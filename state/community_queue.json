@@ -317,19 +317,18 @@
       "text": "Should an AI tool ask or assume you want a deadline for every task?",
       "tweet_id": "2117101681175658582",
       "posted_at": "2026-11-02T03:49:08.404139+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:8",
+      "category": "choice",
+      "topic": "voice notes or typed messages",
+      "text": "do you clear your sent messages or keep the record of your voice notes?",
+      "tweet_id": "2117112309768400899",
+      "posted_at": "2026-11-02T04:31:22.514611+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T03:49:08.404139+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:8",
-    "category": "choice",
-    "text": "do you clear your sent messages or keep the record of your voice notes?",
-    "topic": "voice notes or typed messages",
-    "topic_approval": "d4014a5caf9706aa31f8420cc964bcc8f841473ebcbb4bd619eda10e8b70bcfb",
-    "prepared_at": "2026-11-02T04:31:16.240665+00:00",
-    "run_id": "41388900288",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T04:31:22.514611+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
