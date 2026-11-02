@@ -710,9 +710,46 @@
     }
   ],
   "last_posted_at": "2026-11-02T22:01:53.364888+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:resources-v1:46",
+    "audience": "business owners",
+    "labels": [
+      "Shape Up",
+      "People Team"
+    ],
+    "resources": [
+      {
+        "url": "https://basecamp.com/shapeup",
+        "title": "Shape Up: Stop Running in Circles and Ship Work that Matters",
+        "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. ← Basecamp.com Shape Up Stop Running in Circles and Ship Work that Matters by Ryan Singer Buy the print edition Start reading → Introduction Foreword by Jason Fried Acknowledgements Chapter 1 Introduction Growing pains Six-week cycles Shaping the work Making teams responsible Targeting risk How this book is organized Part 1: Shaping Chapter 2 Principles of Shaping Wireframes are too concrete Words are too abstract Case study: The Dot Grid Calendar Property 1: It’s rough Property 2: It’s solved Property 3: It’s bounded Who shapes Two tracks Steps to shaping Chapter 3 Set Boundaries Setting the appetite Fixed time, variable scope \"Good\" is relative Responding to raw ideas Narrow down the problem Case study: Defining \"calendar\" Watch out for grab-bags Boundaries in place Chapter 4 Find the Elements Move at the right speed Breadboarding Fat marker sketches Elements are the output Room for designers Not deliverable yet No conveyor belt Chapter 5 Risks and Ra",
+        "aliases": [
+          "https://basecamp.com/shapeup"
+        ],
+        "fingerprint": "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
+        "source_id": "shapeup",
+        "verified_at": "2026-11-02T22:31:16.562691+00:00"
+      },
+      {
+        "url": "https://www.atlassian.com/team-playbook/examples/people-team",
+        "title": "People Team is the new HR | Atlassian",
+        "excerpt": "Moving from an HR team to a People team Cross-functional people teams that include talent and recruiting specialists, business partners, and rewards managers are the future of HR. But new ways of managing dependencies and making decisions across functions can feel awkward at first. Here are four go-to plays that'll help you build the deep collaboration muscles you need to get work done and change your culture. Top 4 plays for becoming a people team Help diverse HR functions collaborate closely for the first time so your projects aren't mired in a clusterf*ck. Project Poster A project poster helps you articulate why the project fits with your broader strategies. You'll also think through the problem you're trying to solve, assumptions you're making, and envision what the solution might look like. Start play DACI As a cross-functional team, you'll now have to take more diverse factors into account when making decisions. Use this play to determine what each person's role is in the decision-making process and lay out the various options you're considering. Start play Experience Canvas Ge",
+        "aliases": [
+          "https://www.atlassian.com/team-playbook/examples/people-team"
+        ],
+        "fingerprint": "7dae16ed58fc3b34f9a7d33c6e4c5a7c0f96c35465deb5ceb45f98d8bcbc8ff8",
+        "source_id": "atlassian",
+        "verified_at": "2026-11-02T22:31:16.548803+00:00"
+      }
+    ],
+    "text": "For business owners\n\nShape Up\nhttps://basecamp.com/shapeup\n\nPeople Team\nhttps://www.atlassian.com/team-playbook/examples/people-team\n\nThank me later.\nFollow for more useful links.",
+    "approval": "9f864655b9dfbbf2ea182a93a0aee02ba571d5c4d9dedc32dd0df4aea12e70cd",
+    "prepared_at": "2026-11-02T22:31:15.878049+00:00",
+    "run_id": "41537920034",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://asana.com/resources",
+    "https://basecamp.com/shapeup",
     "https://blog.hubspot.com/marketing/ai-video-trends",
     "https://blog.hubspot.com/marketing/landing-page-design",
     "https://blog.hubspot.com/marketing/social-media-dashboard-tools",
@@ -738,6 +775,7 @@
     "https://t.co/ziy1HSr6sJ",
     "https://vercel.com/docs/ai-gateway/coding-agents/pi",
     "https://vite.dev/guide",
+    "https://www.atlassian.com/team-playbook/examples/people-team",
     "https://www.atlassian.com/team-playbook/plays",
     "https://www.todoist.com/productivity-methods"
   ],
@@ -746,6 +784,7 @@
     "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
     "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
     "603b0c57b200f0fee80c970e0e7438932d43dca0c2dd8c7fc8eeea4201c468f5",
+    "7dae16ed58fc3b34f9a7d33c6e4c5a7c0f96c35465deb5ceb45f98d8bcbc8ff8",
     "90a60a1c1664c72005696eade46592b7802336c2b078c6ae632296bda56d35fb",
     "9228738c195b0fecff14f1b1d8b734597fa0811f1298baac3e788e069247f2ac",
     "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
@@ -754,6 +793,7 @@
     "c7820cffbf6d3b90dc519535ea54f219b0616d1590e37bb06eea411e3d499eb6",
     "cacde2df75a15fc604422ca39445bb1a98d6d3ec80734e50f054afae0c29230d",
     "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
+    "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
     "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
     "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336"
   ],
@@ -4119,10 +4159,6 @@
       "source_id": "buffer"
     },
     {
-      "url": "https://buffer.com/resources/introducing-bulk-upload",
-      "source_id": "buffer"
-    },
-    {
       "url": "https://buffer.com/resources/bufferupdates",
       "source_id": "buffer"
     },
@@ -5304,10 +5340,6 @@
     },
     {
       "url": "https://blog.hubspot.com/marketing/improve-your-email-subject-line",
-      "source_id": "hubspotmarketing"
-    },
-    {
-      "url": "https://blog.hubspot.com/marketing/ai-video-trends",
       "source_id": "hubspotmarketing"
     },
     {
@@ -13247,10 +13279,6 @@
       "source_id": "ahrefs"
     },
     {
-      "url": "https://ahrefs.com/blog/archive",
-      "source_id": "ahrefs"
-    },
-    {
       "url": "https://ahrefs.com/blog/bluf",
       "source_id": "ahrefs"
     },
@@ -13367,10 +13395,6 @@
       "source_id": "mailchimp"
     },
     {
-      "url": "https://mailchimp.com/resources/social-media",
-      "source_id": "mailchimp"
-    },
-    {
       "url": "https://mailchimp.com/resources/free-marketing-features-overview",
       "source_id": "mailchimp"
     },
@@ -13393,10 +13417,142 @@
     {
       "url": "https://mailchimp.com/resources/the-revenue-blueprint",
       "source_id": "mailchimp"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/4.1-appendix-02",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/1.3-chapter-04",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/3.4-chapter-13",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/1.1-chapter-02",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/0.2-acknowledgements",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/1.2-chapter-03",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/3.5-chapter-14",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/3.1-chapter-10",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/1.4-chapter-05",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/4.0-appendix-01",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/2.3-chapter-09",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/3.6-chapter-15",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/3.3-chapter-12",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/0.1-foreword",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/3.2-chapter-11",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/4.5-appendix-06",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/0.3-chapter-01",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/3.7-conclusion",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/4.6-appendix-07",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/2.1-chapter-07",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/1.5-chapter-06",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/2.2-chapter-08",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://basecamp.com/shapeup/4.2-appendix-03",
+      "source_id": "shapeup"
+    },
+    {
+      "url": "https://rework.withgoogle.com/intl/en/subjects/hiring",
+      "source_id": "rework"
+    },
+    {
+      "url": "https://rework.withgoogle.com/intl/en/guides/a-data-driven-approach-to-optimizing-employee-onboarding",
+      "source_id": "rework"
+    },
+    {
+      "url": "https://rework.withgoogle.com/intl/en/subjects/people-analytics",
+      "source_id": "rework"
+    },
+    {
+      "url": "https://rework.withgoogle.com/intl/en/subjects/managers",
+      "source_id": "rework"
+    },
+    {
+      "url": "https://rework.withgoogle.com/intl/en/subjects/org-management",
+      "source_id": "rework"
+    },
+    {
+      "url": "https://rework.withgoogle.com/your-team-doesnt-need-an-all-knowing-leader-they-need-a-transparent-learner",
+      "source_id": "rework"
+    },
+    {
+      "url": "https://rework.withgoogle.com/intl/en/subjects/learning-development",
+      "source_id": "rework"
+    },
+    {
+      "url": "https://rework.withgoogle.com/intl/en/about",
+      "source_id": "rework"
+    },
+    {
+      "url": "https://rework.withgoogle.com/intl/en/guides/following-the-data-the-research-behind-great-managers",
+      "source_id": "rework"
     }
   ],
   "discovery_cursors": {
-    "business owners": 2,
+    "business owners": 4,
     "creators": 2,
     "marketers": 4,
     "CEOs": 2,
