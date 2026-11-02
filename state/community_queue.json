@@ -320,7 +320,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T03:49:08.404139+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:8",
+    "category": "choice",
+    "text": "do you clear your sent messages or keep the record of your voice notes?",
+    "topic": "voice notes or typed messages",
+    "topic_approval": "d4014a5caf9706aa31f8420cc964bcc8f841473ebcbb4bd619eda10e8b70bcfb",
+    "prepared_at": "2026-11-02T04:31:16.240665+00:00",
+    "run_id": "41388900288",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
