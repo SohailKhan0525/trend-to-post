@@ -269,19 +269,18 @@
       "text": "Hello solo side-project builders\n\nLet's connect about your abandoned prototypes.",
       "tweet_id": "2117059533637906647",
       "posted_at": "2026-11-02T01:01:39.744643+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:2",
+      "category": "ai_question",
+      "topic": "which harmless daily chore an AI assistant should handle",
+      "text": "Should an AI assistant handle grocery shopping lists or calendar event invitations?",
+      "tweet_id": "2117067003622031759",
+      "posted_at": "2026-11-02T01:31:20.698165+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T01:01:39.744643+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:2",
-    "category": "ai_question",
-    "text": "Should an AI assistant handle grocery shopping lists or calendar event invitations?",
-    "topic": "which harmless daily chore an AI assistant should handle",
-    "topic_approval": "afa7bea7d8ec04c37785ee8985005dd939499a3845d32c22c6de0fe311334e34",
-    "prepared_at": "2026-11-02T01:31:17.043749+00:00",
-    "run_id": "41372877240",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T01:31:20.698165+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
