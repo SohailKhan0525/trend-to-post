@@ -376,7 +376,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T08:31:21.695496+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:18",
+    "category": "relatable",
+    "text": "unlocking your phone to realize you forgot what you were looking for",
+    "topic": "losing a thought while unlocking a phone",
+    "topic_approval": "cd9c997efdedc03a92698b33f57269ca650f5ccaf52aaedc23a70b4ae66ab1e4",
+    "prepared_at": "2026-11-02T09:01:40.825540+00:00",
+    "run_id": "41417311714",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
