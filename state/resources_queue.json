@@ -261,6 +261,39 @@
       "posted_at": "2026-11-02T22:31:21.558969+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-02:resources-v1:47",
+      "audience": "marketers",
+      "text": "For marketers\n\nZapier feature guides\nhttps://zapier.com/blog/all-articles/zapier-feature-guides/\n\nGrow Ecommerce Sales Through Email\nhttps://mailchimp.com/resources/ecommerce-email-marketing/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://zapier.com/blog/all-articles/zapier-feature-guides/",
+          "title": "Zapier feature guides Articles, Page 1 | Zapier Blog",
+          "excerpt": "Loading Get productivity tips delivered straight to your inbox Email * Subscribe We’ll email you 1-3 times per week—and never share your information. Improve your productivity automatically. Use Zapier to get your apps working together. Sign up See how Zapier works",
+          "aliases": [
+            "https://zapier.com/blog/all-articles/zapier-feature-guides"
+          ],
+          "fingerprint": "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
+          "source_id": "zapier",
+          "verified_at": "2026-11-02T23:01:36.552193+00:00"
+        },
+        {
+          "url": "https://mailchimp.com/resources/ecommerce-email-marketing/",
+          "title": "How to Grow Ecommerce Sales Through Email Marketing | Mailchimp",
+          "excerpt": "Digital marketing can feel like a constant guessing game. One minute, your products appear at the top of Google searches, and the next minute, they vanish. Facebook ads that once brought in steady sales now cost twice as much for half the results. Here’s the good news: Email marketing puts you in charge. You don’t have to worry about the ever-changing rules of social media platforms or search engines. With email, you have a direct line to your customers, allowing you to deliver valuable content straight to their inboxes. Whether welcoming new subscribers or bringing back old customers, every email is a chance to grow your online store. Best of all, you don’t need a huge marketing budget or team of experts to do it right. Simply use this guide to learn the e-commerce email marketing strategies you need to drive sales and build customer loyalty. The basics of e-commerce email marketing E-commerce email marketing is about using email to connect with your valuable customers and sell products online. It’s how you share products, announce sales, and build lasting customer relationships wit",
+          "aliases": [
+            "https://mailchimp.com/resources/ecommerce-email-marketing"
+          ],
+          "fingerprint": "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
+          "source_id": "mailchimp",
+          "verified_at": "2026-11-02T23:01:36.662137+00:00"
+        }
+      ],
+      "tweet_id": "2117391738256154636",
+      "posted_at": "2026-11-02T23:01:41.288978+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -742,44 +775,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T22:31:21.558969+00:00",
-  "pending": {
-    "slot": "2026-11-02:resources-v1:47",
-    "audience": "marketers",
-    "labels": [
-      "Zapier feature guides",
-      "Grow Ecommerce Sales Through Email"
-    ],
-    "resources": [
-      {
-        "url": "https://zapier.com/blog/all-articles/zapier-feature-guides/",
-        "title": "Zapier feature guides Articles, Page 1 | Zapier Blog",
-        "excerpt": "Loading Get productivity tips delivered straight to your inbox Email * Subscribe We’ll email you 1-3 times per week—and never share your information. Improve your productivity automatically. Use Zapier to get your apps working together. Sign up See how Zapier works",
-        "aliases": [
-          "https://zapier.com/blog/all-articles/zapier-feature-guides"
-        ],
-        "fingerprint": "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
-        "source_id": "zapier",
-        "verified_at": "2026-11-02T23:01:36.552193+00:00"
-      },
-      {
-        "url": "https://mailchimp.com/resources/ecommerce-email-marketing/",
-        "title": "How to Grow Ecommerce Sales Through Email Marketing | Mailchimp",
-        "excerpt": "Digital marketing can feel like a constant guessing game. One minute, your products appear at the top of Google searches, and the next minute, they vanish. Facebook ads that once brought in steady sales now cost twice as much for half the results. Here’s the good news: Email marketing puts you in charge. You don’t have to worry about the ever-changing rules of social media platforms or search engines. With email, you have a direct line to your customers, allowing you to deliver valuable content straight to their inboxes. Whether welcoming new subscribers or bringing back old customers, every email is a chance to grow your online store. Best of all, you don’t need a huge marketing budget or team of experts to do it right. Simply use this guide to learn the e-commerce email marketing strategies you need to drive sales and build customer loyalty. The basics of e-commerce email marketing E-commerce email marketing is about using email to connect with your valuable customers and sell products online. It’s how you share products, announce sales, and build lasting customer relationships wit",
-        "aliases": [
-          "https://mailchimp.com/resources/ecommerce-email-marketing"
-        ],
-        "fingerprint": "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
-        "source_id": "mailchimp",
-        "verified_at": "2026-11-02T23:01:36.662137+00:00"
-      }
-    ],
-    "text": "For marketers\n\nZapier feature guides\nhttps://zapier.com/blog/all-articles/zapier-feature-guides/\n\nGrow Ecommerce Sales Through Email\nhttps://mailchimp.com/resources/ecommerce-email-marketing/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "2a0a57bef330d2a6e3a6c0480091dd6f42fb676394eafa36ef661f0d630aaa11",
-    "prepared_at": "2026-11-02T23:01:34.365985+00:00",
-    "run_id": "41542061883",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T23:01:41.288978+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
