@@ -285,19 +285,18 @@
       "text": "typos seem to thrive in code comments more than commit messages.",
       "tweet_id": "2117074616644718843",
       "posted_at": "2026-11-02T02:01:35.787472+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:4",
+      "category": "choice",
+      "topic": "perfect naming or readable comments",
+      "text": "Do you name a project based on its first feature or its final goal?",
+      "tweet_id": "2117082111525970283",
+      "posted_at": "2026-11-02T02:31:22.883846+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T02:01:35.787472+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:4",
-    "category": "choice",
-    "text": "Do you name a project based on its first feature or its final goal?",
-    "topic": "perfect naming or readable comments",
-    "topic_approval": "248a8b72d47fa52735ec238973d754a8e212e85a568117745c7eacedbbe96d32",
-    "prepared_at": "2026-11-02T02:31:17.087469+00:00",
-    "run_id": "41378147973",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T02:31:22.883846+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
