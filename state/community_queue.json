@@ -341,19 +341,18 @@
       "text": "typing out working code just to see if it's really that simple is fascinatingly frustrating.",
       "tweet_id": "2117135002148438280",
       "posted_at": "2026-11-02T06:01:33.048647+00:00"
+    },
+    {
+      "slot": "2026-11-02:conversation-v2:13",
+      "category": "choice",
+      "topic": "rename a confusing function or explain it in a comment",
+      "text": "should an old, unused feature be labeled retired or cancelled?",
+      "tweet_id": "2117142497688510682",
+      "posted_at": "2026-11-02T06:31:20.122905+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T06:01:33.048647+00:00",
-  "pending": {
-    "slot": "2026-11-02:conversation-v2:13",
-    "category": "choice",
-    "text": "should an old, unused feature be labeled retired or cancelled?",
-    "topic": "rename a confusing function or explain it in a comment",
-    "topic_approval": "79b8d0ee16d2b3d7024609b81952851a32198976fcc89a6371842bc5fc27d9e8",
-    "prepared_at": "2026-11-02T06:31:15.303923+00:00",
-    "run_id": "41400396651",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T06:31:20.122905+00:00",
+  "pending": null,
   "plan": {
     "day": "2026-11-02",
     "slots": [
