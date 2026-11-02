@@ -280,7 +280,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T01:31:20.698165+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:3",
+    "category": "relatable",
+    "text": "typos seem to thrive in code comments more than commit messages.",
+    "topic": "a tiny typo surviving many reviews",
+    "topic_approval": "783ebf1b2a707705f4a87948f6c853c0b4d12a82578ada15b3a4484d0705ad75",
+    "prepared_at": "2026-11-02T02:01:28.760356+00:00",
+    "run_id": "41375446839",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
