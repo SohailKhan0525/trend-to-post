@@ -162,6 +162,39 @@
       "posted_at": "2026-11-02T20:02:05.697542+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-02:resources-v1:42",
+      "audience": "founders",
+      "text": "For founders\n\nBolt Help Center\nhttps://support.bolt.new/\n\nPi with AI Gateway\nhttps://vercel.com/docs/ai-gateway/coding-agents/pi\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://support.bolt.new/",
+          "title": "Bolt Help Center: guides and support for building with Bolt - Bolt",
+          "excerpt": "​ Get started with Bolt New to Bolt? Watch this overview, then follow the QuickStart guide to build and publish your first app. ​ What you can build Bolt builds websites and apps, including marketing sites, portfolios, online stores, dashboards, and internal tools. You can also build presentations with Bolt Slides . Each example below is a real project that you can copy for free from the Bolt Templates marketplace. Browse the Bolt Templates marketplace , or start building in Bolt to bring your own idea to life. ​ Get the most out of Bolt Use Plan Mode : Talk through your idea with Bolt before it writes any code. Write better prompts : Describe your idea clearly to get better results. Build one step at a time : Finish and test each layer of your project before you start the next. Manage project context : Keep Bolt’s working memory small so responses stay fast and accurate. Use tokens efficiently : Avoid the common causes of token waste. ​ Popular docs Database Store and manage data with Bolt Database. Publish Publish your project to a live website. Connect a domain Connect a domain th",
+          "aliases": [
+            "https://support.bolt.new"
+          ],
+          "fingerprint": "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336",
+          "source_id": "bolt",
+          "verified_at": "2026-11-02T20:31:20.956870+00:00"
+        },
+        {
+          "url": "https://vercel.com/docs/ai-gateway/coding-agents/pi",
+          "title": "Pi with AI Gateway",
+          "excerpt": "Copy page Copy page Pi with AI Gateway Copy page Copy page Pi is an open-source terminal coding agent. It ships a first-class vercel-ai-gateway provider, so it already knows the gateway's base URL and model catalog and only needs your API key. Set up with the Vercel CLI Run the Vercel CLI setup command for Pi: terminal npx vercel@latest ai-gateway setup --agent pi This command: Provisions an AI Gateway API key, or reuses one you pass with --key . Writes the key to Pi's auth file ( ~/.pi/agent/auth.json , or $PI_CODING_AGENT_DIR/auth.json when that variable is set) under the vercel-ai-gateway provider key, with owner-only ( 0600 ) permissions. Backs up any file it changes alongside the original as .bak . Add --dry-run to preview changes without writing them. The Vercel CLI configures Pi but doesn't install it. Install Pi before starting it: terminal npm install -g @earendil-works/pi-coding-agent Pi always keeps the key in auth.json , so the command writes it there even in macOS Keychain mode. Pi reads its agent directory from $PI_CODING_AGENT_DIR when that variable is set, and falls b",
+          "aliases": [
+            "https://vercel.com/docs/ai-gateway/coding-agents/pi"
+          ],
+          "fingerprint": "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
+          "source_id": "vercel",
+          "verified_at": "2026-11-02T20:31:20.894461+00:00"
+        }
+      ],
+      "tweet_id": "2117353929680003298",
+      "posted_at": "2026-11-02T20:31:26.633900+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -643,44 +676,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T20:02:05.697542+00:00",
-  "pending": {
-    "slot": "2026-11-02:resources-v1:42",
-    "audience": "founders",
-    "labels": [
-      "Bolt Help Center",
-      "Pi with AI Gateway"
-    ],
-    "resources": [
-      {
-        "url": "https://support.bolt.new/",
-        "title": "Bolt Help Center: guides and support for building with Bolt - Bolt",
-        "excerpt": "​ Get started with Bolt New to Bolt? Watch this overview, then follow the QuickStart guide to build and publish your first app. ​ What you can build Bolt builds websites and apps, including marketing sites, portfolios, online stores, dashboards, and internal tools. You can also build presentations with Bolt Slides . Each example below is a real project that you can copy for free from the Bolt Templates marketplace. Browse the Bolt Templates marketplace , or start building in Bolt to bring your own idea to life. ​ Get the most out of Bolt Use Plan Mode : Talk through your idea with Bolt before it writes any code. Write better prompts : Describe your idea clearly to get better results. Build one step at a time : Finish and test each layer of your project before you start the next. Manage project context : Keep Bolt’s working memory small so responses stay fast and accurate. Use tokens efficiently : Avoid the common causes of token waste. ​ Popular docs Database Store and manage data with Bolt Database. Publish Publish your project to a live website. Connect a domain Connect a domain th",
-        "aliases": [
-          "https://support.bolt.new"
-        ],
-        "fingerprint": "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336",
-        "source_id": "bolt",
-        "verified_at": "2026-11-02T20:31:20.956870+00:00"
-      },
-      {
-        "url": "https://vercel.com/docs/ai-gateway/coding-agents/pi",
-        "title": "Pi with AI Gateway",
-        "excerpt": "Copy page Copy page Pi with AI Gateway Copy page Copy page Pi is an open-source terminal coding agent. It ships a first-class vercel-ai-gateway provider, so it already knows the gateway's base URL and model catalog and only needs your API key. Set up with the Vercel CLI Run the Vercel CLI setup command for Pi: terminal npx vercel@latest ai-gateway setup --agent pi This command: Provisions an AI Gateway API key, or reuses one you pass with --key . Writes the key to Pi's auth file ( ~/.pi/agent/auth.json , or $PI_CODING_AGENT_DIR/auth.json when that variable is set) under the vercel-ai-gateway provider key, with owner-only ( 0600 ) permissions. Backs up any file it changes alongside the original as .bak . Add --dry-run to preview changes without writing them. The Vercel CLI configures Pi but doesn't install it. Install Pi before starting it: terminal npm install -g @earendil-works/pi-coding-agent Pi always keeps the key in auth.json , so the command writes it there even in macOS Keychain mode. Pi reads its agent directory from $PI_CODING_AGENT_DIR when that variable is set, and falls b",
-        "aliases": [
-          "https://vercel.com/docs/ai-gateway/coding-agents/pi"
-        ],
-        "fingerprint": "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
-        "source_id": "vercel",
-        "verified_at": "2026-11-02T20:31:20.894461+00:00"
-      }
-    ],
-    "text": "For founders\n\nBolt Help Center\nhttps://support.bolt.new/\n\nPi with AI Gateway\nhttps://vercel.com/docs/ai-gateway/coding-agents/pi\n\nThank me later.\nFollow for more useful links.",
-    "approval": "03d21d6d12dc0829de8438915a81b210e21a9de74a5e3cb7f4f7fc863e3d0955",
-    "prepared_at": "2026-11-02T20:31:19.121024+00:00",
-    "run_id": "41519906406",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-02T20:31:26.633900+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://blog.hubspot.com/marketing/landing-page-design",
