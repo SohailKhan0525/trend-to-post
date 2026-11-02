@@ -456,7 +456,16 @@
     }
   ],
   "last_posted_at": "2026-11-02T15:01:42.067528+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-02:conversation-v2:31",
+    "category": "coding_take",
+    "text": "comment your least favorite file format for documentation, one that always causes more annoyance than clarity.",
+    "topic": "documentation that includes a working example",
+    "topic_approval": "fa211c4da5c62c83c8c39d0562f707366dbcf23d83b767d7e9aa3804993aa689",
+    "prepared_at": "2026-11-02T15:31:15.939510+00:00",
+    "run_id": "41472350393",
+    "run_attempt": "1"
+  },
   "plan": {
     "day": "2026-11-02",
     "slots": [
