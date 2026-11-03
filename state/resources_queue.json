@@ -842,10 +842,47 @@
     }
   ],
   "last_posted_at": "2026-11-03T02:01:32.454387+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:4",
+    "audience": "founders",
+    "labels": [
+      "Show Progress",
+      "Migrating within Supabase"
+    ],
+    "resources": [
+      {
+        "url": "https://basecamp.com/shapeup/3.4-chapter-13",
+        "title": "Show Progress | Shape Up",
+        "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. Shape Up Chapter 13: Show Progress The tasks that aren’t there Estimates don’t show uncertainty Work is like a hill Scopes on the hill Status without asking Nobody says \"I don’t know\" Prompts to refactor the scopes Build your way uphill Solve in the right sequence Next: Decide When to Stop Good-hearted managers don’t like asking for status. It’s awkward, feels like nagging, and gets even worse when they have to ask follow-up questions to get sufficiently clear about what’s going on. Managers would rather be able to see the status themselves whenever they need to. We saw in the last chapter how organizing to-dos into scopes helps the team to stay on top of the work. But this doesn’t help the manager directly. There are a couple problems with to-dos that make them insufficient for judging status. The tasks that aren’t there Consider a list with a few completed items and no incomplete items left. This could mean that all the work is done. But it could also",
+        "aliases": [
+          "https://basecamp.com/shapeup/3.4-chapter-13"
+        ],
+        "fingerprint": "61c0fa8aa4f6a8827974f8d627be1df19a6c8cd445247ad4f143ea94d01023a3",
+        "source_id": "shapeup",
+        "verified_at": "2026-11-03T02:31:16.303259+00:00"
+      },
+      {
+        "url": "https://supabase.com/docs/guides/platform/migrating-within-supabase",
+        "title": "Migrating within Supabase | Supabase Docs",
+        "excerpt": "Updated Aug 3, 2025 If you are on a Paid Plan and have physical backups enabled, you should instead use the Restore to another project feature . Database migration guides # If you need to migrate from one Supabase project to another, choose the appropriate guide below: Backup file from the dashboard (*.backup) # Follow the Restore dashboard backup guide SQL backup files (*.sql) # Follow the Backup and Restore using the CLI guide Transfer project to a different organization # Project migration is primarily for changing regions or upgrading to new major versions of the platform in some scenarios. If you need to move your project to a different organization without touching the infrastructure, see project transfers . Is this helpful? No Yes AI tools Connect your AI agent Copy as Markdown Ask ChatGPT Ask Claude Prefer on Google",
+        "aliases": [
+          "https://supabase.com/docs/guides/platform/migrating-within-supabase"
+        ],
+        "fingerprint": "93e3cc087fdcfe15385c26c6f176885c9275aa4aaab67fa5d63c1f7179ef3236",
+        "source_id": "supabase",
+        "verified_at": "2026-11-03T02:31:16.365993+00:00"
+      }
+    ],
+    "text": "For founders\n\nShow Progress\nhttps://basecamp.com/shapeup/3.4-chapter-13\n\nMigrating within Supabase\nhttps://supabase.com/docs/guides/platform/migrating-within-supabase\n\nThank me later.\nFollow for more useful links.",
+    "approval": "9bef80cb4cfcce76731701cc72da796f49dace412b37204d66122749f8034840",
+    "prepared_at": "2026-11-03T02:31:14.641475+00:00",
+    "run_id": "41566601067",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
+    "https://basecamp.com/shapeup/3.4-chapter-13",
     "https://blog.hubspot.com/marketing/ai-video-trends",
     "https://blog.hubspot.com/marketing/landing-page-design",
     "https://blog.hubspot.com/marketing/social-media-dashboard-tools",
@@ -858,6 +895,7 @@
     "https://rework.withgoogle.com",
     "https://rework.withgoogle.com/intl/en",
     "https://rework.withgoogle.com/intl/en/subjects/managers",
+    "https://supabase.com/docs/guides/platform/migrating-within-supabase",
     "https://support.bolt.new",
     "https://t.co/3C7ZAkzRbT",
     "https://t.co/CI5nOrAC48",
@@ -890,10 +928,12 @@
     "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
     "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
     "603b0c57b200f0fee80c970e0e7438932d43dca0c2dd8c7fc8eeea4201c468f5",
+    "61c0fa8aa4f6a8827974f8d627be1df19a6c8cd445247ad4f143ea94d01023a3",
     "64505066f8a052520753eee47b24e389b76d88be51d216535227f78f140d6c60",
     "7dae16ed58fc3b34f9a7d33c6e4c5a7c0f96c35465deb5ceb45f98d8bcbc8ff8",
     "90a60a1c1664c72005696eade46592b7802336c2b078c6ae632296bda56d35fb",
     "9228738c195b0fecff14f1b1d8b734597fa0811f1298baac3e788e069247f2ac",
+    "93e3cc087fdcfe15385c26c6f176885c9275aa4aaab67fa5d63c1f7179ef3236",
     "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
     "a2b56537579ddd5d7ac2b27c27c4daf0673e455fb513ec4d9745c8b65d1d9f56",
     "a3b6c13e1f51d488e5f73088fd9ba36210884fbe103366f9deb3e2c976368442",
@@ -13567,10 +13607,6 @@
       "source_id": "rework"
     },
     {
-      "url": "https://rework.withgoogle.com/intl/en/subjects/managers",
-      "source_id": "rework"
-    },
-    {
       "url": "https://rework.withgoogle.com/intl/en/subjects/org-management",
       "source_id": "rework"
     },
@@ -13616,10 +13652,6 @@
     },
     {
       "url": "https://zapier.com/blog/all-articles/partner-case-studies",
-      "source_id": "zapier"
-    },
-    {
-      "url": "https://zapier.com/blog/productivity",
       "source_id": "zapier"
     },
     {
@@ -20543,10 +20575,6 @@
       "source_id": "hubspotsales"
     },
     {
-      "url": "https://blog.hubspot.com/sales/questions-make-your-final-close-happen-naturally",
-      "source_id": "hubspotsales"
-    },
-    {
       "url": "https://blog.hubspot.com/sales/b2b-ecommerce-trends",
       "source_id": "hubspotsales"
     },
@@ -20909,6 +20937,1722 @@
     {
       "url": "https://rework.withgoogle.com/intl/en/guides/a-data-driven-approach-to-optimizing-employee-onboarding",
       "source_id": "rework"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/twitch",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/history",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/members-access/get-workspace-member",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/memory",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/lovable-api",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/chargebee",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/project-usage",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/gcp",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/bitbucket",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/database-performance",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/organizations",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/woocommerce",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/chat-connectors",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/snowflake",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/llms.txt",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/zendesk",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/21stdev",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/action-center",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/publish",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/ashby",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/omni",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/perplexity",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/launch-on-a-custom-domain",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/delete-workspace",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/api-keys",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/hubspot",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/goal-runs",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/project-visibility",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/bamboohr",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/database-pause-remove",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/linear",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/deployment-hosting-ownership",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/figma",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/workspace-admin-settings",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/logs",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/motherduck",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/from-idea-to-app",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/neon",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/bing-webmaster-tools",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/wix",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/security",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-chat",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/sevdesk",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/xero",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/preview",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/credits-and-usage",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/scrive",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/klipy",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/create-connector",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/verified-domains",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/people",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/algolia",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/microsoft-copilot-managed-runtime",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/app-connectors",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ads",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/create-an-account",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/logo-dev",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/design-guidance",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/subscription-plans",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/workspace-identity",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/google-auth",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/introduction",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/clickhouse",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/eleven-labs",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/pledge",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/ibm-db2",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/members-access/list-project-collaborators",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/support-policy",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/cloudflare-api",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/events-and-hooks",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/slack",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/bigquery",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/chatgpt-app",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/custom-domain",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/wave",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/aws-s3",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/credit-top-ups",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/cross-project-referencing",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/analytics",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/chat-mode",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/beehiiv",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/business/sso",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/edge-functions",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/linkedin",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/microsoft-copilot-managed-runtime-tenant-setup",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/email-auth",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/settings",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/lovable-for-slack",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/welcome",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/prompting/prompting-one",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/dbt-semantic-layer",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/project-search-and-find",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/dashboard-overview",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/google-workspace",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/whatsapp",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/any-api",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/authentication",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/gitlab",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/build-secrets",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/knowledge",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/external-deployment-hosting",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/mailgun",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/drafts",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/changelog",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/azure-graph",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/lovable-account-settings",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/attention",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-decisions",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/jobs",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/publishing-domain",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/aws-athena",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/database-backups",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/collaboration",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/google-analytics",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/members-access/list-workspace-members",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/app-user-connectors",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/deploy-domains/unpublish-project",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/workspace-policies",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/security-governance/list-security-scan-findings",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/brevo",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/organization-people",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-music",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/project-comments",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-live-voice",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/workday",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/custom-fonts",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/google-workspace-editing",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/out-of-credits",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/plan-mode",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/overview",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/introduction",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/payments",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/x",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/editor",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/lovable-mcp-server",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/lovable-for-enterprise",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/projects/list-projects",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/getting-started",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/remix",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/desktop-app",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/security-governance/get-security-scan",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/wordpress-com",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/project-monitoring",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-images",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/secrets",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-video",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/generate-files",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/gemini-enterprise",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/video-tutorials",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/lightspeed",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/aws",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/business/scim",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/data-exports-splunk",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/posthog",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/gooddata",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/database-access",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/phone-auth",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/calendly",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/mapbox",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/firebase-cloud-messaging",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/sign-in-with-lovable",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/data-exports-azure-log-analytics",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/hooks/message-before-submit-v1",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/deploy-domains/publish-project",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/invoices-and-billing",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/supabase",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/projects/update-project",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/privacy-and-security-settings",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/saml-sso",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/enterprise-managed-auth",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/security-insights",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/power-bi",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/notion",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/looker",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/microsoft-fabric",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/apify",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/fireflies",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/delete-project",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/salesforce",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/groups",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/resend",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/oidc-auth",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/members-access/list-workspace-groups",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/usage-limits-and-alerts",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/zoho-books",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/parallel",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/amazon-redshift",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/tally",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/prompting/prompting-debugging",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/databricks",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/testing",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/custom-emails",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/gong",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/analytics/get-workspace-analytics",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/chats",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/loops",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/analytics/get-project-analytics",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/aikido",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/changelog",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/project-folders",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/deploy-domains/update-publish-settings",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/custom-mcp",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/lexware",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/deploy-domains/get-publish-status",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/seo-aeo",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/data-exports-google-cloud-storage",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/lovable-workspace-identity-reuse",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/tiktok",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/git-sync-overview",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/github-api",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/sensitive-data-scanning",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/wiz",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/analytics/get-project-realtime-analytics",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/azure",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/prompting/prompting-library",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/workspace",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/inngest",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/transfer-domain",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/semrush",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/fireworks",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/zoho-crm",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/telegram",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/n8n",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/klaviyo",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/import-project",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/apple-auth",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/security-view",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/agent-mode",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/storage",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/security-best-practices",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/wordpress",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/security-governance/get-workspace-security-insights",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/build-with-url",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/granola",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/audit-logs",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/security-governance/list-security-scans",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/data-exports-amazon-s3",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/cube",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/browser-testing",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/clay",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/branded-workspace-urls",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/security-governance/list-personal-data-findings",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/gitlab-api",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/workspace-announcements",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/stripe",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/pipedrive",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/analytics/get-project-analytics-breakdowns",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/contentful",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/microsoft",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/design-systems",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/projects/delete-project",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/prestashop",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/two-factor-authentication-2-fa",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/security-governance/list-workspace-security-project-inventory",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/airtable",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/projects/get-project",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/ramp",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/qlik-cloud",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/trust-center",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/eu-inference",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/shopify",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/lovable-telegram-bot",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/lovable-mobile-app",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/google-maps",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/preview-toolbar",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/skills",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/chat",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/growth-tools",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/cloud",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/business/data-opt-out",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/manage-subscription",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/workspaces/get-workspace",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/business/design-templates",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/subagents",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/security-center",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/oracle-autonomous",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/glossary",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/faq",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/oauth-clients",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/projects/import-website",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/discord",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/lovable-auth",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/organization-identity",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/google-business-profile",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/replicate",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/security",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/google-search-console",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/database",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/apollo",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/mcp-registries",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/metabase",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/workspaces/list-workspaces",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/microsoft-auth",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-speech-to-text",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/share-project",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/gatewayapi",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/twilio",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/agent-integrations",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/hosting",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/tips-tricks/npm-packages",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-search",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/github",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/upgrade-to-tanstack-start",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/managed-registry",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/incidentio",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/data-exports",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/code-mode",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-deprecated-models",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai-text-to-speech",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/asana",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/storyblok",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/ai",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/data-exports-azure-blob-storage",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/llamaparse",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/lovable-api-connector",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/introduction/delete-account",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/admin-controls",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/features/insights",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/integrations/firecrawl",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://docs.lovable.dev/api-reference/projects/create-embed-url",
+      "source_id": "lovable"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/google-sso",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/security",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/cdn-cgi/l/email-protection",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting/domain-issues",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/account/billing",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/collaboration/sharing",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/settings/account-settings",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/prompting/prompting-effectively",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/teams/billing-invoices",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/domains",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/mcp",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/hosting/publish",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/design-system/view-design-system",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/domains/ssl-https",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/advanced",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting/database-issues",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/use-cases/slides",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/file-storage",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/google-stitch",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/prompting/prompt-library",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting/publish-issues",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting/contact-support",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/teams/manage-team",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/design-system",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/supabase",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting/sharing-issues",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/get-started/project-lifecycle",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/teams/team-templates",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/tables",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/release-notes",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/prompting",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/design-system/sync-design-system",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/code-view",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/reference",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/design-system/best-practices",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/settings",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/get-started/quickstart",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/domains/connect",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/managing-projects/projects-files",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/reference/intro-llms",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/hosting/analytics",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/use-cases",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/account/tokens",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting/issues",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/skills",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/collaboration",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/get-started",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/domains/aliases",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/account/bolt-forge",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/prompting/manage-context",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/reference/intro-databases",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/account/corporate-commercial",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/images",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting/preview-issues",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/upload-files",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/hosting/plans",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting/integrations-issues",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/server-functions",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/reference/version-history-github",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/account/account-management",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/expo",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/hosting",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/figma",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/git",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/domains/third-party-guides",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/design-system/use-design-system",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/visual-edits",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/preview-controls",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/teams",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/llms.txt",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/settings/workspace-settings",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/domains/dns-records",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/authentication",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/send-emails",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/account",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/domains/purchase",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/get-started/intro-bolt",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/collaboration/comments",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/managing-projects",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/settings/project-settings",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/github-org",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/agents",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/reference/glossary",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/collaboration/collaborate",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/design-system/add-design-system",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/prompting/maximizing-token-efficiency",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/prompting/plan-mode",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/secrets",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/lovable-import",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/user-management",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/account/referral-program",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/settings/team-settings",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/get-started/video-tutorials",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/start-project",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/stripe",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/troubleshooting/login-issues",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/reference/supported-technologies",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/managing-projects/rollback-backup",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/integrations/netlify",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/logs",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/bolt-cloud/database/security",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/building/chat-tools",
+      "source_id": "bolt"
+    },
+    {
+      "url": "https://support.bolt.new/reference/faq",
+      "source_id": "bolt"
     }
   ],
   "discovery_cursors": {
@@ -20918,7 +22662,7 @@
     "CEOs": 4,
     "students": 6,
     "vibecoders": 4,
-    "founders": 2,
+    "founders": 4,
     "job seekers": 2,
     "designers": 2
   }
