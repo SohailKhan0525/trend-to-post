@@ -591,6 +591,39 @@
       "posted_at": "2026-11-03T06:01:32.169264+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:14",
+      "audience": "marketers",
+      "text": "For marketers\n\nI Built an AI Social Media\nhttps://buffer.com/resources/ai-social-media-with-social-data/\n\nAI Agent A Plain- English Guide\nhttps://ahrefs.com/blog/what-is-an-ai-agent/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://buffer.com/resources/ai-social-media-with-social-data/",
+          "title": "How I Built an AI Social Media Coach with my Social Data",
+          "excerpt": "How I Built an AI Social Media Coach with my Social Data AI Published Jul 30, 2026 Here's the system I built and the exact prompts I used to make my social strategy more data-informed with my own social data. Reading time 4 minute read Author Hailley Griffis Head of Communications & Content @ Buffer Social data is more accessible than ever. We released Insights at Buffer, and with a button, I can export my data very easily (I would’ve probably cried with joy to have this feature as a social media manager in 2014). Now, in addition to all of our social data, we also have the power of AI at our fingertips. One way that I’ve been able to make my social strategy more data-informed is by creating a workflow where I gather all of the context about my recent posts via Insights → have my AI tool of choice analyze it to look for patterns and gaps → and then check that against my overall social goals to help me stay on track. I've been tracking my LinkedIn metrics for a while, and I have specific goals, but I'd never connected the context I could gather from my own posts to having AI coach me ",
+          "aliases": [
+            "https://buffer.com/resources/ai-social-media-with-social-data"
+          ],
+          "fingerprint": "40208de3e42ec63bd63601ac83a94b0b39fb1c685502ae04c706916108ae47d4",
+          "source_id": "buffer",
+          "verified_at": "2026-11-03T07:01:33.745485+00:00"
+        },
+        {
+          "url": "https://ahrefs.com/blog/what-is-an-ai-agent/",
+          "title": "What is an AI Agent? A Plain-English Guide",
+          "excerpt": "Subscribe to Newsletter Subscribe to Ahrefs Newsletter General Marketing What is an AI Agent? A Plain-English Guide By Si Quan Ong SEO & Marketing Educator at Ahrefs Reviewed by Ryan Law June 18, 2026 9 min read 38 Linking websites Article performance data from Ahrefs Contents AI agent vs. chatbot vs. LLM vs. agentic AI How AI agents work Examples of AI agents you can use today How to get started with AI agents Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source An AI agent is a software system that uses artificial intelligence to pursue a goal and complete tasks on your behalf. Unlike a chatbot that simply answers what you ask, an agent can break a goal into steps, make decisions, use tools, and take actions across multiple steps, with little or no human intervention along the way. If a chatbot is someone who answers your question, an agent is someone who goes off and gets the job done and comes back with the result. But the word agent now gets attached to almost everything, from basi",
+          "aliases": [
+            "https://ahrefs.com/blog/what-is-an-ai-agent"
+          ],
+          "fingerprint": "3e018926ab25a76204a5d5865890cbd5219e31489a01453de2e5cb3826019dc7",
+          "source_id": "ahrefs",
+          "verified_at": "2026-11-03T07:01:34.035832+00:00"
+        }
+      ],
+      "tweet_id": "2117512509204906481",
+      "posted_at": "2026-11-03T07:01:36.907217+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1072,44 +1105,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T06:01:32.169264+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:14",
-    "audience": "marketers",
-    "labels": [
-      "I Built an AI Social Media",
-      "AI Agent A Plain- English Guide"
-    ],
-    "resources": [
-      {
-        "url": "https://buffer.com/resources/ai-social-media-with-social-data/",
-        "title": "How I Built an AI Social Media Coach with my Social Data",
-        "excerpt": "How I Built an AI Social Media Coach with my Social Data AI Published Jul 30, 2026 Here's the system I built and the exact prompts I used to make my social strategy more data-informed with my own social data. Reading time 4 minute read Author Hailley Griffis Head of Communications & Content @ Buffer Social data is more accessible than ever. We released Insights at Buffer, and with a button, I can export my data very easily (I would’ve probably cried with joy to have this feature as a social media manager in 2014). Now, in addition to all of our social data, we also have the power of AI at our fingertips. One way that I’ve been able to make my social strategy more data-informed is by creating a workflow where I gather all of the context about my recent posts via Insights → have my AI tool of choice analyze it to look for patterns and gaps → and then check that against my overall social goals to help me stay on track. I've been tracking my LinkedIn metrics for a while, and I have specific goals, but I'd never connected the context I could gather from my own posts to having AI coach me ",
-        "aliases": [
-          "https://buffer.com/resources/ai-social-media-with-social-data"
-        ],
-        "fingerprint": "40208de3e42ec63bd63601ac83a94b0b39fb1c685502ae04c706916108ae47d4",
-        "source_id": "buffer",
-        "verified_at": "2026-11-03T07:01:33.745485+00:00"
-      },
-      {
-        "url": "https://ahrefs.com/blog/what-is-an-ai-agent/",
-        "title": "What is an AI Agent? A Plain-English Guide",
-        "excerpt": "Subscribe to Newsletter Subscribe to Ahrefs Newsletter General Marketing What is an AI Agent? A Plain-English Guide By Si Quan Ong SEO & Marketing Educator at Ahrefs Reviewed by Ryan Law June 18, 2026 9 min read 38 Linking websites Article performance data from Ahrefs Contents AI agent vs. chatbot vs. LLM vs. agentic AI How AI agents work Examples of AI agents you can use today How to get started with AI agents Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source An AI agent is a software system that uses artificial intelligence to pursue a goal and complete tasks on your behalf. Unlike a chatbot that simply answers what you ask, an agent can break a goal into steps, make decisions, use tools, and take actions across multiple steps, with little or no human intervention along the way. If a chatbot is someone who answers your question, an agent is someone who goes off and gets the job done and comes back with the result. But the word agent now gets attached to almost everything, from basi",
-        "aliases": [
-          "https://ahrefs.com/blog/what-is-an-ai-agent"
-        ],
-        "fingerprint": "3e018926ab25a76204a5d5865890cbd5219e31489a01453de2e5cb3826019dc7",
-        "source_id": "ahrefs",
-        "verified_at": "2026-11-03T07:01:34.035832+00:00"
-      }
-    ],
-    "text": "For marketers\n\nI Built an AI Social Media\nhttps://buffer.com/resources/ai-social-media-with-social-data/\n\nAI Agent A Plain- English Guide\nhttps://ahrefs.com/blog/what-is-an-ai-agent/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "738dfa8d9052b8c98ca084cc2dacbf35399f7da62815057f81b4445a9ff50c8c",
-    "prepared_at": "2026-11-03T07:01:31.360524+00:00",
-    "run_id": "41593542462",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T07:01:36.907217+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
