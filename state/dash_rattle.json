@@ -143,6 +143,18 @@
       "premise": "AI splits a chocolate into 'qiao' and 'ke li', making the speaker wonder if it's writing a recipe.",
       "tweet_id": "2117709194035949659",
       "posted_at": "2026-11-03T20:03:11.771926+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:43",
+      "due_at": "2026-11-03T20:35:00+00:00",
+      "topic": "cars",
+      "detail": "a cupholder designed around an imaginary cup",
+      "language": "Japanese",
+      "form": "a question with a funny, concrete premise",
+      "text": "助手席は空いてる。説明書だけはシートベルトが要りそうな厚さだ。",
+      "premise": "A car manual is thick enough to need its own seat belt.",
+      "tweet_id": "2117717259594440983",
+      "posted_at": "2026-11-03T20:35:14.767324+00:00"
     }
   ],
   "used_texts": [
@@ -278,26 +290,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T20:03:11.771926+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:43",
-      "due_at": "2026-11-03T20:35:00+00:00",
-      "topic": "cars",
-      "detail": "a cupholder designed around an imaginary cup",
-      "language": "Japanese",
-      "form": "a question with a funny, concrete premise"
-    },
-    "draft": {
-      "text": "助手席は空いてる。説明書だけはシートベルトが要りそうな厚さだ。",
-      "premise": "A car manual is thick enough to need its own seat belt."
-    },
-    "approval": "6c27d96d762043bdfc2ae30bb8e1b02e0f6f8be99c5ea7c9911a825d88002b7a",
-    "run": [
-      "41713282768",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T20:35:04.690710+00:00"
-  },
+  "last_posted_at": "2026-11-03T20:35:14.767324+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
