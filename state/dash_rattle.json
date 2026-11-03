@@ -107,6 +107,18 @@
       "premise": "A software update moves the undo button to settings, which now leads to another dimension.",
       "tweet_id": "2117690817230106949",
       "posted_at": "2026-11-03T18:50:10.447311+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:40",
+      "due_at": "2026-11-03T19:09:00+00:00",
+      "topic": "technology",
+      "detail": "a USB-C drawer full of identical-looking cables",
+      "language": "English",
+      "form": "a dry one-liner",
+      "text": "I opened the USB-C drawer to find a bunch of cables, all looking like they were trying to be the same.",
+      "premise": "Cables in a drawer all look identical, trying to blend in.",
+      "tweet_id": "2117695631930356198",
+      "posted_at": "2026-11-03T19:09:18.330161+00:00"
     }
   ],
   "used_texts": [
@@ -236,26 +248,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T18:50:10.447311+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:40",
-      "due_at": "2026-11-03T19:09:00+00:00",
-      "topic": "technology",
-      "detail": "a USB-C drawer full of identical-looking cables",
-      "language": "English",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "I opened the USB-C drawer to find a bunch of cables, all looking like they were trying to be the same.",
-      "premise": "Cables in a drawer all look identical, trying to blend in."
-    },
-    "approval": "2f01413994e58b4018dec41c951c67f3ad5be7b83feebdc14e0e80d09c84427c",
-    "run": [
-      "41699297230",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T19:09:05.814671+00:00"
-  },
+  "last_posted_at": "2026-11-03T19:09:18.330161+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
