@@ -1601,7 +1601,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T14:31:28.468507+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:30",
+    "audience": "designers",
+    "labels": [
+      "Posts guide",
+      "Definition of User Experience UX"
+    ],
+    "resources": [
+      {
+        "url": "https://www.a11yproject.com/posts/",
+        "title": "Posts - The A11Y Project The A11Y Project",
+        "excerpt": "Table of Contents Featured Post Should I use an accessibility overlay? March 8, 2021 by The A11Y Project Team There are two types of accessibility overlays: Temporary bandage solutions, and permanent plugins. The use of a permanent plugin is incredibly problematic. Experiences Lived experiences shared by disabled people. The power of ChatGPT as a cognitive accessibility assistive technology for Traumatic Brain Injury survivors Published on March 14, 2023 by Jamie Vanderwall This essay explores the use of ChatGPT as a cognitive accessibility assistive technology for traumatic brain injury (TBI) survivors. Blind people need to be considered more when making data visualizations Published on September 22, 2022 by Johny Cassidy As a blind journalist, I’m concerned that the increased use of visual data representation without careful and creative thought about accessibility is widening the inaccessibility gap. Disability: let’s say the word Published on October 18, 2021 by Emily Ogle In hesitating to use the word ‘disability,’ people are unwittingly reinforcing the stigma that having a disa",
+        "aliases": [
+          "https://www.a11yproject.com/posts"
+        ],
+        "fingerprint": "28e4bb1556c7f92db5ce74461a4e01c438be631ffc2b5980ee4f5d95b185c3f0",
+        "source_id": "a11y",
+        "verified_at": "2026-11-03T15:01:39.630379+00:00"
+      },
+      {
+        "url": "https://www.nngroup.com/articles/definition-user-experience/",
+        "title": "The Definition of User Experience (UX) - NN/G Nielsen Norman Group Nielsen Norman Group",
+        "excerpt": "0 The Definition of User Experience (UX) Don Norman, Jakob Nielsen Don Norman and Jakob Nielsen August 8, 1998 1998-08-08 Share Email article Share on LinkedIn Share on Twitter Summary: \"User experience\" encompasses all aspects of the end-user's interaction with the company, its services, and its products. The first requirement for an exemplary user experience is to meet the exact needs of the customer, without fuss or bother. Next comes simplicity and elegance that produce products that are a joy to own, a joy to use. True user experience goes far beyond giving customers what they say they want, or providing checklist features. In order to achieve high-quality user experience in a company's offerings there must be a seamless merging of the services of multiple disciplines, including engineering, marketing, graphical and industrial design, and interface design. It's important to distinguish the total user experience from the user interface (UI), even though the UI is obviously an extremely important part of the design. As an example, consider a website with movie reviews. Even if the",
+        "aliases": [
+          "https://www.nngroup.com/articles/definition-user-experience"
+        ],
+        "fingerprint": "9bab413a505db628ea86ccd9d4b17a466a8af29626371fde1589d7748cc3a9e2",
+        "source_id": "nngroup",
+        "verified_at": "2026-11-03T15:01:40.113497+00:00"
+      }
+    ],
+    "text": "For designers\n\nPosts guide\nhttps://www.a11yproject.com/posts/\n\nDefinition of User Experience UX\nhttps://www.nngroup.com/articles/definition-user-experience/\n\nThank me later.\nFollow for more useful links.",
+    "approval": "817042f362759b226edb775f8bd393cf2fbcaa5824a1ec0f4e6b9b36e6359698",
+    "prepared_at": "2026-11-03T15:01:36.100587+00:00",
+    "run_id": "41659498443",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
@@ -1668,6 +1704,7 @@
     "https://vite.dev/guide",
     "https://web.dev/learn",
     "https://web.dev/learn/performance",
+    "https://www.a11yproject.com/posts",
     "https://www.atlassian.com/team-playbook/examples/people-team",
     "https://www.atlassian.com/team-playbook/plays",
     "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping",
@@ -1677,6 +1714,7 @@
     "https://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book",
     "https://www.freecodecamp.org/news/support",
     "https://www.khanacademy.org/math",
+    "https://www.nngroup.com/articles/definition-user-experience",
     "https://www.nngroup.com/articles/how-might-we-questions",
     "https://www.techinterviewhandbook.org/behavioral-interview",
     "https://www.todoist.com/productivity-methods",
@@ -1702,6 +1740,7 @@
     "2657d695c496803f9a1526413c0e834fd005858febd63324192c328faeeb72e7",
     "269ce05f6e6e14cf6e60b4ee15a32bf5445ea47b24ac3e73f243e1916bb6822e",
     "26f6216be8cdadc0a5d3a963537a9d88c4f916a88bbbedfa910e2af06db4ec28",
+    "28e4bb1556c7f92db5ce74461a4e01c438be631ffc2b5980ee4f5d95b185c3f0",
     "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
     "325b4a11f5743ce33788d03891fabb4772892f1d4cc514bc0a8a3a7e944b8b0c",
     "361a08d266f6c7bba184db836f185c6f5e44d1a9117834c7122f5b994d988196",
@@ -1730,6 +1769,7 @@
     "93e3cc087fdcfe15385c26c6f176885c9275aa4aaab67fa5d63c1f7179ef3236",
     "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
     "9837ca5964199353405a12e619f031e6b1cbea5bd19d2decbf69d03af20df15f",
+    "9bab413a505db628ea86ccd9d4b17a466a8af29626371fde1589d7748cc3a9e2",
     "9cf3c14cee3ad2e6fdfc1b636205d8489fb99cadd8bb3a2e46e415a1320fa12f",
     "a21928588786e30837b4b0678a6bf075149604ca79cc50cbde1024cf69b02c4b",
     "a2b56537579ddd5d7ac2b27c27c4daf0673e455fb513ec4d9745c8b65d1d9f56",
@@ -1760,10 +1800,6 @@
     {
       "url": "https://developer.mozilla.org/en-US/docs/Web",
       "source_id": "mdn"
-    },
-    {
-      "url": "https://web.dev/learn",
-      "source_id": "webdev"
     },
     {
       "url": "https://developer.chrome.com/docs/devtools",
@@ -27254,10 +27290,6 @@
       "source_id": "coursera"
     },
     {
-      "url": "https://www.coursera.org/articles/capm-certification-guide",
-      "source_id": "coursera"
-    },
-    {
       "url": "https://www.coursera.org/articles/popular-cybersecurity-certifications",
       "source_id": "coursera"
     },
@@ -29703,7 +29735,7 @@
     "vibecoders": 8,
     "founders": 10,
     "job seekers": 8,
-    "designers": 2,
+    "designers": 4,
     "developers": 6
   }
 }
