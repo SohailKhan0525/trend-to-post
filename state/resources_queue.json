@@ -1139,7 +1139,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T07:31:45.457630+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:16",
+    "audience": "students",
+    "labels": [
+      "Client Challenge",
+      "Quick Start"
+    ],
+    "resources": [
+      {
+        "url": "https://www.khanacademy.org/math",
+        "title": "Client Challenge",
+        "excerpt": "A required part of this site couldn’t load. This may be due to a browser extension, network issues, or browser settings. Please check your connection, disable any ad blockers, or try using a different browser.",
+        "aliases": [
+          "https://www.khanacademy.org/math"
+        ],
+        "fingerprint": "e0c34e123a64adf01df2d0876626b94b754bc3c27a265a844423be6c696b16dc",
+        "source_id": "khan",
+        "verified_at": "2026-11-03T08:01:42.027354+00:00"
+      },
+      {
+        "url": "https://react.dev/learn",
+        "title": "Quick Start – React",
+        "excerpt": "Learn React Copy page Copy Quick Start Welcome to the React documentation! This page will give you an introduction to 80% of the React concepts that you will use on a daily basis. You will learn How to create and nest components How to add markup and styles How to display data How to render conditions and lists How to respond to events and update the screen How to share data between components Creating and nesting components React apps are made out of components . A component is a piece of the UI (user interface) that has its own logic and appearance. A component can be as small as a button, or as large as an entire page. React components are JavaScript functions that return markup: function MyButton ( ) { return ( < button > I'm a button </ button > ) ; } Now that you’ve declared MyButton , you can nest it into another component: export default function MyApp ( ) { return ( < div > < h1 > Welcome to my app </ h1 > < MyButton /> </ div > ) ; } Notice that <MyButton /> starts with a capital letter. That’s how you know it’s a React component. React component names must always start wit",
+        "aliases": [
+          "https://react.dev/learn"
+        ],
+        "fingerprint": "361a08d266f6c7bba184db836f185c6f5e44d1a9117834c7122f5b994d988196",
+        "source_id": "react",
+        "verified_at": "2026-11-03T08:01:42.244812+00:00"
+      }
+    ],
+    "text": "For students\n\nClient Challenge\nhttps://www.khanacademy.org/math\n\nQuick Start\nhttps://react.dev/learn\n\nThank me later.\nFollow for more useful links.",
+    "approval": "63801ae5fc1b5230b6118f7a5eccf3d768f784e423a25f655d5dd6fba6aa77d3",
+    "prepared_at": "2026-11-03T08:01:40.121785+00:00",
+    "run_id": "41600203674",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
@@ -1160,6 +1196,7 @@
     "https://learn.microsoft.com/en-us/training",
     "https://mailchimp.com/resources/ecommerce-email-marketing",
     "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04",
+    "https://react.dev/learn",
     "https://rework.withgoogle.com",
     "https://rework.withgoogle.com/intl/en",
     "https://rework.withgoogle.com/intl/en/subjects/managers",
@@ -1190,6 +1227,7 @@
     "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping",
     "https://www.coursera.org/articles/best-companies-to-work-for-remotely",
     "https://www.freecodecamp.org/news/support",
+    "https://www.khanacademy.org/math",
     "https://www.techinterviewhandbook.org/behavioral-interview",
     "https://www.todoist.com/productivity-methods",
     "https://www.todoist.com/productivity-methods/systemist",
@@ -1208,6 +1246,7 @@
     "26f6216be8cdadc0a5d3a963537a9d88c4f916a88bbbedfa910e2af06db4ec28",
     "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
     "325b4a11f5743ce33788d03891fabb4772892f1d4cc514bc0a8a3a7e944b8b0c",
+    "361a08d266f6c7bba184db836f185c6f5e44d1a9117834c7122f5b994d988196",
     "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
     "3e018926ab25a76204a5d5865890cbd5219e31489a01453de2e5cb3826019dc7",
     "40208de3e42ec63bd63601ac83a94b0b39fb1c685502ae04c706916108ae47d4",
@@ -1236,6 +1275,7 @@
     "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
     "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
     "d98f81c5e24c73360c608765608a7137a9024da57b928982a50884004c77b751",
+    "e0c34e123a64adf01df2d0876626b94b754bc3c27a265a844423be6c696b16dc",
     "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336"
   ],
   "catalog": [
@@ -1290,10 +1330,6 @@
     {
       "url": "https://www.freecodecamp.org/news",
       "source_id": "freecodecamp"
-    },
-    {
-      "url": "https://www.open.edu/openlearn/free-courses/full-catalogue",
-      "source_id": "openlearn"
     },
     {
       "url": "https://openstax.org/subjects/science",
@@ -23168,10 +23204,6 @@
       "source_id": "openstax"
     },
     {
-      "url": "https://openstax.org/details/books/principles-marketing",
-      "source_id": "openstax"
-    },
-    {
       "url": "https://openstax.org/details/books/introduction-intellectual-property",
       "source_id": "openstax"
     },
@@ -26792,10 +26824,6 @@
       "source_id": "todoist"
     },
     {
-      "url": "https://www.todoist.com/productivity-methods/systemist",
-      "source_id": "todoist"
-    },
-    {
       "url": "https://www.todoist.com/productivity-methods/time-blocking",
       "source_id": "todoist"
     },
@@ -26849,10 +26877,6 @@
     },
     {
       "url": "https://www.coursera.org/articles/stackable-credentials",
-      "source_id": "coursera"
-    },
-    {
-      "url": "https://www.coursera.org/articles/best-companies-to-work-for-remotely",
       "source_id": "coursera"
     },
     {
@@ -26942,6 +26966,10 @@
     {
       "url": "https://www.coursera.org/articles/accounting-certifications",
       "source_id": "coursera"
+    },
+    {
+      "url": "https://www.khanacademy.org/math",
+      "source_id": "khan"
     }
   ],
   "discovery_cursors": {
@@ -26949,7 +26977,7 @@
     "creators": 2,
     "marketers": 8,
     "CEOs": 6,
-    "students": 8,
+    "students": 10,
     "vibecoders": 4,
     "founders": 8,
     "job seekers": 6,
