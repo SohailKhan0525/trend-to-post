@@ -142,10 +142,10 @@ def complete(system,data,temperature=.8,max_tokens=450,schema=None):
         try:
             errors=json.loads(body).get('errors',[])
             for error in errors[:2]:
-                message=str(error.get('message',''))[:400]
+                message=str(error.get('message',''))
                 message=message.replace(token,'[redacted]').replace(account,'[account]')
                 message=re.sub(r'(?i)Bearer\s+\S+','Bearer [redacted]',message)
-                print('Cloudflare HTTP '+str(exc.code)+': '+json.dumps(message,ensure_ascii=True))
+                print('Cloudflare HTTP '+str(exc.code)+': '+json.dumps(message[:400],ensure_ascii=True))
         except (ValueError,AttributeError,TypeError):
             print('Cloudflare HTTP '+str(exc.code)+'; no structured error details')
         raise
