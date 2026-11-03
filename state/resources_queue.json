@@ -875,7 +875,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T02:31:19.448019+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:5",
+    "audience": "students",
+    "labels": [
+      "lect04 pdf",
+      "Training guide"
+    ],
+    "resources": [
+      {
+        "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04/",
+        "title": "lect04.pdf | Geometry of Manifolds | Mathematics | MIT OpenCourseWare",
+        "excerpt": "Browse Course Material Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Topics Mathematics Differential Equations Linear Algebra Topology and Geometry Topics Science & Math Mathematics Learning Resource Types notes Lecture Notes assignment_turned_in Problem Set Solutions assignment Problem Sets Download Course search search GIVE NOW about ocw help & faqs contact us 18.966 | Spring 2007 | Graduate Geometry of Manifolds Menu More Info Description: Lecture notes on symplectic vector fields, flux; isotopy and deformation equivalence; Moser’s theorem; Darboux’s theorem. Resource Type: Lecture Notes pdf 89 kB lect04.pdf Download File Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Topics Mathematics Differential Equations Linear Algebra Topology and Geometry Topics Sci",
+        "aliases": [
+          "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04"
+        ],
+        "fingerprint": "2147dc214f9545fce356ebb2f80f0a0aace43d491f5c48ebc93ea1c5a5a319f9",
+        "source_id": "mitocw",
+        "verified_at": "2026-11-03T03:01:39.163173+00:00"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/training/",
+        "title": "Training - Courses, Learning Paths, Modules | Microsoft Learn",
+        "excerpt": "Welcome to Microsoft Learn Discover your path Whether you're just starting in a career, or you're an experienced professional, our self-directed approach helps you arrive at your goals faster, with more confidence and at your own pace. Develop skills through interactive modules and paths or learn from an instructor. Learn and grow your way. Master core concepts at your speed and on your schedule. Whether you've got 15 minutes or an hour, you can develop practical skills through interactive modules and paths. You can also register to learn from an instructor. Learn and grow your way. Browse all paths Customize my path Looking for specific training content? Learn new skills and discover the power of Microsoft products with step-by-step guidance. Start your journey today by exploring our learning paths, modules, and courses. Browse training Working towards a career goal? There are over 700 K job listings seeking candidates with Microsoft technical skills. Explore training and credentials aligned with your career goals. Explore career paths Student resources The home for students to expl",
+        "aliases": [
+          "https://learn.microsoft.com/en-us/training"
+        ],
+        "fingerprint": "9cf3c14cee3ad2e6fdfc1b636205d8489fb99cadd8bb3a2e46e415a1320fa12f",
+        "source_id": "microsoftlearn",
+        "verified_at": "2026-11-03T03:01:39.052985+00:00"
+      }
+    ],
+    "text": "For students\n\nlect04 pdf\nhttps://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04/\n\nTraining guide\nhttps://learn.microsoft.com/en-us/training/\n\nThank me later.\nFollow for more useful links.",
+    "approval": "9844553e81bac33252fd75b031a56f8dedfa16de90d4500fdad1b3903936ad4d",
+    "prepared_at": "2026-11-03T03:01:36.992405+00:00",
+    "run_id": "41569640302",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
@@ -888,7 +924,9 @@
     "https://buffer.com/resources/schedule-to-bluesky",
     "https://buffer.com/resources/tiktok-live",
     "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
+    "https://learn.microsoft.com/en-us/training",
     "https://mailchimp.com/resources/ecommerce-email-marketing",
+    "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04",
     "https://rework.withgoogle.com",
     "https://rework.withgoogle.com/intl/en",
     "https://rework.withgoogle.com/intl/en/subjects/managers",
@@ -921,6 +959,7 @@
     "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
     "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
     "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
+    "2147dc214f9545fce356ebb2f80f0a0aace43d491f5c48ebc93ea1c5a5a319f9",
     "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
     "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
     "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
@@ -932,6 +971,7 @@
     "9228738c195b0fecff14f1b1d8b734597fa0811f1298baac3e788e069247f2ac",
     "93e3cc087fdcfe15385c26c6f176885c9275aa4aaab67fa5d63c1f7179ef3236",
     "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
+    "9cf3c14cee3ad2e6fdfc1b636205d8489fb99cadd8bb3a2e46e415a1320fa12f",
     "a2b56537579ddd5d7ac2b27c27c4daf0673e455fb513ec4d9745c8b65d1d9f56",
     "a3b6c13e1f51d488e5f73088fd9ba36210884fbe103366f9deb3e2c976368442",
     "c7820cffbf6d3b90dc519535ea54f219b0616d1590e37bb06eea411e3d499eb6",
@@ -1014,10 +1054,6 @@
     {
       "url": "https://buffer.com/resources",
       "source_id": "buffer"
-    },
-    {
-      "url": "https://careerservices.fas.harvard.edu/resources/",
-      "source_id": "harvardcareers"
     },
     {
       "url": "https://www.atlassian.com/team-playbook",
@@ -7420,10 +7456,6 @@
       "source_id": "supabase"
     },
     {
-      "url": "https://supabase.com/docs/guides/platform/migrating-within-supabase",
-      "source_id": "supabase"
-    },
-    {
       "url": "https://supabase.com/docs/guides/auth/auth-smtp",
       "source_id": "supabase"
     },
@@ -13517,10 +13549,6 @@
     },
     {
       "url": "https://basecamp.com/shapeup/1.3-chapter-04",
-      "source_id": "shapeup"
-    },
-    {
-      "url": "https://basecamp.com/shapeup/3.4-chapter-13",
       "source_id": "shapeup"
     },
     {
@@ -22650,6 +22678,510 @@
     {
       "url": "https://support.bolt.new/reference/faq",
       "source_id": "bolt"
+    },
+    {
+      "url": "https://openstax.org/details/books/fizyka-dla-szkół-wyższych-tom-2",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/algebra-1",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-finance",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/chemistry",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/subjects/nursing",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/chemistry-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-financial-accounting",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/makroekonomia-podstawy",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-macroeconomics-ap-courses",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/additive-manufacturing-essentials",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-algebra-corequisite-support",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/intermediate-algebra-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-sociology-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/chemistry-atoms-first-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/lifespan-development",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/physics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-macroeconomics-ap-courses-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/anatomy-and-physiology-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-macroeconomics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-physics-ap-courses-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-sociology-3e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-behavioral-neuroscience",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/prealgebra",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/calculus-volume-3",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/american-government",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/maternal-newborn-nursing",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/elementary-algebra-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/subjects",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-algebra-corequisite-support-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-physics-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/contemporary-mathematics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/business-law-i-essentials",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/subjects/business",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/biology-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/foundations-information-systems",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/chemistry-atoms-first",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-economics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/university-physics-volume-2",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/organic-chemistry",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/fundamentals-nursing",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-algebra",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-microeconomics-ap-courses-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/medical-surgical-nursing",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/statistics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-finance-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-success-concise",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-political-science",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introductory-business-statistics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/pharmacology",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-managerial-accounting",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/prealgebra-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/subjects/humanities",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-economics-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/life-liberty-and-pursuit-happiness",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/organizational-behavior",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/mikroekonomia-podstawy",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/business-ethics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/elementary-algebra",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-data-science",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/world-history-volume-2",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-computer-science",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/population-health",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-microeconomics-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-microeconomics-3e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/psychology",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/writing-guide",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/concepts-biology",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-anthropology",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/nutrition",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/biology-ap-courses",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/entrepreneurship",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/intermediate-algebra",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-marketing",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-intellectual-property",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/biology",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/microbiology",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-macroeconomics-3e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-physics-courseware",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/zywienie",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/world-history-volume-1",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/precalculus-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/psychologia-polska",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-macroeconomics-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-success",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/business-law-i-essentials-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/precalculus",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/subjects/social-sciences",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/astronomy-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-python-programming",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/calculus-volume-1",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-business-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/algebra-and-trigonometry-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/university-physics-volume-3",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-management",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-economics-3e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/fizyka-dla-szkół-wyższych-tom-3",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/american-government-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-physics-ap-courses",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/subjects/math",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/anatomy-and-physiology",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-business",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/preparing-for-college-success",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/algebra-and-trigonometry",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/marketing-podstawy",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/subjects/computer-science",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/workplace-software-skills",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/american-government-3e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/university-physics-volume-1",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introductory-business-statistics-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/calculus-volume-2",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/us-history",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/psychiatric-mental-health",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-algebra-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/psychology-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/clinical-nursing-skills",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-microeconomics-ap-courses",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/american-government-4e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/subjects/college-success",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introductory-statistics-2e",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-sociology",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/principles-microeconomics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/college-physics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introduction-philosophy",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/astronomy",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/introductory-statistics",
+      "source_id": "openstax"
+    },
+    {
+      "url": "https://openstax.org/details/books/fizyka-dla-szkół-wyższych-tom-1",
+      "source_id": "openstax"
     }
   ],
   "discovery_cursors": {
@@ -22657,7 +23189,7 @@
     "creators": 2,
     "marketers": 6,
     "CEOs": 4,
-    "students": 6,
+    "students": 8,
     "vibecoders": 4,
     "founders": 4,
     "job seekers": 2,
