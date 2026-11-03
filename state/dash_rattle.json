@@ -189,7 +189,8 @@
     "a646eb3f6654e4b3e7cfca21ab392724bbc182c62c94f78f6a2b47908038b8b9",
     "1e67051af307d1aff0c9e8bee3d3c6effac300948b780e554c967ba1a10e8388",
     "e2c5be7d3db34253f3dd41887497a93076943d05aba21b5b478a9a8681b9a43c",
-    "8946c08283869161e85bd6832a24c0fb9c26f51d53cd95c7e4a8b7c42e1f7230"
+    "8946c08283869161e85bd6832a24c0fb9c26f51d53cd95c7e4a8b7c42e1f7230",
+    "fa4196e723015084e2e957b35e75f2bc2d4ab515b0d85f7f464add286a7f7561"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -198,7 +199,8 @@
     "2b353309983f33589fcc7d350e16c92e32c4f4cda11e0e1eab4570a490afa101",
     "bf3e19b14f1470601061108a0968b158adbb17091681416173f7b07c9806207a",
     "f11ea23b70a32f7e79eb7b3dd097c85a44b51b2c12f815269bab370fe6a0028d",
-    "1a1be2e180833069eca16d78f37db3a4be2053e714bcf0cd591fda940fd74424"
+    "1a1be2e180833069eca16d78f37db3a4be2053e714bcf0cd591fda940fd74424",
+    "954989edf7ad44c4ca23f0b5ea330fc183bc7675f8eb07b8c44158e388feeef3"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -207,6 +209,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-03T18:04:09.442100+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-03:dash-v1:38",
+      "due_at": "2026-11-03T18:32:00+00:00",
+      "topic": "AI models",
+      "detail": "the difference between a demo prompt and a real prompt",
+      "language": "Spanish",
+      "form": "a miniature scene with a punchline"
+    },
+    "draft": {
+      "text": "El prompt de demostración decía 'Escribe un poema sobre el cielo', y el de verdad era 'Escribe un poema sobre el cielo, pero sin usar palabras comunes'.",
+      "premise": "A demo prompt says 'Write a poem about the sky,' but the real one says 'Write a poem about the sky, but without using common words.'"
+    },
+    "approval": "3f445fcbb4849ddfaa04ff93041bf329ee49ec305fe888b5118a48556c0881ef",
+    "run": [
+      "41694554926",
+      "1"
+    ],
+    "reserved_at": "2026-11-03T18:32:02.088757+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
