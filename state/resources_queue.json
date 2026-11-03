@@ -360,6 +360,39 @@
       "posted_at": "2026-11-03T02:01:32.454387+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:4",
+      "audience": "founders",
+      "text": "For founders\n\nShow Progress\nhttps://basecamp.com/shapeup/3.4-chapter-13\n\nMigrating within Supabase\nhttps://supabase.com/docs/guides/platform/migrating-within-supabase\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://basecamp.com/shapeup/3.4-chapter-13",
+          "title": "Show Progress | Shape Up",
+          "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. Shape Up Chapter 13: Show Progress The tasks that aren’t there Estimates don’t show uncertainty Work is like a hill Scopes on the hill Status without asking Nobody says \"I don’t know\" Prompts to refactor the scopes Build your way uphill Solve in the right sequence Next: Decide When to Stop Good-hearted managers don’t like asking for status. It’s awkward, feels like nagging, and gets even worse when they have to ask follow-up questions to get sufficiently clear about what’s going on. Managers would rather be able to see the status themselves whenever they need to. We saw in the last chapter how organizing to-dos into scopes helps the team to stay on top of the work. But this doesn’t help the manager directly. There are a couple problems with to-dos that make them insufficient for judging status. The tasks that aren’t there Consider a list with a few completed items and no incomplete items left. This could mean that all the work is done. But it could also",
+          "aliases": [
+            "https://basecamp.com/shapeup/3.4-chapter-13"
+          ],
+          "fingerprint": "61c0fa8aa4f6a8827974f8d627be1df19a6c8cd445247ad4f143ea94d01023a3",
+          "source_id": "shapeup",
+          "verified_at": "2026-11-03T02:31:16.303259+00:00"
+        },
+        {
+          "url": "https://supabase.com/docs/guides/platform/migrating-within-supabase",
+          "title": "Migrating within Supabase | Supabase Docs",
+          "excerpt": "Updated Aug 3, 2025 If you are on a Paid Plan and have physical backups enabled, you should instead use the Restore to another project feature . Database migration guides # If you need to migrate from one Supabase project to another, choose the appropriate guide below: Backup file from the dashboard (*.backup) # Follow the Restore dashboard backup guide SQL backup files (*.sql) # Follow the Backup and Restore using the CLI guide Transfer project to a different organization # Project migration is primarily for changing regions or upgrading to new major versions of the platform in some scenarios. If you need to move your project to a different organization without touching the infrastructure, see project transfers . Is this helpful? No Yes AI tools Connect your AI agent Copy as Markdown Ask ChatGPT Ask Claude Prefer on Google",
+          "aliases": [
+            "https://supabase.com/docs/guides/platform/migrating-within-supabase"
+          ],
+          "fingerprint": "93e3cc087fdcfe15385c26c6f176885c9275aa4aaab67fa5d63c1f7179ef3236",
+          "source_id": "supabase",
+          "verified_at": "2026-11-03T02:31:16.365993+00:00"
+        }
+      ],
+      "tweet_id": "2117444487609819405",
+      "posted_at": "2026-11-03T02:31:19.448019+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -841,44 +874,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T02:01:32.454387+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:4",
-    "audience": "founders",
-    "labels": [
-      "Show Progress",
-      "Migrating within Supabase"
-    ],
-    "resources": [
-      {
-        "url": "https://basecamp.com/shapeup/3.4-chapter-13",
-        "title": "Show Progress | Shape Up",
-        "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. Shape Up Chapter 13: Show Progress The tasks that aren’t there Estimates don’t show uncertainty Work is like a hill Scopes on the hill Status without asking Nobody says \"I don’t know\" Prompts to refactor the scopes Build your way uphill Solve in the right sequence Next: Decide When to Stop Good-hearted managers don’t like asking for status. It’s awkward, feels like nagging, and gets even worse when they have to ask follow-up questions to get sufficiently clear about what’s going on. Managers would rather be able to see the status themselves whenever they need to. We saw in the last chapter how organizing to-dos into scopes helps the team to stay on top of the work. But this doesn’t help the manager directly. There are a couple problems with to-dos that make them insufficient for judging status. The tasks that aren’t there Consider a list with a few completed items and no incomplete items left. This could mean that all the work is done. But it could also",
-        "aliases": [
-          "https://basecamp.com/shapeup/3.4-chapter-13"
-        ],
-        "fingerprint": "61c0fa8aa4f6a8827974f8d627be1df19a6c8cd445247ad4f143ea94d01023a3",
-        "source_id": "shapeup",
-        "verified_at": "2026-11-03T02:31:16.303259+00:00"
-      },
-      {
-        "url": "https://supabase.com/docs/guides/platform/migrating-within-supabase",
-        "title": "Migrating within Supabase | Supabase Docs",
-        "excerpt": "Updated Aug 3, 2025 If you are on a Paid Plan and have physical backups enabled, you should instead use the Restore to another project feature . Database migration guides # If you need to migrate from one Supabase project to another, choose the appropriate guide below: Backup file from the dashboard (*.backup) # Follow the Restore dashboard backup guide SQL backup files (*.sql) # Follow the Backup and Restore using the CLI guide Transfer project to a different organization # Project migration is primarily for changing regions or upgrading to new major versions of the platform in some scenarios. If you need to move your project to a different organization without touching the infrastructure, see project transfers . Is this helpful? No Yes AI tools Connect your AI agent Copy as Markdown Ask ChatGPT Ask Claude Prefer on Google",
-        "aliases": [
-          "https://supabase.com/docs/guides/platform/migrating-within-supabase"
-        ],
-        "fingerprint": "93e3cc087fdcfe15385c26c6f176885c9275aa4aaab67fa5d63c1f7179ef3236",
-        "source_id": "supabase",
-        "verified_at": "2026-11-03T02:31:16.365993+00:00"
-      }
-    ],
-    "text": "For founders\n\nShow Progress\nhttps://basecamp.com/shapeup/3.4-chapter-13\n\nMigrating within Supabase\nhttps://supabase.com/docs/guides/platform/migrating-within-supabase\n\nThank me later.\nFollow for more useful links.",
-    "approval": "9bef80cb4cfcce76731701cc72da796f49dace412b37204d66122749f8034840",
-    "prepared_at": "2026-11-03T02:31:14.641475+00:00",
-    "run_id": "41566601067",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T02:31:19.448019+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
