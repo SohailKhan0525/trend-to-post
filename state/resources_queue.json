@@ -426,6 +426,39 @@
       "posted_at": "2026-11-03T03:01:42.027269+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:6",
+      "audience": "CEOs",
+      "text": "For CEOs\n\nComplete Guide to Customer Journey Mapping\nhttps://www.atlassian.com/team-playbook/plays/customer-journey-mapping\n\nFresh Ways to Say For Example\nhttps://blog.hubspot.com/sales/for-example-synonym\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping",
+          "title": "A Complete Guide to Customer Journey Mapping | Atlassian Team Playbook",
+          "excerpt": "How to Create a Customer Journey Map in 6 Simple Steps Customer journey mapping is a visual representation of the customer’s experience with a brand, product, or service throughout their buying journey. This process allows for a deeper understanding of customers' emotions and actions highlighting pain points, unmet needs, and opportunities for improvement. Scroll to step 6 for a real-life example from one of our product teams! USE THIS CUSTOMER JOURNEY MAPPING PLAY TO... Understand the customer journey from a specific persona's perspective so that you can design a better experience. If you're struggling with shared understanding , proof of concept or customer centricity on your Health Monitor , running this play might help. Copy link to heading Copied! Read more AND I NEED THIS... WHY? Few things hurt software makers more than seeing something like this: #ouch Feedback like that is a good (if painful) reminder that although we do indeed use our own products – every. single. day. – we don't necessarily use them the same ways our customers do, or for the same tasks. Whether we're build",
+          "aliases": [
+            "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping"
+          ],
+          "fingerprint": "76b5fd74a4e88a0697a464759aa730635fb1a243fa3f6de527efe521f32a613e",
+          "source_id": "atlassian",
+          "verified_at": "2026-11-03T03:31:22.353029+00:00"
+        },
+        {
+          "url": "https://blog.hubspot.com/sales/for-example-synonym",
+          "title": "13 Fresh Ways to Say \"For Example\"",
+          "excerpt": "Home Sales 13 Fresh Ways to Say \"For Example\" 13 Fresh Ways to Say \"For Example\" Written by: Aja Frost BUSINESS COMMUNICATION GUIDE We've addressed some of the most common problems people run into with business communication in one central guide. Download Now Updated: 12/11/23 Examples are illuminating, whether you're sharing one during a meeting, over an email, on a sales call, giving a presentation, writing a memo, etc. But, as you may know, the effective \"for example\" is hard to find synonyms for despite how often we use it. In this post, we'll go over a list of \"for example\" synonyms and the best use cases for each one. For Example' Synonym Phrases \"For instance ...\" \"To give you an idea …\" \"As proof …\" \"Suppose that …\" \"To illustrate …\" \"Imagine …\" \"Pretend that …\" \"To show you what I mean …\" \"Let's say …\" \"Case in point …\" \"e.g.\" \"Such as ...\" \"In particular ...\" 1. \"For instance ...\" \"For example\" and \"for instance\" can be used interchangeably. \"Our product has several features your reps will love; for instance , they can schedule a series of emails …\" Best For: “For instance…",
+          "aliases": [
+            "https://blog.hubspot.com/sales/for-example-synonym"
+          ],
+          "fingerprint": "25ef6d25a100392e2877996e344dc72cfad01c96e9c7c9daf23675e94d888d4c",
+          "source_id": "hubspotsales",
+          "verified_at": "2026-11-03T03:31:22.635707+00:00"
+        }
+      ],
+      "tweet_id": "2117459626740339107",
+      "posted_at": "2026-11-03T03:31:28.788607+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -907,44 +940,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T03:01:42.027269+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:6",
-    "audience": "CEOs",
-    "labels": [
-      "Complete Guide to Customer Journey Mapping",
-      "Fresh Ways to Say For Example"
-    ],
-    "resources": [
-      {
-        "url": "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping",
-        "title": "A Complete Guide to Customer Journey Mapping | Atlassian Team Playbook",
-        "excerpt": "How to Create a Customer Journey Map in 6 Simple Steps Customer journey mapping is a visual representation of the customer’s experience with a brand, product, or service throughout their buying journey. This process allows for a deeper understanding of customers' emotions and actions highlighting pain points, unmet needs, and opportunities for improvement. Scroll to step 6 for a real-life example from one of our product teams! USE THIS CUSTOMER JOURNEY MAPPING PLAY TO... Understand the customer journey from a specific persona's perspective so that you can design a better experience. If you're struggling with shared understanding , proof of concept or customer centricity on your Health Monitor , running this play might help. Copy link to heading Copied! Read more AND I NEED THIS... WHY? Few things hurt software makers more than seeing something like this: #ouch Feedback like that is a good (if painful) reminder that although we do indeed use our own products – every. single. day. – we don't necessarily use them the same ways our customers do, or for the same tasks. Whether we're build",
-        "aliases": [
-          "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping"
-        ],
-        "fingerprint": "76b5fd74a4e88a0697a464759aa730635fb1a243fa3f6de527efe521f32a613e",
-        "source_id": "atlassian",
-        "verified_at": "2026-11-03T03:31:22.353029+00:00"
-      },
-      {
-        "url": "https://blog.hubspot.com/sales/for-example-synonym",
-        "title": "13 Fresh Ways to Say \"For Example\"",
-        "excerpt": "Home Sales 13 Fresh Ways to Say \"For Example\" 13 Fresh Ways to Say \"For Example\" Written by: Aja Frost BUSINESS COMMUNICATION GUIDE We've addressed some of the most common problems people run into with business communication in one central guide. Download Now Updated: 12/11/23 Examples are illuminating, whether you're sharing one during a meeting, over an email, on a sales call, giving a presentation, writing a memo, etc. But, as you may know, the effective \"for example\" is hard to find synonyms for despite how often we use it. In this post, we'll go over a list of \"for example\" synonyms and the best use cases for each one. For Example' Synonym Phrases \"For instance ...\" \"To give you an idea …\" \"As proof …\" \"Suppose that …\" \"To illustrate …\" \"Imagine …\" \"Pretend that …\" \"To show you what I mean …\" \"Let's say …\" \"Case in point …\" \"e.g.\" \"Such as ...\" \"In particular ...\" 1. \"For instance ...\" \"For example\" and \"for instance\" can be used interchangeably. \"Our product has several features your reps will love; for instance , they can schedule a series of emails …\" Best For: “For instance…",
-        "aliases": [
-          "https://blog.hubspot.com/sales/for-example-synonym"
-        ],
-        "fingerprint": "25ef6d25a100392e2877996e344dc72cfad01c96e9c7c9daf23675e94d888d4c",
-        "source_id": "hubspotsales",
-        "verified_at": "2026-11-03T03:31:22.635707+00:00"
-      }
-    ],
-    "text": "For CEOs\n\nComplete Guide to Customer Journey Mapping\nhttps://www.atlassian.com/team-playbook/plays/customer-journey-mapping\n\nFresh Ways to Say For Example\nhttps://blog.hubspot.com/sales/for-example-synonym\n\nThank me later.\nFollow for more useful links.",
-    "approval": "48b8400193b02dcdddb2cc82efc1a2f2c142294b4963ce0673ef4f750336fa95",
-    "prepared_at": "2026-11-03T03:31:16.627876+00:00",
-    "run_id": "41572663220",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T03:31:28.788607+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
