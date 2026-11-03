@@ -657,6 +657,39 @@
       "posted_at": "2026-11-03T07:31:45.457630+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:16",
+      "audience": "students",
+      "text": "For students\n\nClient Challenge\nhttps://www.khanacademy.org/math\n\nQuick Start\nhttps://react.dev/learn\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.khanacademy.org/math",
+          "title": "Client Challenge",
+          "excerpt": "A required part of this site couldn’t load. This may be due to a browser extension, network issues, or browser settings. Please check your connection, disable any ad blockers, or try using a different browser.",
+          "aliases": [
+            "https://www.khanacademy.org/math"
+          ],
+          "fingerprint": "e0c34e123a64adf01df2d0876626b94b754bc3c27a265a844423be6c696b16dc",
+          "source_id": "khan",
+          "verified_at": "2026-11-03T08:01:42.027354+00:00"
+        },
+        {
+          "url": "https://react.dev/learn",
+          "title": "Quick Start – React",
+          "excerpt": "Learn React Copy page Copy Quick Start Welcome to the React documentation! This page will give you an introduction to 80% of the React concepts that you will use on a daily basis. You will learn How to create and nest components How to add markup and styles How to display data How to render conditions and lists How to respond to events and update the screen How to share data between components Creating and nesting components React apps are made out of components . A component is a piece of the UI (user interface) that has its own logic and appearance. A component can be as small as a button, or as large as an entire page. React components are JavaScript functions that return markup: function MyButton ( ) { return ( < button > I'm a button </ button > ) ; } Now that you’ve declared MyButton , you can nest it into another component: export default function MyApp ( ) { return ( < div > < h1 > Welcome to my app </ h1 > < MyButton /> </ div > ) ; } Notice that <MyButton /> starts with a capital letter. That’s how you know it’s a React component. React component names must always start wit",
+          "aliases": [
+            "https://react.dev/learn"
+          ],
+          "fingerprint": "361a08d266f6c7bba184db836f185c6f5e44d1a9117834c7122f5b994d988196",
+          "source_id": "react",
+          "verified_at": "2026-11-03T08:01:42.244812+00:00"
+        }
+      ],
+      "tweet_id": "2117527645545984377",
+      "posted_at": "2026-11-03T08:01:45.242616+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1138,44 +1171,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T07:31:45.457630+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:16",
-    "audience": "students",
-    "labels": [
-      "Client Challenge",
-      "Quick Start"
-    ],
-    "resources": [
-      {
-        "url": "https://www.khanacademy.org/math",
-        "title": "Client Challenge",
-        "excerpt": "A required part of this site couldn’t load. This may be due to a browser extension, network issues, or browser settings. Please check your connection, disable any ad blockers, or try using a different browser.",
-        "aliases": [
-          "https://www.khanacademy.org/math"
-        ],
-        "fingerprint": "e0c34e123a64adf01df2d0876626b94b754bc3c27a265a844423be6c696b16dc",
-        "source_id": "khan",
-        "verified_at": "2026-11-03T08:01:42.027354+00:00"
-      },
-      {
-        "url": "https://react.dev/learn",
-        "title": "Quick Start – React",
-        "excerpt": "Learn React Copy page Copy Quick Start Welcome to the React documentation! This page will give you an introduction to 80% of the React concepts that you will use on a daily basis. You will learn How to create and nest components How to add markup and styles How to display data How to render conditions and lists How to respond to events and update the screen How to share data between components Creating and nesting components React apps are made out of components . A component is a piece of the UI (user interface) that has its own logic and appearance. A component can be as small as a button, or as large as an entire page. React components are JavaScript functions that return markup: function MyButton ( ) { return ( < button > I'm a button </ button > ) ; } Now that you’ve declared MyButton , you can nest it into another component: export default function MyApp ( ) { return ( < div > < h1 > Welcome to my app </ h1 > < MyButton /> </ div > ) ; } Notice that <MyButton /> starts with a capital letter. That’s how you know it’s a React component. React component names must always start wit",
-        "aliases": [
-          "https://react.dev/learn"
-        ],
-        "fingerprint": "361a08d266f6c7bba184db836f185c6f5e44d1a9117834c7122f5b994d988196",
-        "source_id": "react",
-        "verified_at": "2026-11-03T08:01:42.244812+00:00"
-      }
-    ],
-    "text": "For students\n\nClient Challenge\nhttps://www.khanacademy.org/math\n\nQuick Start\nhttps://react.dev/learn\n\nThank me later.\nFollow for more useful links.",
-    "approval": "63801ae5fc1b5230b6118f7a5eccf3d768f784e423a25f655d5dd6fba6aa77d3",
-    "prepared_at": "2026-11-03T08:01:40.121785+00:00",
-    "run_id": "41600203674",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T08:01:45.242616+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
