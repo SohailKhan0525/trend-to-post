@@ -690,6 +690,39 @@
       "posted_at": "2026-11-03T08:01:45.242616+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:17",
+      "audience": "vibecoders",
+      "text": "For vibecoders\n\nRecorder panel\nhttps://developer.chrome.com/docs/devtools/recorder/overview\n\nIntro guide\nhttps://opencode.ai/docs/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://developer.chrome.com/docs/devtools/recorder/overview",
+          "title": "Recorder panel: Record and measure user flow | Chrome DevTools | Chrome for Developers LinkedIn",
+          "excerpt": "Home Docs Chrome DevTools Panels Recorder panel: Record and measure user flow Stay organized with collections Save and categorize content based on your preferences. Dale St. Marthe Use the Recorder panel to record, measure, and edit user flows. The Recorder panel contains a set of diagnostic tools that can help frontend developers improve and debug their conversion paths. For a guided tutorial, check out Record, replay, and measure user flows . Overview The Recorder panel lets you: Record and replay user flows : Start a recording to have the Recorder panel track certain events on your website or app. Afterwards, you can replay a user flow and jump between steps. Slow down the replay to better understand what happens in a user flow. Additionally, learn how you can replay with external libraries . Edit and debug user flows : Edit the steps of a recorded user flow, even during recording. Set breakpoints and execute a user flow step by step. Inspect the code and see a side-by-side view of the steps and their code. Generate performance profiles : Measure the performance of a recorded user",
+          "aliases": [
+            "https://developer.chrome.com/docs/devtools/recorder/overview"
+          ],
+          "fingerprint": "dfbd0bd27eb69ed0bf8b2a766421ffbaba7655d10d0ee47d4a2afe029bb1a435",
+          "source_id": "chrome",
+          "verified_at": "2026-11-03T08:31:19.786335+00:00"
+        },
+        {
+          "url": "https://opencode.ai/docs/",
+          "title": "Intro | AI coding agent built for the terminal Intro | OpenCode",
+          "excerpt": "Intro Get started with OpenCode. OpenCode is an open source AI coding agent. It’s available as a terminal-based interface, desktop app, or IDE extension. Let’s get started. Prerequisites To use OpenCode in your terminal, you’ll need: A modern terminal emulator like: WezTerm , cross-platform Alacritty , cross-platform Ghostty , Linux and macOS Kitty , Linux and macOS API keys for the LLM providers you want to use. Install The easiest way to install OpenCode 1 is through the install script. These installation methods provide the opencode binary and can conflict with or replace an OpenCode 2 installation. Terminal window curl -fsSL https://opencode.ai/install | bash You can also install it with the following commands: Using Node.js npm Bun pnpm Yarn Terminal window npm install -g opencode-ai Terminal window bun install -g opencode-ai Terminal window pnpm install -g opencode-ai Terminal window yarn global add opencode-ai Using Homebrew on macOS and Linux Terminal window brew install anomalyco/tap/opencode Use the OpenCode tap above for V1. Homebrew’s brew install opencode formula current",
+          "aliases": [
+            "https://opencode.ai/docs"
+          ],
+          "fingerprint": "e277a314ae889b55e8b5d390609b7ac6258432332fce60a4703b5d9aff621e86",
+          "source_id": "opencode",
+          "verified_at": "2026-11-03T08:31:19.252378+00:00"
+        }
+      ],
+      "tweet_id": "2117535098517995947",
+      "posted_at": "2026-11-03T08:31:22.469902+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1171,44 +1204,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T08:01:45.242616+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:17",
-    "audience": "vibecoders",
-    "labels": [
-      "Recorder panel",
-      "Intro guide"
-    ],
-    "resources": [
-      {
-        "url": "https://developer.chrome.com/docs/devtools/recorder/overview",
-        "title": "Recorder panel: Record and measure user flow | Chrome DevTools | Chrome for Developers LinkedIn",
-        "excerpt": "Home Docs Chrome DevTools Panels Recorder panel: Record and measure user flow Stay organized with collections Save and categorize content based on your preferences. Dale St. Marthe Use the Recorder panel to record, measure, and edit user flows. The Recorder panel contains a set of diagnostic tools that can help frontend developers improve and debug their conversion paths. For a guided tutorial, check out Record, replay, and measure user flows . Overview The Recorder panel lets you: Record and replay user flows : Start a recording to have the Recorder panel track certain events on your website or app. Afterwards, you can replay a user flow and jump between steps. Slow down the replay to better understand what happens in a user flow. Additionally, learn how you can replay with external libraries . Edit and debug user flows : Edit the steps of a recorded user flow, even during recording. Set breakpoints and execute a user flow step by step. Inspect the code and see a side-by-side view of the steps and their code. Generate performance profiles : Measure the performance of a recorded user",
-        "aliases": [
-          "https://developer.chrome.com/docs/devtools/recorder/overview"
-        ],
-        "fingerprint": "dfbd0bd27eb69ed0bf8b2a766421ffbaba7655d10d0ee47d4a2afe029bb1a435",
-        "source_id": "chrome",
-        "verified_at": "2026-11-03T08:31:19.786335+00:00"
-      },
-      {
-        "url": "https://opencode.ai/docs/",
-        "title": "Intro | AI coding agent built for the terminal Intro | OpenCode",
-        "excerpt": "Intro Get started with OpenCode. OpenCode is an open source AI coding agent. It’s available as a terminal-based interface, desktop app, or IDE extension. Let’s get started. Prerequisites To use OpenCode in your terminal, you’ll need: A modern terminal emulator like: WezTerm , cross-platform Alacritty , cross-platform Ghostty , Linux and macOS Kitty , Linux and macOS API keys for the LLM providers you want to use. Install The easiest way to install OpenCode 1 is through the install script. These installation methods provide the opencode binary and can conflict with or replace an OpenCode 2 installation. Terminal window curl -fsSL https://opencode.ai/install | bash You can also install it with the following commands: Using Node.js npm Bun pnpm Yarn Terminal window npm install -g opencode-ai Terminal window bun install -g opencode-ai Terminal window pnpm install -g opencode-ai Terminal window yarn global add opencode-ai Using Homebrew on macOS and Linux Terminal window brew install anomalyco/tap/opencode Use the OpenCode tap above for V1. Homebrew’s brew install opencode formula current",
-        "aliases": [
-          "https://opencode.ai/docs"
-        ],
-        "fingerprint": "e277a314ae889b55e8b5d390609b7ac6258432332fce60a4703b5d9aff621e86",
-        "source_id": "opencode",
-        "verified_at": "2026-11-03T08:31:19.252378+00:00"
-      }
-    ],
-    "text": "For vibecoders\n\nRecorder panel\nhttps://developer.chrome.com/docs/devtools/recorder/overview\n\nIntro guide\nhttps://opencode.ai/docs/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "103fdfa0c6572627a373a152ec3db70d5b858b4c91a3c5dfa9f89250047d75ac",
-    "prepared_at": "2026-11-03T08:31:18.183521+00:00",
-    "run_id": "41603862091",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T08:31:22.469902+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
