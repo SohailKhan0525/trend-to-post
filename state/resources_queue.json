@@ -1403,13 +1403,50 @@
     }
   ],
   "last_posted_at": "2026-11-03T11:31:24.210760+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:24",
+    "audience": "CEOs",
+    "labels": [
+      "Vision Creation",
+      "One Piece Done"
+    ],
+    "resources": [
+      {
+        "url": "https://www.atlassian.com/team-playbook/plays/vision-creation",
+        "title": "Vision Creation | Atlassian",
+        "excerpt": "Vision Creation A compelling vision is the foundation to any big-impact work. Use this Play to get your team on the same page by painting a picture of the future your work is building. This Play will inspire and motivate your team while you take the first step towards a robust strategy to actually achieve your vision. Jump to instructions Prep Time 40-60 min Run Time 60 min People 3-10 Vision Creation A compelling vision is the foundation to any big-impact work. Use this Play to get your team on the same page by painting a picture of the future your work is building. This Play will inspire and motivate your team while you take the first step towards a robust strategy to actually achieve your vision. Jump to instructions Prep Time 40-60 min Run Time 60 min People 3-10 Vision Creation A compelling vision is the foundation to any big-impact work. Use this Play to get your team on the same page by painting a picture of the future your work is building. This Play will inspire and motivate your team while you take the first step towards a robust strategy to actually achieve your vision. Pr",
+        "aliases": [
+          "https://www.atlassian.com/team-playbook/plays/vision-creation"
+        ],
+        "fingerprint": "3eb05e60b2b6bccc6ef542741f03f898e36a7496f1f17d41f1547cac946166f8",
+        "source_id": "atlassian",
+        "verified_at": "2026-11-03T12:01:39.895169+00:00"
+      },
+      {
+        "url": "https://basecamp.com/shapeup/3.2-chapter-11",
+        "title": "Get One Piece Done | Shape Up",
+        "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. Shape Up Chapter 11: Get One Piece Done Integrate one slice Case study: Clients in projects Programmers don’t need to wait Affordances before pixel-perfect screens Program just enough for the next step Start in the middle Next: Map the Scopes As the team gets oriented, they start to discover and track the tasks they need to do to build the project. It’s important at this early phase that they don’t create a master plan of parts that should come together in the 11th hour. If the team completes a lot of tasks but there’s no “one thing” to click on and try out, it’s hard to feel progress. A team can do a lot of work but feel insecure because they don’t have anything real to show for it yet. Lots of things are done but nothing is really done. Instead they should aim to make something tangible and demoable early—in the first week or so. That requires integrating vertically on one small piece of the project instead of chipping away at the horizontal layers. I",
+        "aliases": [
+          "https://basecamp.com/shapeup/3.2-chapter-11"
+        ],
+        "fingerprint": "2118b5d31598312f762dd49c6edbf89a4a96476d52a9de12b1c2fcdd287a3091",
+        "source_id": "shapeup",
+        "verified_at": "2026-11-03T12:01:35.434073+00:00"
+      }
+    ],
+    "text": "For CEOs\n\nVision Creation\nhttps://www.atlassian.com/team-playbook/plays/vision-creation\n\nOne Piece Done\nhttps://basecamp.com/shapeup/3.2-chapter-11\n\nThank me later.\nFollow for more useful links.",
+    "approval": "946a7150b5c39763d64fe12777e2a4acdaa9ffaa42070b7138f06c87fbbaf90e",
+    "prepared_at": "2026-11-03T12:01:33.086264+00:00",
+    "run_id": "41632209847",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
+    "https://basecamp.com/shapeup/3.2-chapter-11",
     "https://basecamp.com/shapeup/3.4-chapter-13",
     "https://blog.hubspot.com/marketing/ai-video-trends",
     "https://blog.hubspot.com/marketing/landing-page-design",
@@ -1465,6 +1502,7 @@
     "https://www.atlassian.com/team-playbook/examples/people-team",
     "https://www.atlassian.com/team-playbook/plays",
     "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping",
+    "https://www.atlassian.com/team-playbook/plays/vision-creation",
     "https://www.coursera.org/articles/best-companies-to-work-for-remotely",
     "https://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book",
     "https://www.freecodecamp.org/news/support",
@@ -1485,6 +1523,7 @@
     "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
     "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
     "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
+    "2118b5d31598312f762dd49c6edbf89a4a96476d52a9de12b1c2fcdd287a3091",
     "2147dc214f9545fce356ebb2f80f0a0aace43d491f5c48ebc93ea1c5a5a319f9",
     "25ef6d25a100392e2877996e344dc72cfad01c96e9c7c9daf23675e94d888d4c",
     "269ce05f6e6e14cf6e60b4ee15a32bf5445ea47b24ac3e73f243e1916bb6822e",
@@ -1494,6 +1533,7 @@
     "361a08d266f6c7bba184db836f185c6f5e44d1a9117834c7122f5b994d988196",
     "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
     "3e018926ab25a76204a5d5865890cbd5219e31489a01453de2e5cb3826019dc7",
+    "3eb05e60b2b6bccc6ef542741f03f898e36a7496f1f17d41f1547cac946166f8",
     "40208de3e42ec63bd63601ac83a94b0b39fb1c685502ae04c706916108ae47d4",
     "48e7d3688f35d25d45c9e6f82d547adb2c01acdcf39e6398586f50270c1d4779",
     "5004c9167f65e28f9783f108ab98c2c13267faa9ba8a3b2e05780e6b2a9be4a1",
@@ -13884,10 +13924,6 @@
       "source_id": "ahrefs"
     },
     {
-      "url": "https://ahrefs.com/blog/ai-marketing-trends",
-      "source_id": "ahrefs"
-    },
-    {
       "url": "https://ahrefs.com/blog/new-features-september-2026",
       "source_id": "ahrefs"
     },
@@ -13945,10 +13981,6 @@
     },
     {
       "url": "https://mailchimp.com/resources/create-a-successful-promotional-strategy",
-      "source_id": "mailchimp"
-    },
-    {
-      "url": "https://mailchimp.com/resources/omnichannel-customer-engagement",
       "source_id": "mailchimp"
     },
     {
@@ -27362,13 +27394,117 @@
     {
       "url": "https://www.a11yproject.com/posts/operating-system-and-browser-accessibility-display-modes",
       "source_id": "a11y"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/which-ux-research-methods",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/synthetic-users-vs-human-respondents",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/ux-agentic-software-factories",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/usability-101-introduction-to-usability",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/ai-in-ux-survey-26",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/empathy-mapping",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/card-sorting-definition",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/ux-vs-experience-design",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/journey-mapping-101",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/ux-research-cheat-sheet",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/affinity-diagram",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/user-interviews",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/user-journeys-vs-user-flows",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/open-ended-questions",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/usability-testing-101",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/how-might-we-questions",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/ten-usability-heuristics",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/design-thinking",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/ux-disciplines-glossary",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/ux-maps-glossary",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/ui-elements-glossary",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/definition-user-experience",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles",
+      "source_id": "nngroup"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/liquid-glass",
+      "source_id": "nngroup"
     }
   ],
   "discovery_cursors": {
     "business owners": 8,
     "creators": 6,
     "marketers": 10,
-    "CEOs": 6,
+    "CEOs": 8,
     "students": 12,
     "vibecoders": 6,
     "founders": 8,
