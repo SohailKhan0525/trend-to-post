@@ -12,6 +12,7 @@ from pathlib import Path
 from urllib.parse import urljoin,urlsplit
 from .http import fetch,canonical,domain,LinkError
 from .policy import has_excluded_terms
+from .writer import label_options
 
 SOURCES_PATH=Path('data/sources.json')
 MAX_CATALOG=12000
@@ -145,7 +146,7 @@ def _is_fresh(resource,state):
     return not set(resource['aliases']).intersection(state['used_urls']) and resource['fingerprint'] not in state['used_fingerprints']
 
 
-def find_pair(state,audience,slot):
+def find_pair(state,audience,slot,exclude_urls=()):
     seed_catalog(state)
     source_map={s['id']:s for s in sources()}
     matching=[s for s in source_map.values() if audience in s['audiences']]
@@ -155,7 +156,8 @@ def find_pair(state,audience,slot):
     for source in selected:
         state['catalog'].extend(discover(source,slot+source['id']))
     state['discovery_cursors'][audience]=cursor+len(selected)
-    by_url={canonical(c['url']):c for c in state['catalog'] if canonical(c['url']) not in state['used_urls']}
+    excluded=set(exclude_urls)
+    by_url={canonical(c['url']):c for c in state['catalog'] if canonical(c['url']) not in state['used_urls'] and canonical(c['url']) not in excluded}
     state['catalog']=list(by_url.values())[-MAX_CATALOG:]
     today=datetime.now(timezone.utc).date().isoformat()
     counts=defaultdict(int)
@@ -177,7 +179,13 @@ def find_pair(state,audience,slot):
         groups={k:v for k,v in groups.items() if v}
     ordered=ordered[:MAX_PROBES]
     def probe(candidate):
-        try:return candidate,inspect(candidate['url'],source_map[candidate['source_id']])
+        try:
+            resource=inspect(candidate['url'],source_map[candidate['source_id']])
+            # A valid HTTP page can still be unusable for the strict post format.
+            # Reject it while searching, instead of aborting after choosing it.
+            label_options(resource)
+            if set(resource['aliases'])&excluded:return candidate,None
+            return candidate,resource
         except (LinkError,ValueError,OSError):return candidate,None
     valid=[];rejected=set()
     with ThreadPoolExecutor(max_workers=4) as executor:

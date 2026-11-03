@@ -100,22 +100,28 @@ async def prepare(preview=False,start_now=False,all_categories=False):
     for brief in briefs:
         if not brief:
             summary('No resource post due yet, slot used, or daily cap reached.');return
-        resources=find_pair(state,brief['audience'],brief['slot'])
-        if not resources:
-            if preview:raise LinkError('Not enough working unused links for the preview audience')
-            save(state);output('state_changed','true');output('skip_reason','fresh_link_pool_low')
-            summary('::warning::Not enough verified unused links for this audience; no post sent.');return
-        try:
-            labels=generate(brief['audience'],resources)
-        except DraftError:
+        excluded=set()
+        for pair_attempt in range(3):
+            resources=find_pair(state,brief['audience'],brief['slot'],exclude_urls=excluded)
+            if not resources:
+                if preview:raise LinkError('Not enough working unused links for the preview audience')
+                save(state);output('state_changed','true');output('skip_reason','fresh_link_pool_low')
+                summary('::warning::Not enough verified unused links for this audience; no post sent.');return
+            try:
+                labels=generate(brief['audience'],resources)
+                text=render(brief['audience'],labels,resources)
+                break
+            except DraftError as exc:
+                # Nothing has been reserved or sent. Try different pages, but
+                # retain all review rules and the finite per-run attempt budget.
+                excluded.update(set().union(*(set(r['aliases']) for r in resources)))
+                state['catalog']=[c for c in state['catalog'] if canonical(c['url']) not in excluded]
+                summary(f'Resource pair {pair_attempt+1}/3 rejected before reservation: {exc}')
+        else:
             if not preview:
-                # Keep discovery progress so a bad pair cannot trap every retry
-                # on the same two pages. No URL claim or X request exists yet.
-                rejected=set().union(*(set(r['aliases']) for r in resources))
-                state['catalog']=[c for c in state['catalog'] if canonical(c['url']) not in rejected]
-                save(state);output('state_changed','true')
-            raise
-        text=render(brief['audience'],labels,resources)
+                save(state);output('state_changed','true');output('skip_reason','generation_exhausted')
+            summary('::error::No approved post after three different resource pairs; nothing sent.')
+            raise DraftError('Resource pair attempts exhausted')
         if preview:
             summary('PREVIEW ONLY ('+brief['audience']+'):\n\n'+text+'\n')
             # Preview claims are in-memory only, so previews do not consume real URLs.

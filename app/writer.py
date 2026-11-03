@@ -6,6 +6,7 @@ import re
 import secrets
 import unicodedata
 import urllib.request
+import urllib.error
 from .audiences import DAILY_MIX
 from .http import canonical,domain
 from .policy import has_excluded_terms
@@ -40,6 +41,10 @@ def evidence(resources):
     return [{k:r[k] for k in ('url','title','excerpt')} for r in resources]
 
 
+def title_subject(title):
+    return re.split(r'\s+[|–—]\s*|\s+-\s+|:\s+',title,maxsplit=1)[0]
+
+
 def validate_labels(labels):
     if not isinstance(labels,list) or len(labels)!=2:
         raise DraftError('Exactly two resource labels are required')
@@ -69,12 +74,13 @@ def validate_grounding(labels,resources):
         supported=title|words(resource['excerpt'])
         if not content or not content.issubset(supported) or not content.intersection(title):
             raise DraftError('Use matching page title words; do not invent or swap label details')
-        meaningful=title-generic-{'best','top','here','s','how','which','what','why',
+        subject=words(title_subject(resource['title']))
+        meaningful=subject-generic-{'best','top','here','s','how','which','what','why',
                                   'you','get','find','is','are','right','from','with'}
         meaningful={word for word in meaningful if not word.isdigit()}
         if len(content.intersection(meaningful))<min(2,len(meaningful)):
             raise DraftError('Use specific title words, not a vague topic plus guide')
-        kinds=title&{'tutorial','cheatsheet','checklist','template','course','tool',
+        kinds=subject&{'tutorial','cheatsheet','checklist','template','course','tool',
                      'dashboard','component','interview','schedule','handbook'}
         if kinds and not content.intersection(kinds):
             raise DraftError('Name the actual resource type or task from its title')
@@ -103,7 +109,14 @@ def approval_digest(audience,labels,resources):
     return hashlib.sha256(json.dumps(data,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
 
 
-def complete(system,data,temperature=.8,max_tokens=450):
+def json_mode_failed(payload):
+    # Provider-side constrained decoding can fail before a response is returned.
+    # Match only the documented format-generation failure, not quota/auth errors.
+    message=re.sub(r'[^a-z]','',str(payload).casefold())
+    return 'jsonmode' in message and any(term in message for term in ('couldntbemet','couldnotbemet','cannotbemet'))
+
+
+def complete(system,data,temperature=.8,max_tokens=450,schema=None):
     account=os.environ.get('CLOUDFLARE_ACCOUNT_ID','').strip()
     token=os.environ.get('CLOUDFLARE_API_TOKEN','').strip()
     model=os.environ.get('CLOUDFLARE_AI_MODEL') or '@cf/meta/llama-3.1-8b-instruct-fp8'
@@ -113,11 +126,20 @@ def complete(system,data,temperature=.8,max_tokens=450):
         raise ValueError('Invalid model identifier')
     payload={'messages':[{'role':'system','content':system},{'role':'user','content':json.dumps(data)}],
              'seed':secrets.randbelow(999999999)+1,'temperature':temperature,'max_tokens':max_tokens,'response_format':{'type':'json_object'}}
+    if schema is not None:
+        payload['response_format']={'type':'json_schema','json_schema':schema}
     request=urllib.request.Request(f'https://api.cloudflare.com/client/v4/accounts/{account}/ai/run/{model}',
         data=json.dumps(payload).encode(),headers={'Authorization':f'Bearer {token}','Content-Type':'application/json'},method='POST')
-    with urllib.request.urlopen(request,timeout=60) as response:
-        result=json.load(response)
+    try:
+        with urllib.request.urlopen(request,timeout=60) as response:
+            result=json.load(response)
+    except urllib.error.HTTPError as exc:
+        if exc.code==400 and json_mode_failed(exc.read(8192).decode('utf-8',errors='replace')):
+            raise DraftError('Cloudflare could not meet the requested JSON schema') from exc
+        raise
     if result.get('success') is not True:
+        if json_mode_failed(result.get('errors',[])):
+            raise DraftError('Cloudflare could not meet the requested JSON schema')
         raise ValueError('Cloudflare generation failed')
     raw=result.get('result',{}).get('response')
     if isinstance(raw,dict):
@@ -135,7 +157,9 @@ def complete(system,data,temperature=.8,max_tokens=450):
 def review(audience,labels,resources):
     validate_labels(labels)
     validate_grounding(labels,resources)
-    verdict=complete(REVIEW_SYSTEM,{'AUDIENCE':audience,'LABELS':labels,'RESOURCES':evidence(resources)},temperature=0,max_tokens=180)
+    schema={'type':'object','properties':{key:{'type':'boolean'} for key in ('allowed','relevant','grounded')},
+            'required':['allowed','relevant','grounded'],'additionalProperties':False}
+    verdict=complete(REVIEW_SYSTEM,{'AUDIENCE':audience,'LABELS':labels,'RESOURCES':evidence(resources)},temperature=0,max_tokens=180,schema=schema)
     if not isinstance(verdict,dict) or set(verdict)!={'allowed','relevant','grounded'} or any(type(v) is not bool for v in verdict.values()):
         raise DraftError('Resource review returned an invalid decision')
     if not all(verdict.values()):raise DraftError('Resource review rejected topic, audience fit or unsupported label')
@@ -148,7 +172,7 @@ def label_options(resource):
           'here','s','best','top','ultimate'}
     # Keep the page title separate from the site's branding. Never create a
     # phrase by crossing "... | Site name" or picking a random middle window.
-    main=re.split(r'\s+[|–—]\s*|\s+-\s+|:\s+',resource['title'],maxsplit=1)[0]
+    main=title_subject(resource['title'])
     main=re.sub(r'^\s*\[[^]]+\]\s*','',main)
     main=main.replace('&',' and ')
     words=re.findall(r'[A-Za-z0-9]+(?:[+-]+)?',main)[:24]
@@ -182,9 +206,12 @@ def label_options(resource):
 def generate(audience,resources):
     options=[{chr(65+i):label for i,label in enumerate(label_options(resource))} for resource in resources]
     data={'AUDIENCE':audience,'RESOURCES':evidence(resources),'OPTIONS':options}
+    schema={'type':'object','properties':{'choices':{'type':'array','minItems':2,'maxItems':2,
+            'items':{'type':'string','enum':sorted(set().union(*(set(o) for o in options)))}}},
+            'required':['choices'],'additionalProperties':False}
     for _ in range(3):
         try:
-            result=complete(SYSTEM,data,max_tokens=384)
+            result=complete(SYSTEM,data,temperature=.2,max_tokens=384,schema=schema)
             if not isinstance(result,dict) or set(result)!={'choices'} or not isinstance(result['choices'],list) or len(result['choices'])!=2:
                 raise DraftError('Return exactly two letter keys from the matching options')
             if any(not isinstance(key,str) or key.upper() not in options[i] for i,key in enumerate(result['choices'])):

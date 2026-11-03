@@ -10,10 +10,10 @@ from types import SimpleNamespace
 from unittest.mock import patch,AsyncMock,MagicMock
 from app import queue
 from app.http import canonical,assert_public,fetch,Page,LinkError
-from app.resources import inspect,discover,_is_fresh
+from app.resources import inspect,discover,find_pair,_is_fresh
 from app.schedule import daily_plan,next_due,MIN_GAP
 from app.audiences import DAILY_MIX
-from app.writer import generate,render,review,complete,approval_digest,validate_grounding,DraftError
+from app.writer import generate,render,review,complete,approval_digest,validate_grounding,label_options,DraftError
 from twikit.client.gql import GQLClient
 
 NOW=datetime(2026,11,2,12,0,tzinfo=timezone.utc)
@@ -59,6 +59,21 @@ class HTTPTests(unittest.TestCase):
 
 
 class ResourceTests(unittest.TestCase):
+    def test_branded_single_subject_titles_have_a_valid_label(self):
+        for title in ('Button | shadcn/ui','Typography - Tailwind CSS','useEffect – React'):
+            resource=dict(pair()[0],title=title)
+            self.assertTrue(label_options(resource))
+    def test_unlabelable_page_is_skipped_during_pair_search(self):
+        one=dict(SOURCE,id='0');two=dict(SOURCE,id='1',root='https://tools.example.org/learn',hosts=['tools.example.org'])
+        items=pair();bad_url='https://docs.example.com/guide/bad'
+        s=state();s['catalog']=[{'url':bad_url,'source_id':'0'}]+[{'url':r['url'],'source_id':r['source_id']} for r in items]
+        def probe(url,source):
+            if url==bad_url:return dict(items[0],url=url,title='Docs',aliases=[url])
+            return next(r for r in items if r['url']==url)
+        with patch('app.resources.sources',return_value=[one,two]),patch('app.resources.discover',return_value=[]),patch('app.resources.inspect',side_effect=probe):
+            selected=find_pair(s,'vibecoders','test-slot')
+        self.assertEqual({r['url'] for r in selected},{r['url'] for r in items})
+        self.assertNotIn(bad_url,{c['url'] for c in s['catalog']})
     def html(self,title='Accessible layouts',body=None):
         body=body or 'Practical instructions for accessible headings, readable labels and useful examples. '*4
         return Page(SOURCE['root'],f'<html><title>{title}</title><main>{body}</main></html>'.encode(),'text/html',[])
@@ -114,6 +129,24 @@ class ScheduleTests(unittest.TestCase):
 
 
 class WriterTests(unittest.TestCase):
+    def setUp(self):
+        quiet=patch('builtins.print');quiet.start();self.addCleanup(quiet.stop)
+    def test_cloudflare_request_uses_native_schema_when_supplied(self):
+        schema={'type':'object','properties':{'allowed':{'type':'boolean'}},'required':['allowed']}
+        response=io.StringIO(json.dumps({'success':True,'result':{'response':{'allowed':False}}}))
+        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',return_value=response) as call:
+            self.assertEqual(complete('classify',{},schema=schema),{'allowed':False})
+        self.assertEqual(json.loads(call.call_args.args[0].data)['response_format'],{'type':'json_schema','json_schema':schema})
+    def test_json_mode_generation_failure_is_retryable_but_rate_limits_are_not(self):
+        mode_error=urllib.error.HTTPError('https://api.cloudflare.com',400,'bad',{},io.BytesIO(json.dumps({'errors':[{'message':"JSON Mode couldn't be met"}]}).encode()))
+        quota_error=urllib.error.HTTPError('https://api.cloudflare.com',429,'limit',{},io.BytesIO(b'{}'))
+        for error,expected in ((mode_error,DraftError),(quota_error,urllib.error.HTTPError)):
+            with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',side_effect=error),self.assertRaises(expected):complete('rules',{})
+    def test_reviewer_schema_does_not_force_approval(self):
+        with patch('app.writer.complete',return_value=GOOD) as call:review('vibecoders',LABELS,pair())
+        schema=call.call_args.kwargs['schema']
+        self.assertEqual(set(schema['required']),set(GOOD))
+        self.assertTrue(all(value=={'type':'boolean'} for value in schema['properties'].values()))
     def test_vague_labels_do_not_explain_a_specific_resource(self):
         resource=dict(pair()[0],title='The 10 Best Social Media Dashboard Tools & Apps')
         with self.assertRaises(DraftError):validate_grounding(['Social guide'],[resource])
@@ -199,8 +232,23 @@ class QueueTests(unittest.IsolatedAsyncioTestCase):
         c.assert_not_called();self.assertIsNone(queue.load()['pending']);self.assertEqual(len(queue.load()['used_urls']),2)
     async def test_failed_label_pair_does_not_trap_future_discovery(self):
         s=state();s['catalog']=[{'url':r['url'],'source_id':r['source_id']} for r in pair()];queue.save(s)
-        with patch.object(queue,'find_pair',return_value=pair()),patch.object(queue,'generate',side_effect=DraftError('no valid labels')),patch.object(queue,'client') as c,self.assertRaises(DraftError):await queue.prepare(start_now=True)
+        with patch.object(queue,'find_pair',return_value=pair()) as search,patch.object(queue,'generate',side_effect=DraftError('no valid labels')),patch.object(queue,'client') as c,self.assertRaises(DraftError):await queue.prepare(start_now=True)
         c.assert_not_called();self.assertFalse(queue.load()['catalog']);self.assertIsNone(queue.load()['pending']);self.assertFalse(queue.load()['used_urls'])
+        self.assertEqual(search.call_count,3)
+    async def test_rejected_pair_is_replaced_before_reserving(self):
+        queue.save(state());first=pair()
+        fresh=[dict(r,url=r['url']+'/fresh',aliases=[r['url']+'/fresh'],fingerprint='fresh-'+r['fingerprint']) for r in pair()]
+        with patch.object(queue,'find_pair',side_effect=[first,fresh]) as search,patch.object(queue,'generate',side_effect=[DraftError('malformed output'),LABELS]),patch.object(queue,'client') as c:
+            await queue.prepare(start_now=True)
+        c.assert_not_called();self.assertEqual(search.call_count,2)
+        self.assertTrue(set(first[0]['aliases']).issubset(search.call_args.kwargs['exclude_urls']))
+        result=queue.load();self.assertEqual(result['pending']['resources'],fresh)
+        self.assertEqual(set(result['used_urls']),{r['url'] for r in fresh})
+    async def test_preview_pair_recovery_never_writes_state(self):
+        queue.save(state());before=queue.PATH.read_text()
+        with patch.object(queue,'find_pair',return_value=pair()),patch.object(queue,'generate',side_effect=[DraftError('bad first pair'),LABELS]):
+            await queue.prepare(preview=True)
+        self.assertEqual(queue.PATH.read_text(),before)
     async def test_modified_text_and_old_run_are_rejected(self):
         self.reserved();s=queue.load();s['pending']['text']+='extra';queue.save(s)
         with patch.object(queue,'client') as c,self.assertRaises(ValueError):await queue.publish()
