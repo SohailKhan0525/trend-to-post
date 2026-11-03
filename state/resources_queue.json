@@ -789,6 +789,39 @@
       "posted_at": "2026-11-03T09:31:26.231845+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:20",
+      "audience": "developers",
+      "text": "For developers\n\nOverview Cloudflare Workers docs\nhttps://developers.cloudflare.com/workers/\n\nMetadata and OG images\nhttps://nextjs.org/docs/app/getting-started/metadata-and-og-images\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://developers.cloudflare.com/workers/",
+          "title": "Overview · Cloudflare Workers docs",
+          "excerpt": "Cloudflare Workers Last updated Oct 8, 2026 | Copy as Markdown | View as Markdown | Agent setup A serverless platform for building, deploying, and scaling apps across Cloudflare's global network ↗︎ with a single command — no infrastructure to manage, no complex configuration With Cloudflare Workers, you can expect to: Deliver fast performance with high reliability anywhere in the world Build full-stack apps with your framework of choice, including React , Vue , Svelte , Next , Astro , React Router , fate , and more Use your preferred language, including JavaScript , TypeScript , Python , Rust , and more Gain deep visibility and insight with built-in observability Get started for free and grow with flexible pricing , affordable at any scale Get started with your first project: Deploy a template Deploy with Wrangler CLI Build with Workers Front-end applications Deploy static assets to Cloudflare's CDN & cache for fast rendering Back-end applications Build APIs and connect to data stores with Smart Placement to optimize latency Serverless AI inference Run LLMs, generate images, and more",
+          "aliases": [
+            "https://developers.cloudflare.com/workers"
+          ],
+          "fingerprint": "0b639d50d8552ac9eba4142ca98a2073e96ce2063a066c6bed0750012d465405",
+          "source_id": "cloudflare",
+          "verified_at": "2026-11-03T10:01:58.245773+00:00"
+        },
+        {
+          "url": "https://nextjs.org/docs/app/getting-started/metadata-and-og-images",
+          "title": "Metadata and OG images",
+          "excerpt": "App Router Getting Started Menu Metadata and OG images Copy page Copy for LLM View Markdown Ask AI about this page The Metadata APIs can be used to define your application metadata for improved SEO and web shareability and include: The static metadata object The dynamic generateMetadata function Special file conventions that can be used to add static or dynamically generated favicons and OG images . With all the options above, Next.js will automatically generate the relevant <head> tags for your page, which can be inspected in the browser's developer tools. The metadata object and generateMetadata function exports are only supported in Server Components. Default fields There are two default meta tags that are always added even if a route doesn't define metadata: The meta charset tag sets the character encoding for the website. The meta viewport tag sets the viewport width and scale for the website to adjust for different devices. < meta charset = \"utf-8\" /> < meta name = \"viewport\" content = \"width=device-width, initial-scale=1\" /> The other metadata fields can be defined with the Me",
+          "aliases": [
+            "https://nextjs.org/docs/app/getting-started/metadata-and-og-images"
+          ],
+          "fingerprint": "e969a5ca56e2d6d54b5e2c18092be4b88eea4e29c3b30fa9d154524cb981c4e5",
+          "source_id": "nextjs",
+          "verified_at": "2026-11-03T10:01:58.355094+00:00"
+        }
+      ],
+      "tweet_id": "2117557908107874658",
+      "posted_at": "2026-11-03T10:02:01.180278+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1270,44 +1303,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T09:31:26.231845+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:20",
-    "audience": "developers",
-    "labels": [
-      "Overview Cloudflare Workers docs",
-      "Metadata and OG images"
-    ],
-    "resources": [
-      {
-        "url": "https://developers.cloudflare.com/workers/",
-        "title": "Overview · Cloudflare Workers docs",
-        "excerpt": "Cloudflare Workers Last updated Oct 8, 2026 | Copy as Markdown | View as Markdown | Agent setup A serverless platform for building, deploying, and scaling apps across Cloudflare's global network ↗︎ with a single command — no infrastructure to manage, no complex configuration With Cloudflare Workers, you can expect to: Deliver fast performance with high reliability anywhere in the world Build full-stack apps with your framework of choice, including React , Vue , Svelte , Next , Astro , React Router , fate , and more Use your preferred language, including JavaScript , TypeScript , Python , Rust , and more Gain deep visibility and insight with built-in observability Get started for free and grow with flexible pricing , affordable at any scale Get started with your first project: Deploy a template Deploy with Wrangler CLI Build with Workers Front-end applications Deploy static assets to Cloudflare's CDN & cache for fast rendering Back-end applications Build APIs and connect to data stores with Smart Placement to optimize latency Serverless AI inference Run LLMs, generate images, and more",
-        "aliases": [
-          "https://developers.cloudflare.com/workers"
-        ],
-        "fingerprint": "0b639d50d8552ac9eba4142ca98a2073e96ce2063a066c6bed0750012d465405",
-        "source_id": "cloudflare",
-        "verified_at": "2026-11-03T10:01:58.245773+00:00"
-      },
-      {
-        "url": "https://nextjs.org/docs/app/getting-started/metadata-and-og-images",
-        "title": "Metadata and OG images",
-        "excerpt": "App Router Getting Started Menu Metadata and OG images Copy page Copy for LLM View Markdown Ask AI about this page The Metadata APIs can be used to define your application metadata for improved SEO and web shareability and include: The static metadata object The dynamic generateMetadata function Special file conventions that can be used to add static or dynamically generated favicons and OG images . With all the options above, Next.js will automatically generate the relevant <head> tags for your page, which can be inspected in the browser's developer tools. The metadata object and generateMetadata function exports are only supported in Server Components. Default fields There are two default meta tags that are always added even if a route doesn't define metadata: The meta charset tag sets the character encoding for the website. The meta viewport tag sets the viewport width and scale for the website to adjust for different devices. < meta charset = \"utf-8\" /> < meta name = \"viewport\" content = \"width=device-width, initial-scale=1\" /> The other metadata fields can be defined with the Me",
-        "aliases": [
-          "https://nextjs.org/docs/app/getting-started/metadata-and-og-images"
-        ],
-        "fingerprint": "e969a5ca56e2d6d54b5e2c18092be4b88eea4e29c3b30fa9d154524cb981c4e5",
-        "source_id": "nextjs",
-        "verified_at": "2026-11-03T10:01:58.355094+00:00"
-      }
-    ],
-    "text": "For developers\n\nOverview Cloudflare Workers docs\nhttps://developers.cloudflare.com/workers/\n\nMetadata and OG images\nhttps://nextjs.org/docs/app/getting-started/metadata-and-og-images\n\nThank me later.\nFollow for more useful links.",
-    "approval": "c8d862a754a8ac96964fb0be5b5822dd04b8fcebd15f7a43026f9473a4eeea4b",
-    "prepared_at": "2026-11-03T10:01:32.411782+00:00",
-    "run_id": "41615744252",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T10:02:01.180278+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
