@@ -954,6 +954,39 @@
       "posted_at": "2026-11-03T12:01:42.931885+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:25",
+      "audience": "founders",
+      "text": "For founders\n\nUsing How Might We Questions\nhttps://www.nngroup.com/articles/how-might-we-questions/\n\nvercel organizations\nhttps://vercel.com/docs/cli/organizations\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.nngroup.com/articles/how-might-we-questions/",
+          "title": "Using “How Might We” Questions - NN/G Nielsen Norman Group Nielsen Norman Group",
+          "excerpt": "4 Using “How Might We” Questions to Ideate on the Right Problems Maria Rosala Maria Rosala January 17, 2021 · Last reviewed Aug. 7, 2026 2026-08-07 Share Email article Share on LinkedIn Share on Twitter Summary: Constructing how-might-we questions generates creative solutions while keeping teams focused on the right problems to solve. In our course on discovery at our UX Conference, we talk about the importance of solving the right problem. Discovery research commonly results in learning about the problem space. This knowledge should be used to generate solutions that solve real user problems. At the end of discovery, the team should come together, agree on the top things it found out, and use this knowledge to frame design challenges. To prevent individuals from suggesting their pet solutions, which might have little resemblance to the problems found, construct How might we questions that frame the problem(s) for ideation . In This Article: Examples of How Might We (HMW) Questions 5 Tips on Writing Good HMWs 1: Start with the Problems (or Insights) You’ve Uncovered 2: Avoid Suggesti",
+          "aliases": [
+            "https://www.nngroup.com/articles/how-might-we-questions"
+          ],
+          "fingerprint": "4e049fb8a361d500d103303dbaf6eb7f794a85ad2c338132b8f7cfa13f98ca60",
+          "source_id": "nngroup",
+          "verified_at": "2026-11-03T12:18:36.276923+00:00"
+        },
+        {
+          "url": "https://vercel.com/docs/cli/organizations",
+          "title": "vercel organizations",
+          "excerpt": "Copy page Copy page vercel organizations Copy page Copy page Use the vercel organizations command to create and manage organizations from the terminal. An organization groups several Vercel teams under one billing team, and the billing team pays for every team in the organization. Organizations are available in Private Beta to Enterprise plans with Flexible Commitment (Flex) billing. Contact your account team to request access. vercel organization is an alias for the same command. The command is available in vercel@65.2.0 and later. Usage terminal vercel organizations list vercel organizations inspect acme vercel organizations teams list acme Listing your organizations, showing the acme organization, and listing its teams The vercel organizations command supports these subcommands: list : List the organizations you can view inspect : Show the details of an organization create : Create an organization from an existing team update : Change the slug of an organization teams list : List the teams in an organization teams create : Create a child team in an organization teams add : Add an ",
+          "aliases": [
+            "https://vercel.com/docs/cli/organizations"
+          ],
+          "fingerprint": "870f5faad9efb9bfc299015953c9cc7196c4d4f4a94b3b0f6f5140aee5c731dc",
+          "source_id": "vercel",
+          "verified_at": "2026-11-03T12:18:34.988782+00:00"
+        }
+      ],
+      "tweet_id": "2117592297558958472",
+      "posted_at": "2026-11-03T12:18:39.132257+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1435,44 +1468,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T12:01:42.931885+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:25",
-    "audience": "founders",
-    "labels": [
-      "Using How Might We Questions",
-      "vercel organizations"
-    ],
-    "resources": [
-      {
-        "url": "https://www.nngroup.com/articles/how-might-we-questions/",
-        "title": "Using “How Might We” Questions - NN/G Nielsen Norman Group Nielsen Norman Group",
-        "excerpt": "4 Using “How Might We” Questions to Ideate on the Right Problems Maria Rosala Maria Rosala January 17, 2021 · Last reviewed Aug. 7, 2026 2026-08-07 Share Email article Share on LinkedIn Share on Twitter Summary: Constructing how-might-we questions generates creative solutions while keeping teams focused on the right problems to solve. In our course on discovery at our UX Conference, we talk about the importance of solving the right problem. Discovery research commonly results in learning about the problem space. This knowledge should be used to generate solutions that solve real user problems. At the end of discovery, the team should come together, agree on the top things it found out, and use this knowledge to frame design challenges. To prevent individuals from suggesting their pet solutions, which might have little resemblance to the problems found, construct How might we questions that frame the problem(s) for ideation . In This Article: Examples of How Might We (HMW) Questions 5 Tips on Writing Good HMWs 1: Start with the Problems (or Insights) You’ve Uncovered 2: Avoid Suggesti",
-        "aliases": [
-          "https://www.nngroup.com/articles/how-might-we-questions"
-        ],
-        "fingerprint": "4e049fb8a361d500d103303dbaf6eb7f794a85ad2c338132b8f7cfa13f98ca60",
-        "source_id": "nngroup",
-        "verified_at": "2026-11-03T12:18:36.276923+00:00"
-      },
-      {
-        "url": "https://vercel.com/docs/cli/organizations",
-        "title": "vercel organizations",
-        "excerpt": "Copy page Copy page vercel organizations Copy page Copy page Use the vercel organizations command to create and manage organizations from the terminal. An organization groups several Vercel teams under one billing team, and the billing team pays for every team in the organization. Organizations are available in Private Beta to Enterprise plans with Flexible Commitment (Flex) billing. Contact your account team to request access. vercel organization is an alias for the same command. The command is available in vercel@65.2.0 and later. Usage terminal vercel organizations list vercel organizations inspect acme vercel organizations teams list acme Listing your organizations, showing the acme organization, and listing its teams The vercel organizations command supports these subcommands: list : List the organizations you can view inspect : Show the details of an organization create : Create an organization from an existing team update : Change the slug of an organization teams list : List the teams in an organization teams create : Create a child team in an organization teams add : Add an ",
-        "aliases": [
-          "https://vercel.com/docs/cli/organizations"
-        ],
-        "fingerprint": "870f5faad9efb9bfc299015953c9cc7196c4d4f4a94b3b0f6f5140aee5c731dc",
-        "source_id": "vercel",
-        "verified_at": "2026-11-03T12:18:34.988782+00:00"
-      }
-    ],
-    "text": "For founders\n\nUsing How Might We Questions\nhttps://www.nngroup.com/articles/how-might-we-questions/\n\nvercel organizations\nhttps://vercel.com/docs/cli/organizations\n\nThank me later.\nFollow for more useful links.",
-    "approval": "a3612f5a5152966508a340e60132d08ff065b4680a2a0f3b5a89b14b2183be32",
-    "prepared_at": "2026-11-03T12:18:33.240771+00:00",
-    "run_id": "41634575892",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T12:18:39.132257+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
