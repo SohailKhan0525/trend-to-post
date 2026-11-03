@@ -71,6 +71,18 @@
       "premise": "A seat labeled 'Comfort Zone' gets colder when activated, subverting expectations.",
       "tweet_id": "2117672179492098214",
       "posted_at": "2026-11-03T17:36:06.859367+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:37",
+      "due_at": "2026-11-03T18:04:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an AI's idea of a quick clarification",
+      "language": "English",
+      "form": "a dry one-liner",
+      "text": "The AI clarified, 'I meant no harm, just a little data harm.'",
+      "premise": "AI makes a pun on 'data harm' instead of 'harm.'",
+      "tweet_id": "2117679236836446347",
+      "posted_at": "2026-11-03T18:04:09.442100+00:00"
     }
   ],
   "used_texts": [
@@ -194,26 +206,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T17:36:06.859367+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:37",
-      "due_at": "2026-11-03T18:04:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "an AI's idea of a quick clarification",
-      "language": "English",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "The AI clarified, 'I meant no harm, just a little data harm.'",
-      "premise": "AI makes a pun on 'data harm' instead of 'harm.'"
-    },
-    "approval": "bebd37ed7cd8fb5f02dc6f78ff26a1a09814c2a9f759fdf546eda4f6b9697705",
-    "run": [
-      "41689767199",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T18:04:01.763223+00:00"
-  },
+  "last_posted_at": "2026-11-03T18:04:09.442100+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
