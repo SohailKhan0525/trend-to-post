@@ -176,7 +176,8 @@
     "2e4cb43ede08309f8f12302574921be6ab32a1a6a5fb13dd11603f1e6d313767",
     "a646eb3f6654e4b3e7cfca21ab392724bbc182c62c94f78f6a2b47908038b8b9",
     "1e67051af307d1aff0c9e8bee3d3c6effac300948b780e554c967ba1a10e8388",
-    "e2c5be7d3db34253f3dd41887497a93076943d05aba21b5b478a9a8681b9a43c"
+    "e2c5be7d3db34253f3dd41887497a93076943d05aba21b5b478a9a8681b9a43c",
+    "8946c08283869161e85bd6832a24c0fb9c26f51d53cd95c7e4a8b7c42e1f7230"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -184,7 +185,8 @@
     "707e9a6b2266bb5d5581996b37ed04baff502be79feb3ce231c25436016582bb",
     "2b353309983f33589fcc7d350e16c92e32c4f4cda11e0e1eab4570a490afa101",
     "bf3e19b14f1470601061108a0968b158adbb17091681416173f7b07c9806207a",
-    "f11ea23b70a32f7e79eb7b3dd097c85a44b51b2c12f815269bab370fe6a0028d"
+    "f11ea23b70a32f7e79eb7b3dd097c85a44b51b2c12f815269bab370fe6a0028d",
+    "1a1be2e180833069eca16d78f37db3a4be2053e714bcf0cd591fda940fd74424"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -193,6 +195,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-03T17:36:06.859367+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-03:dash-v1:37",
+      "due_at": "2026-11-03T18:04:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an AI's idea of a quick clarification",
+      "language": "English",
+      "form": "a dry one-liner"
+    },
+    "draft": {
+      "text": "The AI clarified, 'I meant no harm, just a little data harm.'",
+      "premise": "AI makes a pun on 'data harm' instead of 'harm.'"
+    },
+    "approval": "bebd37ed7cd8fb5f02dc6f78ff26a1a09814c2a9f759fdf546eda4f6b9697705",
+    "run": [
+      "41689767199",
+      "1"
+    ],
+    "reserved_at": "2026-11-03T18:04:01.763223+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
