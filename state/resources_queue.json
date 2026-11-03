@@ -1271,7 +1271,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T09:31:26.231845+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:20",
+    "audience": "developers",
+    "labels": [
+      "Overview Cloudflare Workers docs",
+      "Metadata and OG images"
+    ],
+    "resources": [
+      {
+        "url": "https://developers.cloudflare.com/workers/",
+        "title": "Overview · Cloudflare Workers docs",
+        "excerpt": "Cloudflare Workers Last updated Oct 8, 2026 | Copy as Markdown | View as Markdown | Agent setup A serverless platform for building, deploying, and scaling apps across Cloudflare's global network ↗︎ with a single command — no infrastructure to manage, no complex configuration With Cloudflare Workers, you can expect to: Deliver fast performance with high reliability anywhere in the world Build full-stack apps with your framework of choice, including React , Vue , Svelte , Next , Astro , React Router , fate , and more Use your preferred language, including JavaScript , TypeScript , Python , Rust , and more Gain deep visibility and insight with built-in observability Get started for free and grow with flexible pricing , affordable at any scale Get started with your first project: Deploy a template Deploy with Wrangler CLI Build with Workers Front-end applications Deploy static assets to Cloudflare's CDN & cache for fast rendering Back-end applications Build APIs and connect to data stores with Smart Placement to optimize latency Serverless AI inference Run LLMs, generate images, and more",
+        "aliases": [
+          "https://developers.cloudflare.com/workers"
+        ],
+        "fingerprint": "0b639d50d8552ac9eba4142ca98a2073e96ce2063a066c6bed0750012d465405",
+        "source_id": "cloudflare",
+        "verified_at": "2026-11-03T10:01:58.245773+00:00"
+      },
+      {
+        "url": "https://nextjs.org/docs/app/getting-started/metadata-and-og-images",
+        "title": "Metadata and OG images",
+        "excerpt": "App Router Getting Started Menu Metadata and OG images Copy page Copy for LLM View Markdown Ask AI about this page The Metadata APIs can be used to define your application metadata for improved SEO and web shareability and include: The static metadata object The dynamic generateMetadata function Special file conventions that can be used to add static or dynamically generated favicons and OG images . With all the options above, Next.js will automatically generate the relevant <head> tags for your page, which can be inspected in the browser's developer tools. The metadata object and generateMetadata function exports are only supported in Server Components. Default fields There are two default meta tags that are always added even if a route doesn't define metadata: The meta charset tag sets the character encoding for the website. The meta viewport tag sets the viewport width and scale for the website to adjust for different devices. < meta charset = \"utf-8\" /> < meta name = \"viewport\" content = \"width=device-width, initial-scale=1\" /> The other metadata fields can be defined with the Me",
+        "aliases": [
+          "https://nextjs.org/docs/app/getting-started/metadata-and-og-images"
+        ],
+        "fingerprint": "e969a5ca56e2d6d54b5e2c18092be4b88eea4e29c3b30fa9d154524cb981c4e5",
+        "source_id": "nextjs",
+        "verified_at": "2026-11-03T10:01:58.355094+00:00"
+      }
+    ],
+    "text": "For developers\n\nOverview Cloudflare Workers docs\nhttps://developers.cloudflare.com/workers/\n\nMetadata and OG images\nhttps://nextjs.org/docs/app/getting-started/metadata-and-og-images\n\nThank me later.\nFollow for more useful links.",
+    "approval": "c8d862a754a8ac96964fb0be5b5822dd04b8fcebd15f7a43026f9473a4eeea4b",
+    "prepared_at": "2026-11-03T10:01:32.411782+00:00",
+    "run_id": "41615744252",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
@@ -1290,9 +1326,11 @@
     "https://developer.chrome.com/docs/devtools/recorder/overview",
     "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
     "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest",
+    "https://developers.cloudflare.com/workers",
     "https://docs.lovable.dev/features/knowledge",
     "https://learn.microsoft.com/en-us/training",
     "https://mailchimp.com/resources/ecommerce-email-marketing",
+    "https://nextjs.org/docs/app/getting-started/metadata-and-og-images",
     "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04",
     "https://opencode.ai/docs",
     "https://react.dev/learn",
@@ -1339,6 +1377,7 @@
   "used_fingerprints": [
     "01ef903b40418c5ed02e67cce1ac3bc0163924244e3978ea10e12aa53c68a217",
     "0496b579125419740f7281a5411c5e0156a520b0360e3c6cee87e580e5b5cf8e",
+    "0b639d50d8552ac9eba4142ca98a2073e96ce2063a066c6bed0750012d465405",
     "0d78994244521256b631aca5aea2f1b8fc3b3ad8ba7e1aec91d9051055ef670f",
     "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
     "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
@@ -1382,6 +1421,7 @@
     "dfbd0bd27eb69ed0bf8b2a766421ffbaba7655d10d0ee47d4a2afe029bb1a435",
     "e0c34e123a64adf01df2d0876626b94b754bc3c27a265a844423be6c696b16dc",
     "e277a314ae889b55e8b5d390609b7ac6258432332fce60a4703b5d9aff621e86",
+    "e969a5ca56e2d6d54b5e2c18092be4b88eea4e29c3b30fa9d154524cb981c4e5",
     "ef4b0357d65228ac2e1b6944ca01e370a0afaf53c33ce2068b30f3fd42c53397",
     "f2e8e9163d4e02a668b82edbdb05eb93a6f96b02a6527b87af0c5818dd7c85d1",
     "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336"
@@ -1402,10 +1442,6 @@
     {
       "url": "https://nextjs.org/docs",
       "source_id": "nextjs"
-    },
-    {
-      "url": "https://docs.astro.build/en/guides",
-      "source_id": "astro"
     },
     {
       "url": "https://tailwindcss.com/docs/installation/using-vite",
@@ -4753,10 +4789,6 @@
     },
     {
       "url": "https://buffer.com/resources/how-many-social-media-platforms-business",
-      "source_id": "buffer"
-    },
-    {
-      "url": "https://buffer.com/resources/personalization-email-marketing",
       "source_id": "buffer"
     },
     {
@@ -14017,10 +14049,6 @@
     },
     {
       "url": "https://zapier.com/blog/all-articles/app-of-the-day",
-      "source_id": "zapier"
-    },
-    {
-      "url": "https://zapier.com/blog/all-articles/app-comparisons",
       "source_id": "zapier"
     },
     {
@@ -27254,6 +27282,10 @@
     {
       "url": "https://mailchimp.com/resources/crm",
       "source_id": "mailchimp"
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/ai-assistance",
+      "source_id": "chrome"
     }
   ],
   "discovery_cursors": {
@@ -27266,6 +27298,6 @@
     "founders": 8,
     "job seekers": 8,
     "designers": 2,
-    "developers": 2
+    "developers": 4
   }
 }
