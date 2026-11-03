@@ -254,7 +254,8 @@
     "13d32e08dc14125ef6c0c89380cbc823d10b4850f65019d44e1542c507cf5f67",
     "1a88ac7544f5f6b45095a2387107137c2c3389d4a54ca8f0dcdc3f47df3627da",
     "458cf784ef5d7b9d15de657da75cd6829ed9aa19ec3b64b050a8cdf5e1b8c46e",
-    "d0cbf62b091eeced3f2d1fe0c5998cb23a46f8d1081939afb20ae90826c14523"
+    "d0cbf62b091eeced3f2d1fe0c5998cb23a46f8d1081939afb20ae90826c14523",
+    "e7b3969a729c997e9ae5f56f64cc21d7e8359122b68dfc611f0f2bbecbcb9315"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -268,7 +269,8 @@
     "7e2bf174688e623229e054bd5f88201ac71cf015dcebbe3a1209da439b0254d0",
     "d556d012b46be55188006b6d7d767d8c8b462f554f832788b6794f8887e63dcb",
     "fa1d3cbc0522d9b06df8ae278ce0567a570b7d1a8782d061aea88c14f84157a6",
-    "3a90ba790797d9c2c9236c99a3d02a8390f2ce266a9f87bb804c57d28115bbb6"
+    "3a90ba790797d9c2c9236c99a3d02a8390f2ce266a9f87bb804c57d28115bbb6",
+    "f6ce077e5833f9d921d4c269e0ba2e1a83cf2137dad6c9b2bd0f2213b64ff928"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -277,6 +279,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-03T20:03:11.771926+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-03:dash-v1:43",
+      "due_at": "2026-11-03T20:35:00+00:00",
+      "topic": "cars",
+      "detail": "a cupholder designed around an imaginary cup",
+      "language": "Japanese",
+      "form": "a question with a funny, concrete premise"
+    },
+    "draft": {
+      "text": "助手席は空いてる。説明書だけはシートベルトが要りそうな厚さだ。",
+      "premise": "A car manual is thick enough to need its own seat belt."
+    },
+    "approval": "6c27d96d762043bdfc2ae30bb8e1b02e0f6f8be99c5ea7c9911a825d88002b7a",
+    "run": [
+      "41713282768",
+      "1"
+    ],
+    "reserved_at": "2026-11-03T20:35:04.690710+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
