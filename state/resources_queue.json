@@ -492,6 +492,39 @@
       "posted_at": "2026-11-03T04:02:06.923670+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:9",
+      "audience": "founders",
+      "text": "For founders\n\nInstructions guide\nhttps://docs.lovable.dev/features/knowledge\n\nAutomation inspiration Articles Page 1\nhttps://zapier.com/blog/all-articles/automation-inspiration/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://docs.lovable.dev/features/knowledge",
+          "title": "Instructions - Lovable Documentation",
+          "excerpt": "Instructions (previously Knowledge ) let you provide persistent guidance and context to the Lovable agent. Instead of repeating the same explanations in every conversation, you can define them once and Lovable will consider them when generating edits. Instructions are defined at two levels: Workspace instructions define shared rules that apply across all projects in a workspace, such as coding standards, preferred libraries, or naming conventions. Project instructions add context that is specific to a single project, such as the application purpose, database schema, architecture decisions, or domain terminology. Both are plain text fields that provide persistent instructions to the Lovable agent. ​ Skills vs. instructions Skills and instructions complement each other. Instructions are always included in context. Use them for rules and conventions that apply to everything Lovable does, such as coding standards, brand guidelines, or your project’s domain terminology. Skills are loaded on demand. Use them for instructions that only matter for specific kinds of tasks, such as running a r",
+          "aliases": [
+            "https://docs.lovable.dev/features/knowledge"
+          ],
+          "fingerprint": "affcb5109a133d95425eabb2fa0f596bc8025476a2d17aec870fd1c71b8fea77",
+          "source_id": "lovable",
+          "verified_at": "2026-11-03T04:31:21.211172+00:00"
+        },
+        {
+          "url": "https://zapier.com/blog/all-articles/automation-inspiration/",
+          "title": "Automation inspiration Articles, Page 1 | Zapier Blog",
+          "excerpt": "Loading Get productivity tips delivered straight to your inbox Email * Subscribe We’ll email you 1-3 times per week—and never share your information. Improve your productivity automatically. Use Zapier to get your apps working together. Sign up See how Zapier works",
+          "aliases": [
+            "https://zapier.com/blog/all-articles/automation-inspiration"
+          ],
+          "fingerprint": "325b4a11f5743ce33788d03891fabb4772892f1d4cc514bc0a8a3a7e944b8b0c",
+          "source_id": "zapier",
+          "verified_at": "2026-11-03T04:31:21.407046+00:00"
+        }
+      ],
+      "tweet_id": "2117474707205476821",
+      "posted_at": "2026-11-03T04:31:24.001117+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -973,44 +1006,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T04:02:06.923670+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:9",
-    "audience": "founders",
-    "labels": [
-      "Instructions guide",
-      "Automation inspiration Articles Page 1"
-    ],
-    "resources": [
-      {
-        "url": "https://docs.lovable.dev/features/knowledge",
-        "title": "Instructions - Lovable Documentation",
-        "excerpt": "Instructions (previously Knowledge ) let you provide persistent guidance and context to the Lovable agent. Instead of repeating the same explanations in every conversation, you can define them once and Lovable will consider them when generating edits. Instructions are defined at two levels: Workspace instructions define shared rules that apply across all projects in a workspace, such as coding standards, preferred libraries, or naming conventions. Project instructions add context that is specific to a single project, such as the application purpose, database schema, architecture decisions, or domain terminology. Both are plain text fields that provide persistent instructions to the Lovable agent. ​ Skills vs. instructions Skills and instructions complement each other. Instructions are always included in context. Use them for rules and conventions that apply to everything Lovable does, such as coding standards, brand guidelines, or your project’s domain terminology. Skills are loaded on demand. Use them for instructions that only matter for specific kinds of tasks, such as running a r",
-        "aliases": [
-          "https://docs.lovable.dev/features/knowledge"
-        ],
-        "fingerprint": "affcb5109a133d95425eabb2fa0f596bc8025476a2d17aec870fd1c71b8fea77",
-        "source_id": "lovable",
-        "verified_at": "2026-11-03T04:31:21.211172+00:00"
-      },
-      {
-        "url": "https://zapier.com/blog/all-articles/automation-inspiration/",
-        "title": "Automation inspiration Articles, Page 1 | Zapier Blog",
-        "excerpt": "Loading Get productivity tips delivered straight to your inbox Email * Subscribe We’ll email you 1-3 times per week—and never share your information. Improve your productivity automatically. Use Zapier to get your apps working together. Sign up See how Zapier works",
-        "aliases": [
-          "https://zapier.com/blog/all-articles/automation-inspiration"
-        ],
-        "fingerprint": "325b4a11f5743ce33788d03891fabb4772892f1d4cc514bc0a8a3a7e944b8b0c",
-        "source_id": "zapier",
-        "verified_at": "2026-11-03T04:31:21.407046+00:00"
-      }
-    ],
-    "text": "For founders\n\nInstructions guide\nhttps://docs.lovable.dev/features/knowledge\n\nAutomation inspiration Articles Page 1\nhttps://zapier.com/blog/all-articles/automation-inspiration/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "37680ca1d012688d608acf0fb5812a69f3346438178ac7c2099336fa34fe9047",
-    "prepared_at": "2026-11-03T04:31:19.811265+00:00",
-    "run_id": "41578569319",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T04:31:24.001117+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
