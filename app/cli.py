@@ -1,18 +1,17 @@
 import argparse
 import asyncio
+import os
 import sys
-from .queue import prepare,publish
+from . import queue
 
 
 def main():
-    parser=argparse.ArgumentParser()
-    parser.add_argument('command',choices=['prepare','publish','preview'])
-    parser.add_argument('--start-now',action='store_true')
-    parser.add_argument('--all-categories',action='store_true',help='Preview all audiences without publishing or saving state')
-    args=parser.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("command",choices=["preview","run"])
+    args = parser.parse_args()
     try:
-        asyncio.run(publish() if args.command=='publish' else prepare(preview=args.command=='preview',start_now=args.start_now,all_categories=args.all_categories))
+        asyncio.run(queue.preview() if args.command=="preview" else queue.run(os.environ.get("GITHUB_EVENT_NAME","manual")))
     except Exception as exc:
-        # Third-party exception text may include credentials or HTTP headers.
-        print(f'::error::Resource bot stopped ({type(exc).__name__}). Check link supply, service health and reservations.',file=sys.stderr)
+        # HTTP client exceptions may contain request credentials.
+        print(f"::error::Dash Rattle stopped ({type(exc).__name__}). Check the failed stage and reservation.",file=sys.stderr)
         raise SystemExit(1) from None
