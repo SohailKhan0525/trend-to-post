@@ -723,6 +723,39 @@
       "posted_at": "2026-11-03T08:31:22.469902+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:18",
+      "audience": "job seekers",
+      "text": "For job seekers\n\nMigrate an Application from AWS\nhttps://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book\n\nDNS in One Picture\nhttps://roadmap.sh/guides/dns-in-one-picture\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book",
+          "title": "How to Migrate an Application from AWS to GKE [Full Book] Class Central Class Central Class Central Class Central Class Central Class Central Class Central Class Central Class Cent",
+          "excerpt": "Osomudeya Zudonu This guided lab walks you through migrating a small payments app, with a React UI and Express API running on a single AWS EC2 instance, while PostgreSQL stays on AWS. You’ll move the UI and API to Google Kubernetes Engine without changing the public URL customers already use, gradually shifting traffic from AWS to GKE a few percent at a time. By the end, you’ll have run the app locally, stood up AWS, built GKE in eight Terraform stages, tested the new environment, shifted production traffic to GKE, completed the cutover, and torn down what you no longer need. The image below shows the middle of the migration, with both clouds live, customers still using one URL, and the database remaining on AWS. Around that request path, three more systems do their jobs: Table of Contents Before You Start What You Need Installed Skills You Need What This Costs How This Book Works The Team Part 1. How to Run ClearPay and Put It on AWS Chapter 1. Run ClearPay on Your Laptop Chapter 2. Read the Code That Matters Chapter 3. Prove a Retry Never Charges Twice Chapter 4. Build the AWS Serv",
+          "aliases": [
+            "https://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book"
+          ],
+          "fingerprint": "f2e8e9163d4e02a668b82edbdb05eb93a6f96b02a6527b87af0c5818dd7c85d1",
+          "source_id": "freecodecamp",
+          "verified_at": "2026-11-03T09:01:43.436802+00:00"
+        },
+        {
+          "url": "https://roadmap.sh/guides/dns-in-one-picture",
+          "title": "DNS in One Picture - roadmap.sh",
+          "excerpt": "Loading... DNS in One Picture Kamran Ahmed Prefer us on Google DNS or Domain Name System is one of the fundamental blocks of the internet. As a developer, you should have at-least the basic understanding of how it works. This article is a brief introduction to what is DNS and how it works. DNS at its simplest is like a phonebook on your mobile phone. Whenever you have to call one of your contacts, you can either dial their number from your memory or use their name which will then be used by your mobile phone to search their number in your phone book to call them. Every time you make a new friend, or your existing friend gets a mobile phone, you have to memorize their phone number or save it in your phonebook to be able to call them later on. DNS or Domain Name System, in a similar fashion, is a mechanism that allows you to browse websites on the internet. Just like your mobile phone does not know how to call without knowing the phone number, your browser does not know how to open a website just by the domain name; it needs to know the IP Address for the website to open. You can eithe",
+          "aliases": [
+            "https://roadmap.sh/guides/dns-in-one-picture"
+          ],
+          "fingerprint": "269ce05f6e6e14cf6e60b4ee15a32bf5445ea47b24ac3e73f243e1916bb6822e",
+          "source_id": "roadmap",
+          "verified_at": "2026-11-03T09:01:43.175165+00:00"
+        }
+      ],
+      "tweet_id": "2117542752175177857",
+      "posted_at": "2026-11-03T09:01:47.159905+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1204,44 +1237,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T08:31:22.469902+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:18",
-    "audience": "job seekers",
-    "labels": [
-      "Migrate an Application from AWS",
-      "DNS in One Picture"
-    ],
-    "resources": [
-      {
-        "url": "https://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book",
-        "title": "How to Migrate an Application from AWS to GKE [Full Book] Class Central Class Central Class Central Class Central Class Central Class Central Class Central Class Central Class Cent",
-        "excerpt": "Osomudeya Zudonu This guided lab walks you through migrating a small payments app, with a React UI and Express API running on a single AWS EC2 instance, while PostgreSQL stays on AWS. You’ll move the UI and API to Google Kubernetes Engine without changing the public URL customers already use, gradually shifting traffic from AWS to GKE a few percent at a time. By the end, you’ll have run the app locally, stood up AWS, built GKE in eight Terraform stages, tested the new environment, shifted production traffic to GKE, completed the cutover, and torn down what you no longer need. The image below shows the middle of the migration, with both clouds live, customers still using one URL, and the database remaining on AWS. Around that request path, three more systems do their jobs: Table of Contents Before You Start What You Need Installed Skills You Need What This Costs How This Book Works The Team Part 1. How to Run ClearPay and Put It on AWS Chapter 1. Run ClearPay on Your Laptop Chapter 2. Read the Code That Matters Chapter 3. Prove a Retry Never Charges Twice Chapter 4. Build the AWS Serv",
-        "aliases": [
-          "https://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book"
-        ],
-        "fingerprint": "f2e8e9163d4e02a668b82edbdb05eb93a6f96b02a6527b87af0c5818dd7c85d1",
-        "source_id": "freecodecamp",
-        "verified_at": "2026-11-03T09:01:43.436802+00:00"
-      },
-      {
-        "url": "https://roadmap.sh/guides/dns-in-one-picture",
-        "title": "DNS in One Picture - roadmap.sh",
-        "excerpt": "Loading... DNS in One Picture Kamran Ahmed Prefer us on Google DNS or Domain Name System is one of the fundamental blocks of the internet. As a developer, you should have at-least the basic understanding of how it works. This article is a brief introduction to what is DNS and how it works. DNS at its simplest is like a phonebook on your mobile phone. Whenever you have to call one of your contacts, you can either dial their number from your memory or use their name which will then be used by your mobile phone to search their number in your phone book to call them. Every time you make a new friend, or your existing friend gets a mobile phone, you have to memorize their phone number or save it in your phonebook to be able to call them later on. DNS or Domain Name System, in a similar fashion, is a mechanism that allows you to browse websites on the internet. Just like your mobile phone does not know how to call without knowing the phone number, your browser does not know how to open a website just by the domain name; it needs to know the IP Address for the website to open. You can eithe",
-        "aliases": [
-          "https://roadmap.sh/guides/dns-in-one-picture"
-        ],
-        "fingerprint": "269ce05f6e6e14cf6e60b4ee15a32bf5445ea47b24ac3e73f243e1916bb6822e",
-        "source_id": "roadmap",
-        "verified_at": "2026-11-03T09:01:43.175165+00:00"
-      }
-    ],
-    "text": "For job seekers\n\nMigrate an Application from AWS\nhttps://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book\n\nDNS in One Picture\nhttps://roadmap.sh/guides/dns-in-one-picture\n\nThank me later.\nFollow for more useful links.",
-    "approval": "3120248ec7a87a394312e5f1630c7525ace7bd744ccf439299fa108bbe77a242",
-    "prepared_at": "2026-11-03T09:01:40.505704+00:00",
-    "run_id": "41607648668",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T09:01:47.159905+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
