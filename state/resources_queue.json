@@ -822,6 +822,39 @@
       "posted_at": "2026-11-03T10:02:01.180278+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:21",
+      "audience": "creators",
+      "text": "For creators\n\nEmail Marketing Mistakes\nhttps://mailchimp.com/resources/email-marketing-mistakes/\n\nAI adjusted volume\nhttps://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://mailchimp.com/resources/email-marketing-mistakes/",
+          "title": "Email Marketing Mistakes to Avoid | Mailchimp",
+          "excerpt": "Email remains one of the most powerful ways to reach prospective customers. Email marketing is direct, measurable, and cost-effective. But it’s also easy to undermine your own email marketing efforts with common mistakes that hurt performance. A significant email marketing mistake might start with a weak email signup form, a confusing welcome message, or automated emails sent at the wrong time. Even seemingly small mistakes can lead to low click-through rates and messages landing in the spam or junk folder. For small business owners, every email blast matters. A smart email strategy keeps messages in subscribers' inboxes, where they belong, and encourages recipients to take the next step in the customer journey. This article breaks down the most common email marketing mistakes and shows how to fix them with practical habits that improve engagement, deliverability, and results. Why email marketing mistakes are a big deal Email marketing mistakes aren’t always obvious, but they can have a major impact. They show up as slightly lower open rates , slower list growth, or campaigns that ne",
+          "aliases": [
+            "https://mailchimp.com/resources/email-marketing-mistakes"
+          ],
+          "fingerprint": "bcd2e263bfff9af7c7ed5780354b0b0bf194cde079c8404a29f2ce2383642712",
+          "source_id": "mailchimp",
+          "verified_at": "2026-11-03T10:31:21.425014+00:00"
+        },
+        {
+          "url": "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand/",
+          "title": "AI adjusted volume: How Ahrefs approaches the challenge of estimating AI Search demand AI adjusted Volume: How Ahrefs approaches the challenge of estimating AI Search demand",
+          "excerpt": "Subscribe to Newsletter Subscribe to Ahrefs Newsletter Product Blog AI adjusted volume: How Ahrefs approaches the challenge of estimating AI Search demand By Constance Tan Product Marketing at Ahrefs August 17, 2026 5 min read 55 Linking websites Article performance data from Ahrefs Contents How Ahrefs estimates AI Search demand Why no one has accurate prompt volume data What AI adjusted volume is (and isn't useful for) Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source This article covers Ahrefs’ current approach to estimating AI search demand, why we chosen to go with this approach, and the problems of existing methods. By the end, you'll also know how to use these numbers on our platform without being misled by them. Unlike keyword search volume in Google search, there's no significant, reliable source of data about how people prompt AI for answers, across many popular AI platforms. This makes it challenging to determine what people are prompting into AI, and how often they are doi",
+          "aliases": [
+            "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand"
+          ],
+          "fingerprint": "a21928588786e30837b4b0678a6bf075149604ca79cc50cbde1024cf69b02c4b",
+          "source_id": "ahrefs",
+          "verified_at": "2026-11-03T10:31:21.684945+00:00"
+        }
+      ],
+      "tweet_id": "2117565304553230353",
+      "posted_at": "2026-11-03T10:31:24.518772+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1303,44 +1336,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T10:02:01.180278+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:21",
-    "audience": "creators",
-    "labels": [
-      "Email Marketing Mistakes",
-      "AI adjusted volume"
-    ],
-    "resources": [
-      {
-        "url": "https://mailchimp.com/resources/email-marketing-mistakes/",
-        "title": "Email Marketing Mistakes to Avoid | Mailchimp",
-        "excerpt": "Email remains one of the most powerful ways to reach prospective customers. Email marketing is direct, measurable, and cost-effective. But it’s also easy to undermine your own email marketing efforts with common mistakes that hurt performance. A significant email marketing mistake might start with a weak email signup form, a confusing welcome message, or automated emails sent at the wrong time. Even seemingly small mistakes can lead to low click-through rates and messages landing in the spam or junk folder. For small business owners, every email blast matters. A smart email strategy keeps messages in subscribers' inboxes, where they belong, and encourages recipients to take the next step in the customer journey. This article breaks down the most common email marketing mistakes and shows how to fix them with practical habits that improve engagement, deliverability, and results. Why email marketing mistakes are a big deal Email marketing mistakes aren’t always obvious, but they can have a major impact. They show up as slightly lower open rates , slower list growth, or campaigns that ne",
-        "aliases": [
-          "https://mailchimp.com/resources/email-marketing-mistakes"
-        ],
-        "fingerprint": "bcd2e263bfff9af7c7ed5780354b0b0bf194cde079c8404a29f2ce2383642712",
-        "source_id": "mailchimp",
-        "verified_at": "2026-11-03T10:31:21.425014+00:00"
-      },
-      {
-        "url": "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand/",
-        "title": "AI adjusted volume: How Ahrefs approaches the challenge of estimating AI Search demand AI adjusted Volume: How Ahrefs approaches the challenge of estimating AI Search demand",
-        "excerpt": "Subscribe to Newsletter Subscribe to Ahrefs Newsletter Product Blog AI adjusted volume: How Ahrefs approaches the challenge of estimating AI Search demand By Constance Tan Product Marketing at Ahrefs August 17, 2026 5 min read 55 Linking websites Article performance data from Ahrefs Contents How Ahrefs estimates AI Search demand Why no one has accurate prompt volume data What AI adjusted volume is (and isn't useful for) Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source This article covers Ahrefs’ current approach to estimating AI search demand, why we chosen to go with this approach, and the problems of existing methods. By the end, you'll also know how to use these numbers on our platform without being misled by them. Unlike keyword search volume in Google search, there's no significant, reliable source of data about how people prompt AI for answers, across many popular AI platforms. This makes it challenging to determine what people are prompting into AI, and how often they are doi",
-        "aliases": [
-          "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand"
-        ],
-        "fingerprint": "a21928588786e30837b4b0678a6bf075149604ca79cc50cbde1024cf69b02c4b",
-        "source_id": "ahrefs",
-        "verified_at": "2026-11-03T10:31:21.684945+00:00"
-      }
-    ],
-    "text": "For creators\n\nEmail Marketing Mistakes\nhttps://mailchimp.com/resources/email-marketing-mistakes/\n\nAI adjusted volume\nhttps://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "fa432e39b2640b070afb0990ab3518008170f00705c83fecb9a54a5be8241eaf",
-    "prepared_at": "2026-11-03T10:31:19.723692+00:00",
-    "run_id": "41619912186",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T10:31:24.518772+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
     "https://ahrefs.com/blog/what-is-an-ai-agent",
