@@ -987,6 +987,39 @@
       "posted_at": "2026-11-03T12:18:39.132257+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:26",
+      "audience": "developers",
+      "text": "For developers\n\ncolor guide\nhttps://tailwindcss.com/docs/color\n\nInstallation guide\nhttps://ui.shadcn.com/docs/installation\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://tailwindcss.com/docs/color",
+          "title": "color - Typography - Tailwind CSS",
+          "excerpt": "v 4.3 ⌘K Ctrl K Docs Play Blog Showcase Partners Plus Typography color Typography color Utilities for controlling the text color of an element. Class Styles text-inherit color: inherit; text-current color: currentColor; text-transparent color: transparent; text-black color: var(--color-black); /* #000 */ text-white color: var(--color-white); /* #fff */ text-red-50 color: var(--color-red-50); /* oklch(97.1% 0.013 17.38) */ text-red-100 color: var(--color-red-100); /* oklch(93.6% 0.032 17.717) */ text-red-200 color: var(--color-red-200); /* oklch(88.5% 0.062 18.334) */ text-red-300 color: var(--color-red-300); /* oklch(80.8% 0.114 19.571) */ text-red-400 color: var(--color-red-400); /* oklch(70.4% 0.191 22.216) */ text-red-500 color: var(--color-red-500); /* oklch(63.7% 0.237 25.331) */ text-red-600 color: var(--color-red-600); /* oklch(57.7% 0.245 27.325) */ text-red-700 color: var(--color-red-700); /* oklch(50.5% 0.213 27.518) */ text-red-800 color: var(--color-red-800); /* oklch(44.4% 0.177 26.899) */ text-red-900 color: var(--color-red-900); /* oklch(39.6% 0.141 25.723) */ text-red",
+          "aliases": [
+            "https://tailwindcss.com/docs/color"
+          ],
+          "fingerprint": "5489192fff558b024557939c18610ea280eb541bc9ea8d593a8bd2105b8be7ed",
+          "source_id": "tailwind",
+          "verified_at": "2026-11-03T13:01:34.180934+00:00"
+        },
+        {
+          "url": "https://ui.shadcn.com/docs/installation",
+          "title": "Installation - shadcn/ui Next.js Vite Astro React",
+          "excerpt": "Sections Introduction Components AI Elements Installation Theming CLI Typeset Skills Registry Changelog Components Accordion Alert Alert Dialog Aspect Ratio Attachment Avatar Badge Breadcrumb Bubble Button Button Group Calendar Card Carousel Chart Checkbox Code Block Collapsible Combobox Command Context Menu Data Table Date Picker Dialog Direction Drawer Dropdown Menu Empty Field Hover Card Input Input Group Input OTP Item Kbd Label Marker Menubar Message Message Scroller Native Select Navigation Menu Pagination Popover Progress Questionnaire Radio Group Resizable Scroll Area Select Separator Sheet Sidebar Skeleton Slider Spinner Switch Table Tabs Textarea Toast Toggle Toggle Group Tooltip Trace Typography AI Elements Introduction Chain of Thought Chat Checkpoint Confirmation Context File Tree Inline Citation Message Model Selector Plan Prompt Input Queue Reasoning Sources Stack Trace Subagent Suggestion Task Terminal Test Results Tool Get Started Installation components.json Package Imports Theming Typeset Dark Mode CLI Monorepo Skills JavaScript Figma llms.txt Legacy Docs @shadcn/r",
+          "aliases": [
+            "https://ui.shadcn.com/docs/installation"
+          ],
+          "fingerprint": "1c1dc5cce973a5b0c83efde3f0cc8cb9a8b0e74d6bcd111adb285c4a2d97786d",
+          "source_id": "shadcn",
+          "verified_at": "2026-11-03T13:01:34.431540+00:00"
+        }
+      ],
+      "tweet_id": "2117603109002490347",
+      "posted_at": "2026-11-03T13:01:37.696084+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1468,44 +1501,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T12:18:39.132257+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:26",
-    "audience": "developers",
-    "labels": [
-      "color guide",
-      "Installation guide"
-    ],
-    "resources": [
-      {
-        "url": "https://tailwindcss.com/docs/color",
-        "title": "color - Typography - Tailwind CSS",
-        "excerpt": "v 4.3 ⌘K Ctrl K Docs Play Blog Showcase Partners Plus Typography color Typography color Utilities for controlling the text color of an element. Class Styles text-inherit color: inherit; text-current color: currentColor; text-transparent color: transparent; text-black color: var(--color-black); /* #000 */ text-white color: var(--color-white); /* #fff */ text-red-50 color: var(--color-red-50); /* oklch(97.1% 0.013 17.38) */ text-red-100 color: var(--color-red-100); /* oklch(93.6% 0.032 17.717) */ text-red-200 color: var(--color-red-200); /* oklch(88.5% 0.062 18.334) */ text-red-300 color: var(--color-red-300); /* oklch(80.8% 0.114 19.571) */ text-red-400 color: var(--color-red-400); /* oklch(70.4% 0.191 22.216) */ text-red-500 color: var(--color-red-500); /* oklch(63.7% 0.237 25.331) */ text-red-600 color: var(--color-red-600); /* oklch(57.7% 0.245 27.325) */ text-red-700 color: var(--color-red-700); /* oklch(50.5% 0.213 27.518) */ text-red-800 color: var(--color-red-800); /* oklch(44.4% 0.177 26.899) */ text-red-900 color: var(--color-red-900); /* oklch(39.6% 0.141 25.723) */ text-red",
-        "aliases": [
-          "https://tailwindcss.com/docs/color"
-        ],
-        "fingerprint": "5489192fff558b024557939c18610ea280eb541bc9ea8d593a8bd2105b8be7ed",
-        "source_id": "tailwind",
-        "verified_at": "2026-11-03T13:01:34.180934+00:00"
-      },
-      {
-        "url": "https://ui.shadcn.com/docs/installation",
-        "title": "Installation - shadcn/ui Next.js Vite Astro React",
-        "excerpt": "Sections Introduction Components AI Elements Installation Theming CLI Typeset Skills Registry Changelog Components Accordion Alert Alert Dialog Aspect Ratio Attachment Avatar Badge Breadcrumb Bubble Button Button Group Calendar Card Carousel Chart Checkbox Code Block Collapsible Combobox Command Context Menu Data Table Date Picker Dialog Direction Drawer Dropdown Menu Empty Field Hover Card Input Input Group Input OTP Item Kbd Label Marker Menubar Message Message Scroller Native Select Navigation Menu Pagination Popover Progress Questionnaire Radio Group Resizable Scroll Area Select Separator Sheet Sidebar Skeleton Slider Spinner Switch Table Tabs Textarea Toast Toggle Toggle Group Tooltip Trace Typography AI Elements Introduction Chain of Thought Chat Checkpoint Confirmation Context File Tree Inline Citation Message Model Selector Plan Prompt Input Queue Reasoning Sources Stack Trace Subagent Suggestion Task Terminal Test Results Tool Get Started Installation components.json Package Imports Theming Typeset Dark Mode CLI Monorepo Skills JavaScript Figma llms.txt Legacy Docs @shadcn/r",
-        "aliases": [
-          "https://ui.shadcn.com/docs/installation"
-        ],
-        "fingerprint": "1c1dc5cce973a5b0c83efde3f0cc8cb9a8b0e74d6bcd111adb285c4a2d97786d",
-        "source_id": "shadcn",
-        "verified_at": "2026-11-03T13:01:34.431540+00:00"
-      }
-    ],
-    "text": "For developers\n\ncolor guide\nhttps://tailwindcss.com/docs/color\n\nInstallation guide\nhttps://ui.shadcn.com/docs/installation\n\nThank me later.\nFollow for more useful links.",
-    "approval": "db651844d381c58b9c022e4133a9506ff778caffabff78897a98b3c9f44cecf6",
-    "prepared_at": "2026-11-03T13:01:33.333558+00:00",
-    "run_id": "41640627878",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T13:01:37.696084+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
