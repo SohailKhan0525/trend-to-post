@@ -1304,8 +1304,45 @@
     }
   ],
   "last_posted_at": "2026-11-03T10:02:01.180278+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:21",
+    "audience": "creators",
+    "labels": [
+      "Email Marketing Mistakes",
+      "AI adjusted volume"
+    ],
+    "resources": [
+      {
+        "url": "https://mailchimp.com/resources/email-marketing-mistakes/",
+        "title": "Email Marketing Mistakes to Avoid | Mailchimp",
+        "excerpt": "Email remains one of the most powerful ways to reach prospective customers. Email marketing is direct, measurable, and cost-effective. But it’s also easy to undermine your own email marketing efforts with common mistakes that hurt performance. A significant email marketing mistake might start with a weak email signup form, a confusing welcome message, or automated emails sent at the wrong time. Even seemingly small mistakes can lead to low click-through rates and messages landing in the spam or junk folder. For small business owners, every email blast matters. A smart email strategy keeps messages in subscribers' inboxes, where they belong, and encourages recipients to take the next step in the customer journey. This article breaks down the most common email marketing mistakes and shows how to fix them with practical habits that improve engagement, deliverability, and results. Why email marketing mistakes are a big deal Email marketing mistakes aren’t always obvious, but they can have a major impact. They show up as slightly lower open rates , slower list growth, or campaigns that ne",
+        "aliases": [
+          "https://mailchimp.com/resources/email-marketing-mistakes"
+        ],
+        "fingerprint": "bcd2e263bfff9af7c7ed5780354b0b0bf194cde079c8404a29f2ce2383642712",
+        "source_id": "mailchimp",
+        "verified_at": "2026-11-03T10:31:21.425014+00:00"
+      },
+      {
+        "url": "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand/",
+        "title": "AI adjusted volume: How Ahrefs approaches the challenge of estimating AI Search demand AI adjusted Volume: How Ahrefs approaches the challenge of estimating AI Search demand",
+        "excerpt": "Subscribe to Newsletter Subscribe to Ahrefs Newsletter Product Blog AI adjusted volume: How Ahrefs approaches the challenge of estimating AI Search demand By Constance Tan Product Marketing at Ahrefs August 17, 2026 5 min read 55 Linking websites Article performance data from Ahrefs Contents How Ahrefs estimates AI Search demand Why no one has accurate prompt volume data What AI adjusted volume is (and isn't useful for) Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source This article covers Ahrefs’ current approach to estimating AI search demand, why we chosen to go with this approach, and the problems of existing methods. By the end, you'll also know how to use these numbers on our platform without being misled by them. Unlike keyword search volume in Google search, there's no significant, reliable source of data about how people prompt AI for answers, across many popular AI platforms. This makes it challenging to determine what people are prompting into AI, and how often they are doi",
+        "aliases": [
+          "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand"
+        ],
+        "fingerprint": "a21928588786e30837b4b0678a6bf075149604ca79cc50cbde1024cf69b02c4b",
+        "source_id": "ahrefs",
+        "verified_at": "2026-11-03T10:31:21.684945+00:00"
+      }
+    ],
+    "text": "For creators\n\nEmail Marketing Mistakes\nhttps://mailchimp.com/resources/email-marketing-mistakes/\n\nAI adjusted volume\nhttps://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand/\n\nThank me later.\nFollow for more useful links.",
+    "approval": "fa432e39b2640b070afb0990ab3518008170f00705c83fecb9a54a5be8241eaf",
+    "prepared_at": "2026-11-03T10:31:19.723692+00:00",
+    "run_id": "41619912186",
+    "run_attempt": "1"
+  },
   "used_urls": [
+    "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
@@ -1327,6 +1364,7 @@
     "https://docs.lovable.dev/features/knowledge",
     "https://learn.microsoft.com/en-us/training",
     "https://mailchimp.com/resources/ecommerce-email-marketing",
+    "https://mailchimp.com/resources/email-marketing-mistakes",
     "https://nextjs.org/docs/app/getting-started/metadata-and-og-images",
     "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04",
     "https://opencode.ai/docs",
@@ -1403,9 +1441,11 @@
     "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
     "9837ca5964199353405a12e619f031e6b1cbea5bd19d2decbf69d03af20df15f",
     "9cf3c14cee3ad2e6fdfc1b636205d8489fb99cadd8bb3a2e46e415a1320fa12f",
+    "a21928588786e30837b4b0678a6bf075149604ca79cc50cbde1024cf69b02c4b",
     "a2b56537579ddd5d7ac2b27c27c4daf0673e455fb513ec4d9745c8b65d1d9f56",
     "a3b6c13e1f51d488e5f73088fd9ba36210884fbe103366f9deb3e2c976368442",
     "affcb5109a133d95425eabb2fa0f596bc8025476a2d17aec870fd1c71b8fea77",
+    "bcd2e263bfff9af7c7ed5780354b0b0bf194cde079c8404a29f2ce2383642712",
     "c7820cffbf6d3b90dc519535ea54f219b0616d1590e37bb06eea411e3d499eb6",
     "c953b51aaf60be8ed18c8dc73a07a45bea7c4fb66539ecb64c16738cb33722fe",
     "cacde2df75a15fc604422ca39445bb1a98d6d3ec80734e50f054afae0c29230d",
@@ -1451,10 +1491,6 @@
     {
       "url": "https://supabase.com/docs/guides/getting-started",
       "source_id": "supabase"
-    },
-    {
-      "url": "https://developers.cloudflare.com/workers/",
-      "source_id": "cloudflare"
     },
     {
       "url": "https://vercel.com/docs",
@@ -27105,10 +27141,6 @@
       "source_id": "nextjs"
     },
     {
-      "url": "https://nextjs.org/docs/app/getting-started/metadata-and-og-images",
-      "source_id": "nextjs"
-    },
-    {
       "url": "https://nextjs.org/docs/app/getting-started/css",
       "source_id": "nextjs"
     },
@@ -27283,11 +27315,19 @@
     {
       "url": "https://developer.chrome.com/docs/devtools/ai-assistance",
       "source_id": "chrome"
+    },
+    {
+      "url": "https://ahrefs.com/blog/query-fan-out-chatgpt",
+      "source_id": "ahrefs"
+    },
+    {
+      "url": "https://mailchimp.com/resources/the-revenue-blueprint",
+      "source_id": "mailchimp"
     }
   ],
   "discovery_cursors": {
     "business owners": 8,
-    "creators": 2,
+    "creators": 4,
     "marketers": 10,
     "CEOs": 6,
     "students": 10,
