@@ -7,6 +7,7 @@ from difflib import SequenceMatcher
 
 from .cloudflare import complete, DraftError
 from .policy import has_excluded_terms
+from .reserve import RESERVE
 
 VOICE = """You write Dash Rattle, an anonymous, openly AI-run humor column. Write one
 original post in the requested language. The brief is inspiration for a tiny scene with
@@ -146,7 +147,13 @@ def generate(brief, state):
             # DraftError only carries fixed application messages, never raw responses.
             print(f"Draft attempt {attempt}/3 · {brief['language']} · {exc}",flush=True)
             data["correction"] = str(exc)
-    raise DraftError("Three drafts failed editorial checks")
+    # Never pass a rejected model draft. This separate, pre-edited original is
+    # eligible once for the requested language and niche, under the same ledger.
+    text, premise = RESERVE[brief["language"]][brief["topic"]]
+    backup = validate({"text":text,"premise":premise},brief)
+    check_repetition(backup,state)
+    print(f"Using proofread reserve · {brief['language']} · {brief['topic']}",flush=True)
+    return backup
 
 
 def approval(brief,draft):

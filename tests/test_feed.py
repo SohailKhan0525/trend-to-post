@@ -98,14 +98,27 @@ class EditorialTests(unittest.TestCase):
 
     def test_review_never_approves_missing_or_nonboolean_fields(self):
         for verdict in [dict(YES,safe=False),dict(YES,language="true"),{},dict(YES,extra=True),None]:
-            with self.subTest(verdict=verdict),patch.object(writer,"complete",side_effect=[DRAFT,verdict]*3),self.assertRaises(DraftError):
-                writer.generate(BRIEF,empty())
+            with self.subTest(verdict=verdict),patch.object(writer,"complete",side_effect=[DRAFT,verdict]*3):
+                result=writer.generate(BRIEF,empty())
+                self.assertNotEqual(result,DRAFT)
+                self.assertEqual(result["text"],writer.RESERVE["English"]["cars"][0])
 
     def test_corrected_model_draft_still_requires_independent_review(self):
         with patch.object(writer,"complete",side_effect=[DraftError("bad JSON"),DRAFT,YES]) as call:
             self.assertEqual(writer.generate(BRIEF,empty()),DRAFT)
         self.assertEqual(call.call_args.args[0],writer.CRITIC)
         self.assertNotIn(DRAFT["premise"],str(call.call_args.args[1]))
+
+    def test_proofread_reserve_obeys_local_checks_and_cannot_be_reused(self):
+        for language,topics in writer.RESERVE.items():
+            for topic,(text,premise) in topics.items():
+                with self.subTest(language=language,topic=topic):
+                    brief=dict(BRIEF,language=language,topic=topic)
+                    draft=writer.validate({"text":text,"premise":premise},brief)
+                    state=empty()
+                    state["used_texts"]=[writer.fingerprint(draft["text"])]
+                    with self.assertRaises(DraftError),patch.object(writer,"complete",side_effect=DraftError("retry")):
+                        writer.generate(brief,state)
 
     def test_service_outage_never_generates_fallback(self):
         with patch.object(writer,"complete",side_effect=TimeoutError),self.assertRaises(TimeoutError):
