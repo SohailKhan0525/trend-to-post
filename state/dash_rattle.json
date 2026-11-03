@@ -267,7 +267,8 @@
     "1a88ac7544f5f6b45095a2387107137c2c3389d4a54ca8f0dcdc3f47df3627da",
     "458cf784ef5d7b9d15de657da75cd6829ed9aa19ec3b64b050a8cdf5e1b8c46e",
     "d0cbf62b091eeced3f2d1fe0c5998cb23a46f8d1081939afb20ae90826c14523",
-    "e7b3969a729c997e9ae5f56f64cc21d7e8359122b68dfc611f0f2bbecbcb9315"
+    "e7b3969a729c997e9ae5f56f64cc21d7e8359122b68dfc611f0f2bbecbcb9315",
+    "c08b58c91425a810651bdb127e783d1a6b2526b62fef936286d1f3e38482fed9"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -282,7 +283,8 @@
     "d556d012b46be55188006b6d7d767d8c8b462f554f832788b6794f8887e63dcb",
     "fa1d3cbc0522d9b06df8ae278ce0567a570b7d1a8782d061aea88c14f84157a6",
     "3a90ba790797d9c2c9236c99a3d02a8390f2ce266a9f87bb804c57d28115bbb6",
-    "f6ce077e5833f9d921d4c269e0ba2e1a83cf2137dad6c9b2bd0f2213b64ff928"
+    "f6ce077e5833f9d921d4c269e0ba2e1a83cf2137dad6c9b2bd0f2213b64ff928",
+    "c9d2a7e4d8ddca314e83169301cc61bb01c0fa43af87128d9713f970faa6765e"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -291,6 +293,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-03T20:35:14.767324+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-03:dash-v1:44",
+      "due_at": "2026-11-03T21:08:00+00:00",
+      "topic": "cars",
+      "detail": "a dashboard light shaped like a tiny mystery",
+      "language": "English",
+      "form": "a two-line exchange"
+    },
+    "draft": {
+      "text": "‘What’s the red light for?’\n‘Don’t know. It’s been blinking since the 90s.’",
+      "premise": "A car's red light has been blinking since the 90s, and the owner doesn't know why."
+    },
+    "approval": "01e471ccd8ac62f6f481fdb4317ba9c57525bba424f50b751797d2d19c486bbf",
+    "run": [
+      "41717912885",
+      "1"
+    ],
+    "reserved_at": "2026-11-03T21:08:01.786138+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
