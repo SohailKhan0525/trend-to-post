@@ -1502,7 +1502,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T13:01:37.696084+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:27",
+    "audience": "business owners",
+    "labels": [
+      "Weekly Review",
+      "Begin to Shape Up"
+    ],
+    "resources": [
+      {
+        "url": "https://www.todoist.com/productivity-methods/weekly-review",
+        "title": "The Weekly Review: A Productivity Ritual to Get More Done",
+        "excerpt": "Illustration by Catarina Mouta Todoist makes the world’s #1 task manager to organize your work and life. Tell me more A weekly review is an opportunity to direct your life with intention. It’s dedicated time to think about the past week, reflect on what went well and what didn’t, and plan for the week ahead. It’s a chance to get aligned with your goals and ensure that the work you’re doing on a daily basis is helping you reach them. It avoids you ever having to ask, “What was I doing all this time?”. The weekly review is a core part of the Getting Things Done (GTD) methodology created by productivity consultant David Allen. He breaks down his weekly review method into three discrete sections: Get Clear: Process all your loose ends. Get Current: Make sure all your items are up to date. Get Creative: Come up with new ideas to improve how you live and work. \"The Weekly Review will sharpen your intuitive focus on your important projects as you deal with the flood of new input and potential distractions coming at you the rest of the week.\" - David Allen, Getting Things Done Try a weekly r",
+        "aliases": [
+          "https://www.todoist.com/productivity-methods/weekly-review"
+        ],
+        "fingerprint": "2657d695c496803f9a1526413c0e834fd005858febd63324192c328faeeb72e7",
+        "source_id": "todoist",
+        "verified_at": "2026-11-03T13:31:19.014353+00:00"
+      },
+      {
+        "url": "https://basecamp.com/shapeup/4.2-appendix-03",
+        "title": "How to Begin to Shape Up | Shape Up",
+        "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. Shape Up How to Begin to Shape Up Option A: One six-week experiment Option B: Start with shaping Option C: Start with cycles Fix shipping first Focus on the end result Next: Glossary Option A: One six-week experiment You don’t need to change everything all at once. If the whole product team isn’t ready to make a big change, just start off with a single six-week experiment. These are the steps to take: Shape one significant project that can be comfortably finished within six weeks. Be conservative and allow extra time on your first run. Carve out one designer and two programmers’ time for the entire six weeks. Guarantee that nobody will interrupt them for the length of the experiment. Instead of a proper betting table, simply plan for the team to do the work you shaped for this one experiment. Kick off by presenting your shaped work to the team, with all the ingredients of a pitch. Set the expectation that they will discover and track their own tasks. ( ",
+        "aliases": [
+          "https://basecamp.com/shapeup/4.2-appendix-03"
+        ],
+        "fingerprint": "cae5488f6441608035b4d545f08a5e22695717e65def04c0860375a68f28c1ad",
+        "source_id": "shapeup",
+        "verified_at": "2026-11-03T13:31:19.003583+00:00"
+      }
+    ],
+    "text": "For business owners\n\nWeekly Review\nhttps://www.todoist.com/productivity-methods/weekly-review\n\nBegin to Shape Up\nhttps://basecamp.com/shapeup/4.2-appendix-03\n\nThank me later.\nFollow for more useful links.",
+    "approval": "4021d53dce7d39f5bcd4ef735eb0a2ed1bd89ba534b3828876340598655ec525",
+    "prepared_at": "2026-11-03T13:31:17.509922+00:00",
+    "run_id": "41645018298",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
@@ -1511,6 +1547,7 @@
     "https://basecamp.com/shapeup",
     "https://basecamp.com/shapeup/3.2-chapter-11",
     "https://basecamp.com/shapeup/3.4-chapter-13",
+    "https://basecamp.com/shapeup/4.2-appendix-03",
     "https://blog.hubspot.com/marketing/ai-video-trends",
     "https://blog.hubspot.com/marketing/landing-page-design",
     "https://blog.hubspot.com/marketing/social-media-dashboard-tools",
@@ -1577,6 +1614,7 @@
     "https://www.techinterviewhandbook.org/behavioral-interview",
     "https://www.todoist.com/productivity-methods",
     "https://www.todoist.com/productivity-methods/systemist",
+    "https://www.todoist.com/productivity-methods/weekly-review",
     "https://zapier.com/blog/all-articles/app-comparisons",
     "https://zapier.com/blog/all-articles/automation-inspiration",
     "https://zapier.com/blog/all-articles/zapier-feature-guides"
@@ -1594,6 +1632,7 @@
     "2118b5d31598312f762dd49c6edbf89a4a96476d52a9de12b1c2fcdd287a3091",
     "2147dc214f9545fce356ebb2f80f0a0aace43d491f5c48ebc93ea1c5a5a319f9",
     "25ef6d25a100392e2877996e344dc72cfad01c96e9c7c9daf23675e94d888d4c",
+    "2657d695c496803f9a1526413c0e834fd005858febd63324192c328faeeb72e7",
     "269ce05f6e6e14cf6e60b4ee15a32bf5445ea47b24ac3e73f243e1916bb6822e",
     "26f6216be8cdadc0a5d3a963537a9d88c4f916a88bbbedfa910e2af06db4ec28",
     "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
@@ -1631,6 +1670,7 @@
     "c7820cffbf6d3b90dc519535ea54f219b0616d1590e37bb06eea411e3d499eb6",
     "c953b51aaf60be8ed18c8dc73a07a45bea7c4fb66539ecb64c16738cb33722fe",
     "cacde2df75a15fc604422ca39445bb1a98d6d3ec80734e50f054afae0c29230d",
+    "cae5488f6441608035b4d545f08a5e22695717e65def04c0860375a68f28c1ad",
     "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
     "cdc67bd7771a89adbb00e058f616067a9e579373d8c6d73c6b499d25d9569603",
     "ceb392a71f1257f5d6d06a4e91866b1e3fe2eacc5f34f966928c1ddaef74f554",
@@ -14187,10 +14227,6 @@
       "source_id": "rework"
     },
     {
-      "url": "https://rework.withgoogle.com/your-team-doesnt-need-an-all-knowing-leader-they-need-a-transparent-learner",
-      "source_id": "rework"
-    },
-    {
       "url": "https://rework.withgoogle.com/intl/en/subjects/learning-development",
       "source_id": "rework"
     },
@@ -14268,10 +14304,6 @@
     },
     {
       "url": "https://zapier.com/blog/get-started-with-zapier",
-      "source_id": "zapier"
-    },
-    {
-      "url": "https://zapier.com/blog/perplexity-ai",
       "source_id": "zapier"
     },
     {
@@ -16519,10 +16551,6 @@
       "source_id": "tailwind"
     },
     {
-      "url": "https://tailwindcss.com/docs/color",
-      "source_id": "tailwind"
-    },
-    {
       "url": "https://tailwindcss.com/docs/scroll-snap-type",
       "source_id": "tailwind"
     },
@@ -17100,10 +17128,6 @@
     },
     {
       "url": "https://ui.shadcn.com/docs/components/base/progress",
-      "source_id": "shadcn"
-    },
-    {
-      "url": "https://ui.shadcn.com/docs/installation",
       "source_id": "shadcn"
     },
     {
@@ -29581,10 +29605,26 @@
     {
       "url": "https://blog.hubspot.com/sales/state-of-sales",
       "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://ahrefs.com/blog/new-features-july-august-2026",
+      "source_id": "ahrefs"
+    },
+    {
+      "url": "https://ahrefs.com/blog/clearscope-alternatives",
+      "source_id": "ahrefs"
+    },
+    {
+      "url": "https://ahrefs.com/blog/mention-types-ai-visibility",
+      "source_id": "ahrefs"
+    },
+    {
+      "url": "https://mailchimp.com/resources/marketing-automations",
+      "source_id": "mailchimp"
     }
   ],
   "discovery_cursors": {
-    "business owners": 8,
+    "business owners": 10,
     "creators": 6,
     "marketers": 10,
     "CEOs": 8,
