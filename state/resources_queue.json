@@ -1020,6 +1020,39 @@
       "posted_at": "2026-11-03T13:01:37.696084+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:27",
+      "audience": "business owners",
+      "text": "For business owners\n\nWeekly Review\nhttps://www.todoist.com/productivity-methods/weekly-review\n\nBegin to Shape Up\nhttps://basecamp.com/shapeup/4.2-appendix-03\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.todoist.com/productivity-methods/weekly-review",
+          "title": "The Weekly Review: A Productivity Ritual to Get More Done",
+          "excerpt": "Illustration by Catarina Mouta Todoist makes the world’s #1 task manager to organize your work and life. Tell me more A weekly review is an opportunity to direct your life with intention. It’s dedicated time to think about the past week, reflect on what went well and what didn’t, and plan for the week ahead. It’s a chance to get aligned with your goals and ensure that the work you’re doing on a daily basis is helping you reach them. It avoids you ever having to ask, “What was I doing all this time?”. The weekly review is a core part of the Getting Things Done (GTD) methodology created by productivity consultant David Allen. He breaks down his weekly review method into three discrete sections: Get Clear: Process all your loose ends. Get Current: Make sure all your items are up to date. Get Creative: Come up with new ideas to improve how you live and work. \"The Weekly Review will sharpen your intuitive focus on your important projects as you deal with the flood of new input and potential distractions coming at you the rest of the week.\" - David Allen, Getting Things Done Try a weekly r",
+          "aliases": [
+            "https://www.todoist.com/productivity-methods/weekly-review"
+          ],
+          "fingerprint": "2657d695c496803f9a1526413c0e834fd005858febd63324192c328faeeb72e7",
+          "source_id": "todoist",
+          "verified_at": "2026-11-03T13:31:19.014353+00:00"
+        },
+        {
+          "url": "https://basecamp.com/shapeup/4.2-appendix-03",
+          "title": "How to Begin to Shape Up | Shape Up",
+          "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. Shape Up How to Begin to Shape Up Option A: One six-week experiment Option B: Start with shaping Option C: Start with cycles Fix shipping first Focus on the end result Next: Glossary Option A: One six-week experiment You don’t need to change everything all at once. If the whole product team isn’t ready to make a big change, just start off with a single six-week experiment. These are the steps to take: Shape one significant project that can be comfortably finished within six weeks. Be conservative and allow extra time on your first run. Carve out one designer and two programmers’ time for the entire six weeks. Guarantee that nobody will interrupt them for the length of the experiment. Instead of a proper betting table, simply plan for the team to do the work you shaped for this one experiment. Kick off by presenting your shaped work to the team, with all the ingredients of a pitch. Set the expectation that they will discover and track their own tasks. ( ",
+          "aliases": [
+            "https://basecamp.com/shapeup/4.2-appendix-03"
+          ],
+          "fingerprint": "cae5488f6441608035b4d545f08a5e22695717e65def04c0860375a68f28c1ad",
+          "source_id": "shapeup",
+          "verified_at": "2026-11-03T13:31:19.003583+00:00"
+        }
+      ],
+      "tweet_id": "2117610591074341330",
+      "posted_at": "2026-11-03T13:31:21.774221+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1501,44 +1534,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T13:01:37.696084+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:27",
-    "audience": "business owners",
-    "labels": [
-      "Weekly Review",
-      "Begin to Shape Up"
-    ],
-    "resources": [
-      {
-        "url": "https://www.todoist.com/productivity-methods/weekly-review",
-        "title": "The Weekly Review: A Productivity Ritual to Get More Done",
-        "excerpt": "Illustration by Catarina Mouta Todoist makes the world’s #1 task manager to organize your work and life. Tell me more A weekly review is an opportunity to direct your life with intention. It’s dedicated time to think about the past week, reflect on what went well and what didn’t, and plan for the week ahead. It’s a chance to get aligned with your goals and ensure that the work you’re doing on a daily basis is helping you reach them. It avoids you ever having to ask, “What was I doing all this time?”. The weekly review is a core part of the Getting Things Done (GTD) methodology created by productivity consultant David Allen. He breaks down his weekly review method into three discrete sections: Get Clear: Process all your loose ends. Get Current: Make sure all your items are up to date. Get Creative: Come up with new ideas to improve how you live and work. \"The Weekly Review will sharpen your intuitive focus on your important projects as you deal with the flood of new input and potential distractions coming at you the rest of the week.\" - David Allen, Getting Things Done Try a weekly r",
-        "aliases": [
-          "https://www.todoist.com/productivity-methods/weekly-review"
-        ],
-        "fingerprint": "2657d695c496803f9a1526413c0e834fd005858febd63324192c328faeeb72e7",
-        "source_id": "todoist",
-        "verified_at": "2026-11-03T13:31:19.014353+00:00"
-      },
-      {
-        "url": "https://basecamp.com/shapeup/4.2-appendix-03",
-        "title": "How to Begin to Shape Up | Shape Up",
-        "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. Shape Up How to Begin to Shape Up Option A: One six-week experiment Option B: Start with shaping Option C: Start with cycles Fix shipping first Focus on the end result Next: Glossary Option A: One six-week experiment You don’t need to change everything all at once. If the whole product team isn’t ready to make a big change, just start off with a single six-week experiment. These are the steps to take: Shape one significant project that can be comfortably finished within six weeks. Be conservative and allow extra time on your first run. Carve out one designer and two programmers’ time for the entire six weeks. Guarantee that nobody will interrupt them for the length of the experiment. Instead of a proper betting table, simply plan for the team to do the work you shaped for this one experiment. Kick off by presenting your shaped work to the team, with all the ingredients of a pitch. Set the expectation that they will discover and track their own tasks. ( ",
-        "aliases": [
-          "https://basecamp.com/shapeup/4.2-appendix-03"
-        ],
-        "fingerprint": "cae5488f6441608035b4d545f08a5e22695717e65def04c0860375a68f28c1ad",
-        "source_id": "shapeup",
-        "verified_at": "2026-11-03T13:31:19.003583+00:00"
-      }
-    ],
-    "text": "For business owners\n\nWeekly Review\nhttps://www.todoist.com/productivity-methods/weekly-review\n\nBegin to Shape Up\nhttps://basecamp.com/shapeup/4.2-appendix-03\n\nThank me later.\nFollow for more useful links.",
-    "approval": "4021d53dce7d39f5bcd4ef735eb0a2ed1bd89ba534b3828876340598655ec525",
-    "prepared_at": "2026-11-03T13:31:17.509922+00:00",
-    "run_id": "41645018298",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T13:31:21.774221+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
