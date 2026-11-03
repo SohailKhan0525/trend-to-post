@@ -1370,8 +1370,45 @@
     }
   ],
   "last_posted_at": "2026-11-03T11:01:42.161892+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:23",
+    "audience": "creators",
+    "labels": [
+      "Omnichannel Customer Engagement",
+      "AI Marketing Trends"
+    ],
+    "resources": [
+      {
+        "url": "https://mailchimp.com/resources/omnichannel-customer-engagement/",
+        "title": "Omnichannel Customer Engagement Playbook | Mailchimp",
+        "excerpt": "Customers interact with brands everywhere, from scrolling through social media feeds, scanning emails, chatting with Support, or even shopping in-store. Well-timed omnichannel engagement keeps the journey flowing smoothly, no matter which channel the customer chooses. Managing multiple channels isn’t the hard part, though. It’s keeping them working together. You might have stellar social media engagement, effective email campaigns, and helpful customer service, but if these operate in isolation, customers still get a fragmented experience. The magic happens when channels pick up conversations where the others left off. Are you ready to connect the dots? Here’s how to transform scattered touchpoints into a seamless experience. Using journey maps to power engagement strategies If channels are the pieces, omnichannel customer journey maps are what show how they fit together. They give you a full view of the entire customer journey, from first discovery to purchase and beyond. And when you zoom out, you start to see things like: Where different touchpoints overlap Where customers hit roa",
+        "aliases": [
+          "https://mailchimp.com/resources/omnichannel-customer-engagement"
+        ],
+        "fingerprint": "5004c9167f65e28f9783f108ab98c2c13267faa9ba8a3b2e05780e6b2a9be4a1",
+        "source_id": "mailchimp",
+        "verified_at": "2026-11-03T11:31:19.545649+00:00"
+      },
+      {
+        "url": "https://ahrefs.com/blog/ai-marketing-trends/",
+        "title": "8 AI Marketing Trends I’ve Seen Firsthand in 2026 (Backed by Data)",
+        "excerpt": "Subscribe to Newsletter Subscribe to Ahrefs Newsletter General Marketing 8 AI Marketing Trends I’ve Seen Firsthand in 2026 (Backed by Data) By Ryan Law Director of Content Marketing at Ahrefs September 16, 2026 14 min read 77 Linking websites Article performance data from Ahrefs Contents 1. New marketing job titles are being invented in real time 2. AI content generation has gone mainstream 3. A new marketing channel: AI visibility, GEO, AEO, and LLMO 4. Agentic everything: marketing, commerce, and search that takes action 5. Build vs. buy: it's never been easier to build your own tools 6. Attribution gets harder: AI influences buyers without leaving a trace 7. AI-native tactics: synthetic UGC, avatars, and influencers 8. Marketing gets more cross-functional as AI blurs the lines Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Marketing has changed more in the past year than in the decade before it. That sounds like hyperbole, but it's not. Generative AI has hit our industry the sa",
+        "aliases": [
+          "https://ahrefs.com/blog/ai-marketing-trends"
+        ],
+        "fingerprint": "48e7d3688f35d25d45c9e6f82d547adb2c01acdcf39e6398586f50270c1d4779",
+        "source_id": "ahrefs",
+        "verified_at": "2026-11-03T11:31:20.943470+00:00"
+      }
+    ],
+    "text": "For creators\n\nOmnichannel Customer Engagement\nhttps://mailchimp.com/resources/omnichannel-customer-engagement/\n\nAI Marketing Trends\nhttps://ahrefs.com/blog/ai-marketing-trends/\n\nThank me later.\nFollow for more useful links.",
+    "approval": "f7da226c4f921c780b2237739251cef45964854e690afe0102a30a7178b06567",
+    "prepared_at": "2026-11-03T11:31:16.905096+00:00",
+    "run_id": "41628143441",
+    "run_attempt": "1"
+  },
   "used_urls": [
+    "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
@@ -1396,6 +1433,7 @@
     "https://learn.microsoft.com/en-us/training",
     "https://mailchimp.com/resources/ecommerce-email-marketing",
     "https://mailchimp.com/resources/email-marketing-mistakes",
+    "https://mailchimp.com/resources/omnichannel-customer-engagement",
     "https://nextjs.org/docs/app/getting-started/metadata-and-og-images",
     "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04",
     "https://opencode.ai/docs",
@@ -1460,6 +1498,8 @@
     "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
     "3e018926ab25a76204a5d5865890cbd5219e31489a01453de2e5cb3826019dc7",
     "40208de3e42ec63bd63601ac83a94b0b39fb1c685502ae04c706916108ae47d4",
+    "48e7d3688f35d25d45c9e6f82d547adb2c01acdcf39e6398586f50270c1d4779",
+    "5004c9167f65e28f9783f108ab98c2c13267faa9ba8a3b2e05780e6b2a9be4a1",
     "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
     "590ececc5244f28bf603ea81c370ff77712e81e0e49645336cfd8d70937b133f",
     "596d78be81211ea4e13c82c17ffb4206c0d3940bd6fc71b773f5cf3b45071c65",
@@ -2840,10 +2880,6 @@
     },
     {
       "url": "https://blog.hubspot.com/marketing/twitter-rebrand-x",
-      "source_id": "hubspotmarketing"
-    },
-    {
-      "url": "https://blog.hubspot.com/marketing/copywriting-ai-tools",
       "source_id": "hubspotmarketing"
     },
     {
@@ -4892,10 +4928,6 @@
     },
     {
       "url": "https://buffer.com/resources/tiktok-analytics",
-      "source_id": "buffer"
-    },
-    {
-      "url": "https://buffer.com/resources/instagram-story-ideas",
       "source_id": "buffer"
     },
     {
@@ -7840,10 +7872,6 @@
     },
     {
       "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values",
-      "source_id": "mdn"
-    },
-    {
-      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules",
       "source_id": "mdn"
     },
     {
@@ -13443,10 +13471,6 @@
       "source_id": "react"
     },
     {
-      "url": "https://react.dev/learn/scaling-up-with-reducer-and-context",
-      "source_id": "react"
-    },
-    {
       "url": "https://react.dev/learn/separating-events-from-effects",
       "source_id": "react"
     },
@@ -14136,10 +14160,6 @@
     },
     {
       "url": "https://zapier.com/blog/all-articles/remote-work-tips",
-      "source_id": "zapier"
-    },
-    {
-      "url": "https://zapier.com/blog/all-articles/app-tutorials",
       "source_id": "zapier"
     },
     {
@@ -25711,10 +25731,6 @@
       "source_id": "hubspotmarketing"
     },
     {
-      "url": "https://blog.hubspot.com/marketing/brand-management",
-      "source_id": "hubspotmarketing"
-    },
-    {
       "url": "https://blog.hubspot.com/marketing/how-to-do-a-google-site-search",
       "source_id": "hubspotmarketing"
     },
@@ -27311,14 +27327,6 @@
       "source_id": "ahrefs"
     },
     {
-      "url": "https://ahrefs.com/blog/new-features-july-august-2026",
-      "source_id": "ahrefs"
-    },
-    {
-      "url": "https://mailchimp.com/resources/marketing-automations",
-      "source_id": "mailchimp"
-    },
-    {
       "url": "https://mailchimp.com/resources/social-media",
       "source_id": "mailchimp"
     },
@@ -27341,11 +27349,27 @@
     {
       "url": "https://www.techinterviewhandbook.org/behavioral-interview-rubrics",
       "source_id": "interviewhandbook"
+    },
+    {
+      "url": "https://www.a11yproject.com/posts/what-is-color-contrast",
+      "source_id": "a11y"
+    },
+    {
+      "url": "https://www.a11yproject.com/checklist",
+      "source_id": "a11y"
+    },
+    {
+      "url": "https://www.a11yproject.com/posts",
+      "source_id": "a11y"
+    },
+    {
+      "url": "https://www.a11yproject.com/posts/operating-system-and-browser-accessibility-display-modes",
+      "source_id": "a11y"
     }
   ],
   "discovery_cursors": {
     "business owners": 8,
-    "creators": 4,
+    "creators": 6,
     "marketers": 10,
     "CEOs": 6,
     "students": 12,
