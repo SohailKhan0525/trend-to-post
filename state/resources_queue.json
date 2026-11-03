@@ -888,6 +888,39 @@
       "posted_at": "2026-11-03T11:01:42.161892+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:23",
+      "audience": "creators",
+      "text": "For creators\n\nOmnichannel Customer Engagement\nhttps://mailchimp.com/resources/omnichannel-customer-engagement/\n\nAI Marketing Trends\nhttps://ahrefs.com/blog/ai-marketing-trends/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://mailchimp.com/resources/omnichannel-customer-engagement/",
+          "title": "Omnichannel Customer Engagement Playbook | Mailchimp",
+          "excerpt": "Customers interact with brands everywhere, from scrolling through social media feeds, scanning emails, chatting with Support, or even shopping in-store. Well-timed omnichannel engagement keeps the journey flowing smoothly, no matter which channel the customer chooses. Managing multiple channels isn’t the hard part, though. It’s keeping them working together. You might have stellar social media engagement, effective email campaigns, and helpful customer service, but if these operate in isolation, customers still get a fragmented experience. The magic happens when channels pick up conversations where the others left off. Are you ready to connect the dots? Here’s how to transform scattered touchpoints into a seamless experience. Using journey maps to power engagement strategies If channels are the pieces, omnichannel customer journey maps are what show how they fit together. They give you a full view of the entire customer journey, from first discovery to purchase and beyond. And when you zoom out, you start to see things like: Where different touchpoints overlap Where customers hit roa",
+          "aliases": [
+            "https://mailchimp.com/resources/omnichannel-customer-engagement"
+          ],
+          "fingerprint": "5004c9167f65e28f9783f108ab98c2c13267faa9ba8a3b2e05780e6b2a9be4a1",
+          "source_id": "mailchimp",
+          "verified_at": "2026-11-03T11:31:19.545649+00:00"
+        },
+        {
+          "url": "https://ahrefs.com/blog/ai-marketing-trends/",
+          "title": "8 AI Marketing Trends I’ve Seen Firsthand in 2026 (Backed by Data)",
+          "excerpt": "Subscribe to Newsletter Subscribe to Ahrefs Newsletter General Marketing 8 AI Marketing Trends I’ve Seen Firsthand in 2026 (Backed by Data) By Ryan Law Director of Content Marketing at Ahrefs September 16, 2026 14 min read 77 Linking websites Article performance data from Ahrefs Contents 1. New marketing job titles are being invented in real time 2. AI content generation has gone mainstream 3. A new marketing channel: AI visibility, GEO, AEO, and LLMO 4. Agentic everything: marketing, commerce, and search that takes action 5. Build vs. buy: it's never been easier to build your own tools 6. Attribution gets harder: AI influences buyers without leaving a trace 7. AI-native tactics: synthetic UGC, avatars, and influencers 8. Marketing gets more cross-functional as AI blurs the lines Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Marketing has changed more in the past year than in the decade before it. That sounds like hyperbole, but it's not. Generative AI has hit our industry the sa",
+          "aliases": [
+            "https://ahrefs.com/blog/ai-marketing-trends"
+          ],
+          "fingerprint": "48e7d3688f35d25d45c9e6f82d547adb2c01acdcf39e6398586f50270c1d4779",
+          "source_id": "ahrefs",
+          "verified_at": "2026-11-03T11:31:20.943470+00:00"
+        }
+      ],
+      "tweet_id": "2117580402022052114",
+      "posted_at": "2026-11-03T11:31:24.210760+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1369,44 +1402,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T11:01:42.161892+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:23",
-    "audience": "creators",
-    "labels": [
-      "Omnichannel Customer Engagement",
-      "AI Marketing Trends"
-    ],
-    "resources": [
-      {
-        "url": "https://mailchimp.com/resources/omnichannel-customer-engagement/",
-        "title": "Omnichannel Customer Engagement Playbook | Mailchimp",
-        "excerpt": "Customers interact with brands everywhere, from scrolling through social media feeds, scanning emails, chatting with Support, or even shopping in-store. Well-timed omnichannel engagement keeps the journey flowing smoothly, no matter which channel the customer chooses. Managing multiple channels isn’t the hard part, though. It’s keeping them working together. You might have stellar social media engagement, effective email campaigns, and helpful customer service, but if these operate in isolation, customers still get a fragmented experience. The magic happens when channels pick up conversations where the others left off. Are you ready to connect the dots? Here’s how to transform scattered touchpoints into a seamless experience. Using journey maps to power engagement strategies If channels are the pieces, omnichannel customer journey maps are what show how they fit together. They give you a full view of the entire customer journey, from first discovery to purchase and beyond. And when you zoom out, you start to see things like: Where different touchpoints overlap Where customers hit roa",
-        "aliases": [
-          "https://mailchimp.com/resources/omnichannel-customer-engagement"
-        ],
-        "fingerprint": "5004c9167f65e28f9783f108ab98c2c13267faa9ba8a3b2e05780e6b2a9be4a1",
-        "source_id": "mailchimp",
-        "verified_at": "2026-11-03T11:31:19.545649+00:00"
-      },
-      {
-        "url": "https://ahrefs.com/blog/ai-marketing-trends/",
-        "title": "8 AI Marketing Trends I’ve Seen Firsthand in 2026 (Backed by Data)",
-        "excerpt": "Subscribe to Newsletter Subscribe to Ahrefs Newsletter General Marketing 8 AI Marketing Trends I’ve Seen Firsthand in 2026 (Backed by Data) By Ryan Law Director of Content Marketing at Ahrefs September 16, 2026 14 min read 77 Linking websites Article performance data from Ahrefs Contents 1. New marketing job titles are being invented in real time 2. AI content generation has gone mainstream 3. A new marketing channel: AI visibility, GEO, AEO, and LLMO 4. Agentic everything: marketing, commerce, and search that takes action 5. Build vs. buy: it's never been easier to build your own tools 6. Attribution gets harder: AI influences buyers without leaving a trace 7. AI-native tactics: synthetic UGC, avatars, and influencers 8. Marketing gets more cross-functional as AI blurs the lines Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Add Ahrefs as a preferred source on Google Add Ahrefs as a preferred source Marketing has changed more in the past year than in the decade before it. That sounds like hyperbole, but it's not. Generative AI has hit our industry the sa",
-        "aliases": [
-          "https://ahrefs.com/blog/ai-marketing-trends"
-        ],
-        "fingerprint": "48e7d3688f35d25d45c9e6f82d547adb2c01acdcf39e6398586f50270c1d4779",
-        "source_id": "ahrefs",
-        "verified_at": "2026-11-03T11:31:20.943470+00:00"
-      }
-    ],
-    "text": "For creators\n\nOmnichannel Customer Engagement\nhttps://mailchimp.com/resources/omnichannel-customer-engagement/\n\nAI Marketing Trends\nhttps://ahrefs.com/blog/ai-marketing-trends/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "f7da226c4f921c780b2237739251cef45964854e690afe0102a30a7178b06567",
-    "prepared_at": "2026-11-03T11:31:16.905096+00:00",
-    "run_id": "41628143441",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T11:31:24.210760+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
