@@ -202,7 +202,8 @@
     "1e67051af307d1aff0c9e8bee3d3c6effac300948b780e554c967ba1a10e8388",
     "e2c5be7d3db34253f3dd41887497a93076943d05aba21b5b478a9a8681b9a43c",
     "8946c08283869161e85bd6832a24c0fb9c26f51d53cd95c7e4a8b7c42e1f7230",
-    "fa4196e723015084e2e957b35e75f2bc2d4ab515b0d85f7f464add286a7f7561"
+    "fa4196e723015084e2e957b35e75f2bc2d4ab515b0d85f7f464add286a7f7561",
+    "13d32e08dc14125ef6c0c89380cbc823d10b4850f65019d44e1542c507cf5f67"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -212,7 +213,8 @@
     "bf3e19b14f1470601061108a0968b158adbb17091681416173f7b07c9806207a",
     "f11ea23b70a32f7e79eb7b3dd097c85a44b51b2c12f815269bab370fe6a0028d",
     "1a1be2e180833069eca16d78f37db3a4be2053e714bcf0cd591fda940fd74424",
-    "954989edf7ad44c4ca23f0b5ea330fc183bc7675f8eb07b8c44158e388feeef3"
+    "954989edf7ad44c4ca23f0b5ea330fc183bc7675f8eb07b8c44158e388feeef3",
+    "7e2bf174688e623229e054bd5f88201ac71cf015dcebbe3a1209da439b0254d0"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -221,6 +223,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-03T18:32:14.575564+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-03:dash-v1:39",
+      "due_at": "2026-11-03T18:50:00+00:00",
+      "topic": "technology",
+      "detail": "an undo button hidden inside settings",
+      "language": "English",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "v1.2.3 - Fixed the undo button. Now it's in settings. Also, the settings are now a portal to a different dimension.",
+      "premise": "A software update moves the undo button to settings, which now leads to another dimension."
+    },
+    "approval": "9614de745fcd79daa6d2ba657b7ecf471cd15d4946ec26fd5924189c1f12c8b2",
+    "run": [
+      "41694554926",
+      "1"
+    ],
+    "reserved_at": "2026-11-03T18:50:06.821155+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
