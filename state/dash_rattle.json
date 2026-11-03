@@ -215,7 +215,8 @@
     "e2c5be7d3db34253f3dd41887497a93076943d05aba21b5b478a9a8681b9a43c",
     "8946c08283869161e85bd6832a24c0fb9c26f51d53cd95c7e4a8b7c42e1f7230",
     "fa4196e723015084e2e957b35e75f2bc2d4ab515b0d85f7f464add286a7f7561",
-    "13d32e08dc14125ef6c0c89380cbc823d10b4850f65019d44e1542c507cf5f67"
+    "13d32e08dc14125ef6c0c89380cbc823d10b4850f65019d44e1542c507cf5f67",
+    "1a88ac7544f5f6b45095a2387107137c2c3389d4a54ca8f0dcdc3f47df3627da"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -226,7 +227,8 @@
     "f11ea23b70a32f7e79eb7b3dd097c85a44b51b2c12f815269bab370fe6a0028d",
     "1a1be2e180833069eca16d78f37db3a4be2053e714bcf0cd591fda940fd74424",
     "954989edf7ad44c4ca23f0b5ea330fc183bc7675f8eb07b8c44158e388feeef3",
-    "7e2bf174688e623229e054bd5f88201ac71cf015dcebbe3a1209da439b0254d0"
+    "7e2bf174688e623229e054bd5f88201ac71cf015dcebbe3a1209da439b0254d0",
+    "d556d012b46be55188006b6d7d767d8c8b462f554f832788b6794f8887e63dcb"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -235,6 +237,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-03T18:50:10.447311+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-03:dash-v1:40",
+      "due_at": "2026-11-03T19:09:00+00:00",
+      "topic": "technology",
+      "detail": "a USB-C drawer full of identical-looking cables",
+      "language": "English",
+      "form": "a dry one-liner"
+    },
+    "draft": {
+      "text": "I opened the USB-C drawer to find a bunch of cables, all looking like they were trying to be the same.",
+      "premise": "Cables in a drawer all look identical, trying to blend in."
+    },
+    "approval": "2f01413994e58b4018dec41c951c67f3ad5be7b83feebdc14e0e80d09c84427c",
+    "run": [
+      "41699297230",
+      "1"
+    ],
+    "reserved_at": "2026-11-03T19:09:05.814671+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
