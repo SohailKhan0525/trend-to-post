@@ -327,6 +327,39 @@
       "posted_at": "2026-11-03T01:14:57.639182+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:3",
+      "audience": "CEOs",
+      "text": "For CEOs\n\nGoogle re Work\nhttps://rework.withgoogle.com/intl/en/subjects/managers\n\nQuestions That Will Make Your Final\nhttps://blog.hubspot.com/sales/questions-make-your-final-close-happen-naturally\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://rework.withgoogle.com/intl/en/subjects/managers",
+          "title": "Google re:Work - Managers",
+          "excerpt": "Manager Effectiveness A team is only as strong as its manager. Offering developmental training while celebrating effective leadership is key for your organization. Explore an article Manager Effectiveness Your team doesn't need an all-knowing leader. They need a transparent learner. Manager Effectiveness Following the data: The research behind great managers August 2025 Manager Effectiveness Developing great managers at Google October 2024 Manager Effectiveness Coach using the GROW model Updated March 2026 Manager Effectiveness Building manager capability at scale: An integrated approach August 2025 Manager Effectiveness Listening to understand the manager experience August 2025",
+          "aliases": [
+            "https://rework.withgoogle.com/intl/en/subjects/managers"
+          ],
+          "fingerprint": "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
+          "source_id": "rework",
+          "verified_at": "2026-11-03T02:01:29.457854+00:00"
+        },
+        {
+          "url": "https://blog.hubspot.com/sales/questions-make-your-final-close-happen-naturally",
+          "title": "5 Questions That Will Make Your Final Close Happen Naturally",
+          "excerpt": "Home Sales 5 Questions That Will Make Your Final Close Happen Naturally 5 Questions That Will Make Your Final Close Happen Naturally Written by: Jeff Hoffman FREE SALES PLAN TEMPLATE Outline your company's sales strategy in one simple, coherent plan. Download for Free Updated: 03/14/25 From their first conversation to the close, a strong salesperson consistently asks her prospect for small closes . Getting incremental commitments from the buyer trains them to say “yes” and indicates how invested they are in the relationship. These closes also accelerate the deal, since they help you hit significant milestones more quickly. I’ve found waiting until the last stages of the sales process to make a request can significantly damage your chances of winning the deal. There are two obstacles stopping reps from using the incremental closing technique. First, many are afraid of what will happen if their prospect says no. As counterintuitive as it seems, rejected requests can be beneficial. Reacting with maturity and grace will make you seem confident, self-possessed, and in-control -- character",
+          "aliases": [
+            "https://blog.hubspot.com/sales/questions-make-your-final-close-happen-naturally"
+          ],
+          "fingerprint": "64505066f8a052520753eee47b24e389b76d88be51d216535227f78f140d6c60",
+          "source_id": "hubspotsales",
+          "verified_at": "2026-11-03T02:01:29.963556+00:00"
+        }
+      ],
+      "tweet_id": "2117436993919754604",
+      "posted_at": "2026-11-03T02:01:32.454387+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -808,44 +841,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T01:14:57.639182+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:3",
-    "audience": "CEOs",
-    "labels": [
-      "Google re Work",
-      "Questions That Will Make Your Final"
-    ],
-    "resources": [
-      {
-        "url": "https://rework.withgoogle.com/intl/en/subjects/managers",
-        "title": "Google re:Work - Managers",
-        "excerpt": "Manager Effectiveness A team is only as strong as its manager. Offering developmental training while celebrating effective leadership is key for your organization. Explore an article Manager Effectiveness Your team doesn't need an all-knowing leader. They need a transparent learner. Manager Effectiveness Following the data: The research behind great managers August 2025 Manager Effectiveness Developing great managers at Google October 2024 Manager Effectiveness Coach using the GROW model Updated March 2026 Manager Effectiveness Building manager capability at scale: An integrated approach August 2025 Manager Effectiveness Listening to understand the manager experience August 2025",
-        "aliases": [
-          "https://rework.withgoogle.com/intl/en/subjects/managers"
-        ],
-        "fingerprint": "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
-        "source_id": "rework",
-        "verified_at": "2026-11-03T02:01:29.457854+00:00"
-      },
-      {
-        "url": "https://blog.hubspot.com/sales/questions-make-your-final-close-happen-naturally",
-        "title": "5 Questions That Will Make Your Final Close Happen Naturally",
-        "excerpt": "Home Sales 5 Questions That Will Make Your Final Close Happen Naturally 5 Questions That Will Make Your Final Close Happen Naturally Written by: Jeff Hoffman FREE SALES PLAN TEMPLATE Outline your company's sales strategy in one simple, coherent plan. Download for Free Updated: 03/14/25 From their first conversation to the close, a strong salesperson consistently asks her prospect for small closes . Getting incremental commitments from the buyer trains them to say “yes” and indicates how invested they are in the relationship. These closes also accelerate the deal, since they help you hit significant milestones more quickly. I’ve found waiting until the last stages of the sales process to make a request can significantly damage your chances of winning the deal. There are two obstacles stopping reps from using the incremental closing technique. First, many are afraid of what will happen if their prospect says no. As counterintuitive as it seems, rejected requests can be beneficial. Reacting with maturity and grace will make you seem confident, self-possessed, and in-control -- character",
-        "aliases": [
-          "https://blog.hubspot.com/sales/questions-make-your-final-close-happen-naturally"
-        ],
-        "fingerprint": "64505066f8a052520753eee47b24e389b76d88be51d216535227f78f140d6c60",
-        "source_id": "hubspotsales",
-        "verified_at": "2026-11-03T02:01:29.963556+00:00"
-      }
-    ],
-    "text": "For CEOs\n\nGoogle re Work\nhttps://rework.withgoogle.com/intl/en/subjects/managers\n\nQuestions That Will Make Your Final\nhttps://blog.hubspot.com/sales/questions-make-your-final-close-happen-naturally\n\nThank me later.\nFollow for more useful links.",
-    "approval": "5a958568ab2516acaba3c90385103472c936a3658180f6a5cce21d95927ea262",
-    "prepared_at": "2026-11-03T02:01:28.326504+00:00",
-    "run_id": "41563457112",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T02:01:32.454387+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
