@@ -558,6 +558,39 @@
       "posted_at": "2026-11-03T05:31:24.067429+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:12",
+      "audience": "job seekers",
+      "text": "For job seekers\n\nBehavioral interviews\nhttps://www.techinterviewhandbook.org/behavioral-interview/\n\nPopular DevOps Interview Questions\nhttps://roadmap.sh/questions/devops\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.techinterviewhandbook.org/behavioral-interview/",
+          "title": "Behavioral interviews for Software Engineers: How to prepare | Tech Interview Handbook",
+          "excerpt": "On this page 👋 Hi there, I'm Yangshun, an ex-Meta Staff Engineer, author of this handbook and Blind 75. Follow me on LinkedIn for Software Engineering advice and interview tips! The following page is a collaboration with Austen McDonald , former Senior Engineering Manager and Hiring Committee Chair at Meta, and author of Mastering Behavioral Interviews . What are behavioral interviews ​ Succeeding in an engineering career involves more than just technical skills. People skills become more important as an engineer becomes more senior. Senior engineers should have the ability to lead and influence, resolve conflicts, anticipate risks, plan the roadmap, and more. Hiring a talented engineer that cannot work with others can ultimately be a net deficit for companies. Companies don't want to hire brilliant jerks . The company is better off not hiring a very talented engineer who refuses to work with others or causes an entire team to be unproductive. Companies want to hire the right person that will work well with the existing employees and help the team and company achieve greater heights,",
+          "aliases": [
+            "https://www.techinterviewhandbook.org/behavioral-interview"
+          ],
+          "fingerprint": "9837ca5964199353405a12e619f031e6b1cbea5bd19d2decbf69d03af20df15f",
+          "source_id": "interviewhandbook",
+          "verified_at": "2026-11-03T06:01:29.094587+00:00"
+        },
+        {
+          "url": "https://roadmap.sh/questions/devops",
+          "title": "Top 50 Popular DevOps Interview Questions (and Answers)",
+          "excerpt": "Loading... Top 50 Popular DevOps Interview Questions (and Answers) Fernando Doglio Prefer us on Google The evolution of technology and practices, coupled with the increase in complexity of the systems we develop, make the role of DevOps more relevant by the day. But becoming a successful DevOps engineer is not a trivial task, especially because this role is usually the evolution of a developer looking to get more involved in other related ops areas or someone from ops who’s starting to get more directly involved in the development space. Either way, DevOps engineers work between the development and operations teams, understanding enough about each area to be able to work towards improving their interactions. In this Article Preparing for your DevOps interview Test yourself with Flashcards Questions List Because of this strange situation, while detailed roadmaps (be sure to check out our DevOps roadmap !) help a lot, getting ready for a DevOps interview requires a lot of work. Lastly, Checkout our Devops Projects to test your real world knowledge. Here are the most relevant DevOps int",
+          "aliases": [
+            "https://roadmap.sh/questions/devops"
+          ],
+          "fingerprint": "596d78be81211ea4e13c82c17ffb4206c0d3940bd6fc71b773f5cf3b45071c65",
+          "source_id": "roadmap",
+          "verified_at": "2026-11-03T06:01:29.200894+00:00"
+        }
+      ],
+      "tweet_id": "2117497389884014728",
+      "posted_at": "2026-11-03T06:01:32.169264+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1039,44 +1072,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T05:31:24.067429+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:12",
-    "audience": "job seekers",
-    "labels": [
-      "Behavioral interviews",
-      "Popular DevOps Interview Questions"
-    ],
-    "resources": [
-      {
-        "url": "https://www.techinterviewhandbook.org/behavioral-interview/",
-        "title": "Behavioral interviews for Software Engineers: How to prepare | Tech Interview Handbook",
-        "excerpt": "On this page 👋 Hi there, I'm Yangshun, an ex-Meta Staff Engineer, author of this handbook and Blind 75. Follow me on LinkedIn for Software Engineering advice and interview tips! The following page is a collaboration with Austen McDonald , former Senior Engineering Manager and Hiring Committee Chair at Meta, and author of Mastering Behavioral Interviews . What are behavioral interviews ​ Succeeding in an engineering career involves more than just technical skills. People skills become more important as an engineer becomes more senior. Senior engineers should have the ability to lead and influence, resolve conflicts, anticipate risks, plan the roadmap, and more. Hiring a talented engineer that cannot work with others can ultimately be a net deficit for companies. Companies don't want to hire brilliant jerks . The company is better off not hiring a very talented engineer who refuses to work with others or causes an entire team to be unproductive. Companies want to hire the right person that will work well with the existing employees and help the team and company achieve greater heights,",
-        "aliases": [
-          "https://www.techinterviewhandbook.org/behavioral-interview"
-        ],
-        "fingerprint": "9837ca5964199353405a12e619f031e6b1cbea5bd19d2decbf69d03af20df15f",
-        "source_id": "interviewhandbook",
-        "verified_at": "2026-11-03T06:01:29.094587+00:00"
-      },
-      {
-        "url": "https://roadmap.sh/questions/devops",
-        "title": "Top 50 Popular DevOps Interview Questions (and Answers)",
-        "excerpt": "Loading... Top 50 Popular DevOps Interview Questions (and Answers) Fernando Doglio Prefer us on Google The evolution of technology and practices, coupled with the increase in complexity of the systems we develop, make the role of DevOps more relevant by the day. But becoming a successful DevOps engineer is not a trivial task, especially because this role is usually the evolution of a developer looking to get more involved in other related ops areas or someone from ops who’s starting to get more directly involved in the development space. Either way, DevOps engineers work between the development and operations teams, understanding enough about each area to be able to work towards improving their interactions. In this Article Preparing for your DevOps interview Test yourself with Flashcards Questions List Because of this strange situation, while detailed roadmaps (be sure to check out our DevOps roadmap !) help a lot, getting ready for a DevOps interview requires a lot of work. Lastly, Checkout our Devops Projects to test your real world knowledge. Here are the most relevant DevOps int",
-        "aliases": [
-          "https://roadmap.sh/questions/devops"
-        ],
-        "fingerprint": "596d78be81211ea4e13c82c17ffb4206c0d3940bd6fc71b773f5cf3b45071c65",
-        "source_id": "roadmap",
-        "verified_at": "2026-11-03T06:01:29.200894+00:00"
-      }
-    ],
-    "text": "For job seekers\n\nBehavioral interviews\nhttps://www.techinterviewhandbook.org/behavioral-interview/\n\nPopular DevOps Interview Questions\nhttps://roadmap.sh/questions/devops\n\nThank me later.\nFollow for more useful links.",
-    "approval": "4576d06fbdaddb1bbd4d07500f1cb415538c30a6e9e49c495bc387e773099f48",
-    "prepared_at": "2026-11-03T06:01:27.669978+00:00",
-    "run_id": "41587274681",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T06:01:32.169264+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
