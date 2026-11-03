@@ -1172,7 +1172,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T08:01:45.242616+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:17",
+    "audience": "vibecoders",
+    "labels": [
+      "Recorder panel",
+      "Intro guide"
+    ],
+    "resources": [
+      {
+        "url": "https://developer.chrome.com/docs/devtools/recorder/overview",
+        "title": "Recorder panel: Record and measure user flow | Chrome DevTools | Chrome for Developers LinkedIn",
+        "excerpt": "Home Docs Chrome DevTools Panels Recorder panel: Record and measure user flow Stay organized with collections Save and categorize content based on your preferences. Dale St. Marthe Use the Recorder panel to record, measure, and edit user flows. The Recorder panel contains a set of diagnostic tools that can help frontend developers improve and debug their conversion paths. For a guided tutorial, check out Record, replay, and measure user flows . Overview The Recorder panel lets you: Record and replay user flows : Start a recording to have the Recorder panel track certain events on your website or app. Afterwards, you can replay a user flow and jump between steps. Slow down the replay to better understand what happens in a user flow. Additionally, learn how you can replay with external libraries . Edit and debug user flows : Edit the steps of a recorded user flow, even during recording. Set breakpoints and execute a user flow step by step. Inspect the code and see a side-by-side view of the steps and their code. Generate performance profiles : Measure the performance of a recorded user",
+        "aliases": [
+          "https://developer.chrome.com/docs/devtools/recorder/overview"
+        ],
+        "fingerprint": "dfbd0bd27eb69ed0bf8b2a766421ffbaba7655d10d0ee47d4a2afe029bb1a435",
+        "source_id": "chrome",
+        "verified_at": "2026-11-03T08:31:19.786335+00:00"
+      },
+      {
+        "url": "https://opencode.ai/docs/",
+        "title": "Intro | AI coding agent built for the terminal Intro | OpenCode",
+        "excerpt": "Intro Get started with OpenCode. OpenCode is an open source AI coding agent. It’s available as a terminal-based interface, desktop app, or IDE extension. Let’s get started. Prerequisites To use OpenCode in your terminal, you’ll need: A modern terminal emulator like: WezTerm , cross-platform Alacritty , cross-platform Ghostty , Linux and macOS Kitty , Linux and macOS API keys for the LLM providers you want to use. Install The easiest way to install OpenCode 1 is through the install script. These installation methods provide the opencode binary and can conflict with or replace an OpenCode 2 installation. Terminal window curl -fsSL https://opencode.ai/install | bash You can also install it with the following commands: Using Node.js npm Bun pnpm Yarn Terminal window npm install -g opencode-ai Terminal window bun install -g opencode-ai Terminal window pnpm install -g opencode-ai Terminal window yarn global add opencode-ai Using Homebrew on macOS and Linux Terminal window brew install anomalyco/tap/opencode Use the OpenCode tap above for V1. Homebrew’s brew install opencode formula current",
+        "aliases": [
+          "https://opencode.ai/docs"
+        ],
+        "fingerprint": "e277a314ae889b55e8b5d390609b7ac6258432332fce60a4703b5d9aff621e86",
+        "source_id": "opencode",
+        "verified_at": "2026-11-03T08:31:19.252378+00:00"
+      }
+    ],
+    "text": "For vibecoders\n\nRecorder panel\nhttps://developer.chrome.com/docs/devtools/recorder/overview\n\nIntro guide\nhttps://opencode.ai/docs/\n\nThank me later.\nFollow for more useful links.",
+    "approval": "103fdfa0c6572627a373a152ec3db70d5b858b4c91a3c5dfa9f89250047d75ac",
+    "prepared_at": "2026-11-03T08:31:18.183521+00:00",
+    "run_id": "41603862091",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
@@ -1187,12 +1223,14 @@
     "https://buffer.com/resources/introducing-bulk-upload",
     "https://buffer.com/resources/schedule-to-bluesky",
     "https://buffer.com/resources/tiktok-live",
+    "https://developer.chrome.com/docs/devtools/recorder/overview",
     "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
     "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest",
     "https://docs.lovable.dev/features/knowledge",
     "https://learn.microsoft.com/en-us/training",
     "https://mailchimp.com/resources/ecommerce-email-marketing",
     "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04",
+    "https://opencode.ai/docs",
     "https://react.dev/learn",
     "https://rework.withgoogle.com",
     "https://rework.withgoogle.com/intl/en",
@@ -1272,7 +1310,9 @@
     "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
     "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
     "d98f81c5e24c73360c608765608a7137a9024da57b928982a50884004c77b751",
+    "dfbd0bd27eb69ed0bf8b2a766421ffbaba7655d10d0ee47d4a2afe029bb1a435",
     "e0c34e123a64adf01df2d0876626b94b754bc3c27a265a844423be6c696b16dc",
+    "e277a314ae889b55e8b5d390609b7ac6258432332fce60a4703b5d9aff621e86",
     "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336"
   ],
   "catalog": [
@@ -1289,15 +1329,11 @@
       "source_id": "chrome"
     },
     {
-      "url": "https://react.dev/learn",
-      "source_id": "react"
-    },
-    {
       "url": "https://nextjs.org/docs",
       "source_id": "nextjs"
     },
     {
-      "url": "https://docs.astro.build/en/guides/",
+      "url": "https://docs.astro.build/en/guides",
       "source_id": "astro"
     },
     {
@@ -26965,8 +27001,132 @@
       "source_id": "coursera"
     },
     {
-      "url": "https://www.khanacademy.org/math",
-      "source_id": "khan"
+      "url": "https://nextjs.org/docs/app/api-reference",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/mutating-data",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/images",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/caching",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/upgrading",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/fonts",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/project-structure",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/community/rspack",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/metadata-and-og-images",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/css",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/community",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/architecture",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/revalidating",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/server-and-client-components",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/route-handlers",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/proxy",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/community/contribution-guide",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/architecture/fast-refresh",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/glossary",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/architecture/accessibility",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/architecture/supported-browsers",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/linking-and-navigating",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/pages",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/deploying",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/guides",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/fetching-data",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/layouts-and-pages",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/installation",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/architecture/nextjs-compiler",
+      "source_id": "nextjs"
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/error-handling",
+      "source_id": "nextjs"
     }
   ],
   "discovery_cursors": {
@@ -26975,7 +27135,7 @@
     "marketers": 8,
     "CEOs": 6,
     "students": 10,
-    "vibecoders": 4,
+    "vibecoders": 6,
     "founders": 8,
     "job seekers": 6,
     "designers": 2,
