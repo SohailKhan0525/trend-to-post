@@ -855,6 +855,39 @@
       "posted_at": "2026-11-03T10:31:24.518772+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:22",
+      "audience": "students",
+      "text": "For students\n\nScaling Up with Reducer and Context\nhttps://react.dev/learn/scaling-up-with-reducer-and-context\n\nCSS at- rules\nhttps://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://react.dev/learn/scaling-up-with-reducer-and-context",
+          "title": "Scaling Up with Reducer and Context – React",
+          "excerpt": "Learn React Managing State Copy page Copy Scaling Up with Reducer and Context Reducers let you consolidate a component’s state update logic. Context lets you pass information deep down to other components. You can combine reducers and context together to manage state of a complex screen. You will learn How to combine a reducer with context How to avoid passing state and dispatch through props How to keep context and state logic in a separate file Combining a reducer with context In this example from the introduction to reducers , the state is managed by a reducer. The reducer function contains all of the state update logic and is declared at the bottom of this file: App.js AddTask.js TaskList.js App.js Reload Clear Fork import { useReducer } from 'react' ; import AddTask from './AddTask.js' ; import TaskList from './TaskList.js' ; export default function TaskApp ( ) { const [ tasks , dispatch ] = useReducer ( tasksReducer , initialTasks ) ; function handleAddTask ( text ) { dispatch ( { type : 'added' , id : nextId ++ , text : text , } ) ; } function handleChangeTask ( task ) { dispa",
+          "aliases": [
+            "https://react.dev/learn/scaling-up-with-reducer-and-context"
+          ],
+          "fingerprint": "0c3170a0c4582931ef2abcfb8ea4f06e401423fb0b324e778e26df5188235636",
+          "source_id": "react",
+          "verified_at": "2026-11-03T11:01:37.794844+00:00"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules",
+          "title": "CSS at-rules - CSS | MDN MDN MDN Mozilla",
+          "excerpt": "CSS at-rules At-rules are CSS statements that instruct CSS how to behave. They are used to group and structure style rules and other at-rules, declare style information not directly associated with selected content, and manage syntactic constructs such as imports and namespaces keyword mappings. They begin with an at-sign, @ (U+0040 COMMERCIAL AT), followed by an identifier. Index of at-rules and at-rule descriptors @charset @color-profile @container @counter-style additive-symbols fallback negative pad prefix range speak-as suffix symbols system @custom-media @document @font-face ascent-override descent-override font-display font-family font-feature-settings font-stretch font-style font-variation-settings font-weight line-gap-override size-adjust src unicode-range @font-feature-values font-display @font-palette-values base-palette font-family override-colors @function @import @keyframes @layer @media (see list of media features in the next section) @namespace @page page-orientation size @position-try @property inherits initial-value syntax @scope @starting-style @supports @view-tran",
+          "aliases": [
+            "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules"
+          ],
+          "fingerprint": "bded247be1f8be6b6380323e84a5c4e598f5b6d20f7b119e1a8b574d64028dd0",
+          "source_id": "mdn",
+          "verified_at": "2026-11-03T11:01:39.024515+00:00"
+        }
+      ],
+      "tweet_id": "2117572929970225382",
+      "posted_at": "2026-11-03T11:01:42.161892+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1336,44 +1369,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T10:31:24.518772+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:22",
-    "audience": "students",
-    "labels": [
-      "Scaling Up with Reducer and Context",
-      "CSS at- rules"
-    ],
-    "resources": [
-      {
-        "url": "https://react.dev/learn/scaling-up-with-reducer-and-context",
-        "title": "Scaling Up with Reducer and Context – React",
-        "excerpt": "Learn React Managing State Copy page Copy Scaling Up with Reducer and Context Reducers let you consolidate a component’s state update logic. Context lets you pass information deep down to other components. You can combine reducers and context together to manage state of a complex screen. You will learn How to combine a reducer with context How to avoid passing state and dispatch through props How to keep context and state logic in a separate file Combining a reducer with context In this example from the introduction to reducers , the state is managed by a reducer. The reducer function contains all of the state update logic and is declared at the bottom of this file: App.js AddTask.js TaskList.js App.js Reload Clear Fork import { useReducer } from 'react' ; import AddTask from './AddTask.js' ; import TaskList from './TaskList.js' ; export default function TaskApp ( ) { const [ tasks , dispatch ] = useReducer ( tasksReducer , initialTasks ) ; function handleAddTask ( text ) { dispatch ( { type : 'added' , id : nextId ++ , text : text , } ) ; } function handleChangeTask ( task ) { dispa",
-        "aliases": [
-          "https://react.dev/learn/scaling-up-with-reducer-and-context"
-        ],
-        "fingerprint": "0c3170a0c4582931ef2abcfb8ea4f06e401423fb0b324e778e26df5188235636",
-        "source_id": "react",
-        "verified_at": "2026-11-03T11:01:37.794844+00:00"
-      },
-      {
-        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules",
-        "title": "CSS at-rules - CSS | MDN MDN MDN Mozilla",
-        "excerpt": "CSS at-rules At-rules are CSS statements that instruct CSS how to behave. They are used to group and structure style rules and other at-rules, declare style information not directly associated with selected content, and manage syntactic constructs such as imports and namespaces keyword mappings. They begin with an at-sign, @ (U+0040 COMMERCIAL AT), followed by an identifier. Index of at-rules and at-rule descriptors @charset @color-profile @container @counter-style additive-symbols fallback negative pad prefix range speak-as suffix symbols system @custom-media @document @font-face ascent-override descent-override font-display font-family font-feature-settings font-stretch font-style font-variation-settings font-weight line-gap-override size-adjust src unicode-range @font-feature-values font-display @font-palette-values base-palette font-family override-colors @function @import @keyframes @layer @media (see list of media features in the next section) @namespace @page page-orientation size @position-try @property inherits initial-value syntax @scope @starting-style @supports @view-tran",
-        "aliases": [
-          "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules"
-        ],
-        "fingerprint": "bded247be1f8be6b6380323e84a5c4e598f5b6d20f7b119e1a8b574d64028dd0",
-        "source_id": "mdn",
-        "verified_at": "2026-11-03T11:01:39.024515+00:00"
-      }
-    ],
-    "text": "For students\n\nScaling Up with Reducer and Context\nhttps://react.dev/learn/scaling-up-with-reducer-and-context\n\nCSS at- rules\nhttps://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules\n\nThank me later.\nFollow for more useful links.",
-    "approval": "64c2b0a6c603e5e72c9b8acdd84e87c2514798402d9dca59d181c60bdeefcb32",
-    "prepared_at": "2026-11-03T11:01:36.008170+00:00",
-    "run_id": "41624063447",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T11:01:42.161892+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
     "https://ahrefs.com/blog/what-is-an-ai-agent",
