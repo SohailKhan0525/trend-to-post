@@ -624,6 +624,39 @@
       "posted_at": "2026-11-03T07:01:36.907217+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:15",
+      "audience": "job seekers",
+      "text": "For job seekers\n\nCompanies to Work for Remotely\nhttps://www.coursera.org/articles/best-companies-to-work-for-remotely\n\nSystemist guide\nhttps://www.todoist.com/productivity-methods/systemist\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.coursera.org/articles/best-companies-to-work-for-remotely",
+          "title": "13 Top Companies to Work for Remotely | Coursera",
+          "excerpt": "13 Top Companies to Work for Remotely Written by Coursera Staff • Updated on Oct 2, 2025 Although many companies have shifted away from remote work, some top companies still prioritize that working model. Learn more about remote-first companies and important factors when considering a remote company. Key takeaways M any major companies that once offered remote work have instituted a return-to-office (RTO) in recent years. Some companies still either operate a remote-first approach or allow employees to choose the working model that best suits them. If you're interested in a work-from-home role, it's best to identify which of these top companies may be a good fit for you and pay close attention to their careers page. Discover some of the best companies to work for remotely. Afterward, build in-demand skills to showcase on your job application materials with a Coursera Plus subscription. Build job-ready skills with Coursera Plus Start 7-day free trial Start 7-day free trial 10 top companies to work for remotely Increasingly, companies that once offered remote work have instead required",
+          "aliases": [
+            "https://www.coursera.org/articles/best-companies-to-work-for-remotely"
+          ],
+          "fingerprint": "cdc67bd7771a89adbb00e058f616067a9e579373d8c6d73c6b499d25d9569603",
+          "source_id": "coursera",
+          "verified_at": "2026-11-03T07:31:42.992257+00:00"
+        },
+        {
+          "url": "https://www.todoist.com/productivity-methods/systemist",
+          "title": "Systemist: Todoist's Founder's Personal Productivity System",
+          "excerpt": "Illustration by Yin Weihung Todoist makes the world’s #1 task manager to organize your work and life. Tell me more My name is Amir Salihefendić, and I'm the founder and CEO of Todoist, the company behind Todoist. I want to share a system I've perfected over the past 15+ years that has helped me achieve my goals while reducing my stress. I like to think of it as a simplified GTD built for the modern world. The truth is that most people don’t use a personal productivity system. They wing it and hope for the best. But our work, personal lives, and the world we live in are too complicated to just hope that all the balls we're juggling will stay in the air. A reliable system can help you prioritize the important things and juggle many things at once without feeling overwhelmed. I first came up with Systemist and started building Todoist in 2007 while at university. I was living in a dorm room in Aarhus, Denmark, studying computer science. On top of a full class load, I also had a lot of personal projects and two part-time jobs. As a result, I was unorganized, stressed out, and barely able",
+          "aliases": [
+            "https://www.todoist.com/productivity-methods/systemist"
+          ],
+          "fingerprint": "26f6216be8cdadc0a5d3a963537a9d88c4f916a88bbbedfa910e2af06db4ec28",
+          "source_id": "todoist",
+          "verified_at": "2026-11-03T07:31:42.716444+00:00"
+        }
+      ],
+      "tweet_id": "2117520096138854476",
+      "posted_at": "2026-11-03T07:31:45.457630+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1105,44 +1138,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T07:01:36.907217+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:15",
-    "audience": "job seekers",
-    "labels": [
-      "Companies to Work for Remotely",
-      "Systemist guide"
-    ],
-    "resources": [
-      {
-        "url": "https://www.coursera.org/articles/best-companies-to-work-for-remotely",
-        "title": "13 Top Companies to Work for Remotely | Coursera",
-        "excerpt": "13 Top Companies to Work for Remotely Written by Coursera Staff • Updated on Oct 2, 2025 Although many companies have shifted away from remote work, some top companies still prioritize that working model. Learn more about remote-first companies and important factors when considering a remote company. Key takeaways M any major companies that once offered remote work have instituted a return-to-office (RTO) in recent years. Some companies still either operate a remote-first approach or allow employees to choose the working model that best suits them. If you're interested in a work-from-home role, it's best to identify which of these top companies may be a good fit for you and pay close attention to their careers page. Discover some of the best companies to work for remotely. Afterward, build in-demand skills to showcase on your job application materials with a Coursera Plus subscription. Build job-ready skills with Coursera Plus Start 7-day free trial Start 7-day free trial 10 top companies to work for remotely Increasingly, companies that once offered remote work have instead required",
-        "aliases": [
-          "https://www.coursera.org/articles/best-companies-to-work-for-remotely"
-        ],
-        "fingerprint": "cdc67bd7771a89adbb00e058f616067a9e579373d8c6d73c6b499d25d9569603",
-        "source_id": "coursera",
-        "verified_at": "2026-11-03T07:31:42.992257+00:00"
-      },
-      {
-        "url": "https://www.todoist.com/productivity-methods/systemist",
-        "title": "Systemist: Todoist's Founder's Personal Productivity System",
-        "excerpt": "Illustration by Yin Weihung Todoist makes the world’s #1 task manager to organize your work and life. Tell me more My name is Amir Salihefendić, and I'm the founder and CEO of Todoist, the company behind Todoist. I want to share a system I've perfected over the past 15+ years that has helped me achieve my goals while reducing my stress. I like to think of it as a simplified GTD built for the modern world. The truth is that most people don’t use a personal productivity system. They wing it and hope for the best. But our work, personal lives, and the world we live in are too complicated to just hope that all the balls we're juggling will stay in the air. A reliable system can help you prioritize the important things and juggle many things at once without feeling overwhelmed. I first came up with Systemist and started building Todoist in 2007 while at university. I was living in a dorm room in Aarhus, Denmark, studying computer science. On top of a full class load, I also had a lot of personal projects and two part-time jobs. As a result, I was unorganized, stressed out, and barely able",
-        "aliases": [
-          "https://www.todoist.com/productivity-methods/systemist"
-        ],
-        "fingerprint": "26f6216be8cdadc0a5d3a963537a9d88c4f916a88bbbedfa910e2af06db4ec28",
-        "source_id": "todoist",
-        "verified_at": "2026-11-03T07:31:42.716444+00:00"
-      }
-    ],
-    "text": "For job seekers\n\nCompanies to Work for Remotely\nhttps://www.coursera.org/articles/best-companies-to-work-for-remotely\n\nSystemist guide\nhttps://www.todoist.com/productivity-methods/systemist\n\nThank me later.\nFollow for more useful links.",
-    "approval": "45b4f937c3f26e88556541a54f7b1c26102ffa41404d7057cbcd94d1ca43d7f6",
-    "prepared_at": "2026-11-03T07:31:41.232323+00:00",
-    "run_id": "41596863662",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T07:31:45.457630+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
