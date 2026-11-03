@@ -459,6 +459,39 @@
       "posted_at": "2026-11-03T03:31:28.788607+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:7",
+      "audience": "developers",
+      "text": "For developers\n\nProject Level Roles\nhttps://vercel.com/docs/rbac/access-roles/project-level-roles\n\nWeb application manifest\nhttps://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://vercel.com/docs/rbac/access-roles/project-level-roles",
+          "title": "Project Level Roles",
+          "excerpt": "Copy page Copy page Project Level Roles Copy page Copy page Project level roles are available on Enterprise plans Project level roles are assigned to a team member on a project level. This means that the role is only valid for the project it is assigned to. The role is not valid for other projects in the team. Equivalency roles In the table below, the relationship between team and project roles is indicated by the column headers. For example, the team role \"Developer\" is equivalent to the \"Project Developer\" role. The Developer team role is equivalent to the Project Developer role The Viewer Pro , Viewer Enterprise , and Billing team roles are equivalent to the Project Viewer role The Owner and Member team roles are equivalent to the Project Admin role All project level roles can be assigned to those with the Contributor team role. See our Access roles docs for a more comprehensive breakdown of the different roles. Project level permissions All Permissions Read Write No Permissions Resource Admin Project Developer Project Viewer Loading permissions... Last updated July 1, 2026 Previo",
+          "aliases": [
+            "https://vercel.com/docs/rbac/access-roles/project-level-roles"
+          ],
+          "fingerprint": "0496b579125419740f7281a5411c5e0156a520b0360e3c6cee87e580e5b5cf8e",
+          "source_id": "vercel",
+          "verified_at": "2026-11-03T04:02:02.931121+00:00"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest",
+          "title": "Web application manifest - Progressive web apps | MDN MDN MDN Mozilla",
+          "excerpt": "Web application manifest A web application manifest , defined in the Web Application Manifest specification, is a JSON text file that provides information about a web application. The most common use for a web application manifest is to provide information that the browser needs to install a progressive web app (PWA) on a device, such as the app's name and icon. A web application manifest contains a single JSON object where the top-level keys are called members . Members This section lists reference pages for manifest members that are documented on MDN. All members are optional in the specification, but some applications require some members to be present. For example, PWAs must provide certain manifest members . *_localized background_color categories description display display_override file_handlers icons id launch_handler name note_taking orientation prefer_related_applications protocol_handlers related_applications scope scope_extensions screenshots serviceworker share_target short_name shortcuts start_url theme_color Note: The dir , lang , and iarc_rating_id members are not imp",
+          "aliases": [
+            "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest"
+          ],
+          "fingerprint": "590ececc5244f28bf603ea81c370ff77712e81e0e49645336cfd8d70937b133f",
+          "source_id": "mdn",
+          "verified_at": "2026-11-03T04:02:03.351893+00:00"
+        }
+      ],
+      "tweet_id": "2117467338152821222",
+      "posted_at": "2026-11-03T04:02:06.923670+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -940,44 +973,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T03:31:28.788607+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:7",
-    "audience": "developers",
-    "labels": [
-      "Project Level Roles",
-      "Web application manifest"
-    ],
-    "resources": [
-      {
-        "url": "https://vercel.com/docs/rbac/access-roles/project-level-roles",
-        "title": "Project Level Roles",
-        "excerpt": "Copy page Copy page Project Level Roles Copy page Copy page Project level roles are available on Enterprise plans Project level roles are assigned to a team member on a project level. This means that the role is only valid for the project it is assigned to. The role is not valid for other projects in the team. Equivalency roles In the table below, the relationship between team and project roles is indicated by the column headers. For example, the team role \"Developer\" is equivalent to the \"Project Developer\" role. The Developer team role is equivalent to the Project Developer role The Viewer Pro , Viewer Enterprise , and Billing team roles are equivalent to the Project Viewer role The Owner and Member team roles are equivalent to the Project Admin role All project level roles can be assigned to those with the Contributor team role. See our Access roles docs for a more comprehensive breakdown of the different roles. Project level permissions All Permissions Read Write No Permissions Resource Admin Project Developer Project Viewer Loading permissions... Last updated July 1, 2026 Previo",
-        "aliases": [
-          "https://vercel.com/docs/rbac/access-roles/project-level-roles"
-        ],
-        "fingerprint": "0496b579125419740f7281a5411c5e0156a520b0360e3c6cee87e580e5b5cf8e",
-        "source_id": "vercel",
-        "verified_at": "2026-11-03T04:02:02.931121+00:00"
-      },
-      {
-        "url": "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest",
-        "title": "Web application manifest - Progressive web apps | MDN MDN MDN Mozilla",
-        "excerpt": "Web application manifest A web application manifest , defined in the Web Application Manifest specification, is a JSON text file that provides information about a web application. The most common use for a web application manifest is to provide information that the browser needs to install a progressive web app (PWA) on a device, such as the app's name and icon. A web application manifest contains a single JSON object where the top-level keys are called members . Members This section lists reference pages for manifest members that are documented on MDN. All members are optional in the specification, but some applications require some members to be present. For example, PWAs must provide certain manifest members . *_localized background_color categories description display display_override file_handlers icons id launch_handler name note_taking orientation prefer_related_applications protocol_handlers related_applications scope scope_extensions screenshots serviceworker share_target short_name shortcuts start_url theme_color Note: The dir , lang , and iarc_rating_id members are not imp",
-        "aliases": [
-          "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest"
-        ],
-        "fingerprint": "590ececc5244f28bf603ea81c370ff77712e81e0e49645336cfd8d70937b133f",
-        "source_id": "mdn",
-        "verified_at": "2026-11-03T04:02:03.351893+00:00"
-      }
-    ],
-    "text": "For developers\n\nProject Level Roles\nhttps://vercel.com/docs/rbac/access-roles/project-level-roles\n\nWeb application manifest\nhttps://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest\n\nThank me later.\nFollow for more useful links.",
-    "approval": "6af0df93e625f8a6bdb0d9518ebec0cf37a71cac47cdba8651125ff58581d217",
-    "prepared_at": "2026-11-03T04:01:32.999724+00:00",
-    "run_id": "41575603767",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T04:02:06.923670+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
