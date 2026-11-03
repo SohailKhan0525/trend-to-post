@@ -95,6 +95,18 @@
       "premise": "A demo prompt says 'Write a poem about the sky,' but the real one says 'Write a poem about the sky, but without using common words.'",
       "tweet_id": "2117686304595206365",
       "posted_at": "2026-11-03T18:32:14.575564+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:39",
+      "due_at": "2026-11-03T18:50:00+00:00",
+      "topic": "technology",
+      "detail": "an undo button hidden inside settings",
+      "language": "English",
+      "form": "a fictional changelog entry",
+      "text": "v1.2.3 - Fixed the undo button. Now it's in settings. Also, the settings are now a portal to a different dimension.",
+      "premise": "A software update moves the undo button to settings, which now leads to another dimension.",
+      "tweet_id": "2117690817230106949",
+      "posted_at": "2026-11-03T18:50:10.447311+00:00"
     }
   ],
   "used_texts": [
@@ -222,26 +234,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T18:32:14.575564+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:39",
-      "due_at": "2026-11-03T18:50:00+00:00",
-      "topic": "technology",
-      "detail": "an undo button hidden inside settings",
-      "language": "English",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "v1.2.3 - Fixed the undo button. Now it's in settings. Also, the settings are now a portal to a different dimension.",
-      "premise": "A software update moves the undo button to settings, which now leads to another dimension."
-    },
-    "approval": "9614de745fcd79daa6d2ba657b7ecf471cd15d4946ec26fd5924189c1f12c8b2",
-    "run": [
-      "41694554926",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T18:50:06.821155+00:00"
-  },
+  "last_posted_at": "2026-11-03T18:50:10.447311+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
