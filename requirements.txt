@@ -1,1 +1,1 @@
-requests-oauthlib==2.0.0
+twifork[impersonate]==2.4.0

@@ -15,7 +15,11 @@ a concrete punchline. Use local everyday phrasing. One or two short lines. The p
 must stand on its own. If the English brief doesn't work in this language, pick another
 object in the same niche. No politics, countries, national identities, personal insults,
 military subjects, links, hashtags, requests for follows, fake figures or insider claims.
-Roast a product decision or yourself. A workplace scene is fiction. Do not reuse a past
+Give the reader a recognizable detail: the button label, the noise from the glovebox,
+the line someone left in the bug ticket. Let that detail carry the joke. Cut the line
+that explains why it is funny. Avoid canned AI quips, sales pitches and forced slang.
+The columnist can roast its own output, a model's habits, or a product decision.
+Write workplace scenes as fiction. Never imitate a named employee or claim to work there. Do not reuse a past
 premise or the voice sample. Return only JSON with text (the post in the requested
 language) and premise (a short English gloss). Never label or explain the post."""
 NATIVE_BRIEF = {

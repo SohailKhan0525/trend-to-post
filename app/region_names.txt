@@ -1,0 +1,1222 @@
+# Country and territory names from Unicode CLDR via Intl.DisplayNames.
+# COPYRIGHT AND PERMISSION NOTICE
+# 
+# Copyright © 2001–2026 Unicode, Inc.
+# 
+# Unicode Technical Standard #35, Unicode Locale Data Markup Language
+# (LDML) made available in this repository is protected by copyright, and
+# permission must be obtained from Unicode, Inc. prior to any
+# reproduction, modification, or other use not permitted by the Unicode
+# Terms of Use <https://www.unicode.org/copyright.html>. Specifically, you
+# may make copies of this publication and may annotate and translate it
+# solely for personal or internal business purposes and not for public
+# distribution, provided that any such permitted copies and modifications
+# fully reproduce all copyright and other legal notices contained in the
+# original. You may not make copies of or modifications to this
+# publication for public distribution, or incorporate it in whole or in
+# part into any product or publication without the express written
+# permission of Unicode. Notwithstanding the foregoing, you may within
+# this repository provide comments and propose changes to this standard
+# and may make copies/forks solely for such purposes provided that you
+# reproduce this copyright notice and these terms of use in any such
+# copy/fork.
+# 
+# All other content in this repo is released under UNICODE LICENSE V3
+# 
+# NOTICE TO USER: Carefully read the following legal agreement. BY
+# DOWNLOADING, INSTALLING, COPYING OR OTHERWISE USING DATA FILES, AND/OR
+# SOFTWARE, YOU UNEQUIVOCALLY ACCEPT, AND AGREE TO BE BOUND BY, ALL OF THE
+# TERMS AND CONDITIONS OF THIS AGREEMENT. IF YOU DO NOT AGREE, DO NOT
+# DOWNLOAD, INSTALL, COPY, DISTRIBUTE OR USE THE DATA FILES OR SOFTWARE.
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of data files and any associated documentation (the "Data Files") or
+# software and any associated documentation (the "Software") to deal in the
+# Data Files or Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, and/or sell
+# copies of the Data Files or Software, and to permit persons to whom the
+# Data Files or Software are furnished to do so, provided that either (a)
+# this copyright and permission notice appear with all copies of the Data
+# Files or Software, or (b) this copyright and permission notice appear in
+# associated Documentation.
+# 
+# THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+# KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF
+# THIRD PARTY RIGHTS.
+# 
+# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS NOTICE
+# BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR CONSEQUENTIAL DAMAGES,
+# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+# WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+# ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THE DATA
+# FILES OR SOFTWARE.
+# 
+# Except as contained in this notice, the name of a copyright holder shall
+# not be used in advertising or otherwise to promote the sale, use or other
+# dealings in these Data Files or Software without prior written
+# authorization of the copyright holder.
+# 
+# SPDX-License-Identifier: Unicode-3.0
+
+Afganistán
+Afghanistan
+Albania
+Alemania
+Algeria
+American Samoa
+Andorra
+Angola
+Anguila
+Anguilla
+Antarctica
+Antigua & Barbuda
+Antigua y Barbuda
+Antártida
+Arabia Saudí
+Argelia
+Argentina
+Armenia
+Aruba
+Australia
+Austria
+Azerbaijan
+Azerbaiyán
+Bahamas
+Bahrain
+Bangladesh
+Bangladés
+Barbados
+Baréin
+Belarus
+Belgium
+Belice
+Belize
+Benin
+Benín
+Bermuda
+Bermudas
+Bhutan
+Bielorrusia
+Bolivia
+Bosnia & Herzegovina
+Bosnia y Herzegovina
+Botsuana
+Botswana
+Bouvet Island
+Brasil
+Brazil
+British Indian Ocean Territory
+British Virgin Islands
+Brunei
+Brunéi
+Bulgaria
+Burkina Faso
+Burundi
+Bután
+Bélgica
+Cabo Verde
+Cambodia
+Camboya
+Cameroon
+Camerún
+Canada
+Canadá
+Cape Verde
+Caribbean Netherlands
+Caribe neerlandés
+Catar
+Cayman Islands
+Central African Republic
+Chad
+Chequia
+Chile
+China
+Chipre
+Christmas Island
+Ciudad del Vaticano
+Cocos (Keeling) Islands
+Colombia
+Comoras
+Comoros
+Congo
+Congo - Brazzaville
+Congo - Kinshasa
+Cook Islands
+Corea del Norte
+Corea del Sur
+Costa Rica
+Croacia
+Croatia
+Cuba
+Curazao
+Curaçao
+Cyprus
+Czechia
+Côte d’Ivoire
+Denmark
+Dinamarca
+Djibouti
+Dominica
+Dominican Republic
+Ecuador
+Egipto
+Egypt
+El Salvador
+Emiratos Árabes Unidos
+Equatorial Guinea
+Eritrea
+Eslovaquia
+Eslovenia
+España
+Estados Unidos
+Estonia
+Esuatini
+Eswatini
+Ethiopia
+Etiopía
+Falkland Islands
+Faroe Islands
+Fiji
+Filipinas
+Finland
+Finlandia
+Fiyi
+France
+Francia
+French Guiana
+French Polynesia
+French Southern Territories
+Gabon
+Gabón
+Gambia
+Georgia
+Germany
+Ghana
+Gibraltar
+Granada
+Grecia
+Greece
+Greenland
+Grenada
+Groenlandia
+Guadalupe
+Guadeloupe
+Guam
+Guatemala
+Guayana Francesa
+Guernesey
+Guernsey
+Guinea
+Guinea Ecuatorial
+Guinea-Bissau
+Guinea-Bisáu
+Guyana
+Haiti
+Haití
+Heard & McDonald Islands
+Honduras
+Hong Kong SAR China
+Hungary
+Hungría
+Iceland
+India
+Indonesia
+Irak
+Iran
+Iraq
+Ireland
+Irlanda
+Irán
+Isla Bouvet
+Isla Norfolk
+Isla de Man
+Isla de Navidad
+Islandia
+Islas Aland
+Islas Caimán
+Islas Cocos
+Islas Cook
+Islas Feroe
+Islas Georgia del Sur y Sandwich del Sur
+Islas Heard y McDonald
+Islas Malvinas
+Islas Marianas del Norte
+Islas Marshall
+Islas Pitcairn
+Islas Salomón
+Islas Turcas y Caicos
+Islas Vírgenes Británicas
+Islas Vírgenes de EE. UU.
+Islas menores alejadas de EE. UU.
+Isle of Man
+Israel
+Italia
+Italy
+Jamaica
+Japan
+Japón
+Jersey
+Jordan
+Jordania
+Kazajistán
+Kazakhstan
+Kenia
+Kenya
+Kirguistán
+Kiribati
+Kosovo
+Kuwait
+Kyrgyzstan
+Laos
+Latvia
+Lebanon
+Lesotho
+Lesoto
+Letonia
+Liberia
+Libia
+Libya
+Liechtenstein
+Lithuania
+Lituania
+Luxembourg
+Luxemburgo
+Líbano
+Macao SAR China
+Macedonia del Norte
+Madagascar
+Malasia
+Malaui
+Malawi
+Malaysia
+Maldivas
+Maldives
+Mali
+Malta
+Marruecos
+Marshall Islands
+Martinica
+Martinique
+Mauricio
+Mauritania
+Mauritius
+Mayotte
+Mexico
+Micronesia
+Moldavia
+Moldova
+Monaco
+Mongolia
+Montenegro
+Montserrat
+Morocco
+Mozambique
+Myanmar (Birmania)
+Myanmar (Burma)
+México
+Mónaco
+Namibia
+Nauru
+Nepal
+Netherlands
+New Caledonia
+New Zealand
+Nicaragua
+Niger
+Nigeria
+Niue
+Norfolk Island
+North Korea
+North Macedonia
+Northern Mariana Islands
+Noruega
+Norway
+Nueva Caledonia
+Nueva Zelanda
+Níger
+Oman
+Omán
+Pakistan
+Pakistán
+Palaos
+Palau
+Palestinian Territories
+Panama
+Panamá
+Papua New Guinea
+Papúa Nueva Guinea
+Paraguay
+Países Bajos
+Peru
+Perú
+Philippines
+Pitcairn Islands
+Poland
+Polinesia Francesa
+Polonia
+Portugal
+Puerto Rico
+Qatar
+RAE de Hong Kong (China)
+RAE de Macao (China)
+Reino Unido
+República Centroafricana
+República Democrática del Congo
+República Dominicana
+Reunión
+Romania
+Ruanda
+Rumanía
+Rusia
+Russia
+Rwanda
+Réunion
+Samoa
+Samoa Americana
+San Bartolomé
+San Cristóbal y Nieves
+San Marino
+San Martín
+San Pedro y Miquelón
+San Vicente y las Granadinas
+Santa Elena
+Santa Lucía
+Santo Tomé y Príncipe
+Saudi Arabia
+Senegal
+Serbia
+Seychelles
+Sierra Leona
+Sierra Leone
+Singapore
+Singapur
+Sint Maarten
+Siria
+Slovakia
+Slovenia
+Solomon Islands
+Somalia
+South Africa
+South Georgia & South Sandwich Islands
+South Korea
+South Sudan
+Spain
+Sri Lanka
+St. Barthélemy
+St. Helena
+St. Kitts & Nevis
+St. Lucia
+St. Martin
+St. Pierre & Miquelon
+St. Vincent & Grenadines
+Sudan
+Sudáfrica
+Sudán
+Sudán del Sur
+Suecia
+Suiza
+Surinam
+Suriname
+Svalbard & Jan Mayen
+Svalbard y Jan Mayen
+Sweden
+Switzerland
+Syria
+Sáhara Occidental
+São Tomé & Príncipe
+Tailandia
+Taiwan
+Taiwán
+Tajikistan
+Tanzania
+Tayikistán
+Territorio Británico del Océano Índico
+Territorios Australes Franceses
+Territorios Palestinos
+Thailand
+Timor-Leste
+Togo
+Tokelau
+Tonga
+Trinidad & Tobago
+Trinidad y Tobago
+Tunisia
+Turkmenistan
+Turkmenistán
+Turks & Caicos Islands
+Turquía
+Tuvalu
+Túnez
+Türkiye
+U.S. Outlying Islands
+U.S. Virgin Islands
+Ucrania
+Uganda
+Ukraine
+United Arab Emirates
+United Kingdom
+United States
+Uruguay
+Uzbekistan
+Uzbekistán
+Vanuatu
+Vatican City
+Venezuela
+Vietnam
+Wallis & Futuna
+Wallis y Futuna
+Western Sahara
+Yemen
+Yibuti
+Zambia
+Zimbabue
+Zimbabwe
+Åland Islands
+अंगोला
+अंटार्कटिका
+अज़रबैजान
+अफ़गानिस्तान
+अमेरिकी समोआ
+अरूबा
+अर्जेंटीना
+अल सल्वाडोर
+अल्जीरिया
+अल्बानिया
+आइल ऑफ़ मैन
+आइसलैंड
+आयरलैंड
+आर्मेनिया
+इंडोनेशिया
+इक्वाडोर
+इक्वेटोरियल गिनी
+इज़राइल
+इटली
+इथियोपिया
+इराक
+इरिट्रिया
+ईरान
+उज़्बेकिस्तान
+उत्तर कोरिया
+उत्तरी मकदूनिया
+उत्तरी मारियाना द्वीपसमूह
+उरूग्वे
+एंग्विला
+एंटिगुआ और बरबुडा
+एंडोरा
+एलैंड द्वीपसमूह
+एस्टोनिया
+एस्वाटिनी
+ऑस्ट्रिया
+ऑस्ट्रेलिया
+ओमान
+कंबोडिया
+कज़ाखस्तान
+कनाडा
+क़तर
+कांगो - किंशासा
+कांगो – ब्राज़ाविल
+किरिबाती
+किर्गिज़स्तान
+कुक द्वीपसमूह
+कुरासाओ
+कुवैत
+केन्या
+केप वर्ड
+कैमरून
+कैमेन द्वीपसमूह
+कैरिबियन नीदरलैंड
+कोकोस (कीलिंग) द्वीपसमूह
+कोत दिवुआर
+कोमोरोस
+कोलंबिया
+कोसोवो
+कोस्टारिका
+क्यूबा
+क्रिसमस द्वीप
+क्रोएशिया
+गर्नसी
+गाम्बिया
+गिनी
+गिनी-बिसाउ
+गुआम
+गुयाना
+गैबॉन
+ग्रीनलैंड
+ग्रेनाडा
+ग्वाटेमाला
+ग्वाडेलूप
+घाना
+चाड
+चिली
+चीन
+चेकिया
+जमैका
+जर्मनी
+जर्सी
+ज़ाम्बिया
+ज़िम्बाब्वे
+जापान
+जिबूती
+जिब्राल्टर
+जॉर्जिया
+जॉर्डन
+टोंगा
+टोगो
+ट्यूनीशिया
+डेनमार्क
+डोमिनिकन गणराज्य
+डोमिनिका
+तंज़ानिया
+ताइवान
+ताजिकिस्तान
+तिमोर-लेस्त
+तुर्क और कैकोज़ द्वीपसमूह
+तुर्कमेनिस्तान
+तुर्किये
+तुवालू
+तोकेलाउ
+त्रिनिदाद और टोबैगो
+थाईलैंड
+दक्षिण अफ़्रीका
+दक्षिण कोरिया
+दक्षिण जॉर्जिया और दक्षिण सैंडविच द्वीपसमूह
+दक्षिण सूडान
+नाइजर
+नाइजीरिया
+नाउरु
+नामीबिया
+निकारागुआ
+नीदरलैंड
+नीयू
+नेपाल
+नॉरफ़ॉक द्वीप
+नॉर्वे
+न्यू कैलेडोनिया
+न्यूज़ीलैंड
+पनामा
+पराग्वे
+पलाऊ
+पश्चिमी सहारा
+पाकिस्तान
+पापुआ न्यू गिनी
+पिटकैर्न द्वीपसमूह
+पुर्तगाल
+पेरू
+पोर्टो रिको
+पोलैंड
+फ़िजी
+फ़िनलैंड
+फ़िलिपींस
+फ़िलिस्तीनी क्षेत्र
+फ़ेरो द्वीपसमूह
+फ़ॉकलैंड द्वीपसमूह
+फ़्रांस
+फ़्रांसीसी दक्षिणी क्षेत्र
+फ़्रेंच गुयाना
+फ़्रेंच पोलिनेशिया
+बरमूडा
+बहरीन
+बहामास
+बांग्लादेश
+बारबाडोस
+बुरुंडी
+बुर्किना फ़ासो
+बुल्गारिया
+बेनिन
+बेलारूस
+बेलीज़
+बेल्जियम
+बोत्स्वाना
+बोलीविया
+बोवेत द्वीप
+बोस्निया और हर्ज़ेगोविना
+ब्राज़ील
+ब्रिटिश वर्जिन द्वीपसमूह
+ब्रिटिश हिंद महासागरीय क्षेत्र
+ब्रूनेई
+भारत
+भूटान
+मंगोलिया
+मकाऊ (विशेष प्रशासनिक क्षेत्र चीन)
+मध्य अफ़्रीकी गणराज्य
+मलावी
+मलेशिया
+माइक्रोनेशिया
+मायोते
+मार्टीनिक
+मार्शल द्वीपसमूह
+मालदीव
+माली
+माल्टा
+मिस्र
+मेडागास्कर
+मैक्सिको
+मॉरिटानिया
+मॉरीशस
+मॉल्डोवा
+मोंटसेरात
+मोंटेनेग्रो
+मोज़ांबिक
+मोनाको
+मोरक्को
+म्यांमार (बर्मा)
+यमन
+युगांडा
+यूक्रेन
+यूनाइटेड किंगडम
+यूनान
+यू॰एस॰ आउटलाइंग द्वीपसमूह
+यू॰एस॰ वर्जिन द्वीपसमूह
+रवांडा
+रियूनियन
+रूस
+रोमानिया
+लग्ज़मबर्ग
+लाइबेरिया
+लाओस
+लातविया
+लिचेंस्टीन
+लिथुआनिया
+लीबिया
+लेबनान
+लेसोथो
+वनुआतू
+वालिस और फ़्यूचूना
+वियतनाम
+वेटिकन सिटी
+वेनेज़ुएला
+श्रीलंका
+संयुक्त अरब अमीरात
+संयुक्त राज्य
+सऊदी अरब
+समोआ
+सर्बिया
+साइप्रस
+साओ टोम और प्रिंसिपे
+सिंगापुर
+सिंट मार्टिन
+सिएरा लियोन
+सीरिया
+सूडान
+सूरीनाम
+सेंट किट्स और नेविस
+सेंट पिएरे और मिक्वेलान
+सेंट बार्थेलेमी
+सेंट मार्टिन
+सेंट लूसिया
+सेंट विंसेंट और ग्रेनाडाइंस
+सेंट हेलेना
+सेनेगल
+सेशेल्स
+सैन मेरीनो
+सोमालिया
+सोलोमन द्वीपसमूह
+स्पेन
+स्लोवाकिया
+स्लोवेनिया
+स्वालबार्ड और जान मायेन
+स्विट्ज़रलैंड
+स्वीडन
+हंगरी
+हर्ड द्वीप और मैकडोनॉल्ड द्वीपसमूह
+हाँग काँग (चीन विशेष प्रशासनिक क्षेत्र)
+हैती
+होंडूरास
+アイスランド
+アイルランド
+アゼルバイジャン
+アフガニスタン
+アメリカ合衆国
+アラブ首長国連邦
+アルジェリア
+アルゼンチン
+アルバ
+アルバニア
+アルメニア
+アンギラ
+アンゴラ
+アンティグア・バーブーダ
+アンドラ
+イエメン
+イギリス
+イスラエル
+イタリア
+イラク
+イラン
+インド
+インドネシア
+ウォリス・フツナ
+ウガンダ
+ウクライナ
+ウズベキスタン
+ウルグアイ
+エクアドル
+エジプト
+エストニア
+エスワティニ
+エチオピア
+エリトリア
+エルサルバドル
+オマーン
+オランダ
+オランダ領カリブ
+オーストラリア
+オーストリア
+オーランド諸島
+カザフスタン
+カタール
+カナダ
+カメルーン
+カンボジア
+カーボベルデ
+ガイアナ
+ガボン
+ガンビア
+ガーナ
+ガーンジー
+キプロス
+キュラソー
+キューバ
+キリバス
+キルギス
+ギニア
+ギニアビサウ
+ギリシャ
+クウェート
+クック諸島
+クリスマス島
+クロアチア
+グアテマラ
+グアドループ
+グアム
+グリーンランド
+グレナダ
+ケイマン諸島
+ケニア
+ココス(キーリング)諸島
+コスタリカ
+コソボ
+コモロ
+コロンビア
+コンゴ共和国(ブラザビル)
+コンゴ民主共和国(キンシャサ)
+コートジボワール
+サウジアラビア
+サウスジョージア・サウスサンドウィッチ諸島
+サモア
+サントメ・プリンシペ
+サンピエール島・ミクロン島
+サンマリノ
+サン・バルテルミー
+サン・マルタン
+ザンビア
+シエラレオネ
+シリア
+シンガポール
+シント・マールテン
+ジブチ
+ジブラルタル
+ジャマイカ
+ジャージー
+ジョージア
+ジンバブエ
+スイス
+スウェーデン
+スバールバル諸島・ヤンマイエン島
+スペイン
+スリナム
+スリランカ
+スロバキア
+スロベニア
+スーダン
+セネガル
+セルビア
+セントクリストファー・ネーヴィス
+セントビンセント及びグレナディーン諸島
+セントヘレナ
+セントルシア
+セーシェル
+ソマリア
+ソロモン諸島
+タイ
+タジキスタン
+タンザニア
+タークス・カイコス諸島
+チェコ
+チャド
+チュニジア
+チリ
+ツバル
+デンマーク
+トケラウ
+トリニダード・トバゴ
+トルクメニスタン
+トルコ
+トンガ
+トーゴ
+ドイツ
+ドミニカ共和国
+ドミニカ国
+ナイジェリア
+ナウル
+ナミビア
+ニウエ
+ニカラグア
+ニジェール
+ニューカレドニア
+ニュージーランド
+ネパール
+ノルウェー
+ノーフォーク島
+ハイチ
+ハンガリー
+ハード島・マクドナルド諸島
+バチカン市国
+バヌアツ
+バハマ
+バミューダ
+バルバドス
+バングラデシュ
+バーレーン
+パキスタン
+パナマ
+パプアニューギニア
+パラオ
+パラグアイ
+パレスチナ自治区
+ピトケアン諸島
+フィジー
+フィリピン
+フィンランド
+フェロー諸島
+フォークランド諸島
+フランス
+ブラジル
+ブルガリア
+ブルキナファソ
+ブルネイ
+ブルンジ
+ブータン
+ブーベ島
+プエルトリコ
+ベトナム
+ベナン
+ベネズエラ
+ベラルーシ
+ベリーズ
+ベルギー
+ペルー
+ホンジュラス
+ボスニア・ヘルツェゴビナ
+ボツワナ
+ボリビア
+ポルトガル
+ポーランド
+マダガスカル
+マヨット
+マラウイ
+マリ
+マルタ
+マルティニーク
+マレーシア
+マン島
+マーシャル諸島
+ミクロネシア連邦
+ミャンマー (ビルマ)
+メキシコ
+モザンビーク
+モナコ
+モルディブ
+モルドバ
+モロッコ
+モンゴル
+モンテネグロ
+モントセラト
+モーリシャス
+モーリタニア
+ヨルダン
+ラオス
+ラトビア
+リトアニア
+リヒテンシュタイン
+リビア
+リベリア
+ルクセンブルク
+ルワンダ
+ルーマニア
+レソト
+レバノン
+レユニオン
+ロシア
+不丹
+东帝汶
+中国
+中国澳门特别行政区
+中国香港特别行政区
+中央アフリカ共和国
+中華人民共和国マカオ特別行政区
+中華人民共和国香港特別行政区
+中非共和国
+丹麦
+乌克兰
+乌兹别克斯坦
+乌干达
+乌拉圭
+乍得
+也门
+亚美尼亚
+仏領ギアナ
+仏領ポリネシア
+仏領極南諸島
+以色列
+伊拉克
+伊朗
+伯利兹
+佛得角
+俄罗斯
+保加利亚
+克罗地亚
+关岛
+冈比亚
+冰岛
+几内亚
+几内亚比绍
+列支敦士登
+刚果(布)
+刚果(金)
+利比亚
+利比里亚
+加拿大
+加纳
+加蓬
+匈牙利
+北マケドニア
+北マリアナ諸島
+北朝鮮
+北马其顿
+北马里亚纳群岛
+南アフリカ
+南スーダン
+南乔治亚和南桑威奇群岛
+南极洲
+南極
+南苏丹
+南非
+博茨瓦纳
+卡塔尔
+卢旺达
+卢森堡
+印度
+印度尼西亚
+危地马拉
+厄瓜多尔
+厄立特里亚
+叙利亚
+古巴
+台湾
+合衆国領有小離島
+吉尔吉斯斯坦
+吉布提
+哈萨克斯坦
+哥伦比亚
+哥斯达黎加
+喀麦隆
+图瓦卢
+土库曼斯坦
+土耳其
+圣卢西亚
+圣基茨和尼维斯
+圣多美和普林西比
+圣巴泰勒米
+圣文森特和格林纳丁斯
+圣皮埃尔和密克隆群岛
+圣诞岛
+圣赫勒拿
+圣马力诺
+圭亚那
+坦桑尼亚
+埃及
+埃塞俄比亚
+基里巴斯
+塔吉克斯坦
+塞内加尔
+塞尔维亚
+塞拉利昂
+塞浦路斯
+塞舌尔
+墨西哥
+多哥
+多米尼克
+多米尼加共和国
+奥兰群岛
+奥地利
+委内瑞拉
+孟加拉国
+安哥拉
+安圭拉
+安提瓜和巴布达
+安道尔
+密克罗尼西亚
+尼加拉瓜
+尼日利亚
+尼日尔
+尼泊尔
+巴勒斯坦领土
+巴哈马
+巴基斯坦
+巴巴多斯
+巴布亚新几内亚
+巴拉圭
+巴拿马
+巴林
+巴西
+布基纳法索
+布隆迪
+布韦岛
+希腊
+帕劳
+库克群岛
+库拉索
+开曼群岛
+德国
+意大利
+所罗门群岛
+托克劳
+拉脱维亚
+挪威
+捷克
+摩尔多瓦
+摩洛哥
+摩纳哥
+文莱
+斐济
+斯威士兰
+斯洛伐克
+斯洛文尼亚
+斯瓦尔巴和扬马延
+斯里兰卡
+新加坡
+新喀里多尼亚
+新西兰
+日本
+智利
+朝鲜
+東ティモール
+柬埔寨
+根西岛
+格林纳达
+格陵兰
+格鲁吉亚
+梵蒂冈
+比利时
+毛里塔尼亚
+毛里求斯
+汤加
+沙特阿拉伯
+法国
+法属南部领地
+法属圣马丁
+法属圭亚那
+法属波利尼西亚
+法罗群岛
+波兰
+波多黎各
+波斯尼亚和黑塞哥维那
+泰国
+泽西岛
+津巴布韦
+洪都拉斯
+海地
+澳大利亚
+爱尔兰
+爱沙尼亚
+牙买加
+特克斯和凯科斯群岛
+特立尼达和多巴哥
+玻利维亚
+瑙鲁
+瑞典
+瑞士
+瓜德罗普
+瓦利斯和富图纳
+瓦努阿图
+留尼汪
+白俄罗斯
+百慕大
+皮特凯恩群岛
+直布罗陀
+福克兰群岛
+科威特
+科摩罗
+科特迪瓦
+科科斯(基林)群岛
+科索沃
+秘鲁
+突尼斯
+立陶宛
+米領サモア
+米領ヴァージン諸島
+索马里
+约旦
+纳米比亚
+纽埃
+缅甸
+罗马尼亚
+美国
+美国本土外小岛屿
+美属维尔京群岛
+美属萨摩亚
+老挝
+肯尼亚
+芬兰
+苏丹
+苏里南
+英国
+英属印度洋领地
+英属维尔京群岛
+英領インド洋地域
+英領ヴァージン諸島
+荷兰
+荷属加勒比区
+荷属圣马丁
+莫桑比克
+莱索托
+菲律宾
+萨尔瓦多
+萨摩亚
+葡萄牙
+蒙古
+蒙特塞拉特
+西サハラ
+西撒哈拉
+西班牙
+诺福克岛
+贝宁
+赞比亚
+赤道ギニア
+赤道几内亚
+赫德岛和麦克唐纳群岛
+越南
+阿塞拜疆
+阿富汗
+阿尔及利亚
+阿尔巴尼亚
+阿拉伯联合酋长国
+阿曼
+阿根廷
+阿鲁巴
+韓国
+韩国
+马尔代夫
+马恩岛
+马拉维
+马提尼克
+马来西亚
+马约特
+马绍尔群岛
+马耳他
+马达加斯加
+马里
+黎巴嫩
+黑山

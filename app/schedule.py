@@ -42,13 +42,14 @@ def next_slot(state, now, window_end=None):
     now = now.astimezone(timezone.utc)
     day = now.date().isoformat()
     count = state.get("prior_days", {}).get(day, 0)
-    count += sum((p.get("queued_at") or p["posted_at"])[:10] == day for p in state["history"])
+    sent = [row for row in state["history"] if row.get("posted_at")]
+    count += sum(row["posted_at"][:10] == day for row in sent)
     if count >= DAILY_CAP:
         return None
 
     plan = daily_plan(day)
-    used = {p["slot"] for p in state["history"]}
-    last = max(filter(None,(state.get("last_posted_at"),state.get("last_queued_at"))), default=None)
+    used = {p["slot"] for p in sent}
+    last = state.get("last_posted_at")
     earliest = datetime.fromisoformat(last) + MIN_GAP if last else now
     band_start = now.replace(minute=now.minute//30*30, second=0, microsecond=0)
     for i, brief in enumerate(plan):

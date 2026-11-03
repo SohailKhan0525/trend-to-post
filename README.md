@@ -1,23 +1,19 @@
 # Dash Rattle
 
-An openly AI-run humor column about technology, SaaS, AI assistants and models, cars, and the people who design products. The [profile kit](PROFILE.md) includes the avatar, banner, bio and pinned introduction.
+An anonymous AI columnist on X. Cloudflare Workers AI writes jokes about technology, SaaS, assistants and AI models, cars, and the decisions behind products. The [X profile kit](PROFILE.md) includes the avatar, banner, bio and pinned introduction.
 
-## X
+## Publishing
 
-Every full UTC day has 50 different, date-seeded slots. The language mix is 22 English, 8 Hindi, 7 Simplified Chinese, 7 Japanese and 6 Spanish. Each half hour has one slot and two half hours have a second one. Posts are at least 15 minutes apart. Missed or rejected slots can reduce the total. No catch-up bursts. The daily boundary is 05:30 in India.
+GitHub Actions publishes eligible text posts with the repository's existing `X_AUTH_TOKEN` and `X_CT0` secrets. `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` provide Workers AI access. The default model is `@cf/qwen/qwen3-30b-a3b-fp8`. Set `DASH_RATTLE_MODEL` to use a compatible alternative.
 
-Cloudflare Workers AI writes an original post and reviews the actual text without seeing the writer’s intended meaning. It must be fluent and make sense on its own. Deterministic checks and the reviewer exclude politics, countries, national stereotypes, links, personal attacks, made-up statistics and recycled jokes. After three editorial rejections, a proofread reserve original for that exact language and niche can be used once. If its wording or premise is already used, the slot stays empty. Provider outages do not bypass review. Company-life posts are fictional. New model releases and alleged company secrets are outside the brief. All generated text uses the multilingual Workers AI model `@cf/qwen/qwen3-30b-a3b-fp8` by default. `DASH_RATTLE_MODEL` can override it with another compatible model.
+A full UTC day has 50 slots at varying times. The normal plan includes 22 English, 8 Hindi, 7 Simplified Chinese, 7 Japanese and 6 Spanish slots. The half-hour dispatcher and five-minute scheduled checks share a lock. Confirmed sends must be at least 15 minutes apart. A missed wake, provider outage or X rejection can reduce the day's total. The day resets at 05:30 India time.
 
-The free X-account path saves each approved draft in [the latest 50 drafts](state/DRAFTS.md). Click a draft to open the official X composer. Posting is a manual action in this mode. Older public posts and ledger entries are preserved.
+Every post is reserved in Git before it is sent. A confirmed post ID is recorded before checking whether X attached a website card. An ambiguous result leaves the reservation in place for reconciliation. Only confirmed sends count toward the publishing limit. Historical draft wording and premises are retained for duplicate detection.
 
-For automatic delivery, use a write-enabled X developer app and add GitHub Actions secrets `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN` and `X_ACCESS_TOKEN_SECRET`. Enable the repository variable `X_API_PUBLISH=true` only after accepting the [official API cost](https://docs.x.com/x-api/getting-started/pricing). The mode change starts with the next available slot. Historical manual drafts are never sent automatically. Plain text goes directly to the official create-post endpoint with no URLs, media, self-replies or cards. This workflow does not use browser cookies.
+## Writing rules
 
-An approved send is reserved in Git before X is contacted. A timeout or ambiguous response keeps the reservation and stops further sends until it is reconciled against the account. A confirmed ID is saved before the next slot. Definitive API rejections report their HTTP status. Secrets never appear in job summaries.
-
-## LinkedIn company page
-
-[Copy today's three posts](linkedin/latest.txt). The dated files in [linkedin/](linkedin/) are the archive. Each first workflow wake of a new Asia/Kolkata date prepares three original English posts in a single plain-text file. The launch set introduces the AI columnist. Future sets rotate through three different niches and avoid prior posts. The files are for manual publication on the company page.
+Use short, natural lines with a concrete setup and a punchline. Roast products, processes and the AI itself. Skip politics, politicians, countries, national stereotypes, links and engagement requests. Company scenes are fictional. A second model call reads the actual text and must approve its language, subject, safety and novelty. A proofread reserve can be used only once per language and topic. If it has already been used, the writer can try one different language for that slot. If editorial checks still fail, nothing is sent.
 
 ## Verification
 
-Run `python -m unittest discover -s tests -v`. Run `python -m app preview` with Cloudflare credentials to review five language samples without writing state or contacting X. The GitHub Actions publisher reports whether the four official credentials exist, which delivery mode is active, and each stored draft or confirmed X ID.
+Run `python -m unittest discover -s tests -v`. The optional `python -m app preview` command uses Cloudflare to print samples without contacting X. The publish workflow records the status URL for each confirmed post.

@@ -1,6 +1,7 @@
 """Fast excluded-topic checks; draft semantics are reviewed in writer.py."""
 import re
 import unicodedata
+from pathlib import Path
 
 EXCLUDED_TERMS = re.compile(
     r'\b(?:politic\w*|geopolitic\w*|elections?|vot(?:e|es|ing)|ballots?|'
@@ -13,9 +14,26 @@ EXCLUDED_TERMS = re.compile(
     r'germany|france|canada|australia|brazil|mexico|turkey|taiwan|'
     r'trump|biden|modi|putin|zelensky\w*|netanyahu|xi jinping)\b', re.I)
 
+# Read the bundled names once. CJK text does not need spaces between words.
+def country_pattern():
+    names = Path(__file__).with_name("region_names.txt").read_text(encoding="utf-8").splitlines()
+    words, unspaced = [], []
+    for name in sorted(names,key=len,reverse=True):
+        if not name or name.startswith("#") or name == "Reunión":
+            continue
+        group = unspaced if re.search(r"[\u3040-\u30ff\u3400-\u9fff]",name) else words
+        group.append(re.escape(name))
+    return re.compile(r"(?<!\w)(?:"+"|".join(words)+r")(?!\w)|"+"|".join(unspaced),re.I)
+
+
+COUNTRIES = country_pattern()
+# Lowercase Spanish "reunión" is the ordinary word for a meeting.
+CASE_SENSITIVE_NAMES = re.compile(r"(?<!\w)(?:US|U\.S\.|U\.K\.|UAE|PRC|Reunión)(?!\w)")
+
+
 def has_excluded_terms(text):
     folded = unicodedata.normalize('NFKC', text)
-    return bool(EXCLUDED_TERMS.search(folded) or NON_ENGLISH.search(folded)) or any(
+    return bool(EXCLUDED_TERMS.search(folded) or NON_ENGLISH.search(folded) or COUNTRIES.search(folded) or CASE_SENSITIVE_NAMES.search(folded)) or any(
         0x1F1E6 <= ord(c) <= 0x1F1FF for c in folded)
 
 # No word boundaries for scripts in which words are not separated by spaces.

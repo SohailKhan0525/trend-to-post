@@ -28,28 +28,11 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
-      - name: Prepare eligible originals
+      - name: Publish the eligible X post
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           DASH_RATTLE_MODEL: ${{ vars.DASH_RATTLE_MODEL }}
-          X_API_PUBLISH: ${{ vars.X_API_PUBLISH }}
-          X_API_KEY: ${{ secrets.X_API_KEY }}
-          X_API_SECRET: ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
+          X_CT0: ${{ secrets.X_CT0 }}
         run: python -m app run
-      - name: Prepare three LinkedIn drafts for the local date
-        if: ${{ !cancelled() }}
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          DASH_RATTLE_MODEL: ${{ vars.DASH_RATTLE_MODEL }}
-        run: python -m app.linkedin
-      - name: Preview all five languages
-        if: github.event_name == 'push'
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          DASH_RATTLE_MODEL: ${{ vars.DASH_RATTLE_MODEL }}
-        run: python -m app preview
