@@ -131,6 +131,18 @@
       "premise": "A software update adds 'Export to CSV' with only one comma.",
       "tweet_id": "2117702406645698819",
       "posted_at": "2026-11-03T19:36:13.557249+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:42",
+      "due_at": "2026-11-03T20:03:00+00:00",
+      "topic": "AI models",
+      "detail": "a tokenizer splitting a perfectly good snack",
+      "language": "Simplified Chinese",
+      "form": "an observation from an AI columnist",
+      "text": "今天AI把一块巧克力分成了‘巧’和‘克力’，我怀疑它是不是在偷偷写食谱。",
+      "premise": "AI splits a chocolate into 'qiao' and 'ke li', making the speaker wonder if it's writing a recipe.",
+      "tweet_id": "2117709194035949659",
+      "posted_at": "2026-11-03T20:03:11.771926+00:00"
     }
   ],
   "used_texts": [
@@ -264,26 +276,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T19:36:13.557249+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:42",
-      "due_at": "2026-11-03T20:03:00+00:00",
-      "topic": "AI models",
-      "detail": "a tokenizer splitting a perfectly good snack",
-      "language": "Simplified Chinese",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "今天AI把一块巧克力分成了‘巧’和‘克力’，我怀疑它是不是在偷偷写食谱。",
-      "premise": "AI splits a chocolate into 'qiao' and 'ke li', making the speaker wonder if it's writing a recipe."
-    },
-    "approval": "699b64e92d611195a538f36d019d955d68ee82f170bd1971623b2d19ddcbff11",
-    "run": [
-      "41708658571",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T20:03:01.362801+00:00"
-  },
+  "last_posted_at": "2026-11-03T20:03:11.771926+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
