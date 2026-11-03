@@ -3629,10 +3629,6 @@
       "source_id": "hubspotmarketing"
     },
     {
-      "url": "https://blog.hubspot.com/marketing/loop-marketing-landscape-report",
-      "source_id": "hubspotmarketing"
-    },
-    {
       "url": "https://blog.hubspot.com/marketing/b2b-lead-generation-facebook-secrets-slideshare",
       "source_id": "hubspotmarketing"
     },
@@ -3894,10 +3890,6 @@
     },
     {
       "url": "https://buffer.com/resources/best-time-to-post-social-media",
-      "source_id": "buffer"
-    },
-    {
-      "url": "https://buffer.com/resources/why-use-linkedin-for-business",
       "source_id": "buffer"
     },
     {
@@ -13381,10 +13373,6 @@
       "source_id": "mailchimp"
     },
     {
-      "url": "https://mailchimp.com/resources/marketing-automations",
-      "source_id": "mailchimp"
-    },
-    {
       "url": "https://mailchimp.com/resources/the-art-of-the-opt-in",
       "source_id": "mailchimp"
     },
@@ -13466,10 +13454,6 @@
     },
     {
       "url": "https://basecamp.com/shapeup/4.0-appendix-01",
-      "source_id": "shapeup"
-    },
-    {
-      "url": "https://basecamp.com/shapeup/2.3-chapter-09",
       "source_id": "shapeup"
     },
     {
@@ -17855,10 +17839,2810 @@
     {
       "url": "https://ui.shadcn.com/docs/components/radix/tabs",
       "source_id": "shadcn"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/stakeholders-block-sales-deal",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-intelligence-platform",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/words-to-avoid-in-sales-email-subject-lines",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/looking-forward-to-hearing-from-you",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/b2b-sales-admin-time",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-close-a-sales-deal-on-the-phone",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-conduct-an-effective-pipeline-management-coaching-session",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-leadership-books",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/networking-platforms-black-entrepreneurs",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-proposal-templates",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ecommerce-technology-trends",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/visionary-leadership",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/trend-forecasting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/gdpr-cold-calling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-end-a-sales-email",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/side-hustle-ideas-for-entrepreneurs-and-sales-professionals",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/reasons-sales-training-doesnt-work",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/essential-stages-b2b-sales-pipeline",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-email-templates-to-use-when-prospects-arent-ready-to-buy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/marketing-crm-platforms",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-potential",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ways-to-get-your-prospects-attention-in-8-seconds-or-less",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/elements-of-a-compelling-sales-story",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/difference-between-manager-and-leader",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/questions-before-sales-close",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-get-into-saas-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/chatgpt-for-sales-prospecting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/purchase-order",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crowdfunding-sites",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/business-owner-burnout",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-enablement-platform",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/hypnosis-inspired-sales-call-tips",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-overcome-prospect-resistance",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-contest-essential-elements",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-questions-best-price",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-optimization",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/recurring-payments",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/up-front-contract",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/important-sales-tool",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-prospecting-automation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/effectively-manage-millennial-salespeople",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/linkedin-summary-examples",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-qualify-leads-2018",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/minority-small-business-grants",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/entrepreneur-skills",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-activity-management",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/salesforce-vs-monday-com",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-gdpr",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/relationship-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/conversation-intelligence-deal-velocity",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/dear-sir-or-madam-alternatives",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-operations-platform",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/tips-to-leave-the-perfect-sales-voicemail",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/esg-reporting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/llc-filing-companies",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-presentation-mistakes-to-avoid",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/gifs-for-your-next-presentation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/strategic-planning",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-demand-forecasting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/blaise-pascal-change-prospects-minds",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/competitor-objection-responses",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-5-most-common-objections-during-prospecting-and-how-to-overcome-them",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/assertive-not-aggressive-sales-strategies",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/what-does-a-sales-enablement-professional-do-template-job-description",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-security",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/market-cap-vs-valuation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/songs-for-maximum-motivation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/consulting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-automation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-variance",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/make-december-your-best-sales-month",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/product-demo",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-improve-sales-performance",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/value-stream-mapping",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/product-brand-differentiators",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/copywriting-hacks",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/salesforce-alternatives",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/price-proposal",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-write-check-in-message-without-just-checking-in",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-training-fo-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/signs-of-a-true-hustler",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/state-of-entrepreneurship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/keys-to-successful-selling-for-the-first-time-sales-rep",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/identify-sales-prospects-influencers-decision-makers-ht",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-pitch-examples",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/public-speaking-apps",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/game-changing-communication-techniques-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/small-business-ideas",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/disruptive-startups",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/worst-types-of-sales-emails",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/networking-email-subject-lines",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/prospect-qualification-mistakes-hurting-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/three-step-objection-handling-process",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/7-pricing-mistakes-that-can-seriously-stifle-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/brand-positioning-strategy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sandler-sales-methodology",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-database",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/things-first-year-sales-reps-get-wrong",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-business-card-dos-donts",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/business-incubator",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/3-steps-to-qualifying-budget-the-right-way",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/outside-sales-guide",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-accept-credit-card-payments",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-attitude",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/organizational-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/non-operating-expenses",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/mobile-crm-solutions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/free-scheduling-software-sales-teams",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/unique-value-proposition-is-overrated",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-live-chat-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-closing-mistakes",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/business-risk",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cash-flow",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-team-names",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/new-hire-training-salespeople",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/rapport-mistakes",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/what-is-coachability",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/software-procurement-checklist",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/customary-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-keep-a-conversation-going",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-training-ideas",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/economy-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-audit",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/price-objection-responses",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-conversations",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/top-down-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/what-is-joint-venture",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/just-checking-in-follow-up",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/collaborative-leadership",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/things-salespeople-must-know-before-calling-a-prospect",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-strategy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sole-proprietorship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cross-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/undermining-chances-of-closing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/subscription-billing-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/inspiring-seth-godin-quotes-from-sell-like-a-human",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/10-essential-selling-skills-2014-infographic",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/6-popular-sales-methodologies-summarized",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/survive-the-workday-when-youre-sick-tired-or-just-not-feeling-it",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/linkedin-video-specs",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/successful-cold-calls",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cold-calling-mistakes-that-make-prospects-hang-up",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/stats-that-prove-the-power-of-smarketing-slideshare",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-cold-calling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ultimate-guide-creating-sales-plan",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-operations-manager",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/virtual-assistant-services",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-meet-with-c-level-executives",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/national-sales-meeting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-reduce-manual-crm-tasks-hubspot",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/reasons-top-salespeople-join-stay-leave-company",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/latest-crm-trends",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/response-to-i-need-a-better-price",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/meeting-management-software-for-sales-teams-our-favorites-for-2026",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ethical-ai",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-budgeting-and-forecasting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/price-leadership",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-scheduling-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/tips-to-keep-your-voice-in-peak-condition-for-public-speaking",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cold-calling-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/habits-to-become-a-more-effective-salesperson",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-a-small-ice-cream-business-pivoted-in-tough-times",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-excellence",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-sales-training-programs",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/aggresive-sales-closing-tactics",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/bad-sales-phrases",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/positioning-statement",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-take-a-vacation-in-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/live-chat-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/payment-gateway",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/small-business-insurance-cost",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/this-prospecting-method-generates-2x-more-opportunities",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-anatomy-of-a-great-linkedin-sales-message-template",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/operational-objectives",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/excel-killing-your-business",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/valentines-day-email-templates-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/pass-sales-assessment-test",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-sales-pitch",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/market-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/partnership-business",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/relationship-building-email-template",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/selfish-sales-tactics-that-could-be-costing-you-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-drip-campaign",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/upselling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/salesforce-vs-microsoft-dynamics",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-prospecting-best-practices",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/forecasting-methods",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-mirroring",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/qbr-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/remote-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/voicemail-techniques-that-lead-to-closed-deals",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-predictions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/will-robots-steal-sales-jobs",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/real-estate-leads",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/lead-routing-automation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/price-lining",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/online-entrepreneur",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/corporate-entrepreneurship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/alternatives-asap",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/working-capital-definition-formula",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/characteristics-of-high-performing-sales-teams",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-message-experiment",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-email-mistakes-new-reps-make",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/quantitative-forecasting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/terrible-sales-advice",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-vs-business-development-whats-the-difference-faq",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/4-secrets-to-getting-a-response-from-the-ceo",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/business-plan-template-sales-rep",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/financial-forecasting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/top-sales-podcasts",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-management",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/phone-prospecting-strategy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/social-selling-conversation-starters",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/entrepreneurship-vs-employment",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/demand-based-pricing-its-tactics-and-practical-examples",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-meeting-assistant",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-puffery",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/inbound-sales-transforming-the-way-you-sell",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/agile-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/phrases-signal-prospect-is-ready-to-buy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/entrepreneur-vs-business-owner",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-build-a-business-case-for-crm-infographic",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-buyers-make-decisions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/closing-once-is-dead",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/skills-every-business-development-rep-needs-to-master",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-ultimate-first-time-crm-buyers-guide",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-data",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/operations-productivity",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/signs-that-its-time-to-walk-away-from-a-prospect",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/hubspot-sales-representative-professional-certification",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/instantly-become-more-charismatic",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/common-prospect-objections-and-how-to-handle-them",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/email-pet-peeves",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/types-of-entrepreneurship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/reverse-auction",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/subject-line-stats-open-rates-slideshare",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/optimize-emails-prospects-read-respond",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/advice-from-entrepreneurs",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-engagement-platform-vs-crm",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/phrases-that-make-you-sound-like-a-slimy-salesperson",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/creative-entrepreneurship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-environment",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/respond-to-pricing-questions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/introverts-make-great-salespeople",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-measure-your-sales-process",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/business-process-management",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/page/41",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/accurate-sales-forecasting-model-tips",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/prospecting-methods",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-pipeline-stages-visual-guide",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ach-vs-credit-card",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/gpct-sales-qualification",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/motivate-sales-team-without-money-infographic",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/inbound-prospecting-matrix",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/state-of-ai-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/provide-value-buyers-journey",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/objection-handling-mistakes",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/deal-management",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cost-of-not-meeting-customer-expectations-infographic",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/motivation-vs-discipline",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-champion",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/6-essential-areas-to-cover-in-a-customer-kickoff-meeting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/business-failure",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/price-competition-sales-ht",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/send-a-linkedin-message-to-someone-youre-not-connected-to",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/small-business-valuation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-enablement-framework",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-alexa-skills",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/interview-questions-to-ask-a-sales-manager-candidate",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-asset-management",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/targeted-sales-prospecting-guide",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/powerful-email-closing-lines",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-tasks-activities",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/small-talk-guide",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/client-management-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/never-say-in-a-negotiation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-for-forecasting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/technology-partnerships",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/digital-entrepreneurship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/industrial-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/strategic-planning-models",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-101",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-first-100-days",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/business-expenses-list",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/revenue-team-missteps",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/buying-signals-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/timing-objection-responses",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/questions-for-buyers-journey",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cob-eod",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/digital-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/creative-ai-uses",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-sales-prospecting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sustainable-leadership",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-qualifying-questions-decision-maker",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-for-entrepreneurs",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-productivity-metrics",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-sales-follow-up",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/syncing-contacts-data-with-google-sheets",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/essential-elements-of-a-successful-sales-pitch",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-small-business-salespeople-generate-their-best-leads",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-engagement",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-run-an-effective-sales-meeting-in-under-20-minutes",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/b2b-sales-tips",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/elements-of-a-high-performing-sales-team",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/page/3",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/contract-negotiation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/lead-distribution",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/executive-interview-questions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-videos-that-show-how-to-close-deal",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-startups-are-raising-money-today-data-expert-insights",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/phrases-top-salespeople-say-on-prospecting-calls-scripts",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-performance-review-template",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/account-manager-interview-questions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/investment-proposal",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/psychology-tips-that-will-get-your-prospects-to-trust-you-faster",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/23-questions-customers-needs-si",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/10-tips-ask-sales-questions-si",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/unconventional-negotiation-tactics",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/prospecting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-scheduling-assistant",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-anatomy-of-a-twitter-profile-optimized-for-social-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/b2b-versus-b2c-sales-cycle",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/types-questions-salespeople-should-avoid",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/why-being-too-helpful-will-hurt-your-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/persuasive-sales-presentation-structure",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/female-motivational-speakers",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/why-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-execution",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-process-",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/export-linkedin-contacts",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-get-into-tech-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-efficiency",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/why-everyone-on-your-team-should-have-a-role-in-sales-support",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ultra-tactical-social-selling-tips-you-can-start-using-today",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/habits-that-make-salespeople-seem-pushy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-workflow-automation-small-business",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sense-of-urgency-questions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/do-you-hate-cold-calling-steps-to-get-over-your-fear",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/types-of-crm",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/friendly-reminder-email",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ideal-length-sales-email",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-set-up-a-lead-bot",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/alternatives-to-hope-youre-well",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/steps-to-building-trust-with-clients",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/signs-your-buyer-is-a-poor-fit",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-increase-profit-margin",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-vendor-comparison",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-payments",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sustainability-in-business",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/why-your-next-question-matters-most",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-prospecting-tools",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-ai-crm-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/monday-com-vs-attio",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-canva-founder-melanie-perkins-found-the-secret-to-a-winning-pitch",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/facebook-sales-funnel",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/motivate-your-sales-team",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-sales-reports",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/surprising-statistics-on-sales-prospecting-that-will-change-the-way-you-look-at-cold-calling-infographic",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/when-you-hate-your-sales-job",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/techniques-avoid-happy-ears",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-analytics-rules-to-live-by",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-analytics-platform",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/predictive-sales-analytics-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/hubspot-sales-strategy-report",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/selling-digital-products",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/formal-email",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/average-email-open-rate-benchmark",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/consultative-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/value-based-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-business-line-of-credit",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-launch-your-product-to-a-crowd-of-32-million-on-tiktok",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/silent-partner",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/pricing-strategy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/create-sense-of-urgency-in-prospect-roleplay",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/twitter-for-sales-reps-prospecting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/account-based-marketing-metrics",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cost-per-lead",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/email-subject-lines-sales-reps-swear-by",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/bdr-ae-work-together",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/solution-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/successful-sales-incentives",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-make-your-linkedin-message-stand-out",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/account-planning-the-missed-opportunity",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/automatically-tracking-reporting-sales-leads",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/virtual-leader",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-take-control-of-a-sales-call",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-qualified-lead",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-charge-maximum-price-without-scaring-your-buyers-away",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-write-business-proposal",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/17-new-years-resolutions-for-salespeople-in-2015",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/virtual-vs-in-person-training",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/risk-in-entrepreneurship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-meeting-scheduling-tools",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-sales-management-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/channel-partner-conflict",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-and-marketing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-collateral",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/executive-assistant-interview-questions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-voicemail-tips-that-guarantee-callbacks",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-days-and-times-for-sales-meetings-statistics",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-psychology-of-choice",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/automate-your-busywork",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-in-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/interactive-sales-tools",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/5-big-mistakes-to-avoid-when-creating-an-ideal-customer-profile",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ethical-leadership",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/a-scorecard-to-perform-a-sales-team-assessment",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/channel-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/linkedin-commercial-use-limit",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/buyer-journey-vs-customer-journey",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/outside-reps-get-better-at-calling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-email-subject-lines-that-get-prospects-to-open-read-and-respond",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-ai-emails",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/pros-and-cons-sales-organizational-designs-chart",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/b2b-checkout-challenges",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/social-selling-linkedin",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/quote-to-cash",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/8-sales-automation-benefits-for-sales-teams-beyond-time-savings",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/inside-vs-outside-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/functional-skills",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/no-show-prospects-templates",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-best-time-to-cold-call-more-data-driven-sales-secrets-infographic",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-tips",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/going-rate-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/effective-sales-management",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/buzzwords-and-jargon-phrases-salespeople-should-avoid",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/future-of-cashless-payments",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/salesforce-vs-zoho",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/factors-of-production",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/weaknesses-that-cripple-sales-reps-ability-to-qualify",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/saas-revenue-model",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/productivity-tips-that-will-change-the-way-you-work",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/saas-crm-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/benefits-of-crm",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-prospecting-funnel",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/claude-sales-plugin",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/startup-crm",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/should-you-start-a-business-in-uncertain-times",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-teams-marketing-behaviors",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/hot-lead",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/holding-company",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-questions-change-status-quo",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/criteria-to-upgrade-a-lead-to-an-opportunity-and-theyre-not-what-you-think",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/mbo-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/remote-networking",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/industry-risk",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/enterprise-ai-agents",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/loss-leader-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-crush-the-conversion-game-on-your-website",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sell-more-by-doing-less",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/website-activity",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/productivity-tips-for-salespeople-to-streamline-your-day-slideshare",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-find-collect-manage-business-contacts",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/outside-sales-strategies",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/attach-rate",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-sales-lead-generation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/challenges-ai-solves",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/a-beginners-guide-on-selling-your-online-business",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/per-our-conversation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/prestige-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-pitch-without-being-too-salesy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-lead-list",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/straight-line-depreciation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/what-is-an-invoice",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/identify-point-of-contact-target-accounts",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-process-cheat-sheet-template",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/b2b-cold-calling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/for-example-synonym",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-email-templates-that-prove-flattery-will-get-you-everywhere",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-agents-for-business",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/bant",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/socially-responsible-investing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/customer-stakeholders-new-high-data",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/most-and-least-productive-days-of-the-week",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/enterprise-crm-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/times-to-text-your-prospect-during-sales-process",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/weirdest-and-best-things-you-can-get-for-free",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-for-outlook",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/double-your-sales-without-working-more",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/hand-raiser",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-analyst-interview-questions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-sell-to-different-types-of-decision-makers",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/new-year-sales-email-templates",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/meeting-minutes",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/close-file-email-template",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/opportunity-management",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-use-an-executive-sponsor-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/when-you-should-shouldnt-give-prospects-discounts",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/subject-line-tester",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-use-psychological-biases-to-sell",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-for-business-development",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/rainmaker-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/unique-follow-ups-how-are-you",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/video-sales-letter",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-training-videos-youtube",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/handle-stress-at-work",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-automation-tools",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/conceptual-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-prep-for-a-closing-call",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/female-entrepreneurs",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/fbi-negotiator-four-part-negotiation-strategy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-bdr",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/business-development",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/regain-your-prospects-trust-after-youve-lost-it",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/are-extroverts-or-introverts-better-salespeople",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/entrepreneur-personality-traits",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/battle-cards",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-follow-up-email-free-email-templates",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/if-it-isnt-fun-it-isnt-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/captive-product-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/thank-you-in-advance-alternatives",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/dead-sales-trends",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/lost-lead",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-projection",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/team-selling-approach",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/team-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-build-rapport-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/outreach-vs-pipedrive",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-strategy-for-new-buyers-journey",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-psychology-of-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/win-more-sales-by-working-smarter-not-harder",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/entrepreneurship-through-acquisition",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/echeck-payment-processing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/selling-services-online",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/psychology-of-price",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-first-sales-call-conundrum",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-strategies-to-avoid",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/places-to-research-a-prospect-before-sales-call",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/elevator-pitch-examples",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-calculate-the-value-of-sales-incentives",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ach-api",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/hubspot-commerce-hub-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/social-entrepreneurship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-sales-enablement",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/geographical-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-process-or-sales-methodology",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/emails-you-should-never-send-over-weekend",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/benefits-of-sales-enablement",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-gimmick",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/email-sign-offs-put-best-thanks-to-shame",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/hidden-linkedin-hacks-revealed-slideshare",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-franchise",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-personalization-beyond-the-prospects-first-name",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/approach-strangers-networking",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/effective-productivity-tips",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/nfc-payment",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/annual-contract-value-acv",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/is-prospect-serious-about-buying",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-to-sell-into-different-industries",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-mix",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/trademark-vs-copyright",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-processes",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/regression-analysis-to-forecast-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/100k-email-templates-follow-up",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cold-call-beat-summer-slump",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/move-stalled-deals-forward",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/thank-you-for-your-understanding",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/strategic-plan-examples",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/follow-up-emails-webinar",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/process-strategy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/find-good-networking-events",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/professional-voicemail-greetings",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/inventory-planning",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/important-sales-goals-strategies",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/capabilities-presentation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/your-top-questions-about-hubspot-crm-answered",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-lead-sales-team",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-write-a-sales-email",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-training-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/what-is-ach-credit",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/intrapreneurship-vs-entrepreneurship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/challenges-threatening-salespeople",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-affirmations",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/account-based-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/all-in-one-crm",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/price-sensitivity",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/5-reasons-your-sales-emails-get-ignored",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/linkedin-voice-message",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-professionals-guide-to-social-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/odd-even-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/meddpicc-methodology",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/crm-google-sheets",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/lead-nurturing-tools",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-backlog",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-stop-interrupting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/zoho-vs-pipedrive-team-productivity",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/habits-of-likable-people",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-hook",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/types-of-payment",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/b2b-outreach-strategy-for-startups",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/pipeline-management-training-101",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/why-prospects-dont-buy-from-you",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/people-buy-from-people",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/outbound-call-meaning",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/return-on-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-crm-real-estate",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/freelancer-vs-entrepreneur",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/async-video-in-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/incentive-compensation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/servant-leadership",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-for-accounting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-sell-to-different-personality-types",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-dylan-jacob-scaled-br%C3%BCmate-to-100m-in-5-years",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/enterprise-sales-cycle",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cold-call-script",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-cold-email-template-that-won-16-new-b2b-customers",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-networking",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/phrases-that-will-kill-your-sales-deal",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/tim-ferriss-email-system",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/current-assets",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-poc",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-email-templates-to-get-and-keep-buyers-attention",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/leverage-ratio",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-benchmarks-2022",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/storytelling-in-sales-netflix-worthy-narrative",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/fired-up-cold-calls",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/business-goals",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/schedule-survey",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/buying-business",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-ops-job-descriptions",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-email-templates-guaranteed-to-get-a-response",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/investing-in-ai",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cold-calling-vs-social-selling-infographic",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/page/1",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-ultimate-guide-to-linkedin-etiquette-infographic",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sell-online-course-webinar",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/manage-salespeople-myers-briggs",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/messaging-training",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/mock-call",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/5-keys-to-successfully-selling-to-fortune-500-companies",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/metaverse-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/the-ultimate-sales-team-effectiveness-quiz",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-prospecting-email-templates-you-can-start-using-today",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/make-your-marketing-message-pop-with-nlp",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-by-generation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-business-analytics",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/profit-loss-statement",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/what-is-outbound-prospecting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/competitive-benchmarking",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/shark-tank-cousins-maine-lobster",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/real-ai-crm-use-cases-driving-revenue-growth-in-2025",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-huddle",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/important-trait-of-excellent-sales-reps",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/responses-prospect-asks-for-discount",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ie-vs-eg",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/under-the-radar-traits",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/what-every-new-sales-leader-should-do-in-their-first-6-months",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/respond-to-the-objection-i-want-to-think-it-over",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-dashboard",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-rescue-boring-conversations",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/affirmations-for-motivation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/product-knowledge-training",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/talk-emails",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-pricing-models",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-email-templates-create-urgency",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/cold-email-outreach-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/respond-call-me-after-holidays-objection-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/want-your-linkedin-profile-to-stand-out-dont-include-these-10-overused-words",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/lead-management-system",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-pitches-every-seller-should-know",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/spin-selling-the-ultimate-guide",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/questions-make-your-final-close-happen-naturally",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/b2b-ecommerce-trends",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/meet-quota-by-middle-of-month",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/unique-selling-proposition",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/yelp-business",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/stages-of-entrepreneurship",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/text-sales-prospects",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/types-of-presentation-styles",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/why-reps-wont-make-quota",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/follow-up-email-after-meeting-networking",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/customer-visit",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/high-low-pricing-strategy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/best-ai-presentation-maker",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-build-free-buzz-for-your-business-with-a-pr-campaign",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-deliver-the-perfect-sales-demo",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/deadly-sins-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/how-to-use-crm",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/missionary-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-prospecting-paradox",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/buying-motives",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/transactional-leadership",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/closing-phrases-seal-sales-deal",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-financial-forecasting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/tonality-in-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/social-proof-sales",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/powerful-non-sleazy-phrases-to-use-in-a-negotiation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/e-societies",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/customer-data-enhance-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/pitch-to-investors",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/goldilocks-effect-pricing",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-email-opening-lines",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-orientation",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/video-selling",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/ai-transcription-software",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/sales-forecasting",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/motivating-stories-of-salespeople",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/volume-discounting-pricing-strategy",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/touch-base-alternatives",
+      "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://blog.hubspot.com/sales/virtual-face-to-face-commutation",
+      "source_id": "hubspotsales"
     }
   ],
   "discovery_cursors": {
-    "business owners": 6,
+    "business owners": 8,
     "creators": 2,
     "marketers": 6,
     "CEOs": 2,
