@@ -1535,7 +1535,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T13:31:21.774221+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:28",
+    "audience": "vibecoders",
+    "labels": [
+      "Share and collaborate on your Bolt",
+      "Card guide"
+    ],
+    "resources": [
+      {
+        "url": "https://support.bolt.new/collaboration",
+        "title": "Share and collaborate on your Bolt project with others - Bolt",
+        "excerpt": "You can collaborate on a Bolt project at any stage, from early building to final review. What people can see and do depends on whether you share your project or publish your site. ​ Decide what to share Your project is the workspace where you build with Bolt. Your site is the published version of your project that people can visit on the web. Sharing gives people access to your project, and publishing gives them access to your site, either publicly or only if you invite them. Share your project : Share your project with others and control their level of access. You can let collaborators view only, edit and prompt, or own the project with you. Publish your project to a live website : Put your project on the web and choose whether it’s public or private. On a Teams plan, team members have automatic access to your team’s projects. ​ Work together Collaborate with others : Invite collaborators and work together in real time with multiplayer mode. This page also covers the projects dashboard and sharing integrations like databases and GitHub. ​ Give and receive feedback Comment on a proje",
+        "aliases": [
+          "https://support.bolt.new/collaboration"
+        ],
+        "fingerprint": "540e12b77431d5646c0f2acd810289609b92d4bcc29cc958c62626067fe013c4",
+        "source_id": "bolt",
+        "verified_at": "2026-11-03T14:01:36.166967+00:00"
+      },
+      {
+        "url": "https://ui.shadcn.com/docs/components/radix/card",
+        "title": "Card - shadcn/ui Radix UI",
+        "excerpt": "Sections Introduction Components AI Elements Installation Theming CLI Typeset Skills Registry Changelog Components Accordion Alert Alert Dialog Aspect Ratio Attachment Avatar Badge Breadcrumb Bubble Button Button Group Calendar Card Carousel Chart Checkbox Code Block Collapsible Combobox Command Context Menu Data Table Date Picker Dialog Direction Drawer Dropdown Menu Empty Field Hover Card Input Input Group Input OTP Item Kbd Label Marker Menubar Message Message Scroller Native Select Navigation Menu Pagination Popover Progress Questionnaire Radio Group Resizable Scroll Area Select Separator Sheet Sidebar Skeleton Slider Sonner Spinner Switch Table Tabs Textarea Toast Toggle Toggle Group Tooltip Trace Typography AI Elements Introduction Chain of Thought Chat Checkpoint Confirmation Context File Tree Inline Citation Message Model Selector Plan Prompt Input Queue Reasoning Sources Stack Trace Subagent Suggestion Task Terminal Test Results Tool Get Started Installation components.json Package Imports Theming Typeset Dark Mode CLI Monorepo Skills JavaScript Figma llms.txt Legacy Docs @s",
+        "aliases": [
+          "https://ui.shadcn.com/docs/components/radix/card"
+        ],
+        "fingerprint": "82768425b94606bc0501c4fcd6a1b1afb02f8b27a7c5adeffab1c7f45d67b628",
+        "source_id": "shadcn",
+        "verified_at": "2026-11-03T14:01:36.131521+00:00"
+      }
+    ],
+    "text": "For vibecoders\n\nShare and collaborate on your Bolt\nhttps://support.bolt.new/collaboration\n\nCard guide\nhttps://ui.shadcn.com/docs/components/radix/card\n\nThank me later.\nFollow for more useful links.",
+    "approval": "e47455f7656f701ea04a1e67ff69b79a501e6b60d984084ab2af2d42d4c0b866",
+    "prepared_at": "2026-11-03T14:01:34.658681+00:00",
+    "run_id": "41649607933",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
@@ -1578,6 +1614,7 @@
     "https://supabase.com/docs/guides/functions/examples/telegram-bot",
     "https://supabase.com/docs/guides/platform/migrating-within-supabase",
     "https://support.bolt.new",
+    "https://support.bolt.new/collaboration",
     "https://support.bolt.new/troubleshooting/domain-issues",
     "https://t.co/3C7ZAkzRbT",
     "https://t.co/CI5nOrAC48",
@@ -1593,6 +1630,7 @@
     "https://t.co/y3LmV8eERA",
     "https://t.co/ziy1HSr6sJ",
     "https://tailwindcss.com/docs/color",
+    "https://ui.shadcn.com/docs/components/radix/card",
     "https://ui.shadcn.com/docs/installation",
     "https://vercel.com/docs/ai-gateway/coding-agents/pi",
     "https://vercel.com/docs/cli/organizations",
@@ -1642,6 +1680,7 @@
     "48e7d3688f35d25d45c9e6f82d547adb2c01acdcf39e6398586f50270c1d4779",
     "4e049fb8a361d500d103303dbaf6eb7f794a85ad2c338132b8f7cfa13f98ca60",
     "5004c9167f65e28f9783f108ab98c2c13267faa9ba8a3b2e05780e6b2a9be4a1",
+    "540e12b77431d5646c0f2acd810289609b92d4bcc29cc958c62626067fe013c4",
     "5489192fff558b024557939c18610ea280eb541bc9ea8d593a8bd2105b8be7ed",
     "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
     "590ececc5244f28bf603ea81c370ff77712e81e0e49645336cfd8d70937b133f",
@@ -1651,6 +1690,7 @@
     "64505066f8a052520753eee47b24e389b76d88be51d216535227f78f140d6c60",
     "76b5fd74a4e88a0697a464759aa730635fb1a243fa3f6de527efe521f32a613e",
     "7dae16ed58fc3b34f9a7d33c6e4c5a7c0f96c35465deb5ceb45f98d8bcbc8ff8",
+    "82768425b94606bc0501c4fcd6a1b1afb02f8b27a7c5adeffab1c7f45d67b628",
     "870f5faad9efb9bfc299015953c9cc7196c4d4f4a94b3b0f6f5140aee5c731dc",
     "90a60a1c1664c72005696eade46592b7802336c2b078c6ae632296bda56d35fb",
     "9228738c195b0fecff14f1b1d8b734597fa0811f1298baac3e788e069247f2ac",
@@ -14205,10 +14245,6 @@
     },
     {
       "url": "https://basecamp.com/shapeup/2.2-chapter-08",
-      "source_id": "shapeup"
-    },
-    {
-      "url": "https://basecamp.com/shapeup/4.2-appendix-03",
       "source_id": "shapeup"
     },
     {
@@ -27116,10 +27152,6 @@
       "source_id": "todoist"
     },
     {
-      "url": "https://www.todoist.com/productivity-methods/weekly-review",
-      "source_id": "todoist"
-    },
-    {
       "url": "https://www.todoist.com/productivity-methods/eisenhower-matrix",
       "source_id": "todoist"
     },
@@ -29618,6 +29650,10 @@
     {
       "url": "https://mailchimp.com/resources/marketing-automations",
       "source_id": "mailchimp"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/chart",
+      "source_id": "shadcn"
     }
   ],
   "discovery_cursors": {
@@ -29626,7 +29662,7 @@
     "marketers": 10,
     "CEOs": 8,
     "students": 12,
-    "vibecoders": 6,
+    "vibecoders": 8,
     "founders": 10,
     "job seekers": 8,
     "designers": 2,
