@@ -1007,7 +1007,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T04:31:24.001117+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:11",
+    "audience": "founders",
+    "labels": [
+      "Domain issues",
+      "Building a Telegram Bot"
+    ],
+    "resources": [
+      {
+        "url": "https://support.bolt.new/troubleshooting/domain-issues",
+        "title": "Domain issues - Bolt",
+        "excerpt": "If you run into an error while connecting or configuring a domain, find the specific error below for steps to resolve it. ​ Check Bolt’s status Before troubleshooting, check the Bolt status page for any active incidents. If Bolt is experiencing a known issue, check your project again after the issue resolves to see if that also resolves your problem. ​ ”Another project is already using this domain” error If you see this error, it usually means the domain is still connected to a previous deployment on another hosting service. This happens when the domain wasn’t fully removed from that service’s domain management settings. If your domain was purchased through Netlify: Netlify usually lets you disconnect a domain from your project directly. If you’ve removed the domain from your Netlify projects and still see the error in Bolt, contact Netlify support so they can update the domain settings. If your domain was purchased through another provider: Log in to the hosting service where the domain was previously connected. Go to the domain management settings. Check if your domain is still lis",
+        "aliases": [
+          "https://support.bolt.new/troubleshooting/domain-issues"
+        ],
+        "fingerprint": "0d78994244521256b631aca5aea2f1b8fc3b3ad8ba7e1aec91d9051055ef670f",
+        "source_id": "bolt",
+        "verified_at": "2026-11-03T05:31:18.165290+00:00"
+      },
+      {
+        "url": "https://supabase.com/docs/guides/functions/examples/telegram-bot",
+        "title": "Building a Telegram Bot | Supabase Docs",
+        "excerpt": "Updated Sep 11, 2026 Handle Telegram Bot Webhooks with the grammY framework . grammY is an open source Telegram Bot Framework which makes it easy to handle and respond to incoming messages. View on GitHub . Is this helpful? No Yes AI tools Connect your AI agent Copy as Markdown Ask ChatGPT Ask Claude Prefer on Google",
+        "aliases": [
+          "https://supabase.com/docs/guides/functions/examples/telegram-bot"
+        ],
+        "fingerprint": "c953b51aaf60be8ed18c8dc73a07a45bea7c4fb66539ecb64c16738cb33722fe",
+        "source_id": "supabase",
+        "verified_at": "2026-11-03T05:31:18.043304+00:00"
+      }
+    ],
+    "text": "For founders\n\nDomain issues\nhttps://support.bolt.new/troubleshooting/domain-issues\n\nBuilding a Telegram Bot\nhttps://supabase.com/docs/guides/functions/examples/telegram-bot\n\nThank me later.\nFollow for more useful links.",
+    "approval": "573132778363a42a70a5dbd112e7564ecb285deaa71e941c876c8316af87a613",
+    "prepared_at": "2026-11-03T05:31:14.465586+00:00",
+    "run_id": "41584354315",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
@@ -1029,8 +1065,10 @@
     "https://rework.withgoogle.com",
     "https://rework.withgoogle.com/intl/en",
     "https://rework.withgoogle.com/intl/en/subjects/managers",
+    "https://supabase.com/docs/guides/functions/examples/telegram-bot",
     "https://supabase.com/docs/guides/platform/migrating-within-supabase",
     "https://support.bolt.new",
+    "https://support.bolt.new/troubleshooting/domain-issues",
     "https://t.co/3C7ZAkzRbT",
     "https://t.co/CI5nOrAC48",
     "https://t.co/G1OvDYzkpw",
@@ -1059,6 +1097,7 @@
   "used_fingerprints": [
     "01ef903b40418c5ed02e67cce1ac3bc0163924244e3978ea10e12aa53c68a217",
     "0496b579125419740f7281a5411c5e0156a520b0360e3c6cee87e580e5b5cf8e",
+    "0d78994244521256b631aca5aea2f1b8fc3b3ad8ba7e1aec91d9051055ef670f",
     "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
     "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
     "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
@@ -1083,6 +1122,7 @@
     "a3b6c13e1f51d488e5f73088fd9ba36210884fbe103366f9deb3e2c976368442",
     "affcb5109a133d95425eabb2fa0f596bc8025476a2d17aec870fd1c71b8fea77",
     "c7820cffbf6d3b90dc519535ea54f219b0616d1590e37bb06eea411e3d499eb6",
+    "c953b51aaf60be8ed18c8dc73a07a45bea7c4fb66539ecb64c16738cb33722fe",
     "cacde2df75a15fc604422ca39445bb1a98d6d3ec80734e50f054afae0c29230d",
     "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
     "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
@@ -13852,10 +13892,6 @@
       "source_id": "zapier"
     },
     {
-      "url": "https://zapier.com/blog/all-articles/automation-inspiration",
-      "source_id": "zapier"
-    },
-    {
       "url": "https://zapier.com/blog/all-articles/productivity-tips",
       "source_id": "zapier"
     },
@@ -21444,10 +21480,6 @@
       "source_id": "lovable"
     },
     {
-      "url": "https://docs.lovable.dev/features/knowledge",
-      "source_id": "lovable"
-    },
-    {
       "url": "https://docs.lovable.dev/tips-tricks/external-deployment-hosting",
       "source_id": "lovable"
     },
@@ -24991,7 +25023,7 @@
     "CEOs": 6,
     "students": 8,
     "vibecoders": 4,
-    "founders": 6,
+    "founders": 8,
     "job seekers": 2,
     "designers": 2,
     "developers": 2
