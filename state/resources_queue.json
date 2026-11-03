@@ -1106,7 +1106,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T07:01:36.907217+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:15",
+    "audience": "job seekers",
+    "labels": [
+      "Companies to Work for Remotely",
+      "Systemist guide"
+    ],
+    "resources": [
+      {
+        "url": "https://www.coursera.org/articles/best-companies-to-work-for-remotely",
+        "title": "13 Top Companies to Work for Remotely | Coursera",
+        "excerpt": "13 Top Companies to Work for Remotely Written by Coursera Staff • Updated on Oct 2, 2025 Although many companies have shifted away from remote work, some top companies still prioritize that working model. Learn more about remote-first companies and important factors when considering a remote company. Key takeaways M any major companies that once offered remote work have instituted a return-to-office (RTO) in recent years. Some companies still either operate a remote-first approach or allow employees to choose the working model that best suits them. If you're interested in a work-from-home role, it's best to identify which of these top companies may be a good fit for you and pay close attention to their careers page. Discover some of the best companies to work for remotely. Afterward, build in-demand skills to showcase on your job application materials with a Coursera Plus subscription. Build job-ready skills with Coursera Plus Start 7-day free trial Start 7-day free trial 10 top companies to work for remotely Increasingly, companies that once offered remote work have instead required",
+        "aliases": [
+          "https://www.coursera.org/articles/best-companies-to-work-for-remotely"
+        ],
+        "fingerprint": "cdc67bd7771a89adbb00e058f616067a9e579373d8c6d73c6b499d25d9569603",
+        "source_id": "coursera",
+        "verified_at": "2026-11-03T07:31:42.992257+00:00"
+      },
+      {
+        "url": "https://www.todoist.com/productivity-methods/systemist",
+        "title": "Systemist: Todoist's Founder's Personal Productivity System",
+        "excerpt": "Illustration by Yin Weihung Todoist makes the world’s #1 task manager to organize your work and life. Tell me more My name is Amir Salihefendić, and I'm the founder and CEO of Todoist, the company behind Todoist. I want to share a system I've perfected over the past 15+ years that has helped me achieve my goals while reducing my stress. I like to think of it as a simplified GTD built for the modern world. The truth is that most people don’t use a personal productivity system. They wing it and hope for the best. But our work, personal lives, and the world we live in are too complicated to just hope that all the balls we're juggling will stay in the air. A reliable system can help you prioritize the important things and juggle many things at once without feeling overwhelmed. I first came up with Systemist and started building Todoist in 2007 while at university. I was living in a dorm room in Aarhus, Denmark, studying computer science. On top of a full class load, I also had a lot of personal projects and two part-time jobs. As a result, I was unorganized, stressed out, and barely able",
+        "aliases": [
+          "https://www.todoist.com/productivity-methods/systemist"
+        ],
+        "fingerprint": "26f6216be8cdadc0a5d3a963537a9d88c4f916a88bbbedfa910e2af06db4ec28",
+        "source_id": "todoist",
+        "verified_at": "2026-11-03T07:31:42.716444+00:00"
+      }
+    ],
+    "text": "For job seekers\n\nCompanies to Work for Remotely\nhttps://www.coursera.org/articles/best-companies-to-work-for-remotely\n\nSystemist guide\nhttps://www.todoist.com/productivity-methods/systemist\n\nThank me later.\nFollow for more useful links.",
+    "approval": "45b4f937c3f26e88556541a54f7b1c26102ffa41404d7057cbcd94d1ca43d7f6",
+    "prepared_at": "2026-11-03T07:31:41.232323+00:00",
+    "run_id": "41596863662",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
@@ -1155,9 +1191,11 @@
     "https://www.atlassian.com/team-playbook/examples/people-team",
     "https://www.atlassian.com/team-playbook/plays",
     "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping",
+    "https://www.coursera.org/articles/best-companies-to-work-for-remotely",
     "https://www.freecodecamp.org/news/support",
     "https://www.techinterviewhandbook.org/behavioral-interview",
     "https://www.todoist.com/productivity-methods",
+    "https://www.todoist.com/productivity-methods/systemist",
     "https://zapier.com/blog/all-articles/automation-inspiration",
     "https://zapier.com/blog/all-articles/zapier-feature-guides"
   ],
@@ -1170,6 +1208,7 @@
     "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
     "2147dc214f9545fce356ebb2f80f0a0aace43d491f5c48ebc93ea1c5a5a319f9",
     "25ef6d25a100392e2877996e344dc72cfad01c96e9c7c9daf23675e94d888d4c",
+    "26f6216be8cdadc0a5d3a963537a9d88c4f916a88bbbedfa910e2af06db4ec28",
     "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
     "325b4a11f5743ce33788d03891fabb4772892f1d4cc514bc0a8a3a7e944b8b0c",
     "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
@@ -1196,6 +1235,7 @@
     "c953b51aaf60be8ed18c8dc73a07a45bea7c4fb66539ecb64c16738cb33722fe",
     "cacde2df75a15fc604422ca39445bb1a98d6d3ec80734e50f054afae0c29230d",
     "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
+    "cdc67bd7771a89adbb00e058f616067a9e579373d8c6d73c6b499d25d9569603",
     "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
     "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
     "d98f81c5e24c73360c608765608a7137a9024da57b928982a50884004c77b751",
@@ -4236,10 +4276,6 @@
     },
     {
       "url": "https://buffer.com/resources/how-to-post-on-social-media-from-claude",
-      "source_id": "buffer"
-    },
-    {
-      "url": "https://buffer.com/resources/ai-social-media-with-social-data",
       "source_id": "buffer"
     },
     {
@@ -13459,10 +13495,6 @@
       "source_id": "freecodecamp"
     },
     {
-      "url": "https://www.freecodecamp.org/news/build-publish-native-android-app-from-jetpack-compose-to-google-play-store-handbook",
-      "source_id": "freecodecamp"
-    },
-    {
       "url": "https://www.freecodecamp.org/news/how-to-build-passkey-authentication-with-webauthn-next-js-and-nestjs",
       "source_id": "freecodecamp"
     },
@@ -13648,10 +13680,6 @@
     },
     {
       "url": "https://ahrefs.com/blog/marketers-ai-content-creation",
-      "source_id": "ahrefs"
-    },
-    {
-      "url": "https://ahrefs.com/blog/what-is-an-ai-agent",
       "source_id": "ahrefs"
     },
     {
@@ -26733,6 +26761,190 @@
     {
       "url": "https://buffer.com/resources/why-use-linkedin-for-business",
       "source_id": "buffer"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/kanban",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/pomodoro-technique",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/getting-things-done",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/okrs-objectives-key-results",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/inspiration",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/commitment-inventory",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/para-method",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/eat-the-frog",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/systemist",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/time-blocking",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/weekly-review",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/eisenhower-matrix",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/medium-method",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.todoist.com/productivity-methods/smart-goals",
+      "source_id": "todoist"
+    },
+    {
+      "url": "https://www.coursera.org/articles/most-common-career-change-for-nurses",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/how-to-learn-artificial-intelligence",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/medical-technologist-salary",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/business-management-certifications",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/blockchain-engineer",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/how-to-learn-information-technology",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/software-engineer",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/what-is-the-comptia-security-plus-certification",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/stackable-credentials",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/best-companies-to-work-for-remotely",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/essential-it-certifications-entry-level-and-beginner",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/community-health-worker-certification",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/analytics-certification",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/certified-information-systems-auditor",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/benefits-of-online-learning-video",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/ai-productivity-tools",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/front-end-engineer",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/what-classes-are-required-for-a-computer-science-degree",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/what-is-the-comptia-a-certification-what-to-know",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/capm-certification-guide",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/popular-cybersecurity-certifications",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/strengths-and-weaknesses-interview",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/jobs-that-pay-well-without-degree-video",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/jules-white-vanderbilt-genai-and-creativity",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/high-income-skills",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/best-cities-for-cyber-security-jobs",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/ai-in-software-development",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/business-analysis-tools",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/data-analyst-vs-business-analyst-video",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/the-pmp-certification-a-guide-to-getting-started",
+      "source_id": "coursera"
+    },
+    {
+      "url": "https://www.coursera.org/articles/accounting-certifications",
+      "source_id": "coursera"
     }
   ],
   "discovery_cursors": {
@@ -26743,7 +26955,7 @@
     "students": 8,
     "vibecoders": 4,
     "founders": 8,
-    "job seekers": 4,
+    "job seekers": 6,
     "designers": 2,
     "developers": 2
   }
