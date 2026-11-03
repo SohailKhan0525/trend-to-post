@@ -12,6 +12,17 @@
       "premise": "The narrator reflects on the notorious feature flag that everyone is afraid to disable.",
       "tweet_id": "2117642719116050535",
       "posted_at": "2026-11-03T15:39:02.926228+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:33",
+      "due_at": "2026-11-03T16:08:00+00:00",
+      "topic": "company life",
+      "detail": "a launch checklist that needs its own launch",
+      "language": "Hindi",
+      "form": "a playful roast of a design choice",
+      "text": "मीटिंग का नाम रखा था ‘जल्दी निपटा लें’। कैलेंडर में अब हर मंगलवार दिख रही है।",
+      "premise": "A meeting named Let's finish quickly became a weekly event.",
+      "queued_at": "2026-11-03T16:08:06.485159+00:00"
     }
   ],
   "used_texts": [
@@ -112,10 +123,12 @@
     "fcbe57cc10e6c3bc06e217c7e97381f89c1686d833a2a6da174d450820c3d074",
     "fdfdf8bc598748bf4b3f49a879e6abd58df7ca86d098f1c08931c8fa3cc59c4e",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1",
-    "9191becddfd5fbc835ba6f3b44f72a30704546506bd6122ccefe895757813221"
+    "9191becddfd5fbc835ba6f3b44f72a30704546506bd6122ccefe895757813221",
+    "185360604354fa7c5b3aced00b987f1ddd83efb4b963b3e95bce7c913824f923"
   ],
   "used_premises": [
-    "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c"
+    "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
+    "6dcea796ce4e2f72dccc5504fc26b016d44ee1074845a878d6af3a3f62854aa1"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -124,5 +137,6 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-03T15:39:02.926228+00:00",
-  "pending": null
+  "pending": null,
+  "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
