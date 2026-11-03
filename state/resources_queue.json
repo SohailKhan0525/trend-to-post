@@ -393,6 +393,39 @@
       "posted_at": "2026-11-03T02:31:19.448019+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:5",
+      "audience": "students",
+      "text": "For students\n\nlect04 pdf\nhttps://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04/\n\nTraining guide\nhttps://learn.microsoft.com/en-us/training/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04/",
+          "title": "lect04.pdf | Geometry of Manifolds | Mathematics | MIT OpenCourseWare",
+          "excerpt": "Browse Course Material Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Topics Mathematics Differential Equations Linear Algebra Topology and Geometry Topics Science & Math Mathematics Learning Resource Types notes Lecture Notes assignment_turned_in Problem Set Solutions assignment Problem Sets Download Course search search GIVE NOW about ocw help & faqs contact us 18.966 | Spring 2007 | Graduate Geometry of Manifolds Menu More Info Description: Lecture notes on symplectic vector fields, flux; isotopy and deformation equivalence; Moser’s theorem; Darboux’s theorem. Resource Type: Lecture Notes pdf 89 kB lect04.pdf Download File Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Topics Mathematics Differential Equations Linear Algebra Topology and Geometry Topics Sci",
+          "aliases": [
+            "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04"
+          ],
+          "fingerprint": "2147dc214f9545fce356ebb2f80f0a0aace43d491f5c48ebc93ea1c5a5a319f9",
+          "source_id": "mitocw",
+          "verified_at": "2026-11-03T03:01:39.163173+00:00"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/training/",
+          "title": "Training - Courses, Learning Paths, Modules | Microsoft Learn",
+          "excerpt": "Welcome to Microsoft Learn Discover your path Whether you're just starting in a career, or you're an experienced professional, our self-directed approach helps you arrive at your goals faster, with more confidence and at your own pace. Develop skills through interactive modules and paths or learn from an instructor. Learn and grow your way. Master core concepts at your speed and on your schedule. Whether you've got 15 minutes or an hour, you can develop practical skills through interactive modules and paths. You can also register to learn from an instructor. Learn and grow your way. Browse all paths Customize my path Looking for specific training content? Learn new skills and discover the power of Microsoft products with step-by-step guidance. Start your journey today by exploring our learning paths, modules, and courses. Browse training Working towards a career goal? There are over 700 K job listings seeking candidates with Microsoft technical skills. Explore training and credentials aligned with your career goals. Explore career paths Student resources The home for students to expl",
+          "aliases": [
+            "https://learn.microsoft.com/en-us/training"
+          ],
+          "fingerprint": "9cf3c14cee3ad2e6fdfc1b636205d8489fb99cadd8bb3a2e46e415a1320fa12f",
+          "source_id": "microsoftlearn",
+          "verified_at": "2026-11-03T03:01:39.052985+00:00"
+        }
+      ],
+      "tweet_id": "2117452131586203841",
+      "posted_at": "2026-11-03T03:01:42.027269+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -874,44 +907,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T02:31:19.448019+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:5",
-    "audience": "students",
-    "labels": [
-      "lect04 pdf",
-      "Training guide"
-    ],
-    "resources": [
-      {
-        "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04/",
-        "title": "lect04.pdf | Geometry of Manifolds | Mathematics | MIT OpenCourseWare",
-        "excerpt": "Browse Course Material Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Topics Mathematics Differential Equations Linear Algebra Topology and Geometry Topics Science & Math Mathematics Learning Resource Types notes Lecture Notes assignment_turned_in Problem Set Solutions assignment Problem Sets Download Course search search GIVE NOW about ocw help & faqs contact us 18.966 | Spring 2007 | Graduate Geometry of Manifolds Menu More Info Description: Lecture notes on symplectic vector fields, flux; isotopy and deformation equivalence; Moser’s theorem; Darboux’s theorem. Resource Type: Lecture Notes pdf 89 kB lect04.pdf Download File Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Course Info Instructor Prof. Denis Auroux Departments Mathematics As Taught In Spring 2007 Level Graduate Topics Mathematics Differential Equations Linear Algebra Topology and Geometry Topics Sci",
-        "aliases": [
-          "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04"
-        ],
-        "fingerprint": "2147dc214f9545fce356ebb2f80f0a0aace43d491f5c48ebc93ea1c5a5a319f9",
-        "source_id": "mitocw",
-        "verified_at": "2026-11-03T03:01:39.163173+00:00"
-      },
-      {
-        "url": "https://learn.microsoft.com/en-us/training/",
-        "title": "Training - Courses, Learning Paths, Modules | Microsoft Learn",
-        "excerpt": "Welcome to Microsoft Learn Discover your path Whether you're just starting in a career, or you're an experienced professional, our self-directed approach helps you arrive at your goals faster, with more confidence and at your own pace. Develop skills through interactive modules and paths or learn from an instructor. Learn and grow your way. Master core concepts at your speed and on your schedule. Whether you've got 15 minutes or an hour, you can develop practical skills through interactive modules and paths. You can also register to learn from an instructor. Learn and grow your way. Browse all paths Customize my path Looking for specific training content? Learn new skills and discover the power of Microsoft products with step-by-step guidance. Start your journey today by exploring our learning paths, modules, and courses. Browse training Working towards a career goal? There are over 700 K job listings seeking candidates with Microsoft technical skills. Explore training and credentials aligned with your career goals. Explore career paths Student resources The home for students to expl",
-        "aliases": [
-          "https://learn.microsoft.com/en-us/training"
-        ],
-        "fingerprint": "9cf3c14cee3ad2e6fdfc1b636205d8489fb99cadd8bb3a2e46e415a1320fa12f",
-        "source_id": "microsoftlearn",
-        "verified_at": "2026-11-03T03:01:39.052985+00:00"
-      }
-    ],
-    "text": "For students\n\nlect04 pdf\nhttps://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04/\n\nTraining guide\nhttps://learn.microsoft.com/en-us/training/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "9844553e81bac33252fd75b031a56f8dedfa16de90d4500fdad1b3903936ad4d",
-    "prepared_at": "2026-11-03T03:01:36.992405+00:00",
-    "run_id": "41569640302",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T03:01:42.027269+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
