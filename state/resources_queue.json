@@ -1053,6 +1053,39 @@
       "posted_at": "2026-11-03T13:31:21.774221+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:28",
+      "audience": "vibecoders",
+      "text": "For vibecoders\n\nShare and collaborate on your Bolt\nhttps://support.bolt.new/collaboration\n\nCard guide\nhttps://ui.shadcn.com/docs/components/radix/card\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://support.bolt.new/collaboration",
+          "title": "Share and collaborate on your Bolt project with others - Bolt",
+          "excerpt": "You can collaborate on a Bolt project at any stage, from early building to final review. What people can see and do depends on whether you share your project or publish your site. ​ Decide what to share Your project is the workspace where you build with Bolt. Your site is the published version of your project that people can visit on the web. Sharing gives people access to your project, and publishing gives them access to your site, either publicly or only if you invite them. Share your project : Share your project with others and control their level of access. You can let collaborators view only, edit and prompt, or own the project with you. Publish your project to a live website : Put your project on the web and choose whether it’s public or private. On a Teams plan, team members have automatic access to your team’s projects. ​ Work together Collaborate with others : Invite collaborators and work together in real time with multiplayer mode. This page also covers the projects dashboard and sharing integrations like databases and GitHub. ​ Give and receive feedback Comment on a proje",
+          "aliases": [
+            "https://support.bolt.new/collaboration"
+          ],
+          "fingerprint": "540e12b77431d5646c0f2acd810289609b92d4bcc29cc958c62626067fe013c4",
+          "source_id": "bolt",
+          "verified_at": "2026-11-03T14:01:36.166967+00:00"
+        },
+        {
+          "url": "https://ui.shadcn.com/docs/components/radix/card",
+          "title": "Card - shadcn/ui Radix UI",
+          "excerpt": "Sections Introduction Components AI Elements Installation Theming CLI Typeset Skills Registry Changelog Components Accordion Alert Alert Dialog Aspect Ratio Attachment Avatar Badge Breadcrumb Bubble Button Button Group Calendar Card Carousel Chart Checkbox Code Block Collapsible Combobox Command Context Menu Data Table Date Picker Dialog Direction Drawer Dropdown Menu Empty Field Hover Card Input Input Group Input OTP Item Kbd Label Marker Menubar Message Message Scroller Native Select Navigation Menu Pagination Popover Progress Questionnaire Radio Group Resizable Scroll Area Select Separator Sheet Sidebar Skeleton Slider Sonner Spinner Switch Table Tabs Textarea Toast Toggle Toggle Group Tooltip Trace Typography AI Elements Introduction Chain of Thought Chat Checkpoint Confirmation Context File Tree Inline Citation Message Model Selector Plan Prompt Input Queue Reasoning Sources Stack Trace Subagent Suggestion Task Terminal Test Results Tool Get Started Installation components.json Package Imports Theming Typeset Dark Mode CLI Monorepo Skills JavaScript Figma llms.txt Legacy Docs @s",
+          "aliases": [
+            "https://ui.shadcn.com/docs/components/radix/card"
+          ],
+          "fingerprint": "82768425b94606bc0501c4fcd6a1b1afb02f8b27a7c5adeffab1c7f45d67b628",
+          "source_id": "shadcn",
+          "verified_at": "2026-11-03T14:01:36.131521+00:00"
+        }
+      ],
+      "tweet_id": "2117618218252841067",
+      "posted_at": "2026-11-03T14:01:39.401393+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1534,44 +1567,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T13:31:21.774221+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:28",
-    "audience": "vibecoders",
-    "labels": [
-      "Share and collaborate on your Bolt",
-      "Card guide"
-    ],
-    "resources": [
-      {
-        "url": "https://support.bolt.new/collaboration",
-        "title": "Share and collaborate on your Bolt project with others - Bolt",
-        "excerpt": "You can collaborate on a Bolt project at any stage, from early building to final review. What people can see and do depends on whether you share your project or publish your site. ​ Decide what to share Your project is the workspace where you build with Bolt. Your site is the published version of your project that people can visit on the web. Sharing gives people access to your project, and publishing gives them access to your site, either publicly or only if you invite them. Share your project : Share your project with others and control their level of access. You can let collaborators view only, edit and prompt, or own the project with you. Publish your project to a live website : Put your project on the web and choose whether it’s public or private. On a Teams plan, team members have automatic access to your team’s projects. ​ Work together Collaborate with others : Invite collaborators and work together in real time with multiplayer mode. This page also covers the projects dashboard and sharing integrations like databases and GitHub. ​ Give and receive feedback Comment on a proje",
-        "aliases": [
-          "https://support.bolt.new/collaboration"
-        ],
-        "fingerprint": "540e12b77431d5646c0f2acd810289609b92d4bcc29cc958c62626067fe013c4",
-        "source_id": "bolt",
-        "verified_at": "2026-11-03T14:01:36.166967+00:00"
-      },
-      {
-        "url": "https://ui.shadcn.com/docs/components/radix/card",
-        "title": "Card - shadcn/ui Radix UI",
-        "excerpt": "Sections Introduction Components AI Elements Installation Theming CLI Typeset Skills Registry Changelog Components Accordion Alert Alert Dialog Aspect Ratio Attachment Avatar Badge Breadcrumb Bubble Button Button Group Calendar Card Carousel Chart Checkbox Code Block Collapsible Combobox Command Context Menu Data Table Date Picker Dialog Direction Drawer Dropdown Menu Empty Field Hover Card Input Input Group Input OTP Item Kbd Label Marker Menubar Message Message Scroller Native Select Navigation Menu Pagination Popover Progress Questionnaire Radio Group Resizable Scroll Area Select Separator Sheet Sidebar Skeleton Slider Sonner Spinner Switch Table Tabs Textarea Toast Toggle Toggle Group Tooltip Trace Typography AI Elements Introduction Chain of Thought Chat Checkpoint Confirmation Context File Tree Inline Citation Message Model Selector Plan Prompt Input Queue Reasoning Sources Stack Trace Subagent Suggestion Task Terminal Test Results Tool Get Started Installation components.json Package Imports Theming Typeset Dark Mode CLI Monorepo Skills JavaScript Figma llms.txt Legacy Docs @s",
-        "aliases": [
-          "https://ui.shadcn.com/docs/components/radix/card"
-        ],
-        "fingerprint": "82768425b94606bc0501c4fcd6a1b1afb02f8b27a7c5adeffab1c7f45d67b628",
-        "source_id": "shadcn",
-        "verified_at": "2026-11-03T14:01:36.131521+00:00"
-      }
-    ],
-    "text": "For vibecoders\n\nShare and collaborate on your Bolt\nhttps://support.bolt.new/collaboration\n\nCard guide\nhttps://ui.shadcn.com/docs/components/radix/card\n\nThank me later.\nFollow for more useful links.",
-    "approval": "e47455f7656f701ea04a1e67ff69b79a501e6b60d984084ab2af2d42d4c0b866",
-    "prepared_at": "2026-11-03T14:01:34.658681+00:00",
-    "run_id": "41649607933",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T14:01:39.401393+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
