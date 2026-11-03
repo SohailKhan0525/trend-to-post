@@ -921,6 +921,39 @@
       "posted_at": "2026-11-03T11:31:24.210760+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:24",
+      "audience": "CEOs",
+      "text": "For CEOs\n\nVision Creation\nhttps://www.atlassian.com/team-playbook/plays/vision-creation\n\nOne Piece Done\nhttps://basecamp.com/shapeup/3.2-chapter-11\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.atlassian.com/team-playbook/plays/vision-creation",
+          "title": "Vision Creation | Atlassian",
+          "excerpt": "Vision Creation A compelling vision is the foundation to any big-impact work. Use this Play to get your team on the same page by painting a picture of the future your work is building. This Play will inspire and motivate your team while you take the first step towards a robust strategy to actually achieve your vision. Jump to instructions Prep Time 40-60 min Run Time 60 min People 3-10 Vision Creation A compelling vision is the foundation to any big-impact work. Use this Play to get your team on the same page by painting a picture of the future your work is building. This Play will inspire and motivate your team while you take the first step towards a robust strategy to actually achieve your vision. Jump to instructions Prep Time 40-60 min Run Time 60 min People 3-10 Vision Creation A compelling vision is the foundation to any big-impact work. Use this Play to get your team on the same page by painting a picture of the future your work is building. This Play will inspire and motivate your team while you take the first step towards a robust strategy to actually achieve your vision. Pr",
+          "aliases": [
+            "https://www.atlassian.com/team-playbook/plays/vision-creation"
+          ],
+          "fingerprint": "3eb05e60b2b6bccc6ef542741f03f898e36a7496f1f17d41f1547cac946166f8",
+          "source_id": "atlassian",
+          "verified_at": "2026-11-03T12:01:39.895169+00:00"
+        },
+        {
+          "url": "https://basecamp.com/shapeup/3.2-chapter-11",
+          "title": "Get One Piece Done | Shape Up",
+          "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. Shape Up Chapter 11: Get One Piece Done Integrate one slice Case study: Clients in projects Programmers don’t need to wait Affordances before pixel-perfect screens Program just enough for the next step Start in the middle Next: Map the Scopes As the team gets oriented, they start to discover and track the tasks they need to do to build the project. It’s important at this early phase that they don’t create a master plan of parts that should come together in the 11th hour. If the team completes a lot of tasks but there’s no “one thing” to click on and try out, it’s hard to feel progress. A team can do a lot of work but feel insecure because they don’t have anything real to show for it yet. Lots of things are done but nothing is really done. Instead they should aim to make something tangible and demoable early—in the first week or so. That requires integrating vertically on one small piece of the project instead of chipping away at the horizontal layers. I",
+          "aliases": [
+            "https://basecamp.com/shapeup/3.2-chapter-11"
+          ],
+          "fingerprint": "2118b5d31598312f762dd49c6edbf89a4a96476d52a9de12b1c2fcdd287a3091",
+          "source_id": "shapeup",
+          "verified_at": "2026-11-03T12:01:35.434073+00:00"
+        }
+      ],
+      "tweet_id": "2117588031922405546",
+      "posted_at": "2026-11-03T12:01:42.931885+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1402,44 +1435,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T11:31:24.210760+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:24",
-    "audience": "CEOs",
-    "labels": [
-      "Vision Creation",
-      "One Piece Done"
-    ],
-    "resources": [
-      {
-        "url": "https://www.atlassian.com/team-playbook/plays/vision-creation",
-        "title": "Vision Creation | Atlassian",
-        "excerpt": "Vision Creation A compelling vision is the foundation to any big-impact work. Use this Play to get your team on the same page by painting a picture of the future your work is building. This Play will inspire and motivate your team while you take the first step towards a robust strategy to actually achieve your vision. Jump to instructions Prep Time 40-60 min Run Time 60 min People 3-10 Vision Creation A compelling vision is the foundation to any big-impact work. Use this Play to get your team on the same page by painting a picture of the future your work is building. This Play will inspire and motivate your team while you take the first step towards a robust strategy to actually achieve your vision. Jump to instructions Prep Time 40-60 min Run Time 60 min People 3-10 Vision Creation A compelling vision is the foundation to any big-impact work. Use this Play to get your team on the same page by painting a picture of the future your work is building. This Play will inspire and motivate your team while you take the first step towards a robust strategy to actually achieve your vision. Pr",
-        "aliases": [
-          "https://www.atlassian.com/team-playbook/plays/vision-creation"
-        ],
-        "fingerprint": "3eb05e60b2b6bccc6ef542741f03f898e36a7496f1f17d41f1547cac946166f8",
-        "source_id": "atlassian",
-        "verified_at": "2026-11-03T12:01:39.895169+00:00"
-      },
-      {
-        "url": "https://basecamp.com/shapeup/3.2-chapter-11",
-        "title": "Get One Piece Done | Shape Up",
-        "excerpt": "Heads up! This page uses features your browser doesn’t support. Try a modern browser like Firefox or Chrome for the best experience. Shape Up Chapter 11: Get One Piece Done Integrate one slice Case study: Clients in projects Programmers don’t need to wait Affordances before pixel-perfect screens Program just enough for the next step Start in the middle Next: Map the Scopes As the team gets oriented, they start to discover and track the tasks they need to do to build the project. It’s important at this early phase that they don’t create a master plan of parts that should come together in the 11th hour. If the team completes a lot of tasks but there’s no “one thing” to click on and try out, it’s hard to feel progress. A team can do a lot of work but feel insecure because they don’t have anything real to show for it yet. Lots of things are done but nothing is really done. Instead they should aim to make something tangible and demoable early—in the first week or so. That requires integrating vertically on one small piece of the project instead of chipping away at the horizontal layers. I",
-        "aliases": [
-          "https://basecamp.com/shapeup/3.2-chapter-11"
-        ],
-        "fingerprint": "2118b5d31598312f762dd49c6edbf89a4a96476d52a9de12b1c2fcdd287a3091",
-        "source_id": "shapeup",
-        "verified_at": "2026-11-03T12:01:35.434073+00:00"
-      }
-    ],
-    "text": "For CEOs\n\nVision Creation\nhttps://www.atlassian.com/team-playbook/plays/vision-creation\n\nOne Piece Done\nhttps://basecamp.com/shapeup/3.2-chapter-11\n\nThank me later.\nFollow for more useful links.",
-    "approval": "946a7150b5c39763d64fe12777e2a4acdaa9ffaa42070b7138f06c87fbbaf90e",
-    "prepared_at": "2026-11-03T12:01:33.086264+00:00",
-    "run_id": "41632209847",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T12:01:42.931885+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
