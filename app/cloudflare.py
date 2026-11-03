@@ -21,7 +21,7 @@ def json_mode_failed(payload):
 def complete(system,data,temperature=.8,max_tokens=450,schema=None):
     account=os.environ.get('CLOUDFLARE_ACCOUNT_ID','').strip()
     token=os.environ.get('CLOUDFLARE_API_TOKEN','').strip()
-    model=os.environ.get('CLOUDFLARE_AI_MODEL') or '@cf/meta/llama-3.1-8b-instruct'
+    model=os.environ.get('DASH_RATTLE_MODEL') or '@cf/qwen/qwen3-30b-a3b-fp8'
     if not re.fullmatch(r'[a-fA-F0-9]{32}',account) or not token:
         raise ValueError('Cloudflare configuration required')
     if not re.fullmatch(r'@cf/[\w.-]+/[\w.-]+',model):
@@ -30,6 +30,10 @@ def complete(system,data,temperature=.8,max_tokens=450,schema=None):
              'seed':secrets.randbelow(999999999)+1,'temperature':temperature,'max_tokens':max_tokens,'response_format':{'type':'json_object'}}
     if schema is not None:
         payload['response_format']={'type':'json_schema','json_schema':schema}
+    if model.startswith('@cf/qwen/'):
+        # Decode scripts normally. Validate the completed object in the editor.
+        payload.pop('response_format')
+        payload['messages'][0]['content'] += '\nReturn only valid JSON. /no_think'
     request=urllib.request.Request(f'https://api.cloudflare.com/client/v4/accounts/{account}/ai/run/{model}',
         data=json.dumps(payload).encode(),headers={'Authorization':f'Bearer {token}','Content-Type':'application/json'},method='POST')
     try:
@@ -55,11 +59,14 @@ def complete(system,data,temperature=.8,max_tokens=450,schema=None):
         if json_mode_failed(result.get('errors',[])):
             raise DraftError('Cloudflare could not meet the requested JSON schema')
         raise ValueError('Cloudflare generation failed')
-    raw=result.get('result',{}).get('response')
+    output = result.get('result',{})
+    raw = output.get('response')
+    if raw is None and output.get('choices'):
+        raw = output['choices'][0].get('message',{}).get('content')
     if isinstance(raw,dict):
         return raw
     if isinstance(raw,str):
-        raw=raw.strip()
+        raw=re.sub(r'^\s*<think>.*?</think>', '', raw, flags=re.S).strip()
         if raw.startswith('```'):
             raw=re.sub(r'^```(?:json)?\s*|\s*```$', '',raw)
     try:

@@ -5,8 +5,8 @@ import unittest
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from types import SimpleNamespace
-from unittest.mock import AsyncMock, patch
+from app.x_api import RejectedPost
+from unittest.mock import Mock, patch
 
 from app import queue, writer
 from app.cloudflare import DraftError
@@ -17,7 +17,7 @@ START = datetime(2026,11,3,tzinfo=timezone.utc)
 BRIEF = {"topic":"cars","language":"English","detail":"hidden wiper switch","form":"one-liner","slot":"unit"}
 DRAFT = {"text":"The wipers are under Settings. Rain apparently needs a user account.",
          "premise":"A car asks for a login before wiping away rain."}
-YES = dict.fromkeys(("language","fit","safe","fresh"),True)
+YES = dict(dict.fromkeys(("language","fit","safe","fresh"),True),reading=DRAFT["premise"])
 
 
 def empty():
@@ -86,7 +86,7 @@ class EditorialTests(unittest.TestCase):
                               ("Japanese","政治の話をしよう。"),("Simplified Chinese","这些选举新闻真有趣。"),
                               ("Spanish","Hablemos de partidos políticos."),("Hindi","चुनाव की बात करते हैं।"),
                               ("English","An update from the government."),("English","Thank me later. Follow for more."),
-                              ("English","a"*261)]:
+                              ("English","a"*261),("English","Users clicked 37% more often."),("Japanese","〇〇〇〇〇〇")]:
             with self.subTest(text=text),self.assertRaises(DraftError):
                 writer.validate(dict(DRAFT,text=text),dict(BRIEF,language=language))
 
@@ -105,6 +105,7 @@ class EditorialTests(unittest.TestCase):
         with patch.object(writer,"complete",side_effect=[DraftError("bad JSON"),DRAFT,YES]) as call:
             self.assertEqual(writer.generate(BRIEF,empty()),DRAFT)
         self.assertEqual(call.call_args.args[0],writer.CRITIC)
+        self.assertNotIn(DRAFT["premise"],str(call.call_args.args[1]))
 
     def test_service_outage_never_generates_fallback(self):
         with patch.object(writer,"complete",side_effect=TimeoutError),self.assertRaises(TimeoutError):
@@ -120,7 +121,7 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
         self.durable=[]
         for p in [patch.object(queue,"STATE",base/"state.json"),patch.object(queue,"RESOURCES",base/"retired.json"),
                   patch.object(queue,"COMMUNITY",base/"older.json"),patch.object(queue,"utcnow",return_value=self.now),
-                  patch.object(queue,"summary"),patch.dict(os.environ,{"GITHUB_RUN_ID":"test","GITHUB_RUN_ATTEMPT":"1"})]:
+                  patch.object(queue,"summary"),patch.dict(os.environ,{"GITHUB_RUN_ID":"test","GITHUB_RUN_ATTEMPT":"1","X_API_PUBLISH":"true"})]:
             p.start();self.addCleanup(p.stop)
 
     def persist(self,state):
@@ -128,32 +129,47 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
         queue.STATE.write_text(json.dumps(state))
 
     async def test_reservation_is_durable_before_one_text_only_send(self):
-        async def send(**kwargs):
+        def send(text):
             self.assertIsNotNone(queue.load()["pending"])
-            self.assertEqual(kwargs,{"text":DRAFT["text"],"poll_uri":"tombstone://card"})
-            return SimpleNamespace(id="123")
-        conn=SimpleNamespace(create_tweet=AsyncMock(side_effect=send))
-        with patch.object(writer,"generate",return_value=DRAFT),patch.object(queue,"client",return_value=conn),patch.object(queue,"save_and_push",side_effect=self.persist):
+            self.assertEqual(text,DRAFT["text"])
+            return "123"
+        sender=Mock(side_effect=send)
+        with patch.object(writer,"generate",return_value=DRAFT),patch.object(queue,"prepare_sender",return_value=sender),patch.object(queue,"save_and_push",side_effect=self.persist):
             await queue.publish_slot(empty(),self.brief)
-        self.assertEqual(conn.create_tweet.await_count,1)
+        sender.assert_called_once()
         self.assertIsNone(queue.load()["pending"])
         self.assertEqual(queue.load()["history"][-1]["tweet_id"],"123")
 
     async def test_failed_reservation_push_cannot_send(self):
-        with patch.object(writer,"generate",return_value=DRAFT),patch.object(queue,"save_and_push",side_effect=OSError),patch.object(queue,"client") as x,self.assertRaises(OSError):
+        with patch.object(writer,"generate",return_value=DRAFT),patch.object(queue,"save_and_push",side_effect=OSError),patch.object(queue,"prepare_sender") as prepare,self.assertRaises(OSError):
             await queue.publish_slot(empty(),self.brief)
-        x.assert_not_called()
+        prepare.return_value.assert_not_called()
 
     async def test_timeout_or_missing_id_blocks_future_automatic_send(self):
-        for outcome in (TimeoutError(),SimpleNamespace(id=None)):
-            conn=SimpleNamespace(create_tweet=AsyncMock(side_effect=[outcome]))
-            with patch.object(writer,"generate",return_value=DRAFT),patch.object(queue,"client",return_value=conn),patch.object(queue,"save_and_push",side_effect=self.persist),self.assertRaises((TimeoutError,ValueError)):
+        for outcome in (TimeoutError(),None):
+            sender=Mock(side_effect=[outcome])
+            with patch.object(writer,"generate",return_value=DRAFT),patch.object(queue,"prepare_sender",return_value=sender),patch.object(queue,"save_and_push",side_effect=self.persist),self.assertRaises((TimeoutError,ValueError)):
                 await queue.publish_slot(empty(),self.brief)
             with self.assertRaises(ValueError):queue.ensure_open(queue.load())
-            self.assertEqual(conn.create_tweet.await_count,1)
+            sender.assert_called_once()
+
+    async def test_default_mode_saves_copyable_draft_without_contacting_x(self):
+        with patch.dict(os.environ,{"X_API_PUBLISH":""}),patch.object(writer,"generate",return_value=DRAFT),patch.object(queue,"prepare_sender") as api,patch.object(queue,"save_and_push",side_effect=self.persist):
+            await queue.publish_slot(empty(),self.brief)
+        api.assert_not_called()
+        state=queue.load()
+        queue.write_drafts(state)
+        self.assertIn("Open draft in X",queue.STATE.with_name("DRAFTS.md").read_text())
+        self.assertNotIn("tweet_id",state["history"][-1])
+        self.assertIsNone(next_slot(state,self.now))
+
+    async def test_definitive_rejection_releases_reservation(self):
+        with patch.object(writer,"generate",return_value=DRAFT),patch.object(queue,"prepare_sender",return_value=Mock(side_effect=RejectedPost(402))),patch.object(queue,"save_and_push",side_effect=self.persist),self.assertRaises(RejectedPost):
+            await queue.publish_slot(empty(),self.brief)
+        self.assertIsNone(queue.load()["pending"])
 
     async def test_preview_covers_all_languages_without_persisting_or_sending(self):
-        with patch.object(writer,"generate",return_value=DRAFT) as make,patch.object(queue,"client") as x,patch.object(queue,"save_and_push") as push:
+        with patch.object(writer,"generate",return_value=DRAFT) as make,patch.object(queue,"prepare_sender") as x,patch.object(queue,"save_and_push") as push:
             await queue.preview()
         self.assertEqual({c.args[0]["language"] for c in make.call_args_list},set(LANGUAGES))
         x.assert_not_called();push.assert_not_called()

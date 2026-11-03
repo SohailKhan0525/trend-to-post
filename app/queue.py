@@ -6,7 +6,8 @@ import subprocess
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from twikit import Client
+from urllib.parse import urlencode
+from .x_api import prepare_sender, RejectedPost
 from . import writer
 from .schedule import daily_plan, next_slot
 
@@ -43,15 +44,20 @@ def save_and_push(state):
     temp = STATE.with_suffix(".tmp")
     temp.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n")
     temp.replace(STATE)
+    if any(row.get("queued_at") for row in state["history"]):
+        write_drafts(state)
     subprocess.run(["bash","scripts/commit-state.sh"],check=True)
 
 
-def client():
-    auth = os.environ["X_AUTH_TOKEN"]
-    csrf = os.environ["X_CT0"]
-    conn = Client("en-US",impersonate="chrome124")
-    conn.set_cookies({"auth_token":auth,"ct0":csrf})
-    return conn
+def write_drafts(state):
+    rows = [row for row in state["history"] if row.get("queued_at")][-50:]
+    lines = ["# Dash Rattle drafts", "", "The latest 50 reviewed drafts, newest first. Open a draft in X to review and post it.", ""]
+    for row in reversed(rows):
+        link = "https://x.com/intent/post?" + urlencode({"text":row["text"]})
+        lines.extend([f"### {row['queued_at'][:16].replace('T',' ')} UTC · {row['language']} · {row['topic']}", ""])
+        lines.extend("    "+line for line in row["text"].splitlines())
+        lines.extend(["",f"[Open draft in X]({link})",""])
+    STATE.with_name("DRAFTS.md").write_text("\n".join(lines)+"\n")
 
 
 def summary(message):
@@ -87,17 +93,26 @@ async def publish_slot(state,brief):
     # A previous run can already have put this slot on X. Nothing is sent until
     # today's slot, limits and reservation are verified against durable state.
     ensure_open(state)
+    publish = os.environ.get("X_API_PUBLISH","").lower() == "true"
+    sender = prepare_sender() if publish else None
     draft = writer.generate(brief,state)
     now = utcnow()
     current = next_slot(state,now)
     if not current or current[0]["slot"] != brief["slot"]:
         summary("Slot expired while writing; skipped.")
         return
+    state["used_texts"].append(writer.fingerprint(draft["text"]))
+    state["used_premises"].append(writer.fingerprint(draft["premise"]))
+    if not publish:
+        state["history"].append(dict(brief,**draft,queued_at=now.isoformat()))
+        state["history"] = state["history"][-1000:]
+        state["last_queued_at"] = now.isoformat()
+        save_and_push(state)
+        summary(f"Saved reviewed draft · {brief['language']} · {brief['topic']} (state/DRAFTS.md)")
+        return
     pending = {"brief":brief,"draft":draft,"approval":writer.approval(brief,draft),
                "run":run_key(),"reserved_at":now.isoformat()}
     state["pending"] = pending
-    state["used_texts"].append(writer.fingerprint(draft["text"]))
-    state["used_premises"].append(writer.fingerprint(draft["premise"]))
     save_and_push(state)
     durable = load()
     reservation = durable["pending"]
@@ -110,10 +125,14 @@ async def publish_slot(state,brief):
         save_and_push(durable)
         summary("Reservation expired before sending; skipped.")
         return
-    connection = client()
-    tweet = await connection.create_tweet(text=draft["text"],poll_uri="tombstone://card")
-    ident = str(getattr(tweet,"id","") or "")
-    if not ident.isdigit():
+    try:
+        ident = await asyncio.to_thread(sender,draft["text"])
+    except RejectedPost as exc:
+        durable["pending"] = None
+        save_and_push(durable)
+        summary(f"X declined the post (HTTP {exc.status}).")
+        raise
+    if not isinstance(ident,str) or not ident.isdigit():
         raise ValueError("Unconfirmed X result; reservation kept for reconciliation")
     posted_at = utcnow().isoformat()
     durable["history"].append(dict(brief,**draft,tweet_id=ident,posted_at=posted_at))
@@ -122,22 +141,12 @@ async def publish_slot(state,brief):
     durable["pending"] = None
     save_and_push(durable)
     summary(f"Published {brief['language']} · {brief['topic']} · https://x.com/i/status/{ident}")
-    # Confirmation is already durable. A failed read cannot cause a resend.
-    try:
-        posted = await asyncio.wait_for(connection.get_tweet_by_id(ident),timeout=10)
-        card = posted._data.get("card")
-        has_card = bool(card) and card.get("legacy",{}).get("name") not in {"tombstone","tombstone://card"}
-    except Exception as exc:
-        summary(f"Post confirmed. Card readback unavailable ({type(exc).__name__}).")
-        return
-    if has_card:
-        durable["pause_reason"] = "X returned an unexpected card"
-        save_and_push(durable)
-        raise ValueError("Unexpected card on confirmed post")
-    summary("X readback confirmed no website card.")
 
 
 async def run(event):
+    configured = all(os.environ.get(key) for key in ("X_API_KEY","X_API_SECRET","X_ACCESS_TOKEN","X_ACCESS_TOKEN_SECRET"))
+    summary(f"Official X credentials complete: {configured}. Delivery: " +
+            ("official API" if os.environ.get("X_API_PUBLISH","").lower()=="true" else "reviewed drafts"))
     start = utcnow()
     # The 30-minute dispatcher can cover two spaced opportunities in its band.
     # Cron/manual/push invocations check once and never force an extra post.

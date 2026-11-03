@@ -1,34 +1,23 @@
 # Dash Rattle
 
-Dash Rattle publishes original, short-form humor on X. Cloudflare Workers AI writes and reviews each post. The voice is an openly AI-run columnist with an interest in cars, software, and the decisions behind them. The [profile kit](PROFILE.md) contains the bio, avatar, banner and suggested pinned introduction.
+An openly AI-run humor column about technology, SaaS, AI assistants and models, cars, and the people who design products. The [profile kit](PROFILE.md) includes the avatar, banner, bio and pinned introduction.
 
-## What runs each day
+## X
 
-Each full UTC day has 50 slots. English gets 22, Hindi 8, Simplified Chinese 7, Japanese 7 and Spanish 6. The independently shuffled topic mix covers technology (9), SaaS (8), artificial intelligence (9), model behavior (8), cars (8) and company life (8). Posts rotate among one-liners, short exchanges, fictional release notes, observations and playful roasts.
+Every full UTC day has 50 different, date-seeded slots. The language mix is 22 English, 8 Hindi, 7 Simplified Chinese, 7 Japanese and 6 Spanish. Each half hour has one slot and two half hours have a second one. Posts are at least 15 minutes apart. Missed or rejected slots can reduce the total. No catch-up bursts. The daily boundary is 05:30 in India.
 
-The timetable changes by date and stays stable across retries. Each half hour has a slot a few minutes after the boundary. Two separated half hours get a second slot with at least 15 minutes of spacing. The existing half-hour `post-next` dispatcher can wait for both slots in its current half hour. Native GitHub schedules and manual or push runs make one immediate check. Concurrent runs share the existing queue lock. The first rollout day counts posts already published that day toward the cap. The UTC day resets at 05:30 India time.
+Cloudflare Workers AI writes an original post and reviews the actual text without seeing the writer’s intended meaning. It must be fluent and make sense on its own. Deterministic checks and the reviewer exclude politics, countries, national stereotypes, links, personal attacks, made-up statistics and recycled jokes. Company-life posts are fictional. New model releases and alleged company secrets are outside the brief. All generated text uses the multilingual Workers AI model `@cf/qwen/qwen3-30b-a3b-fp8` by default. `DASH_RATTLE_MODEL` can override it with another compatible model.
 
-50 is both the daily target and maximum. A service outage, missed wake, rejected draft, expired session or unresolved send can reduce delivery. Missed windows expire. The delayed worker waits only inside its current half hour.
+The free X-account path saves each approved draft in [the latest 50 drafts](state/DRAFTS.md). Click a draft to open the official X composer. Posting is a manual action in this mode. Older public posts and ledger entries are preserved.
 
-## Editorial checks
+For automatic delivery, use a write-enabled X developer app and add GitHub Actions secrets `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN` and `X_ACCESS_TOKEN_SECRET`. Enable the repository variable `X_API_PUBLISH=true` only after accepting the [official API cost](https://docs.x.com/x-api/getting-started/pricing). The mode change starts with the next available slot. Historical manual drafts are never sent automatically. Plain text goes directly to the official create-post endpoint with no URLs, media, self-replies or cards. This workflow does not use browser cookies.
 
-Each brief specifies the language, a concrete detail, a niche and a comic form. Cloudflare returns the post and a short English description of its premise. Local checks enforce standard-account length limits, script, clean text, excluded topics and duplicate detection. The independent Cloudflare reviewer must explicitly approve language, fit, safety and novelty. It compares recent premises across languages to catch recycled punchlines. Model checks reduce mistakes but cannot guarantee perfect judgment.
+An approved send is reserved in Git before X is contacted. A timeout or ambiguous response keeps the reservation and stops further sends until it is reconciled against the account. A confirmed ID is saved before the next slot. Definitive API rejections report their HTTP status. Secrets never appear in job summaries.
 
-Politics, political parties, politicians, countries, national comparisons and geopolitics are excluded in every language. Roasts target products and decisions. Company scenes are fictional. The writer excludes personal attacks, invented insider claims, unverified news and dangerous driving advice. Posts contain no resource links or promotional sign-offs.
+## LinkedIn company page
 
-## Publication and recovery
-
-`state/dash_rattle.json` is the active queue. The retired queues preserve the previous post history. Initial migration reads the former publisher's counts and last post time and stops if a previous send is unresolved. Exact wording and premise hashes stay in the ledger when the recent history rolls over.
-
-Before sending, the runner commits the approved text, slot and hashes to GitHub. It checks the committed reservation and makes a single X request, retaining the card-suppression setting. The confirmed X ID and posting time are committed before the next slot. A timeout, missing ID or failed confirmation push can leave a pending reservation. Inspect X and reconcile that exact slot before clearing it. A failed job alone cannot establish that a post was never sent.
-
-The workflow uses the existing X session and Cloudflare secrets. The default model is `@cf/meta/llama-3.1-8b-instruct`. A configured override must support Workers AI JSON schemas. Standard GitHub Actions runners execute this workflow and a dispatcher run can remain active while waiting for a slot.
+[Copy today's three posts](linkedin/latest.txt). The dated files in [linkedin/](linkedin/) are the archive. Each first workflow wake of a new Asia/Kolkata date prepares three original English posts in a single plain-text file. The launch set introduces the AI columnist. Future sets rotate through three different niches and avoid prior posts. The files are for manual publication on the company page.
 
 ## Verification
 
-```sh
-python -m unittest discover -s tests -v
-python -m app preview
-```
-
-Preview requires Cloudflare credentials and generates one sample per language in memory. The publish workflow reports real X post IDs. The earlier bookmark workflow is retired and this repository performs no deletion of X posts.
+Run `python -m unittest discover -s tests -v`. Run `python -m app preview` with Cloudflare credentials to review five language samples without writing state or contacting X. The GitHub Actions publisher reports whether the four official credentials exist, which delivery mode is active, and each stored draft or confirmed X ID.

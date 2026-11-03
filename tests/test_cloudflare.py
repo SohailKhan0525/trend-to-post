@@ -11,7 +11,7 @@ class CloudflareTests(unittest.TestCase):
     def test_cloudflare_request_uses_native_schema_when_supplied(self):
         schema={'type':'object','properties':{'allowed':{'type':'boolean'}},'required':['allowed']}
         response=io.StringIO(json.dumps({'success':True,'result':{'response':{'allowed':False}}}))
-        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',return_value=response) as call:
+        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test','DASH_RATTLE_MODEL':'@cf/meta/llama-3.3-70b-instruct-fp8-fast'}),patch('urllib.request.urlopen',return_value=response) as call:
             self.assertEqual(complete('classify',{},schema=schema),{'allowed':False})
         self.assertEqual(json.loads(call.call_args.args[0].data)['response_format'],{'type':'json_schema','json_schema':schema})
 
@@ -35,3 +35,9 @@ class CloudflareTests(unittest.TestCase):
         with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',return_value=response) as request:
             complete('review',{'text':'雨刷在设置里。'})
         self.assertIn('雨刷在设置里。',json.loads(request.call_args.args[0].data)['messages'][1]['content'])
+
+    def test_qwen_decodes_native_scripts_and_chat_completions(self):
+        response=io.StringIO(json.dumps({'success':True,'result':{'choices':[{'message':{'content':'{"text":"雨が止んだ。"}'}}]}}))
+        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test','DASH_RATTLE_MODEL':'@cf/qwen/qwen3-30b-a3b-fp8'}),patch('urllib.request.urlopen',return_value=response) as req:
+            self.assertEqual(complete('write',{}),{'text':'雨が止んだ。'})
+        self.assertNotIn('response_format',json.loads(req.call_args.args[0].data))
