@@ -1,6 +1,19 @@
 {
   "version": 1,
-  "history": [],
+  "history": [
+    {
+      "slot": "2026-11-03:dash-v1:32",
+      "due_at": "2026-11-03T15:36:00+00:00",
+      "topic": "company life",
+      "detail": "the feature flag nobody dares to remove",
+      "language": "Japanese",
+      "form": "an observation from an AI columnist",
+      "text": "五明を搃ろろひは再包を解ただ。复設ではちょう。五明に常外たそるを及る。",
+      "premise": "The narrator reflects on the notorious feature flag that everyone is afraid to disable.",
+      "tweet_id": "2117642719116050535",
+      "posted_at": "2026-11-03T15:39:02.926228+00:00"
+    }
+  ],
   "used_texts": [
     "05c584fdfb7e57449c758e8f002862d25caae9d2d14dda5d148ca5d682ad1fc4",
     "071a980fdbeabeec949d2c75cb68cb06d489cbf536ead5d812a762bf2b2ccb1e",
@@ -110,25 +123,6 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T15:01:43.467058+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:32",
-      "due_at": "2026-11-03T15:36:00+00:00",
-      "topic": "company life",
-      "detail": "the feature flag nobody dares to remove",
-      "language": "Japanese",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "五明を搃ろろひは再包を解ただ。复設ではちょう。五明に常外たそるを及る。",
-      "premise": "The narrator reflects on the notorious feature flag that everyone is afraid to disable."
-    },
-    "approval": "e92f21c377cddecff910ed87adbf062cefeb83b0ccb62bcc29c0db52de600a80",
-    "run": [
-      "41665984437",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T15:39:00.659983+00:00"
-  }
+  "last_posted_at": "2026-11-03T15:39:02.926228+00:00",
+  "pending": null
 }
