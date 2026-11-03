@@ -1119,6 +1119,39 @@
       "posted_at": "2026-11-03T14:31:28.468507+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:30",
+      "audience": "designers",
+      "text": "For designers\n\nPosts guide\nhttps://www.a11yproject.com/posts/\n\nDefinition of User Experience UX\nhttps://www.nngroup.com/articles/definition-user-experience/\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.a11yproject.com/posts/",
+          "title": "Posts - The A11Y Project The A11Y Project",
+          "excerpt": "Table of Contents Featured Post Should I use an accessibility overlay? March 8, 2021 by The A11Y Project Team There are two types of accessibility overlays: Temporary bandage solutions, and permanent plugins. The use of a permanent plugin is incredibly problematic. Experiences Lived experiences shared by disabled people. The power of ChatGPT as a cognitive accessibility assistive technology for Traumatic Brain Injury survivors Published on March 14, 2023 by Jamie Vanderwall This essay explores the use of ChatGPT as a cognitive accessibility assistive technology for traumatic brain injury (TBI) survivors. Blind people need to be considered more when making data visualizations Published on September 22, 2022 by Johny Cassidy As a blind journalist, I’m concerned that the increased use of visual data representation without careful and creative thought about accessibility is widening the inaccessibility gap. Disability: let’s say the word Published on October 18, 2021 by Emily Ogle In hesitating to use the word ‘disability,’ people are unwittingly reinforcing the stigma that having a disa",
+          "aliases": [
+            "https://www.a11yproject.com/posts"
+          ],
+          "fingerprint": "28e4bb1556c7f92db5ce74461a4e01c438be631ffc2b5980ee4f5d95b185c3f0",
+          "source_id": "a11y",
+          "verified_at": "2026-11-03T15:01:39.630379+00:00"
+        },
+        {
+          "url": "https://www.nngroup.com/articles/definition-user-experience/",
+          "title": "The Definition of User Experience (UX) - NN/G Nielsen Norman Group Nielsen Norman Group",
+          "excerpt": "0 The Definition of User Experience (UX) Don Norman, Jakob Nielsen Don Norman and Jakob Nielsen August 8, 1998 1998-08-08 Share Email article Share on LinkedIn Share on Twitter Summary: \"User experience\" encompasses all aspects of the end-user's interaction with the company, its services, and its products. The first requirement for an exemplary user experience is to meet the exact needs of the customer, without fuss or bother. Next comes simplicity and elegance that produce products that are a joy to own, a joy to use. True user experience goes far beyond giving customers what they say they want, or providing checklist features. In order to achieve high-quality user experience in a company's offerings there must be a seamless merging of the services of multiple disciplines, including engineering, marketing, graphical and industrial design, and interface design. It's important to distinguish the total user experience from the user interface (UI), even though the UI is obviously an extremely important part of the design. As an example, consider a website with movie reviews. Even if the",
+          "aliases": [
+            "https://www.nngroup.com/articles/definition-user-experience"
+          ],
+          "fingerprint": "9bab413a505db628ea86ccd9d4b17a466a8af29626371fde1589d7748cc3a9e2",
+          "source_id": "nngroup",
+          "verified_at": "2026-11-03T15:01:40.113497+00:00"
+        }
+      ],
+      "tweet_id": "2117633332913598670",
+      "posted_at": "2026-11-03T15:01:43.467058+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -1600,44 +1633,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-03T14:31:28.468507+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:30",
-    "audience": "designers",
-    "labels": [
-      "Posts guide",
-      "Definition of User Experience UX"
-    ],
-    "resources": [
-      {
-        "url": "https://www.a11yproject.com/posts/",
-        "title": "Posts - The A11Y Project The A11Y Project",
-        "excerpt": "Table of Contents Featured Post Should I use an accessibility overlay? March 8, 2021 by The A11Y Project Team There are two types of accessibility overlays: Temporary bandage solutions, and permanent plugins. The use of a permanent plugin is incredibly problematic. Experiences Lived experiences shared by disabled people. The power of ChatGPT as a cognitive accessibility assistive technology for Traumatic Brain Injury survivors Published on March 14, 2023 by Jamie Vanderwall This essay explores the use of ChatGPT as a cognitive accessibility assistive technology for traumatic brain injury (TBI) survivors. Blind people need to be considered more when making data visualizations Published on September 22, 2022 by Johny Cassidy As a blind journalist, I’m concerned that the increased use of visual data representation without careful and creative thought about accessibility is widening the inaccessibility gap. Disability: let’s say the word Published on October 18, 2021 by Emily Ogle In hesitating to use the word ‘disability,’ people are unwittingly reinforcing the stigma that having a disa",
-        "aliases": [
-          "https://www.a11yproject.com/posts"
-        ],
-        "fingerprint": "28e4bb1556c7f92db5ce74461a4e01c438be631ffc2b5980ee4f5d95b185c3f0",
-        "source_id": "a11y",
-        "verified_at": "2026-11-03T15:01:39.630379+00:00"
-      },
-      {
-        "url": "https://www.nngroup.com/articles/definition-user-experience/",
-        "title": "The Definition of User Experience (UX) - NN/G Nielsen Norman Group Nielsen Norman Group",
-        "excerpt": "0 The Definition of User Experience (UX) Don Norman, Jakob Nielsen Don Norman and Jakob Nielsen August 8, 1998 1998-08-08 Share Email article Share on LinkedIn Share on Twitter Summary: \"User experience\" encompasses all aspects of the end-user's interaction with the company, its services, and its products. The first requirement for an exemplary user experience is to meet the exact needs of the customer, without fuss or bother. Next comes simplicity and elegance that produce products that are a joy to own, a joy to use. True user experience goes far beyond giving customers what they say they want, or providing checklist features. In order to achieve high-quality user experience in a company's offerings there must be a seamless merging of the services of multiple disciplines, including engineering, marketing, graphical and industrial design, and interface design. It's important to distinguish the total user experience from the user interface (UI), even though the UI is obviously an extremely important part of the design. As an example, consider a website with movie reviews. Even if the",
-        "aliases": [
-          "https://www.nngroup.com/articles/definition-user-experience"
-        ],
-        "fingerprint": "9bab413a505db628ea86ccd9d4b17a466a8af29626371fde1589d7748cc3a9e2",
-        "source_id": "nngroup",
-        "verified_at": "2026-11-03T15:01:40.113497+00:00"
-      }
-    ],
-    "text": "For designers\n\nPosts guide\nhttps://www.a11yproject.com/posts/\n\nDefinition of User Experience UX\nhttps://www.nngroup.com/articles/definition-user-experience/\n\nThank me later.\nFollow for more useful links.",
-    "approval": "817042f362759b226edb775f8bd393cf2fbcaa5824a1ec0f4e6b9b36e6359698",
-    "prepared_at": "2026-11-03T15:01:36.100587+00:00",
-    "run_id": "41659498443",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T15:01:43.467058+00:00",
+  "pending": null,
   "used_urls": [
     "https://ahrefs.com/blog/ai-marketing-trends",
     "https://ahrefs.com/blog/how-ahrefs-estimates-ai-search-demand",
