@@ -294,6 +294,39 @@
       "posted_at": "2026-11-02T23:01:41.288978+00:00",
       "website_card_requested": false,
       "website_card_status": "absent"
+    },
+    {
+      "slot": "2026-11-03:resources-v1:2",
+      "audience": "students",
+      "text": "For students\n\nCommon Technical Support Questions\nhttps://www.freecodecamp.org/news/support\n\nLearn Performance\nhttps://web.dev/learn/performance\n\nThank me later.\nFollow for more useful links.",
+      "resources": [
+        {
+          "url": "https://www.freecodecamp.org/news/support",
+          "title": "Common Technical Support Questions – freeCodeCamp FAQ Class Central Class Central",
+          "excerpt": "Question: I just signed into my account and I don't see any of my past progress. Answer: You have created a duplicate account. Sign out of your account and sign in using a different email address that you may have used in the past. Note that even though we have a Google sign in option and a GitHub sign in option, we just use that to access your email address. Your account is ultimately tied to your email addresses. Question: Why does freeCodeCamp use a sign in code instead of a password? Sign in codes are much more secure than passwords, and many websites are moving to them. Many websites are following our lead and moving to one time codes or \"magic links\" as well . Question: I am getting an error message when trying to login or save my progress. Answer: If you are getting an error that says: 'Oops! Something went wrong, Please try again in a moment.' , you may have a duplicate account with the same email address. Please send an email to our support team: support@freecodecamp.org and we will manually merge or remove the duplicate account. Question: I set up a monthly donation, but I ",
+          "aliases": [
+            "https://www.freecodecamp.org/news/support"
+          ],
+          "fingerprint": "d98f81c5e24c73360c608765608a7137a9024da57b928982a50884004c77b751",
+          "source_id": "freecodecamp",
+          "verified_at": "2026-11-03T01:14:52.796034+00:00"
+        },
+        {
+          "url": "https://web.dev/learn/performance",
+          "title": "Learn Performance | web.dev",
+          "excerpt": "web.dev Resources Performance Stay organized with collections Save and categorize content based on your preferences. Learn Performance This course is designed for those new to web performance, a vital aspect of the user experience. It covers key web performance concepts and techniques for improving performance. Go back check_circle Welcome to Learn Performance! keyboard_arrow_down keyboard_arrow_up subject Article This course is designed for those new to web performance, a vital aspect of the user experience. It covers key web performance concepts and techniques for improving performance. Read article check_circle Why speed matters keyboard_arrow_down keyboard_arrow_up subject Article Before you can get started with learning performance, you first have to understand its role in the user experience, and how it can result in better outcomes for users. This course starts off with a brief introduction into these topics, giving vital context as to why it's important to learn performance. Read article check_circle General HTML performance considerations keyboard_arrow_down keyboard_arrow_u",
+          "aliases": [
+            "https://web.dev/learn/performance"
+          ],
+          "fingerprint": "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
+          "source_id": "webdev",
+          "verified_at": "2026-11-03T01:14:53.049714+00:00"
+        }
+      ],
+      "tweet_id": "2117425271490191801",
+      "posted_at": "2026-11-03T01:14:57.639182+00:00",
+      "website_card_requested": false,
+      "website_card_status": "absent"
     }
   ],
   "legacy_history": [
@@ -775,44 +808,8 @@
       "posted_at": "2026-11-02T16:31:23.528045+00:00"
     }
   ],
-  "last_posted_at": "2026-11-02T23:01:41.288978+00:00",
-  "pending": {
-    "slot": "2026-11-03:resources-v1:2",
-    "audience": "students",
-    "labels": [
-      "Common Technical Support Questions",
-      "Learn Performance"
-    ],
-    "resources": [
-      {
-        "url": "https://www.freecodecamp.org/news/support",
-        "title": "Common Technical Support Questions – freeCodeCamp FAQ Class Central Class Central",
-        "excerpt": "Question: I just signed into my account and I don't see any of my past progress. Answer: You have created a duplicate account. Sign out of your account and sign in using a different email address that you may have used in the past. Note that even though we have a Google sign in option and a GitHub sign in option, we just use that to access your email address. Your account is ultimately tied to your email addresses. Question: Why does freeCodeCamp use a sign in code instead of a password? Sign in codes are much more secure than passwords, and many websites are moving to them. Many websites are following our lead and moving to one time codes or \"magic links\" as well . Question: I am getting an error message when trying to login or save my progress. Answer: If you are getting an error that says: 'Oops! Something went wrong, Please try again in a moment.' , you may have a duplicate account with the same email address. Please send an email to our support team: support@freecodecamp.org and we will manually merge or remove the duplicate account. Question: I set up a monthly donation, but I ",
-        "aliases": [
-          "https://www.freecodecamp.org/news/support"
-        ],
-        "fingerprint": "d98f81c5e24c73360c608765608a7137a9024da57b928982a50884004c77b751",
-        "source_id": "freecodecamp",
-        "verified_at": "2026-11-03T01:14:52.796034+00:00"
-      },
-      {
-        "url": "https://web.dev/learn/performance",
-        "title": "Learn Performance | web.dev",
-        "excerpt": "web.dev Resources Performance Stay organized with collections Save and categorize content based on your preferences. Learn Performance This course is designed for those new to web performance, a vital aspect of the user experience. It covers key web performance concepts and techniques for improving performance. Go back check_circle Welcome to Learn Performance! keyboard_arrow_down keyboard_arrow_up subject Article This course is designed for those new to web performance, a vital aspect of the user experience. It covers key web performance concepts and techniques for improving performance. Read article check_circle Why speed matters keyboard_arrow_down keyboard_arrow_up subject Article Before you can get started with learning performance, you first have to understand its role in the user experience, and how it can result in better outcomes for users. This course starts off with a brief introduction into these topics, giving vital context as to why it's important to learn performance. Read article check_circle General HTML performance considerations keyboard_arrow_down keyboard_arrow_u",
-        "aliases": [
-          "https://web.dev/learn/performance"
-        ],
-        "fingerprint": "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
-        "source_id": "webdev",
-        "verified_at": "2026-11-03T01:14:53.049714+00:00"
-      }
-    ],
-    "text": "For students\n\nCommon Technical Support Questions\nhttps://www.freecodecamp.org/news/support\n\nLearn Performance\nhttps://web.dev/learn/performance\n\nThank me later.\nFollow for more useful links.",
-    "approval": "39a3e749ce40c43f378312ce43fc4e4d4caf46a6b66db94e829283a00ae4e1f4",
-    "prepared_at": "2026-11-03T01:14:50.923364+00:00",
-    "run_id": "41558419361",
-    "run_attempt": "1"
-  },
+  "last_posted_at": "2026-11-03T01:14:57.639182+00:00",
+  "pending": null,
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
