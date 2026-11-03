@@ -941,7 +941,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T03:31:28.788607+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:7",
+    "audience": "developers",
+    "labels": [
+      "Project Level Roles",
+      "Web application manifest"
+    ],
+    "resources": [
+      {
+        "url": "https://vercel.com/docs/rbac/access-roles/project-level-roles",
+        "title": "Project Level Roles",
+        "excerpt": "Copy page Copy page Project Level Roles Copy page Copy page Project level roles are available on Enterprise plans Project level roles are assigned to a team member on a project level. This means that the role is only valid for the project it is assigned to. The role is not valid for other projects in the team. Equivalency roles In the table below, the relationship between team and project roles is indicated by the column headers. For example, the team role \"Developer\" is equivalent to the \"Project Developer\" role. The Developer team role is equivalent to the Project Developer role The Viewer Pro , Viewer Enterprise , and Billing team roles are equivalent to the Project Viewer role The Owner and Member team roles are equivalent to the Project Admin role All project level roles can be assigned to those with the Contributor team role. See our Access roles docs for a more comprehensive breakdown of the different roles. Project level permissions All Permissions Read Write No Permissions Resource Admin Project Developer Project Viewer Loading permissions... Last updated July 1, 2026 Previo",
+        "aliases": [
+          "https://vercel.com/docs/rbac/access-roles/project-level-roles"
+        ],
+        "fingerprint": "0496b579125419740f7281a5411c5e0156a520b0360e3c6cee87e580e5b5cf8e",
+        "source_id": "vercel",
+        "verified_at": "2026-11-03T04:02:02.931121+00:00"
+      },
+      {
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest",
+        "title": "Web application manifest - Progressive web apps | MDN MDN MDN Mozilla",
+        "excerpt": "Web application manifest A web application manifest , defined in the Web Application Manifest specification, is a JSON text file that provides information about a web application. The most common use for a web application manifest is to provide information that the browser needs to install a progressive web app (PWA) on a device, such as the app's name and icon. A web application manifest contains a single JSON object where the top-level keys are called members . Members This section lists reference pages for manifest members that are documented on MDN. All members are optional in the specification, but some applications require some members to be present. For example, PWAs must provide certain manifest members . *_localized background_color categories description display display_override file_handlers icons id launch_handler name note_taking orientation prefer_related_applications protocol_handlers related_applications scope scope_extensions screenshots serviceworker share_target short_name shortcuts start_url theme_color Note: The dir , lang , and iarc_rating_id members are not imp",
+        "aliases": [
+          "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest"
+        ],
+        "fingerprint": "590ececc5244f28bf603ea81c370ff77712e81e0e49645336cfd8d70937b133f",
+        "source_id": "mdn",
+        "verified_at": "2026-11-03T04:02:03.351893+00:00"
+      }
+    ],
+    "text": "For developers\n\nProject Level Roles\nhttps://vercel.com/docs/rbac/access-roles/project-level-roles\n\nWeb application manifest\nhttps://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest\n\nThank me later.\nFollow for more useful links.",
+    "approval": "6af0df93e625f8a6bdb0d9518ebec0cf37a71cac47cdba8651125ff58581d217",
+    "prepared_at": "2026-11-03T04:01:32.999724+00:00",
+    "run_id": "41575603767",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
@@ -955,6 +991,7 @@
     "https://buffer.com/resources/schedule-to-bluesky",
     "https://buffer.com/resources/tiktok-live",
     "https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook",
+    "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest",
     "https://learn.microsoft.com/en-us/training",
     "https://mailchimp.com/resources/ecommerce-email-marketing",
     "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04",
@@ -977,6 +1014,7 @@
     "https://t.co/y3LmV8eERA",
     "https://t.co/ziy1HSr6sJ",
     "https://vercel.com/docs/ai-gateway/coding-agents/pi",
+    "https://vercel.com/docs/rbac/access-roles/project-level-roles",
     "https://vite.dev/guide",
     "https://web.dev/learn/performance",
     "https://www.atlassian.com/team-playbook/examples/people-team",
@@ -988,6 +1026,7 @@
   ],
   "used_fingerprints": [
     "01ef903b40418c5ed02e67cce1ac3bc0163924244e3978ea10e12aa53c68a217",
+    "0496b579125419740f7281a5411c5e0156a520b0360e3c6cee87e580e5b5cf8e",
     "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
     "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
     "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
@@ -996,6 +1035,7 @@
     "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
     "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
     "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
+    "590ececc5244f28bf603ea81c370ff77712e81e0e49645336cfd8d70937b133f",
     "603b0c57b200f0fee80c970e0e7438932d43dca0c2dd8c7fc8eeea4201c468f5",
     "61c0fa8aa4f6a8827974f8d627be1df19a6c8cd445247ad4f143ea94d01023a3",
     "64505066f8a052520753eee47b24e389b76d88be51d216535227f78f140d6c60",
@@ -7027,10 +7067,6 @@
     },
     {
       "url": "https://www.atlassian.com/team-playbook/plays/icebreaker-activities",
-      "source_id": "atlassian"
-    },
-    {
-      "url": "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping",
       "source_id": "atlassian"
     },
     {
@@ -19854,10 +19890,6 @@
       "source_id": "hubspotsales"
     },
     {
-      "url": "https://blog.hubspot.com/sales/for-example-synonym",
-      "source_id": "hubspotsales"
-    },
-    {
       "url": "https://blog.hubspot.com/sales/sales-email-templates-that-prove-flattery-will-get-you-everywhere",
       "source_id": "hubspotsales"
     },
@@ -24912,6 +24944,18 @@
     {
       "url": "https://blog.hubspot.com/sales/salespeople-only-spent-one-third-of-their-time-selling-last-year",
       "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+      "source_id": "mdn"
+    },
+    {
+      "url": "https://web.dev/learn/css",
+      "source_id": "webdev"
+    },
+    {
+      "url": "https://web.dev/learn/testing",
+      "source_id": "webdev"
     }
   ],
   "discovery_cursors": {
@@ -24923,6 +24967,7 @@
     "vibecoders": 4,
     "founders": 4,
     "job seekers": 2,
-    "designers": 2
+    "designers": 2,
+    "developers": 2
   }
 }
