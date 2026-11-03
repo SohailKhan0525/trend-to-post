@@ -124,11 +124,13 @@
     "fdfdf8bc598748bf4b3f49a879e6abd58df7ca86d098f1c08931c8fa3cc59c4e",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1",
     "9191becddfd5fbc835ba6f3b44f72a30704546506bd6122ccefe895757813221",
-    "185360604354fa7c5b3aced00b987f1ddd83efb4b963b3e95bce7c913824f923"
+    "185360604354fa7c5b3aced00b987f1ddd83efb4b963b3e95bce7c913824f923",
+    "2e4cb43ede08309f8f12302574921be6ab32a1a6a5fb13dd11603f1e6d313767"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
-    "6dcea796ce4e2f72dccc5504fc26b016d44ee1074845a878d6af3a3f62854aa1"
+    "6dcea796ce4e2f72dccc5504fc26b016d44ee1074845a878d6af3a3f62854aa1",
+    "707e9a6b2266bb5d5581996b37ed04baff502be79feb3ce231c25436016582bb"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -137,6 +139,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-03T15:39:02.926228+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-03:dash-v1:33",
+      "due_at": "2026-11-03T16:08:00+00:00",
+      "topic": "company life",
+      "detail": "a launch checklist that needs its own launch",
+      "language": "English",
+      "form": "a playful roast of a design choice"
+    },
+    "draft": {
+      "text": "The office label maker has a label that says LABEL MAKER. Somewhere, a project actually ended.",
+      "premise": "A label maker finally labels itself and completes an office project."
+    },
+    "approval": "6f51f27efb0d73ab9870bbf0340593cf09ae6766ee7cd1d89bb1f409d2676eb1",
+    "run": [
+      "41673246944",
+      "1"
+    ],
+    "reserved_at": "2026-11-03T16:21:12.841079+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
