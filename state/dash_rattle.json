@@ -119,6 +119,18 @@
       "premise": "Cables in a drawer all look identical, trying to blend in.",
       "tweet_id": "2117695631930356198",
       "posted_at": "2026-11-03T19:09:18.330161+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:41",
+      "due_at": "2026-11-03T19:36:00+00:00",
+      "topic": "SaaS",
+      "detail": "an integration that exports one comma",
+      "language": "English",
+      "form": "a fictional changelog entry",
+      "text": "v1.2.3 - Added 'Export to CSV' with exactly one comma. No, really. Just one.",
+      "premise": "A software update adds 'Export to CSV' with only one comma.",
+      "tweet_id": "2117702406645698819",
+      "posted_at": "2026-11-03T19:36:13.557249+00:00"
     }
   ],
   "used_texts": [
@@ -250,26 +262,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T19:09:18.330161+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:41",
-      "due_at": "2026-11-03T19:36:00+00:00",
-      "topic": "SaaS",
-      "detail": "an integration that exports one comma",
-      "language": "English",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "v1.2.3 - Added 'Export to CSV' with exactly one comma. No, really. Just one.",
-      "premise": "A software update adds 'Export to CSV' with only one comma."
-    },
-    "approval": "0990ff83be733b1819db18f52e5803f0e21a0deb1f7fd0dd52dc98517f3c45cf",
-    "run": [
-      "41703970861",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T19:36:01.342372+00:00"
-  },
+  "last_posted_at": "2026-11-03T19:36:13.557249+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
