@@ -47,6 +47,18 @@
       "premise": "A fast charging cable excels at breaking quickly.",
       "tweet_id": "2117657150868553881",
       "posted_at": "2026-11-03T16:36:23.739828+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:35",
+      "due_at": "2026-11-03T17:02:00+00:00",
+      "topic": "company life",
+      "detail": "the handoff between design, engineering and the tooltip",
+      "language": "English",
+      "form": "a miniature scene with a punchline",
+      "text": "Design says the tooltip should whisper. Engineering says it's already screaming. Product says it's 'user-friendly.'",
+      "premise": "Different teams have conflicting opinions on a feature's loudness.",
+      "tweet_id": "2117663613116891249",
+      "posted_at": "2026-11-03T17:02:04.454576+00:00"
     }
   ],
   "used_texts": [
@@ -166,26 +178,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T16:36:23.739828+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:35",
-      "due_at": "2026-11-03T17:02:00+00:00",
-      "topic": "company life",
-      "detail": "the handoff between design, engineering and the tooltip",
-      "language": "English",
-      "form": "a miniature scene with a punchline"
-    },
-    "draft": {
-      "text": "Design says the tooltip should whisper. Engineering says it's already screaming. Product says it's 'user-friendly.'",
-      "premise": "Different teams have conflicting opinions on a feature's loudness."
-    },
-    "approval": "fc0ee572a0942805f3a5862f8aef29295bb771288601fbb0c97cbb21f4f0ab24",
-    "run": [
-      "41680070104",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T17:02:02.061656+00:00"
-  },
+  "last_posted_at": "2026-11-03T17:02:04.454576+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
