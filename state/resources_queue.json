@@ -1040,7 +1040,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T05:31:24.067429+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:12",
+    "audience": "job seekers",
+    "labels": [
+      "Behavioral interviews",
+      "Popular DevOps Interview Questions"
+    ],
+    "resources": [
+      {
+        "url": "https://www.techinterviewhandbook.org/behavioral-interview/",
+        "title": "Behavioral interviews for Software Engineers: How to prepare | Tech Interview Handbook",
+        "excerpt": "On this page 👋 Hi there, I'm Yangshun, an ex-Meta Staff Engineer, author of this handbook and Blind 75. Follow me on LinkedIn for Software Engineering advice and interview tips! The following page is a collaboration with Austen McDonald , former Senior Engineering Manager and Hiring Committee Chair at Meta, and author of Mastering Behavioral Interviews . What are behavioral interviews ​ Succeeding in an engineering career involves more than just technical skills. People skills become more important as an engineer becomes more senior. Senior engineers should have the ability to lead and influence, resolve conflicts, anticipate risks, plan the roadmap, and more. Hiring a talented engineer that cannot work with others can ultimately be a net deficit for companies. Companies don't want to hire brilliant jerks . The company is better off not hiring a very talented engineer who refuses to work with others or causes an entire team to be unproductive. Companies want to hire the right person that will work well with the existing employees and help the team and company achieve greater heights,",
+        "aliases": [
+          "https://www.techinterviewhandbook.org/behavioral-interview"
+        ],
+        "fingerprint": "9837ca5964199353405a12e619f031e6b1cbea5bd19d2decbf69d03af20df15f",
+        "source_id": "interviewhandbook",
+        "verified_at": "2026-11-03T06:01:29.094587+00:00"
+      },
+      {
+        "url": "https://roadmap.sh/questions/devops",
+        "title": "Top 50 Popular DevOps Interview Questions (and Answers)",
+        "excerpt": "Loading... Top 50 Popular DevOps Interview Questions (and Answers) Fernando Doglio Prefer us on Google The evolution of technology and practices, coupled with the increase in complexity of the systems we develop, make the role of DevOps more relevant by the day. But becoming a successful DevOps engineer is not a trivial task, especially because this role is usually the evolution of a developer looking to get more involved in other related ops areas or someone from ops who’s starting to get more directly involved in the development space. Either way, DevOps engineers work between the development and operations teams, understanding enough about each area to be able to work towards improving their interactions. In this Article Preparing for your DevOps interview Test yourself with Flashcards Questions List Because of this strange situation, while detailed roadmaps (be sure to check out our DevOps roadmap !) help a lot, getting ready for a DevOps interview requires a lot of work. Lastly, Checkout our Devops Projects to test your real world knowledge. Here are the most relevant DevOps int",
+        "aliases": [
+          "https://roadmap.sh/questions/devops"
+        ],
+        "fingerprint": "596d78be81211ea4e13c82c17ffb4206c0d3940bd6fc71b773f5cf3b45071c65",
+        "source_id": "roadmap",
+        "verified_at": "2026-11-03T06:01:29.200894+00:00"
+      }
+    ],
+    "text": "For job seekers\n\nBehavioral interviews\nhttps://www.techinterviewhandbook.org/behavioral-interview/\n\nPopular DevOps Interview Questions\nhttps://roadmap.sh/questions/devops\n\nThank me later.\nFollow for more useful links.",
+    "approval": "4576d06fbdaddb1bbd4d07500f1cb415538c30a6e9e49c495bc387e773099f48",
+    "prepared_at": "2026-11-03T06:01:27.669978+00:00",
+    "run_id": "41587274681",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
@@ -1062,6 +1098,7 @@
     "https://rework.withgoogle.com",
     "https://rework.withgoogle.com/intl/en",
     "https://rework.withgoogle.com/intl/en/subjects/managers",
+    "https://roadmap.sh/questions/devops",
     "https://supabase.com/docs/guides/functions/examples/telegram-bot",
     "https://supabase.com/docs/guides/platform/migrating-within-supabase",
     "https://support.bolt.new",
@@ -1087,6 +1124,7 @@
     "https://www.atlassian.com/team-playbook/plays",
     "https://www.atlassian.com/team-playbook/plays/customer-journey-mapping",
     "https://www.freecodecamp.org/news/support",
+    "https://www.techinterviewhandbook.org/behavioral-interview",
     "https://www.todoist.com/productivity-methods",
     "https://zapier.com/blog/all-articles/automation-inspiration",
     "https://zapier.com/blog/all-articles/zapier-feature-guides"
@@ -1105,6 +1143,7 @@
     "3a2976df0895f14341de274de8ec694ef8332cd7d957cea791b458984e3cf783",
     "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
     "590ececc5244f28bf603ea81c370ff77712e81e0e49645336cfd8d70937b133f",
+    "596d78be81211ea4e13c82c17ffb4206c0d3940bd6fc71b773f5cf3b45071c65",
     "603b0c57b200f0fee80c970e0e7438932d43dca0c2dd8c7fc8eeea4201c468f5",
     "61c0fa8aa4f6a8827974f8d627be1df19a6c8cd445247ad4f143ea94d01023a3",
     "64505066f8a052520753eee47b24e389b76d88be51d216535227f78f140d6c60",
@@ -1114,6 +1153,7 @@
     "9228738c195b0fecff14f1b1d8b734597fa0811f1298baac3e788e069247f2ac",
     "93e3cc087fdcfe15385c26c6f176885c9275aa4aaab67fa5d63c1f7179ef3236",
     "952b6c0a245ec253262ec759828cdf23412b5be75ba4fb28209aa767d4b2e5b1",
+    "9837ca5964199353405a12e619f031e6b1cbea5bd19d2decbf69d03af20df15f",
     "9cf3c14cee3ad2e6fdfc1b636205d8489fb99cadd8bb3a2e46e415a1320fa12f",
     "a2b56537579ddd5d7ac2b27c27c4daf0673e455fb513ec4d9745c8b65d1d9f56",
     "a3b6c13e1f51d488e5f73088fd9ba36210884fbe103366f9deb3e2c976368442",
@@ -8125,10 +8165,6 @@
       "source_id": "supabase"
     },
     {
-      "url": "https://supabase.com/docs/guides/functions/examples/telegram-bot",
-      "source_id": "supabase"
-    },
-    {
       "url": "https://supabase.com/docs/guides/database/extensions/wrappers/cloudflare-d1",
       "source_id": "supabase"
     },
@@ -13494,10 +13530,6 @@
     },
     {
       "url": "https://www.freecodecamp.org/news/shop",
-      "source_id": "freecodecamp"
-    },
-    {
-      "url": "https://www.freecodecamp.org/news/clustering-in-python-a-machine-learning-handbook",
       "source_id": "freecodecamp"
     },
     {
@@ -22373,10 +22405,6 @@
       "source_id": "bolt"
     },
     {
-      "url": "https://support.bolt.new/troubleshooting/domain-issues",
-      "source_id": "bolt"
-    },
-    {
       "url": "https://support.bolt.new/account/billing",
       "source_id": "bolt"
     },
@@ -25011,6 +25039,270 @@
     {
       "url": "https://web.dev/learn/testing",
       "source_id": "webdev"
+    },
+    {
+      "url": "https://roadmap.sh/guides/setup-and-auto-renew-ssl-certificates",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/data-science",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/dns-in-one-picture",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/consistency-patterns-in-distributed-systems",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/golang",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/cpp",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/rest-api",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/random-numbers",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/system-design",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/scaling-databases",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/javascript-coding",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/basics-of-authentication",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/nodejs",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/jwt-authentication",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/why-build-it-and-they-will-come-wont-work-anymore",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/oauth",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/dhcp-in-one-picture",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/single-command-database-setup",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/ssl-tls-https-ssh",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/spring-boot",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/design-patterns-for-humans",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/what-is-internet",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/unfamiliar-codebase",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/javascript",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/asymptotic-notation",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/full-stack",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/proxy-servers",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/what-is-sli-slo-sla",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/avoid-render-blocking-javascript-with-async-defer",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/token-authentication",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/levels-of-seniority",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/data-analyst",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/angular",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/history-of-javascript",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/basic-authentication",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/kubernetes",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/sql",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/devops",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/java",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/character-encodings",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/how-to-setup-a-jump-server",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/journey-to-http2",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/http-basic-authentication",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/react",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/python",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/backend",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/sql-queries",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/http-caching",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/ci-cd",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/session-based-authentication",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/big-o-notation",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/free-resources-to-learn-llms",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/session-based-authentication-visually-explained",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/what-are-web-vitals",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/questions/frontend",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://roadmap.sh/guides/sso",
+      "source_id": "roadmap"
+    },
+    {
+      "url": "https://www.techinterviewhandbook.org/behavioral-interview-senior-candidates",
+      "source_id": "interviewhandbook"
+    },
+    {
+      "url": "https://www.techinterviewhandbook.org/behavioral-interview-rubrics",
+      "source_id": "interviewhandbook"
+    },
+    {
+      "url": "https://www.techinterviewhandbook.org/behavioral-interview-questions",
+      "source_id": "interviewhandbook"
+    },
+    {
+      "url": "https://www.techinterviewhandbook.org/behavioral-interview",
+      "source_id": "interviewhandbook"
+    },
+    {
+      "url": "https://www.techinterviewhandbook.org/resume",
+      "source_id": "interviewhandbook"
+    },
+    {
+      "url": "https://www.techinterviewhandbook.org/coding-interview-prep",
+      "source_id": "interviewhandbook"
+    },
+    {
+      "url": "https://www.techinterviewhandbook.org/software-engineering-interview-guide",
+      "source_id": "interviewhandbook"
+    },
+    {
+      "url": "https://www.techinterviewhandbook.org/algorithms/study-cheatsheet",
+      "source_id": "interviewhandbook"
     }
   ],
   "discovery_cursors": {
@@ -25021,7 +25313,7 @@
     "students": 8,
     "vibecoders": 4,
     "founders": 8,
-    "job seekers": 2,
+    "job seekers": 4,
     "designers": 2,
     "developers": 2
   }
