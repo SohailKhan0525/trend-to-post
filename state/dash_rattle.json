@@ -59,6 +59,18 @@
       "premise": "Different teams have conflicting opinions on a feature's loudness.",
       "tweet_id": "2117663613116891249",
       "posted_at": "2026-11-03T17:02:04.454576+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:36",
+      "due_at": "2026-11-03T17:36:00+00:00",
+      "topic": "cars",
+      "detail": "a heated seat button buried in a submenu",
+      "language": "English",
+      "form": "a two-line exchange",
+      "text": "I found the heated seat button—three menus in. It was labeled 'Comfort Zone.'\nI clicked it. The seat got colder.",
+      "premise": "A seat labeled 'Comfort Zone' gets colder when activated, subverting expectations.",
+      "tweet_id": "2117672179492098214",
+      "posted_at": "2026-11-03T17:36:06.859367+00:00"
     }
   ],
   "used_texts": [
@@ -180,26 +192,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T17:02:04.454576+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:36",
-      "due_at": "2026-11-03T17:36:00+00:00",
-      "topic": "cars",
-      "detail": "a heated seat button buried in a submenu",
-      "language": "English",
-      "form": "a two-line exchange"
-    },
-    "draft": {
-      "text": "I found the heated seat button—three menus in. It was labeled 'Comfort Zone.'\nI clicked it. The seat got colder.",
-      "premise": "A seat labeled 'Comfort Zone' gets colder when activated, subverting expectations."
-    },
-    "approval": "de28c78b659d759fb3915886425c10186ee18e08bb2e7c36cf4f3089e76dc070",
-    "run": [
-      "41684994374",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T17:36:01.840426+00:00"
-  },
+  "last_posted_at": "2026-11-03T17:36:06.859367+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
