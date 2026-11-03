@@ -1238,7 +1238,43 @@
     }
   ],
   "last_posted_at": "2026-11-03T09:01:47.159905+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:19",
+    "audience": "marketers",
+    "labels": [
+      "App comparisons Articles Page 1",
+      "My E- commerce Company Has Used"
+    ],
+    "resources": [
+      {
+        "url": "https://zapier.com/blog/all-articles/app-comparisons/",
+        "title": "App comparisons Articles, Page 1 | Zapier Blog",
+        "excerpt": "Loading Get productivity tips delivered straight to your inbox Email * Subscribe We’ll email you 1-3 times per week—and never share your information. Improve your productivity automatically. Use Zapier to get your apps working together. Sign up See how Zapier works",
+        "aliases": [
+          "https://zapier.com/blog/all-articles/app-comparisons"
+        ],
+        "fingerprint": "ef4b0357d65228ac2e1b6944ca01e370a0afaf53c33ce2068b30f3fd42c53397",
+        "source_id": "zapier",
+        "verified_at": "2026-11-03T09:31:22.432809+00:00"
+      },
+      {
+        "url": "https://buffer.com/resources/personalization-email-marketing/",
+        "title": "How My E-commerce Company Has Used Personalization to Build an Email Marketing Channel With a 55 Percent Open Rate",
+        "excerpt": "How My E-commerce Company Has Used Personalization to Build an Email Marketing Channel With a 55 Percent Open Rate Email Marketing Published Jan 19, 2024 Learn how a focus on personalized retention marketing helps Devanshi Garg Sareen manage high acquisition costs and succeed in a crowded market. Reading time 6 minute read Author Devanshi Garg Sareen Founder and CEO of Motif Skincare From the moment I started my company, Motif Skincare , I knew I was entering a crowded market with high customer acquisition costs. It would be challenging to compete with influencers and larger brands when it comes to fueling new customer discovery. As such, the primary goal was to create products that truly made a difference in people's routines—products they would discover and want to buy again and again—and to focus our marketing efforts on fostering that hyper-loyalty. This isn’t to say I don’t do any top-of-the-funnel marketing. We utilize many of the traditional growth channels: organic social, paid ads, influencers and affiliates, and PR. But instead of using channels like social to solely push s",
+        "aliases": [
+          "https://buffer.com/resources/personalization-email-marketing"
+        ],
+        "fingerprint": "ceb392a71f1257f5d6d06a4e91866b1e3fe2eacc5f34f966928c1ddaef74f554",
+        "source_id": "buffer",
+        "verified_at": "2026-11-03T09:31:21.991054+00:00"
+      }
+    ],
+    "text": "For marketers\n\nApp comparisons Articles Page 1\nhttps://zapier.com/blog/all-articles/app-comparisons/\n\nMy E- commerce Company Has Used\nhttps://buffer.com/resources/personalization-email-marketing/\n\nThank me later.\nFollow for more useful links.",
+    "approval": "b84d55c0fc3783d85768116a27a9eb4a8674ff7a463d15da19ccb73e3a02f2f1",
+    "prepared_at": "2026-11-03T09:31:20.252965+00:00",
+    "run_id": "41611652383",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://ahrefs.com/blog/what-is-an-ai-agent",
     "https://asana.com/resources",
@@ -1251,6 +1287,7 @@
     "https://blog.hubspot.com/sales/questions-make-your-final-close-happen-naturally",
     "https://buffer.com/resources/ai-social-media-with-social-data",
     "https://buffer.com/resources/introducing-bulk-upload",
+    "https://buffer.com/resources/personalization-email-marketing",
     "https://buffer.com/resources/schedule-to-bluesky",
     "https://buffer.com/resources/tiktok-live",
     "https://developer.chrome.com/docs/devtools/recorder/overview",
@@ -1298,6 +1335,7 @@
     "https://www.techinterviewhandbook.org/behavioral-interview",
     "https://www.todoist.com/productivity-methods",
     "https://www.todoist.com/productivity-methods/systemist",
+    "https://zapier.com/blog/all-articles/app-comparisons",
     "https://zapier.com/blog/all-articles/automation-inspiration",
     "https://zapier.com/blog/all-articles/zapier-feature-guides"
   ],
@@ -1340,12 +1378,14 @@
     "cacde2df75a15fc604422ca39445bb1a98d6d3ec80734e50f054afae0c29230d",
     "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
     "cdc67bd7771a89adbb00e058f616067a9e579373d8c6d73c6b499d25d9569603",
+    "ceb392a71f1257f5d6d06a4e91866b1e3fe2eacc5f34f966928c1ddaef74f554",
     "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
     "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
     "d98f81c5e24c73360c608765608a7137a9024da57b928982a50884004c77b751",
     "dfbd0bd27eb69ed0bf8b2a766421ffbaba7655d10d0ee47d4a2afe029bb1a435",
     "e0c34e123a64adf01df2d0876626b94b754bc3c27a265a844423be6c696b16dc",
     "e277a314ae889b55e8b5d390609b7ac6258432332fce60a4703b5d9aff621e86",
+    "ef4b0357d65228ac2e1b6944ca01e370a0afaf53c33ce2068b30f3fd42c53397",
     "f2e8e9163d4e02a668b82edbdb05eb93a6f96b02a6527b87af0c5818dd7c85d1",
     "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336"
   ],
@@ -13623,10 +13663,6 @@
       "source_id": "freecodecamp"
     },
     {
-      "url": "https://www.freecodecamp.org/news/how-to-migrate-an-application-from-aws-to-gke-full-book",
-      "source_id": "freecodecamp"
-    },
-    {
       "url": "https://www.freecodecamp.org/news/agentic-ai-reliability-book-build-a-testing-harness",
       "source_id": "freecodecamp"
     },
@@ -13856,10 +13892,6 @@
     },
     {
       "url": "https://mailchimp.com/resources/maximize-sales-potential-quickbooks-segmentation",
-      "source_id": "mailchimp"
-    },
-    {
-      "url": "https://mailchimp.com/resources/the-revenue-blueprint",
       "source_id": "mailchimp"
     },
     {
@@ -25199,10 +25231,6 @@
       "source_id": "roadmap"
     },
     {
-      "url": "https://roadmap.sh/guides/dns-in-one-picture",
-      "source_id": "roadmap"
-    },
-    {
       "url": "https://roadmap.sh/guides/consistency-patterns-in-distributed-systems",
       "source_id": "roadmap"
     },
@@ -27205,12 +27233,36 @@
     {
       "url": "https://careerservices.fas.harvard.edu/resources/page/2",
       "source_id": "harvardcareers"
+    },
+    {
+      "url": "https://ahrefs.com/blog/archive",
+      "source_id": "ahrefs"
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-overviews-on-branded-searches",
+      "source_id": "ahrefs"
+    },
+    {
+      "url": "https://ahrefs.com/blog/new-features-july-august-2026",
+      "source_id": "ahrefs"
+    },
+    {
+      "url": "https://mailchimp.com/resources/marketing-automations",
+      "source_id": "mailchimp"
+    },
+    {
+      "url": "https://mailchimp.com/resources/social-media",
+      "source_id": "mailchimp"
+    },
+    {
+      "url": "https://mailchimp.com/resources/crm",
+      "source_id": "mailchimp"
     }
   ],
   "discovery_cursors": {
     "business owners": 8,
     "creators": 2,
-    "marketers": 8,
+    "marketers": 10,
     "CEOs": 6,
     "students": 10,
     "vibecoders": 6,
