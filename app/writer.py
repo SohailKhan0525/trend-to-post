@@ -119,7 +119,7 @@ def json_mode_failed(payload):
 def complete(system,data,temperature=.8,max_tokens=450,schema=None):
     account=os.environ.get('CLOUDFLARE_ACCOUNT_ID','').strip()
     token=os.environ.get('CLOUDFLARE_API_TOKEN','').strip()
-    model=os.environ.get('CLOUDFLARE_AI_MODEL') or '@cf/meta/llama-3.1-8b-instruct-fp8'
+    model=os.environ.get('CLOUDFLARE_AI_MODEL') or '@cf/meta/llama-3.1-8b-instruct'
     if not re.fullmatch(r'[a-fA-F0-9]{32}',account) or not token:
         raise ValueError('Cloudflare configuration required')
     if not re.fullmatch(r'@cf/[\w.-]+/[\w.-]+',model):
@@ -134,8 +134,20 @@ def complete(system,data,temperature=.8,max_tokens=450,schema=None):
         with urllib.request.urlopen(request,timeout=60) as response:
             result=json.load(response)
     except urllib.error.HTTPError as exc:
-        if exc.code==400 and json_mode_failed(exc.read(8192).decode('utf-8',errors='replace')):
+        body=exc.read(8192).decode('utf-8',errors='replace')
+        if exc.code==400 and json_mode_failed(body):
             raise DraftError('Cloudflare could not meet the requested JSON schema') from exc
+        # Log only the provider's bounded JSON error messages, not exception
+        # reprs, request headers or response dumps. Explicitly redact credentials.
+        try:
+            errors=json.loads(body).get('errors',[])
+            for error in errors[:2]:
+                message=str(error.get('message',''))[:400]
+                message=message.replace(token,'[redacted]').replace(account,'[account]')
+                message=re.sub(r'(?i)Bearer\s+\S+','Bearer [redacted]',message)
+                print('Cloudflare HTTP '+str(exc.code)+': '+json.dumps(message,ensure_ascii=True))
+        except (ValueError,AttributeError,TypeError):
+            print('Cloudflare HTTP '+str(exc.code)+'; no structured error details')
         raise
     if result.get('success') is not True:
         if json_mode_failed(result.get('errors',[])):

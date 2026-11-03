@@ -49,7 +49,7 @@ Code extracts factual label options from each matching page title. Cloudflare se
 
 Candidate search checks that a page has usable labels before selecting it. A single-subject title such as `Button | shadcn/ui` is evaluated on `Button`, without requiring unrelated site-brand words in its caption. If a selected pair is rejected, preparation tries up to three different pairs without claiming their URLs or contacting X. Exhausting the bounded attempts remains a visible failure; there is no unreviewed fallback.
 
-Both Cloudflare selection and review use [native JSON schemas](https://developers.cloudflare.com/workers-ai/features/json-mode/) and retain local validation. The review schema permits both true and false decisions. Documented JSON-mode generation failures can be retried within the attempt budget; authentication, quota and network failures are not treated as content approvals.
+Both Cloudflare selection and review use [native JSON schemas](https://developers.cloudflare.com/workers-ai/features/json-mode/) and retain local validation. The default is the documented JSON-mode-compatible `@cf/meta/llama-3.1-8b-instruct` model. The review schema permits both true and false decisions. Documented JSON-mode generation failures can be retried within the attempt budget; authentication, quota and network failures are not treated as content approvals.
 
 No politics, political parties, politicians, elections, government, countries, nationalities, national comparisons, geopolitics or wars. Country-topic restrictions apply to neutral mentions too. Software terms such as CSS borders and feature flags do not become political merely because of those words.
 
@@ -73,7 +73,7 @@ A timeout, missing post ID, cancelled run or failed final push leaves a durable 
 
 ## Existing configuration
 
-Existing Actions secrets are reused: `X_AUTH_TOKEN`, `X_CT0`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`. Optional `CLOUDFLARE_AI_MODEL` is a repository variable; default `@cf/meta/llama-3.1-8b-instruct-fp8`.
+Existing Actions secrets are reused: `X_AUTH_TOKEN`, `X_CT0`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`. Optional `CLOUDFLARE_AI_MODEL` is a repository variable; default `@cf/meta/llama-3.1-8b-instruct`. An override must support Workers AI JSON Schema mode.
 
 No secret values are read from GitHub or printed. The owner's existing X session client is retained; session expiry and platform restrictions still apply. Workers AI quotas and permissions also affect availability.
 
