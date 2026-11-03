@@ -13493,10 +13493,6 @@
       "source_id": "shapeup"
     },
     {
-      "url": "https://basecamp.com/shapeup/0.3-chapter-01",
-      "source_id": "shapeup"
-    },
-    {
       "url": "https://basecamp.com/shapeup/3.7-conclusion",
       "source_id": "shapeup"
     },
@@ -15507,6 +15503,2358 @@
     {
       "url": "https://learn.microsoft.com/en-us/training",
       "source_id": "microsoftlearn"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mask-mode",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter-contrast",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/background-repeat",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/min-width",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter-drop-shadow",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/transition-property",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/background-image",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/background-attachment",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/break-before",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/fill",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter-blur",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/white-space",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scale",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scroll-snap-stop",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter-brightness",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/font-stretch",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/background-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/styling-with-utility-classes",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/editor-setup",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/letter-spacing",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/overscroll-behavior",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/detecting-classes-in-source-files",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/transition-behavior",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/font-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/max-block-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/outline-width",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/list-style-image",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/field-sizing",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/installation/using-postcss",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-decoration-style",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter-invert",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scrollbar-gutter",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/line-height",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/list-style-position",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mask-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/caption-side",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/grid-template-columns",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/grid-column",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/clear",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/list-style-type",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/font-variant-numeric",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/grid-template-rows",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/font-smoothing",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/grid-auto-columns",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter-sepia",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scroll-behavior",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/min-block-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/stroke",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/flex-shrink",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/tab-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scroll-snap-align",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/background-clip",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/content",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/object-position",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/max-inline-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/opacity",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/isolation",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-shadow",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/installation/tailwind-cli",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/transform-origin",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/grid-auto-flow",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/margin",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/top-right-bottom-left",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter-invert",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scroll-margin",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/flex",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/border-radius",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/installation/play-cdn",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/hover-focus-and-other-states",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-transform",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/outline-offset",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/animation",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/perspective",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/theme",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter-grayscale",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/order",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter-blur",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/break-after",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/z-index",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/outline-color",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/overflow",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/table-layout",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/justify-content",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-overflow",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/outline-style",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-indent",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/vertical-align",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mix-blend-mode",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/adding-custom-styles",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter-hue-rotate",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/font-weight",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/font-feature-settings",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/position",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mask-composite",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/color",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scroll-snap-type",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/padding",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mask-type",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mask-origin",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-decoration-line",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/border-width",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/user-select",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/word-break",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/touch-action",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scrollbar-width",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/min-height",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/place-self",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/float",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/grid-row",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/min-inline-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scrollbar-color",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/aspect-ratio",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/cursor",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/border-style",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/zoom",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/background-color",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-decoration-thickness",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/width",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/font-family",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/font-style",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/align-self",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/align-content",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/justify-items",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/stroke-width",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/accent-color",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/scroll-padding",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/transition-timing-function",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/box-decoration-break",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/block-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mask-position",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mask-image",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter-sepia",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mask-clip",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/inline-size",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/appearance",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/pointer-events",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-underline-offset",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/align-items",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/justify-self",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/gap",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/line-clamp",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/preflight",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/flex-basis",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/installation",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/hyphens",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/overflow-wrap",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/compatibility",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/background-position",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/background-blend-mode",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/functions-and-directives",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-decoration-color",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/background-origin",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/place-content",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/skew",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/flex-direction",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/object-fit",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/height",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/border-collapse",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/columns",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter-contrast",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/max-width",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backface-visibility",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/box-sizing",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/will-change",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/installation/framework-guides",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter-opacity",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/border-spacing",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/perspective-origin",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter-saturate",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/transform-style",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/break-inside",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/transform",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/translate",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/responsive-design",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/max-height",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/color-scheme",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-wrap",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/box-shadow",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/forced-color-adjust",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/caret-color",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/dark-mode",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/border-color",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/text-align",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/display",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/visibility",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/grid-auto-rows",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/upgrade-guide",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter-saturate",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/filter-hue-rotate",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/rotate",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/colors",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/transition-duration",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter-grayscale",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/mask-repeat",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/flex-grow",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/transition-delay",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/backdrop-filter-brightness",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/flex-wrap",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/resize",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://tailwindcss.com/docs/place-items",
+      "source_id": "tailwind"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/navigation-menu",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/plan",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/menubar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/empty",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/reasoning",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/sheet",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/attachment",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/forms/formisch",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/message",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/checkbox",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/toggle-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-02-registry-schema",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/context-menu",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/popover",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/badge",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/react/message-scroller",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-04-preset-commands",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/resizable",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/kbd",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/data-table",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/avatar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/context-menu",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/api-reference",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/checkpoint",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/chat",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/test-results",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/resizable",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/badge",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/sonner",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/input-otp",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/message",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/attachment",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-05-new-site",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/radio-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/separator",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/pagination",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components-json",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/progress",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/rtl",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2024-10-sidebar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/queue",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/manual",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/dark-mode/vite",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/pagination",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/tailwind-v4",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/date-picker",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/button",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/forms/next",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/sidebar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-05-registry-include",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/tabs",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/dark-mode/tanstack-start",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/chart",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/sources",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/item",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/marker",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/monorepo",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/button-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-07-typeset",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/scroll-area",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/checkpoint",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/figma",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/checkbox",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-04-sera",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/native-select",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/drawer",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/typeset",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-08-questionnaire",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/helpers/tanstack-ai",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/plan",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-01-rtl",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/textarea",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/file-tree",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/command",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-03-cli-v4",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/examples",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/menubar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/cli",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/checkpoint",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/data-table",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/_v0",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/toggle-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/accordion",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/forms",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/toast",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/card",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/stack-trace",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/slider",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2024-04-lift-mode",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2024-10-react-19",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-04-pointer-cursor",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/direction",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/utils/shimmer",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/laravel",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-07-base-ui-default",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/tool",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/collapsible",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/toggle",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/popover",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/github",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/task",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/queue",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/separator",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/tanstack-router",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/remix",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/typography",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/questionnaire",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/utils/scroll-fade",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2023-12-new-components",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/sheet",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/sidebar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/confirmation",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/official",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/theming",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-05-package-imports-target-aliases",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/rtl/start",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/empty",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-02-radix-ui",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/message-scroller",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/progress",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/context",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/collapsible",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/bubble",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-04-shadcn-apply",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/badge",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/message",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/reasoning",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-01-inline-side-styles",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/switch",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/suggestion",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-12-shadcn-create",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/tabs",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-08-cli-3-mcp",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-10-new-components",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-04-partial-preset-apply",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/trace",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/package-imports",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/reasoning",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/breadcrumb",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/aspect-ratio",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/field",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/native-select",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-02-tailwind-v4",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/toggle-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/trace",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/questionnaire",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/carousel",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/new",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/dropdown-menu",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/textarea",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/_blocks",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/rtl/vite",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/message",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/spinner",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/message",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/inline-citation",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/dialog",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/code-block",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/breadcrumb",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/helpers/ai-sdk",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/hover-card",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/chain-of-thought",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/pagination",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/table",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/direction",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/javascript",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/calendar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-04-cross-framework",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-07-react-aria",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/switch",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2024-03-breadcrumb-otp",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/calendar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/accordion",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2023-07-javascript",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/react/questionnaire",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/skills",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/prompt-input",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/drawer",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/rtl/next",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/skeleton",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/model-selector",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/tooltip",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/input",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/confirmation",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/aspect-ratio",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/kbd",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/resizable",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/select",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/mcp",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/direction",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/date-picker",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/avatar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-06-radix-ui",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/context",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/combobox",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/radio-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/navigation-menu",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/breadcrumb",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/context-menu",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/directory",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/stack-trace",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/task",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/input",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/dropdown-menu",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/button",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/field",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-03-luma",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-10-registry-directory",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/skeleton",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/radio-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2024-08-npx-shadcn-init",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/drawer",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-08-private-github-registries",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/table",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/carousel",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-09-cn",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/slider",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/tool",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/alert",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2024-11-icons",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/dark-mode/astro",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-05-rhea",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/tool",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/open-in-v0",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/alert-dialog",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/spinner",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/getting-started",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2024-03-blocks",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/alert-dialog",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/toggle",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-06-calendar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/carousel",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/subagent",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/inline-citation",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-06-github-registries",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/label",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-07-toast",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/dialog",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/accordion",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/react-19",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/switch",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/select",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/namespace",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/prompt-input",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/label",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/react-router",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/command",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/trace",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/gatsby",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/terminal",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/separator",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/tooltip",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-07-dynamic-search",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-06-chat-components",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/checkbox",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/stack-trace",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/dark-mode/next",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/authentication",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/item",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/confirmation",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/astro",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-09-registry-index",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/typography",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/chain-of-thought",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/file-tree",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/popover",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2023-06-new-cli",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/sidebar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-08-helpers-human-in-the-loop",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/hover-card",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-04-mcp",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-05-shadcn-eject",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/code-block",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/task",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/attachment",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/dark-mode/remix",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/questionnaire",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/prompt-input",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-02-blocks",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/queue",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/forms/react-hook-form",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/card",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/alert",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/registry-item-json",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/avatar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/item",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-04-component-composition",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/aspect-ratio",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/health",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/subagent",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/test-results",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/alert-dialog",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-01-blocks",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/sonner",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-04-shadcn-2-5",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/empty",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/sheet",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/bubble",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/card",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/date-picker",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/next",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/select",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/inline-citation",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/alert",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/model-selector",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/scroll-area",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/typography",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-01-base-ui",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/label",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-07-local-file-support",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/button",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/terminal",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/chat",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/mcp",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/native-select",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/button-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/skeleton",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/chart",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/textarea",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/table",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/scroll-area",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-07-helpers",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/input",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/code-block",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/dynamic-search",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/tanstack",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/hover-card",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/input-otp",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/input-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/slider",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/message",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/context",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/calendar",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/marker",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/message-scroller",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/data-table",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/combobox",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/dialog",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/subagent",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/chat",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/terminal",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/model-selector",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/legacy",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/marker",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2024-12-monorepo",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/suggestion",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/installation/vite",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/command",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/radix/file-tree",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/field",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/message-scroller",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/button-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/input-otp",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/forms/tanstack-form",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/toast",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/dark-mode",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/toggle",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/input-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2025-07-universal-registry",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/toast",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/changelog/2026-10-ai-elements",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/spinner",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/suggestion",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/tooltip",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/progress",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/bubble",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/chain-of-thought",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/aria/input-group",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/faq",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/combobox",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/collapsible",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/base/dropdown-menu",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/kbd",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/test-results",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/base/sources",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/registry-json",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/sources",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/registry/registry-index",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/ai-elements/aria/plan",
+      "source_id": "shadcn"
+    },
+    {
+      "url": "https://ui.shadcn.com/docs/components/radix/tabs",
+      "source_id": "shadcn"
     }
   ],
   "discovery_cursors": {
@@ -15517,6 +17865,7 @@
     "students": 4,
     "vibecoders": 4,
     "founders": 2,
-    "job seekers": 2
+    "job seekers": 2,
+    "designers": 2
   }
 }
