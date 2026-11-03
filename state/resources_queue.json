@@ -776,7 +776,43 @@
     }
   ],
   "last_posted_at": "2026-11-02T23:01:41.288978+00:00",
-  "pending": null,
+  "pending": {
+    "slot": "2026-11-03:resources-v1:2",
+    "audience": "students",
+    "labels": [
+      "Common Technical Support Questions",
+      "Learn Performance"
+    ],
+    "resources": [
+      {
+        "url": "https://www.freecodecamp.org/news/support",
+        "title": "Common Technical Support Questions – freeCodeCamp FAQ Class Central Class Central",
+        "excerpt": "Question: I just signed into my account and I don't see any of my past progress. Answer: You have created a duplicate account. Sign out of your account and sign in using a different email address that you may have used in the past. Note that even though we have a Google sign in option and a GitHub sign in option, we just use that to access your email address. Your account is ultimately tied to your email addresses. Question: Why does freeCodeCamp use a sign in code instead of a password? Sign in codes are much more secure than passwords, and many websites are moving to them. Many websites are following our lead and moving to one time codes or \"magic links\" as well . Question: I am getting an error message when trying to login or save my progress. Answer: If you are getting an error that says: 'Oops! Something went wrong, Please try again in a moment.' , you may have a duplicate account with the same email address. Please send an email to our support team: support@freecodecamp.org and we will manually merge or remove the duplicate account. Question: I set up a monthly donation, but I ",
+        "aliases": [
+          "https://www.freecodecamp.org/news/support"
+        ],
+        "fingerprint": "d98f81c5e24c73360c608765608a7137a9024da57b928982a50884004c77b751",
+        "source_id": "freecodecamp",
+        "verified_at": "2026-11-03T01:14:52.796034+00:00"
+      },
+      {
+        "url": "https://web.dev/learn/performance",
+        "title": "Learn Performance | web.dev",
+        "excerpt": "web.dev Resources Performance Stay organized with collections Save and categorize content based on your preferences. Learn Performance This course is designed for those new to web performance, a vital aspect of the user experience. It covers key web performance concepts and techniques for improving performance. Go back check_circle Welcome to Learn Performance! keyboard_arrow_down keyboard_arrow_up subject Article This course is designed for those new to web performance, a vital aspect of the user experience. It covers key web performance concepts and techniques for improving performance. Read article check_circle Why speed matters keyboard_arrow_down keyboard_arrow_up subject Article Before you can get started with learning performance, you first have to understand its role in the user experience, and how it can result in better outcomes for users. This course starts off with a brief introduction into these topics, giving vital context as to why it's important to learn performance. Read article check_circle General HTML performance considerations keyboard_arrow_down keyboard_arrow_u",
+        "aliases": [
+          "https://web.dev/learn/performance"
+        ],
+        "fingerprint": "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
+        "source_id": "webdev",
+        "verified_at": "2026-11-03T01:14:53.049714+00:00"
+      }
+    ],
+    "text": "For students\n\nCommon Technical Support Questions\nhttps://www.freecodecamp.org/news/support\n\nLearn Performance\nhttps://web.dev/learn/performance\n\nThank me later.\nFollow for more useful links.",
+    "approval": "39a3e749ce40c43f378312ce43fc4e4d4caf46a6b66db94e829283a00ae4e1f4",
+    "prepared_at": "2026-11-03T01:14:50.923364+00:00",
+    "run_id": "41558419361",
+    "run_attempt": "1"
+  },
   "used_urls": [
     "https://asana.com/resources",
     "https://basecamp.com/shapeup",
@@ -806,8 +842,10 @@
     "https://t.co/ziy1HSr6sJ",
     "https://vercel.com/docs/ai-gateway/coding-agents/pi",
     "https://vite.dev/guide",
+    "https://web.dev/learn/performance",
     "https://www.atlassian.com/team-playbook/examples/people-team",
     "https://www.atlassian.com/team-playbook/plays",
+    "https://www.freecodecamp.org/news/support",
     "https://www.todoist.com/productivity-methods",
     "https://zapier.com/blog/all-articles/zapier-feature-guides"
   ],
@@ -816,6 +854,7 @@
     "133fc33ec9df9c85a94c9825c6bcb9d7bd6fcfdfb88e0d2bbeaa44c562eba3fd",
     "2057ba0bb0996e811f22c595f3ae188cf6bd885b65c82be214ce89a5de04ca6a",
     "20ab8093a05dd9dc28263f76aa8beac0491de73ad1362f387ee97e8574cb2a77",
+    "30d1314dc6ebc2d3718ffe1895d9b6104827038d3c46212f8dfc5147e49f0723",
     "555c629530d4e9b1ddb0a169d4f0c4b0b2dcbaafc31b3f57844ad2058a4f7690",
     "603b0c57b200f0fee80c970e0e7438932d43dca0c2dd8c7fc8eeea4201c468f5",
     "7dae16ed58fc3b34f9a7d33c6e4c5a7c0f96c35465deb5ceb45f98d8bcbc8ff8",
@@ -829,6 +868,7 @@
     "cc5685b15bedb2a9f6ec00bd1bdc63e0135271051b3f98c45f96593126631737",
     "d396983ab24c1cf3210caf95b3f9da58044ff2a7477dc5412f53b5f1f06c6a54",
     "d7e0ea66c4f7c16c28043b3df2b7f044d0d995d9c3c36e52b581d3a7196e4e07",
+    "d98f81c5e24c73360c608765608a7137a9024da57b928982a50884004c77b751",
     "fb92002de12d5bd09b4397e52a47a4fa029dd761bc1050e25e30170792a60336"
   ],
   "catalog": [
@@ -7150,10 +7190,6 @@
     },
     {
       "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Applying_color",
-      "source_id": "mdn"
-    },
-    {
-      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
       "source_id": "mdn"
     },
     {
@@ -20639,6 +20675,206 @@
     {
       "url": "https://blog.hubspot.com/sales/virtual-face-to-face-commutation",
       "source_id": "hubspotsales"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/secure-your-ai-agents-free-model-context-protocol-mcp-security-course",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/privacy-policy",
+      "source_id": "freecodecamp"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect07",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/18-966s07",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect13",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/hw2_sol",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/pages/assignments",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect19",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect10",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/hw3_sol",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect23",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect01",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect11",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/18-966s07-th",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/homework1",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect25",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect12",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/res-8-002-a-wikitextbook-for-introductory-mechanics-fall-2009/resources/res-8-002f09",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect16",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lecture-notes",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect08",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/pages/readings",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/res-8-002-a-wikitextbook-for-introductory-mechanics-fall-2009",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect05",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/readings",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/homework2",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/download",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/res-8-002-a-wikitextbook-for-introductory-mechanics-fall-2009/download",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect18",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect17",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/homework3",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect03",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect15",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect02",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect14",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect09",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/pages/syllabus",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect06",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect20",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/res-8-002-a-wikitextbook-for-introductory-mechanics-fall-2009/resources/res-8-002f09-th",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect24",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/res-8-002-a-wikitextbook-for-introductory-mechanics-fall-2009/external-resources",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect04",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect22",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/assignments",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/lect21",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/resources/hw1_sol",
+      "source_id": "mitocw"
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/18-966-geometry-of-manifolds-spring-2007/pages/lecture-notes",
+      "source_id": "mitocw"
     }
   ],
   "discovery_cursors": {
@@ -20646,7 +20882,7 @@
     "creators": 2,
     "marketers": 6,
     "CEOs": 2,
-    "students": 4,
+    "students": 6,
     "vibecoders": 4,
     "founders": 2,
     "job seekers": 2,
