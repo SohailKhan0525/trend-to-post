@@ -35,6 +35,18 @@
       "premise": "A label maker finally labels itself and completes an office project.",
       "tweet_id": "2117653338053542360",
       "posted_at": "2026-11-03T16:21:14.695199+00:00"
+    },
+    {
+      "slot": "2026-11-03:dash-v1:34",
+      "due_at": "2026-11-03T16:35:00+00:00",
+      "topic": "technology",
+      "detail": "a tiny keyboard shortcut with an enormous manual",
+      "language": "Japanese",
+      "form": "a dry one-liner",
+      "text": "充電ケーブルに「速い」と書いてあった。壊れるのは確かに速かった。",
+      "premise": "A fast charging cable excels at breaking quickly.",
+      "tweet_id": "2117657150868553881",
+      "posted_at": "2026-11-03T16:36:23.739828+00:00"
     }
   ],
   "used_texts": [
@@ -152,26 +164,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T16:21:14.695199+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-03:dash-v1:34",
-      "due_at": "2026-11-03T16:35:00+00:00",
-      "topic": "technology",
-      "detail": "a tiny keyboard shortcut with an enormous manual",
-      "language": "Japanese",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "充電ケーブルに「速い」と書いてあった。壊れるのは確かに速かった。",
-      "premise": "A fast charging cable excels at breaking quickly."
-    },
-    "approval": "40ef207c652d9610cc21e71d52419a5efa3fe88e084db5a4c32bfec4c869325a",
-    "run": [
-      "41674995410",
-      "1"
-    ],
-    "reserved_at": "2026-11-03T16:36:20.204743+00:00"
-  },
+  "last_posted_at": "2026-11-03T16:36:23.739828+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
