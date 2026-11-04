@@ -347,6 +347,18 @@
       "premise": "A glove compartment labeled 'For Gloves' contains only a road map and an expired parking ticket.",
       "tweet_id": "2118004610422263844",
       "posted_at": "2026-11-04T15:37:04.596293+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:33",
+      "due_at": "2026-11-04T16:02:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an assistant trying to describe a screenshot of itself",
+      "language": "Spanish",
+      "form": "a dry one-liner",
+      "text": "El asistente intenta describir una captura de pantalla de sí mismo y dice: 'Esto es lo que ves, pero no es lo que estás viendo'.",
+      "premise": "AI describes a screenshot of itself, saying 'This is what you see, but it's not what you're seeing.'",
+      "tweet_id": "2118010905632121105",
+      "posted_at": "2026-11-04T16:02:05.460364+00:00"
     }
   ],
   "used_texts": [
@@ -518,26 +530,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T15:37:04.596293+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:33",
-      "due_at": "2026-11-04T16:02:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "an assistant trying to describe a screenshot of itself",
-      "language": "Spanish",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "El asistente intenta describir una captura de pantalla de sí mismo y dice: 'Esto es lo que ves, pero no es lo que estás viendo'.",
-      "premise": "AI describes a screenshot of itself, saying 'This is what you see, but it's not what you're seeing.'"
-    },
-    "approval": "c281ddd9c6fefdf288b155ba49aed80ce3d72e0f493a011ae0ff927f8395d393",
-    "run": [
-      "41863408853",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T16:02:02.268434+00:00"
-  },
+  "last_posted_at": "2026-11-04T16:02:05.460364+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
