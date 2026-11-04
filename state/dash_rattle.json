@@ -359,6 +359,18 @@
       "premise": "AI describes a screenshot of itself, saying 'This is what you see, but it's not what you're seeing.'",
       "tweet_id": "2118010905632121105",
       "posted_at": "2026-11-04T16:02:05.460364+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:34",
+      "due_at": "2026-11-04T16:38:00+00:00",
+      "topic": "AI models",
+      "detail": "temperature settings at a model family dinner",
+      "language": "English",
+      "form": "a question with a funny, concrete premise",
+      "text": "Why did the AI bring a thermometer to the family dinner? It wanted to check if the conversation was hot enough.",
+      "premise": "AI brings a thermometer to check if the conversation is hot.",
+      "tweet_id": "2118019961390080372",
+      "posted_at": "2026-11-04T16:38:04.532978+00:00"
     }
   ],
   "used_texts": [
@@ -532,26 +544,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T16:02:05.460364+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:34",
-      "due_at": "2026-11-04T16:38:00+00:00",
-      "topic": "AI models",
-      "detail": "temperature settings at a model family dinner",
-      "language": "English",
-      "form": "a question with a funny, concrete premise"
-    },
-    "draft": {
-      "text": "Why did the AI bring a thermometer to the family dinner? It wanted to check if the conversation was hot enough.",
-      "premise": "AI brings a thermometer to check if the conversation is hot."
-    },
-    "approval": "db40b22c1b933d8fa91e327f4276feaeb584768981f4153f4055c82394b30efb",
-    "run": [
-      "41867982099",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T16:38:01.734545+00:00"
-  },
+  "last_posted_at": "2026-11-04T16:38:04.532978+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
