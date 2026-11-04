@@ -567,7 +567,8 @@
     "8e4dd6dcde3afc0d2171a832f654f7f2229afd92f07a6885c06d23ef2c402573",
     "7cbe47760e1048f659841f63329ad215a866bd2e84ab05eb6f0cb085043d024a",
     "c62eaf2a3c7e47ec35376c31f758eec04f28a37487a20db8d2d8cc5e208083a5",
-    "f82d56b2c4fc710d0f2a8e104bca13be36cb33c0c3d6d29389914673cbcfcc71"
+    "f82d56b2c4fc710d0f2a8e104bca13be36cb33c0c3d6d29389914673cbcfcc71",
+    "0dea78cc1c1b34d5102b7ed3aefff1da7f9eb444f593d0ed8928267e434af760"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -606,7 +607,8 @@
     "65c2f1853c70a2e73e324706f2840b77b0095fe408578e84fec8258f6b477db6",
     "7d7ea757fea9b0c075a8a48f57e98afefc1deb68798578776ece11aa02bc09f2",
     "24ea0f7073ebe55cae7c2c3f25701a2e583c192e17ffe213be41706d1ae20169",
-    "362afb13730df995b712f9578482603b727e4504fc3bf2e145e3d33e2cc1caa5"
+    "362afb13730df995b712f9578482603b727e4504fc3bf2e145e3d33e2cc1caa5",
+    "2c000d5042ff3bd4d87df5054b6a6ef5114862ecfbaff614f478e32e9ae0e253"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -615,6 +617,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T19:06:04.502905+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:40",
+      "due_at": "2026-11-04T19:36:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "a voice assistant waiting for the microwave beep",
+      "language": "Simplified Chinese",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "v2.3.1 更新日志：新增语音助手功能，可在微波炉响起时自动播放‘请稍等’。用户反馈：‘它等了我三分钟，我还没开始做饭。’",
+      "premise": "An AI's voice assistant says 'please wait' when the microwave beeps, but it waited three minutes before the user even started cooking."
+    },
+    "approval": "2bbfa39e6e399be5ca4a5401ab8bd7263e9996811fea917bdbbe0fba05ef84ba",
+    "run": [
+      "41897644871",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T19:36:02.181296+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
