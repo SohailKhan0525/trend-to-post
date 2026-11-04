@@ -251,6 +251,18 @@
       "premise": "An AI corrects a typo and acts like it's interviewing the user.",
       "tweet_id": "2117943203060122094",
       "posted_at": "2026-11-04T11:33:03.951521+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:25",
+      "due_at": "2026-11-04T12:06:00+00:00",
+      "topic": "AI models",
+      "detail": "a model arguing with its own first draft",
+      "language": "English",
+      "form": "a playful roast of a design choice",
+      "text": "The model rewrites its first draft, then argues with it in the same sentence. 'No, that’s not what I meant,' it says, then immediately says the same thing again.",
+      "premise": "An AI model contradicts itself in the same sentence.",
+      "tweet_id": "2117951510264852930",
+      "posted_at": "2026-11-04T12:06:04.520099+00:00"
     }
   ],
   "used_texts": [
@@ -406,26 +418,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T11:33:03.951521+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:25",
-      "due_at": "2026-11-04T12:06:00+00:00",
-      "topic": "AI models",
-      "detail": "a model arguing with its own first draft",
-      "language": "English",
-      "form": "a playful roast of a design choice"
-    },
-    "draft": {
-      "text": "The model rewrites its first draft, then argues with it in the same sentence. 'No, that’s not what I meant,' it says, then immediately says the same thing again.",
-      "premise": "An AI model contradicts itself in the same sentence."
-    },
-    "approval": "7f4f515375fc8dbd2011472145c37791be0fc5693e2d2eff18ac3ebb08e9ad41",
-    "run": [
-      "41825665935",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T12:06:02.409798+00:00"
-  },
+  "last_posted_at": "2026-11-04T12:06:04.520099+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
