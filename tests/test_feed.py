@@ -6,6 +6,7 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
+from twikit.errors import InvalidSession
 from unittest.mock import AsyncMock, patch
 
 from app import queue, writer
@@ -202,3 +203,30 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
             await queue.publish_slot(empty(),self.brief)
         draft.assert_not_called()
         save.assert_not_called()
+
+    async def test_logged_out_handshake_releases_only_the_unsent_reservation(self):
+        conn=SimpleNamespace(create_tweet=AsyncMock(side_effect=InvalidSession("fixture")))
+        with patch.object(writer,"generate",return_value=DRAFT),patch.object(queue,"client",return_value=conn),patch.object(queue,"save_and_push",side_effect=self.persist):
+            with self.assertRaises(queue.SessionUnavailable):
+                await queue.publish_slot(empty(),self.brief)
+        state=queue.load()
+        self.assertIsNone(state["pending"])
+        self.assertTrue(state["check_session"])
+        self.assertEqual(state["history"],[])
+        self.assertIn(writer.fingerprint(DRAFT["text"]),state["used_texts"])
+        conn.create_tweet.assert_awaited_once()
+
+    async def test_session_must_recover_before_spending_or_reserving_again(self):
+        state=dict(empty(),check_session=True)
+        conn=SimpleNamespace(is_logged_in=AsyncMock(side_effect=[False,True]),
+                             create_tweet=AsyncMock(return_value=SimpleNamespace(id="456")))
+        with patch.object(writer,"generate",return_value=DRAFT) as draft,patch.object(queue,"client",return_value=conn),patch.object(queue,"save_and_push",side_effect=self.persist):
+            with self.assertRaises(queue.SessionUnavailable):
+                await queue.publish_slot(state,self.brief)
+            draft.assert_not_called()
+            conn.create_tweet.assert_not_awaited()
+            self.assertEqual(self.durable,[])
+            await queue.publish_slot(state,self.brief)
+        conn.create_tweet.assert_awaited_once()
+        self.assertNotIn("check_session",queue.load())
+        self.assertEqual(queue.load()["history"][-1]["tweet_id"],"456")

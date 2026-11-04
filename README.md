@@ -8,7 +8,7 @@ GitHub Actions publishes eligible text posts with the repository's existing `X_A
 
 A full UTC day has 50 slots at varying times. The normal plan includes 22 English, 8 Hindi, 7 Simplified Chinese, 7 Japanese and 6 Spanish slots. The half-hour dispatcher and five-minute scheduled checks share a lock. Confirmed sends must be at least 15 minutes apart. A missed wake, provider outage or X rejection can reduce the day's total. The day resets at 05:30 India time.
 
-Every post is reserved in Git before it is sent. A confirmed post ID is recorded before checking whether X attached a website card. An ambiguous result leaves the reservation in place for reconciliation. Only confirmed sends count toward the publishing limit. Historical draft wording and premises are retained for duplicate detection.
+Every post is reserved in Git before it is sent. A confirmed post ID is recorded before checking whether X attached a website card. If X rejects the initial session handshake before sending, the worker releases that reservation and checks the session before drafting again. If the error persists, refresh both X session secrets. An ambiguous result, including a timeout during publication or a response without an ID, leaves the reservation in place for reconciliation. Only confirmed sends count toward the publishing limit. Historical draft wording and premises are retained for duplicate detection.
 
 ## Writing rules
 

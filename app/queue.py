@@ -7,12 +7,17 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from twikit import Client
+from twikit.errors import InvalidSession
 from . import writer
 from .schedule import daily_plan, next_slot
 
 STATE = Path("state/dash_rattle.json")
 RESOURCES = Path("state/resources_queue.json")
 COMMUNITY = Path("state/community_queue.json")
+
+
+class SessionUnavailable(Exception):
+    """X has not accepted the stored browser session."""
 
 
 def utcnow():
@@ -90,6 +95,11 @@ async def publish_slot(state,brief):
     # today's slot, limits and reservation are verified against durable state.
     ensure_open(state)
     connection = client()
+    if state.get("check_session"):
+        if not await connection.is_logged_in():
+            raise SessionUnavailable()
+        # Persist the successful check with the next reservation.
+        state.pop("check_session")
     try:
         draft = writer.generate(brief,state)
     except writer.DraftError:
@@ -120,7 +130,15 @@ async def publish_slot(state,brief):
         save_and_push(durable)
         summary("Reservation expired before sending; skipped.")
         return
-    tweet = await connection.create_tweet(text=draft["text"],poll_uri="tombstone://card")
+    try:
+        tweet = await connection.create_tweet(text=draft["text"],poll_uri="tombstone://card")
+    except InvalidSession:
+        # In pinned twifork 2.4.0 this exception is raised during the initial
+        # transaction handshake, before the create request is transmitted.
+        durable["pending"] = None
+        durable["check_session"] = True
+        save_and_push(durable)
+        raise SessionUnavailable() from None
     ident = str(getattr(tweet,"id","") or "")
     if not ident.isdigit():
         raise ValueError("Unconfirmed X result; reservation kept for reconciliation")
