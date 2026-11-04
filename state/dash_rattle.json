@@ -275,6 +275,18 @@
       "premise": "Trying to close a window with a shortcut, but getting a 200-page manual instead.",
       "tweet_id": "2117958556121272691",
       "posted_at": "2026-11-04T12:34:04.345648+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:27",
+      "due_at": "2026-11-04T13:08:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an AI's idea of a quick clarification",
+      "language": "English",
+      "form": "a playful roast of a design choice",
+      "text": "The AI said 'Let me clarify that.' Then spent three minutes explaining what 'clarify' means.",
+      "premise": "An AI defines the word 'clarify' after saying it will clarify something.",
+      "tweet_id": "2117967108638392746",
+      "posted_at": "2026-11-04T13:08:03.413638+00:00"
     }
   ],
   "used_texts": [
@@ -434,26 +446,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T12:34:04.345648+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:27",
-      "due_at": "2026-11-04T13:08:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "an AI's idea of a quick clarification",
-      "language": "English",
-      "form": "a playful roast of a design choice"
-    },
-    "draft": {
-      "text": "The AI said 'Let me clarify that.' Then spent three minutes explaining what 'clarify' means.",
-      "premise": "An AI defines the word 'clarify' after saying it will clarify something."
-    },
-    "approval": "1b7ed191aad40e4fd757a8acab0d3fad6351b153a7bdcee7eda583c2bbb0f7b8",
-    "run": [
-      "41834296954",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T13:08:01.251993+00:00"
-  },
+  "last_posted_at": "2026-11-04T13:08:03.413638+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
