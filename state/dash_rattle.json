@@ -619,7 +619,8 @@
     "0dea78cc1c1b34d5102b7ed3aefff1da7f9eb444f593d0ed8928267e434af760",
     "f9f257f5d41802126d3f8de84c0752a73ca34114c9029699a77e174fac7425eb",
     "fca22288e4231fc1a6cb1208c7137a6ef9222d6050de9e7ccc2b586a05bf48bd",
-    "597fa56e0ee19ca1f2254964ae3a3afaeb3e59675f71e5e5e0a0998edf7222b3"
+    "597fa56e0ee19ca1f2254964ae3a3afaeb3e59675f71e5e5e0a0998edf7222b3",
+    "bb22fb715556a6d3d182366b2c88f87143015e3fea480898be34b3077e0dde89"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -662,7 +663,8 @@
     "2c000d5042ff3bd4d87df5054b6a6ef5114862ecfbaff614f478e32e9ae0e253",
     "359e70bc861c557bd1bfdefd6eac13b784de048ceb66d8aa9d34e9041221dd8e",
     "f5e828ce5304cb05fa2cda2b0e153cceb661ebc2e6aa1a0b646a0075830675a7",
-    "961de42b38d6463e4da8aa0c46217cf79c7395fe30e0e1fef00828f24a20db5f"
+    "961de42b38d6463e4da8aa0c46217cf79c7395fe30e0e1fef00828f24a20db5f",
+    "e465587705199b614351fc9dffd81536890f00379cc2a89dfe066ea70299d2f4"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -671,6 +673,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T20:50:04.771880+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:44",
+      "due_at": "2026-11-04T21:07:00+00:00",
+      "topic": "cars",
+      "detail": "a heated seat button buried in a submenu",
+      "language": "Hindi",
+      "form": "a playful roast of a design choice"
+    },
+    "draft": {
+      "text": "सीट के ऊपर एक बटन है 'हीटेड', लेकिन वो एक मेनू में छिपा हुआ है जैसे ये अपने आप कुछ गलत कर रहा हो।",
+      "premise": "A car seat has a 'Heated' button, but it's hidden in a menu like it's doing something wrong."
+    },
+    "approval": "ccf98b6758599ed7dec744b5a8e7530063b83b4ba33f42125d782559108a4371",
+    "run": [
+      "41912052134",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T21:07:02.245306+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
