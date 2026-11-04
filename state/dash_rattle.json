@@ -554,7 +554,8 @@
     "c91cc5a3c434190ecbff564733ae3e0d9ded2aa40bdb3a48663b575b7ba8a13c",
     "8e4dd6dcde3afc0d2171a832f654f7f2229afd92f07a6885c06d23ef2c402573",
     "7cbe47760e1048f659841f63329ad215a866bd2e84ab05eb6f0cb085043d024a",
-    "c62eaf2a3c7e47ec35376c31f758eec04f28a37487a20db8d2d8cc5e208083a5"
+    "c62eaf2a3c7e47ec35376c31f758eec04f28a37487a20db8d2d8cc5e208083a5",
+    "f82d56b2c4fc710d0f2a8e104bca13be36cb33c0c3d6d29389914673cbcfcc71"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -592,7 +593,8 @@
     "1f085b3f643e488471b485e648dd1c352502ad71ab3f0ba12db35d3993b37d59",
     "65c2f1853c70a2e73e324706f2840b77b0095fe408578e84fec8258f6b477db6",
     "7d7ea757fea9b0c075a8a48f57e98afefc1deb68798578776ece11aa02bc09f2",
-    "24ea0f7073ebe55cae7c2c3f25701a2e583c192e17ffe213be41706d1ae20169"
+    "24ea0f7073ebe55cae7c2c3f25701a2e583c192e17ffe213be41706d1ae20169",
+    "362afb13730df995b712f9578482603b727e4504fc3bf2e145e3d33e2cc1caa5"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -601,6 +603,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T18:37:03.289102+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:39",
+      "due_at": "2026-11-04T19:06:00+00:00",
+      "topic": "technology",
+      "detail": "the Wi-Fi printer that only works when nobody watches",
+      "language": "English",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "v1.2.3 - Fixed the Wi-Fi printer so it now works only when you're not looking. Bug report: 'It prints when I'm not watching, but I don't know how.'",
+      "premise": "A software update fixes a printer to only work when unobserved, with a confusing bug report."
+    },
+    "approval": "0b0f4876f612b5afbe2e3fe39230ab5d33c6ffbcf9db753273b81968198b7268",
+    "run": [
+      "41892811028",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T19:06:02.768241+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
