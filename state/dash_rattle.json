@@ -263,6 +263,18 @@
       "premise": "An AI model contradicts itself in the same sentence.",
       "tweet_id": "2117951510264852930",
       "posted_at": "2026-11-04T12:06:04.520099+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:26",
+      "due_at": "2026-11-04T12:34:00+00:00",
+      "topic": "technology",
+      "detail": "a tiny keyboard shortcut with an enormous manual",
+      "language": "Simplified Chinese",
+      "form": "a dry one-liner",
+      "text": "我按下快捷键想关掉窗口，结果弹出一本200页的说明书。",
+      "premise": "Trying to close a window with a shortcut, but getting a 200-page manual instead.",
+      "tweet_id": "2117958556121272691",
+      "posted_at": "2026-11-04T12:34:04.345648+00:00"
     }
   ],
   "used_texts": [
@@ -420,26 +432,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T12:06:04.520099+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:26",
-      "due_at": "2026-11-04T12:34:00+00:00",
-      "topic": "technology",
-      "detail": "a tiny keyboard shortcut with an enormous manual",
-      "language": "Simplified Chinese",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "我按下快捷键想关掉窗口，结果弹出一本200页的说明书。",
-      "premise": "Trying to close a window with a shortcut, but getting a 200-page manual instead."
-    },
-    "approval": "e17024c1f23c6617cc4480c7059ef62a64879fa03e5784d4cb8450e49ca7f942",
-    "run": [
-      "41829941927",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T12:34:02.310260+00:00"
-  },
+  "last_posted_at": "2026-11-04T12:34:04.345648+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
