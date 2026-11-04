@@ -671,7 +671,8 @@
     "bb22fb715556a6d3d182366b2c88f87143015e3fea480898be34b3077e0dde89",
     "ae3fa18a8611e114cba98ebfc4127c75ae9bf189eab520a113c50bb00afce7c6",
     "7a722547651dea0f2c3aa7cfd1e7c7ec8d8f8874d6e95e4e331f6f0095f1cbfa",
-    "8235f5a5bd85549c30320b069b62586f6d9476b92d24d0e348d4273e867ef261"
+    "8235f5a5bd85549c30320b069b62586f6d9476b92d24d0e348d4273e867ef261",
+    "68af7458655b8c4068448b355da0537d2a9efd17a8e675132b7075fe2bb19981"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -718,7 +719,8 @@
     "e465587705199b614351fc9dffd81536890f00379cc2a89dfe066ea70299d2f4",
     "693e0165d2b86401485fcd15b0c370bea0dd556718c000a7756b02e3f647ca9c",
     "0b2f3379fd20e052efe96b084d47ff0e17a8d772b9016f2c235882773c4bb8b0",
-    "d864cfd4adff705c4e13c2530e05b4c601c358bc2a3800b3690a5630a3c8b610"
+    "d864cfd4adff705c4e13c2530e05b4c601c358bc2a3800b3690a5630a3c8b610",
+    "040feecd8b140ee751ed8e7bbb38b1af144998e39ea21735d5ff3ed81e2ba66f"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -727,6 +729,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T22:36:03.595375+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:48",
+      "due_at": "2026-11-04T23:08:00+00:00",
+      "topic": "company life",
+      "detail": "a release note translated out of corporate language",
+      "language": "Japanese",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "リリースノートに『ユーザーエクスペリエンス向上』って書いてあったけど、実際は『画面の明るさがちょっと下がった』だけだった。",
+      "premise": "A release note said 'improved user experience' but it only made the screen slightly darker."
+    },
+    "approval": "fa0853c78832447e7cf7f2df9140a65291f7d530287d73547493c9438f38949f",
+    "run": [
+      "41930242308",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T23:08:03.004149+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
