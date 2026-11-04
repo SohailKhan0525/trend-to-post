@@ -450,7 +450,8 @@
     "2d612299da21f77d27fcecb0695386a5a29696786609980109a895fcdfd6d1bf",
     "752e0931b4a39ab4cc64dc1b419beb513ed96617456a686752a0ede7031f96c2",
     "467d93129c398cfbd16a279b06c53ee36032f94e9071dbf17744859482ddbe88",
-    "19a12a45ab31a688f371dc2e76d72d9c856b70d0fbf6176a33c3da3f44b3264f"
+    "19a12a45ab31a688f371dc2e76d72d9c856b70d0fbf6176a33c3da3f44b3264f",
+    "ea56371f60a661ee643333ed20f5e7538ec207e81eb558a67f4da942ebd22c64"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -480,7 +481,8 @@
     "b232034cb770ff7f27dc02b02026926d500adbebd245cdfec38e15a6325da267",
     "1fa3df0bd8421f53b2211d33e1cf5a7722373e17a4379ee80c6aa68a61131c81",
     "4dd5970e71c910c42f3393e2ceb70a3452162fd3004116765b4908e498464d1b",
-    "0f29c126226000fb180181d65a93412d820501377e78decfc46ea7459a15c557"
+    "0f29c126226000fb180181d65a93412d820501377e78decfc46ea7459a15c557",
+    "a739902b7b8f54a9ba13794d81bd3a88ebd6fce74e30e37d2d2eb336aeedd5c6"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -489,6 +491,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T14:32:04.325867+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:31",
+      "due_at": "2026-11-04T15:08:00+00:00",
+      "topic": "SaaS",
+      "detail": "the API key hidden behind a friendly wizard",
+      "language": "Spanish",
+      "form": "a miniature scene with a punchline"
+    },
+    "draft": {
+      "text": "El asistente de configuración pregunta: '¿Quieres una clave de API?' Le digo que sí. Me muestra un formulario con un botón que dice 'Crear clave'... y al hacer clic, aparece un mensaje: '¡Listo! Tu clave es: 12345'.",
+      "premise": "A setup wizard asks for an API key, then gives '12345' as the result."
+    },
+    "approval": "9d238913e602628a0a7afa6f04bc03c2ed3ed7a6c5ed9aa020c8f8cdb78dd527",
+    "run": [
+      "41853408146",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T15:08:05.223016+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
