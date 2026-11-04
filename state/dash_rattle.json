@@ -179,6 +179,18 @@
       "premise": "A 'Submit' button blinks from being clicked too much, as if it has a personality.",
       "tweet_id": "2117898432589504956",
       "posted_at": "2026-11-04T08:35:09.799252+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:19",
+      "due_at": "2026-11-04T09:04:00+00:00",
+      "topic": "cars",
+      "detail": "a dashboard light shaped like a tiny mystery",
+      "language": "Simplified Chinese",
+      "form": "a playful roast of a design choice",
+      "text": "仪表盘上有个灯，形状像谜题，亮起来时我心想：这到底是什么意思？结果一看，是‘请系好安全带’。",
+      "premise": "A dashboard light shaped like a puzzle causes confusion, but it's just a seatbelt reminder.",
+      "tweet_id": "2117905705760120978",
+      "posted_at": "2026-11-04T09:04:03.829976+00:00"
     }
   ],
   "used_texts": [
@@ -322,26 +334,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T08:35:09.799252+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:19",
-      "due_at": "2026-11-04T09:04:00+00:00",
-      "topic": "cars",
-      "detail": "a dashboard light shaped like a tiny mystery",
-      "language": "Simplified Chinese",
-      "form": "a playful roast of a design choice"
-    },
-    "draft": {
-      "text": "仪表盘上有个灯，形状像谜题，亮起来时我心想：这到底是什么意思？结果一看，是‘请系好安全带’。",
-      "premise": "A dashboard light shaped like a puzzle causes confusion, but it's just a seatbelt reminder."
-    },
-    "approval": "80b1416ed21a44cc1537b19f391159c8e02c4ecf520eef8b0ffed1667b8f3817",
-    "run": [
-      "41804013891",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T09:04:01.792396+00:00"
-  },
+  "last_posted_at": "2026-11-04T09:04:03.829976+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
