@@ -398,7 +398,8 @@
     "73f19486131188a4e4a59975bceb4643917240036dec3dfaee6891d305fe7507",
     "5601213e84ea7989223c44f2c00d96c83fb4f640261f5783fefe766a6d06dae5",
     "e168ea4ff3926dea02fa417ebe341609c8f5c16e714f7d0df736f66a308f115f",
-    "fb9cec118e8645a7f7f8292fd49a0a7448756954fed4ab86d19f3d891d459e0d"
+    "fb9cec118e8645a7f7f8292fd49a0a7448756954fed4ab86d19f3d891d459e0d",
+    "2d612299da21f77d27fcecb0695386a5a29696786609980109a895fcdfd6d1bf"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -424,7 +425,8 @@
     "aa40f3417fed7a024f9e16924f9b02f4d21bbe775997a5440557f5982d94b0c5",
     "9b2733456f6f216d122b480ecce7ac501046cfc440a572f2ba532f2482ece899",
     "313c4f5a28db0dd8f453515f606c562ada3efa2d3a02a9981ffcdfd283ac112e",
-    "0e1e5fdfa87caf50612b49d67ed6d2575803d72a7e6d1b1483367e56bae4bea5"
+    "0e1e5fdfa87caf50612b49d67ed6d2575803d72a7e6d1b1483367e56bae4bea5",
+    "b232034cb770ff7f27dc02b02026926d500adbebd245cdfec38e15a6325da267"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -433,6 +435,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T12:34:04.345648+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:27",
+      "due_at": "2026-11-04T13:08:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an AI's idea of a quick clarification",
+      "language": "English",
+      "form": "a playful roast of a design choice"
+    },
+    "draft": {
+      "text": "The AI said 'Let me clarify that.' Then spent three minutes explaining what 'clarify' means.",
+      "premise": "An AI defines the word 'clarify' after saying it will clarify something."
+    },
+    "approval": "1b7ed191aad40e4fd757a8acab0d3fad6351b153a7bdcee7eda583c2bbb0f7b8",
+    "run": [
+      "41834296954",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T13:08:01.251993+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
