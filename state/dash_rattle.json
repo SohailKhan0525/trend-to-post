@@ -215,6 +215,18 @@
       "premise": "A button 'Undo' hides in settings, as if afraid to be found.",
       "tweet_id": "2117920592103948774",
       "posted_at": "2026-11-04T10:03:13.044799+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:22",
+      "due_at": "2026-11-04T10:37:00+00:00",
+      "topic": "AI models",
+      "detail": "the difference between a demo prompt and a real prompt",
+      "language": "Hindi",
+      "form": "a two-line exchange",
+      "text": "मॉडल ने जवाब देने से पहले इतना सोचा कि मेरा सवाल ही पुराना हो गया।",
+      "premise": "A model thinks long enough for its question to go stale.",
+      "tweet_id": "2117929174317027592",
+      "posted_at": "2026-11-04T10:37:19.184818+00:00"
     }
   ],
   "used_texts": [
@@ -364,26 +376,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T10:03:13.044799+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:22",
-      "due_at": "2026-11-04T10:37:00+00:00",
-      "topic": "AI models",
-      "detail": "the difference between a demo prompt and a real prompt",
-      "language": "Hindi",
-      "form": "a two-line exchange"
-    },
-    "draft": {
-      "text": "मॉडल ने जवाब देने से पहले इतना सोचा कि मेरा सवाल ही पुराना हो गया।",
-      "premise": "A model thinks long enough for its question to go stale."
-    },
-    "approval": "2be5a8a98182787d162f625b4510d5e02bf85cf7171a7dd4153818549a5ccb63",
-    "run": [
-      "41814697527",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T10:37:05.900115+00:00"
-  },
+  "last_posted_at": "2026-11-04T10:37:19.184818+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
