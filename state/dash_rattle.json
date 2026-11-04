@@ -437,7 +437,8 @@
     "fb9cec118e8645a7f7f8292fd49a0a7448756954fed4ab86d19f3d891d459e0d",
     "2d612299da21f77d27fcecb0695386a5a29696786609980109a895fcdfd6d1bf",
     "752e0931b4a39ab4cc64dc1b419beb513ed96617456a686752a0ede7031f96c2",
-    "467d93129c398cfbd16a279b06c53ee36032f94e9071dbf17744859482ddbe88"
+    "467d93129c398cfbd16a279b06c53ee36032f94e9071dbf17744859482ddbe88",
+    "19a12a45ab31a688f371dc2e76d72d9c856b70d0fbf6176a33c3da3f44b3264f"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -466,7 +467,8 @@
     "0e1e5fdfa87caf50612b49d67ed6d2575803d72a7e6d1b1483367e56bae4bea5",
     "b232034cb770ff7f27dc02b02026926d500adbebd245cdfec38e15a6325da267",
     "1fa3df0bd8421f53b2211d33e1cf5a7722373e17a4379ee80c6aa68a61131c81",
-    "4dd5970e71c910c42f3393e2ceb70a3452162fd3004116765b4908e498464d1b"
+    "4dd5970e71c910c42f3393e2ceb70a3452162fd3004116765b4908e498464d1b",
+    "0f29c126226000fb180181d65a93412d820501377e78decfc46ea7459a15c557"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -475,6 +477,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T14:03:04.119030+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:30",
+      "due_at": "2026-11-04T14:32:00+00:00",
+      "topic": "company life",
+      "detail": "the empty slide everyone asks to keep",
+      "language": "Spanish",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "En el changelog de la semana pasada, se añadió un slide vacío con el comentario: 'Para que nadie se olvide de lo que no hay'.",
+      "premise": "A empty slide in a changelog with a comment about not forgetting what's not there."
+    },
+    "approval": "ab5e29d9aefa015f1627c494d2c146368a5fc2ab0616438673f3f1d4ae69ea56",
+    "run": [
+      "41848334890",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T14:32:01.947771+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
