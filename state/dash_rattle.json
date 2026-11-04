@@ -203,6 +203,18 @@
       "premise": "A dashboard needs a second dashboard to explain it.",
       "tweet_id": "2117914105147515166",
       "posted_at": "2026-11-04T09:37:26.398323+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:21",
+      "due_at": "2026-11-04T10:03:00+00:00",
+      "topic": "technology",
+      "detail": "an undo button hidden inside settings",
+      "language": "Spanish",
+      "form": "a fictional changelog entry",
+      "text": "En el changelog de la última actualización, un botón 'Deshacer' se escondió dentro de ajustes, como si tuviera miedo de ser encontrado.",
+      "premise": "A button 'Undo' hides in settings, as if afraid to be found.",
+      "tweet_id": "2117920592103948774",
+      "posted_at": "2026-11-04T10:03:13.044799+00:00"
     }
   ],
   "used_texts": [
@@ -350,26 +362,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T09:37:26.398323+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:21",
-      "due_at": "2026-11-04T10:03:00+00:00",
-      "topic": "technology",
-      "detail": "an undo button hidden inside settings",
-      "language": "Spanish",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "En el changelog de la última actualización, un botón 'Deshacer' se escondió dentro de ajustes, como si tuviera miedo de ser encontrado.",
-      "premise": "A button 'Undo' hides in settings, as if afraid to be found."
-    },
-    "approval": "cc5d78bd7216560c4afd86797ff504e0e2a562ae32aea700b1e4ccd2df76c9e8",
-    "run": [
-      "41811373600",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T10:03:01.908977+00:00"
-  },
+  "last_posted_at": "2026-11-04T10:03:13.044799+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
