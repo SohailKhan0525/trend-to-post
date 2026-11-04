@@ -467,6 +467,18 @@
       "premise": "AI writes a long joke that ends with 'then he died'",
       "tweet_id": "2118079351564681516",
       "posted_at": "2026-11-04T20:34:04.235716+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:43",
+      "due_at": "2026-11-04T20:50:00+00:00",
+      "topic": "technology",
+      "detail": "Bluetooth pairing that remembers the wrong speaker",
+      "language": "English",
+      "form": "a playful roast of a design choice",
+      "text": "My phone paired with the wrong speaker, and now it thinks that thing is my favorite. It even plays the same playlist when I'm in the kitchen.",
+      "premise": "Phone mistakenly thinks a wrong speaker is favorite and plays same playlist in kitchen.",
+      "tweet_id": "2118083380344676650",
+      "posted_at": "2026-11-04T20:50:04.771880+00:00"
     }
   ],
   "used_texts": [
@@ -658,26 +670,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T20:34:04.235716+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:43",
-      "due_at": "2026-11-04T20:50:00+00:00",
-      "topic": "technology",
-      "detail": "Bluetooth pairing that remembers the wrong speaker",
-      "language": "English",
-      "form": "a playful roast of a design choice"
-    },
-    "draft": {
-      "text": "My phone paired with the wrong speaker, and now it thinks that thing is my favorite. It even plays the same playlist when I'm in the kitchen.",
-      "premise": "Phone mistakenly thinks a wrong speaker is favorite and plays same playlist in kitchen."
-    },
-    "approval": "c0a15feede91864bd47a9acc2cd682fa1eb800e4d10165b5e6bcf863f91d5848",
-    "run": [
-      "41907317644",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T20:50:02.368660+00:00"
-  },
+  "last_posted_at": "2026-11-04T20:50:04.771880+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
