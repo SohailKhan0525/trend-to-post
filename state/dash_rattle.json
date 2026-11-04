@@ -515,7 +515,8 @@
     "026ceb51be566316a85f3dcf7e529205e356065fe7cc04a08a299237de926e25",
     "3561b6dd48ee57bf8dfb6e9a5009763fbd6901a2d7a1ed619991a307e516d296",
     "c3ca568114116e9ecfaa5002f94ff5f3a2b3d78a6472a89e42e31c240a2ad942",
-    "c91cc5a3c434190ecbff564733ae3e0d9ded2aa40bdb3a48663b575b7ba8a13c"
+    "c91cc5a3c434190ecbff564733ae3e0d9ded2aa40bdb3a48663b575b7ba8a13c",
+    "8e4dd6dcde3afc0d2171a832f654f7f2229afd92f07a6885c06d23ef2c402573"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -550,7 +551,8 @@
     "718609e6522ad30a0001e3eae22c5efb85b96aa24d3ee0d0761c8e201aeda2e3",
     "96da91672fdaaad8ca12854742dedf790a3be316d3cee96d6d618331a287baa9",
     "93b3750852cd7edd6203d10eaae129ea4ef56f8ee7bb453d6411cc6edefcd45f",
-    "1f085b3f643e488471b485e648dd1c352502ad71ab3f0ba12db35d3993b37d59"
+    "1f085b3f643e488471b485e648dd1c352502ad71ab3f0ba12db35d3993b37d59",
+    "65c2f1853c70a2e73e324706f2840b77b0095fe408578e84fec8258f6b477db6"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -559,6 +561,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T17:03:35.161760+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:36",
+      "due_at": "2026-11-04T17:36:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an AI inventing a keyboard shortcut in an imaginary app",
+      "language": "English",
+      "form": "a question with a funny, concrete premise"
+    },
+    "draft": {
+      "text": "Why did the AI add a shortcut for 'Save As' called 'Ctrl+Shift-L'? Because it thought 'L' stood for 'Love' and it was feeling sentimental.",
+      "premise": "AI misinterprets 'L' as 'Love' in a keyboard shortcut."
+    },
+    "approval": "96280ee8eb949ffc0e2d092a804a8ddd0eec8863774a6098ea8a25bf771f6bb4",
+    "run": [
+      "41878166292",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T17:36:01.709208+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
