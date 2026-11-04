@@ -268,7 +268,8 @@
     "458cf784ef5d7b9d15de657da75cd6829ed9aa19ec3b64b050a8cdf5e1b8c46e",
     "d0cbf62b091eeced3f2d1fe0c5998cb23a46f8d1081939afb20ae90826c14523",
     "e7b3969a729c997e9ae5f56f64cc21d7e8359122b68dfc611f0f2bbecbcb9315",
-    "c08b58c91425a810651bdb127e783d1a6b2526b62fef936286d1f3e38482fed9"
+    "c08b58c91425a810651bdb127e783d1a6b2526b62fef936286d1f3e38482fed9",
+    "52412ff2950261f49217406b4e5c8f3ecb39e0ea2e336d35dc0d4980009af04c"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -284,7 +285,8 @@
     "fa1d3cbc0522d9b06df8ae278ce0567a570b7d1a8782d061aea88c14f84157a6",
     "3a90ba790797d9c2c9236c99a3d02a8390f2ce266a9f87bb804c57d28115bbb6",
     "f6ce077e5833f9d921d4c269e0ba2e1a83cf2137dad6c9b2bd0f2213b64ff928",
-    "c9d2a7e4d8ddca314e83169301cc61bb01c0fa43af87128d9713f970faa6765e"
+    "c9d2a7e4d8ddca314e83169301cc61bb01c0fa43af87128d9713f970faa6765e",
+    "6cde3bc4782628c8017784aa70fe1dbb56a89ea85f06edcd7fc41fc6c2826aca"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -293,7 +295,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-03T20:35:14.767324+00:00",
-  "pending": null,
-  "last_queued_at": "2026-11-03T16:08:06.485159+00:00",
-  "check_session": true
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:16",
+      "due_at": "2026-11-04T07:32:00+00:00",
+      "topic": "technology",
+      "detail": "a progress bar that reaches the end before the task does",
+      "language": "English",
+      "form": "a question with a funny, concrete premise"
+    },
+    "draft": {
+      "text": "Why does the progress bar finish before the file is done? It’s not lazy—it’s just tired of waiting for the system to catch up.",
+      "premise": "A progress bar finishes early because it's tired of waiting."
+    },
+    "approval": "22f15b8c1f89875b7971939436ddc21d6f07c4ec0543ae206107a634c9f0c333",
+    "run": [
+      "41796561592",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T08:03:36.429151+00:00"
+  },
+  "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
