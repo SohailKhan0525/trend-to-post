@@ -191,6 +191,18 @@
       "premise": "A dashboard light shaped like a puzzle causes confusion, but it's just a seatbelt reminder.",
       "tweet_id": "2117905705760120978",
       "posted_at": "2026-11-04T09:04:03.829976+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:20",
+      "due_at": "2026-11-04T09:37:00+00:00",
+      "topic": "SaaS",
+      "detail": "a feature called Advanced Settings",
+      "language": "Hindi",
+      "form": "a dry one-liner",
+      "text": "डैशबोर्ड इतना आसान है कि उसे समझाने के लिए अलग से डैशबोर्ड बनाया गया है।",
+      "premise": "A dashboard needs a second dashboard to explain it.",
+      "tweet_id": "2117914105147515166",
+      "posted_at": "2026-11-04T09:37:26.398323+00:00"
     }
   ],
   "used_texts": [
@@ -336,26 +348,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T09:04:03.829976+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:20",
-      "due_at": "2026-11-04T09:37:00+00:00",
-      "topic": "SaaS",
-      "detail": "a feature called Advanced Settings",
-      "language": "Hindi",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "डैशबोर्ड इतना आसान है कि उसे समझाने के लिए अलग से डैशबोर्ड बनाया गया है।",
-      "premise": "A dashboard needs a second dashboard to explain it."
-    },
-    "approval": "313827a2df3d040f1333f7eb2a0c85b1db6754427ea07c9b0a51b8feaa2b116d",
-    "run": [
-      "41808147932",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T09:37:05.559572+00:00"
-  },
+  "last_posted_at": "2026-11-04T09:37:26.398323+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
