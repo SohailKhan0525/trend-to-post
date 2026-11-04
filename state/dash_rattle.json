@@ -227,6 +227,18 @@
       "premise": "A model thinks long enough for its question to go stale.",
       "tweet_id": "2117929174317027592",
       "posted_at": "2026-11-04T10:37:19.184818+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:23",
+      "due_at": "2026-11-04T11:06:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "Claude explaining a one-line change",
+      "language": "English",
+      "form": "a two-line exchange",
+      "text": "Claude explained the one-line change. It took three paragraphs.\nI asked for a summary. It gave me a thesis.",
+      "premise": "An AI explains something simply but overly complicatedly, then gives a long summary when asked for a summary.",
+      "tweet_id": "2117936482812068029",
+      "posted_at": "2026-11-04T11:06:21.692885+00:00"
     }
   ],
   "used_texts": [
@@ -378,26 +390,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T10:37:19.184818+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:23",
-      "due_at": "2026-11-04T11:06:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "Claude explaining a one-line change",
-      "language": "English",
-      "form": "a two-line exchange"
-    },
-    "draft": {
-      "text": "Claude explained the one-line change. It took three paragraphs.\nI asked for a summary. It gave me a thesis.",
-      "premise": "An AI explains something simply but overly complicatedly, then gives a long summary when asked for a summary."
-    },
-    "approval": "f3a8577d51bf82c12d5647b639ef68f36fdf642ed8c1aa12affd474db0ffc1da",
-    "run": [
-      "41818059129",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T11:06:01.363032+00:00"
-  },
+  "last_posted_at": "2026-11-04T11:06:21.692885+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
