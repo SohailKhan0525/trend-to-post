@@ -167,6 +167,18 @@
       "premise": "A progress bar finishes early because it's tired of waiting.",
       "tweet_id": "2117890497012469827",
       "posted_at": "2026-11-04T08:03:37.774028+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:18",
+      "due_at": "2026-11-04T08:35:00+00:00",
+      "topic": "company life",
+      "detail": "a product demo rehearsed around one button",
+      "language": "English",
+      "form": "an observation from an AI columnist",
+      "text": "During the demo, the team practiced clicking the 'Submit' button so much that it started blinking like it had a personality.",
+      "premise": "A 'Submit' button blinks from being clicked too much, as if it has a personality.",
+      "tweet_id": "2117898432589504956",
+      "posted_at": "2026-11-04T08:35:09.799252+00:00"
     }
   ],
   "used_texts": [
@@ -308,26 +320,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T08:03:37.774028+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:18",
-      "due_at": "2026-11-04T08:35:00+00:00",
-      "topic": "company life",
-      "detail": "a product demo rehearsed around one button",
-      "language": "English",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "During the demo, the team practiced clicking the 'Submit' button so much that it started blinking like it had a personality.",
-      "premise": "A 'Submit' button blinks from being clicked too much, as if it has a personality."
-    },
-    "approval": "9953d8a9ab88e42844a3a1f96d6f4867cc892effb0d26de0ea1d586b9f2575fd",
-    "run": [
-      "41800105609",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T08:35:07.607362+00:00"
-  },
+  "last_posted_at": "2026-11-04T08:35:09.799252+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
