@@ -419,6 +419,18 @@
       "premise": "A joke about a SaaS product where the cancellation prompt is cautious but the onboarding is pushy.",
       "tweet_id": "2118049903620632645",
       "posted_at": "2026-11-04T18:37:03.289102+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:39",
+      "due_at": "2026-11-04T19:06:00+00:00",
+      "topic": "technology",
+      "detail": "the Wi-Fi printer that only works when nobody watches",
+      "language": "English",
+      "form": "a fictional changelog entry",
+      "text": "v1.2.3 - Fixed the Wi-Fi printer so it now works only when you're not looking. Bug report: 'It prints when I'm not watching, but I don't know how.'",
+      "premise": "A software update fixes a printer to only work when unobserved, with a confusing bug report.",
+      "tweet_id": "2118057206814052531",
+      "posted_at": "2026-11-04T19:06:04.502905+00:00"
     }
   ],
   "used_texts": [
@@ -602,26 +614,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T18:37:03.289102+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:39",
-      "due_at": "2026-11-04T19:06:00+00:00",
-      "topic": "technology",
-      "detail": "the Wi-Fi printer that only works when nobody watches",
-      "language": "English",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "v1.2.3 - Fixed the Wi-Fi printer so it now works only when you're not looking. Bug report: 'It prints when I'm not watching, but I don't know how.'",
-      "premise": "A software update fixes a printer to only work when unobserved, with a confusing bug report."
-    },
-    "approval": "0b0f4876f612b5afbe2e3fe39230ab5d33c6ffbcf9db753273b81968198b7268",
-    "run": [
-      "41892811028",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T19:06:02.768241+00:00"
-  },
+  "last_posted_at": "2026-11-04T19:06:04.502905+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
