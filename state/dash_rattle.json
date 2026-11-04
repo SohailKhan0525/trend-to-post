@@ -527,6 +527,18 @@
       "premise": "A car manual has conflicting labels for the same brake feature.",
       "tweet_id": "2118110051265294784",
       "posted_at": "2026-11-04T22:36:03.595375+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:48",
+      "due_at": "2026-11-04T23:08:00+00:00",
+      "topic": "company life",
+      "detail": "a release note translated out of corporate language",
+      "language": "Japanese",
+      "form": "a fictional changelog entry",
+      "text": "リリースノートに『ユーザーエクスペリエンス向上』って書いてあったけど、実際は『画面の明るさがちょっと下がった』だけだった。",
+      "premise": "A release note said 'improved user experience' but it only made the screen slightly darker.",
+      "tweet_id": "2118118109324480598",
+      "posted_at": "2026-11-04T23:08:04.781957+00:00"
     }
   ],
   "used_texts": [
@@ -728,26 +740,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T22:36:03.595375+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:48",
-      "due_at": "2026-11-04T23:08:00+00:00",
-      "topic": "company life",
-      "detail": "a release note translated out of corporate language",
-      "language": "Japanese",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "リリースノートに『ユーザーエクスペリエンス向上』って書いてあったけど、実際は『画面の明るさがちょっと下がった』だけだった。",
-      "premise": "A release note said 'improved user experience' but it only made the screen slightly darker."
-    },
-    "approval": "fa0853c78832447e7cf7f2df9140a65291f7d530287d73547493c9438f38949f",
-    "run": [
-      "41930242308",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T23:08:03.004149+00:00"
-  },
+  "last_posted_at": "2026-11-04T23:08:04.781957+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
