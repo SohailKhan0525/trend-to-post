@@ -463,7 +463,8 @@
     "752e0931b4a39ab4cc64dc1b419beb513ed96617456a686752a0ede7031f96c2",
     "467d93129c398cfbd16a279b06c53ee36032f94e9071dbf17744859482ddbe88",
     "19a12a45ab31a688f371dc2e76d72d9c856b70d0fbf6176a33c3da3f44b3264f",
-    "ea56371f60a661ee643333ed20f5e7538ec207e81eb558a67f4da942ebd22c64"
+    "ea56371f60a661ee643333ed20f5e7538ec207e81eb558a67f4da942ebd22c64",
+    "026ceb51be566316a85f3dcf7e529205e356065fe7cc04a08a299237de926e25"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -494,7 +495,8 @@
     "1fa3df0bd8421f53b2211d33e1cf5a7722373e17a4379ee80c6aa68a61131c81",
     "4dd5970e71c910c42f3393e2ceb70a3452162fd3004116765b4908e498464d1b",
     "0f29c126226000fb180181d65a93412d820501377e78decfc46ea7459a15c557",
-    "a739902b7b8f54a9ba13794d81bd3a88ebd6fce74e30e37d2d2eb336aeedd5c6"
+    "a739902b7b8f54a9ba13794d81bd3a88ebd6fce74e30e37d2d2eb336aeedd5c6",
+    "718609e6522ad30a0001e3eae22c5efb85b96aa24d3ee0d0761c8e201aeda2e3"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -503,6 +505,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T15:08:07.494057+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:32",
+      "due_at": "2026-11-04T15:37:00+00:00",
+      "topic": "cars",
+      "detail": "a glove box that has never met a glove",
+      "language": "Spanish",
+      "form": "a playful roast of a design choice"
+    },
+    "draft": {
+      "text": "El compartimento de guantes está etiquetado como 'Para guantes', pero dentro solo hay un mapa de carreteras y un ticket de parking vencido.",
+      "premise": "A glove compartment labeled 'For Gloves' contains only a road map and an expired parking ticket."
+    },
+    "approval": "13df191c780b83e55e9b42aac2022c93698ad250ebbea834757da82238ed4aed",
+    "run": [
+      "41858532646",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T15:37:02.060995+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
