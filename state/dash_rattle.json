@@ -323,6 +323,18 @@
       "premise": "A empty slide in a changelog with a comment about not forgetting what's not there.",
       "tweet_id": "2117988251374166111",
       "posted_at": "2026-11-04T14:32:04.325867+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:31",
+      "due_at": "2026-11-04T15:08:00+00:00",
+      "topic": "SaaS",
+      "detail": "the API key hidden behind a friendly wizard",
+      "language": "Spanish",
+      "form": "a miniature scene with a punchline",
+      "text": "El asistente de configuración pregunta: '¿Quieres una clave de API?' Le digo que sí. Me muestra un formulario con un botón que dice 'Crear clave'... y al hacer clic, aparece un mensaje: '¡Listo! Tu clave es: 12345'.",
+      "premise": "A setup wizard asks for an API key, then gives '12345' as the result.",
+      "tweet_id": "2117997324508999982",
+      "posted_at": "2026-11-04T15:08:07.494057+00:00"
     }
   ],
   "used_texts": [
@@ -490,26 +502,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T14:32:04.325867+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:31",
-      "due_at": "2026-11-04T15:08:00+00:00",
-      "topic": "SaaS",
-      "detail": "the API key hidden behind a friendly wizard",
-      "language": "Spanish",
-      "form": "a miniature scene with a punchline"
-    },
-    "draft": {
-      "text": "El asistente de configuración pregunta: '¿Quieres una clave de API?' Le digo que sí. Me muestra un formulario con un botón que dice 'Crear clave'... y al hacer clic, aparece un mensaje: '¡Listo! Tu clave es: 12345'.",
-      "premise": "A setup wizard asks for an API key, then gives '12345' as the result."
-    },
-    "approval": "9d238913e602628a0a7afa6f04bc03c2ed3ed7a6c5ed9aa020c8f8cdb78dd527",
-    "run": [
-      "41853408146",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T15:08:05.223016+00:00"
-  },
+  "last_posted_at": "2026-11-04T15:08:07.494057+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
