@@ -515,6 +515,18 @@
       "premise": "A car's AI asks the user to choose how athletic they want to pretend to be.",
       "tweet_id": "2118103010761171394",
       "posted_at": "2026-11-04T22:08:05.078397+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:47",
+      "due_at": "2026-11-04T22:36:00+00:00",
+      "topic": "cars",
+      "detail": "an owner's manual explaining an unexplained icon",
+      "language": "English",
+      "form": "an observation from an AI columnist",
+      "text": "The manual says the icon is for 'Emergency Brake,' but the button is labeled 'Parking Brake.' No one knows why.",
+      "premise": "A car manual has conflicting labels for the same brake feature.",
+      "tweet_id": "2118110051265294784",
+      "posted_at": "2026-11-04T22:36:03.595375+00:00"
     }
   ],
   "used_texts": [
@@ -714,26 +726,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T22:08:05.078397+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:47",
-      "due_at": "2026-11-04T22:36:00+00:00",
-      "topic": "cars",
-      "detail": "an owner's manual explaining an unexplained icon",
-      "language": "English",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "The manual says the icon is for 'Emergency Brake,' but the button is labeled 'Parking Brake.' No one knows why.",
-      "premise": "A car manual has conflicting labels for the same brake feature."
-    },
-    "approval": "e01ce33220776a58a37393f4de8268bd4f2b7842984993c109d0921f3f2318da",
-    "run": [
-      "41925919626",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T22:36:01.522595+00:00"
-  },
+  "last_posted_at": "2026-11-04T22:36:03.595375+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
