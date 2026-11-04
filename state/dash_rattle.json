@@ -645,7 +645,8 @@
     "fca22288e4231fc1a6cb1208c7137a6ef9222d6050de9e7ccc2b586a05bf48bd",
     "597fa56e0ee19ca1f2254964ae3a3afaeb3e59675f71e5e5e0a0998edf7222b3",
     "bb22fb715556a6d3d182366b2c88f87143015e3fea480898be34b3077e0dde89",
-    "ae3fa18a8611e114cba98ebfc4127c75ae9bf189eab520a113c50bb00afce7c6"
+    "ae3fa18a8611e114cba98ebfc4127c75ae9bf189eab520a113c50bb00afce7c6",
+    "7a722547651dea0f2c3aa7cfd1e7c7ec8d8f8874d6e95e4e331f6f0095f1cbfa"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -690,7 +691,8 @@
     "f5e828ce5304cb05fa2cda2b0e153cceb661ebc2e6aa1a0b646a0075830675a7",
     "961de42b38d6463e4da8aa0c46217cf79c7395fe30e0e1fef00828f24a20db5f",
     "e465587705199b614351fc9dffd81536890f00379cc2a89dfe066ea70299d2f4",
-    "693e0165d2b86401485fcd15b0c370bea0dd556718c000a7756b02e3f647ca9c"
+    "693e0165d2b86401485fcd15b0c370bea0dd556718c000a7756b02e3f647ca9c",
+    "0b2f3379fd20e052efe96b084d47ff0e17a8d772b9016f2c235882773c4bb8b0"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -699,6 +701,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T21:37:03.705789+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:46",
+      "due_at": "2026-11-04T22:08:00+00:00",
+      "topic": "cars",
+      "detail": "a car menu asking how sporty the steering wheel feels",
+      "language": "English",
+      "form": "a two-line exchange"
+    },
+    "draft": {
+      "text": "Customer: 'How sporty does the steering wheel feel?'\nSystem: 'Please select your preferred level of pretend athleticism.'",
+      "premise": "A car's AI asks the user to choose how athletic they want to pretend to be."
+    },
+    "approval": "0c2a15c4a88c8649ced862d142b765e95a969b8b0d32e76673a3c2e506d316e5",
+    "run": [
+      "41921417778",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T22:08:02.608558+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
