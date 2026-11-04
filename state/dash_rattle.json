@@ -431,6 +431,18 @@
       "premise": "A software update fixes a printer to only work when unobserved, with a confusing bug report.",
       "tweet_id": "2118057206814052531",
       "posted_at": "2026-11-04T19:06:04.502905+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:40",
+      "due_at": "2026-11-04T19:36:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "a voice assistant waiting for the microwave beep",
+      "language": "Simplified Chinese",
+      "form": "a fictional changelog entry",
+      "text": "v2.3.1 更新日志：新增语音助手功能，可在微波炉响起时自动播放‘请稍等’。用户反馈：‘它等了我三分钟，我还没开始做饭。’",
+      "premise": "An AI's voice assistant says 'please wait' when the microwave beeps, but it waited three minutes before the user even started cooking.",
+      "tweet_id": "2118064755449770210",
+      "posted_at": "2026-11-04T19:36:04.237599+00:00"
     }
   ],
   "used_texts": [
@@ -616,26 +628,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T19:06:04.502905+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:40",
-      "due_at": "2026-11-04T19:36:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "a voice assistant waiting for the microwave beep",
-      "language": "Simplified Chinese",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "v2.3.1 更新日志：新增语音助手功能，可在微波炉响起时自动播放‘请稍等’。用户反馈：‘它等了我三分钟，我还没开始做饭。’",
-      "premise": "An AI's voice assistant says 'please wait' when the microwave beeps, but it waited three minutes before the user even started cooking."
-    },
-    "approval": "2bbfa39e6e399be5ca4a5401ab8bd7263e9996811fea917bdbbe0fba05ef84ba",
-    "run": [
-      "41897644871",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T19:36:02.181296+00:00"
-  },
+  "last_posted_at": "2026-11-04T19:36:04.237599+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
