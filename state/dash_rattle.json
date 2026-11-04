@@ -155,6 +155,18 @@
       "premise": "A car manual is thick enough to need its own seat belt.",
       "tweet_id": "2117717259594440983",
       "posted_at": "2026-11-03T20:35:14.767324+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:16",
+      "due_at": "2026-11-04T07:32:00+00:00",
+      "topic": "technology",
+      "detail": "a progress bar that reaches the end before the task does",
+      "language": "English",
+      "form": "a question with a funny, concrete premise",
+      "text": "Why does the progress bar finish before the file is done? It’s not lazy—it’s just tired of waiting for the system to catch up.",
+      "premise": "A progress bar finishes early because it's tired of waiting.",
+      "tweet_id": "2117890497012469827",
+      "posted_at": "2026-11-04T08:03:37.774028+00:00"
     }
   ],
   "used_texts": [
@@ -294,26 +306,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-03T20:35:14.767324+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:16",
-      "due_at": "2026-11-04T07:32:00+00:00",
-      "topic": "technology",
-      "detail": "a progress bar that reaches the end before the task does",
-      "language": "English",
-      "form": "a question with a funny, concrete premise"
-    },
-    "draft": {
-      "text": "Why does the progress bar finish before the file is done? It’s not lazy—it’s just tired of waiting for the system to catch up.",
-      "premise": "A progress bar finishes early because it's tired of waiting."
-    },
-    "approval": "22f15b8c1f89875b7971939436ddc21d6f07c4ec0543ae206107a634c9f0c333",
-    "run": [
-      "41796561592",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T08:03:36.429151+00:00"
-  },
+  "last_posted_at": "2026-11-04T08:03:37.774028+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
