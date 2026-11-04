@@ -307,7 +307,8 @@
     "c08b58c91425a810651bdb127e783d1a6b2526b62fef936286d1f3e38482fed9",
     "52412ff2950261f49217406b4e5c8f3ecb39e0ea2e336d35dc0d4980009af04c",
     "c7c32285d1520a2f1651160214a6a759afae25433d1030a2a9e7ee38006052a1",
-    "c0b7cedfa0f599ebc15440930557559586fda41cfc6f99df7373dc12a82a2a88"
+    "c0b7cedfa0f599ebc15440930557559586fda41cfc6f99df7373dc12a82a2a88",
+    "039306bd4cf1f6f34f28941ca34ce5840470cd1a981cba913a94a648d70980ea"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -326,7 +327,8 @@
     "c9d2a7e4d8ddca314e83169301cc61bb01c0fa43af87128d9713f970faa6765e",
     "6cde3bc4782628c8017784aa70fe1dbb56a89ea85f06edcd7fc41fc6c2826aca",
     "ff1b5bd081db244cbaf8764641ff37ce9f6ce3e2dae469289a368333abca182f",
-    "b6b7d07713fff65fa48ab4776c758eeafe7c9f24a18443e35acac2f253a6644b"
+    "b6b7d07713fff65fa48ab4776c758eeafe7c9f24a18443e35acac2f253a6644b",
+    "67b7a46a610fb9157f8c5728f9d931b7df7f42e96166f7bf9f08a460649cc46c"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -335,6 +337,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T09:04:03.829976+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:20",
+      "due_at": "2026-11-04T09:37:00+00:00",
+      "topic": "SaaS",
+      "detail": "a feature called Advanced Settings",
+      "language": "Hindi",
+      "form": "a dry one-liner"
+    },
+    "draft": {
+      "text": "डैशबोर्ड इतना आसान है कि उसे समझाने के लिए अलग से डैशबोर्ड बनाया गया है।",
+      "premise": "A dashboard needs a second dashboard to explain it."
+    },
+    "approval": "313827a2df3d040f1333f7eb2a0c85b1db6754427ea07c9b0a51b8feaa2b116d",
+    "run": [
+      "41808147932",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T09:37:05.559572+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
