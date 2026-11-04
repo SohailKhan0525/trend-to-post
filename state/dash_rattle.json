@@ -528,7 +528,8 @@
     "3561b6dd48ee57bf8dfb6e9a5009763fbd6901a2d7a1ed619991a307e516d296",
     "c3ca568114116e9ecfaa5002f94ff5f3a2b3d78a6472a89e42e31c240a2ad942",
     "c91cc5a3c434190ecbff564733ae3e0d9ded2aa40bdb3a48663b575b7ba8a13c",
-    "8e4dd6dcde3afc0d2171a832f654f7f2229afd92f07a6885c06d23ef2c402573"
+    "8e4dd6dcde3afc0d2171a832f654f7f2229afd92f07a6885c06d23ef2c402573",
+    "7cbe47760e1048f659841f63329ad215a866bd2e84ab05eb6f0cb085043d024a"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -564,7 +565,8 @@
     "96da91672fdaaad8ca12854742dedf790a3be316d3cee96d6d618331a287baa9",
     "93b3750852cd7edd6203d10eaae129ea4ef56f8ee7bb453d6411cc6edefcd45f",
     "1f085b3f643e488471b485e648dd1c352502ad71ab3f0ba12db35d3993b37d59",
-    "65c2f1853c70a2e73e324706f2840b77b0095fe408578e84fec8258f6b477db6"
+    "65c2f1853c70a2e73e324706f2840b77b0095fe408578e84fec8258f6b477db6",
+    "7d7ea757fea9b0c075a8a48f57e98afefc1deb68798578776ece11aa02bc09f2"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -573,6 +575,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T17:36:04.879585+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:37",
+      "due_at": "2026-11-04T18:03:00+00:00",
+      "topic": "technology",
+      "detail": "account recovery on the device you lost",
+      "language": "Simplified Chinese",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "我试图通过丢失的设备恢复账户，结果系统提示我输入‘你最后一次看到它时的天气’。",
+      "premise": "Trying to recover an account with a lost device, but the system asks for the weather when it was last seen."
+    },
+    "approval": "5508848ed5db9ecf334ec047bd98937ed6cf14503a7266fcb49ef4a19a11bc05",
+    "run": [
+      "41882939800",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T18:03:02.081419+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
