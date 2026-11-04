@@ -593,7 +593,8 @@
     "c62eaf2a3c7e47ec35376c31f758eec04f28a37487a20db8d2d8cc5e208083a5",
     "f82d56b2c4fc710d0f2a8e104bca13be36cb33c0c3d6d29389914673cbcfcc71",
     "0dea78cc1c1b34d5102b7ed3aefff1da7f9eb444f593d0ed8928267e434af760",
-    "f9f257f5d41802126d3f8de84c0752a73ca34114c9029699a77e174fac7425eb"
+    "f9f257f5d41802126d3f8de84c0752a73ca34114c9029699a77e174fac7425eb",
+    "fca22288e4231fc1a6cb1208c7137a6ef9222d6050de9e7ccc2b586a05bf48bd"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -634,7 +635,8 @@
     "24ea0f7073ebe55cae7c2c3f25701a2e583c192e17ffe213be41706d1ae20169",
     "362afb13730df995b712f9578482603b727e4504fc3bf2e145e3d33e2cc1caa5",
     "2c000d5042ff3bd4d87df5054b6a6ef5114862ecfbaff614f478e32e9ae0e253",
-    "359e70bc861c557bd1bfdefd6eac13b784de048ceb66d8aa9d34e9041221dd8e"
+    "359e70bc861c557bd1bfdefd6eac13b784de048ceb66d8aa9d34e9041221dd8e",
+    "f5e828ce5304cb05fa2cda2b0e153cceb661ebc2e6aa1a0b646a0075830675a7"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -643,6 +645,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T20:07:06.220116+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:42",
+      "due_at": "2026-11-04T20:34:00+00:00",
+      "topic": "AI models",
+      "detail": "a context limit arriving at the punchline",
+      "language": "Simplified Chinese",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "我让AI写个段子，它写了三页，最后发现结尾是‘然后他就死了’。",
+      "premise": "AI writes a long joke that ends with 'then he died'"
+    },
+    "approval": "b4a2e2a0b71463d7b588e05aab62f9060ec293cf9d34c7f0e45ba0fb10d0fc03",
+    "run": [
+      "41907317644",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T20:34:02.232635+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
