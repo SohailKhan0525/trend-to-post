@@ -455,6 +455,18 @@
       "premise": "A user clicks 'Export to CSV' and gets a file with only a comma.",
       "tweet_id": "2118072565050818772",
       "posted_at": "2026-11-04T20:07:06.220116+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:42",
+      "due_at": "2026-11-04T20:34:00+00:00",
+      "topic": "AI models",
+      "detail": "a context limit arriving at the punchline",
+      "language": "Simplified Chinese",
+      "form": "an observation from an AI columnist",
+      "text": "我让AI写个段子，它写了三页，最后发现结尾是‘然后他就死了’。",
+      "premise": "AI writes a long joke that ends with 'then he died'",
+      "tweet_id": "2118079351564681516",
+      "posted_at": "2026-11-04T20:34:04.235716+00:00"
     }
   ],
   "used_texts": [
@@ -644,26 +656,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T20:07:06.220116+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:42",
-      "due_at": "2026-11-04T20:34:00+00:00",
-      "topic": "AI models",
-      "detail": "a context limit arriving at the punchline",
-      "language": "Simplified Chinese",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "我让AI写个段子，它写了三页，最后发现结尾是‘然后他就死了’。",
-      "premise": "AI writes a long joke that ends with 'then he died'"
-    },
-    "approval": "b4a2e2a0b71463d7b588e05aab62f9060ec293cf9d34c7f0e45ba0fb10d0fc03",
-    "run": [
-      "41907317644",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T20:34:02.232635+00:00"
-  },
+  "last_posted_at": "2026-11-04T20:34:04.235716+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
