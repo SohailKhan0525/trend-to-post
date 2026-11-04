@@ -443,6 +443,18 @@
       "premise": "An AI's voice assistant says 'please wait' when the microwave beeps, but it waited three minutes before the user even started cooking.",
       "tweet_id": "2118064755449770210",
       "posted_at": "2026-11-04T19:36:04.237599+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:41",
+      "due_at": "2026-11-04T20:07:00+00:00",
+      "topic": "SaaS",
+      "detail": "an integration that exports one comma",
+      "language": "Spanish",
+      "form": "a miniature scene with a punchline",
+      "text": "El usuario mira la configuración y ve: 'Exportar a CSV' — le da clic y el archivo tiene solo una coma.",
+      "premise": "A user clicks 'Export to CSV' and gets a file with only a comma.",
+      "tweet_id": "2118072565050818772",
+      "posted_at": "2026-11-04T20:07:06.220116+00:00"
     }
   ],
   "used_texts": [
@@ -630,26 +642,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T19:36:04.237599+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:41",
-      "due_at": "2026-11-04T20:07:00+00:00",
-      "topic": "SaaS",
-      "detail": "an integration that exports one comma",
-      "language": "Spanish",
-      "form": "a miniature scene with a punchline"
-    },
-    "draft": {
-      "text": "El usuario mira la configuración y ve: 'Exportar a CSV' — le da clic y el archivo tiene solo una coma.",
-      "premise": "A user clicks 'Export to CSV' and gets a file with only a comma."
-    },
-    "approval": "7b11ef5de429ad3b1893fb068b07d69b4e9e8ff237679c65d65ed717ddfeede9",
-    "run": [
-      "41902516301",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T20:07:03.584900+00:00"
-  },
+  "last_posted_at": "2026-11-04T20:07:06.220116+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
