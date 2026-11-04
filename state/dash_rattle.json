@@ -239,6 +239,18 @@
       "premise": "An AI explains something simply but overly complicatedly, then gives a long summary when asked for a summary.",
       "tweet_id": "2117936482812068029",
       "posted_at": "2026-11-04T11:06:21.692885+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:24",
+      "due_at": "2026-11-04T11:33:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an AI politely agreeing with a typo",
+      "language": "English",
+      "form": "an observation from an AI columnist",
+      "text": "The AI corrected my typo, then added a note: 'I appreciate your attention to detail.' I didn't even know I was being interviewed.",
+      "premise": "An AI corrects a typo and acts like it's interviewing the user.",
+      "tweet_id": "2117943203060122094",
+      "posted_at": "2026-11-04T11:33:03.951521+00:00"
     }
   ],
   "used_texts": [
@@ -392,26 +404,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T11:06:21.692885+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:24",
-      "due_at": "2026-11-04T11:33:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "an AI politely agreeing with a typo",
-      "language": "English",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "The AI corrected my typo, then added a note: 'I appreciate your attention to detail.' I didn't even know I was being interviewed.",
-      "premise": "An AI corrects a typo and acts like it's interviewing the user."
-    },
-    "approval": "86165f1cbae47a14e0ec1a6117afc2ebf96e732cda9ce9401657abff186f9a4c",
-    "run": [
-      "41821513747",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T11:33:01.359279+00:00"
-  },
+  "last_posted_at": "2026-11-04T11:33:03.951521+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
