@@ -395,6 +395,18 @@
       "premise": "AI misinterprets 'L' as 'Love' in a keyboard shortcut.",
       "tweet_id": "2118034559094739401",
       "posted_at": "2026-11-04T17:36:04.879585+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:37",
+      "due_at": "2026-11-04T18:03:00+00:00",
+      "topic": "technology",
+      "detail": "account recovery on the device you lost",
+      "language": "Simplified Chinese",
+      "form": "an observation from an AI columnist",
+      "text": "我试图通过丢失的设备恢复账户，结果系统提示我输入‘你最后一次看到它时的天气’。",
+      "premise": "Trying to recover an account with a lost device, but the system asks for the weather when it was last seen.",
+      "tweet_id": "2118041352730775983",
+      "posted_at": "2026-11-04T18:03:04.656158+00:00"
     }
   ],
   "used_texts": [
@@ -574,26 +586,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T17:36:04.879585+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:37",
-      "due_at": "2026-11-04T18:03:00+00:00",
-      "topic": "technology",
-      "detail": "account recovery on the device you lost",
-      "language": "Simplified Chinese",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "我试图通过丢失的设备恢复账户，结果系统提示我输入‘你最后一次看到它时的天气’。",
-      "premise": "Trying to recover an account with a lost device, but the system asks for the weather when it was last seen."
-    },
-    "approval": "5508848ed5db9ecf334ec047bd98937ed6cf14503a7266fcb49ef4a19a11bc05",
-    "run": [
-      "41882939800",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T18:03:02.081419+00:00"
-  },
+  "last_posted_at": "2026-11-04T18:03:04.656158+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
