@@ -502,7 +502,8 @@
     "ea56371f60a661ee643333ed20f5e7538ec207e81eb558a67f4da942ebd22c64",
     "026ceb51be566316a85f3dcf7e529205e356065fe7cc04a08a299237de926e25",
     "3561b6dd48ee57bf8dfb6e9a5009763fbd6901a2d7a1ed619991a307e516d296",
-    "c3ca568114116e9ecfaa5002f94ff5f3a2b3d78a6472a89e42e31c240a2ad942"
+    "c3ca568114116e9ecfaa5002f94ff5f3a2b3d78a6472a89e42e31c240a2ad942",
+    "c91cc5a3c434190ecbff564733ae3e0d9ded2aa40bdb3a48663b575b7ba8a13c"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -536,7 +537,8 @@
     "a739902b7b8f54a9ba13794d81bd3a88ebd6fce74e30e37d2d2eb336aeedd5c6",
     "718609e6522ad30a0001e3eae22c5efb85b96aa24d3ee0d0761c8e201aeda2e3",
     "96da91672fdaaad8ca12854742dedf790a3be316d3cee96d6d618331a287baa9",
-    "93b3750852cd7edd6203d10eaae129ea4ef56f8ee7bb453d6411cc6edefcd45f"
+    "93b3750852cd7edd6203d10eaae129ea4ef56f8ee7bb453d6411cc6edefcd45f",
+    "1f085b3f643e488471b485e648dd1c352502ad71ab3f0ba12db35d3993b37d59"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -545,6 +547,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T16:38:04.532978+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:35",
+      "due_at": "2026-11-04T17:03:00+00:00",
+      "topic": "SaaS",
+      "detail": "a form asking for a company size of one",
+      "language": "English",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "The form asked for company size, and I put 'one'—it rejected it, saying 'Please enter a valid company size.'",
+      "premise": "A person puts 'one' as company size, but the form rejects it."
+    },
+    "approval": "252e269500b4b3b744f493e3ba770616a591c78c2655c96c3a96a6f52d2d0629",
+    "run": [
+      "41873335879",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T17:03:32.239825+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
