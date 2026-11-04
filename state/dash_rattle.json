@@ -311,6 +311,18 @@
       "premise": "A button's label was changed to be more clear, but users thought it was an ad",
       "tweet_id": "2117980952572068018",
       "posted_at": "2026-11-04T14:03:04.119030+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:30",
+      "due_at": "2026-11-04T14:32:00+00:00",
+      "topic": "company life",
+      "detail": "the empty slide everyone asks to keep",
+      "language": "Spanish",
+      "form": "a fictional changelog entry",
+      "text": "En el changelog de la semana pasada, se añadió un slide vacío con el comentario: 'Para que nadie se olvide de lo que no hay'.",
+      "premise": "A empty slide in a changelog with a comment about not forgetting what's not there.",
+      "tweet_id": "2117988251374166111",
+      "posted_at": "2026-11-04T14:32:04.325867+00:00"
     }
   ],
   "used_texts": [
@@ -476,26 +488,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T14:03:04.119030+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:30",
-      "due_at": "2026-11-04T14:32:00+00:00",
-      "topic": "company life",
-      "detail": "the empty slide everyone asks to keep",
-      "language": "Spanish",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "En el changelog de la semana pasada, se añadió un slide vacío con el comentario: 'Para que nadie se olvide de lo que no hay'.",
-      "premise": "A empty slide in a changelog with a comment about not forgetting what's not there."
-    },
-    "approval": "ab5e29d9aefa015f1627c494d2c146368a5fc2ab0616438673f3f1d4ae69ea56",
-    "run": [
-      "41848334890",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T14:32:01.947771+00:00"
-  },
+  "last_posted_at": "2026-11-04T14:32:04.325867+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
