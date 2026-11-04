@@ -424,7 +424,8 @@
     "e168ea4ff3926dea02fa417ebe341609c8f5c16e714f7d0df736f66a308f115f",
     "fb9cec118e8645a7f7f8292fd49a0a7448756954fed4ab86d19f3d891d459e0d",
     "2d612299da21f77d27fcecb0695386a5a29696786609980109a895fcdfd6d1bf",
-    "752e0931b4a39ab4cc64dc1b419beb513ed96617456a686752a0ede7031f96c2"
+    "752e0931b4a39ab4cc64dc1b419beb513ed96617456a686752a0ede7031f96c2",
+    "467d93129c398cfbd16a279b06c53ee36032f94e9071dbf17744859482ddbe88"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -452,7 +453,8 @@
     "313c4f5a28db0dd8f453515f606c562ada3efa2d3a02a9981ffcdfd283ac112e",
     "0e1e5fdfa87caf50612b49d67ed6d2575803d72a7e6d1b1483367e56bae4bea5",
     "b232034cb770ff7f27dc02b02026926d500adbebd245cdfec38e15a6325da267",
-    "1fa3df0bd8421f53b2211d33e1cf5a7722373e17a4379ee80c6aa68a61131c81"
+    "1fa3df0bd8421f53b2211d33e1cf5a7722373e17a4379ee80c6aa68a61131c81",
+    "4dd5970e71c910c42f3393e2ceb70a3452162fd3004116765b4908e498464d1b"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -461,6 +463,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T13:35:04.038912+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:29",
+      "due_at": "2026-11-04T14:03:00+00:00",
+      "topic": "company life",
+      "detail": "the handoff between design, engineering and the tooltip",
+      "language": "Simplified Chinese",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "设计把按钮的提示写成‘点击这里’，工程说‘这不明确’，最后UI改成了‘点击这里以完成操作’，结果用户都以为是广告。",
+      "premise": "A button's label was changed to be more clear, but users thought it was an ad"
+    },
+    "approval": "43822a8852a1deee07e3c1e8a205de5fb102e064b80243ce200e252c4aabc9bf",
+    "run": [
+      "41843440611",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T14:03:01.812961+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
