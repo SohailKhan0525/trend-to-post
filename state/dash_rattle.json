@@ -539,6 +539,18 @@
       "premise": "A release note said 'improved user experience' but it only made the screen slightly darker.",
       "tweet_id": "2118118109324480598",
       "posted_at": "2026-11-04T23:08:04.781957+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:49",
+      "due_at": "2026-11-04T23:38:00+00:00",
+      "topic": "cars",
+      "detail": "a car key larger than the pocket",
+      "language": "English",
+      "form": "a miniature scene with a punchline",
+      "text": "I tried to pocket the key, but it stuck like a magnet. Now my jeans have a new bulge and a question mark.",
+      "premise": "A person's jeans have a bulge and a question mark because a car key got stuck in their pocket.",
+      "tweet_id": "2118125679581491648",
+      "posted_at": "2026-11-04T23:38:09.702435+00:00"
     }
   ],
   "used_texts": [
@@ -742,26 +754,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T23:08:04.781957+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:49",
-      "due_at": "2026-11-04T23:38:00+00:00",
-      "topic": "cars",
-      "detail": "a car key larger than the pocket",
-      "language": "English",
-      "form": "a miniature scene with a punchline"
-    },
-    "draft": {
-      "text": "I tried to pocket the key, but it stuck like a magnet. Now my jeans have a new bulge and a question mark.",
-      "premise": "A person's jeans have a bulge and a question mark because a car key got stuck in their pocket."
-    },
-    "approval": "a9cd396d2bd4be9e19f1bc99e2bf86d45561746c46d4ca45705dc375d2d476d3",
-    "run": [
-      "41934303080",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T23:38:07.617226+00:00"
-  },
+  "last_posted_at": "2026-11-04T23:38:09.702435+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
