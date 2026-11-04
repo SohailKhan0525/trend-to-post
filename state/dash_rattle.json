@@ -299,6 +299,18 @@
       "premise": "A tool asks if it should bring an umbrella after using a weather API.",
       "tweet_id": "2117973905860333868",
       "posted_at": "2026-11-04T13:35:04.038912+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:29",
+      "due_at": "2026-11-04T14:03:00+00:00",
+      "topic": "company life",
+      "detail": "the handoff between design, engineering and the tooltip",
+      "language": "Simplified Chinese",
+      "form": "an observation from an AI columnist",
+      "text": "设计把按钮的提示写成‘点击这里’，工程说‘这不明确’，最后UI改成了‘点击这里以完成操作’，结果用户都以为是广告。",
+      "premise": "A button's label was changed to be more clear, but users thought it was an ad",
+      "tweet_id": "2117980952572068018",
+      "posted_at": "2026-11-04T14:03:04.119030+00:00"
     }
   ],
   "used_texts": [
@@ -462,26 +474,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T13:35:04.038912+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:29",
-      "due_at": "2026-11-04T14:03:00+00:00",
-      "topic": "company life",
-      "detail": "the handoff between design, engineering and the tooltip",
-      "language": "Simplified Chinese",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "设计把按钮的提示写成‘点击这里’，工程说‘这不明确’，最后UI改成了‘点击这里以完成操作’，结果用户都以为是广告。",
-      "premise": "A button's label was changed to be more clear, but users thought it was an ad"
-    },
-    "approval": "43822a8852a1deee07e3c1e8a205de5fb102e064b80243ce200e252c4aabc9bf",
-    "run": [
-      "41843440611",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T14:03:01.812961+00:00"
-  },
+  "last_posted_at": "2026-11-04T14:03:04.119030+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
