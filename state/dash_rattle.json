@@ -281,7 +281,8 @@
     "d0cbf62b091eeced3f2d1fe0c5998cb23a46f8d1081939afb20ae90826c14523",
     "e7b3969a729c997e9ae5f56f64cc21d7e8359122b68dfc611f0f2bbecbcb9315",
     "c08b58c91425a810651bdb127e783d1a6b2526b62fef936286d1f3e38482fed9",
-    "52412ff2950261f49217406b4e5c8f3ecb39e0ea2e336d35dc0d4980009af04c"
+    "52412ff2950261f49217406b4e5c8f3ecb39e0ea2e336d35dc0d4980009af04c",
+    "c7c32285d1520a2f1651160214a6a759afae25433d1030a2a9e7ee38006052a1"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -298,7 +299,8 @@
     "3a90ba790797d9c2c9236c99a3d02a8390f2ce266a9f87bb804c57d28115bbb6",
     "f6ce077e5833f9d921d4c269e0ba2e1a83cf2137dad6c9b2bd0f2213b64ff928",
     "c9d2a7e4d8ddca314e83169301cc61bb01c0fa43af87128d9713f970faa6765e",
-    "6cde3bc4782628c8017784aa70fe1dbb56a89ea85f06edcd7fc41fc6c2826aca"
+    "6cde3bc4782628c8017784aa70fe1dbb56a89ea85f06edcd7fc41fc6c2826aca",
+    "ff1b5bd081db244cbaf8764641ff37ce9f6ce3e2dae469289a368333abca182f"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -307,6 +309,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T08:03:37.774028+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:18",
+      "due_at": "2026-11-04T08:35:00+00:00",
+      "topic": "company life",
+      "detail": "a product demo rehearsed around one button",
+      "language": "English",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "During the demo, the team practiced clicking the 'Submit' button so much that it started blinking like it had a personality.",
+      "premise": "A 'Submit' button blinks from being clicked too much, as if it has a personality."
+    },
+    "approval": "9953d8a9ab88e42844a3a1f96d6f4867cc892effb0d26de0ea1d586b9f2575fd",
+    "run": [
+      "41800105609",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T08:35:07.607362+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
