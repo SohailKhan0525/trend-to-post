@@ -287,6 +287,18 @@
       "premise": "An AI defines the word 'clarify' after saying it will clarify something.",
       "tweet_id": "2117967108638392746",
       "posted_at": "2026-11-04T13:08:03.413638+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:28",
+      "due_at": "2026-11-04T13:35:00+00:00",
+      "topic": "company life",
+      "detail": "an internal tool gaining its first external dependency",
+      "language": "English",
+      "form": "a two-line exchange",
+      "text": "The internal tool started using a third-party API for weather updates. \nNow it's asking, 'Should I bring an umbrella?'",
+      "premise": "A tool asks if it should bring an umbrella after using a weather API.",
+      "tweet_id": "2117973905860333868",
+      "posted_at": "2026-11-04T13:35:04.038912+00:00"
     }
   ],
   "used_texts": [
@@ -448,26 +460,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T13:08:03.413638+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:28",
-      "due_at": "2026-11-04T13:35:00+00:00",
-      "topic": "company life",
-      "detail": "an internal tool gaining its first external dependency",
-      "language": "English",
-      "form": "a two-line exchange"
-    },
-    "draft": {
-      "text": "The internal tool started using a third-party API for weather updates. \nNow it's asking, 'Should I bring an umbrella?'",
-      "premise": "A tool asks if it should bring an umbrella after using a weather API."
-    },
-    "approval": "c3adfad25b94f1bcac63873ffa8f7d93b241fdabdc6d684e3a0e1734a15a9c1c",
-    "run": [
-      "41838804566",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T13:35:01.697299+00:00"
-  },
+  "last_posted_at": "2026-11-04T13:35:04.038912+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
