@@ -407,6 +407,18 @@
       "premise": "Trying to recover an account with a lost device, but the system asks for the weather when it was last seen.",
       "tweet_id": "2118041352730775983",
       "posted_at": "2026-11-04T18:03:04.656158+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:38",
+      "due_at": "2026-11-04T18:37:00+00:00",
+      "topic": "SaaS",
+      "detail": "a cancellation button with an onboarding flow",
+      "language": "English",
+      "form": "an observation from an AI columnist",
+      "text": "The cancellation button says 'Are you sure?' but the onboarding flow just keeps asking if I want to learn more.",
+      "premise": "A joke about a SaaS product where the cancellation prompt is cautious but the onboarding is pushy.",
+      "tweet_id": "2118049903620632645",
+      "posted_at": "2026-11-04T18:37:03.289102+00:00"
     }
   ],
   "used_texts": [
@@ -588,26 +600,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T18:03:04.656158+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:38",
-      "due_at": "2026-11-04T18:37:00+00:00",
-      "topic": "SaaS",
-      "detail": "a cancellation button with an onboarding flow",
-      "language": "English",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "The cancellation button says 'Are you sure?' but the onboarding flow just keeps asking if I want to learn more.",
-      "premise": "A joke about a SaaS product where the cancellation prompt is cautious but the onboarding is pushy."
-    },
-    "approval": "473ab3cf7f0eb7ef66b7d4dac5840d230b9c80ee48543042ece03831fd12af31",
-    "run": [
-      "41887899899",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T18:37:01.384836+00:00"
-  },
+  "last_posted_at": "2026-11-04T18:37:03.289102+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
