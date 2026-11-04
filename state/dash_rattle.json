@@ -658,7 +658,8 @@
     "597fa56e0ee19ca1f2254964ae3a3afaeb3e59675f71e5e5e0a0998edf7222b3",
     "bb22fb715556a6d3d182366b2c88f87143015e3fea480898be34b3077e0dde89",
     "ae3fa18a8611e114cba98ebfc4127c75ae9bf189eab520a113c50bb00afce7c6",
-    "7a722547651dea0f2c3aa7cfd1e7c7ec8d8f8874d6e95e4e331f6f0095f1cbfa"
+    "7a722547651dea0f2c3aa7cfd1e7c7ec8d8f8874d6e95e4e331f6f0095f1cbfa",
+    "8235f5a5bd85549c30320b069b62586f6d9476b92d24d0e348d4273e867ef261"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -704,7 +705,8 @@
     "961de42b38d6463e4da8aa0c46217cf79c7395fe30e0e1fef00828f24a20db5f",
     "e465587705199b614351fc9dffd81536890f00379cc2a89dfe066ea70299d2f4",
     "693e0165d2b86401485fcd15b0c370bea0dd556718c000a7756b02e3f647ca9c",
-    "0b2f3379fd20e052efe96b084d47ff0e17a8d772b9016f2c235882773c4bb8b0"
+    "0b2f3379fd20e052efe96b084d47ff0e17a8d772b9016f2c235882773c4bb8b0",
+    "d864cfd4adff705c4e13c2530e05b4c601c358bc2a3800b3690a5630a3c8b610"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -713,6 +715,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T22:08:05.078397+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:47",
+      "due_at": "2026-11-04T22:36:00+00:00",
+      "topic": "cars",
+      "detail": "an owner's manual explaining an unexplained icon",
+      "language": "English",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "The manual says the icon is for 'Emergency Brake,' but the button is labeled 'Parking Brake.' No one knows why.",
+      "premise": "A car manual has conflicting labels for the same brake feature."
+    },
+    "approval": "e01ce33220776a58a37393f4de8268bd4f2b7842984993c109d0921f3f2318da",
+    "run": [
+      "41925919626",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T22:36:01.522595+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
