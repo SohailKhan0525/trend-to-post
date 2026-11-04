@@ -385,7 +385,8 @@
     "dae0ec2353917057cba162a2e8cf289b1fa4c0eefb0451530b52a45f93e1fd6b",
     "73f19486131188a4e4a59975bceb4643917240036dec3dfaee6891d305fe7507",
     "5601213e84ea7989223c44f2c00d96c83fb4f640261f5783fefe766a6d06dae5",
-    "e168ea4ff3926dea02fa417ebe341609c8f5c16e714f7d0df736f66a308f115f"
+    "e168ea4ff3926dea02fa417ebe341609c8f5c16e714f7d0df736f66a308f115f",
+    "fb9cec118e8645a7f7f8292fd49a0a7448756954fed4ab86d19f3d891d459e0d"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -410,7 +411,8 @@
     "dbcc0d71ec71716cf530a87b313d1f4afb7a9a32f80de21edb2386b993a23d72",
     "aa40f3417fed7a024f9e16924f9b02f4d21bbe775997a5440557f5982d94b0c5",
     "9b2733456f6f216d122b480ecce7ac501046cfc440a572f2ba532f2482ece899",
-    "313c4f5a28db0dd8f453515f606c562ada3efa2d3a02a9981ffcdfd283ac112e"
+    "313c4f5a28db0dd8f453515f606c562ada3efa2d3a02a9981ffcdfd283ac112e",
+    "0e1e5fdfa87caf50612b49d67ed6d2575803d72a7e6d1b1483367e56bae4bea5"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -419,6 +421,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T12:06:04.520099+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:26",
+      "due_at": "2026-11-04T12:34:00+00:00",
+      "topic": "technology",
+      "detail": "a tiny keyboard shortcut with an enormous manual",
+      "language": "Simplified Chinese",
+      "form": "a dry one-liner"
+    },
+    "draft": {
+      "text": "我按下快捷键想关掉窗口，结果弹出一本200页的说明书。",
+      "premise": "Trying to close a window with a shortcut, but getting a 200-page manual instead."
+    },
+    "approval": "e17024c1f23c6617cc4480c7059ef62a64879fa03e5784d4cb8450e49ca7f942",
+    "run": [
+      "41829941927",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T12:34:02.310260+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
