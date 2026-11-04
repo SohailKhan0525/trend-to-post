@@ -632,7 +632,8 @@
     "f9f257f5d41802126d3f8de84c0752a73ca34114c9029699a77e174fac7425eb",
     "fca22288e4231fc1a6cb1208c7137a6ef9222d6050de9e7ccc2b586a05bf48bd",
     "597fa56e0ee19ca1f2254964ae3a3afaeb3e59675f71e5e5e0a0998edf7222b3",
-    "bb22fb715556a6d3d182366b2c88f87143015e3fea480898be34b3077e0dde89"
+    "bb22fb715556a6d3d182366b2c88f87143015e3fea480898be34b3077e0dde89",
+    "ae3fa18a8611e114cba98ebfc4127c75ae9bf189eab520a113c50bb00afce7c6"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -676,7 +677,8 @@
     "359e70bc861c557bd1bfdefd6eac13b784de048ceb66d8aa9d34e9041221dd8e",
     "f5e828ce5304cb05fa2cda2b0e153cceb661ebc2e6aa1a0b646a0075830675a7",
     "961de42b38d6463e4da8aa0c46217cf79c7395fe30e0e1fef00828f24a20db5f",
-    "e465587705199b614351fc9dffd81536890f00379cc2a89dfe066ea70299d2f4"
+    "e465587705199b614351fc9dffd81536890f00379cc2a89dfe066ea70299d2f4",
+    "693e0165d2b86401485fcd15b0c370bea0dd556718c000a7756b02e3f647ca9c"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -685,6 +687,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T21:07:05.353721+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:45",
+      "due_at": "2026-11-04T21:37:00+00:00",
+      "topic": "SaaS",
+      "detail": "a status page checking another status page",
+      "language": "English",
+      "form": "a two-line exchange"
+    },
+    "draft": {
+      "text": "Developer: 'Why is the status page down?' \nIntern: 'It's checking the status page.'",
+      "premise": "A developer asks why the status page is down, and the intern says it's checking itself."
+    },
+    "approval": "3cb262f8cef6da1f65155feed6ea53bcefb8479c41907aa87ee993cbbe5ab6b7",
+    "run": [
+      "41916796197",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T21:37:01.354455+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
