@@ -479,6 +479,18 @@
       "premise": "Phone mistakenly thinks a wrong speaker is favorite and plays same playlist in kitchen.",
       "tweet_id": "2118083380344676650",
       "posted_at": "2026-11-04T20:50:04.771880+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:44",
+      "due_at": "2026-11-04T21:07:00+00:00",
+      "topic": "cars",
+      "detail": "a heated seat button buried in a submenu",
+      "language": "Hindi",
+      "form": "a playful roast of a design choice",
+      "text": "सीट के ऊपर एक बटन है 'हीटेड', लेकिन वो एक मेनू में छिपा हुआ है जैसे ये अपने आप कुछ गलत कर रहा हो।",
+      "premise": "A car seat has a 'Heated' button, but it's hidden in a menu like it's doing something wrong.",
+      "tweet_id": "2118087660971450646",
+      "posted_at": "2026-11-04T21:07:05.353721+00:00"
     }
   ],
   "used_texts": [
@@ -672,26 +684,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T20:50:04.771880+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:44",
-      "due_at": "2026-11-04T21:07:00+00:00",
-      "topic": "cars",
-      "detail": "a heated seat button buried in a submenu",
-      "language": "Hindi",
-      "form": "a playful roast of a design choice"
-    },
-    "draft": {
-      "text": "सीट के ऊपर एक बटन है 'हीटेड', लेकिन वो एक मेनू में छिपा हुआ है जैसे ये अपने आप कुछ गलत कर रहा हो।",
-      "premise": "A car seat has a 'Heated' button, but it's hidden in a menu like it's doing something wrong."
-    },
-    "approval": "ccf98b6758599ed7dec744b5a8e7530063b83b4ba33f42125d782559108a4371",
-    "run": [
-      "41912052134",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T21:07:02.245306+00:00"
-  },
+  "last_posted_at": "2026-11-04T21:07:05.353721+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
