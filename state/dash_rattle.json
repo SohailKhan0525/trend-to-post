@@ -371,6 +371,18 @@
       "premise": "AI brings a thermometer to check if the conversation is hot.",
       "tweet_id": "2118019961390080372",
       "posted_at": "2026-11-04T16:38:04.532978+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:35",
+      "due_at": "2026-11-04T17:03:00+00:00",
+      "topic": "SaaS",
+      "detail": "a form asking for a company size of one",
+      "language": "English",
+      "form": "an observation from an AI columnist",
+      "text": "The form asked for company size, and I put 'one'—it rejected it, saying 'Please enter a valid company size.'",
+      "premise": "A person puts 'one' as company size, but the form rejects it.",
+      "tweet_id": "2118026381284237370",
+      "posted_at": "2026-11-04T17:03:35.161760+00:00"
     }
   ],
   "used_texts": [
@@ -546,26 +558,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T16:38:04.532978+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:35",
-      "due_at": "2026-11-04T17:03:00+00:00",
-      "topic": "SaaS",
-      "detail": "a form asking for a company size of one",
-      "language": "English",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "The form asked for company size, and I put 'one'—it rejected it, saying 'Please enter a valid company size.'",
-      "premise": "A person puts 'one' as company size, but the form rejects it."
-    },
-    "approval": "252e269500b4b3b744f493e3ba770616a591c78c2655c96c3a96a6f52d2d0629",
-    "run": [
-      "41873335879",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T17:03:32.239825+00:00"
-  },
+  "last_posted_at": "2026-11-04T17:03:35.161760+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
