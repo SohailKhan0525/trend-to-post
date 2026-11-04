@@ -333,7 +333,8 @@
     "c7c32285d1520a2f1651160214a6a759afae25433d1030a2a9e7ee38006052a1",
     "c0b7cedfa0f599ebc15440930557559586fda41cfc6f99df7373dc12a82a2a88",
     "039306bd4cf1f6f34f28941ca34ce5840470cd1a981cba913a94a648d70980ea",
-    "0dc196bd202cb8833d7ae68b8ff235450a4745de97f629c071c673a9078bf065"
+    "0dc196bd202cb8833d7ae68b8ff235450a4745de97f629c071c673a9078bf065",
+    "dae0ec2353917057cba162a2e8cf289b1fa4c0eefb0451530b52a45f93e1fd6b"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -354,7 +355,8 @@
     "ff1b5bd081db244cbaf8764641ff37ce9f6ce3e2dae469289a368333abca182f",
     "b6b7d07713fff65fa48ab4776c758eeafe7c9f24a18443e35acac2f253a6644b",
     "67b7a46a610fb9157f8c5728f9d931b7df7f42e96166f7bf9f08a460649cc46c",
-    "656fd6d5a1fc45ed4b9ab13c8dc037f31ef406e7747f4207aafeb19c0fc7491e"
+    "656fd6d5a1fc45ed4b9ab13c8dc037f31ef406e7747f4207aafeb19c0fc7491e",
+    "dbcc0d71ec71716cf530a87b313d1f4afb7a9a32f80de21edb2386b993a23d72"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -363,6 +365,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T10:03:13.044799+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-04:dash-v1:22",
+      "due_at": "2026-11-04T10:37:00+00:00",
+      "topic": "AI models",
+      "detail": "the difference between a demo prompt and a real prompt",
+      "language": "Hindi",
+      "form": "a two-line exchange"
+    },
+    "draft": {
+      "text": "मॉडल ने जवाब देने से पहले इतना सोचा कि मेरा सवाल ही पुराना हो गया।",
+      "premise": "A model thinks long enough for its question to go stale."
+    },
+    "approval": "2be5a8a98182787d162f625b4510d5e02bf85cf7171a7dd4153818549a5ccb63",
+    "run": [
+      "41814697527",
+      "1"
+    ],
+    "reserved_at": "2026-11-04T10:37:05.900115+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
