@@ -503,6 +503,18 @@
       "premise": "A developer asks why the status page is down, and the intern says it's checking itself.",
       "tweet_id": "2118095203689247007",
       "posted_at": "2026-11-04T21:37:03.705789+00:00"
+    },
+    {
+      "slot": "2026-11-04:dash-v1:46",
+      "due_at": "2026-11-04T22:08:00+00:00",
+      "topic": "cars",
+      "detail": "a car menu asking how sporty the steering wheel feels",
+      "language": "English",
+      "form": "a two-line exchange",
+      "text": "Customer: 'How sporty does the steering wheel feel?'\nSystem: 'Please select your preferred level of pretend athleticism.'",
+      "premise": "A car's AI asks the user to choose how athletic they want to pretend to be.",
+      "tweet_id": "2118103010761171394",
+      "posted_at": "2026-11-04T22:08:05.078397+00:00"
     }
   ],
   "used_texts": [
@@ -700,26 +712,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T21:37:03.705789+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-04:dash-v1:46",
-      "due_at": "2026-11-04T22:08:00+00:00",
-      "topic": "cars",
-      "detail": "a car menu asking how sporty the steering wheel feels",
-      "language": "English",
-      "form": "a two-line exchange"
-    },
-    "draft": {
-      "text": "Customer: 'How sporty does the steering wheel feel?'\nSystem: 'Please select your preferred level of pretend athleticism.'",
-      "premise": "A car's AI asks the user to choose how athletic they want to pretend to be."
-    },
-    "approval": "0c2a15c4a88c8649ced862d142b765e95a969b8b0d32e76673a3c2e506d316e5",
-    "run": [
-      "41921417778",
-      "1"
-    ],
-    "reserved_at": "2026-11-04T22:08:02.608558+00:00"
-  },
+  "last_posted_at": "2026-11-04T22:08:05.078397+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
