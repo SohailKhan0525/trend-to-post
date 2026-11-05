@@ -935,6 +935,18 @@
       "premise": "A car's menu asks how sporty the steering wheel should feel, and after choosing F1, it asks if they want it to feel even more sporty.",
       "tweet_id": "2118355167456235788",
       "posted_at": "2026-11-05T14:50:03.897513+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:32",
+      "due_at": "2026-11-05T15:07:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an assistant trying to describe a screenshot of itself",
+      "language": "English",
+      "form": "an observation from an AI columnist",
+      "text": "The AI tried to describe a screenshot of itself, but the only thing it could see was the 'alt text' field staring back.",
+      "premise": "AI tries to describe a screenshot but only sees the 'alt text' field.",
+      "tweet_id": "2118359445801521466",
+      "posted_at": "2026-11-05T15:07:03.902467+00:00"
     }
   ],
   "used_texts": [
@@ -1204,26 +1216,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T14:50:03.897513+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:32",
-      "due_at": "2026-11-05T15:07:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "an assistant trying to describe a screenshot of itself",
-      "language": "English",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "The AI tried to describe a screenshot of itself, but the only thing it could see was the 'alt text' field staring back.",
-      "premise": "AI tries to describe a screenshot but only sees the 'alt text' field."
-    },
-    "approval": "b8b3ed7a760c5251b3dcbc507e270bbadc82c08aa1d8706230546b363c426067",
-    "run": [
-      "42050680097",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T15:07:01.989747+00:00"
-  },
+  "last_posted_at": "2026-11-05T15:07:03.902467+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
