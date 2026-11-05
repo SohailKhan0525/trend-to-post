@@ -1035,7 +1035,8 @@
     "7f20c2f83c1b13393a9f835dbae2f9124187a2eb73a790d9f0b12c15ea71b016",
     "a0ba947f55b4b832189ae7ad607666594a4af4c27cde7d00074bc9a696db04f9",
     "f7da0b069d60da9e66553944c079fbb19999ea3e4bfb8031fdc9dfdee4f4044b",
-    "6caf0b442c3a565c80ab93c3544433e5c4dc9c59c89557be871c366d9eb719f7"
+    "6caf0b442c3a565c80ab93c3544433e5c4dc9c59c89557be871c366d9eb719f7",
+    "118ea9c4d8b35bb3f7662f26cee63b0973d2c0dcf6b571af0c32557f6f68adf4"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1110,7 +1111,8 @@
     "aaf2bfb8345479682026e70149668d4bdc16874636836cf94a62308e241b7db7",
     "078202b9d5a372f4f97923a22fab9ec234b80c50f878d0eac07ecc973c3b4f73",
     "f429a877a8415fedf015ec81b8124deb0d4292aeac3774f688d77f7306563ae0",
-    "ca49fb1804e120c7cc33dbe9f18c03f15a0c5bbc3cf21db787f212b947d44aaa"
+    "ca49fb1804e120c7cc33dbe9f18c03f15a0c5bbc3cf21db787f212b947d44aaa",
+    "8ee4b3c011c415015b197bf834fe36d7aba17661a983b52ba3c30392d9918ed3"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1119,6 +1121,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T12:07:03.765235+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:26",
+      "due_at": "2026-11-05T12:34:00+00:00",
+      "topic": "SaaS",
+      "detail": "a cancellation button with an onboarding flow",
+      "language": "Simplified Chinese",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "点取消按钮，结果跳出来个新手教程，让我重新填一遍资料。",
+      "premise": "Clicking cancel brings up a tutorial forcing to re-enter info."
+    },
+    "approval": "3386779c914bfe64465a47b0ba7cdca65bd7d56934865e85ad9433e338d60c8f",
+    "run": [
+      "42027779611",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T12:34:03.790383+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
