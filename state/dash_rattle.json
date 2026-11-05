@@ -719,6 +719,18 @@
       "premise": "A human removed AI's introduction, leaving only a message saying 'Don't worry, I understand.'",
       "tweet_id": "2118223550251495759",
       "posted_at": "2026-11-05T06:07:03.882525+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:14",
+      "due_at": "2026-11-05T06:38:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "Claude explaining a one-line change",
+      "language": "Hindi",
+      "form": "a two-line exchange",
+      "text": "मैंने एआई से कहा, बस नाम सुझाओ। अब फ़ाइल का नाम छोटा है और बातचीत के चार भाग हैं।",
+      "premise": "Choosing a short filename produces a four-part chat.",
+      "tweet_id": "2118231371093365144",
+      "posted_at": "2026-11-05T06:38:08.504816+00:00"
     }
   ],
   "used_texts": [
@@ -952,26 +964,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T06:07:03.882525+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:14",
-      "due_at": "2026-11-05T06:38:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "Claude explaining a one-line change",
-      "language": "Hindi",
-      "form": "a two-line exchange"
-    },
-    "draft": {
-      "text": "मैंने एआई से कहा, बस नाम सुझाओ। अब फ़ाइल का नाम छोटा है और बातचीत के चार भाग हैं।",
-      "premise": "Choosing a short filename produces a four-part chat."
-    },
-    "approval": "0a550b5e5a7d65fab88c71f85788c4468917cb0f3b22a6dd929e92434458e976",
-    "run": [
-      "41980920056",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T06:38:06.406315+00:00"
-  },
+  "last_posted_at": "2026-11-05T06:38:08.504816+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
