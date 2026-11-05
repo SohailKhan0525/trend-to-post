@@ -788,7 +788,8 @@
     "1c02b0ddc9acd3c09d0bcdfff49b4e957cbc17c15aca36f4be8d00375c4f1cb0",
     "8df683f039739dad2fc5378c98f84f2448dfb63eba819e6c607eda7b3b29a509",
     "92c3c4a1db6674e918a4bb72c0f75753e7ef751a5498d2a7efd72d147a3df4b0",
-    "2149f13263af3767f419ddfe4dcdeabe381edf116dd5c7a693414c180af4a233"
+    "2149f13263af3767f419ddfe4dcdeabe381edf116dd5c7a693414c180af4a233",
+    "2a30d340eb614a6755d72d11d51ab293e347b17ed36001511a869398d9d13ab7"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -844,7 +845,8 @@
     "2c3a412b593cb816b23be72f884d4ee149eadd7b7ff823d4101328ee9e31047a",
     "241c2358da8c6e93e445a6919e27a598e6196fb42affac57eb7ec7446f22e47f",
     "a88fae9df82223a49a90e3f53e3aa281142febcb115ad948199566301c578393",
-    "b69dfa31a454e3062fe8f6d82fa54423e3074b5fb10671e369a683cf9e3796e4"
+    "b69dfa31a454e3062fe8f6d82fa54423e3074b5fb10671e369a683cf9e3796e4",
+    "f6f1c64957c5a0fba5e6698694d8cca70893aabe3258dff55f04f311f096d29a"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -853,6 +855,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T02:36:03.521673+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:7",
+      "due_at": "2026-11-05T03:07:00+00:00",
+      "topic": "technology",
+      "detail": "account recovery on the device you lost",
+      "language": "English",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "v1.2.4 - Account recovery now asks for the last song played on your lost device. It was 'Never Gonna Give You Up', but the system still doesn’t trust you.",
+      "premise": "Account recovery asks for the last song played, but it still doesn't trust you."
+    },
+    "approval": "0c606d722f3a8d2e2c9d00e5565cb5bd1de0fbd9fb59675188bf6d33b15ec067",
+    "run": [
+      "41958894809",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T03:07:03.322091+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
