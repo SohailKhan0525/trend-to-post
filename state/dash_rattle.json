@@ -723,7 +723,8 @@
     "68af7458655b8c4068448b355da0537d2a9efd17a8e675132b7075fe2bb19981",
     "d143ed9eeca0c359de4d8e02591ccc8a7b7c8facf67e6f39b9dc15a55608c3cb",
     "2e4cc06e70b580e674593b13a57f2c646d0fabbdb18f596eae1b82bcce29f2cd",
-    "3c1075e1c43e843c3257796892e45979e7702c95f1120eade4db9209b4759138"
+    "3c1075e1c43e843c3257796892e45979e7702c95f1120eade4db9209b4759138",
+    "3d1f9d150f79f51eaf9a44c4fb943ebd0131c69cd4743a7c573e1f561ab94c3d"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -774,7 +775,8 @@
     "040feecd8b140ee751ed8e7bbb38b1af144998e39ea21735d5ff3ed81e2ba66f",
     "b85977c8172c38c4c44b5d0061b2c64f0d96b68827dd514783ce97fd2eb40bdc",
     "89cfbf76abc7b065d0a5e58ead87d3ebf001415a3ec2e9e289eb9b5529f99d53",
-    "5d8aadfff5c43f2d29d85255dab6a265dcc134a5d15fd9605de2810ba44b6372"
+    "5d8aadfff5c43f2d29d85255dab6a265dcc134a5d15fd9605de2810ba44b6372",
+    "c2071cd2e67276be19279464b3febaff7c0d2d2c90f0785a75ef966e23bb0a85"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -783,6 +785,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T00:33:04.223620+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:2",
+      "due_at": "2026-11-05T01:03:00+00:00",
+      "topic": "SaaS",
+      "detail": "the API key hidden behind a friendly wizard",
+      "language": "English",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "v1.2.3 - Added a friendly wizard to help you find your API key. It’s now hidden behind a 3-step process that ends with a question: 'Are you sure you want to see it?'",
+      "premise": "A software update adds a wizard that hides the API key behind a 3-step process ending in a confirmation question."
+    },
+    "approval": "05548192356a1e3f84111d526e02fa0770e83f28954e51d5f0797b8dff0b2d56",
+    "run": [
+      "41945560506",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T01:03:08.003619+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
