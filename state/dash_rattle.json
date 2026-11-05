@@ -1113,7 +1113,8 @@
     "b30584eeab6b10b1d98d7b08c1429f3f38d34adfbfb2b6c8b7670044c77a253d",
     "e17f6675fa87333416072c74e2ce5dd303af885918d20d3dc9bb2dcb99d28d6c",
     "d542a1bf15b063172508ec5f07028307d3c9fa41e4d5dfdfd3a38180b4d16c1d",
-    "fcc6d2073b77562beb5297999d6ff25cd250a33b5e708d595ea1c75cf0c98168"
+    "fcc6d2073b77562beb5297999d6ff25cd250a33b5e708d595ea1c75cf0c98168",
+    "8eccb355c8340c77ebef8caa8a8249abf22e4970e8b44fda6cae5d35a8922448"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1194,7 +1195,8 @@
     "95264cc2b7c3466b3f44c6a2a560d78dbbc4b6b831faf1232b25ac1c6f1ba57a",
     "62e25ad522cd1a0acf5ffabef6cc8b9b623272b50efa11568595104b88253cd5",
     "c628bd86789f22e3d95d9ce71d514d299b8fc433652d0723399a60938c6f36bf",
-    "c8e94f98961a532c69c6a83d89e46c08d46916fd39df1cfc4e7035b7a2a0ac51"
+    "c8e94f98961a532c69c6a83d89e46c08d46916fd39df1cfc4e7035b7a2a0ac51",
+    "4103f2f03e9bbdd2623caf5612ca64e69c0ee514de8e0eb1d0c252953c391a74"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1203,6 +1205,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T14:50:03.897513+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:32",
+      "due_at": "2026-11-05T15:07:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an assistant trying to describe a screenshot of itself",
+      "language": "English",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "The AI tried to describe a screenshot of itself, but the only thing it could see was the 'alt text' field staring back.",
+      "premise": "AI tries to describe a screenshot but only sees the 'alt text' field."
+    },
+    "approval": "b8b3ed7a760c5251b3dcbc507e270bbadc82c08aa1d8706230546b363c426067",
+    "run": [
+      "42050680097",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T15:07:01.989747+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
