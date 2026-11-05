@@ -863,6 +863,18 @@
       "premise": "A silent keyboard sounds like fireworks when it gets a notification.",
       "tweet_id": "2118314146517455116",
       "posted_at": "2026-11-05T12:07:03.765235+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:26",
+      "due_at": "2026-11-05T12:34:00+00:00",
+      "topic": "SaaS",
+      "detail": "a cancellation button with an onboarding flow",
+      "language": "Simplified Chinese",
+      "form": "an observation from an AI columnist",
+      "text": "点取消按钮，结果跳出来个新手教程，让我重新填一遍资料。",
+      "premise": "Clicking cancel brings up a tutorial forcing to re-enter info.",
+      "tweet_id": "2118320951712702757",
+      "posted_at": "2026-11-05T12:34:06.224775+00:00"
     }
   ],
   "used_texts": [
@@ -1120,26 +1132,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T12:07:03.765235+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:26",
-      "due_at": "2026-11-05T12:34:00+00:00",
-      "topic": "SaaS",
-      "detail": "a cancellation button with an onboarding flow",
-      "language": "Simplified Chinese",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "点取消按钮，结果跳出来个新手教程，让我重新填一遍资料。",
-      "premise": "Clicking cancel brings up a tutorial forcing to re-enter info."
-    },
-    "approval": "3386779c914bfe64465a47b0ba7cdca65bd7d56934865e85ad9433e338d60c8f",
-    "run": [
-      "42027779611",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T12:34:03.790383+00:00"
-  },
+  "last_posted_at": "2026-11-05T12:34:06.224775+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
