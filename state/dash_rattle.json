@@ -911,6 +911,18 @@
       "premise": "An empty slide in a meeting presentation is the one everyone refuses to delete.",
       "tweet_id": "2118344348358320628",
       "posted_at": "2026-11-05T14:07:04.393413+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:30",
+      "due_at": "2026-11-05T14:34:00+00:00",
+      "topic": "AI models",
+      "detail": "a context window full of old lunch plans",
+      "language": "English",
+      "form": "a fictional changelog entry",
+      "text": "v1.2.3 - Fixed the context window so it no longer remembers your lunch plans from last Tuesday. Also, your sandwich is still in the fridge.",
+      "premise": "AI fixes its memory but still can't find the sandwich.",
+      "tweet_id": "2118351142929498431",
+      "posted_at": "2026-11-05T14:34:04.380524+00:00"
     }
   ],
   "used_texts": [
@@ -1176,26 +1188,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T14:07:04.393413+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:30",
-      "due_at": "2026-11-05T14:34:00+00:00",
-      "topic": "AI models",
-      "detail": "a context window full of old lunch plans",
-      "language": "English",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "v1.2.3 - Fixed the context window so it no longer remembers your lunch plans from last Tuesday. Also, your sandwich is still in the fridge.",
-      "premise": "AI fixes its memory but still can't find the sandwich."
-    },
-    "approval": "6b3a0978e9cbb695005b19df047de15d5def0111f38eae9a841c6aa51ea56e4f",
-    "run": [
-      "42045743056",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T14:34:02.035307+00:00"
-  },
+  "last_posted_at": "2026-11-05T14:34:04.380524+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
