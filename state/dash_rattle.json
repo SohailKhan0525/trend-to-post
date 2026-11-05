@@ -899,6 +899,18 @@
       "premise": "A car's knob is annoyed about needing a software update.",
       "tweet_id": "2118336317507682446",
       "posted_at": "2026-11-05T13:35:09.710834+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:29",
+      "due_at": "2026-11-05T14:07:00+00:00",
+      "topic": "company life",
+      "detail": "the empty slide everyone asks to keep",
+      "language": "Simplified Chinese",
+      "form": "a dry one-liner",
+      "text": "开会时没人提的那张空幻灯片，最后成了大家最不想删的那张。",
+      "premise": "An empty slide in a meeting presentation is the one everyone refuses to delete.",
+      "tweet_id": "2118344348358320628",
+      "posted_at": "2026-11-05T14:07:04.393413+00:00"
     }
   ],
   "used_texts": [
@@ -1162,26 +1174,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T13:35:09.710834+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:29",
-      "due_at": "2026-11-05T14:07:00+00:00",
-      "topic": "company life",
-      "detail": "the empty slide everyone asks to keep",
-      "language": "Simplified Chinese",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "开会时没人提的那张空幻灯片，最后成了大家最不想删的那张。",
-      "premise": "An empty slide in a meeting presentation is the one everyone refuses to delete."
-    },
-    "approval": "cfb969c1b4356f868a3c6ff7f421bd844a95ac324fff8111365763efa10860eb",
-    "run": [
-      "42040965876",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T14:07:02.122672+00:00"
-  },
+  "last_posted_at": "2026-11-05T14:07:04.393413+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
