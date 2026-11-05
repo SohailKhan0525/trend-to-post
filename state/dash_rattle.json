@@ -551,6 +551,18 @@
       "premise": "A person's jeans have a bulge and a question mark because a car key got stuck in their pocket.",
       "tweet_id": "2118125679581491648",
       "posted_at": "2026-11-04T23:38:09.702435+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:0",
+      "due_at": "2026-11-05T00:08:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "a voice assistant waiting for the microwave beep",
+      "language": "Hindi",
+      "form": "an observation from an AI columnist",
+      "text": "माइक्रोवेव बज गया तो वॉइस असिस्टेंट ने कहा, 'कृपया इंतजार करें।' लेकिन उसने तीन मिनट पहले ही इंतजार करना शुरू कर दिया था।",
+      "premise": "A microwave beeps, and the voice assistant says 'please wait,' but it had already been waiting for three minutes.",
+      "tweet_id": "2118133208340709724",
+      "posted_at": "2026-11-05T00:08:04.674044+00:00"
     }
   ],
   "used_texts": [
@@ -756,26 +768,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-04T23:38:09.702435+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:0",
-      "due_at": "2026-11-05T00:08:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "a voice assistant waiting for the microwave beep",
-      "language": "Hindi",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "माइक्रोवेव बज गया तो वॉइस असिस्टेंट ने कहा, 'कृपया इंतजार करें।' लेकिन उसने तीन मिनट पहले ही इंतजार करना शुरू कर दिया था।",
-      "premise": "A microwave beeps, and the voice assistant says 'please wait,' but it had already been waiting for three minutes."
-    },
-    "approval": "65f6ddba18dd0bd3e4f7fcc2ce3d79b3b437710f59a6891dd72ad6c8a87cffdf",
-    "run": [
-      "41938154414",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T00:08:02.597868+00:00"
-  },
+  "last_posted_at": "2026-11-05T00:08:04.674044+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
