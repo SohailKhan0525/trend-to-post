@@ -879,7 +879,8 @@
     "d64ecdb63081986b4ea7e8a47b30667c9dbfafea5f29e188e5dc5341cbc6c149",
     "cc6f81e8f743390caeb213e0e04377fd8c10d55c9bf58c416e7db58628467d1d",
     "a6d1d5260ac2c917bc3acf2d04d4a378ad074c8ce9d3ee578a949cc3df6e4967",
-    "e0ee8b2383109e85499ee323f2bd9b10023c4b66dfac9d56f691bd10236929cd"
+    "e0ee8b2383109e85499ee323f2bd9b10023c4b66dfac9d56f691bd10236929cd",
+    "40b9b743a7f44117844011ec4f4700866e52956e79b802d185c9f122380832ae"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -942,7 +943,8 @@
     "d430d69529199780e3ec6f4e34dcd14ef996c1279c81d5c6d0f2b9bddeb47859",
     "26ca5552b7442c3d6ba60e45e1a80b622de6a4c21bcacf298033ad374dd56be0",
     "b4687dfae97b095f18aac68fb5067be375f5a444b9017f8eec98659a114ccb3f",
-    "40b7c7e832b393bfd5ef172e0b2d62472cce3090d3e994d0004b3e3f08a72f70"
+    "40b7c7e832b393bfd5ef172e0b2d62472cce3090d3e994d0004b3e3f08a72f70",
+    "16866986729c1b762e847a31c2763153cce857674f9e91030142218cbbf6cb48"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -951,6 +953,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T06:07:03.882525+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:14",
+      "due_at": "2026-11-05T06:38:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "Claude explaining a one-line change",
+      "language": "Hindi",
+      "form": "a two-line exchange"
+    },
+    "draft": {
+      "text": "मैंने एआई से कहा, बस नाम सुझाओ। अब फ़ाइल का नाम छोटा है और बातचीत के चार भाग हैं।",
+      "premise": "Choosing a short filename produces a four-part chat."
+    },
+    "approval": "0a550b5e5a7d65fab88c71f85788c4468917cb0f3b22a6dd929e92434458e976",
+    "run": [
+      "41980920056",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T06:38:06.406315+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
