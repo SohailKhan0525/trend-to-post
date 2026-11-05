@@ -736,7 +736,8 @@
     "d143ed9eeca0c359de4d8e02591ccc8a7b7c8facf67e6f39b9dc15a55608c3cb",
     "2e4cc06e70b580e674593b13a57f2c646d0fabbdb18f596eae1b82bcce29f2cd",
     "3c1075e1c43e843c3257796892e45979e7702c95f1120eade4db9209b4759138",
-    "3d1f9d150f79f51eaf9a44c4fb943ebd0131c69cd4743a7c573e1f561ab94c3d"
+    "3d1f9d150f79f51eaf9a44c4fb943ebd0131c69cd4743a7c573e1f561ab94c3d",
+    "1c02b0ddc9acd3c09d0bcdfff49b4e957cbc17c15aca36f4be8d00375c4f1cb0"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -788,7 +789,8 @@
     "b85977c8172c38c4c44b5d0061b2c64f0d96b68827dd514783ce97fd2eb40bdc",
     "89cfbf76abc7b065d0a5e58ead87d3ebf001415a3ec2e9e289eb9b5529f99d53",
     "5d8aadfff5c43f2d29d85255dab6a265dcc134a5d15fd9605de2810ba44b6372",
-    "c2071cd2e67276be19279464b3febaff7c0d2d2c90f0785a75ef966e23bb0a85"
+    "c2071cd2e67276be19279464b3febaff7c0d2d2c90f0785a75ef966e23bb0a85",
+    "2c3a412b593cb816b23be72f884d4ee149eadd7b7ff823d4101328ee9e31047a"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -797,6 +799,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T01:03:09.863991+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:3",
+      "due_at": "2026-11-05T01:21:00+00:00",
+      "topic": "SaaS",
+      "detail": "a seat license for an empty chair",
+      "language": "English",
+      "form": "a dry one-liner"
+    },
+    "draft": {
+      "text": "The seat license was activated, but the chair was still empty—turns out, the system didn’t check for people, just for seats.",
+      "premise": "A SaaS system activates a license based on seats, not people, leaving an empty chair."
+    },
+    "approval": "2190358c982b18de9974d68163f54dd1793242fac8876c2ca7767ac8b672d1e0",
+    "run": [
+      "41945560506",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T01:21:01.675888+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
