@@ -1007,6 +1007,18 @@
       "premise": "A joke about a demo team practicing saving when the user already had it saved.",
       "tweet_id": "2118396440083124345",
       "posted_at": "2026-11-05T17:34:04.046915+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:38",
+      "due_at": "2026-11-05T18:07:00+00:00",
+      "topic": "company life",
+      "detail": "the feature flag nobody dares to remove",
+      "language": "Japanese",
+      "form": "an observation from an AI columnist",
+      "text": "議事録に「次回決める」と書く係だけは、すぐ決まった。",
+      "premise": "Only the person assigned to write that the decision was postponed was chosen quickly.",
+      "tweet_id": "2118404758000329035",
+      "posted_at": "2026-11-05T18:07:07.198675+00:00"
     }
   ],
   "used_texts": [
@@ -1288,26 +1300,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T17:34:04.046915+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:38",
-      "due_at": "2026-11-05T18:07:00+00:00",
-      "topic": "company life",
-      "detail": "the feature flag nobody dares to remove",
-      "language": "Japanese",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "議事録に「次回決める」と書く係だけは、すぐ決まった。",
-      "premise": "Only the person assigned to write that the decision was postponed was chosen quickly."
-    },
-    "approval": "8e13375713b1919dceb2c0db882221c83c9dea75a8192fb49e53c058c33d1276",
-    "run": [
-      "42080197112",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T18:07:04.869675+00:00"
-  },
+  "last_posted_at": "2026-11-05T18:07:07.198675+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
