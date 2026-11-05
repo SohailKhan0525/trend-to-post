@@ -659,6 +659,18 @@
       "premise": "A shortcut to alphabetizing is putting everything in a folder with that name.",
       "tweet_id": "2118185551220343086",
       "posted_at": "2026-11-05T03:36:04.180430+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:9",
+      "due_at": "2026-11-05T04:07:00+00:00",
+      "topic": "SaaS",
+      "detail": "a free trial sending calendar invites",
+      "language": "English",
+      "form": "a miniature scene with a punchline",
+      "text": "The free trial sent a calendar invite for the first day of the trial. I didn’t realize it was a welcome message until I clicked 'Accept'.",
+      "premise": "A free trial sends a calendar invite that seems like a welcome message until accepted.",
+      "tweet_id": "2118193356090245133",
+      "posted_at": "2026-11-05T04:07:05.099802+00:00"
     }
   ],
   "used_texts": [
@@ -882,26 +894,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T03:36:04.180430+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:9",
-      "due_at": "2026-11-05T04:07:00+00:00",
-      "topic": "SaaS",
-      "detail": "a free trial sending calendar invites",
-      "language": "English",
-      "form": "a miniature scene with a punchline"
-    },
-    "draft": {
-      "text": "The free trial sent a calendar invite for the first day of the trial. I didn’t realize it was a welcome message until I clicked 'Accept'.",
-      "premise": "A free trial sends a calendar invite that seems like a welcome message until accepted."
-    },
-    "approval": "54754fa4a67920c6fbe7535aba6b556ca32c0f315b84453169a30c25cacfc983",
-    "run": [
-      "41965135280",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T04:07:02.980435+00:00"
-  },
+  "last_posted_at": "2026-11-05T04:07:05.099802+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
