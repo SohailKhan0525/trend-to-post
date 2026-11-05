@@ -1048,7 +1048,8 @@
     "a0ba947f55b4b832189ae7ad607666594a4af4c27cde7d00074bc9a696db04f9",
     "f7da0b069d60da9e66553944c079fbb19999ea3e4bfb8031fdc9dfdee4f4044b",
     "6caf0b442c3a565c80ab93c3544433e5c4dc9c59c89557be871c366d9eb719f7",
-    "118ea9c4d8b35bb3f7662f26cee63b0973d2c0dcf6b571af0c32557f6f68adf4"
+    "118ea9c4d8b35bb3f7662f26cee63b0973d2c0dcf6b571af0c32557f6f68adf4",
+    "4c8e6fc4fc1fdf7b7e1e824d8106e1634b0129b5749104830586f66dd76d20ac"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1124,7 +1125,8 @@
     "078202b9d5a372f4f97923a22fab9ec234b80c50f878d0eac07ecc973c3b4f73",
     "f429a877a8415fedf015ec81b8124deb0d4292aeac3774f688d77f7306563ae0",
     "ca49fb1804e120c7cc33dbe9f18c03f15a0c5bbc3cf21db787f212b947d44aaa",
-    "8ee4b3c011c415015b197bf834fe36d7aba17661a983b52ba3c30392d9918ed3"
+    "8ee4b3c011c415015b197bf834fe36d7aba17661a983b52ba3c30392d9918ed3",
+    "830559fc25c41c0d5eff5d7896465715e1c33ca327092a7cdd8c26f933ddb764"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1133,6 +1135,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T12:34:06.224775+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:27",
+      "due_at": "2026-11-05T13:02:00+00:00",
+      "topic": "SaaS",
+      "detail": "a pricing table whose verbs get better as you scroll right",
+      "language": "English",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "v1.2.3 - Pricing table now has verbs that get more aggressive the further right you scroll. 'Start' becomes 'Commit', then 'Seal', then 'Obligate'.",
+      "premise": "A SaaS pricing table uses increasingly aggressive verbs as you scroll right."
+    },
+    "approval": "e32d05c537babd6f6921cdcb992549a36a7eb9c6f37f49ef69666a65f981092d",
+    "run": [
+      "42032033673",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T13:02:02.227269+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
