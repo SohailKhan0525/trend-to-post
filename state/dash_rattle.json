@@ -875,6 +875,18 @@
       "premise": "Clicking cancel brings up a tutorial forcing to re-enter info.",
       "tweet_id": "2118320951712702757",
       "posted_at": "2026-11-05T12:34:06.224775+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:27",
+      "due_at": "2026-11-05T13:02:00+00:00",
+      "topic": "SaaS",
+      "detail": "a pricing table whose verbs get better as you scroll right",
+      "language": "English",
+      "form": "a fictional changelog entry",
+      "text": "v1.2.3 - Pricing table now has verbs that get more aggressive the further right you scroll. 'Start' becomes 'Commit', then 'Seal', then 'Obligate'.",
+      "premise": "A SaaS pricing table uses increasingly aggressive verbs as you scroll right.",
+      "tweet_id": "2118327990753079351",
+      "posted_at": "2026-11-05T13:02:04.441049+00:00"
     }
   ],
   "used_texts": [
@@ -1134,26 +1146,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T12:34:06.224775+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:27",
-      "due_at": "2026-11-05T13:02:00+00:00",
-      "topic": "SaaS",
-      "detail": "a pricing table whose verbs get better as you scroll right",
-      "language": "English",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "v1.2.3 - Pricing table now has verbs that get more aggressive the further right you scroll. 'Start' becomes 'Commit', then 'Seal', then 'Obligate'.",
-      "premise": "A SaaS pricing table uses increasingly aggressive verbs as you scroll right."
-    },
-    "approval": "e32d05c537babd6f6921cdcb992549a36a7eb9c6f37f49ef69666a65f981092d",
-    "run": [
-      "42032033673",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T13:02:02.227269+00:00"
-  },
+  "last_posted_at": "2026-11-05T13:02:04.441049+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
