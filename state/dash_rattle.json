@@ -853,7 +853,8 @@
     "64699c65afde87ef74972e7f485d41a99075260578647b9092dee6368ab46b83",
     "3e5cb5589284023607dda6b76bcc5b02b0788a8df5c98f78c3cd6cfb15714734",
     "d64ecdb63081986b4ea7e8a47b30667c9dbfafea5f29e188e5dc5341cbc6c149",
-    "cc6f81e8f743390caeb213e0e04377fd8c10d55c9bf58c416e7db58628467d1d"
+    "cc6f81e8f743390caeb213e0e04377fd8c10d55c9bf58c416e7db58628467d1d",
+    "a6d1d5260ac2c917bc3acf2d04d4a378ad074c8ce9d3ee578a949cc3df6e4967"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -914,7 +915,8 @@
     "d3938bc8c6bf2b94c9bc1585111f464c5ebe1ce26dd1df11e19417587173c95c",
     "d0ca5dd6611c6ae71826b10cdbafbb0893d2ae2fc3a5347975492060426c43b8",
     "d430d69529199780e3ec6f4e34dcd14ef996c1279c81d5c6d0f2b9bddeb47859",
-    "26ca5552b7442c3d6ba60e45e1a80b622de6a4c21bcacf298033ad374dd56be0"
+    "26ca5552b7442c3d6ba60e45e1a80b622de6a4c21bcacf298033ad374dd56be0",
+    "b4687dfae97b095f18aac68fb5067be375f5a444b9017f8eec98659a114ccb3f"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -923,6 +925,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T05:04:07.707454+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:12",
+      "due_at": "2026-11-05T05:37:00+00:00",
+      "topic": "company life",
+      "detail": "a support ticket surviving three reorganizations",
+      "language": "Japanese",
+      "form": "a two-line exchange"
+    },
+    "draft": {
+      "text": "サポートチケットが3回の組織再編を乗り越えて、今も生きている。担当者は誰も知らない。",
+      "premise": "A support ticket survives three organizational restructurings but no one knows who is responsible."
+    },
+    "approval": "0bc09b5dd85c9e61bf19c74166a55bc66426b88374d2f2921afb8febf71204d4",
+    "run": [
+      "41974470177",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T05:37:04.005572+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
