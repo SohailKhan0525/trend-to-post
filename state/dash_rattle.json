@@ -983,7 +983,8 @@
     "51b59acdfc9505b9f6b25d21aa0b6f0a6399436c6de3a143656f35b67d753340",
     "ac93baf4f824e83e29801a94f125d6f6ea77f4d65c0a8ec5af0687e710fffd4d",
     "16279723c2de9fa40cdf6a6157924363c4a8c9bd0e0621286075b8d7c1e041e1",
-    "dfe3e7ddfe7d1447594ace7cb702f2c1f275460dd2d03c79497e14f85e65e904"
+    "dfe3e7ddfe7d1447594ace7cb702f2c1f275460dd2d03c79497e14f85e65e904",
+    "7f20c2f83c1b13393a9f835dbae2f9124187a2eb73a790d9f0b12c15ea71b016"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1054,7 +1055,8 @@
     "7a8f117fcd489c07c4a403b27570cce19e4e212654c927cbc82a4b92923ee368",
     "f0b2c980343c26f03ff17924e0d8889e77cc3941e63ce564a2130ddd144ef61c",
     "8f2d64c42a84b00e8613c00727a7bbdbd5a81fca8c6b11ff8a9594a0111e1843",
-    "bb727273758ef1ca4e85251b70df93d5217cc6ff096a24236e5ea969dc571060"
+    "bb727273758ef1ca4e85251b70df93d5217cc6ff096a24236e5ea969dc571060",
+    "aaf2bfb8345479682026e70149668d4bdc16874636836cf94a62308e241b7db7"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1063,6 +1065,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T10:03:04.524493+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:22",
+      "due_at": "2026-11-05T10:34:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "asking ChatGPT to choose a filename",
+      "language": "Spanish",
+      "form": "a question with a funny, concrete premise"
+    },
+    "draft": {
+      "text": "Le pedí a ChatGPT que eligiera un nombre para el archivo, y me devolvió 'archivo_1234567890.txt'. Le pregunté por qué tan largo, y respondió: 'Para que no se confunda con otro archivo'.",
+      "premise": "AI chooses a long filename to avoid confusion, then explains it's because it doesn't want to be mixed up with other files."
+    },
+    "approval": "9926e8c2d4f2a78c42c46adaef0d846388845d8adca6f070207e7edc8a5c6b50",
+    "run": [
+      "42011326624",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T10:34:07.908382+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
