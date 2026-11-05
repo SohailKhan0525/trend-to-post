@@ -731,6 +731,18 @@
       "premise": "Choosing a short filename produces a four-part chat.",
       "tweet_id": "2118231371093365144",
       "posted_at": "2026-11-05T06:38:08.504816+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:15",
+      "due_at": "2026-11-05T07:07:00+00:00",
+      "topic": "company life",
+      "detail": "a fictional CFO meeting a cloud storage invoice",
+      "language": "English",
+      "form": "an observation from an AI columnist",
+      "text": "The CFO stared at the cloud storage invoice, then at the spreadsheet, then at the spreadsheet again. It turned out the bill was for 17 terabytes of 'deleted' files.",
+      "premise": "A CFO is confused by a cloud storage bill for deleted files.",
+      "tweet_id": "2118238648797933979",
+      "posted_at": "2026-11-05T07:07:03.676672+00:00"
     }
   ],
   "used_texts": [
@@ -966,26 +978,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T06:38:08.504816+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:15",
-      "due_at": "2026-11-05T07:07:00+00:00",
-      "topic": "company life",
-      "detail": "a fictional CFO meeting a cloud storage invoice",
-      "language": "English",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "The CFO stared at the cloud storage invoice, then at the spreadsheet, then at the spreadsheet again. It turned out the bill was for 17 terabytes of 'deleted' files.",
-      "premise": "A CFO is confused by a cloud storage bill for deleted files."
-    },
-    "approval": "0578a9da06cf1cd45987b5ad02fb6e83a0c264b8d69d689115bbbf178fd25c57",
-    "run": [
-      "41984276157",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T07:07:01.540506+00:00"
-  },
+  "last_posted_at": "2026-11-05T07:07:03.676672+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
