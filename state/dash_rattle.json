@@ -1126,7 +1126,8 @@
     "e17f6675fa87333416072c74e2ce5dd303af885918d20d3dc9bb2dcb99d28d6c",
     "d542a1bf15b063172508ec5f07028307d3c9fa41e4d5dfdfd3a38180b4d16c1d",
     "fcc6d2073b77562beb5297999d6ff25cd250a33b5e708d595ea1c75cf0c98168",
-    "8eccb355c8340c77ebef8caa8a8249abf22e4970e8b44fda6cae5d35a8922448"
+    "8eccb355c8340c77ebef8caa8a8249abf22e4970e8b44fda6cae5d35a8922448",
+    "e88222d5e90fc223bb25919a6db92552e6c60d3c60ddb70f4035f4744acde974"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1208,7 +1209,8 @@
     "62e25ad522cd1a0acf5ffabef6cc8b9b623272b50efa11568595104b88253cd5",
     "c628bd86789f22e3d95d9ce71d514d299b8fc433652d0723399a60938c6f36bf",
     "c8e94f98961a532c69c6a83d89e46c08d46916fd39df1cfc4e7035b7a2a0ac51",
-    "4103f2f03e9bbdd2623caf5612ca64e69c0ee514de8e0eb1d0c252953c391a74"
+    "4103f2f03e9bbdd2623caf5612ca64e69c0ee514de8e0eb1d0c252953c391a74",
+    "2c84470bb8a79a5cceeff54fab6a93b8ce181c810f4679ba3e56f8dfb886cd65"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1217,6 +1219,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T15:07:03.902467+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:33",
+      "due_at": "2026-11-05T15:37:00+00:00",
+      "topic": "SaaS",
+      "detail": "three onboarding tours fighting for the same corner",
+      "language": "Spanish",
+      "form": "a playful roast of a design choice"
+    },
+    "draft": {
+      "text": "El usuario entra y ve tres tours de onboarding intentando agarrar el mismo rincón del dashboard. No se ven ni los botones, solo tres personas intentando hacerse espacio con un '¡Primero llegué yo!' en el aire.",
+      "premise": "Three users fight for space on a SaaS dashboard, each claiming to have arrived first."
+    },
+    "approval": "f140b718f2c3238fb6a3b0382dddf589f7afa78d3858a373bcf37a28f68ed67b",
+    "run": [
+      "42055743259",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T15:37:03.056212+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
