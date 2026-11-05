@@ -814,7 +814,8 @@
     "92c3c4a1db6674e918a4bb72c0f75753e7ef751a5498d2a7efd72d147a3df4b0",
     "2149f13263af3767f419ddfe4dcdeabe381edf116dd5c7a693414c180af4a233",
     "2a30d340eb614a6755d72d11d51ab293e347b17ed36001511a869398d9d13ab7",
-    "64699c65afde87ef74972e7f485d41a99075260578647b9092dee6368ab46b83"
+    "64699c65afde87ef74972e7f485d41a99075260578647b9092dee6368ab46b83",
+    "3e5cb5589284023607dda6b76bcc5b02b0788a8df5c98f78c3cd6cfb15714734"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -872,7 +873,8 @@
     "a88fae9df82223a49a90e3f53e3aa281142febcb115ad948199566301c578393",
     "b69dfa31a454e3062fe8f6d82fa54423e3074b5fb10671e369a683cf9e3796e4",
     "f6f1c64957c5a0fba5e6698694d8cca70893aabe3258dff55f04f311f096d29a",
-    "d3938bc8c6bf2b94c9bc1585111f464c5ebe1ce26dd1df11e19417587173c95c"
+    "d3938bc8c6bf2b94c9bc1585111f464c5ebe1ce26dd1df11e19417587173c95c",
+    "d0ca5dd6611c6ae71826b10cdbafbb0893d2ae2fc3a5347975492060426c43b8"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -881,6 +883,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T03:36:04.180430+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:9",
+      "due_at": "2026-11-05T04:07:00+00:00",
+      "topic": "SaaS",
+      "detail": "a free trial sending calendar invites",
+      "language": "English",
+      "form": "a miniature scene with a punchline"
+    },
+    "draft": {
+      "text": "The free trial sent a calendar invite for the first day of the trial. I didn’t realize it was a welcome message until I clicked 'Accept'.",
+      "premise": "A free trial sends a calendar invite that seems like a welcome message until accepted."
+    },
+    "approval": "54754fa4a67920c6fbe7535aba6b556ca32c0f315b84453169a30c25cacfc983",
+    "run": [
+      "41965135280",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T04:07:02.980435+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
