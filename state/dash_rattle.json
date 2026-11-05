@@ -996,7 +996,8 @@
     "ac93baf4f824e83e29801a94f125d6f6ea77f4d65c0a8ec5af0687e710fffd4d",
     "16279723c2de9fa40cdf6a6157924363c4a8c9bd0e0621286075b8d7c1e041e1",
     "dfe3e7ddfe7d1447594ace7cb702f2c1f275460dd2d03c79497e14f85e65e904",
-    "7f20c2f83c1b13393a9f835dbae2f9124187a2eb73a790d9f0b12c15ea71b016"
+    "7f20c2f83c1b13393a9f835dbae2f9124187a2eb73a790d9f0b12c15ea71b016",
+    "a0ba947f55b4b832189ae7ad607666594a4af4c27cde7d00074bc9a696db04f9"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1068,7 +1069,8 @@
     "f0b2c980343c26f03ff17924e0d8889e77cc3941e63ce564a2130ddd144ef61c",
     "8f2d64c42a84b00e8613c00727a7bbdbd5a81fca8c6b11ff8a9594a0111e1843",
     "bb727273758ef1ca4e85251b70df93d5217cc6ff096a24236e5ea969dc571060",
-    "aaf2bfb8345479682026e70149668d4bdc16874636836cf94a62308e241b7db7"
+    "aaf2bfb8345479682026e70149668d4bdc16874636836cf94a62308e241b7db7",
+    "078202b9d5a372f4f97923a22fab9ec234b80c50f878d0eac07ecc973c3b4f73"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1077,6 +1079,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T10:34:10.012533+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:23",
+      "due_at": "2026-11-05T11:06:00+00:00",
+      "topic": "technology",
+      "detail": "a backup named final-final",
+      "language": "Simplified Chinese",
+      "form": "a miniature scene with a punchline"
+    },
+    "draft": {
+      "text": "我找到了一个备份叫'final-final'，结果打开发现是三年前的桌面壁纸。",
+      "premise": "Found a backup called 'final-final' but it was just an old desktop wallpaper."
+    },
+    "approval": "427f25603e76af0892dd819e33f9c79479d3a62add0764a2a84b1688fb552688",
+    "run": [
+      "42015463884",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T11:06:01.582819+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
