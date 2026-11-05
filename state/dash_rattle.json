@@ -892,7 +892,8 @@
     "cc6f81e8f743390caeb213e0e04377fd8c10d55c9bf58c416e7db58628467d1d",
     "a6d1d5260ac2c917bc3acf2d04d4a378ad074c8ce9d3ee578a949cc3df6e4967",
     "e0ee8b2383109e85499ee323f2bd9b10023c4b66dfac9d56f691bd10236929cd",
-    "40b9b743a7f44117844011ec4f4700866e52956e79b802d185c9f122380832ae"
+    "40b9b743a7f44117844011ec4f4700866e52956e79b802d185c9f122380832ae",
+    "ada4336df22c2ac28766e928d83a4e13b9f5ec0f412bcd00b608529ef6c0b55d"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -956,7 +957,8 @@
     "26ca5552b7442c3d6ba60e45e1a80b622de6a4c21bcacf298033ad374dd56be0",
     "b4687dfae97b095f18aac68fb5067be375f5a444b9017f8eec98659a114ccb3f",
     "40b7c7e832b393bfd5ef172e0b2d62472cce3090d3e994d0004b3e3f08a72f70",
-    "16866986729c1b762e847a31c2763153cce857674f9e91030142218cbbf6cb48"
+    "16866986729c1b762e847a31c2763153cce857674f9e91030142218cbbf6cb48",
+    "2cf66a0f95e5cd1b46f5cdcacfb2498669b79c2435aa37a9b55fa2aace69b6c4"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -965,6 +967,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T06:38:08.504816+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:15",
+      "due_at": "2026-11-05T07:07:00+00:00",
+      "topic": "company life",
+      "detail": "a fictional CFO meeting a cloud storage invoice",
+      "language": "English",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "The CFO stared at the cloud storage invoice, then at the spreadsheet, then at the spreadsheet again. It turned out the bill was for 17 terabytes of 'deleted' files.",
+      "premise": "A CFO is confused by a cloud storage bill for deleted files."
+    },
+    "approval": "0578a9da06cf1cd45987b5ad02fb6e83a0c264b8d69d689115bbbf178fd25c57",
+    "run": [
+      "41984276157",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T07:07:01.540506+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
