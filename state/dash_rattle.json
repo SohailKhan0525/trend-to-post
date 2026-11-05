@@ -995,6 +995,18 @@
       "premise": "A 'Demo Mode' toggle does nothing, but when pressed, it plays a sales ad in the background.",
       "tweet_id": "2118388638468002235",
       "posted_at": "2026-11-05T17:03:04.017363+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:37",
+      "due_at": "2026-11-05T17:34:00+00:00",
+      "topic": "company life",
+      "detail": "a product demo rehearsed around one button",
+      "language": "English",
+      "form": "a question with a funny, concrete premise",
+      "text": "Why did the demo team practice pressing the 'Save' button for three hours? Because the user forgot it was already saved.",
+      "premise": "A joke about a demo team practicing saving when the user already had it saved.",
+      "tweet_id": "2118396440083124345",
+      "posted_at": "2026-11-05T17:34:04.046915+00:00"
     }
   ],
   "used_texts": [
@@ -1274,26 +1286,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T17:03:04.017363+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:37",
-      "due_at": "2026-11-05T17:34:00+00:00",
-      "topic": "company life",
-      "detail": "a product demo rehearsed around one button",
-      "language": "English",
-      "form": "a question with a funny, concrete premise"
-    },
-    "draft": {
-      "text": "Why did the demo team practice pressing the 'Save' button for three hours? Because the user forgot it was already saved.",
-      "premise": "A joke about a demo team practicing saving when the user already had it saved."
-    },
-    "approval": "704dcf1b741331ead4d9a7c4806e6d954c3eef1c69a2bb1f94b43d4f5507295b",
-    "run": [
-      "42075353897",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T17:34:01.545177+00:00"
-  },
+  "last_posted_at": "2026-11-05T17:34:04.046915+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
