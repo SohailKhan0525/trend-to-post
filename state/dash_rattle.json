@@ -683,6 +683,18 @@
       "premise": "The final position on a pricing slider turns the price into a sales rep.",
       "tweet_id": "2118199652583694711",
       "posted_at": "2026-11-05T04:32:06.264206+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:11",
+      "due_at": "2026-11-05T05:04:00+00:00",
+      "topic": "technology",
+      "detail": "trying to mute the right tab",
+      "language": "English",
+      "form": "a playful roast of a design choice",
+      "text": "Tried to mute the right tab, but the browser just sighed and closed all of them.",
+      "premise": "A browser reacts to being asked to mute a tab by closing all of them.",
+      "tweet_id": "2118207711833997384",
+      "posted_at": "2026-11-05T05:04:07.707454+00:00"
     }
   ],
   "used_texts": [
@@ -910,26 +922,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T04:32:06.264206+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:11",
-      "due_at": "2026-11-05T05:04:00+00:00",
-      "topic": "technology",
-      "detail": "trying to mute the right tab",
-      "language": "English",
-      "form": "a playful roast of a design choice"
-    },
-    "draft": {
-      "text": "Tried to mute the right tab, but the browser just sighed and closed all of them.",
-      "premise": "A browser reacts to being asked to mute a tab by closing all of them."
-    },
-    "approval": "9161c3d75e401328faf5a4975dc59b4cc8615f2d48a1ea28aa116b4268ec7fed",
-    "run": [
-      "41971328767",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T05:04:05.592426+00:00"
-  },
+  "last_posted_at": "2026-11-05T05:04:07.707454+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
