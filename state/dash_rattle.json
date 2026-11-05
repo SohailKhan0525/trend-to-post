@@ -827,7 +827,8 @@
     "2149f13263af3767f419ddfe4dcdeabe381edf116dd5c7a693414c180af4a233",
     "2a30d340eb614a6755d72d11d51ab293e347b17ed36001511a869398d9d13ab7",
     "64699c65afde87ef74972e7f485d41a99075260578647b9092dee6368ab46b83",
-    "3e5cb5589284023607dda6b76bcc5b02b0788a8df5c98f78c3cd6cfb15714734"
+    "3e5cb5589284023607dda6b76bcc5b02b0788a8df5c98f78c3cd6cfb15714734",
+    "d64ecdb63081986b4ea7e8a47b30667c9dbfafea5f29e188e5dc5341cbc6c149"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -886,7 +887,8 @@
     "b69dfa31a454e3062fe8f6d82fa54423e3074b5fb10671e369a683cf9e3796e4",
     "f6f1c64957c5a0fba5e6698694d8cca70893aabe3258dff55f04f311f096d29a",
     "d3938bc8c6bf2b94c9bc1585111f464c5ebe1ce26dd1df11e19417587173c95c",
-    "d0ca5dd6611c6ae71826b10cdbafbb0893d2ae2fc3a5347975492060426c43b8"
+    "d0ca5dd6611c6ae71826b10cdbafbb0893d2ae2fc3a5347975492060426c43b8",
+    "d430d69529199780e3ec6f4e34dcd14ef996c1279c81d5c6d0f2b9bddeb47859"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -895,6 +897,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T04:07:05.099802+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:10",
+      "due_at": "2026-11-05T04:32:00+00:00",
+      "topic": "SaaS",
+      "detail": "a form asking for a company size of one",
+      "language": "English",
+      "form": "a question with a funny, concrete premise"
+    },
+    "draft": {
+      "text": "Our pricing page has a slider for team size. At the far right, the price turns into a man named Greg.",
+      "premise": "The final position on a pricing slider turns the price into a sales rep."
+    },
+    "approval": "1b5bd0251e435d5555b0b77efe627be2ae3b37b0bb2b75673ac829a16b944efa",
+    "run": [
+      "41968263688",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T04:32:04.337464+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
