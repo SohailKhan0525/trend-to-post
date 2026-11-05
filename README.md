@@ -20,7 +20,7 @@ The ledger retains source IDs, edit aliases, canonical article links, normalized
 
 The existing GitHub Actions secrets `X_AUTH_TOKEN` and `X_CT0` authorize the session client. `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` authorize Workers AI. `QOFENO_AI_MODEL` selects a compatible model and the previous `DASH_RATTLE_MODEL` override remains supported. The default is `@cf/qwen/qwen3-30b-a3b-fp8`.
 
-The workflow shares the prior publishing concurrency group. Approved source evidence and copy are committed before one send. A confirmed X ID is committed before attachment readback. A timeout or unknown send retains its reservation, preventing a retry that could create a duplicate. The pinned client's initial rejected-session error can release an unsent reservation and require a session check next time. A missing or incorrect quote attachment pauses further sends.
+The workflow shares the prior publishing concurrency group. Approved source evidence and copy are committed before one send. A confirmed X ID is committed before attachment readback. A timeout or unknown send retains its reservation, preventing a retry that could create a duplicate. A proven-unsent attempt releases only its own duplicate claims; the pinned client's initial rejected-session error also requires a session check next time. An unavailable attachment keeps verification pending, blocking new sends until readback succeeds. A confirmed incorrect attachment pauses delivery for inspection.
 
 `python -m app inspect` checks sources and one sample without publishing. `python -m app run` processes the current opportunity. Manual workflow runs have an inspect-only option. Tests run with `python -m unittest discover -s tests -v`.
 

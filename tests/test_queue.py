@@ -102,6 +102,11 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
             with patch.object(queue,'save_and_push',side_effect=self.persist),self.assertRaises((ValueError,TimeoutError)):
                 await queue.send_once(empty(),self.slot,SOURCE,DRAFT,conn)
             with self.assertRaises(ValueError):queue.require_open(queue.load())
+            retained=queue.load()
+            self.assertIn('111',retained['used_source_ids'])
+            self.assertIn(SOURCE['urls'][0],retained['used_urls'])
+            self.assertIn(queue.writer.fingerprint(DRAFT['text']),retained['used_texts'])
+            self.assertIn(queue.writer.fingerprint(DRAFT['event_key']),retained['used_events'])
             conn.create_tweet.assert_awaited_once()
 
     async def test_invalid_session_can_recover_without_ambiguous_retry(self):
@@ -110,6 +115,43 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
             await queue.send_once(empty(),self.slot,SOURCE,DRAFT,conn)
         self.assertIsNone(queue.load()['pending'])
         self.assertTrue(queue.load()['check_session'])
+        for ledger in ('used_source_ids','used_urls','used_texts','used_events'):
+            self.assertEqual(queue.load()[ledger],[])
+
+    async def test_known_unsent_cleanup_preserves_preexisting_ledger_values(self):
+        state=empty()
+        state.update(used_source_ids=['111','99'],used_urls=[SOURCE['urls'][0],'https://example.com/earlier'],
+                     used_texts=[queue.writer.fingerprint(DRAFT['text']),'prior-text'],used_events=['prior-event'])
+        original={key:list(state[key]) for key in ('used_source_ids','used_urls','used_texts','used_events')}
+        source={**SOURCE,'source_ids':['111','112'],'urls':[*SOURCE['urls'],'https://example.com/new']}
+        conn=self.connection();conn.create_tweet.side_effect=InvalidSession('fixture')
+        with patch.object(queue,'save_and_push',side_effect=self.persist),self.assertRaises(queue.SessionUnavailable):
+            await queue.send_once(state,self.slot,source,DRAFT,conn)
+        released=queue.load()
+        for ledger,values in original.items():
+            self.assertEqual(released[ledger],values)
+
+    async def test_expired_reservation_before_create_releases_its_ledger_additions(self):
+        conn=self.connection()
+        with patch.object(queue,'save_and_push',side_effect=self.persist),\
+             patch.object(queue,'utcnow',side_effect=[self.now,self.now+timedelta(seconds=91)]):
+            await queue.send_once(empty(),self.slot,SOURCE,DRAFT,conn)
+        conn.create_tweet.assert_not_awaited()
+        state=queue.load()
+        self.assertIsNone(state['pending'])
+        for ledger in ('used_source_ids','used_urls','used_texts','used_events'):
+            self.assertEqual(state[ledger],[])
+
+    async def test_source_expiry_before_create_releases_its_ledger_additions(self):
+        conn=self.connection()
+        with patch.object(queue,'save_and_push',side_effect=self.persist),\
+             patch.object(queue.sources,'validate',side_effect=[SOURCE,queue.sources.SourceError('expired')]):
+            await queue.send_once(empty(),self.slot,SOURCE,DRAFT,conn)
+        conn.create_tweet.assert_not_awaited()
+        state=queue.load()
+        self.assertIsNone(state['pending'])
+        for ledger in ('used_source_ids','used_urls','used_texts','used_events'):
+            self.assertEqual(state[ledger],[])
 
     async def test_wrong_quote_attachment_pauses_after_recording_id(self):
         conn=self.connection();conn.get_tweet_by_id.return_value=SimpleNamespace(quoted_status_id='444')
@@ -132,6 +174,32 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
             self.assertTrue(await queue.verify_quote(conn,state))
         conn.create_tweet.assert_awaited_once()
 
+    async def test_readback_accepts_nested_quote_id_without_legacy_quote_id(self):
+        conn=self.connection()
+        conn.get_tweet_by_id.return_value=SimpleNamespace(quoted_status_id=None,quote=SimpleNamespace(id='111'))
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.send_once(empty(),self.slot,SOURCE,DRAFT,conn)
+        state=queue.load()
+        self.assertNotIn('verification_pending',state)
+        self.assertNotIn('pause_reason',state)
+        self.assertEqual(state['history'][0]['tweet_id'],'333')
+        conn.create_tweet.assert_awaited_once()
+
+    async def test_missing_quote_metadata_stays_pending_and_does_not_pause(self):
+        conn=self.connection()
+        conn.get_tweet_by_id.return_value=SimpleNamespace(quoted_status_id=None,quote=None)
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.send_once(empty(),self.slot,SOURCE,DRAFT,conn)
+        state=queue.load()
+        self.assertEqual(state['verification_pending']['tweet_id'],'333')
+        self.assertNotIn('pause_reason',state)
+        self.assertIsNone(next_slot(state,self.now+timedelta(hours=2)))
+        conn.get_tweet_by_id.return_value=SimpleNamespace(quote=SimpleNamespace(id='111'))
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            self.assertTrue(await queue.verify_quote(conn,state))
+        self.assertNotIn('verification_pending',queue.load())
+        conn.create_tweet.assert_awaited_once()
+
     def test_legacy_sources_and_pending_work_are_preserved_on_migration(self):
         queue.LEGACY.write_text(json.dumps({'last_posted_at':START.isoformat(),'used_texts':['oldtext']}))
         queue.OLDER_QUOTES.write_text(json.dumps({'used_source_ids':['987']}))
@@ -141,3 +209,33 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(migrated['last_posted_at'],START.isoformat())
         queue.LEGACY.write_text(json.dumps({'pending':{'text':'unconfirmed'}}))
         with self.assertRaises(ValueError):queue.load()
+
+    def test_legacy_history_source_aliases_article_links_and_fingerprints_migrate(self):
+        queue.LEGACY.write_text(json.dumps({
+            'used_source_ids':['900'],'used_events':['prior-event-hash'],
+            'history':[{'source_id':'901','text':'An older original post.'}],
+        }))
+        queue.OLDER_QUOTES.write_text(json.dumps({
+            'used_source_ids':['0010',True,None,'bad'],'used_texts':['prior-text-hash',None],
+            'used_urls':['https://www.example.com/news/a/?utm_source=x','https://example.com/'],
+            'history':[
+                {'source_id':'11','tweet_id':'99999','source_ids':[12,'13',False],
+                 'edit_tweet_ids':['14'],'edit_control':{'edit_tweet_ids':['15']},
+                 'urls':['https://example.com/news/b?ref=share'],
+                 'source':{'id':'16','source_ids':['17'],'edit_control':{'edit_tweet_ids':['18']},
+                           'urls':[{'expanded_url':'https://example.com/news/c#top'}]},
+                 'text':'Our prior quote text.','event_key':'editor version 2 release'},
+                {'source_id':None,'source_ids':'not-a-list','urls':[None,{}],
+                 'text':None,'event_key':False,'article_url':'https://example.com/news/d'},
+                None,
+            ],
+        }))
+        state=queue.load()
+        self.assertEqual(set(state['used_source_ids']),{'10','11','12','13','14','15','16','17','18','900','901'})
+        self.assertNotIn('99999',state['used_source_ids'])
+        self.assertEqual(set(state['used_urls']),{f'https://example.com/news/{letter}' for letter in 'abcd'})
+        self.assertIn('prior-text-hash',state['used_texts'])
+        self.assertIn(queue.writer.fingerprint('Our prior quote text.'),state['used_texts'])
+        self.assertIn(queue.writer.fingerprint('An older original post.'),state['used_texts'])
+        self.assertIn('prior-event-hash',state['used_events'])
+        self.assertIn(queue.writer.fingerprint('editor version 2 release'),state['used_events'])

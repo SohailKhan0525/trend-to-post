@@ -26,6 +26,64 @@ def utcnow():
     return datetime.now(timezone.utc)
 
 
+def legacy_ledgers(*states):
+    """Keep known publication identities when replacing earlier publishers."""
+    result={key:set() for key in ("used_source_ids","used_urls","used_events","used_texts")}
+
+    def values(value):
+        return value if isinstance(value,list) else []
+
+    def source_id(value):
+        if not isinstance(value,bool) and isinstance(value,(int,str)):
+            text=str(value)
+            if text.isascii() and text.isdigit() and int(text)>0:
+                result["used_source_ids"].add(str(int(text)))
+
+    def article_url(value):
+        if isinstance(value,dict):
+            value=value.get("unwound_url") or value.get("expanded_url") or value.get("url")
+        canonical=sources.canonical_url(value)
+        if canonical:
+            result["used_urls"].add(canonical)
+
+    def identities(record, *, nested=False):
+        if not isinstance(record,dict):
+            return
+        source_id(record.get("source_id"))
+        if nested:
+            source_id(record.get("id"))
+        for key in ("source_ids","edit_tweet_ids"):
+            for ident in values(record.get(key)):
+                source_id(ident)
+        control=record.get("edit_control")
+        if isinstance(control,dict):
+            for ident in values(control.get("edit_tweet_ids")):
+                source_id(ident)
+        for key in ("urls","article_urls","source_urls"):
+            for url in values(record.get(key)):
+                article_url(url)
+        for key in ("url","article_url","source_url"):
+            article_url(record.get(key))
+
+    for previous in states:
+        for ident in values(previous.get("used_source_ids")):
+            source_id(ident)
+        for url in values(previous.get("used_urls")):
+            article_url(url)
+        for key in ("used_texts","used_events"):
+            result[key].update(value for value in values(previous.get(key))
+                               if isinstance(value,str) and value.strip())
+        for row in values(previous.get("history")):
+            if not isinstance(row,dict):
+                continue
+            identities(row)
+            identities(row.get("source"),nested=True)
+            for field,ledger in (("text","used_texts"),("event_key","used_events")):
+                if isinstance(row.get(field),str) and row[field].strip():
+                    result[ledger].add(writer.fingerprint(row[field]))
+    return {key:sorted(items) for key,items in result.items()}
+
+
 def load():
     if STATE.exists():
         state = json.loads(STATE.read_text())
@@ -37,8 +95,7 @@ def load():
     if old.get("pending") or old.get("pause_reason"):
         raise ValueError("Previous publisher requires reconciliation")
     older = json.loads(OLDER_QUOTES.read_text()) if OLDER_QUOTES.exists() else {}
-    return {"version":1,"history":[],"used_source_ids":[str(x) for x in older.get("used_source_ids",[])],
-            "used_urls":[],"used_events":[],"used_texts":old.get("used_texts",[]),
+    return {"version":1,"history":[],**legacy_ledgers(old,older),
             "last_posted_at":old.get("last_posted_at"),"pending":None,
             "check_session":old.get("check_session",False)}
 
@@ -106,6 +163,15 @@ async def verify_quote(connection,state):
         summary(f"Quote ID recorded. Source-attachment verification is pending ({type(exc).__name__}).")
         return False
     quoted=str(getattr(post,"quoted_status_id","") or "")
+    if not quoted:
+        try:
+            quoted=str(getattr(getattr(post,"quote",None),"id","") or "")
+        except (AttributeError,KeyError,TypeError,ValueError):
+            # The optional nested source can be absent or trimmed in readback.
+            quoted=""
+    if not quoted:
+        summary("Quote ID recorded. Source-attachment metadata is not available yet; verification remains pending.")
+        return False
     if quoted!=check["source_id"]:
         state["pause_reason"]="Confirmed post does not embed the expected source"
         save_and_push(state)
@@ -146,6 +212,16 @@ async def publish_slot(state,slot,connection):
     reject(state,slot,"No new verified announcement with at least 100,000 source-post views passed this check.")
 
 
+def release_unsent(state,pending):
+    """Release only this reservation's additions after a proven pre-send exit."""
+    if state.get("pending")!=pending:
+        raise ValueError("Quote reservation changed")
+    for ledger,added in pending["added"].items():
+        additions=set(added)
+        state[ledger]=[value for value in state[ledger] if value not in additions]
+    state["pending"]=None
+
+
 async def send_once(state,slot,source,draft,connection):
     require_open(state)
     now=utcnow()
@@ -155,27 +231,29 @@ async def send_once(state,slot,source,draft,connection):
         return
     sources.validate(source,now)
     writer.validate(draft,source)
+    requested={"used_source_ids":source["source_ids"],"used_urls":source["urls"],
+               "used_texts":[writer.fingerprint(draft["text"])],
+               "used_events":[writer.fingerprint(draft["event_key"])]}
+    added={key:sorted(set(values)-set(state[key])) for key,values in requested.items()}
     pending={"slot":slot,"source":source,"draft":draft,"reserved_at":now.isoformat(),
-             "approval":seal(slot,source,draft),"run":run_key()}
+             "approval":seal(slot,source,draft),"run":run_key(),"added":added}
     state["pending"]=pending
-    state["used_source_ids"]=sorted(set(state["used_source_ids"])|set(source["source_ids"]))
-    state["used_urls"]=sorted(set(state["used_urls"])|set(source["urls"]))
-    state["used_texts"].append(writer.fingerprint(draft["text"]))
-    state["used_events"].append(writer.fingerprint(draft["event_key"]))
+    for ledger,values in added.items():
+        state[ledger].extend(values)
     save_and_push(state)
     durable=load()
     if durable.get("pending")!=pending or pending["run"]!=run_key() or pending["approval"]!=seal(slot,source,draft):
         raise ValueError("Quote reservation changed")
     send_at=utcnow()
     if send_at.date()!=now.date() or not timedelta(0)<=send_at-now<=timedelta(seconds=90):
-        durable["pending"]=None
+        release_unsent(durable,pending)
         save_and_push(durable)
         summary("Source check expired before sending. Skipped.")
         return
     try:
         sources.validate(source,send_at)
     except sources.SourceError:
-        durable["pending"]=None
+        release_unsent(durable,pending)
         save_and_push(durable)
         summary("Source expired before sending. Skipped.")
         return
@@ -183,7 +261,7 @@ async def send_once(state,slot,source,draft,connection):
         post=await connection.create_tweet(text=draft["text"],attachment_url=source["url"])
     except InvalidSession:
         # In the pinned client this happens before transmitting create_tweet.
-        durable["pending"]=None
+        release_unsent(durable,pending)
         durable["check_session"]=True
         save_and_push(durable)
         raise SessionUnavailable() from None

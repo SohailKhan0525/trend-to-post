@@ -46,6 +46,28 @@ class WriterTests(unittest.TestCase):
         draft = {**DRAFT, "text": "BREAKING — Atlas SDK 2.1 adds offline CSV export.\n\nExports can now stay in an offline workflow."}
         self.assertEqual(writer.validate(draft, SOURCE), draft)
 
+    def test_question_asks_one_thing_instead_of_compound_or_multiple_questions(self):
+        headline = DRAFT["text"].split("\n\n")[0]
+        questions = [
+            "Which companies get access, and how does that affect your workflow?",
+            "Which task would you try, and why would you choose it?",
+            "Which task would you try? Would you use it daily?",
+        ]
+        for question in questions:
+            with self.subTest(question=question), self.assertRaisesRegex(DraftError, "one simple reader question"):
+                writer.validate({**DRAFT, "text": headline + "\n\n" + question}, SOURCE)
+        self.assertEqual(writer.validate(DRAFT, SOURCE), DRAFT)
+
+    def test_critic_can_reject_abstract_question_in_favor_of_supported_detail(self):
+        abstract = DRAFT["text"].split("\n\n")[0] + "\n\nHow will this affect broader workflows?"
+        useful = DRAFT["text"].split("\n\n")[0] + "\n\nExports can now stay in an offline workflow."
+        responses = [GATE, {"text": abstract}, {**PASS, "useful": False},
+                     {"text": useful}, PASS]
+        with patch("builtins.print"):
+            result, complete = self.generate_with(responses)
+        self.assertEqual(result["text"], useful)
+        self.assertIn("one supported practical detail", complete.call_args_list[-2].args[1]["correction"])
+
     def test_fingerprints_preserve_versions_and_unicode_but_ignore_cosmetics(self):
         self.assertEqual(writer.fingerprint("Atlas SDK — Release!"), writer.fingerprint("ＡＴＬＡＳ sdk release"))
         self.assertNotEqual(writer.fingerprint("Atlas 2.1"), writer.fingerprint("Atlas 21"))

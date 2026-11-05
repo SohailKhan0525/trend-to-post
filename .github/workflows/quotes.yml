@@ -41,9 +41,9 @@ jobs:
           DASH_RATTLE_MODEL: ${{ vars.DASH_RATTLE_MODEL }}
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
           X_CT0: ${{ secrets.X_CT0 }}
-          INSPECT_ONLY: 'true'
+          INSPECT_ONLY: ${{ inputs.inspect_only }}
         run: |
-          if [[ "$INSPECT_ONLY" == 'true' || "$GITHUB_EVENT_NAME" == 'push' ]]; then
+          if [[ "$INSPECT_ONLY" == 'true' ]]; then
             python -m app inspect
           else
             python -m app run
