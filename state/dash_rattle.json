@@ -840,7 +840,8 @@
     "2a30d340eb614a6755d72d11d51ab293e347b17ed36001511a869398d9d13ab7",
     "64699c65afde87ef74972e7f485d41a99075260578647b9092dee6368ab46b83",
     "3e5cb5589284023607dda6b76bcc5b02b0788a8df5c98f78c3cd6cfb15714734",
-    "d64ecdb63081986b4ea7e8a47b30667c9dbfafea5f29e188e5dc5341cbc6c149"
+    "d64ecdb63081986b4ea7e8a47b30667c9dbfafea5f29e188e5dc5341cbc6c149",
+    "cc6f81e8f743390caeb213e0e04377fd8c10d55c9bf58c416e7db58628467d1d"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -900,7 +901,8 @@
     "f6f1c64957c5a0fba5e6698694d8cca70893aabe3258dff55f04f311f096d29a",
     "d3938bc8c6bf2b94c9bc1585111f464c5ebe1ce26dd1df11e19417587173c95c",
     "d0ca5dd6611c6ae71826b10cdbafbb0893d2ae2fc3a5347975492060426c43b8",
-    "d430d69529199780e3ec6f4e34dcd14ef996c1279c81d5c6d0f2b9bddeb47859"
+    "d430d69529199780e3ec6f4e34dcd14ef996c1279c81d5c6d0f2b9bddeb47859",
+    "26ca5552b7442c3d6ba60e45e1a80b622de6a4c21bcacf298033ad374dd56be0"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -909,6 +911,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T04:32:06.264206+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:11",
+      "due_at": "2026-11-05T05:04:00+00:00",
+      "topic": "technology",
+      "detail": "trying to mute the right tab",
+      "language": "English",
+      "form": "a playful roast of a design choice"
+    },
+    "draft": {
+      "text": "Tried to mute the right tab, but the browser just sighed and closed all of them.",
+      "premise": "A browser reacts to being asked to mute a tab by closing all of them."
+    },
+    "approval": "9161c3d75e401328faf5a4975dc59b4cc8615f2d48a1ea28aa116b4268ec7fed",
+    "run": [
+      "41971328767",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T05:04:05.592426+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
