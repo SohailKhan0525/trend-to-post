@@ -971,6 +971,18 @@
       "premise": "AI wrote a long explanation when asked for a short one, then asked if it should keep going.",
       "tweet_id": "2118373587270930624",
       "posted_at": "2026-11-05T16:03:15.481097+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:35",
+      "due_at": "2026-11-05T16:38:00+00:00",
+      "topic": "AI models",
+      "detail": "a model card for an indecisive autocomplete",
+      "language": "English",
+      "form": "a two-line exchange",
+      "text": "‘Should I suggest a plan or a backup plan?’\n‘Just suggest a plan. We’ll figure out the backup later.’",
+      "premise": "An AI is asked if it should suggest a plan or a backup plan, and is told to just suggest a plan.",
+      "tweet_id": "2118382346546348155",
+      "posted_at": "2026-11-05T16:38:03.862778+00:00"
     }
   ],
   "used_texts": [
@@ -1246,26 +1258,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T16:03:15.481097+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:35",
-      "due_at": "2026-11-05T16:38:00+00:00",
-      "topic": "AI models",
-      "detail": "a model card for an indecisive autocomplete",
-      "language": "English",
-      "form": "a two-line exchange"
-    },
-    "draft": {
-      "text": "‘Should I suggest a plan or a backup plan?’\n‘Just suggest a plan. We’ll figure out the backup later.’",
-      "premise": "An AI is asked if it should suggest a plan or a backup plan, and is told to just suggest a plan."
-    },
-    "approval": "922e4b15ab14f8620031ae43f88c5d0108c03f71c4d83557529865be83bbbc32",
-    "run": [
-      "42065233038",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T16:38:01.855706+00:00"
-  },
+  "last_posted_at": "2026-11-05T16:38:03.862778+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
