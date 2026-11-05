@@ -970,7 +970,8 @@
     "de733f7c6441b05465dd54bf749f9e5eb889789711abedc9d12afc74efe9870e",
     "51b59acdfc9505b9f6b25d21aa0b6f0a6399436c6de3a143656f35b67d753340",
     "ac93baf4f824e83e29801a94f125d6f6ea77f4d65c0a8ec5af0687e710fffd4d",
-    "16279723c2de9fa40cdf6a6157924363c4a8c9bd0e0621286075b8d7c1e041e1"
+    "16279723c2de9fa40cdf6a6157924363c4a8c9bd0e0621286075b8d7c1e041e1",
+    "dfe3e7ddfe7d1447594ace7cb702f2c1f275460dd2d03c79497e14f85e65e904"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1040,7 +1041,8 @@
     "47124a253fdd2e3969347e4475b0edc4035dc243fd8ce93f979ec43b6026da7f",
     "7a8f117fcd489c07c4a403b27570cce19e4e212654c927cbc82a4b92923ee368",
     "f0b2c980343c26f03ff17924e0d8889e77cc3941e63ce564a2130ddd144ef61c",
-    "8f2d64c42a84b00e8613c00727a7bbdbd5a81fca8c6b11ff8a9594a0111e1843"
+    "8f2d64c42a84b00e8613c00727a7bbdbd5a81fca8c6b11ff8a9594a0111e1843",
+    "bb727273758ef1ca4e85251b70df93d5217cc6ff096a24236e5ea969dc571060"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1049,6 +1051,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T09:34:04.038738+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:21",
+      "due_at": "2026-11-05T10:03:00+00:00",
+      "topic": "cars",
+      "detail": "a car key larger than the pocket",
+      "language": "Hindi",
+      "form": "a dry one-liner"
+    },
+    "draft": {
+      "text": "मेरी कार की चाबी इतनी बड़ी है कि मेरी जींस के एक पैंट के बजाय एक बैग बन गई।",
+      "premise": "The car key is so big it turned the pants into a bag."
+    },
+    "approval": "d76e5421b4bbeab548dabb6c1dd9be7a1fc15599fda58a2f4e1f58ae1d973769",
+    "run": [
+      "42007161810",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T10:03:02.152267+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
