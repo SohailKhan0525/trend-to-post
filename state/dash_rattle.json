@@ -599,6 +599,18 @@
       "premise": "A SaaS system activates a license based on seats, not people, leaving an empty chair.",
       "tweet_id": "2118151575608967538",
       "posted_at": "2026-11-05T01:21:03.816103+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:4",
+      "due_at": "2026-11-05T01:39:00+00:00",
+      "topic": "cars",
+      "detail": "an owner's manual explaining an unexplained icon",
+      "language": "English",
+      "form": "a two-line exchange",
+      "text": "Person: 'What does this icon mean?' Assistant: 'It’s a warning light for something we don’t know about yet.'",
+      "premise": "A car's warning light is humorously described as indicating something unknown.",
+      "tweet_id": "2118156104525812133",
+      "posted_at": "2026-11-05T01:39:03.554188+00:00"
     }
   ],
   "used_texts": [
@@ -812,26 +824,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T01:21:03.816103+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:4",
-      "due_at": "2026-11-05T01:39:00+00:00",
-      "topic": "cars",
-      "detail": "an owner's manual explaining an unexplained icon",
-      "language": "English",
-      "form": "a two-line exchange"
-    },
-    "draft": {
-      "text": "Person: 'What does this icon mean?' Assistant: 'It’s a warning light for something we don’t know about yet.'",
-      "premise": "A car's warning light is humorously described as indicating something unknown."
-    },
-    "approval": "1b8feda43bf6cccf3d316b690a948a05d3ba1a85244161decd3c7aa1787c9764",
-    "run": [
-      "41949021939",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T01:39:01.575253+00:00"
-  },
+  "last_posted_at": "2026-11-05T01:39:03.554188+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
