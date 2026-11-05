@@ -801,7 +801,8 @@
     "8df683f039739dad2fc5378c98f84f2448dfb63eba819e6c607eda7b3b29a509",
     "92c3c4a1db6674e918a4bb72c0f75753e7ef751a5498d2a7efd72d147a3df4b0",
     "2149f13263af3767f419ddfe4dcdeabe381edf116dd5c7a693414c180af4a233",
-    "2a30d340eb614a6755d72d11d51ab293e347b17ed36001511a869398d9d13ab7"
+    "2a30d340eb614a6755d72d11d51ab293e347b17ed36001511a869398d9d13ab7",
+    "64699c65afde87ef74972e7f485d41a99075260578647b9092dee6368ab46b83"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -858,7 +859,8 @@
     "241c2358da8c6e93e445a6919e27a598e6196fb42affac57eb7ec7446f22e47f",
     "a88fae9df82223a49a90e3f53e3aa281142febcb115ad948199566301c578393",
     "b69dfa31a454e3062fe8f6d82fa54423e3074b5fb10671e369a683cf9e3796e4",
-    "f6f1c64957c5a0fba5e6698694d8cca70893aabe3258dff55f04f311f096d29a"
+    "f6f1c64957c5a0fba5e6698694d8cca70893aabe3258dff55f04f311f096d29a",
+    "d3938bc8c6bf2b94c9bc1585111f464c5ebe1ce26dd1df11e19417587173c95c"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -867,6 +869,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T03:07:05.261081+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:8",
+      "due_at": "2026-11-05T03:36:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an AI politely agreeing with a typo",
+      "language": "English",
+      "form": "a playful roast of a design choice"
+    },
+    "draft": {
+      "text": "I asked an AI to alphabetize my folders. It made a folder called Alphabetized and put everything in it.",
+      "premise": "A shortcut to alphabetizing is putting everything in a folder with that name."
+    },
+    "approval": "636856f2f8148f93cce31b14d67d46c47bb31e7f48792669150440a0c41f6e63",
+    "run": [
+      "41962071365",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T03:36:02.413042+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
