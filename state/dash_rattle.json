@@ -779,6 +779,18 @@
       "premise": "An AI asks for a detailed prompt because the previous one was too vague.",
       "tweet_id": "2118260065107087824",
       "posted_at": "2026-11-05T08:32:09.715356+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:19",
+      "due_at": "2026-11-05T09:08:00+00:00",
+      "topic": "AI models",
+      "detail": "a benchmark that forgot the user's actual task",
+      "language": "Spanish",
+      "form": "a fictional changelog entry",
+      "text": "En el changelog: 'Mejora en la comprensión de tareas. Ahora entiendo mejor lo que no se pide.'",
+      "premise": "AI misunderstands a task improvement by claiming it now understands what isn't asked.",
+      "tweet_id": "2118269101197934769",
+      "posted_at": "2026-11-05T09:08:04.061318+00:00"
     }
   ],
   "used_texts": [
@@ -1022,26 +1034,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T08:32:09.715356+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:19",
-      "due_at": "2026-11-05T09:08:00+00:00",
-      "topic": "AI models",
-      "detail": "a benchmark that forgot the user's actual task",
-      "language": "Spanish",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "En el changelog: 'Mejora en la comprensión de tareas. Ahora entiendo mejor lo que no se pide.'",
-      "premise": "AI misunderstands a task improvement by claiming it now understands what isn't asked."
-    },
-    "approval": "8cc1069637c8888ae3e1d410adaedee548bac1d2961fe73f0b62cc49c255d7db",
-    "run": [
-      "41998937670",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T09:08:01.914928+00:00"
-  },
+  "last_posted_at": "2026-11-05T09:08:04.061318+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
