@@ -481,9 +481,5 @@
   ],
   "last_posted_at": "2026-11-05T19:09:08.361331+00:00",
   "pending": null,
-  "check_session": false,
-  "verification_pending": {
-    "tweet_id": "2118420365181657357",
-    "source_id": "2118135093617393774"
-  }
+  "check_session": false
 }
