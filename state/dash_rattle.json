@@ -671,6 +671,18 @@
       "premise": "A free trial sends a calendar invite that seems like a welcome message until accepted.",
       "tweet_id": "2118193356090245133",
       "posted_at": "2026-11-05T04:07:05.099802+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:10",
+      "due_at": "2026-11-05T04:32:00+00:00",
+      "topic": "SaaS",
+      "detail": "a form asking for a company size of one",
+      "language": "English",
+      "form": "a question with a funny, concrete premise",
+      "text": "Our pricing page has a slider for team size. At the far right, the price turns into a man named Greg.",
+      "premise": "The final position on a pricing slider turns the price into a sales rep.",
+      "tweet_id": "2118199652583694711",
+      "posted_at": "2026-11-05T04:32:06.264206+00:00"
     }
   ],
   "used_texts": [
@@ -896,26 +908,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T04:07:05.099802+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:10",
-      "due_at": "2026-11-05T04:32:00+00:00",
-      "topic": "SaaS",
-      "detail": "a form asking for a company size of one",
-      "language": "English",
-      "form": "a question with a funny, concrete premise"
-    },
-    "draft": {
-      "text": "Our pricing page has a slider for team size. At the far right, the price turns into a man named Greg.",
-      "premise": "The final position on a pricing slider turns the price into a sales rep."
-    },
-    "approval": "1b5bd0251e435d5555b0b77efe627be2ae3b37b0bb2b75673ac829a16b944efa",
-    "run": [
-      "41968263688",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T04:32:04.337464+00:00"
-  },
+  "last_posted_at": "2026-11-05T04:32:06.264206+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
