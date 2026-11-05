@@ -767,6 +767,18 @@
       "premise": "AI fixes a problem but now just feels sad when trying to finish a joke",
       "tweet_id": "2118252994655650221",
       "posted_at": "2026-11-05T08:04:03.956589+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:18",
+      "due_at": "2026-11-05T08:32:00+00:00",
+      "topic": "AI models",
+      "detail": "the difference between a demo prompt and a real prompt",
+      "language": "English",
+      "form": "a question with a funny, concrete premise",
+      "text": "Why did the AI ask for a 'detailed' prompt? Because the last one was just 'write something.'",
+      "premise": "An AI asks for a detailed prompt because the previous one was too vague.",
+      "tweet_id": "2118260065107087824",
+      "posted_at": "2026-11-05T08:32:09.715356+00:00"
     }
   ],
   "used_texts": [
@@ -1008,26 +1020,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T08:04:03.956589+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:18",
-      "due_at": "2026-11-05T08:32:00+00:00",
-      "topic": "AI models",
-      "detail": "the difference between a demo prompt and a real prompt",
-      "language": "English",
-      "form": "a question with a funny, concrete premise"
-    },
-    "draft": {
-      "text": "Why did the AI ask for a 'detailed' prompt? Because the last one was just 'write something.'",
-      "premise": "An AI asks for a detailed prompt because the previous one was too vague."
-    },
-    "approval": "d03fb8e19c6a509bc8a45fa6ccb68e2c2b9afc833ef4acea913dc84e46ec6d90",
-    "run": [
-      "41995051772",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T08:32:07.201550+00:00"
-  },
+  "last_posted_at": "2026-11-05T08:32:09.715356+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
