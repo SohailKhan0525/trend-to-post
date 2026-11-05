@@ -1009,7 +1009,8 @@
     "16279723c2de9fa40cdf6a6157924363c4a8c9bd0e0621286075b8d7c1e041e1",
     "dfe3e7ddfe7d1447594ace7cb702f2c1f275460dd2d03c79497e14f85e65e904",
     "7f20c2f83c1b13393a9f835dbae2f9124187a2eb73a790d9f0b12c15ea71b016",
-    "a0ba947f55b4b832189ae7ad607666594a4af4c27cde7d00074bc9a696db04f9"
+    "a0ba947f55b4b832189ae7ad607666594a4af4c27cde7d00074bc9a696db04f9",
+    "f7da0b069d60da9e66553944c079fbb19999ea3e4bfb8031fdc9dfdee4f4044b"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1082,7 +1083,8 @@
     "8f2d64c42a84b00e8613c00727a7bbdbd5a81fca8c6b11ff8a9594a0111e1843",
     "bb727273758ef1ca4e85251b70df93d5217cc6ff096a24236e5ea969dc571060",
     "aaf2bfb8345479682026e70149668d4bdc16874636836cf94a62308e241b7db7",
-    "078202b9d5a372f4f97923a22fab9ec234b80c50f878d0eac07ecc973c3b4f73"
+    "078202b9d5a372f4f97923a22fab9ec234b80c50f878d0eac07ecc973c3b4f73",
+    "f429a877a8415fedf015ec81b8124deb0d4292aeac3774f688d77f7306563ae0"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1091,6 +1093,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T11:06:03.881695+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:24",
+      "due_at": "2026-11-05T11:37:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "an AI inventing a keyboard shortcut in an imaginary app",
+      "language": "English",
+      "form": "a dry one-liner"
+    },
+    "draft": {
+      "text": "The AI added a shortcut for 'save as'—but called it 'save as you were.'",
+      "premise": "AI creates a 'save as' shortcut named 'save as you were' as a play on 'save as you are.'"
+    },
+    "approval": "9048d142a9b3c13584074eda07c77d6cd6b340cbc6d957c0c975558fa7141436",
+    "run": [
+      "42019565347",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T11:37:02.066362+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
