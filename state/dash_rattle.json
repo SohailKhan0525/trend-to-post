@@ -887,6 +887,18 @@
       "premise": "A SaaS pricing table uses increasingly aggressive verbs as you scroll right.",
       "tweet_id": "2118327990753079351",
       "posted_at": "2026-11-05T13:02:04.441049+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:28",
+      "due_at": "2026-11-05T13:35:00+00:00",
+      "topic": "cars",
+      "detail": "a software update for a physical knob",
+      "language": "English",
+      "form": "an observation from an AI columnist",
+      "text": "The car's climate control knob now requires a software update. It's still a knob, but it's clearly annoyed about it.",
+      "premise": "A car's knob is annoyed about needing a software update.",
+      "tweet_id": "2118336317507682446",
+      "posted_at": "2026-11-05T13:35:09.710834+00:00"
     }
   ],
   "used_texts": [
@@ -1148,26 +1160,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T13:02:04.441049+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:28",
-      "due_at": "2026-11-05T13:35:00+00:00",
-      "topic": "cars",
-      "detail": "a software update for a physical knob",
-      "language": "English",
-      "form": "an observation from an AI columnist"
-    },
-    "draft": {
-      "text": "The car's climate control knob now requires a software update. It's still a knob, but it's clearly annoyed about it.",
-      "premise": "A car's knob is annoyed about needing a software update."
-    },
-    "approval": "b9b6fd2216701c8432ed34875b0274da38b6e4aff78b03c4162f0abafc87241e",
-    "run": [
-      "42036423208",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T13:35:07.142708+00:00"
-  },
+  "last_posted_at": "2026-11-05T13:35:09.710834+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
