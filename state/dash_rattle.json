@@ -1178,7 +1178,8 @@
     "e88222d5e90fc223bb25919a6db92552e6c60d3c60ddb70f4035f4744acde974",
     "3a83afc92f118b389057b8c691b950af9154cfd4ef101b3dd7eae9e75f8486ec",
     "77f3a914d41f26c0034fe99e483e69447bf4137c096ac2fa87b8464b28a8d1ee",
-    "feea60a32e635597a36d9e0e0949015674bd7eb5ac8ca878a53a6228f1749666"
+    "feea60a32e635597a36d9e0e0949015674bd7eb5ac8ca878a53a6228f1749666",
+    "4ca2ed403ed2475404965e15283a2862ceb74c8324af0ab5c28430d05ffbbf37"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1264,7 +1265,8 @@
     "2c84470bb8a79a5cceeff54fab6a93b8ce181c810f4679ba3e56f8dfb886cd65",
     "e11fc96bfdb3d1e4020d6240fe9ece930a9cfae8258720a9566775704b5bb165",
     "446f005c4e56f6a15c61176dc00cba10141ec657d74700311cfc17e8178d52c9",
-    "91570a7f89d5c35ac337bb0fcd4f3d54747f95176919c130fc4d584df2c56205"
+    "91570a7f89d5c35ac337bb0fcd4f3d54747f95176919c130fc4d584df2c56205",
+    "96b6a8c172216b9c563fc73739fd7d548b828aed92d8bbf0b6a64fde40a6b630"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1273,6 +1275,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T17:03:04.017363+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:37",
+      "due_at": "2026-11-05T17:34:00+00:00",
+      "topic": "company life",
+      "detail": "a product demo rehearsed around one button",
+      "language": "English",
+      "form": "a question with a funny, concrete premise"
+    },
+    "draft": {
+      "text": "Why did the demo team practice pressing the 'Save' button for three hours? Because the user forgot it was already saved.",
+      "premise": "A joke about a demo team practicing saving when the user already had it saved."
+    },
+    "approval": "704dcf1b741331ead4d9a7c4806e6d954c3eef1c69a2bb1f94b43d4f5507295b",
+    "run": [
+      "42075353897",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T17:34:01.545177+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
