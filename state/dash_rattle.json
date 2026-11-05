@@ -697,7 +697,8 @@
     "7a722547651dea0f2c3aa7cfd1e7c7ec8d8f8874d6e95e4e331f6f0095f1cbfa",
     "8235f5a5bd85549c30320b069b62586f6d9476b92d24d0e348d4273e867ef261",
     "68af7458655b8c4068448b355da0537d2a9efd17a8e675132b7075fe2bb19981",
-    "d143ed9eeca0c359de4d8e02591ccc8a7b7c8facf67e6f39b9dc15a55608c3cb"
+    "d143ed9eeca0c359de4d8e02591ccc8a7b7c8facf67e6f39b9dc15a55608c3cb",
+    "2e4cc06e70b580e674593b13a57f2c646d0fabbdb18f596eae1b82bcce29f2cd"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -746,7 +747,8 @@
     "0b2f3379fd20e052efe96b084d47ff0e17a8d772b9016f2c235882773c4bb8b0",
     "d864cfd4adff705c4e13c2530e05b4c601c358bc2a3800b3690a5630a3c8b610",
     "040feecd8b140ee751ed8e7bbb38b1af144998e39ea21735d5ff3ed81e2ba66f",
-    "b85977c8172c38c4c44b5d0061b2c64f0d96b68827dd514783ce97fd2eb40bdc"
+    "b85977c8172c38c4c44b5d0061b2c64f0d96b68827dd514783ce97fd2eb40bdc",
+    "89cfbf76abc7b065d0a5e58ead87d3ebf001415a3ec2e9e289eb9b5529f99d53"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -755,6 +757,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-04T23:38:09.702435+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:0",
+      "due_at": "2026-11-05T00:08:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "a voice assistant waiting for the microwave beep",
+      "language": "Hindi",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "माइक्रोवेव बज गया तो वॉइस असिस्टेंट ने कहा, 'कृपया इंतजार करें।' लेकिन उसने तीन मिनट पहले ही इंतजार करना शुरू कर दिया था।",
+      "premise": "A microwave beeps, and the voice assistant says 'please wait,' but it had already been waiting for three minutes."
+    },
+    "approval": "65f6ddba18dd0bd3e4f7fcc2ce3d79b3b437710f59a6891dd72ad6c8a87cffdf",
+    "run": [
+      "41938154414",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T00:08:02.597868+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
