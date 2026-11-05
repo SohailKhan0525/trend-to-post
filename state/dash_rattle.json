@@ -1100,7 +1100,8 @@
     "4c8e6fc4fc1fdf7b7e1e824d8106e1634b0129b5749104830586f66dd76d20ac",
     "b30584eeab6b10b1d98d7b08c1429f3f38d34adfbfb2b6c8b7670044c77a253d",
     "e17f6675fa87333416072c74e2ce5dd303af885918d20d3dc9bb2dcb99d28d6c",
-    "d542a1bf15b063172508ec5f07028307d3c9fa41e4d5dfdfd3a38180b4d16c1d"
+    "d542a1bf15b063172508ec5f07028307d3c9fa41e4d5dfdfd3a38180b4d16c1d",
+    "fcc6d2073b77562beb5297999d6ff25cd250a33b5e708d595ea1c75cf0c98168"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1180,7 +1181,8 @@
     "830559fc25c41c0d5eff5d7896465715e1c33ca327092a7cdd8c26f933ddb764",
     "95264cc2b7c3466b3f44c6a2a560d78dbbc4b6b831faf1232b25ac1c6f1ba57a",
     "62e25ad522cd1a0acf5ffabef6cc8b9b623272b50efa11568595104b88253cd5",
-    "c628bd86789f22e3d95d9ce71d514d299b8fc433652d0723399a60938c6f36bf"
+    "c628bd86789f22e3d95d9ce71d514d299b8fc433652d0723399a60938c6f36bf",
+    "c8e94f98961a532c69c6a83d89e46c08d46916fd39df1cfc4e7035b7a2a0ac51"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1189,6 +1191,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T14:34:04.380524+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:31",
+      "due_at": "2026-11-05T14:50:00+00:00",
+      "topic": "cars",
+      "detail": "a car menu asking how sporty the steering wheel feels",
+      "language": "Spanish",
+      "form": "a playful roast of a design choice"
+    },
+    "draft": {
+      "text": "El menú del coche pregunta: '¿Qué tan deportivo quieres que se sienta el volante?' Le dije que quería que se sintiera como un volante de fórmula 1, y ahora me pregunta si quiero que se sienta más deportivo.",
+      "premise": "A car's menu asks how sporty the steering wheel should feel, and after choosing F1, it asks if they want it to feel even more sporty."
+    },
+    "approval": "ce2151266744ea1df2bd07de862f841bd43e66a0711c3aaf2b7a66213a016012",
+    "run": [
+      "42045743056",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T14:50:01.992120+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
