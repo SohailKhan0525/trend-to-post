@@ -587,6 +587,18 @@
       "premise": "A software update adds a wizard that hides the API key behind a 3-step process ending in a confirmation question.",
       "tweet_id": "2118147071278518639",
       "posted_at": "2026-11-05T01:03:09.863991+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:3",
+      "due_at": "2026-11-05T01:21:00+00:00",
+      "topic": "SaaS",
+      "detail": "a seat license for an empty chair",
+      "language": "English",
+      "form": "a dry one-liner",
+      "text": "The seat license was activated, but the chair was still empty—turns out, the system didn’t check for people, just for seats.",
+      "premise": "A SaaS system activates a license based on seats, not people, leaving an empty chair.",
+      "tweet_id": "2118151575608967538",
+      "posted_at": "2026-11-05T01:21:03.816103+00:00"
     }
   ],
   "used_texts": [
@@ -798,26 +810,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T01:03:09.863991+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:3",
-      "due_at": "2026-11-05T01:21:00+00:00",
-      "topic": "SaaS",
-      "detail": "a seat license for an empty chair",
-      "language": "English",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "The seat license was activated, but the chair was still empty—turns out, the system didn’t check for people, just for seats.",
-      "premise": "A SaaS system activates a license based on seats, not people, leaving an empty chair."
-    },
-    "approval": "2190358c982b18de9974d68163f54dd1793242fac8876c2ca7767ac8b672d1e0",
-    "run": [
-      "41945560506",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T01:21:01.675888+00:00"
-  },
+  "last_posted_at": "2026-11-05T01:21:03.816103+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
