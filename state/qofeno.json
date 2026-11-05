@@ -1,6 +1,22 @@
 {
   "version": 1,
-  "history": [],
+  "history": [
+    {
+      "slot": "2026-11-05:quote-v1:31",
+      "due_at": "2026-11-05T18:38:00+00:00",
+      "text": "BREAKING — Hy4 is now available in OpenCode Go\n\nThe release of Hy4 in OpenCode Go adds a new tool to the platform's offerings. Developers can now access Hy4 as part of their workflow.",
+      "event_key": "Hy4 available in OpenCode Go",
+      "premise": "Hy4 is now available in OpenCode Go.",
+      "source_id": "2118135093617393774",
+      "author": "opencode",
+      "source_url": "https://x.com/opencode/status/2118135093617393774",
+      "source_views": 101656,
+      "source_checked_at": "2026-11-05T19:09:06.326427+00:00",
+      "source_created_at": "2026-11-05T00:15:34+00:00",
+      "tweet_id": "2118420365181657357",
+      "posted_at": "2026-11-05T19:09:08.361331+00:00"
+    }
+  ],
   "used_source_ids": [
     "2106119810509881791",
     "2106147184693620924",
@@ -463,48 +479,11 @@
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1",
     "a7fa64f6c8f666392a2fcbb8b71c66c11edcdd76fd422116a6c83808f0304ab7"
   ],
-  "last_posted_at": "2026-11-05T18:36:03.544159+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-05:quote-v1:31",
-      "due_at": "2026-11-05T18:38:00+00:00"
-    },
-    "source": {
-      "id": "2118135093617393774",
-      "url": "https://x.com/opencode/status/2118135093617393774",
-      "author": "opencode",
-      "author_id": "1965545045089792000",
-      "text": "Hy4 is now available in OpenCode Go",
-      "created_at": "2026-11-05T00:15:34+00:00",
-      "views": 101656,
-      "urls": [],
-      "source_ids": [
-        "2118135093617393774"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — Hy4 is now available in OpenCode Go\n\nThe release of Hy4 in OpenCode Go adds a new tool to the platform's offerings. Developers can now access Hy4 as part of their workflow.",
-      "event_key": "Hy4 available in OpenCode Go",
-      "premise": "Hy4 is now available in OpenCode Go."
-    },
-    "reserved_at": "2026-11-05T19:09:06.326427+00:00",
-    "approval": "3581a8932ccc3cb64b09707ca744aea85bbc9484bc1646c6504aa2c3c244be3b",
-    "run": [
-      "42091043920",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118135093617393774"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "a7fa64f6c8f666392a2fcbb8b71c66c11edcdd76fd422116a6c83808f0304ab7"
-      ],
-      "used_events": [
-        "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891"
-      ]
-    }
-  },
-  "check_session": false
+  "last_posted_at": "2026-11-05T19:09:08.361331+00:00",
+  "pending": null,
+  "check_session": false,
+  "verification_pending": {
+    "tweet_id": "2118420365181657357",
+    "source_id": "2118135093617393774"
+  }
 }
