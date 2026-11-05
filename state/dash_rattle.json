@@ -1019,6 +1019,18 @@
       "premise": "Only the person assigned to write that the decision was postponed was chosen quickly.",
       "tweet_id": "2118404758000329035",
       "posted_at": "2026-11-05T18:07:07.198675+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:39",
+      "due_at": "2026-11-05T18:36:00+00:00",
+      "topic": "technology",
+      "detail": "an undo button hidden inside settings",
+      "language": "Simplified Chinese",
+      "form": "a dry one-liner",
+      "text": "我点开设置想撤销操作，结果发现撤销按钮藏在‘关于’页面里。",
+      "premise": "The undo button is hidden in the 'About' section.",
+      "tweet_id": "2118412040792351219",
+      "posted_at": "2026-11-05T18:36:03.544159+00:00"
     }
   ],
   "used_texts": [
@@ -1302,26 +1314,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T18:07:07.198675+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:39",
-      "due_at": "2026-11-05T18:36:00+00:00",
-      "topic": "technology",
-      "detail": "an undo button hidden inside settings",
-      "language": "Simplified Chinese",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "我点开设置想撤销操作，结果发现撤销按钮藏在‘关于’页面里。",
-      "premise": "The undo button is hidden in the 'About' section."
-    },
-    "approval": "a15490f2e189997b912129ee25bd717987de75ef162715129d2a4cb67616f48e",
-    "run": [
-      "42084964935",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T18:36:01.446963+00:00"
-  },
+  "last_posted_at": "2026-11-05T18:36:03.544159+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
