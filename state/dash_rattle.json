@@ -866,7 +866,8 @@
     "3e5cb5589284023607dda6b76bcc5b02b0788a8df5c98f78c3cd6cfb15714734",
     "d64ecdb63081986b4ea7e8a47b30667c9dbfafea5f29e188e5dc5341cbc6c149",
     "cc6f81e8f743390caeb213e0e04377fd8c10d55c9bf58c416e7db58628467d1d",
-    "a6d1d5260ac2c917bc3acf2d04d4a378ad074c8ce9d3ee578a949cc3df6e4967"
+    "a6d1d5260ac2c917bc3acf2d04d4a378ad074c8ce9d3ee578a949cc3df6e4967",
+    "e0ee8b2383109e85499ee323f2bd9b10023c4b66dfac9d56f691bd10236929cd"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -928,7 +929,8 @@
     "d0ca5dd6611c6ae71826b10cdbafbb0893d2ae2fc3a5347975492060426c43b8",
     "d430d69529199780e3ec6f4e34dcd14ef996c1279c81d5c6d0f2b9bddeb47859",
     "26ca5552b7442c3d6ba60e45e1a80b622de6a4c21bcacf298033ad374dd56be0",
-    "b4687dfae97b095f18aac68fb5067be375f5a444b9017f8eec98659a114ccb3f"
+    "b4687dfae97b095f18aac68fb5067be375f5a444b9017f8eec98659a114ccb3f",
+    "40b7c7e832b393bfd5ef172e0b2d62472cce3090d3e994d0004b3e3f08a72f70"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -937,6 +939,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T05:37:06.141632+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:13",
+      "due_at": "2026-11-05T06:07:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "the human quietly deleting the AI's introduction",
+      "language": "Spanish",
+      "form": "a question with a funny, concrete premise"
+    },
+    "draft": {
+      "text": "¿Sabías que el humano eliminó la introducción del IA? Solo dejó un mensaje: 'No te preocupes, ya lo entiendo.'",
+      "premise": "A human removed AI's introduction, leaving only a message saying 'Don't worry, I understand.'"
+    },
+    "approval": "8181be5780a435c4e782967e94cdccd1c22afefbf9b45b36c83aa6557c27830c",
+    "run": [
+      "41977622544",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T06:07:01.839435+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
