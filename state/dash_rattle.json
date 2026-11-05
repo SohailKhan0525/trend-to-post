@@ -623,6 +623,18 @@
       "premise": "Autocomplete reads a diary and predicts more overtime.",
       "tweet_id": "2118161905667756257",
       "posted_at": "2026-11-05T02:02:06.653948+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:6",
+      "due_at": "2026-11-05T02:36:00+00:00",
+      "topic": "technology",
+      "detail": "a tiny keyboard shortcut with an enormous manual",
+      "language": "English",
+      "form": "a dry one-liner",
+      "text": "The shortcut for 'Save' is Ctrl+S, but the manual says 'Press Ctrl+S to save, then read 20 pages about why you shouldn't.'",
+      "premise": "A manual tells you to press Ctrl+S to save, then reads like a warning against doing so.",
+      "tweet_id": "2118170448902947013",
+      "posted_at": "2026-11-05T02:36:03.521673+00:00"
     }
   ],
   "used_texts": [
@@ -840,26 +852,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T02:02:06.653948+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:6",
-      "due_at": "2026-11-05T02:36:00+00:00",
-      "topic": "technology",
-      "detail": "a tiny keyboard shortcut with an enormous manual",
-      "language": "English",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "The shortcut for 'Save' is Ctrl+S, but the manual says 'Press Ctrl+S to save, then read 20 pages about why you shouldn't.'",
-      "premise": "A manual tells you to press Ctrl+S to save, then reads like a warning against doing so."
-    },
-    "approval": "447fb465e8a16e85a062ca1eaf8b9ef39e54beaef7cf10cf09b73d572fc9bb3a",
-    "run": [
-      "41955708493",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T02:36:01.442103+00:00"
-  },
+  "last_posted_at": "2026-11-05T02:36:03.521673+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
