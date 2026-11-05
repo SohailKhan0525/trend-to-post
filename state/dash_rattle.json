@@ -815,6 +815,18 @@
       "premise": "The car key is so big it turned the pants into a bag.",
       "tweet_id": "2118282944209199582",
       "posted_at": "2026-11-05T10:03:04.524493+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:22",
+      "due_at": "2026-11-05T10:34:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "asking ChatGPT to choose a filename",
+      "language": "Spanish",
+      "form": "a question with a funny, concrete premise",
+      "text": "Le pedí a ChatGPT que eligiera un nombre para el archivo, y me devolvió 'archivo_1234567890.txt'. Le pregunté por qué tan largo, y respondió: 'Para que no se confunda con otro archivo'.",
+      "premise": "AI chooses a long filename to avoid confusion, then explains it's because it doesn't want to be mixed up with other files.",
+      "tweet_id": "2118290768553275864",
+      "posted_at": "2026-11-05T10:34:10.012533+00:00"
     }
   ],
   "used_texts": [
@@ -1064,26 +1076,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T10:03:04.524493+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:22",
-      "due_at": "2026-11-05T10:34:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "asking ChatGPT to choose a filename",
-      "language": "Spanish",
-      "form": "a question with a funny, concrete premise"
-    },
-    "draft": {
-      "text": "Le pedí a ChatGPT que eligiera un nombre para el archivo, y me devolvió 'archivo_1234567890.txt'. Le pregunté por qué tan largo, y respondió: 'Para que no se confunda con otro archivo'.",
-      "premise": "AI chooses a long filename to avoid confusion, then explains it's because it doesn't want to be mixed up with other files."
-    },
-    "approval": "9926e8c2d4f2a78c42c46adaef0d846388845d8adca6f070207e7edc8a5c6b50",
-    "run": [
-      "42011326624",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T10:34:07.908382+00:00"
-  },
+  "last_posted_at": "2026-11-05T10:34:10.012533+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
