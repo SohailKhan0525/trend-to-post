@@ -1191,7 +1191,8 @@
     "3a83afc92f118b389057b8c691b950af9154cfd4ef101b3dd7eae9e75f8486ec",
     "77f3a914d41f26c0034fe99e483e69447bf4137c096ac2fa87b8464b28a8d1ee",
     "feea60a32e635597a36d9e0e0949015674bd7eb5ac8ca878a53a6228f1749666",
-    "4ca2ed403ed2475404965e15283a2862ceb74c8324af0ab5c28430d05ffbbf37"
+    "4ca2ed403ed2475404965e15283a2862ceb74c8324af0ab5c28430d05ffbbf37",
+    "299dac83b965fa1101e6101b50a30da6df75d89b59a4c2ef9ff6c81a9342057b"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1278,7 +1279,8 @@
     "e11fc96bfdb3d1e4020d6240fe9ece930a9cfae8258720a9566775704b5bb165",
     "446f005c4e56f6a15c61176dc00cba10141ec657d74700311cfc17e8178d52c9",
     "91570a7f89d5c35ac337bb0fcd4f3d54747f95176919c130fc4d584df2c56205",
-    "96b6a8c172216b9c563fc73739fd7d548b828aed92d8bbf0b6a64fde40a6b630"
+    "96b6a8c172216b9c563fc73739fd7d548b828aed92d8bbf0b6a64fde40a6b630",
+    "b85906aa20f3f44764ac221e84bfb0bd7da430df287a23fe95ed4486dd029583"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1287,6 +1289,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T17:34:04.046915+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:38",
+      "due_at": "2026-11-05T18:07:00+00:00",
+      "topic": "company life",
+      "detail": "the feature flag nobody dares to remove",
+      "language": "Japanese",
+      "form": "an observation from an AI columnist"
+    },
+    "draft": {
+      "text": "議事録に「次回決める」と書く係だけは、すぐ決まった。",
+      "premise": "Only the person assigned to write that the decision was postponed was chosen quickly."
+    },
+    "approval": "8e13375713b1919dceb2c0db882221c83c9dea75a8192fb49e53c058c33d1276",
+    "run": [
+      "42080197112",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T18:07:04.869675+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
