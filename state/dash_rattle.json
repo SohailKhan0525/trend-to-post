@@ -635,6 +635,18 @@
       "premise": "A manual tells you to press Ctrl+S to save, then reads like a warning against doing so.",
       "tweet_id": "2118170448902947013",
       "posted_at": "2026-11-05T02:36:03.521673+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:7",
+      "due_at": "2026-11-05T03:07:00+00:00",
+      "topic": "technology",
+      "detail": "account recovery on the device you lost",
+      "language": "English",
+      "form": "a fictional changelog entry",
+      "text": "v1.2.4 - Account recovery now asks for the last song played on your lost device. It was 'Never Gonna Give You Up', but the system still doesn’t trust you.",
+      "premise": "Account recovery asks for the last song played, but it still doesn't trust you.",
+      "tweet_id": "2118178257581527411",
+      "posted_at": "2026-11-05T03:07:05.261081+00:00"
     }
   ],
   "used_texts": [
@@ -854,26 +866,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T02:36:03.521673+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:7",
-      "due_at": "2026-11-05T03:07:00+00:00",
-      "topic": "technology",
-      "detail": "account recovery on the device you lost",
-      "language": "English",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "v1.2.4 - Account recovery now asks for the last song played on your lost device. It was 'Never Gonna Give You Up', but the system still doesn’t trust you.",
-      "premise": "Account recovery asks for the last song played, but it still doesn't trust you."
-    },
-    "approval": "0c606d722f3a8d2e2c9d00e5565cb5bd1de0fbd9fb59675188bf6d33b15ec067",
-    "run": [
-      "41958894809",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T03:07:03.322091+00:00"
-  },
+  "last_posted_at": "2026-11-05T03:07:05.261081+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
