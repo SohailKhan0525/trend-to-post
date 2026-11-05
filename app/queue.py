@@ -286,14 +286,6 @@ async def inspect():
     state=load()
     require_open(state)
     conn=client()
-    if LEGACY.exists():
-        prior=json.loads(LEGACY.read_text()).get("history",[])
-        old_enough=[row for row in prior if row.get("tweet_id") and row.get("posted_at")
-                    and utcnow()-datetime.fromisoformat(row["posted_at"])>=timedelta(hours=24)]
-        for row in old_enough[-3:]:
-            post=await conn.get_tweet_by_id(row["tweet_id"])
-            summary(f"Prior post metrics · {row['tweet_id']} · views={post.view_count} · "
-                    f"likes={post.favorite_count} · replies={post.reply_count}")
     candidates=await sources.discover(conn,state,utcnow())
     summary(f"Eligible source candidates found: {len(candidates)}")
     for candidate in candidates[:4]:

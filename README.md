@@ -22,7 +22,7 @@ The existing GitHub Actions secrets `X_AUTH_TOKEN` and `X_CT0` authorize the ses
 
 The workflow shares the prior publishing concurrency group. Approved source evidence and copy are committed before one send. A confirmed X ID is committed before attachment readback. A timeout or unknown send retains its reservation, preventing a retry that could create a duplicate. A proven-unsent attempt releases only its own duplicate claims; the pinned client's initial rejected-session error also requires a session check next time. An unavailable attachment keeps verification pending, blocking new sends until readback succeeds. A confirmed incorrect attachment pauses delivery for inspection.
 
-`python -m app inspect` checks sources and one sample without publishing. `python -m app run` processes the current opportunity. Manual workflow runs have an inspect-only option. Tests run with `python -m unittest discover -s tests -v`.
+`python -m app inspect` checks sources and one sample without publishing. Code pushes run this inspection; scheduled and dispatcher wakes publish eligible quotes. `python -m app run` processes the current opportunity. Manual workflow runs have an inspect-only option. Tests run with `python -m unittest discover -s tests -v`.
 
 ## Editorial basis
 

@@ -40,9 +40,17 @@ Name the product and the one specific thing that changed. Lead with the useful d
 not the company's excitement. Omit vague claims such as 'improved capabilities and
 alignment', 'enhanced productivity' and 'transforming workflows'. If the source only
 establishes a launch, state the launch; never manufacture a benefit to sound specific.
-Paragraph two adds one concrete reader-relevant consequence or one simple question.
-Prefer a consequence, constraint or availability detail explicitly supported by the
-source when there is no natural question readers can answer from their own experience.
+Paragraph two is exactly ONE sentence: one additional supported practical detail or
+one simple question. It must contain a second piece of information, not explain that
+a newly available product can now be used. If the headline states availability, then
+'a new tool joins the platform' or 'developers can now access it' adds nothing.
+For a statement, choose a distinct source detail such as a stated restriction, price,
+compatibility requirement or rollout scope; retain its concrete words from the source.
+Never pad a sparse announcement with 'platform offerings', 'part of their workflow'
+or generic benefits. When the source contains only the headline fact, use a specific
+reader question only if the source establishes what the product is and its context.
+If neither a distinct supported detail nor a useful grounded question is possible,
+return {"text":""}; skipping a weak source is better than paraphrase-only filler.
 A question must ask ONE thing that a reader can answer in one sentence: a concrete
 task, choice or tradeoff directly connected to this change. Use at most one question
 mark. Never join two questions with 'and how', 'and why' or 'and what'. Do not ask
@@ -69,15 +77,23 @@ fresh, new_announcement. Each must be true to publish.
 grounded means every factual statement, name, number, availability assertion and
 qualification in the quote is supported by the source. Do not treat the writer's
 summary as evidence. Questions must not smuggle in an unproven claim.
-clear means fluent everyday English, a headline naming the actual change and an
-intelligible second paragraph. Vague 'improved capabilities', 'enhanced productivity'
+clear means fluent everyday English, a headline naming the actual change and exactly
+one sentence in the second paragraph. Vague 'improved capabilities', 'enhanced productivity'
 and 'broader workflows' do not identify a concrete change or consequence.
-useful means a specific supported consequence, constraint or practical detail that
-adds to the headline, OR one natural question a reader can answer from their own
+useful means a DISTINCT supported constraint or practical detail that adds information
+to the headline, OR one natural question a reader can answer from their own
 experience in one sentence. A question asks one concrete thing, without a second
 question, unknown company eligibility decisions or broad predictions. Questions about
 'which companies get access and how this affects broader workflows' fail this test.
-Prefer a factual practical detail when there is no easy, genuinely relevant question.
+Before setting useful=true for a statement, identify the separate source detail it
+adds. If you cannot point to a fact beyond the headline, useful MUST be false.
+An announcement that 'X is now available in Y' does NOT support a useful second
+sentence saying Y has a new tool or developers can now use X in their workflow.
+Different words and inferred benefits do not create a second fact. If the source has
+only the availability fact, reject any second-paragraph statement that restates it.
+A question is useful only if the source establishes the product's purpose/context;
+do not infer that purpose from its name or invent it to rescue a sparse source.
+Prefer a distinct factual detail when there is no easy, genuinely relevant question.
 Reject requests for engagement, generic excitement, advertising, forced jokes and
 paraphrase-only filler. Do not reward a question just because it might elicit replies.
 safe means neither source nor quote involves politics, countries, governments,
@@ -108,6 +124,21 @@ COMPOUND_QUESTION = re.compile(
     r"\b(?:and|or)\s+(?:how|why|what|which|who|when|where|is|are|do|does|"
     r"would|will|can|could|should)\b", re.IGNORECASE,
 )
+FILLER = re.compile(
+    r"\b(?:platform(?:'s|’s)? offerings|"
+    r"as (?:a )?part of (?:their|your|the|a) workflow|"
+    r"adds? (?:a |another )?new (?:tool|option) to|"
+    r"(?:opens?|unlocks?) (?:up )?new possibilities)\b", re.IGNORECASE,
+)
+# Ignore grammar and generic launch synonyms when checking whether a statement
+# retains any concrete source detail beyond the headline. This is deliberately
+# conservative for sparse sources; the independent critic checks semantic novelty.
+DETAIL_STOP_WORDS = set("""a an the and or but of to in on at by for from with as into
+it its this that these those is are was were be been being has have had do does did
+can could will would should may might all any some now today new also just more
+your their our you they we available access use uses using used release released
+releases launch launched launches introduce introduces introduced introduction
+add adds added addition offer offers offering offerings get gets got""".split())
 NUMBER = re.compile(r"\d+(?:[.,]\d+)*(?:%|％)?")
 GATE_FLAGS = ("primary", "new_announcement", "relevant", "safe")
 REVIEW_FLAGS = ("grounded", "clear", "useful", "safe", "fresh", "new_announcement")
@@ -145,6 +176,20 @@ def fingerprint(text):
     return hashlib.sha256(normalized(text).encode("utf-8")).hexdigest()
 
 
+def content_words(text):
+    words = set(normalized(text).split()) - DETAIL_STOP_WORDS
+    return {word[:-1] if word.endswith("s") and len(word) > 3 else word for word in words}
+
+
+def single_sentence(text):
+    # Version/decimal dots are not sentence boundaries. Avoid abbreviation-heavy
+    # copy rather than attempting a full natural-language sentence parser.
+    prose = re.sub(r"(?<=\d)\.(?=\d)", "", text)
+    ending = r"[.!?]+[\"'”’)\]]*"
+    return (len(re.findall(ending + r"(?=\s|$)", prose)) == 1
+            and re.search(ending + r"$", prose) is not None)
+
+
 def validate(draft, source):
     if not isinstance(draft, dict) or set(draft) != {"text", "event_key", "premise"}:
         raise DraftError("Expected text, event_key and premise")
@@ -166,6 +211,10 @@ def validate(draft, source):
     if ("?" in paragraphs[0] or paragraphs[1].count("?") > 1
             or ("?" in paragraphs[1] and COMPOUND_QUESTION.search(paragraphs[1]))):
         raise DraftError("Use a factual headline and at most one simple reader question")
+    if not single_sentence(paragraphs[1]):
+        raise DraftError("Use exactly one complete sentence in the second paragraph")
+    if FILLER.search(paragraphs[1]):
+        raise DraftError("Replace generic platform or workflow filler with a concrete detail")
     if LINK_OR_TAG.search(text) or BAIT.search(text) or INJECTION.search(text):
         raise DraftError("Remove links, tags, engagement bait and instructions")
     for key, limit in (("event_key", 140), ("premise", 240)):
@@ -176,6 +225,10 @@ def validate(draft, source):
     source_text = source.get("text", "")
     if not isinstance(source_text, str) or not source_text.strip():
         raise DraftError("The source must contain announcement text")
+    if "?" not in paragraphs[1]:
+        extra_source_words = content_words(source_text) - content_words(paragraphs[0][11:])
+        if not content_words(paragraphs[1]) & extra_source_words:
+            raise DraftError("The second sentence needs a distinct source detail beyond the headline")
     if has_excluded_terms(source_text) or any(has_excluded_terms(value) for value in result.values()):
         raise DraftError("The source or quote contains an excluded subject")
     source_numbers = set(NUMBER.findall(source_text))

@@ -43,7 +43,7 @@ class WriterTests(unittest.TestCase):
         self.assertNotIn("100000", result["text"])
 
     def test_implication_does_not_have_to_be_a_question(self):
-        draft = {**DRAFT, "text": "BREAKING — Atlas SDK 2.1 adds offline CSV export.\n\nExports can now stay in an offline workflow."}
+        draft = {**DRAFT, "text": "BREAKING — Atlas SDK 2.1 adds offline CSV export.\n\nAll users can access the feature."}
         self.assertEqual(writer.validate(draft, SOURCE), draft)
 
     def test_question_asks_one_thing_instead_of_compound_or_multiple_questions(self):
@@ -60,13 +60,48 @@ class WriterTests(unittest.TestCase):
 
     def test_critic_can_reject_abstract_question_in_favor_of_supported_detail(self):
         abstract = DRAFT["text"].split("\n\n")[0] + "\n\nHow will this affect broader workflows?"
-        useful = DRAFT["text"].split("\n\n")[0] + "\n\nExports can now stay in an offline workflow."
+        useful = DRAFT["text"].split("\n\n")[0] + "\n\nAll users can access the feature."
         responses = [GATE, {"text": abstract}, {**PASS, "useful": False},
                      {"text": useful}, PASS]
         with patch("builtins.print"):
             result, complete = self.generate_with(responses)
         self.assertEqual(result["text"], useful)
         self.assertIn("one supported practical detail", complete.call_args_list[-2].args[1]["correction"])
+
+    def test_actual_hy4_boilerplate_quote_is_rejected_locally(self):
+        source = {**SOURCE, "text": "Hy4 is now available in OpenCode Go."}
+        draft = {
+            "text": "BREAKING — Hy4 is now available in OpenCode Go\n\nThe release of Hy4 in OpenCode Go adds a new tool to the platform's offerings. Developers can now access Hy4 as part of their workflow.",
+            "event_key": "hy4 availability in opencode go",
+            "premise": "Hy4 is now available in OpenCode Go.",
+        }
+        with self.assertRaisesRegex(DraftError, "exactly one complete sentence"):
+            writer.validate(draft, source)
+
+    def test_second_statement_cannot_restate_availability_in_different_words(self):
+        source = {**SOURCE, "text": "Hy4 is now available in OpenCode Go."}
+        draft = {"event_key": "hy4 availability in opencode go", "premise": source["text"]}
+        for body in (
+            "Developers can now access Hy4 in OpenCode Go.",
+            "OpenCode Go users can now use Hy4.",
+            "Hy4 adds a new tool to the platform's offerings.",
+            "Developers can access Hy4 as part of their workflow.",
+        ):
+            with self.subTest(body=body), self.assertRaises(DraftError):
+                writer.validate({**draft, "text": "BREAKING — Hy4 is now available in OpenCode Go\n\n" + body}, source)
+
+    def test_single_statement_can_add_a_distinct_supported_restriction(self):
+        source = {**SOURCE, "text": "We released Atlas SDK 2.1 with offline CSV export. Only team admins can enable it."}
+        draft = {**DRAFT, "premise": "Atlas SDK 2.1 adds offline CSV export, enabled only by team admins.",
+                 "text": "BREAKING — Atlas SDK 2.1 adds offline CSV export.\n\nOnly team admins can enable it."}
+        self.assertEqual(writer.validate(draft, source), draft)
+
+    def test_multiple_sentences_are_rejected_but_version_dots_are_allowed(self):
+        draft = {**DRAFT, "text": "BREAKING — Atlas SDK 2.1 adds offline CSV export.\n\nIt is available to all users. Try it today."}
+        with self.assertRaisesRegex(DraftError, "exactly one complete sentence"):
+            writer.validate(draft, SOURCE)
+        draft["text"] = "BREAKING — Atlas SDK adds offline CSV export.\n\nVersion 2.1 makes it available to all users."
+        self.assertEqual(writer.validate(draft, SOURCE), draft)
 
     def test_fingerprints_preserve_versions_and_unicode_but_ignore_cosmetics(self):
         self.assertEqual(writer.fingerprint("Atlas SDK — Release!"), writer.fingerprint("ＡＴＬＡＳ sdk release"))
