@@ -182,6 +182,20 @@ async def verify_quote(connection,state):
     return True
 
 
+def candidate_batch(state,candidates):
+    """Rotate a bounded review window so rejected leaders cannot starve later news."""
+    if not candidates:
+        return []
+    last_author=state["history"][-1].get("author") if state["history"] else None
+    ranked=sorted(candidates,key=lambda row:row["author"]==last_author)
+    cursor=state.get("candidate_cursor",0)
+    if type(cursor) is not int or cursor<0:
+        cursor=0
+    start=cursor%len(ranked)
+    return [((start+offset+1)%len(ranked),ranked[(start+offset)%len(ranked)])
+            for offset in range(min(4,len(ranked)))]
+
+
 async def publish_slot(state,slot,connection):
     require_open(state)
     if state.get("check_session"):
@@ -189,14 +203,14 @@ async def publish_slot(state,slot,connection):
             raise SessionUnavailable()
         state["check_session"]=False
     candidates=await sources.discover(connection,state,utcnow())
-    # Favor a different author from the previous quote while keeping discovery rank.
-    last_author=state["history"][-1].get("author") if state["history"] else None
-    candidates.sort(key=lambda row:row["author"]==last_author)
-    for candidate in candidates[:4]:
+    for cursor,candidate in candidate_batch(state,candidates):
+        # Persisted by the existing rejection or reservation write. Editorial
+        # failures stay eligible for a future review instead of being consumed.
+        state["candidate_cursor"]=cursor
         try:
             draft=writer.generate(candidate,state,utcnow())
-        except DraftError:
-            summary("Candidate skipped by news, wording or duplicate checks.")
+        except DraftError as exc:
+            summary(f"Candidate skipped by news, wording or duplicate checks: {str(exc)[:600]}")
             continue
         try:
             fresh=sources.snapshot(await connection.get_tweet_by_id(candidate["id"]),utcnow())
@@ -227,7 +241,7 @@ async def send_once(state,slot,source,draft,connection):
     now=utcnow()
     eligible=next_slot(state,now)
     if not eligible or eligible[0]["slot"]!=slot["slot"]:
-        summary("Opportunity expired during research. Skipped.")
+        reject(state,slot,"Opportunity expired during research. Skipped.")
         return
     sources.validate(source,now)
     writer.validate(draft,source)
@@ -288,12 +302,12 @@ async def inspect():
     conn=client()
     candidates=await sources.discover(conn,state,utcnow())
     summary(f"Eligible source candidates found: {len(candidates)}")
-    for candidate in candidates[:4]:
+    for _,candidate in candidate_batch(state,candidates):
         summary(f"Source · {candidate['author']} · {candidate['views']:,} views · {candidate['url']}")
         try:
             draft=writer.generate(candidate,state,utcnow())
-        except DraftError:
-            summary("This candidate did not pass editorial review.")
+        except DraftError as exc:
+            summary(f"This candidate did not pass editorial review: {str(exc)[:600]}")
             continue
         summary("Inspection draft\n\n"+draft["text"])
         return

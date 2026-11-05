@@ -278,7 +278,8 @@ def generate(source, state, now):
     if not isinstance(assessment, dict) or set(assessment) != expected:
         raise DraftError("Source classification returned invalid fields")
     if any(assessment[key] is not True for key in GATE_FLAGS):
-        raise DraftError("Source is not an eligible primary announcement")
+        failed = ", ".join(key for key in GATE_FLAGS if assessment[key] is not True)
+        raise DraftError("Source classification rejected: " + failed)
     if any(not isinstance(assessment[key], str) for key in ("event_key", "facts")):
         raise DraftError("Source classification returned invalid event metadata")
     event_hash = fingerprint(assessment["event_key"])
@@ -314,6 +315,6 @@ def generate(source, state, now):
             return draft
         except DraftError as exc:
             # Every DraftError originates in local fixed text or the redacted transport.
-            print(f"Quote editorial check failed ({attempt}/{MAX_ATTEMPTS}).", flush=True)
+            print(f"Quote editorial check failed ({attempt}/{MAX_ATTEMPTS}): {str(exc)[:600]}", flush=True)
             data["correction"] = str(exc)
     raise DraftError("No grounded original quote passed review")

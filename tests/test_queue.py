@@ -90,6 +90,76 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(next_slot(state,self.now))
         conn.create_tweet.assert_awaited_once()
 
+    async def test_rejected_first_four_do_not_starve_fifth_candidate_on_next_check(self):
+        candidates=[{**SOURCE,'id':str(111+i),'source_ids':[str(111+i)],
+                     'url':f'https://x.com/Acme/status/{111+i}'} for i in range(5)]
+        by_id={item['id']:item for item in candidates}
+        conn=self.connection()
+        conn.get_tweet_by_id.side_effect=lambda ident: (SimpleNamespace(quoted_status_id='115')
+                                                       if ident=='333' else by_id[ident])
+        def review(candidate,*_):
+            if candidate['id']!='115':
+                raise queue.DraftError('Source gate rejected: new_announcement')
+            return DRAFT
+        with patch.object(queue,'save_and_push',side_effect=self.persist),\
+             patch.object(queue.sources,'discover',AsyncMock(return_value=candidates)),\
+             patch.object(queue.sources,'snapshot',side_effect=lambda value,now:value),\
+             patch.object(queue.writer,'generate',side_effect=review) as generate:
+            await queue.publish_slot(empty(),self.slot,conn)
+            state=queue.load()
+            self.assertEqual(state['candidate_cursor'],4)
+            self.assertEqual(generate.call_count,4)
+            self.assertEqual(state['used_source_ids'],[])
+            conn.create_tweet.assert_not_awaited()
+            with patch.object(queue,'utcnow',return_value=self.now+timedelta(minutes=10)):
+                await queue.publish_slot(state,self.slot,conn)
+        state=queue.load()
+        self.assertEqual(generate.call_count,5)
+        self.assertEqual(state['history'][0]['source_id'],'115')
+        self.assertEqual(state['candidate_cursor'],0)
+        conn.create_tweet.assert_awaited_once()
+
+    async def test_expired_opportunity_preserves_attempted_candidate_cursor(self):
+        state=empty();state['candidate_cursor']=3
+        conn=self.connection()
+        with patch.object(queue,'save_and_push',side_effect=self.persist),\
+             patch.object(queue,'next_slot',return_value=None):
+            await queue.send_once(state,self.slot,SOURCE,DRAFT,conn)
+        self.assertEqual(queue.load()['candidate_cursor'],3)
+        conn.create_tweet.assert_not_awaited()
+
+    async def test_inspection_honors_persisted_cursor_without_changing_it(self):
+        state=empty();state['candidate_cursor']=4
+        self.persist(state)
+        candidates=[{**SOURCE,'id':str(111+i)} for i in range(5)]
+        with patch.object(queue,'client',return_value=self.connection()),\
+             patch.object(queue.sources,'discover',AsyncMock(return_value=candidates)),\
+             patch.object(queue.writer,'generate',return_value=DRAFT) as generate,\
+             patch.object(queue,'save_and_push') as save:
+            await queue.inspect()
+        self.assertEqual(generate.call_args.args[0]['id'],'115')
+        self.assertEqual(generate.call_count,1)
+        self.assertEqual(queue.load()['candidate_cursor'],4)
+        save.assert_not_called()
+
+    async def test_editorial_reasons_are_bounded_and_visible_in_inspection_and_publishing(self):
+        candidate={**SOURCE}
+        reason='Gate rejected: new_announcement. '+'x'*800
+        for inspect in (True,False):
+            with self.subTest(inspect=inspect),\
+                 patch.object(queue,'load',return_value=empty()),\
+                 patch.object(queue,'client',return_value=self.connection()),\
+                 patch.object(queue.sources,'discover',AsyncMock(return_value=[candidate])),\
+                 patch.object(queue.writer,'generate',side_effect=queue.DraftError(reason)),\
+                 patch.object(queue,'reject'),patch.object(queue,'summary') as output:
+                if inspect:
+                    await queue.inspect()
+                else:
+                    await queue.publish_slot(empty(),self.slot,self.connection())
+            messages='\n'.join(call.args[0] for call in output.call_args_list)
+            self.assertIn(reason[:600],messages)
+            self.assertNotIn(reason[:601],messages)
+
     async def test_failed_reservation_commit_cannot_send(self):
         conn=self.connection()
         with patch.object(queue,'save_and_push',side_effect=OSError),self.assertRaises(OSError):
