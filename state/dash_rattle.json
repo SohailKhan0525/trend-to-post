@@ -1152,7 +1152,8 @@
     "fcc6d2073b77562beb5297999d6ff25cd250a33b5e708d595ea1c75cf0c98168",
     "8eccb355c8340c77ebef8caa8a8249abf22e4970e8b44fda6cae5d35a8922448",
     "e88222d5e90fc223bb25919a6db92552e6c60d3c60ddb70f4035f4744acde974",
-    "3a83afc92f118b389057b8c691b950af9154cfd4ef101b3dd7eae9e75f8486ec"
+    "3a83afc92f118b389057b8c691b950af9154cfd4ef101b3dd7eae9e75f8486ec",
+    "77f3a914d41f26c0034fe99e483e69447bf4137c096ac2fa87b8464b28a8d1ee"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1236,7 +1237,8 @@
     "c8e94f98961a532c69c6a83d89e46c08d46916fd39df1cfc4e7035b7a2a0ac51",
     "4103f2f03e9bbdd2623caf5612ca64e69c0ee514de8e0eb1d0c252953c391a74",
     "2c84470bb8a79a5cceeff54fab6a93b8ce181c810f4679ba3e56f8dfb886cd65",
-    "e11fc96bfdb3d1e4020d6240fe9ece930a9cfae8258720a9566775704b5bb165"
+    "e11fc96bfdb3d1e4020d6240fe9ece930a9cfae8258720a9566775704b5bb165",
+    "446f005c4e56f6a15c61176dc00cba10141ec657d74700311cfc17e8178d52c9"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1245,6 +1247,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T16:03:15.481097+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:35",
+      "due_at": "2026-11-05T16:38:00+00:00",
+      "topic": "AI models",
+      "detail": "a model card for an indecisive autocomplete",
+      "language": "English",
+      "form": "a two-line exchange"
+    },
+    "draft": {
+      "text": "‘Should I suggest a plan or a backup plan?’\n‘Just suggest a plan. We’ll figure out the backup later.’",
+      "premise": "An AI is asked if it should suggest a plan or a backup plan, and is told to just suggest a plan."
+    },
+    "approval": "922e4b15ab14f8620031ae43f88c5d0108c03f71c4d83557529865be83bbbc32",
+    "run": [
+      "42065233038",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T16:38:01.855706+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
