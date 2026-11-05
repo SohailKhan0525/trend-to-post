@@ -947,6 +947,18 @@
       "premise": "AI tries to describe a screenshot but only sees the 'alt text' field.",
       "tweet_id": "2118359445801521466",
       "posted_at": "2026-11-05T15:07:03.902467+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:33",
+      "due_at": "2026-11-05T15:37:00+00:00",
+      "topic": "SaaS",
+      "detail": "three onboarding tours fighting for the same corner",
+      "language": "Spanish",
+      "form": "a playful roast of a design choice",
+      "text": "El usuario entra y ve tres tours de onboarding intentando agarrar el mismo rincón del dashboard. No se ven ni los botones, solo tres personas intentando hacerse espacio con un '¡Primero llegué yo!' en el aire.",
+      "premise": "Three users fight for space on a SaaS dashboard, each claiming to have arrived first.",
+      "tweet_id": "2118367001030619252",
+      "posted_at": "2026-11-05T15:37:05.241519+00:00"
     }
   ],
   "used_texts": [
@@ -1218,26 +1230,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T15:07:03.902467+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:33",
-      "due_at": "2026-11-05T15:37:00+00:00",
-      "topic": "SaaS",
-      "detail": "three onboarding tours fighting for the same corner",
-      "language": "Spanish",
-      "form": "a playful roast of a design choice"
-    },
-    "draft": {
-      "text": "El usuario entra y ve tres tours de onboarding intentando agarrar el mismo rincón del dashboard. No se ven ni los botones, solo tres personas intentando hacerse espacio con un '¡Primero llegué yo!' en el aire.",
-      "premise": "Three users fight for space on a SaaS dashboard, each claiming to have arrived first."
-    },
-    "approval": "f140b718f2c3238fb6a3b0382dddf589f7afa78d3858a373bcf37a28f68ed67b",
-    "run": [
-      "42055743259",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T15:37:03.056212+00:00"
-  },
+  "last_posted_at": "2026-11-05T15:37:05.241519+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
