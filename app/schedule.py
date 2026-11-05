@@ -1,69 +1,45 @@
-"""A reproducible UTC timetable with fifty spaced slots per full day."""
+"""Forty daily opportunities with spacing and no catch-up bursts."""
 import random
 from datetime import datetime, timedelta, timezone
-from .editorial import FORMS, LANGUAGES, TOPICS
 
-DAILY_CAP = 50
-MIN_GAP = timedelta(minutes=15)
+DAILY_CAP = 40
+MIN_GAP = timedelta(minutes=25)
+RECHECK_GAP = timedelta(minutes=10)
 
 
 def daily_plan(day):
-    rng = random.Random("dash-rattle-v1/" + day)
-    midnight = datetime.fromisoformat(day).replace(tzinfo=timezone.utc)
-    # The regular dispatcher wakes near the start of each half hour. Two
-    # separated half hours get an extra slot with room on either side.
-    offsets = [rng.randint(2, 8) for _ in range(48)]
-    first = rng.randrange(1, 22)
-    second = rng.randrange(24, 46)
-    for band in (first, second):
-        offsets[band] = rng.randint(2, 4)
-        offsets[band + 1] = rng.randint(7, 9)
-    minutes = [30*i + offset for i, offset in enumerate(offsets)]
-    minutes += [(minutes[i] + minutes[i+1]) // 2 for i in (first, second)]
-
-    briefs = [(topic, detail) for topic, (count, pool) in TOPICS.items()
-              for detail in rng.sample(pool, count)]
-    languages = [language for language, count in LANGUAGES.items() for _ in range(count)]
-    rng.shuffle(briefs)
-    rng.shuffle(languages)
-    forms = list(FORMS)*8
-    rng.shuffle(forms)
-    return [
-        {"slot": f"{day}:dash-v1:{i}", "due_at": (midnight+timedelta(minutes=minute)).isoformat(),
-         "topic": briefs[i][0], "detail": briefs[i][1], "language": languages[i], "form": forms[i]}
-        for i, minute in enumerate(sorted(minutes))
-    ]
+    rng = random.Random("qofeno-quotes-v1/" + day)
+    start = datetime.fromisoformat(day).replace(tzinfo=timezone.utc)
+    return [{"slot":f"{day}:quote-v1:{i}",
+             "due_at":(start+timedelta(minutes=36*i+rng.randint(2,7))).isoformat()}
+            for i in range(DAILY_CAP)]
 
 
 def next_slot(state, now, window_end=None):
-    """Return (brief, ready time). A waiting dispatch only covers its own band."""
-    if state.get("pending"):
-        raise ValueError("Unresolved reservation")
+    if state.get("pending") or state.get("pause_reason") or state.get("verification_pending"):
+        return None
     now = now.astimezone(timezone.utc)
     day = now.date().isoformat()
-    count = state.get("prior_days", {}).get(day, 0)
     sent = [row for row in state["history"] if row.get("posted_at")]
-    count += sum(row["posted_at"][:10] == day for row in sent)
-    if count >= DAILY_CAP:
+    if sum(row["posted_at"][:10]==day for row in sent) >= DAILY_CAP:
         return None
-
-    plan = daily_plan(day)
-    used = {p["slot"] for p in sent}
+    used = {row["slot"] for row in sent}
     last = state.get("last_posted_at")
-    earliest = datetime.fromisoformat(last) + MIN_GAP if last else now
-    band_start = now.replace(minute=now.minute//30*30, second=0, microsecond=0)
-    for i, brief in enumerate(plan):
-        due = datetime.fromisoformat(brief["due_at"])
-        expires = (datetime.fromisoformat(plan[i+1]["due_at"]) if i+1 < len(plan)
-                   else band_start.replace(hour=0, minute=0)+timedelta(days=1))
-        if window_end is not None and not band_start <= due < window_end:
+    earliest = datetime.fromisoformat(last)+MIN_GAP if last else now
+    plan = daily_plan(day)
+    for i, item in enumerate(plan):
+        due = datetime.fromisoformat(item["due_at"])
+        expires = (datetime.fromisoformat(plan[i+1]["due_at"]) if i+1<len(plan)
+                   else due.replace(hour=0,minute=0)+timedelta(days=1))
+        ready = max(due,earliest,now)
+        tried = state.get("last_attempt")
+        if tried and tried["slot"] == item["slot"]:
+            ready = max(ready,datetime.fromisoformat(tried["at"])+RECHECK_GAP)
+        if item["slot"] in used or ready>=expires:
             continue
-        ready = max(due, earliest, now)
-        if brief["slot"] in used or ready >= expires:
+        if window_end is None and ready>now:
             continue
-        if window_end is None and ready > now:
+        if window_end is not None and ready>=window_end:
             continue
-        if window_end is not None and ready >= window_end:
-            continue
-        return brief, ready
+        return item,ready
     return None

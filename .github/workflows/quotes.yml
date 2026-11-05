@@ -1,0 +1,50 @@
+name: Publish Qofeno quotes
+on:
+  workflow_dispatch:
+    inputs:
+      inspect_only:
+        description: Inspect eligible sources and copy without publishing
+        type: boolean
+        default: false
+  repository_dispatch:
+    types: [post-next]
+  push:
+    branches: [main]
+    paths: ['app/**', 'scripts/commit-state.sh', '.github/workflows/quotes.yml']
+  schedule:
+    - cron: '3-58/5 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: x-text-original-queue
+  cancel-in-progress: false
+jobs:
+  quote:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - name: Research and publish one eligible quote
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          QOFENO_AI_MODEL: ${{ vars.QOFENO_AI_MODEL }}
+          DASH_RATTLE_MODEL: ${{ vars.DASH_RATTLE_MODEL }}
+          X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
+          X_CT0: ${{ secrets.X_CT0 }}
+          INSPECT_ONLY: 'true'
+        run: |
+          if [[ "$INSPECT_ONLY" == 'true' || "$GITHUB_EVENT_NAME" == 'push' ]]; then
+            python -m app inspect
+          else
+            python -m app run
+          fi

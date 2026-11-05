@@ -21,7 +21,7 @@ def json_mode_failed(payload):
 def complete(system,data,temperature=.8,max_tokens=450,schema=None):
     account=os.environ.get('CLOUDFLARE_ACCOUNT_ID','').strip()
     token=os.environ.get('CLOUDFLARE_API_TOKEN','').strip()
-    model=os.environ.get('DASH_RATTLE_MODEL') or '@cf/qwen/qwen3-30b-a3b-fp8'
+    model=os.environ.get('QOFENO_AI_MODEL') or os.environ.get('DASH_RATTLE_MODEL') or '@cf/qwen/qwen3-30b-a3b-fp8'
     if not re.fullmatch(r'[a-fA-F0-9]{32}',account) or not token:
         raise ValueError('Cloudflare configuration required')
     if not re.fullmatch(r'@cf/[\w.-]+/[\w.-]+',model):
