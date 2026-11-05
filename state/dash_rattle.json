@@ -851,6 +851,18 @@
       "premise": "AI creates a 'save as' shortcut named 'save as you were' as a play on 'save as you are.'",
       "tweet_id": "2118306598875738460",
       "posted_at": "2026-11-05T11:37:04.227299+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:25",
+      "due_at": "2026-11-05T12:07:00+00:00",
+      "topic": "technology",
+      "detail": "a silent keyboard with a loud notification",
+      "language": "Spanish",
+      "form": "a miniature scene with a punchline",
+      "text": "El teclado silencioso sonó como un fuego artificial cuando recibió una notificación. Nadie sabía qué hacer.",
+      "premise": "A silent keyboard sounds like fireworks when it gets a notification.",
+      "tweet_id": "2118314146517455116",
+      "posted_at": "2026-11-05T12:07:03.765235+00:00"
     }
   ],
   "used_texts": [
@@ -1106,26 +1118,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T11:37:04.227299+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:25",
-      "due_at": "2026-11-05T12:07:00+00:00",
-      "topic": "technology",
-      "detail": "a silent keyboard with a loud notification",
-      "language": "Spanish",
-      "form": "a miniature scene with a punchline"
-    },
-    "draft": {
-      "text": "El teclado silencioso sonó como un fuego artificial cuando recibió una notificación. Nadie sabía qué hacer.",
-      "premise": "A silent keyboard sounds like fireworks when it gets a notification."
-    },
-    "approval": "b99044ea1c28c93af6f117d913aedba7e1994bfd292fa23f45d41ae1b4b7b6e3",
-    "run": [
-      "42023613167",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T12:07:01.581122+00:00"
-  },
+  "last_posted_at": "2026-11-05T12:07:03.765235+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
