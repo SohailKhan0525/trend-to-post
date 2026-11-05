@@ -775,7 +775,8 @@
     "3d1f9d150f79f51eaf9a44c4fb943ebd0131c69cd4743a7c573e1f561ab94c3d",
     "1c02b0ddc9acd3c09d0bcdfff49b4e957cbc17c15aca36f4be8d00375c4f1cb0",
     "8df683f039739dad2fc5378c98f84f2448dfb63eba819e6c607eda7b3b29a509",
-    "92c3c4a1db6674e918a4bb72c0f75753e7ef751a5498d2a7efd72d147a3df4b0"
+    "92c3c4a1db6674e918a4bb72c0f75753e7ef751a5498d2a7efd72d147a3df4b0",
+    "2149f13263af3767f419ddfe4dcdeabe381edf116dd5c7a693414c180af4a233"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -830,7 +831,8 @@
     "c2071cd2e67276be19279464b3febaff7c0d2d2c90f0785a75ef966e23bb0a85",
     "2c3a412b593cb816b23be72f884d4ee149eadd7b7ff823d4101328ee9e31047a",
     "241c2358da8c6e93e445a6919e27a598e6196fb42affac57eb7ec7446f22e47f",
-    "a88fae9df82223a49a90e3f53e3aa281142febcb115ad948199566301c578393"
+    "a88fae9df82223a49a90e3f53e3aa281142febcb115ad948199566301c578393",
+    "b69dfa31a454e3062fe8f6d82fa54423e3074b5fb10671e369a683cf9e3796e4"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -839,6 +841,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T02:02:06.653948+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:6",
+      "due_at": "2026-11-05T02:36:00+00:00",
+      "topic": "technology",
+      "detail": "a tiny keyboard shortcut with an enormous manual",
+      "language": "English",
+      "form": "a dry one-liner"
+    },
+    "draft": {
+      "text": "The shortcut for 'Save' is Ctrl+S, but the manual says 'Press Ctrl+S to save, then read 20 pages about why you shouldn't.'",
+      "premise": "A manual tells you to press Ctrl+S to save, then reads like a warning against doing so."
+    },
+    "approval": "447fb465e8a16e85a062ca1eaf8b9ef39e54beaef7cf10cf09b73d572fc9bb3a",
+    "run": [
+      "41955708493",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T02:36:01.442103+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
