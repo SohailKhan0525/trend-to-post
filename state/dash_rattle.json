@@ -983,6 +983,18 @@
       "premise": "An AI is asked if it should suggest a plan or a backup plan, and is told to just suggest a plan.",
       "tweet_id": "2118382346546348155",
       "posted_at": "2026-11-05T16:38:03.862778+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:36",
+      "due_at": "2026-11-05T17:03:00+00:00",
+      "topic": "SaaS",
+      "detail": "a settings toggle with a sales demo",
+      "language": "Spanish",
+      "form": "a two-line exchange",
+      "text": "El toggle de 'Modo Demo' no tiene efecto, pero cuando lo aprietas, suena un anuncio de ventas en el fondo.",
+      "premise": "A 'Demo Mode' toggle does nothing, but when pressed, it plays a sales ad in the background.",
+      "tweet_id": "2118388638468002235",
+      "posted_at": "2026-11-05T17:03:04.017363+00:00"
     }
   ],
   "used_texts": [
@@ -1260,26 +1272,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T16:38:03.862778+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:36",
-      "due_at": "2026-11-05T17:03:00+00:00",
-      "topic": "SaaS",
-      "detail": "a settings toggle with a sales demo",
-      "language": "Spanish",
-      "form": "a two-line exchange"
-    },
-    "draft": {
-      "text": "El toggle de 'Modo Demo' no tiene efecto, pero cuando lo aprietas, suena un anuncio de ventas en el fondo.",
-      "premise": "A 'Demo Mode' toggle does nothing, but when pressed, it plays a sales ad in the background."
-    },
-    "approval": "ce3500135a485d39c1576b18735c80e45e4a9a9c8846e0ef1306ae47683c2c60",
-    "run": [
-      "42070424064",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T17:03:01.601273+00:00"
-  },
+  "last_posted_at": "2026-11-05T17:03:04.017363+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
