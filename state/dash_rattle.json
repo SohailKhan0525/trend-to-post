@@ -755,6 +755,18 @@
       "premise": "An AI over-explains the word 'clarify' by writing a long essay about it.",
       "tweet_id": "2118245443721388398",
       "posted_at": "2026-11-05T07:34:03.668695+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:17",
+      "due_at": "2026-11-05T08:04:00+00:00",
+      "topic": "AI models",
+      "detail": "a context limit arriving at the punchline",
+      "language": "English",
+      "form": "a fictional changelog entry",
+      "text": "v1.2.3: Fixed the context limit. Now it just gets sad when you try to finish the joke.",
+      "premise": "AI fixes a problem but now just feels sad when trying to finish a joke",
+      "tweet_id": "2118252994655650221",
+      "posted_at": "2026-11-05T08:04:03.956589+00:00"
     }
   ],
   "used_texts": [
@@ -994,26 +1006,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T07:34:03.668695+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:17",
-      "due_at": "2026-11-05T08:04:00+00:00",
-      "topic": "AI models",
-      "detail": "a context limit arriving at the punchline",
-      "language": "English",
-      "form": "a fictional changelog entry"
-    },
-    "draft": {
-      "text": "v1.2.3: Fixed the context limit. Now it just gets sad when you try to finish the joke.",
-      "premise": "AI fixes a problem but now just feels sad when trying to finish a joke"
-    },
-    "approval": "228c5e2fa6391e67ba07ddf34440a7679a6a656d635810e1347fd131fefe3851",
-    "run": [
-      "41991300692",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T08:04:01.717250+00:00"
-  },
+  "last_posted_at": "2026-11-05T08:04:03.956589+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
