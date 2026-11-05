@@ -803,6 +803,18 @@
       "premise": "AI splits 'granola' into parts and offers a snack or grammar lesson",
       "tweet_id": "2118275644094378295",
       "posted_at": "2026-11-05T09:34:04.038738+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:21",
+      "due_at": "2026-11-05T10:03:00+00:00",
+      "topic": "cars",
+      "detail": "a car key larger than the pocket",
+      "language": "Hindi",
+      "form": "a dry one-liner",
+      "text": "मेरी कार की चाबी इतनी बड़ी है कि मेरी जींस के एक पैंट के बजाय एक बैग बन गई।",
+      "premise": "The car key is so big it turned the pants into a bag.",
+      "tweet_id": "2118282944209199582",
+      "posted_at": "2026-11-05T10:03:04.524493+00:00"
     }
   ],
   "used_texts": [
@@ -1050,26 +1062,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T09:34:04.038738+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:21",
-      "due_at": "2026-11-05T10:03:00+00:00",
-      "topic": "cars",
-      "detail": "a car key larger than the pocket",
-      "language": "Hindi",
-      "form": "a dry one-liner"
-    },
-    "draft": {
-      "text": "मेरी कार की चाबी इतनी बड़ी है कि मेरी जींस के एक पैंट के बजाय एक बैग बन गई।",
-      "premise": "The car key is so big it turned the pants into a bag."
-    },
-    "approval": "d76e5421b4bbeab548dabb6c1dd9be7a1fc15599fda58a2f4e1f58ae1d973769",
-    "run": [
-      "42007161810",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T10:03:02.152267+00:00"
-  },
+  "last_posted_at": "2026-11-05T10:03:04.524493+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
