@@ -918,7 +918,8 @@
     "e0ee8b2383109e85499ee323f2bd9b10023c4b66dfac9d56f691bd10236929cd",
     "40b9b743a7f44117844011ec4f4700866e52956e79b802d185c9f122380832ae",
     "ada4336df22c2ac28766e928d83a4e13b9f5ec0f412bcd00b608529ef6c0b55d",
-    "b225d7c832aad5238ab4711479bbc426044d42e3d4841e03f48bcf4ca0ec9ae8"
+    "b225d7c832aad5238ab4711479bbc426044d42e3d4841e03f48bcf4ca0ec9ae8",
+    "de733f7c6441b05465dd54bf749f9e5eb889789711abedc9d12afc74efe9870e"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -984,7 +985,8 @@
     "40b7c7e832b393bfd5ef172e0b2d62472cce3090d3e994d0004b3e3f08a72f70",
     "16866986729c1b762e847a31c2763153cce857674f9e91030142218cbbf6cb48",
     "2cf66a0f95e5cd1b46f5cdcacfb2498669b79c2435aa37a9b55fa2aace69b6c4",
-    "e0dbf142f2c627a7b2648644bc9ef70a1a76ecafb5e392d41d8d29ab202660ed"
+    "e0dbf142f2c627a7b2648644bc9ef70a1a76ecafb5e392d41d8d29ab202660ed",
+    "47124a253fdd2e3969347e4475b0edc4035dc243fd8ce93f979ec43b6026da7f"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -993,6 +995,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T07:34:03.668695+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:17",
+      "due_at": "2026-11-05T08:04:00+00:00",
+      "topic": "AI models",
+      "detail": "a context limit arriving at the punchline",
+      "language": "English",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "v1.2.3: Fixed the context limit. Now it just gets sad when you try to finish the joke.",
+      "premise": "AI fixes a problem but now just feels sad when trying to finish a joke"
+    },
+    "approval": "228c5e2fa6391e67ba07ddf34440a7679a6a656d635810e1347fd131fefe3851",
+    "run": [
+      "41991300692",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T08:04:01.717250+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
