@@ -1087,7 +1087,8 @@
     "118ea9c4d8b35bb3f7662f26cee63b0973d2c0dcf6b571af0c32557f6f68adf4",
     "4c8e6fc4fc1fdf7b7e1e824d8106e1634b0129b5749104830586f66dd76d20ac",
     "b30584eeab6b10b1d98d7b08c1429f3f38d34adfbfb2b6c8b7670044c77a253d",
-    "e17f6675fa87333416072c74e2ce5dd303af885918d20d3dc9bb2dcb99d28d6c"
+    "e17f6675fa87333416072c74e2ce5dd303af885918d20d3dc9bb2dcb99d28d6c",
+    "d542a1bf15b063172508ec5f07028307d3c9fa41e4d5dfdfd3a38180b4d16c1d"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -1166,7 +1167,8 @@
     "8ee4b3c011c415015b197bf834fe36d7aba17661a983b52ba3c30392d9918ed3",
     "830559fc25c41c0d5eff5d7896465715e1c33ca327092a7cdd8c26f933ddb764",
     "95264cc2b7c3466b3f44c6a2a560d78dbbc4b6b831faf1232b25ac1c6f1ba57a",
-    "62e25ad522cd1a0acf5ffabef6cc8b9b623272b50efa11568595104b88253cd5"
+    "62e25ad522cd1a0acf5ffabef6cc8b9b623272b50efa11568595104b88253cd5",
+    "c628bd86789f22e3d95d9ce71d514d299b8fc433652d0723399a60938c6f36bf"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1175,6 +1177,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T14:07:04.393413+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:30",
+      "due_at": "2026-11-05T14:34:00+00:00",
+      "topic": "AI models",
+      "detail": "a context window full of old lunch plans",
+      "language": "English",
+      "form": "a fictional changelog entry"
+    },
+    "draft": {
+      "text": "v1.2.3 - Fixed the context window so it no longer remembers your lunch plans from last Tuesday. Also, your sandwich is still in the fridge.",
+      "premise": "AI fixes its memory but still can't find the sandwich."
+    },
+    "approval": "6b3a0978e9cbb695005b19df047de15d5def0111f38eae9a841c6aa51ea56e4f",
+    "run": [
+      "42045743056",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T14:34:02.035307+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
