@@ -959,6 +959,18 @@
       "premise": "Three users fight for space on a SaaS dashboard, each claiming to have arrived first.",
       "tweet_id": "2118367001030619252",
       "posted_at": "2026-11-05T15:37:05.241519+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:34",
+      "due_at": "2026-11-05T16:03:00+00:00",
+      "topic": "artificial intelligence",
+      "detail": "the prompt that becomes longer than the task",
+      "language": "Simplified Chinese",
+      "form": "a playful roast of a design choice",
+      "text": "我让AI写个简短的说明，结果它写了一大堆，最后还问我是不是想让它继续。",
+      "premise": "AI wrote a long explanation when asked for a short one, then asked if it should keep going.",
+      "tweet_id": "2118373587270930624",
+      "posted_at": "2026-11-05T16:03:15.481097+00:00"
     }
   ],
   "used_texts": [
@@ -1232,26 +1244,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T15:37:05.241519+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:34",
-      "due_at": "2026-11-05T16:03:00+00:00",
-      "topic": "artificial intelligence",
-      "detail": "the prompt that becomes longer than the task",
-      "language": "Simplified Chinese",
-      "form": "a playful roast of a design choice"
-    },
-    "draft": {
-      "text": "我让AI写个简短的说明，结果它写了一大堆，最后还问我是不是想让它继续。",
-      "premise": "AI wrote a long explanation when asked for a short one, then asked if it should keep going."
-    },
-    "approval": "451a30392adcf31ae0eeddd3bf0ff119a98c9116f718e2a8929cb5ec0e5a1769",
-    "run": [
-      "42060759142",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T16:03:05.540193+00:00"
-  },
+  "last_posted_at": "2026-11-05T16:03:15.481097+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
