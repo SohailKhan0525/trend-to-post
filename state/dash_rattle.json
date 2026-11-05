@@ -923,6 +923,18 @@
       "premise": "AI fixes its memory but still can't find the sandwich.",
       "tweet_id": "2118351142929498431",
       "posted_at": "2026-11-05T14:34:04.380524+00:00"
+    },
+    {
+      "slot": "2026-11-05:dash-v1:31",
+      "due_at": "2026-11-05T14:50:00+00:00",
+      "topic": "cars",
+      "detail": "a car menu asking how sporty the steering wheel feels",
+      "language": "Spanish",
+      "form": "a playful roast of a design choice",
+      "text": "El menú del coche pregunta: '¿Qué tan deportivo quieres que se sienta el volante?' Le dije que quería que se sintiera como un volante de fórmula 1, y ahora me pregunta si quiero que se sienta más deportivo.",
+      "premise": "A car's menu asks how sporty the steering wheel should feel, and after choosing F1, it asks if they want it to feel even more sporty.",
+      "tweet_id": "2118355167456235788",
+      "posted_at": "2026-11-05T14:50:03.897513+00:00"
     }
   ],
   "used_texts": [
@@ -1190,26 +1202,7 @@
     "2026-10-31": 7,
     "2026-11-01": 27
   },
-  "last_posted_at": "2026-11-05T14:34:04.380524+00:00",
-  "pending": {
-    "brief": {
-      "slot": "2026-11-05:dash-v1:31",
-      "due_at": "2026-11-05T14:50:00+00:00",
-      "topic": "cars",
-      "detail": "a car menu asking how sporty the steering wheel feels",
-      "language": "Spanish",
-      "form": "a playful roast of a design choice"
-    },
-    "draft": {
-      "text": "El menú del coche pregunta: '¿Qué tan deportivo quieres que se sienta el volante?' Le dije que quería que se sintiera como un volante de fórmula 1, y ahora me pregunta si quiero que se sienta más deportivo.",
-      "premise": "A car's menu asks how sporty the steering wheel should feel, and after choosing F1, it asks if they want it to feel even more sporty."
-    },
-    "approval": "ce2151266744ea1df2bd07de862f841bd43e66a0711c3aaf2b7a66213a016012",
-    "run": [
-      "42045743056",
-      "1"
-    ],
-    "reserved_at": "2026-11-05T14:50:01.992120+00:00"
-  },
+  "last_posted_at": "2026-11-05T14:50:03.897513+00:00",
+  "pending": null,
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
