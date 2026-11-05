@@ -931,7 +931,8 @@
     "40b9b743a7f44117844011ec4f4700866e52956e79b802d185c9f122380832ae",
     "ada4336df22c2ac28766e928d83a4e13b9f5ec0f412bcd00b608529ef6c0b55d",
     "b225d7c832aad5238ab4711479bbc426044d42e3d4841e03f48bcf4ca0ec9ae8",
-    "de733f7c6441b05465dd54bf749f9e5eb889789711abedc9d12afc74efe9870e"
+    "de733f7c6441b05465dd54bf749f9e5eb889789711abedc9d12afc74efe9870e",
+    "51b59acdfc9505b9f6b25d21aa0b6f0a6399436c6de3a143656f35b67d753340"
   ],
   "used_premises": [
     "011dcc982cabece74254676515ccf0c881b251339e3a6ac834dc1e204aa1f67c",
@@ -998,7 +999,8 @@
     "16866986729c1b762e847a31c2763153cce857674f9e91030142218cbbf6cb48",
     "2cf66a0f95e5cd1b46f5cdcacfb2498669b79c2435aa37a9b55fa2aace69b6c4",
     "e0dbf142f2c627a7b2648644bc9ef70a1a76ecafb5e392d41d8d29ab202660ed",
-    "47124a253fdd2e3969347e4475b0edc4035dc243fd8ce93f979ec43b6026da7f"
+    "47124a253fdd2e3969347e4475b0edc4035dc243fd8ce93f979ec43b6026da7f",
+    "7a8f117fcd489c07c4a403b27570cce19e4e212654c927cbc82a4b92923ee368"
   ],
   "prior_days": {
     "2026-11-02": 37,
@@ -1007,6 +1009,25 @@
     "2026-11-01": 27
   },
   "last_posted_at": "2026-11-05T08:04:03.956589+00:00",
-  "pending": null,
+  "pending": {
+    "brief": {
+      "slot": "2026-11-05:dash-v1:18",
+      "due_at": "2026-11-05T08:32:00+00:00",
+      "topic": "AI models",
+      "detail": "the difference between a demo prompt and a real prompt",
+      "language": "English",
+      "form": "a question with a funny, concrete premise"
+    },
+    "draft": {
+      "text": "Why did the AI ask for a 'detailed' prompt? Because the last one was just 'write something.'",
+      "premise": "An AI asks for a detailed prompt because the previous one was too vague."
+    },
+    "approval": "d03fb8e19c6a509bc8a45fa6ccb68e2c2b9afc833ef4acea913dc84e46ec6d90",
+    "run": [
+      "41995051772",
+      "1"
+    ],
+    "reserved_at": "2026-11-05T08:32:07.201550+00:00"
+  },
   "last_queued_at": "2026-11-03T16:08:06.485159+00:00"
 }
