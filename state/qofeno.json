@@ -383,14 +383,16 @@
     "2118634394004979827",
     "2118530564428833010",
     "2118405991662493737",
-    "2118389326459670825"
+    "2118389326459670825",
+    "2118717555598614919"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
     "https://deepai.org/chat/ai-code",
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash",
     "https://thinkingmachines.ai/news/inkling-2-small",
-    "https://fia.com/news/yangwang-u9-xtreme-surpasses-500-kmh-speed-achievement-recognised-fia"
+    "https://fia.com/news/yangwang-u9-xtreme-surpasses-500-kmh-speed-achievement-recognised-fia",
+    "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -407,7 +409,8 @@
     "242b0770444069ac8ff64730834a878fc112485b0ea6ba0f2f18f57a1a4fd3fb",
     "77e72bb7d9619c30ee28eceff4a8288dc58443f78dac19bb1f45873dbd3e1ed4",
     "7eb3253880a6ec22eabeb0fde5cda755749276a0df0289bcc67df911fa783fcb",
-    "e5a4c947ff44eed5ed5cb77ba516f681b91cf2fb55924d5e9f209ec7356bac70"
+    "e5a4c947ff44eed5ed5cb77ba516f681b91cf2fb55924d5e9f209ec7356bac70",
+    "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -735,12 +738,58 @@
     "5f8958d1593026286bfabd9e20a6d37a2b1bba27cb5812e7bf6d4e96aae437cb",
     "f3c9ff7b12671a93166e57a83e0b59cf4ea9b2c19f035f473ab8cacc53e16686",
     "742f7f6aee8e20d0e48f3888faa0fb9cdf915ad66b74299c3ee0bbf741de5fcb",
-    "207bc590fbe851d10ceb3f39565710f8046ca065eb48e705533d290d7f10d390"
+    "207bc590fbe851d10ceb3f39565710f8046ca065eb48e705533d290d7f10d390",
+    "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00"
   ],
   "last_posted_at": "2026-11-06T17:01:42.560339+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:30",
+      "due_at": "2026-11-06T18:07:00+00:00"
+    },
+    "source": {
+      "id": "2118717555598614919",
+      "url": "https://x.com/NBCNews/status/2118717555598614919",
+      "author": "NBCNews",
+      "author_id": "14173315",
+      "text": "Tesla will wind down Cybertruck production around mid-2027, CEO Elon Musk says, after years of persistently weak sales for a futuristic model once touted as a rival to legacy pickup trucks. https://t.co/8NC8pDGsKs",
+      "created_at": "2026-11-06T14:50:03+00:00",
+      "views": 446345,
+      "urls": [
+        "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd"
+      ],
+      "source_ids": [
+        "2118717555598614919"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — NBCNews reports: Tesla will wind down Cybertruck production around mid-2027. \n\nThe report says CEO Elon Musk made the statement after years of persistently weak sales for the vehicle.",
+      "event_key": "Tesla Cybertruck production to end mid-2027",
+      "premise": "Reported by NBCNews: Tesla will wind down Cybertruck production around mid-2027, according to CEO Elon Musk."
+    },
+    "reserved_at": "2026-11-06T18:07:07.229528+00:00",
+    "approval": "e29d8f5368f7b99dd745a08c98bbbd1eb336c4465dd1d36450c79d1c600566ce",
+    "run": [
+      "42266861662",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118717555598614919"
+      ],
+      "used_urls": [
+        "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd"
+      ],
+      "used_texts": [
+        "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00"
+      ],
+      "used_events": [
+        "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:29",
     "at": "2026-11-06T18:01:28.584708+00:00",
