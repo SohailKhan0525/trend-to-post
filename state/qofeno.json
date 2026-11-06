@@ -431,7 +431,8 @@
     "2118389326459670825",
     "2118717555598614919",
     "2118782708767965238",
-    "2118770823347507273"
+    "2118770823347507273",
+    "2118814753154064501"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -440,7 +441,8 @@
     "https://thinkingmachines.ai/news/inkling-2-small",
     "https://fia.com/news/yangwang-u9-xtreme-surpasses-500-kmh-speed-achievement-recognised-fia",
     "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd",
-    "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science"
+    "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
+    "https://anthropic.com/research/components-of-agent-memory"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -460,7 +462,8 @@
     "e5a4c947ff44eed5ed5cb77ba516f681b91cf2fb55924d5e9f209ec7356bac70",
     "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b",
     "dff9553582389c22666e90fbea394cdaaec10bc2ce1b9a047e5c6669a6441b8d",
-    "a632332a47d1a73c1e065ff0df623635081454574216c2b838ab34d8ab5fdae1"
+    "a632332a47d1a73c1e065ff0df623635081454574216c2b838ab34d8ab5fdae1",
+    "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -791,12 +794,58 @@
     "207bc590fbe851d10ceb3f39565710f8046ca065eb48e705533d290d7f10d390",
     "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00",
     "9215868f60aaac9de02fd564638c78d1f3b8fa261a2fb6b103e2a231261f9b09",
-    "fd9e29885a8dfb6b5a72b26d9173d6e87576574d81089eec0cc6eda9d2add22f"
+    "fd9e29885a8dfb6b5a72b26d9173d6e87576574d81089eec0cc6eda9d2add22f",
+    "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d"
   ],
   "last_posted_at": "2026-11-06T21:51:20.064446+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:37",
+      "due_at": "2026-11-06T22:17:00+00:00"
+    },
+    "source": {
+      "id": "2118814753154064501",
+      "url": "https://x.com/AnthropicAI/status/2118814753154064501",
+      "author": "AnthropicAI",
+      "author_id": "1353836358901501952",
+      "text": "Memory is what allows Claude to learn from experience. In a new Engineering Blog post, we share how “dreaming” helps Claude organize what it’s learned, correct its mistakes, and find what it needs more easily the next time. https://t.co/uUEN4bNkr9",
+      "created_at": "2026-11-06T21:16:17+00:00",
+      "views": 119528,
+      "urls": [
+        "https://anthropic.com/research/components-of-agent-memory"
+      ],
+      "source_ids": [
+        "2118814753154064501"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — AnthropicAI reports: Claude uses 'dreaming' to organize learning and correct mistakes.\n\nThe report says 'dreaming' helps Claude find what it needs more easily the next time.",
+      "event_key": "Claude 'Dreaming' Feature for Organizing Learning",
+      "premise": "Claude uses 'dreaming' to organize what it's learned, correct mistakes, and find information more easily."
+    },
+    "reserved_at": "2026-11-06T22:27:23.787199+00:00",
+    "approval": "300b0f959e273bfcccaf43f86ce054ce23c942431d06a8d2125e15f7471a2162",
+    "run": [
+      "42301376058",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118814753154064501"
+      ],
+      "used_urls": [
+        "https://anthropic.com/research/components-of-agent-memory"
+      ],
+      "used_texts": [
+        "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d"
+      ],
+      "used_events": [
+        "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 6,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:37",
     "at": "2026-11-06T22:17:11.835472+00:00",
