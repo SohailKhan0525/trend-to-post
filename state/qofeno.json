@@ -175,12 +175,16 @@
     "2116322012276900024",
     "2116424676729925721",
     "2118135093617393774",
-    "2118458629091426304"
+    "2118458629091426304",
+    "2118390190246879554"
   ],
-  "used_urls": [],
+  "used_urls": [
+    "https://openai.com/index/introducing-gpt-6-cyber"
+  ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
-    "736ec963282878156988f452e19989faba4beed6a6c254e5b8bdabf1068559bd"
+    "736ec963282878156988f452e19989faba4beed6a6c254e5b8bdabf1068559bd",
+    "1c6efd91efec9628950df5d7c3fff364720c3f246e3c9f81770104b5e520fab1"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -495,12 +499,58 @@
     "ff7563f88879241855b97c6219c4f090ac32ecae3a672576fa28d4cd9b959ff4",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1",
     "a7fa64f6c8f666392a2fcbb8b71c66c11edcdd76fd422116a6c83808f0304ab7",
-    "3fd3f07dccbefe1f7192eaa4220d953bbca811b4d49d729f9c1814cead63b23e"
+    "3fd3f07dccbefe1f7192eaa4220d953bbca811b4d49d729f9c1814cead63b23e",
+    "3cb25b81a9c225458f32c1be490def49ab806580a146ed3b7eb3ca969e02b5a3"
   ],
   "last_posted_at": "2026-11-06T00:31:17.692865+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:1",
+      "due_at": "2026-11-06T00:40:00+00:00"
+    },
+    "source": {
+      "id": "2118390190246879554",
+      "url": "https://x.com/OpenAI/status/2118390190246879554",
+      "author": "OpenAI",
+      "author_id": "4398626122",
+      "text": "Introducing GPT‑6 Cyber: a major advance in security research that pairs stronger capabilities with better model alignment.\n\nThe model powered the Linux kernel research we announced yesterday, and security teams at companies like Mozilla, Palo Alto Networks, Calif, and Cisco—alongside our own at OpenAI—are already putting it to work.\n\nGPT-6 Cyber is available to select Daybreak Red customers and we are expanding access over time.\n\nhttps://t.co/Nzab3Z1Td6",
+      "created_at": "2026-11-05T17:09:13+00:00",
+      "views": 1593909,
+      "urls": [
+        "https://openai.com/index/introducing-gpt-6-cyber"
+      ],
+      "source_ids": [
+        "2118390190246879554"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — GPT-6 Cyber launched with stronger security research capabilities\n\nGPT-6 Cyber, a security research model, is now available to select Daybreak Red customers and has been used for Linux kernel research.",
+      "event_key": "Introducing GPT-6 Cyber Security Model",
+      "premise": "OpenAI introduced GPT-6 Cyber, a security research model with stronger capabilities and better alignment, used for Linux kernel research and adopted by security teams at Mozilla, Palo Alto Networks, Cisco, and OpenAI."
+    },
+    "reserved_at": "2026-11-06T00:56:24.129235+00:00",
+    "approval": "13694c7675d059990a57d4d0da08cb27176a317c3e57b74d1cca119332c84646",
+    "run": [
+      "42137366745",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118390190246879554"
+      ],
+      "used_urls": [
+        "https://openai.com/index/introducing-gpt-6-cyber"
+      ],
+      "used_texts": [
+        "3cb25b81a9c225458f32c1be490def49ab806580a146ed3b7eb3ca969e02b5a3"
+      ],
+      "used_events": [
+        "1c6efd91efec9628950df5d7c3fff364720c3f246e3c9f81770104b5e520fab1"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:0",
     "at": "2026-11-06T00:16:18.164027+00:00",
