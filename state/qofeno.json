@@ -120,6 +120,21 @@
       "source_created_at": "2026-11-05T18:36:37+00:00",
       "tweet_id": "2118630262619934929",
       "posted_at": "2026-11-06T09:03:11.748661+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:16",
+      "due_at": "2026-11-06T09:39:00+00:00",
+      "text": "BREAKING — OfficialLoganK reports: Gemini Omni Flash 1.2 launched with 15-second video generation and 30% lower price.\n\nThe report says the update includes deeper cinematic controls, multi-turn conversation editing, and less visual drift.",
+      "event_key": "Gemini Omni Flash 1.2 release with longer video generation and price reduction",
+      "premise": "Gemini Omni Flash 1.2 is rolled out with longer video generation (15 seconds), deeper cinematic controls, multi-turn conversation editing, less visual drift, and 30% lower price than Omni Flash 1.1.",
+      "source_id": "2118390838434693281",
+      "author": "OfficialLoganK",
+      "source_url": "https://x.com/OfficialLoganK/status/2118390838434693281",
+      "source_views": 112008,
+      "source_checked_at": "2026-11-06T10:11:51.232102+00:00",
+      "source_created_at": "2026-11-05T17:11:48+00:00",
+      "tweet_id": "2118647547774574933",
+      "posted_at": "2026-11-06T10:11:52.854286+00:00"
     }
   ],
   "used_source_ids": [
@@ -612,58 +627,17 @@
     "2922bdf4f906ffec923c3fd0886405e182b20729c465873c2c39d8d3c3164442",
     "1f00f49cc79e6b9de5920572fe0a529b98ae304ebec1c5d88e14996bdeba76c5"
   ],
-  "last_posted_at": "2026-11-06T09:03:11.748661+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:16",
-      "due_at": "2026-11-06T09:39:00+00:00"
-    },
-    "source": {
-      "id": "2118390838434693281",
-      "url": "https://x.com/OfficialLoganK/status/2118390838434693281",
-      "author": "OfficialLoganK",
-      "author_id": "284333988",
-      "text": "Today we are rolling out Gemini Omni Flash 1.2, with: \n\n- longer video generation (15 seconds)\n- deeper cinematic controls for camera pov\n- support for multi-turn conversation editing\n- less visual drift \n- 30% lower price than Omni Flash 1.1\n\nRead more: https://t.co/U0VgGTGcmW",
-      "created_at": "2026-11-05T17:11:48+00:00",
-      "views": 112008,
-      "urls": [
-        "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash"
-      ],
-      "source_ids": [
-        "2118390838434693281"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — OfficialLoganK reports: Gemini Omni Flash 1.2 launched with 15-second video generation and 30% lower price.\n\nThe report says the update includes deeper cinematic controls, multi-turn conversation editing, and less visual drift.",
-      "event_key": "Gemini Omni Flash 1.2 release with longer video generation and price reduction",
-      "premise": "Gemini Omni Flash 1.2 is rolled out with longer video generation (15 seconds), deeper cinematic controls, multi-turn conversation editing, less visual drift, and 30% lower price than Omni Flash 1.1."
-    },
-    "reserved_at": "2026-11-06T10:11:51.232102+00:00",
-    "approval": "615af29115d05ce830f5aaf43b817ec92066684a96abb338c57e8205ac5d9161",
-    "run": [
-      "42199375512",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118390838434693281"
-      ],
-      "used_urls": [
-        "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash"
-      ],
-      "used_texts": [
-        "1f00f49cc79e6b9de5920572fe0a529b98ae304ebec1c5d88e14996bdeba76c5"
-      ],
-      "used_events": [
-        "537b1bf8ec5863de07582ee92ff061af89ce300584128ca90f76118434f89f2e"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T10:11:52.854286+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:16",
     "at": "2026-11-06T10:01:40.349203+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118647547774574933",
+    "source_id": "2118390838434693281"
   }
 }
