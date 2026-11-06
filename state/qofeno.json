@@ -207,7 +207,8 @@
     "2118135093617393774",
     "2118458629091426304",
     "2118390190246879554",
-    "2118390406316728555"
+    "2118390406316728555",
+    "2118388400730591469"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber"
@@ -216,7 +217,8 @@
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
     "736ec963282878156988f452e19989faba4beed6a6c254e5b8bdabf1068559bd",
     "1c6efd91efec9628950df5d7c3fff364720c3f246e3c9f81770104b5e520fab1",
-    "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d"
+    "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d",
+    "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -533,12 +535,54 @@
     "a7fa64f6c8f666392a2fcbb8b71c66c11edcdd76fd422116a6c83808f0304ab7",
     "3fd3f07dccbefe1f7192eaa4220d953bbca811b4d49d729f9c1814cead63b23e",
     "3cb25b81a9c225458f32c1be490def49ab806580a146ed3b7eb3ca969e02b5a3",
-    "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4"
+    "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4",
+    "dda2f8aa04430bdc4c1742d1b5b0ccd860da717b41c949d6e3d84dc4780a2d0e"
   ],
   "last_posted_at": "2026-11-06T06:20:18.020721+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:11",
+      "due_at": "2026-11-06T06:43:00+00:00"
+    },
+    "source": {
+      "id": "2118388400730591469",
+      "url": "https://x.com/AravSrinivas/status/2118388400730591469",
+      "author": "AravSrinivas",
+      "author_id": "759894532649545732",
+      "text": "Today, we're launching Perplexity Teammates. \nThey are personal agents for work. And change the paradigm from writing prompts in a session to giving high-level goals. Rolling out to Max users on the web today. Native apps (mobile, desktop) coming soon. https://t.co/dmYIuw52Yb",
+      "created_at": "2026-11-05T17:02:07+00:00",
+      "views": 123360,
+      "urls": [],
+      "source_ids": [
+        "2118388400730591469"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — AravSrinivas reports: Perplexity Teammates launch as personal agents for work, shifting from prompt writing to goal-setting. \n\nThe report says the feature is rolling out to Max users on the web today, with native apps coming soon.",
+      "event_key": "Perplexity Teammates Launch",
+      "premise": "Perplexity Teammates are launched as personal agents for work, changing the paradigm from writing prompts to giving high-level goals. Rolling out to Max users on the web today, with native apps coming soon."
+    },
+    "reserved_at": "2026-11-06T07:05:37.540062+00:00",
+    "approval": "266c2f2b43fae9272d6e0e4cc25ed9d676e18af2a9cbb648a7f9f5bc1fe0c1c1",
+    "run": [
+      "42178091018",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118388400730591469"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "dda2f8aa04430bdc4c1742d1b5b0ccd860da717b41c949d6e3d84dc4780a2d0e"
+      ],
+      "used_events": [
+        "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:11",
     "at": "2026-11-06T06:55:29.711068+00:00",
