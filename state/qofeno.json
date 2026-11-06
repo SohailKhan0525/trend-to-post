@@ -150,6 +150,21 @@
       "source_created_at": "2026-11-05T17:08:32+00:00",
       "tweet_id": "2118656441464582407",
       "posted_at": "2026-11-06T10:47:13.284901+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:19",
+      "due_at": "2026-11-06T11:30:00+00:00",
+      "text": "BREAKING — thinkymachines reports: Inkling 2 Small scores 31 on the AA Intelligence Index, a significant jump from its predecessor.\n\nThe report says the model is available for fine-tuning and inference on Tinker, with full weights to follow.",
+      "event_key": "Inkling 2 Small Released with AA Intelligence Index Score 31",
+      "premise": "Inkling 2 Small is introduced with a score of 31 on the AA Intelligence Index and is available for fine-tuning and inference on Tinker, with full weight release planned soon.",
+      "source_id": "2118489527362912566",
+      "author": "thinkymachines",
+      "source_url": "https://x.com/thinkymachines/status/2118489527362912566",
+      "source_views": 755174,
+      "source_checked_at": "2026-11-06T11:31:16.652776+00:00",
+      "source_created_at": "2026-11-05T23:43:57+00:00",
+      "tweet_id": "2118667536405496127",
+      "posted_at": "2026-11-06T11:31:18.632915+00:00"
     }
   ],
   "used_source_ids": [
@@ -649,58 +664,17 @@
     "099fa0617d966cc6851020bc070b959c9b77d1b154ffcf74c39725b67bd22a35",
     "851d09e3cc74781f1d16d160cd38a2d0f6cf697e5556c551277977e5fc5e30cb"
   ],
-  "last_posted_at": "2026-11-06T10:47:13.284901+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:19",
-      "due_at": "2026-11-06T11:30:00+00:00"
-    },
-    "source": {
-      "id": "2118489527362912566",
-      "url": "https://x.com/thinkymachines/status/2118489527362912566",
-      "author": "thinkymachines",
-      "author_id": "1891523745929732096",
-      "text": "Introducing Inkling 2 Small. Scoring 31 on the AA Intelligence Index, it's a big jump over its predecessor.\n\nInkling 2 Small is available for fine-tuning and inference on Tinker today, with full weight release planned soon.\n\nhttps://t.co/VR02tw73fJ",
-      "created_at": "2026-11-05T23:43:57+00:00",
-      "views": 755174,
-      "urls": [
-        "https://thinkingmachines.ai/news/inkling-2-small"
-      ],
-      "source_ids": [
-        "2118489527362912566"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — thinkymachines reports: Inkling 2 Small scores 31 on the AA Intelligence Index, a significant jump from its predecessor.\n\nThe report says the model is available for fine-tuning and inference on Tinker, with full weights to follow.",
-      "event_key": "Inkling 2 Small Released with AA Intelligence Index Score 31",
-      "premise": "Inkling 2 Small is introduced with a score of 31 on the AA Intelligence Index and is available for fine-tuning and inference on Tinker, with full weight release planned soon."
-    },
-    "reserved_at": "2026-11-06T11:31:16.652776+00:00",
-    "approval": "0228aa63662c2ad504d020929ca8440acdd1e096206214be14391f806f6998b1",
-    "run": [
-      "42210809409",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118489527362912566"
-      ],
-      "used_urls": [
-        "https://thinkingmachines.ai/news/inkling-2-small"
-      ],
-      "used_texts": [
-        "851d09e3cc74781f1d16d160cd38a2d0f6cf697e5556c551277977e5fc5e30cb"
-      ],
-      "used_events": [
-        "5f896a342333a7f121f0afdd6f2625bdb5f53113bc5711ef73daa87fd0b99a69"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T11:31:18.632915+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:18",
     "at": "2026-11-06T11:22:32.043371+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118667536405496127",
+    "source_id": "2118489527362912566"
   }
 }
