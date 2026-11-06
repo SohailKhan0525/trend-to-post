@@ -285,6 +285,21 @@
       "source_created_at": "2026-11-06T21:16:17+00:00",
       "tweet_id": "2118832656653898197",
       "posted_at": "2026-11-06T22:27:26.377475+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:38",
+      "due_at": "2026-11-06T22:52:00+00:00",
+      "text": "BREAKING — ClaudeDevs reports: Claude Code cloud sessions now auto-detect repo dependencies and save environments.\n\nThe report says API keys are stored securely, with Claude not accessing them.",
+      "event_key": "Claude Code cloud sessions Pro/Max/Ultra dependency setup improvement",
+      "premise": "Claude figures out dependencies, network access, and API keys for repo setup and saves the environment for next time, with API keys saved securely.",
+      "source_id": "2118795192090386454",
+      "author": "ClaudeDevs",
+      "source_url": "https://x.com/ClaudeDevs/status/2118795192090386454",
+      "source_views": 180280,
+      "source_checked_at": "2026-11-06T22:52:33.043192+00:00",
+      "source_created_at": "2026-11-06T19:58:33+00:00",
+      "tweet_id": "2118838983220412422",
+      "posted_at": "2026-11-06T22:52:34.645788+00:00"
     }
   ],
   "used_source_ids": [
@@ -815,54 +830,17 @@
     "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d",
     "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e"
   ],
-  "last_posted_at": "2026-11-06T22:27:26.377475+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:38",
-      "due_at": "2026-11-06T22:52:00+00:00"
-    },
-    "source": {
-      "id": "2118795192090386454",
-      "url": "https://x.com/ClaudeDevs/status/2118795192090386454",
-      "author": "ClaudeDevs",
-      "author_id": "2024518793679294464",
-      "text": "We've made it easier to get your repo running in Claude Code cloud sessions on Pro, Max, and Ultra.\n\nClaude figures out what dependencies, network access, and API keys it needs, then saves the environment for next time. API keys are saved securely, so Claude never sees them. https://t.co/C3anyUAidY",
-      "created_at": "2026-11-06T19:58:33+00:00",
-      "views": 180280,
-      "urls": [],
-      "source_ids": [
-        "2118795192090386454"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — ClaudeDevs reports: Claude Code cloud sessions now auto-detect repo dependencies and save environments.\n\nThe report says API keys are stored securely, with Claude not accessing them.",
-      "event_key": "Claude Code cloud sessions Pro/Max/Ultra dependency setup improvement",
-      "premise": "Claude figures out dependencies, network access, and API keys for repo setup and saves the environment for next time, with API keys saved securely."
-    },
-    "reserved_at": "2026-11-06T22:52:33.043192+00:00",
-    "approval": "86b3e5ed9e5a494ca9084f07074df4dd992b3a440a1db3e7cf6f5e6034828fb6",
-    "run": [
-      "42305276204",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118795192090386454"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e"
-      ],
-      "used_events": [
-        "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T22:52:34.645788+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:37",
     "at": "2026-11-06T22:17:11.835472+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118838983220412422",
+    "source_id": "2118795192090386454"
   }
 }
