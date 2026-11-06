@@ -270,6 +270,21 @@
       "source_created_at": "2026-11-06T18:21:43+00:00",
       "tweet_id": "2118823570973573470",
       "posted_at": "2026-11-06T21:51:20.064446+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:37",
+      "due_at": "2026-11-06T22:17:00+00:00",
+      "text": "BREAKING — AnthropicAI reports: Claude uses 'dreaming' to organize learning and correct mistakes.\n\nThe report says 'dreaming' helps Claude find what it needs more easily the next time.",
+      "event_key": "Claude 'Dreaming' Feature for Organizing Learning",
+      "premise": "Claude uses 'dreaming' to organize what it's learned, correct mistakes, and find information more easily.",
+      "source_id": "2118814753154064501",
+      "author": "AnthropicAI",
+      "source_url": "https://x.com/AnthropicAI/status/2118814753154064501",
+      "source_views": 119528,
+      "source_checked_at": "2026-11-06T22:27:23.787199+00:00",
+      "source_created_at": "2026-11-06T21:16:17+00:00",
+      "tweet_id": "2118832656653898197",
+      "posted_at": "2026-11-06T22:27:26.377475+00:00"
     }
   ],
   "used_source_ids": [
@@ -797,58 +812,17 @@
     "fd9e29885a8dfb6b5a72b26d9173d6e87576574d81089eec0cc6eda9d2add22f",
     "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d"
   ],
-  "last_posted_at": "2026-11-06T21:51:20.064446+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:37",
-      "due_at": "2026-11-06T22:17:00+00:00"
-    },
-    "source": {
-      "id": "2118814753154064501",
-      "url": "https://x.com/AnthropicAI/status/2118814753154064501",
-      "author": "AnthropicAI",
-      "author_id": "1353836358901501952",
-      "text": "Memory is what allows Claude to learn from experience. In a new Engineering Blog post, we share how “dreaming” helps Claude organize what it’s learned, correct its mistakes, and find what it needs more easily the next time. https://t.co/uUEN4bNkr9",
-      "created_at": "2026-11-06T21:16:17+00:00",
-      "views": 119528,
-      "urls": [
-        "https://anthropic.com/research/components-of-agent-memory"
-      ],
-      "source_ids": [
-        "2118814753154064501"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — AnthropicAI reports: Claude uses 'dreaming' to organize learning and correct mistakes.\n\nThe report says 'dreaming' helps Claude find what it needs more easily the next time.",
-      "event_key": "Claude 'Dreaming' Feature for Organizing Learning",
-      "premise": "Claude uses 'dreaming' to organize what it's learned, correct mistakes, and find information more easily."
-    },
-    "reserved_at": "2026-11-06T22:27:23.787199+00:00",
-    "approval": "300b0f959e273bfcccaf43f86ce054ce23c942431d06a8d2125e15f7471a2162",
-    "run": [
-      "42301376058",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118814753154064501"
-      ],
-      "used_urls": [
-        "https://anthropic.com/research/components-of-agent-memory"
-      ],
-      "used_texts": [
-        "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d"
-      ],
-      "used_events": [
-        "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T22:27:26.377475+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:37",
     "at": "2026-11-06T22:17:11.835472+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118832656653898197",
+    "source_id": "2118814753154064501"
   }
 }
