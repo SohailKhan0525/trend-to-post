@@ -223,7 +223,8 @@
     "2118458629091426304",
     "2118390190246879554",
     "2118390406316728555",
-    "2118388400730591469"
+    "2118388400730591469",
+    "2118479744979079669"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber"
@@ -233,7 +234,8 @@
     "736ec963282878156988f452e19989faba4beed6a6c254e5b8bdabf1068559bd",
     "1c6efd91efec9628950df5d7c3fff364720c3f246e3c9f81770104b5e520fab1",
     "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d",
-    "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0"
+    "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0",
+    "152eb95c9116952e032caf8e7331a928f6bce455e88d0316b302b71c410d9f73"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -551,12 +553,54 @@
     "3fd3f07dccbefe1f7192eaa4220d953bbca811b4d49d729f9c1814cead63b23e",
     "3cb25b81a9c225458f32c1be490def49ab806580a146ed3b7eb3ca969e02b5a3",
     "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4",
-    "dda2f8aa04430bdc4c1742d1b5b0ccd860da717b41c949d6e3d84dc4780a2d0e"
+    "dda2f8aa04430bdc4c1742d1b5b0ccd860da717b41c949d6e3d84dc4780a2d0e",
+    "d7686821c170e1cd1c700aafe204797cb062f1ebdd7b8ce54a15cad29b7e5ac2"
   ],
   "last_posted_at": "2026-11-06T07:05:39.446109+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:12",
+      "due_at": "2026-11-06T07:14:00+00:00"
+    },
+    "source": {
+      "id": "2118479744979079669",
+      "url": "https://x.com/NousResearch/status/2118479744979079669",
+      "author": "NousResearch",
+      "author_id": "1318419526132862976",
+      "text": "Hermes Agent v0.23.0: The Hearth Release\n\nHighlights:\n- Desktop in a browser tab\n- One gateway for every conversation\n- /Rewind\n- Group Chats with automatic routing\n- Spend limits for paid tools\n- Lighter and faster\nand more\n\nChangelog below https://t.co/igykBkmAsQ",
+      "created_at": "2026-11-05T23:05:05+00:00",
+      "views": 382747,
+      "urls": [],
+      "source_ids": [
+        "2118479744979079669"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — NousResearch reports: Hermes Agent v0.23.0 released with desktop in a browser tab, group chats with automatic routing, and spend limits for paid tools.\n\nThe report says the update includes a lighter and faster version of the platform.",
+      "event_key": "Hermes Agent v0.23.0 Release",
+      "premise": "Hermes Agent v0.23.0 is released with highlights including desktop in a browser tab, one gateway for every conversation, /Rewind, group chats with automatic routing, spend limits for paid tools, and being lighter and faster."
+    },
+    "reserved_at": "2026-11-06T07:41:26.632138+00:00",
+    "approval": "29cc59103add1c2b9064ae84d5107e477bfdc3af69be5f22100e5363e2da55b7",
+    "run": [
+      "42181362038",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118479744979079669"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "d7686821c170e1cd1c700aafe204797cb062f1ebdd7b8ce54a15cad29b7e5ac2"
+      ],
+      "used_events": [
+        "152eb95c9116952e032caf8e7331a928f6bce455e88d0316b302b71c410d9f73"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:12",
     "at": "2026-11-06T07:31:17.097170+00:00",
