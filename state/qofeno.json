@@ -45,6 +45,21 @@
       "source_created_at": "2026-11-05T17:09:13+00:00",
       "tweet_id": "2118507764733628717",
       "posted_at": "2026-11-06T00:56:26.023017+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:10",
+      "due_at": "2026-11-06T06:07:00+00:00",
+      "text": "BREAKING — Google reports: Gemini Omni 1.2 Flash updates video generation with faster processing and lower cost.\n\nThe report says the model offers 30% lower cost at $0.07/s for 360p or 720p drafts, which can be upscaled to 1080p or 4K.",
+      "event_key": "Gemini Omni 1.2 Flash video generation model update",
+      "premise": "Google announces Gemini Omni 1.2 Flash, an updated video generation model with stronger consistency, more creative control, faster processing, and lower cost.",
+      "source_id": "2118390406316728555",
+      "author": "Google",
+      "source_url": "https://x.com/Google/status/2118390406316728555",
+      "source_views": 470130,
+      "source_checked_at": "2026-11-06T06:20:16.366782+00:00",
+      "source_created_at": "2026-11-05T17:10:05+00:00",
+      "tweet_id": "2118589268490854501",
+      "posted_at": "2026-11-06T06:20:18.020721+00:00"
     }
   ],
   "used_source_ids": [
@@ -520,54 +535,17 @@
     "3cb25b81a9c225458f32c1be490def49ab806580a146ed3b7eb3ca969e02b5a3",
     "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4"
   ],
-  "last_posted_at": "2026-11-06T00:56:26.023017+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:10",
-      "due_at": "2026-11-06T06:07:00+00:00"
-    },
-    "source": {
-      "id": "2118390406316728555",
-      "url": "https://x.com/Google/status/2118390406316728555",
-      "author": "Google",
-      "author_id": "20536157",
-      "text": "Meet Gemini Omni 1.2 Flash, our updated video generation model from @GoogleDeepMind 🎬\n\nGet stronger consistency, more creative control, and faster, more cost-effective video creation at scale:\n\n⚡ Fast & 30% lower cost: Draft at 360p or 720p ($0.07/s) and upscale to 1080p or 4K\n\n⏱️ Longer clips: Generate and edit videos up to 15s, or pick any exact length from 3s to 15s\n\n💬 Edit in conversation: Swap backgrounds, subjects, or lighting turn by turn without starting over from scratch\n\n🗣️ More natural speech: Create fluid, multi-speaker dialogue with clearer lip-sync\n\n🎬 More controllable shots: Direct continuous camera moves with fewer jump cuts\n\nSee these updates in action ↓",
-      "created_at": "2026-11-05T17:10:05+00:00",
-      "views": 470130,
-      "urls": [],
-      "source_ids": [
-        "2118390406316728555"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — Google reports: Gemini Omni 1.2 Flash updates video generation with faster processing and lower cost.\n\nThe report says the model offers 30% lower cost at $0.07/s for 360p or 720p drafts, which can be upscaled to 1080p or 4K.",
-      "event_key": "Gemini Omni 1.2 Flash video generation model update",
-      "premise": "Google announces Gemini Omni 1.2 Flash, an updated video generation model with stronger consistency, more creative control, faster processing, and lower cost."
-    },
-    "reserved_at": "2026-11-06T06:20:16.366782+00:00",
-    "approval": "76f1c21fd83cae2748594db4bfc1a99820c7665189fed4663cc3df72132cd426",
-    "run": [
-      "42173740367",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118390406316728555"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4"
-      ],
-      "used_events": [
-        "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T06:20:18.020721+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:10",
     "at": "2026-11-06T06:07:01.144605+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118589268490854501",
+    "source_id": "2118390406316728555"
   }
 }
