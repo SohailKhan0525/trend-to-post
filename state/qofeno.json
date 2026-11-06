@@ -255,6 +255,21 @@
       "source_created_at": "2026-11-06T19:08:57+00:00",
       "tweet_id": "2118811444305436968",
       "posted_at": "2026-11-06T21:03:08.824489+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:36",
+      "due_at": "2026-11-06T21:41:00+00:00",
+      "text": "BREAKING — ai_timon reports: Timon open-sourced under AGPL-3.0 with agent capabilities and dev environment.\n\nThe report says Timon includes agents with memory, routines, and a browser, plus a dev environment with terminal, Kanban, Git, and Docker.",
+      "event_key": "Timon open-sourced under AGPL-3.0 with agent capabilities and dev environment",
+      "premise": "Timon is introduced as an open-source alternative to GrokBot, now open source under AGPL-3.0, with agents, memory, routines, browser, and dev environment features.",
+      "source_id": "2118770823347507273",
+      "author": "ai_timon",
+      "source_url": "https://x.com/ai_timon/status/2118770823347507273",
+      "source_views": 169335,
+      "source_checked_at": "2026-11-06T21:51:18.268030+00:00",
+      "source_created_at": "2026-11-06T18:21:43+00:00",
+      "tweet_id": "2118823570973573470",
+      "posted_at": "2026-11-06T21:51:20.064446+00:00"
     }
   ],
   "used_source_ids": [
@@ -778,54 +793,17 @@
     "9215868f60aaac9de02fd564638c78d1f3b8fa261a2fb6b103e2a231261f9b09",
     "fd9e29885a8dfb6b5a72b26d9173d6e87576574d81089eec0cc6eda9d2add22f"
   ],
-  "last_posted_at": "2026-11-06T21:03:08.824489+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:36",
-      "due_at": "2026-11-06T21:41:00+00:00"
-    },
-    "source": {
-      "id": "2118770823347507273",
-      "url": "https://x.com/ai_timon/status/2118770823347507273",
-      "author": "ai_timon",
-      "author_id": "2107141245533364231",
-      "text": "Introducing Timon 😺\nThe real open-source alternative to GrokBot. \nLess chatting, more doing!\n\nTimon is now open source under AGPL-3.0.\n\nAgents with memory, routines and their own browser for your day-to-day.\n\nAnd a real dev environment when you need more : terminal, Kanban, Git, Docker and more.\n\nInstall it on your own machine or a VPS, and bring the AI subscriptions you already pay for.\n\nAlready have agents? Import them from GrokBot, Hermes and others: memory, skills and routines come along.\n\nWindows, macOS, Linux, and from your phone: https://t.co/moVr7En0Qp\n\n⭐ Repo in the first reply ↓",
-      "created_at": "2026-11-06T18:21:43+00:00",
-      "views": 169335,
-      "urls": [],
-      "source_ids": [
-        "2118770823347507273"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — ai_timon reports: Timon open-sourced under AGPL-3.0 with agent capabilities and dev environment.\n\nThe report says Timon includes agents with memory, routines, and a browser, plus a dev environment with terminal, Kanban, Git, and Docker.",
-      "event_key": "Timon open-sourced under AGPL-3.0 with agent capabilities and dev environment",
-      "premise": "Timon is introduced as an open-source alternative to GrokBot, now open source under AGPL-3.0, with agents, memory, routines, browser, and dev environment features."
-    },
-    "reserved_at": "2026-11-06T21:51:18.268030+00:00",
-    "approval": "d51be71be55755ef7e86888c74d35eaf83301cf9d8f5dc4e78e2b91b8dba7f9d",
-    "run": [
-      "42297341139",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118770823347507273"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "fd9e29885a8dfb6b5a72b26d9173d6e87576574d81089eec0cc6eda9d2add22f"
-      ],
-      "used_events": [
-        "a632332a47d1a73c1e065ff0df623635081454574216c2b838ab34d8ab5fdae1"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T21:51:20.064446+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:36",
     "at": "2026-11-06T21:41:09.766231+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118823570973573470",
+    "source_id": "2118770823347507273"
   }
 }
