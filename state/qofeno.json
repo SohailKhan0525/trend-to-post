@@ -90,6 +90,21 @@
       "source_created_at": "2026-11-05T23:05:05+00:00",
       "tweet_id": "2118609695896375697",
       "posted_at": "2026-11-06T07:41:28.278738+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:14",
+      "due_at": "2026-11-06T08:28:00+00:00",
+      "text": "BREAKING — DeepAI reports: The best coding AI costs up to $500 a month. We made it free.\n\nThe report says DeepAI Code offers free access to Claude Fable 5.1, GPT-6 Astra, and Claude Opus 5.5 in a daily allowance, with fast models free and no limits.",
+      "event_key": "DeepAI Code: Free Access to Claude Fable 5.1, GPT-6 Astra, and Claude Opus 5.5",
+      "premise": "DeepAI announces free access to Claude Fable 5.1, GPT-6 Astra, and Claude Opus 5.5 in a daily allowance, with fast models free and no limits.",
+      "source_id": "2118313957907652831",
+      "author": "DeepAI",
+      "source_url": "https://x.com/DeepAI/status/2118313957907652831",
+      "source_views": 160351,
+      "source_checked_at": "2026-11-06T08:31:18.868137+00:00",
+      "source_created_at": "2026-11-05T12:06:18+00:00",
+      "tweet_id": "2118622245639647369",
+      "posted_at": "2026-11-06T08:31:20.359905+00:00"
     }
   ],
   "used_source_ids": [
@@ -575,58 +590,17 @@
     "d7686821c170e1cd1c700aafe204797cb062f1ebdd7b8ce54a15cad29b7e5ac2",
     "148af21833351caddebd1d2c073d51d304e50cbc9d31115e7441740a7b3ca637"
   ],
-  "last_posted_at": "2026-11-06T07:41:28.278738+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:14",
-      "due_at": "2026-11-06T08:28:00+00:00"
-    },
-    "source": {
-      "id": "2118313957907652831",
-      "url": "https://x.com/DeepAI/status/2118313957907652831",
-      "author": "DeepAI",
-      "author_id": "848081553368416256",
-      "text": "The best coding AI costs up to $500 a month.\n\nWe made it free.\n\nDeepAI Code: Claude Fable 5.1, GPT-6 Astra and Claude Opus 5.5 in your free daily allowance. Fast models free, no limits. No card. No API key.\n\nhttps://t.co/DM4IdCDvJ8 https://t.co/f8QI7pbA7s",
-      "created_at": "2026-11-05T12:06:18+00:00",
-      "views": 160351,
-      "urls": [
-        "https://deepai.org/chat/ai-code"
-      ],
-      "source_ids": [
-        "2118313957907652831"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — DeepAI reports: The best coding AI costs up to $500 a month. We made it free.\n\nThe report says DeepAI Code offers free access to Claude Fable 5.1, GPT-6 Astra, and Claude Opus 5.5 in a daily allowance, with fast models free and no limits.",
-      "event_key": "DeepAI Code: Free Access to Claude Fable 5.1, GPT-6 Astra, and Claude Opus 5.5",
-      "premise": "DeepAI announces free access to Claude Fable 5.1, GPT-6 Astra, and Claude Opus 5.5 in a daily allowance, with fast models free and no limits."
-    },
-    "reserved_at": "2026-11-06T08:31:18.868137+00:00",
-    "approval": "f0fe7b47a003fa2d9d4a185112d9e77b24d64c576477ce1c0921fe80eeb2cd15",
-    "run": [
-      "42188216402",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118313957907652831"
-      ],
-      "used_urls": [
-        "https://deepai.org/chat/ai-code"
-      ],
-      "used_texts": [
-        "148af21833351caddebd1d2c073d51d304e50cbc9d31115e7441740a7b3ca637"
-      ],
-      "used_events": [
-        "545670c4cf571cbf8d382e1e240f7664d189b0d3358b26b14f72b1737ec15083"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T08:31:20.359905+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 4,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:13",
     "at": "2026-11-06T08:16:49.703806+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118622245639647369",
+    "source_id": "2118313957907652831"
   }
 }
