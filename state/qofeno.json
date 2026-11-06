@@ -255,7 +255,8 @@
     "2118390406316728555",
     "2118388400730591469",
     "2118479744979079669",
-    "2118313957907652831"
+    "2118313957907652831",
+    "2118412183860351084"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -268,7 +269,8 @@
     "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d",
     "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0",
     "152eb95c9116952e032caf8e7331a928f6bce455e88d0316b302b71c410d9f73",
-    "545670c4cf571cbf8d382e1e240f7664d189b0d3358b26b14f72b1737ec15083"
+    "545670c4cf571cbf8d382e1e240f7664d189b0d3358b26b14f72b1737ec15083",
+    "b3d6620ca9af6e349b84024d8ae2e9164fde083b9d37e874df5cd82bf81e621f"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -588,12 +590,54 @@
     "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4",
     "dda2f8aa04430bdc4c1742d1b5b0ccd860da717b41c949d6e3d84dc4780a2d0e",
     "d7686821c170e1cd1c700aafe204797cb062f1ebdd7b8ce54a15cad29b7e5ac2",
-    "148af21833351caddebd1d2c073d51d304e50cbc9d31115e7441740a7b3ca637"
+    "148af21833351caddebd1d2c073d51d304e50cbc9d31115e7441740a7b3ca637",
+    "2922bdf4f906ffec923c3fd0886405e182b20729c465873c2c39d8d3c3164442"
   ],
   "last_posted_at": "2026-11-06T08:31:20.359905+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:15",
+      "due_at": "2026-11-06T09:03:00+00:00"
+    },
+    "source": {
+      "id": "2118412183860351084",
+      "url": "https://x.com/METR_Evals/status/2118412183860351084",
+      "author": "METR_Evals",
+      "author_id": "1706770561903497216",
+      "text": "Since August, a team within METR has worked with internal Anthropic information to assess whether AI itself is accelerating AI development.\n\nWe are now publishing a report summarizing the results of this risk assessment.",
+      "created_at": "2026-11-05T18:36:37+00:00",
+      "views": 881985,
+      "urls": [],
+      "source_ids": [
+        "2118412183860351084"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — METR_Evals reports: METR publishes risk assessment on AI accelerating AI development\n\nThe report says a team within METR has been evaluating whether AI is accelerating AI development, using internal Anthropic information since August.",
+      "event_key": "METR Report on AI Accelerating AI Development",
+      "premise": "Reported by METR_Evals: A team within METR has worked with internal Anthropic information to assess whether AI is accelerating AI development and is now publishing a report summarizing the results of this risk assessment."
+    },
+    "reserved_at": "2026-11-06T09:03:10.042793+00:00",
+    "approval": "d6856c6fab78125d39e7e95e61f238eac7b6a5fa69feb549ce9faa6d78280e8f",
+    "run": [
+      "42191838104",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118412183860351084"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "2922bdf4f906ffec923c3fd0886405e182b20729c465873c2c39d8d3c3164442"
+      ],
+      "used_events": [
+        "b3d6620ca9af6e349b84024d8ae2e9164fde083b9d37e874df5cd82bf81e621f"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 4,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:13",
     "at": "2026-11-06T08:16:49.703806+00:00",
