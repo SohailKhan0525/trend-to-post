@@ -367,7 +367,8 @@
     "2118489527362912566",
     "2118634394004979827",
     "2118530564428833010",
-    "2118405991662493737"
+    "2118405991662493737",
+    "2118389326459670825"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -390,7 +391,8 @@
     "5f896a342333a7f121f0afdd6f2625bdb5f53113bc5711ef73daa87fd0b99a69",
     "242b0770444069ac8ff64730834a878fc112485b0ea6ba0f2f18f57a1a4fd3fb",
     "77e72bb7d9619c30ee28eceff4a8288dc58443f78dac19bb1f45873dbd3e1ed4",
-    "7eb3253880a6ec22eabeb0fde5cda755749276a0df0289bcc67df911fa783fcb"
+    "7eb3253880a6ec22eabeb0fde5cda755749276a0df0289bcc67df911fa783fcb",
+    "e5a4c947ff44eed5ed5cb77ba516f681b91cf2fb55924d5e9f209ec7356bac70"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -717,12 +719,54 @@
     "851d09e3cc74781f1d16d160cd38a2d0f6cf697e5556c551277977e5fc5e30cb",
     "5f8958d1593026286bfabd9e20a6d37a2b1bba27cb5812e7bf6d4e96aae437cb",
     "f3c9ff7b12671a93166e57a83e0b59cf4ea9b2c19f035f473ab8cacc53e16686",
-    "742f7f6aee8e20d0e48f3888faa0fb9cdf915ad66b74299c3ee0bbf741de5fcb"
+    "742f7f6aee8e20d0e48f3888faa0fb9cdf915ad66b74299c3ee0bbf741de5fcb",
+    "207bc590fbe851d10ceb3f39565710f8046ca065eb48e705533d290d7f10d390"
   ],
   "last_posted_at": "2026-11-06T15:37:03.478551+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:28",
+      "due_at": "2026-11-06T16:54:00+00:00"
+    },
+    "source": {
+      "id": "2118389326459670825",
+      "url": "https://x.com/perplexity_ai/status/2118389326459670825",
+      "author": "perplexity_ai",
+      "author_id": "1599587232175849472",
+      "text": "Introducing teammates.\n\nTeammates work for you. They take on jobs, and work proactively using your Computer tasks, skills, memory, and tools. Teammates collaborate with other teammates and can message coworkers in Slack.\n\nAvailable now for Max subscribers on the web. https://t.co/I3Hf5RCdWC",
+      "created_at": "2026-11-05T17:05:47+00:00",
+      "views": 143691,
+      "urls": [],
+      "source_ids": [
+        "2118389326459670825"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — perplexity_ai reports: Perplexity Teammates launch as personal agents for work.\n\nThe report says the feature is available now for Max subscribers on the web, with native apps coming soon.",
+      "event_key": "Introducing Teammates - Proactive AI coworkers with Slack integration",
+      "premise": "Reported by perplexity_ai: Teammates work for you, take on jobs, and collaborate with other teammates and coworkers in Slack. Available now for Max subscribers on the web."
+    },
+    "reserved_at": "2026-11-06T17:01:40.659341+00:00",
+    "approval": "0ebac148ee9582470d8ccc121a838b014af6e738d0c5d672f2df0ec14402636d",
+    "run": [
+      "42257719185",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118389326459670825"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "207bc590fbe851d10ceb3f39565710f8046ca065eb48e705533d290d7f10d390"
+      ],
+      "used_events": [
+        "e5a4c947ff44eed5ed5cb77ba516f681b91cf2fb55924d5e9f209ec7356bac70"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:27",
     "at": "2026-11-06T16:41:24.174909+00:00",
