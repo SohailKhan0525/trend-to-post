@@ -447,7 +447,8 @@
     "2118717555598614919",
     "2118782708767965238",
     "2118770823347507273",
-    "2118814753154064501"
+    "2118814753154064501",
+    "2118795192090386454"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -478,7 +479,8 @@
     "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b",
     "dff9553582389c22666e90fbea394cdaaec10bc2ce1b9a047e5c6669a6441b8d",
     "a632332a47d1a73c1e065ff0df623635081454574216c2b838ab34d8ab5fdae1",
-    "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c"
+    "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c",
+    "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -810,12 +812,54 @@
     "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00",
     "9215868f60aaac9de02fd564638c78d1f3b8fa261a2fb6b103e2a231261f9b09",
     "fd9e29885a8dfb6b5a72b26d9173d6e87576574d81089eec0cc6eda9d2add22f",
-    "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d"
+    "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d",
+    "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e"
   ],
   "last_posted_at": "2026-11-06T22:27:26.377475+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:38",
+      "due_at": "2026-11-06T22:52:00+00:00"
+    },
+    "source": {
+      "id": "2118795192090386454",
+      "url": "https://x.com/ClaudeDevs/status/2118795192090386454",
+      "author": "ClaudeDevs",
+      "author_id": "2024518793679294464",
+      "text": "We've made it easier to get your repo running in Claude Code cloud sessions on Pro, Max, and Ultra.\n\nClaude figures out what dependencies, network access, and API keys it needs, then saves the environment for next time. API keys are saved securely, so Claude never sees them. https://t.co/C3anyUAidY",
+      "created_at": "2026-11-06T19:58:33+00:00",
+      "views": 180280,
+      "urls": [],
+      "source_ids": [
+        "2118795192090386454"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — ClaudeDevs reports: Claude Code cloud sessions now auto-detect repo dependencies and save environments.\n\nThe report says API keys are stored securely, with Claude not accessing them.",
+      "event_key": "Claude Code cloud sessions Pro/Max/Ultra dependency setup improvement",
+      "premise": "Claude figures out dependencies, network access, and API keys for repo setup and saves the environment for next time, with API keys saved securely."
+    },
+    "reserved_at": "2026-11-06T22:52:33.043192+00:00",
+    "approval": "86b3e5ed9e5a494ca9084f07074df4dd992b3a440a1db3e7cf6f5e6034828fb6",
+    "run": [
+      "42305276204",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118795192090386454"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e"
+      ],
+      "used_events": [
+        "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:37",
     "at": "2026-11-06T22:17:11.835472+00:00",
