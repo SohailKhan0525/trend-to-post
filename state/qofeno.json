@@ -191,7 +191,8 @@
     "2116424676729925721",
     "2118135093617393774",
     "2118458629091426304",
-    "2118390190246879554"
+    "2118390190246879554",
+    "2118390406316728555"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber"
@@ -199,7 +200,8 @@
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
     "736ec963282878156988f452e19989faba4beed6a6c254e5b8bdabf1068559bd",
-    "1c6efd91efec9628950df5d7c3fff364720c3f246e3c9f81770104b5e520fab1"
+    "1c6efd91efec9628950df5d7c3fff364720c3f246e3c9f81770104b5e520fab1",
+    "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -515,12 +517,54 @@
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1",
     "a7fa64f6c8f666392a2fcbb8b71c66c11edcdd76fd422116a6c83808f0304ab7",
     "3fd3f07dccbefe1f7192eaa4220d953bbca811b4d49d729f9c1814cead63b23e",
-    "3cb25b81a9c225458f32c1be490def49ab806580a146ed3b7eb3ca969e02b5a3"
+    "3cb25b81a9c225458f32c1be490def49ab806580a146ed3b7eb3ca969e02b5a3",
+    "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4"
   ],
   "last_posted_at": "2026-11-06T00:56:26.023017+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:10",
+      "due_at": "2026-11-06T06:07:00+00:00"
+    },
+    "source": {
+      "id": "2118390406316728555",
+      "url": "https://x.com/Google/status/2118390406316728555",
+      "author": "Google",
+      "author_id": "20536157",
+      "text": "Meet Gemini Omni 1.2 Flash, our updated video generation model from @GoogleDeepMind 🎬\n\nGet stronger consistency, more creative control, and faster, more cost-effective video creation at scale:\n\n⚡ Fast & 30% lower cost: Draft at 360p or 720p ($0.07/s) and upscale to 1080p or 4K\n\n⏱️ Longer clips: Generate and edit videos up to 15s, or pick any exact length from 3s to 15s\n\n💬 Edit in conversation: Swap backgrounds, subjects, or lighting turn by turn without starting over from scratch\n\n🗣️ More natural speech: Create fluid, multi-speaker dialogue with clearer lip-sync\n\n🎬 More controllable shots: Direct continuous camera moves with fewer jump cuts\n\nSee these updates in action ↓",
+      "created_at": "2026-11-05T17:10:05+00:00",
+      "views": 470130,
+      "urls": [],
+      "source_ids": [
+        "2118390406316728555"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — Google reports: Gemini Omni 1.2 Flash updates video generation with faster processing and lower cost.\n\nThe report says the model offers 30% lower cost at $0.07/s for 360p or 720p drafts, which can be upscaled to 1080p or 4K.",
+      "event_key": "Gemini Omni 1.2 Flash video generation model update",
+      "premise": "Google announces Gemini Omni 1.2 Flash, an updated video generation model with stronger consistency, more creative control, faster processing, and lower cost."
+    },
+    "reserved_at": "2026-11-06T06:20:16.366782+00:00",
+    "approval": "76f1c21fd83cae2748594db4bfc1a99820c7665189fed4663cc3df72132cd426",
+    "run": [
+      "42173740367",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118390406316728555"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4"
+      ],
+      "used_events": [
+        "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:10",
     "at": "2026-11-06T06:07:01.144605+00:00",
