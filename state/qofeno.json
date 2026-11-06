@@ -225,6 +225,21 @@
       "source_created_at": "2026-11-05T17:05:47+00:00",
       "tweet_id": "2118750684254187568",
       "posted_at": "2026-11-06T17:01:42.560339+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:30",
+      "due_at": "2026-11-06T18:07:00+00:00",
+      "text": "BREAKING — NBCNews reports: Tesla will wind down Cybertruck production around mid-2027. \n\nThe report says CEO Elon Musk made the statement after years of persistently weak sales for the vehicle.",
+      "event_key": "Tesla Cybertruck production to end mid-2027",
+      "premise": "Reported by NBCNews: Tesla will wind down Cybertruck production around mid-2027, according to CEO Elon Musk.",
+      "source_id": "2118717555598614919",
+      "author": "NBCNews",
+      "source_url": "https://x.com/NBCNews/status/2118717555598614919",
+      "source_views": 446345,
+      "source_checked_at": "2026-11-06T18:07:07.229528+00:00",
+      "source_created_at": "2026-11-06T14:50:03+00:00",
+      "tweet_id": "2118767153503752614",
+      "posted_at": "2026-11-06T18:07:09.092211+00:00"
     }
   ],
   "used_source_ids": [
@@ -741,58 +756,17 @@
     "207bc590fbe851d10ceb3f39565710f8046ca065eb48e705533d290d7f10d390",
     "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00"
   ],
-  "last_posted_at": "2026-11-06T17:01:42.560339+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:30",
-      "due_at": "2026-11-06T18:07:00+00:00"
-    },
-    "source": {
-      "id": "2118717555598614919",
-      "url": "https://x.com/NBCNews/status/2118717555598614919",
-      "author": "NBCNews",
-      "author_id": "14173315",
-      "text": "Tesla will wind down Cybertruck production around mid-2027, CEO Elon Musk says, after years of persistently weak sales for a futuristic model once touted as a rival to legacy pickup trucks. https://t.co/8NC8pDGsKs",
-      "created_at": "2026-11-06T14:50:03+00:00",
-      "views": 446345,
-      "urls": [
-        "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd"
-      ],
-      "source_ids": [
-        "2118717555598614919"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — NBCNews reports: Tesla will wind down Cybertruck production around mid-2027. \n\nThe report says CEO Elon Musk made the statement after years of persistently weak sales for the vehicle.",
-      "event_key": "Tesla Cybertruck production to end mid-2027",
-      "premise": "Reported by NBCNews: Tesla will wind down Cybertruck production around mid-2027, according to CEO Elon Musk."
-    },
-    "reserved_at": "2026-11-06T18:07:07.229528+00:00",
-    "approval": "e29d8f5368f7b99dd745a08c98bbbd1eb336c4465dd1d36450c79d1c600566ce",
-    "run": [
-      "42266861662",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118717555598614919"
-      ],
-      "used_urls": [
-        "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd"
-      ],
-      "used_texts": [
-        "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00"
-      ],
-      "used_events": [
-        "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T18:07:09.092211+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:29",
     "at": "2026-11-06T18:01:28.584708+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118767153503752614",
+    "source_id": "2118717555598614919"
   }
 }
