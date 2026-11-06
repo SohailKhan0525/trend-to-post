@@ -271,11 +271,13 @@
     "2118388400730591469",
     "2118479744979079669",
     "2118313957907652831",
-    "2118412183860351084"
+    "2118412183860351084",
+    "2118390838434693281"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
-    "https://deepai.org/chat/ai-code"
+    "https://deepai.org/chat/ai-code",
+    "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -285,7 +287,8 @@
     "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0",
     "152eb95c9116952e032caf8e7331a928f6bce455e88d0316b302b71c410d9f73",
     "545670c4cf571cbf8d382e1e240f7664d189b0d3358b26b14f72b1737ec15083",
-    "b3d6620ca9af6e349b84024d8ae2e9164fde083b9d37e874df5cd82bf81e621f"
+    "b3d6620ca9af6e349b84024d8ae2e9164fde083b9d37e874df5cd82bf81e621f",
+    "537b1bf8ec5863de07582ee92ff061af89ce300584128ca90f76118434f89f2e"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -606,12 +609,58 @@
     "dda2f8aa04430bdc4c1742d1b5b0ccd860da717b41c949d6e3d84dc4780a2d0e",
     "d7686821c170e1cd1c700aafe204797cb062f1ebdd7b8ce54a15cad29b7e5ac2",
     "148af21833351caddebd1d2c073d51d304e50cbc9d31115e7441740a7b3ca637",
-    "2922bdf4f906ffec923c3fd0886405e182b20729c465873c2c39d8d3c3164442"
+    "2922bdf4f906ffec923c3fd0886405e182b20729c465873c2c39d8d3c3164442",
+    "1f00f49cc79e6b9de5920572fe0a529b98ae304ebec1c5d88e14996bdeba76c5"
   ],
   "last_posted_at": "2026-11-06T09:03:11.748661+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:16",
+      "due_at": "2026-11-06T09:39:00+00:00"
+    },
+    "source": {
+      "id": "2118390838434693281",
+      "url": "https://x.com/OfficialLoganK/status/2118390838434693281",
+      "author": "OfficialLoganK",
+      "author_id": "284333988",
+      "text": "Today we are rolling out Gemini Omni Flash 1.2, with: \n\n- longer video generation (15 seconds)\n- deeper cinematic controls for camera pov\n- support for multi-turn conversation editing\n- less visual drift \n- 30% lower price than Omni Flash 1.1\n\nRead more: https://t.co/U0VgGTGcmW",
+      "created_at": "2026-11-05T17:11:48+00:00",
+      "views": 112008,
+      "urls": [
+        "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash"
+      ],
+      "source_ids": [
+        "2118390838434693281"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — OfficialLoganK reports: Gemini Omni Flash 1.2 launched with 15-second video generation and 30% lower price.\n\nThe report says the update includes deeper cinematic controls, multi-turn conversation editing, and less visual drift.",
+      "event_key": "Gemini Omni Flash 1.2 release with longer video generation and price reduction",
+      "premise": "Gemini Omni Flash 1.2 is rolled out with longer video generation (15 seconds), deeper cinematic controls, multi-turn conversation editing, less visual drift, and 30% lower price than Omni Flash 1.1."
+    },
+    "reserved_at": "2026-11-06T10:11:51.232102+00:00",
+    "approval": "615af29115d05ce830f5aaf43b817ec92066684a96abb338c57e8205ac5d9161",
+    "run": [
+      "42199375512",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118390838434693281"
+      ],
+      "used_urls": [
+        "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash"
+      ],
+      "used_texts": [
+        "1f00f49cc79e6b9de5920572fe0a529b98ae304ebec1c5d88e14996bdeba76c5"
+      ],
+      "used_events": [
+        "537b1bf8ec5863de07582ee92ff061af89ce300584128ca90f76118434f89f2e"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 4,
+  "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:16",
     "at": "2026-11-06T10:01:40.349203+00:00",
