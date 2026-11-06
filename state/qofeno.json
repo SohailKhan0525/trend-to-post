@@ -60,6 +60,21 @@
       "source_created_at": "2026-11-05T17:10:05+00:00",
       "tweet_id": "2118589268490854501",
       "posted_at": "2026-11-06T06:20:18.020721+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:11",
+      "due_at": "2026-11-06T06:43:00+00:00",
+      "text": "BREAKING — AravSrinivas reports: Perplexity Teammates launch as personal agents for work, shifting from prompt writing to goal-setting. \n\nThe report says the feature is rolling out to Max users on the web today, with native apps coming soon.",
+      "event_key": "Perplexity Teammates Launch",
+      "premise": "Perplexity Teammates are launched as personal agents for work, changing the paradigm from writing prompts to giving high-level goals. Rolling out to Max users on the web today, with native apps coming soon.",
+      "source_id": "2118388400730591469",
+      "author": "AravSrinivas",
+      "source_url": "https://x.com/AravSrinivas/status/2118388400730591469",
+      "source_views": 123360,
+      "source_checked_at": "2026-11-06T07:05:37.540062+00:00",
+      "source_created_at": "2026-11-05T17:02:07+00:00",
+      "tweet_id": "2118600682987192379",
+      "posted_at": "2026-11-06T07:05:39.446109+00:00"
     }
   ],
   "used_source_ids": [
@@ -538,54 +553,17 @@
     "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4",
     "dda2f8aa04430bdc4c1742d1b5b0ccd860da717b41c949d6e3d84dc4780a2d0e"
   ],
-  "last_posted_at": "2026-11-06T06:20:18.020721+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:11",
-      "due_at": "2026-11-06T06:43:00+00:00"
-    },
-    "source": {
-      "id": "2118388400730591469",
-      "url": "https://x.com/AravSrinivas/status/2118388400730591469",
-      "author": "AravSrinivas",
-      "author_id": "759894532649545732",
-      "text": "Today, we're launching Perplexity Teammates. \nThey are personal agents for work. And change the paradigm from writing prompts in a session to giving high-level goals. Rolling out to Max users on the web today. Native apps (mobile, desktop) coming soon. https://t.co/dmYIuw52Yb",
-      "created_at": "2026-11-05T17:02:07+00:00",
-      "views": 123360,
-      "urls": [],
-      "source_ids": [
-        "2118388400730591469"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — AravSrinivas reports: Perplexity Teammates launch as personal agents for work, shifting from prompt writing to goal-setting. \n\nThe report says the feature is rolling out to Max users on the web today, with native apps coming soon.",
-      "event_key": "Perplexity Teammates Launch",
-      "premise": "Perplexity Teammates are launched as personal agents for work, changing the paradigm from writing prompts to giving high-level goals. Rolling out to Max users on the web today, with native apps coming soon."
-    },
-    "reserved_at": "2026-11-06T07:05:37.540062+00:00",
-    "approval": "266c2f2b43fae9272d6e0e4cc25ed9d676e18af2a9cbb648a7f9f5bc1fe0c1c1",
-    "run": [
-      "42178091018",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118388400730591469"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "dda2f8aa04430bdc4c1742d1b5b0ccd860da717b41c949d6e3d84dc4780a2d0e"
-      ],
-      "used_events": [
-        "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T07:05:39.446109+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:11",
     "at": "2026-11-06T06:55:29.711068+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118600682987192379",
+    "source_id": "2118388400730591469"
   }
 }
