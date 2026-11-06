@@ -833,10 +833,10 @@
   "last_posted_at": "2026-11-06T22:52:34.645788+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 2,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:39",
-    "at": "2026-11-06T23:31:13.256765+00:00",
+    "at": "2026-11-06T23:41:20.877489+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   }
 }
