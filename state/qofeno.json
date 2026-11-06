@@ -135,6 +135,21 @@
       "source_created_at": "2026-11-05T17:11:48+00:00",
       "tweet_id": "2118647547774574933",
       "posted_at": "2026-11-06T10:11:52.854286+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:17",
+      "due_at": "2026-11-06T10:19:00+00:00",
+      "text": "BREAKING — GoogleAIStudio reports: Gemini Omni 1.2 Flash now available in AI Studio and the Gemini API\n\nThe report says the update includes faster processing, 30% lower cost, and longer video generation.",
+      "event_key": "Gemini Omni 1.2 Flash release",
+      "premise": "Introducing Gemini Omni 1.2 Flash, now available in AI Studio and the Gemini API.",
+      "source_id": "2118390015382454491",
+      "author": "GoogleAIStudio",
+      "source_url": "https://x.com/GoogleAIStudio/status/2118390015382454491",
+      "source_views": 103244,
+      "source_checked_at": "2026-11-06T10:47:11.626993+00:00",
+      "source_created_at": "2026-11-05T17:08:32+00:00",
+      "tweet_id": "2118656441464582407",
+      "posted_at": "2026-11-06T10:47:13.284901+00:00"
     }
   ],
   "used_source_ids": [
@@ -630,54 +645,17 @@
     "1f00f49cc79e6b9de5920572fe0a529b98ae304ebec1c5d88e14996bdeba76c5",
     "099fa0617d966cc6851020bc070b959c9b77d1b154ffcf74c39725b67bd22a35"
   ],
-  "last_posted_at": "2026-11-06T10:11:52.854286+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:17",
-      "due_at": "2026-11-06T10:19:00+00:00"
-    },
-    "source": {
-      "id": "2118390015382454491",
-      "url": "https://x.com/GoogleAIStudio/status/2118390015382454491",
-      "author": "GoogleAIStudio",
-      "author_id": "1742923424056713217",
-      "text": "introducing gemini omni 1.2 flash, now available in ai studio and the gemini api\n\nwhat's new:\n\n- fast &amp; 30% lower cost\n- longer clips\n- edit in conversation\n- more natural speech\n- more controllable shots https://t.co/ipHJr5hYnN",
-      "created_at": "2026-11-05T17:08:32+00:00",
-      "views": 103244,
-      "urls": [],
-      "source_ids": [
-        "2118390015382454491"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — GoogleAIStudio reports: Gemini Omni 1.2 Flash now available in AI Studio and the Gemini API\n\nThe report says the update includes faster processing, 30% lower cost, and longer video generation.",
-      "event_key": "Gemini Omni 1.2 Flash release",
-      "premise": "Introducing Gemini Omni 1.2 Flash, now available in AI Studio and the Gemini API."
-    },
-    "reserved_at": "2026-11-06T10:47:11.626993+00:00",
-    "approval": "7e48278a7c39e871df857bf216f29db5f3232a198ce6f972f189006fd749182d",
-    "run": [
-      "42203241220",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118390015382454491"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "099fa0617d966cc6851020bc070b959c9b77d1b154ffcf74c39725b67bd22a35"
-      ],
-      "used_events": [
-        "95c660fd8d746d68a4f59203ef2b5fc89829ebb3f338686cc6aac9b6474f2fcd"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T10:47:13.284901+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 4,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:17",
     "at": "2026-11-06T10:37:02.109029+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118656441464582407",
+    "source_id": "2118390015382454491"
   }
 }
