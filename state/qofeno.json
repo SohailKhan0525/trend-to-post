@@ -165,6 +165,21 @@
       "source_created_at": "2026-11-05T23:43:57+00:00",
       "tweet_id": "2118667536405496127",
       "posted_at": "2026-11-06T11:31:18.632915+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:21",
+      "due_at": "2026-11-06T12:43:00+00:00",
+      "text": "BREAKING — fia reports: The YANGWANG U9 Xtreme achieves 503.17 km/h, first production car to exceed 500 km/h.\n\nThe report says the FIA has officially recognized the speed, marking a milestone in electric vehicle technology.",
+      "event_key": "YANGWANG U9 Xtreme breaks 500 km/h barrier",
+      "premise": "Reported by fia: The YANGWANG U9 Xtreme achieved a top speed of 503.17 km/h in Abu Dhabi, becoming the first production car to surpass 500 km/h, recognized by the FIA.",
+      "source_id": "2118634394004979827",
+      "author": "fia",
+      "source_url": "https://x.com/fia/status/2118634394004979827",
+      "source_views": 122275,
+      "source_checked_at": "2026-11-06T13:01:26.652824+00:00",
+      "source_created_at": "2026-11-06T09:19:36+00:00",
+      "tweet_id": "2118690227514696047",
+      "posted_at": "2026-11-06T13:01:28.620835+00:00"
     }
   ],
   "used_source_ids": [
@@ -668,58 +683,17 @@
     "851d09e3cc74781f1d16d160cd38a2d0f6cf697e5556c551277977e5fc5e30cb",
     "5f8958d1593026286bfabd9e20a6d37a2b1bba27cb5812e7bf6d4e96aae437cb"
   ],
-  "last_posted_at": "2026-11-06T11:31:18.632915+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:21",
-      "due_at": "2026-11-06T12:43:00+00:00"
-    },
-    "source": {
-      "id": "2118634394004979827",
-      "url": "https://x.com/fia/status/2118634394004979827",
-      "author": "fia",
-      "author_id": "432507102",
-      "text": "Breaking the 500 km/h barrier! ⚡️\n\nThe YANGWANG U9 Xtreme has achieved a top speed of 503.17 km/h in Abu Dhabi, becoming the first production car to surpass the 500 km/h threshold.\n\nThe FIA has officially recognised this remarkable speed achievement, marking a significant milestone in electric vehicle technology and automotive engineering 🏆\n#FIA \n\nhttps://t.co/et46fD3o2n",
-      "created_at": "2026-11-06T09:19:36+00:00",
-      "views": 122275,
-      "urls": [
-        "https://fia.com/news/yangwang-u9-xtreme-surpasses-500-kmh-speed-achievement-recognised-fia"
-      ],
-      "source_ids": [
-        "2118634394004979827"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — fia reports: The YANGWANG U9 Xtreme achieves 503.17 km/h, first production car to exceed 500 km/h.\n\nThe report says the FIA has officially recognized the speed, marking a milestone in electric vehicle technology.",
-      "event_key": "YANGWANG U9 Xtreme breaks 500 km/h barrier",
-      "premise": "Reported by fia: The YANGWANG U9 Xtreme achieved a top speed of 503.17 km/h in Abu Dhabi, becoming the first production car to surpass 500 km/h, recognized by the FIA."
-    },
-    "reserved_at": "2026-11-06T13:01:26.652824+00:00",
-    "approval": "68f9393b9a4ecba1c1fdaefc3c5896dc2957f64732c9208312ea6814ae59b213",
-    "run": [
-      "42222098670",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118634394004979827"
-      ],
-      "used_urls": [
-        "https://fia.com/news/yangwang-u9-xtreme-surpasses-500-kmh-speed-achievement-recognised-fia"
-      ],
-      "used_texts": [
-        "5f8958d1593026286bfabd9e20a6d37a2b1bba27cb5812e7bf6d4e96aae437cb"
-      ],
-      "used_events": [
-        "242b0770444069ac8ff64730834a878fc112485b0ea6ba0f2f18f57a1a4fd3fb"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T13:01:28.620835+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:20",
     "at": "2026-11-06T12:41:28.834262+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118690227514696047",
+    "source_id": "2118634394004979827"
   }
 }
