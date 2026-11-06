@@ -287,7 +287,8 @@
     "2118479744979079669",
     "2118313957907652831",
     "2118412183860351084",
-    "2118390838434693281"
+    "2118390838434693281",
+    "2118390015382454491"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -303,7 +304,8 @@
     "152eb95c9116952e032caf8e7331a928f6bce455e88d0316b302b71c410d9f73",
     "545670c4cf571cbf8d382e1e240f7664d189b0d3358b26b14f72b1737ec15083",
     "b3d6620ca9af6e349b84024d8ae2e9164fde083b9d37e874df5cd82bf81e621f",
-    "537b1bf8ec5863de07582ee92ff061af89ce300584128ca90f76118434f89f2e"
+    "537b1bf8ec5863de07582ee92ff061af89ce300584128ca90f76118434f89f2e",
+    "95c660fd8d746d68a4f59203ef2b5fc89829ebb3f338686cc6aac9b6474f2fcd"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -625,12 +627,54 @@
     "d7686821c170e1cd1c700aafe204797cb062f1ebdd7b8ce54a15cad29b7e5ac2",
     "148af21833351caddebd1d2c073d51d304e50cbc9d31115e7441740a7b3ca637",
     "2922bdf4f906ffec923c3fd0886405e182b20729c465873c2c39d8d3c3164442",
-    "1f00f49cc79e6b9de5920572fe0a529b98ae304ebec1c5d88e14996bdeba76c5"
+    "1f00f49cc79e6b9de5920572fe0a529b98ae304ebec1c5d88e14996bdeba76c5",
+    "099fa0617d966cc6851020bc070b959c9b77d1b154ffcf74c39725b67bd22a35"
   ],
   "last_posted_at": "2026-11-06T10:11:52.854286+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:17",
+      "due_at": "2026-11-06T10:19:00+00:00"
+    },
+    "source": {
+      "id": "2118390015382454491",
+      "url": "https://x.com/GoogleAIStudio/status/2118390015382454491",
+      "author": "GoogleAIStudio",
+      "author_id": "1742923424056713217",
+      "text": "introducing gemini omni 1.2 flash, now available in ai studio and the gemini api\n\nwhat's new:\n\n- fast &amp; 30% lower cost\n- longer clips\n- edit in conversation\n- more natural speech\n- more controllable shots https://t.co/ipHJr5hYnN",
+      "created_at": "2026-11-05T17:08:32+00:00",
+      "views": 103244,
+      "urls": [],
+      "source_ids": [
+        "2118390015382454491"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — GoogleAIStudio reports: Gemini Omni 1.2 Flash now available in AI Studio and the Gemini API\n\nThe report says the update includes faster processing, 30% lower cost, and longer video generation.",
+      "event_key": "Gemini Omni 1.2 Flash release",
+      "premise": "Introducing Gemini Omni 1.2 Flash, now available in AI Studio and the Gemini API."
+    },
+    "reserved_at": "2026-11-06T10:47:11.626993+00:00",
+    "approval": "7e48278a7c39e871df857bf216f29db5f3232a198ce6f972f189006fd749182d",
+    "run": [
+      "42203241220",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118390015382454491"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "099fa0617d966cc6851020bc070b959c9b77d1b154ffcf74c39725b67bd22a35"
+      ],
+      "used_events": [
+        "95c660fd8d746d68a4f59203ef2b5fc89829ebb3f338686cc6aac9b6474f2fcd"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 4,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:17",
     "at": "2026-11-06T10:37:02.109029+00:00",
