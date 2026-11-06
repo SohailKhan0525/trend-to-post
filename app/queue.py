@@ -179,6 +179,12 @@ async def verify_quote(connection,state):
     state.pop("verification_pending",None)
     save_and_push(state)
     summary("X readback confirmed the intended quoted source.")
+    try:
+        handle = getattr(getattr(post,"user",None),"screen_name",None)
+        if isinstance(handle,str) and handle.isascii() and 1<=len(handle)<=15 and handle.replace("_","").isalnum():
+            summary(f"Published account verified by X readback: @{handle}")
+    except (AttributeError,KeyError,TypeError,ValueError):
+        pass
     return True
 
 

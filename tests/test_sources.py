@@ -9,8 +9,8 @@ from unittest.mock import AsyncMock
 from twikit.tweet import Tweet
 
 from app.sources import (
-    AUTHOR_GROUPS, MAX_AGE, SEARCH_COUNT, SourceError,
-    canonical_url, discover, snapshot, validate,
+    MAX_AGE, SEARCH_COUNT, SourceError,
+    canonical_url, discover, search_plan, snapshot, validate,
 )
 
 
@@ -59,10 +59,27 @@ class SnapshotTests(unittest.TestCase):
             with self.subTest(age=age), self.assertRaises(SourceError):
                 snapshot(tweet(age=age), NOW)
 
-    def test_author_handle_is_allowlisted_case_insensitively(self):
-        self.assertEqual(snapshot(tweet(author="openai"), NOW)["author"], "openai")
-        with self.assertRaises(SourceError):
-            snapshot(tweet(author="OpenA1"), NOW)
+    def test_any_public_author_is_eligible_without_a_badge_or_follower_requirement(self):
+        for author in ("openai", "indie_builder", "car_notes", "coder42"):
+            with self.subTest(author=author):
+                item=tweet(author=author)
+                item.user.followers_count=0
+                source=snapshot(item,NOW)
+                self.assertEqual(source["author"],author)
+                self.assertEqual(source["url"],f"https://x.com/{author}/status/1001")
+
+    def test_author_identity_must_still_be_a_valid_handle(self):
+        for author in (None,"","bad handle","x/status/9","a"*16):
+            with self.subTest(author=author),self.assertRaises(SourceError):
+                snapshot(tweet(author=author),NOW)
+
+    def test_popular_author_or_badge_does_not_substitute_for_source_views(self):
+        for views in (None,"99999"):
+            item=tweet(author="indie_builder",views=views)
+            item.user.followers_count=10_000_000
+            item.user.verified=item.user.is_blue_verified=True
+            with self.subTest(views=views),self.assertRaises(SourceError):
+                snapshot(item,NOW)
 
     def test_protected_or_missing_author_fails(self):
         source = tweet()
@@ -208,23 +225,38 @@ class CanonicalUrlTests(unittest.TestCase):
 
 
 class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
-    async def test_three_bounded_latest_queries_and_diagnostic_counts(self):
-        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet()], [], []]))
+    async def test_four_bounded_topic_queries_use_top_and_latest_without_author_limits(self):
+        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(author="indie_builder")], [], [], []]))
         output = io.StringIO()
         with redirect_stdout(output):
             results = await discover(client, {}, NOW)
         self.assertEqual(len(results), 1)
-        self.assertEqual(client.search_tweet.await_count, 3)
-        for call, group in zip(client.search_tweet.call_args_list, AUTHOR_GROUPS):
-            self.assertEqual(call.args[1], "Latest")
+        self.assertEqual(results[0]["author"],"indie_builder")
+        self.assertEqual(client.search_tweet.await_count, 4)
+        self.assertEqual([call.args[1] for call in client.search_tweet.call_args_list],["Top","Top","Top","Latest"])
+        for call in client.search_tweet.call_args_list:
             self.assertEqual(call.kwargs["count"], SEARCH_COUNT)
-            for author in group:
-                self.assertIn("from:" + author, call.args[0])
+            self.assertNotIn("from:",call.args[0])
+            self.assertIn("since:2026-11-04",call.args[0])
+            self.assertIn("-filter:replies",call.args[0])
+            self.assertIn("-filter:retweets",call.args[0])
+            self.assertLess(len(call.args[0]),220)
         self.assertIn("examined=1 eligible=1", output.getvalue())
         self.assertNotIn(TEXT, output.getvalue())
 
+    def test_query_rotation_expands_coverage_without_extra_requests(self):
+        first=search_plan(NOW)
+        second=search_plan(NOW+timedelta(hours=1))
+        self.assertEqual(first,search_plan(NOW))
+        self.assertNotEqual(first,second)
+        self.assertEqual(len(first),4)
+        self.assertEqual(len(second),4)
+        self.assertEqual([product for _,product in second],["Top","Top","Top","Latest"])
+        self.assertTrue(any('SaaS' in query or 'software' in query for query,_ in first))
+        self.assertTrue(any('cars' in query or 'vehicle' in query for query,_ in first))
+
     async def test_used_source_ids_include_older_edit_aliases(self):
-        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(aliases=["900", "1001"])], [], []]))
+        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(author="indie_builder",aliases=["900", "1001"])], [], [], []]))
         with redirect_stdout(io.StringIO()):
             self.assertEqual(await discover(client, {"used_source_ids": ["900"]}, NOW), [])
 
@@ -232,7 +264,7 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         item = tweet(urls=[{"expanded_url": "https://example.com/news/model?utm_source=x"}])
         state = {"used_urls": ["https://www.example.com/news/model/?ref=share"]}
         before = copy.deepcopy(state)
-        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[item], [], []]))
+        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[item], [], [], []]))
         with redirect_stdout(io.StringIO()):
             self.assertEqual(await discover(client, state, NOW), [])
         self.assertEqual(state, before)
@@ -244,16 +276,40 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
             tweet("1003", urls=[{"expanded_url": "https://example.com/news/model?utm_source=x"}]),
             tweet("1004", urls=[{"expanded_url": "https://example.com/news/model"}]),
         ]
-        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[items, [items[0]], []]))
+        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[items, [items[0]], [], []]))
         with redirect_stdout(io.StringIO()):
             result = await discover(client, {}, NOW)
         self.assertEqual({item["id"] for item in result}, {"1001", "1003"})
 
     async def test_bad_source_is_skipped_without_hiding_a_valid_source(self):
-        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(views=None), tweet("1002")], [], []]))
+        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(views=None), tweet("1002")], [], [], []]))
         with redirect_stdout(io.StringIO()):
             result = await discover(client, {}, NOW)
         self.assertEqual([item["id"] for item in result], ["1002"])
+
+    async def test_diagnostic_counts_explain_rejection_without_printing_source_text(self):
+        items=[tweet("1",views=None),tweet("2",views="99999"),
+               tweet("3",text=TEXT+" The government is involved."),
+               tweet("4",age=MAX_AGE+timedelta(seconds=1)),
+               tweet("5",text=TEXT+"…"),tweet("6",in_reply_to_status_id_str="7"),
+               tweet("8",author="car_notes")]
+        client=SimpleNamespace(search_tweet=AsyncMock(side_effect=[items,[],[],[]]))
+        output=io.StringIO()
+        with redirect_stdout(output):
+            result=await discover(client,{},NOW)
+        self.assertEqual([item['id'] for item in result],['8'])
+        for reason in ('unknown_views','below_100k','excluded_topic','outside_24h','truncated_text','reply'):
+            self.assertIn(reason+'=1',output.getvalue())
+        self.assertIn('examined=7 eligible=1 ineligible=6 duplicates=0',output.getvalue())
+        self.assertNotIn(TEXT,output.getvalue())
+
+    async def test_cross_author_duplicates_remain_blocked_in_broader_search(self):
+        first=tweet("101",author="indie_builder",urls=[{'expanded_url':'https://example.com/blog/editor'}])
+        second=tweet("102",author="coder42",urls=[{'expanded_url':'https://example.com/blog/editor?utm_source=x'}])
+        client=SimpleNamespace(search_tweet=AsyncMock(side_effect=[[first],[second],[],[first]]))
+        with redirect_stdout(io.StringIO()):
+            result=await discover(client,{},NOW)
+        self.assertEqual([item['id'] for item in result],['101'])
 
     async def test_transport_and_session_failures_propagate_without_retry(self):
         class SessionFailure(Exception):

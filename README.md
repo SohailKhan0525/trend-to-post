@@ -1,12 +1,12 @@
 # Qofeno
 
-Qofeno quotes new first-party announcements about AI, models, technology, SaaS, developer tools and cars. The [profile copy](PROFILE.md) uses **Qofeno** and **@qofenoai**.
+Qofeno quotes fresh announcements and clearly attributed news about AI, models, technology, SaaS, developer tools and cars. Posts can come from any public account. The [profile copy](PROFILE.md) uses **Qofeno** and **@qofenoai**.
 
 ## What qualifies
 
-The source must be an original public post from an allowlisted company or project, no more than 24 hours old, with a measured post-view count of at least 100,000. Missing counts, video-play counts, follower counts and engagement totals cannot satisfy this threshold. The discovery step makes three bounded searches of recent posts from primary accounts. Its diagnostics show the number examined, excluded and deduplicated.
+The source must be an original public post, no more than 24 hours old, with a measured post-view count of at least 100,000. There is no account allowlist or badge requirement. Missing counts, video-play counts, follower counts and engagement totals cannot satisfy this threshold. Discovery uses bounded topic searches across Top and Latest results. Its diagnostics show the number examined, excluded and deduplicated, with reasons for exclusions. High views establish reach, not the truth of a claim.
 
-Cloudflare Workers AI must identify a concrete new announcement supported by the source. Teasers, retrospectively described launches, tips, rumours and generic promotional posts are rejected. The writer then drafts a short headline, a blank line, and a useful practical observation or specific question. An independent review checks the exact source against every claim and checks prior events. English is the initial shared voice. All parts of the source, available linked titles, and the quote are checked for politics and countries.
+Cloudflare Workers AI must identify a concrete new announcement or news report supported by the source. Third-party reporting must be explicitly attributed to the source account; the quote must not present it as independently verified or remove uncertainty. Teasers, retrospectively described launches, tips, rumours and generic promotional posts are rejected. The writer then drafts a short headline, a blank line, and a useful practical observation or specific question. An independent review checks the exact source against every claim and checks prior events. English is the initial shared voice. All parts of the source, available linked titles, and the quote are checked for politics and countries.
 
 The source is fetched again immediately before publication. Its measured count must still be at least 100,000 and its identity, text, links, timestamp and edit history must match the reviewed version. The quote attaches the actual source post. A source attachment is an essential part of a quote.
 
@@ -22,7 +22,7 @@ The existing GitHub Actions secrets `X_AUTH_TOKEN` and `X_CT0` authorize the ses
 
 The workflow shares the prior publishing concurrency group. Approved source evidence and copy are committed before one send. A confirmed X ID is committed before attachment readback. A timeout or unknown send retains its reservation, preventing a retry that could create a duplicate. A proven-unsent attempt releases only its own duplicate claims; the pinned client's initial rejected-session error also requires a session check next time. An unavailable attachment keeps verification pending, blocking new sends until readback succeeds. A confirmed incorrect attachment pauses delivery for inspection.
 
-`python -m app inspect` checks sources and one sample without publishing. Code pushes run this inspection; scheduled and dispatcher wakes publish eligible quotes. `python -m app run` processes the current opportunity. Manual workflow runs have an inspect-only option. Tests run with `python -m unittest discover -s tests -v`.
+`python -m app inspect` checks sources and one sample without publishing. Code pushes, scheduled and dispatcher wakes process the current opportunity with the same spacing and duplicate checks. `python -m app run` processes that opportunity. Manual workflow runs have an inspect-only option. Tests run with `python -m unittest discover -s tests -v`.
 
 ## Editorial basis
 

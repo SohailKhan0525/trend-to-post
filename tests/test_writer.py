@@ -42,6 +42,57 @@ class WriterTests(unittest.TestCase):
         self.assertNotIn("views", review["source"])
         self.assertNotIn("100000", result["text"])
 
+    def test_unfamiliar_account_can_report_concrete_news_with_explicit_attribution(self):
+        source = {**SOURCE, "author": "devreader73", "text": "Atlas released SDK 2.1 today with offline CSV export, available to all users."}
+        quote = "BREAKING — devreader73 reports: Atlas SDK 2.1 adds offline CSV export.\n\nThe report says all users can access it."
+        result, complete = self.generate_with([{**GATE, "primary": False}, {"text": quote}, PASS], source=source)
+        self.assertEqual(result["text"], quote)
+        self.assertEqual(result["premise"], "Reported by devreader73: " + DRAFT["premise"])
+        self.assertEqual(result["event_key"], DRAFT["event_key"])
+        self.assertEqual(complete.call_args_list[1].args[1]["source_kind"], "reported")
+        self.assertTrue(complete.call_args_list[2].args[1]["attribution_required"])
+        # The saved draft can enforce attribution again without a model call.
+        self.assertEqual(writer.validate(result, source), result)
+
+    def test_reported_claim_cannot_be_rewritten_as_confirmed_fact(self):
+        source = {**SOURCE, "author": "devreader73"}
+        draft = {**DRAFT, "premise": "Reported by devreader73: " + DRAFT["premise"]}
+        for headline, detail in (
+            ("BREAKING — Atlas SDK 2.1 adds offline CSV export.", "All users can access it."),
+            ("BREAKING — anotherwriter reports: Atlas SDK 2.1 adds offline CSV export.", "The report says all users can access it."),
+            ("BREAKING — devreader73 reports: Atlas SDK 2.1 adds offline CSV export.", "All users can access it."),
+        ):
+            with self.subTest(headline=headline, detail=detail), self.assertRaises(DraftError):
+                writer.validate({**draft, "text": headline + "\n\n" + detail}, source)
+
+    def test_attribution_handle_digits_do_not_authorize_invented_numbers(self):
+        source = {**SOURCE, "author": "devreader73"}
+        draft = {**DRAFT, "premise": "Reported by devreader73: " + DRAFT["premise"],
+                 "text": "BREAKING — devreader73 reports: Atlas SDK 2.1 adds offline CSV export.\n\nThe report says 73 users can access it."}
+        with self.assertRaisesRegex(DraftError, "number or version"):
+            writer.validate(draft, source)
+
+    def test_attribution_words_do_not_count_as_an_additional_source_detail(self):
+        source = {**SOURCE, "author": "devreader73", "text": "Report: Atlas SDK 2.1 now has offline CSV export."}
+        draft = {**DRAFT, "premise": "Reported by devreader73: Atlas SDK 2.1 adds offline CSV export.",
+                 "text": "BREAKING — devreader73 reports: Atlas SDK 2.1 adds offline CSV export.\n\nThe report says developers can access offline CSV export."}
+        with self.assertRaisesRegex(DraftError, "distinct source detail"):
+            writer.validate(draft, source)
+
+    def test_independent_critic_rejects_missing_attribution_even_if_gate_misclassified_source(self):
+        responses = [GATE, {"text": DRAFT["text"]}, {**PASS, "attributed": False},
+                     {"text": DRAFT["text"]}, {**PASS, "attributed": False}]
+        with patch.object(writer, "complete", side_effect=responses), patch("builtins.print"):
+            with self.assertRaisesRegex(DraftError, "No grounded original quote"):
+                writer.generate({**SOURCE, "author": "devreader73"}, {}, NOW)
+
+    def test_same_event_from_another_reporter_is_still_a_duplicate(self):
+        with patch.object(writer, "complete", return_value={**GATE, "primary": False}) as complete:
+            with self.assertRaisesRegex(DraftError, "already been used"):
+                writer.generate({**SOURCE, "author": "devreader73"},
+                                {"used_events": [writer.fingerprint(DRAFT["event_key"])]}, NOW)
+            self.assertEqual(complete.call_count, 1)
+
     def test_implication_does_not_have_to_be_a_question(self):
         draft = {**DRAFT, "text": "BREAKING — Atlas SDK 2.1 adds offline CSV export.\n\nAll users can access the feature."}
         self.assertEqual(writer.validate(draft, SOURCE), draft)
@@ -136,12 +187,12 @@ class WriterTests(unittest.TestCase):
                     writer.generate({**SOURCE, "text": text}, {}, NOW)
             complete.assert_not_called()
 
-    def test_classifier_rejects_tip_teaser_retrospective_and_third_party_claim(self):
+    def test_classifier_rejects_tip_teaser_retrospective_and_vague_speculation(self):
         examples = [
             ("Remember to keep your SDK dependencies updated.", "new_announcement"),
             ("Tomorrow we will share something big about Atlas SDK.", "new_announcement"),
             ("A look back at the offline export feature we released last year.", "new_announcement"),
-            ("Another company apparently released a new SDK today.", "primary"),
+            ("Apparently some company might release a new SDK soon.", "new_announcement"),
             ("We launched a new ice cream flavour today.", "relevant"),
         ]
         for text, flag in examples:

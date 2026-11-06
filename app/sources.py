@@ -1,4 +1,4 @@
-"""Bounded discovery of recent, primary-source posts with measured reach.
+"""Bounded discovery of recent, public posts with measured reach.
 
 Source text and card metadata are evidence, never instructions. This module does
 not fetch links, infer views from screenshots, or turn missing evidence into a
@@ -16,14 +16,17 @@ from .policy import has_excluded_terms
 MIN_VIEWS = 100_000
 MAX_AGE = timedelta(hours=24)
 SEARCH_COUNT = 20
-# Primary company accounts, not aggregators or individuals. A blue check alone
-# does not establish authority. Keep searches small and deterministic.
-AUTHOR_GROUPS = (
-    ("OpenAI", "AnthropicAI", "GoogleDeepMind", "GoogleAI", "huggingface", "xAI"),
-    ("opencode", "cursor_ai", "github", "vercel", "Figma", "NotionHQ"),
-    ("Tesla", "BMW", "MercedesBenz", "Porsche", "NVIDIA", "Microsoft"),
+# Search topics, never author lists. Top helps find measured reach while Latest
+# adds new candidates. Hourly term rotation widens coverage without pagination
+# or extra requests; the writer separately verifies relevance and attribution.
+TOPIC_QUERIES = (
+    ('("artificial intelligence" OR ChatGPT OR Claude OR Gemini OR LLM)',
+     '(AI OR OpenAI OR Anthropic OR Grok OR DeepSeek OR NVIDIA)'),
+    ('(coding OR programming OR "developer tools" OR SaaS OR startup)',
+     '(technology OR software OR GitHub OR OpenCode OR Cursor OR "open source")'),
+    ('(cars OR automotive OR "electric car" OR Tesla OR EV)',
+     '("electric vehicle" OR "self driving" OR battery OR Porsche OR BMW)'),
 )
-ALLOWED_AUTHORS = frozenset(name.casefold() for group in AUTHOR_GROUPS for name in group)
 _HANDLE = re.compile(r"[A-Za-z0-9_]{1,15}\Z")
 _NUMBER = re.compile(r"[0-9]+\Z")
 _URL = re.compile(r"https?://\S+", re.I)
@@ -36,6 +39,20 @@ _SOCIAL_OR_SHORT = frozenset({
     "tinyurl.com", "lnkd.in", "goo.gl", "ow.ly", "buff.ly", "youtu.be",
 })
 _LANDINGS = frozenset({"/", "/index.html", "/index.htm", "/home", "/blog", "/news"})
+_REJECTION_REASONS = {
+    "source has fewer than 100000 measured views": "below_100k",
+    "missing or invalid measured views": "unknown_views",
+    "source is outside the 24-hour freshness window": "outside_24h",
+    "source is a reply": "reply",
+    "source is a repost": "repost",
+    "source is a quote": "quote",
+    "source author is unavailable or protected": "unavailable_author",
+    "source contains excluded topics": "excluded_topic",
+    "linked metadata contains excluded topics": "excluded_topic",
+    "missing full source text": "missing_text",
+    "source has insufficient factual text": "insufficient_text",
+    "source text is truncated or ambiguous": "truncated_text",
+}
 
 
 class SourceError(ValueError):
@@ -131,8 +148,8 @@ def validate(candidate, now):
     source_id = _identifier(candidate.get("id"))
     author_id = _identifier(candidate.get("author_id"))
     author = candidate.get("author")
-    if not isinstance(author, str) or not _HANDLE.fullmatch(author) or author.casefold() not in ALLOWED_AUTHORS:
-        raise SourceError("source author is not allowlisted")
+    if not isinstance(author, str) or not _HANDLE.fullmatch(author):
+        raise SourceError("missing or invalid source author handle")
     source_url = f"https://x.com/{author}/status/{source_id}"
     if candidate.get("url") != source_url:
         raise SourceError("source URL does not match its identity")
@@ -251,29 +268,41 @@ def _snapshot(tweet, now):
     }, now)
 
 
+def search_plan(now):
+    """Three topic Top searches and one rotating Latest search, at most four."""
+    current = _utc(now, "invalid current timestamp")
+    hour = int(current.timestamp() // 3600)
+    since = (current - MAX_AGE).date().isoformat()
+    suffix = f" since:{since} -filter:replies -filter:retweets"
+    plan = [(variants[hour % len(variants)] + suffix, "Top") for variants in TOPIC_QUERIES]
+    latest = TOPIC_QUERIES[hour % len(TOPIC_QUERIES)]
+    plan.append((latest[(hour + 1) % len(latest)] + suffix, "Latest"))
+    return plan
+
+
 async def discover(connection, state, now):
-    """Run three sequential Latest searches; return unseen eligible snapshots.
+    """Run four sequential topic searches; return unseen eligible snapshots.
 
     No pagination, endpoint retries, badge requirement, or volume fallback.
     Session, authentication, rate-limit, and transport failures propagate to the
     workflow rather than masquerading as a successful empty discovery.
     """
     current = _utc(now, "invalid current timestamp")
-    since = (current - MAX_AGE).date().isoformat()
     used_ids = {str(value) for value in state.get("used_source_ids", [])}
     used_urls = {canonical_url(value) for value in state.get("used_urls", [])}
     used_urls.discard("")
     candidates = []
     counts = Counter()
-    for group in AUTHOR_GROUPS:
-        query = "(" + " OR ".join(f"from:{author}" for author in group) + f") since:{since} -filter:replies -filter:retweets"
-        results = await connection.search_tweet(query, "Latest", count=SEARCH_COUNT)
+    rejections = Counter()
+    for query, product in search_plan(current):
+        results = await connection.search_tweet(query, product, count=SEARCH_COUNT)
         for tweet in results:
             counts["examined"] += 1
             try:
                 candidate = snapshot(tweet, current)
-            except SourceError:
+            except SourceError as exc:
                 counts["ineligible"] += 1
+                rejections[_REJECTION_REASONS.get(str(exc), "invalid_metadata")] += 1
                 continue
             if used_ids.intersection(candidate["source_ids"]) or used_urls.intersection(candidate["urls"]):
                 counts["duplicates"] += 1
@@ -285,4 +314,6 @@ async def discover(connection, state, now):
     print(f"Source discovery: examined={counts['examined']} eligible={len(candidates)} "
           f"ineligible={counts['ineligible']} duplicates={counts['duplicates']}; "
           "40/day is a ceiling subject to source availability.")
+    if rejections:
+        print("Source exclusions: " + " ".join(f"{reason}={count}" for reason, count in sorted(rejections.items())))
     return candidates
