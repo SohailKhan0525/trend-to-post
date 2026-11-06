@@ -105,6 +105,21 @@
       "source_created_at": "2026-11-05T12:06:18+00:00",
       "tweet_id": "2118622245639647369",
       "posted_at": "2026-11-06T08:31:20.359905+00:00"
+    },
+    {
+      "slot": "2026-11-06:quote-v1:15",
+      "due_at": "2026-11-06T09:03:00+00:00",
+      "text": "BREAKING — METR_Evals reports: METR publishes risk assessment on AI accelerating AI development\n\nThe report says a team within METR has been evaluating whether AI is accelerating AI development, using internal Anthropic information since August.",
+      "event_key": "METR Report on AI Accelerating AI Development",
+      "premise": "Reported by METR_Evals: A team within METR has worked with internal Anthropic information to assess whether AI is accelerating AI development and is now publishing a report summarizing the results of this risk assessment.",
+      "source_id": "2118412183860351084",
+      "author": "METR_Evals",
+      "source_url": "https://x.com/METR_Evals/status/2118412183860351084",
+      "source_views": 881985,
+      "source_checked_at": "2026-11-06T09:03:10.042793+00:00",
+      "source_created_at": "2026-11-05T18:36:37+00:00",
+      "tweet_id": "2118630262619934929",
+      "posted_at": "2026-11-06T09:03:11.748661+00:00"
     }
   ],
   "used_source_ids": [
@@ -593,54 +608,17 @@
     "148af21833351caddebd1d2c073d51d304e50cbc9d31115e7441740a7b3ca637",
     "2922bdf4f906ffec923c3fd0886405e182b20729c465873c2c39d8d3c3164442"
   ],
-  "last_posted_at": "2026-11-06T08:31:20.359905+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-06:quote-v1:15",
-      "due_at": "2026-11-06T09:03:00+00:00"
-    },
-    "source": {
-      "id": "2118412183860351084",
-      "url": "https://x.com/METR_Evals/status/2118412183860351084",
-      "author": "METR_Evals",
-      "author_id": "1706770561903497216",
-      "text": "Since August, a team within METR has worked with internal Anthropic information to assess whether AI itself is accelerating AI development.\n\nWe are now publishing a report summarizing the results of this risk assessment.",
-      "created_at": "2026-11-05T18:36:37+00:00",
-      "views": 881985,
-      "urls": [],
-      "source_ids": [
-        "2118412183860351084"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — METR_Evals reports: METR publishes risk assessment on AI accelerating AI development\n\nThe report says a team within METR has been evaluating whether AI is accelerating AI development, using internal Anthropic information since August.",
-      "event_key": "METR Report on AI Accelerating AI Development",
-      "premise": "Reported by METR_Evals: A team within METR has worked with internal Anthropic information to assess whether AI is accelerating AI development and is now publishing a report summarizing the results of this risk assessment."
-    },
-    "reserved_at": "2026-11-06T09:03:10.042793+00:00",
-    "approval": "d6856c6fab78125d39e7e95e61f238eac7b6a5fa69feb549ce9faa6d78280e8f",
-    "run": [
-      "42191838104",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118412183860351084"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "2922bdf4f906ffec923c3fd0886405e182b20729c465873c2c39d8d3c3164442"
-      ],
-      "used_events": [
-        "b3d6620ca9af6e349b84024d8ae2e9164fde083b9d37e874df5cd82bf81e621f"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-06T09:03:11.748661+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:13",
     "at": "2026-11-06T08:16:49.703806+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118630262619934929",
+    "source_id": "2118412183860351084"
   }
 }
