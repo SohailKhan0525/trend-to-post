@@ -399,7 +399,8 @@
     "2118530564428833010",
     "2118405991662493737",
     "2118389326459670825",
-    "2118717555598614919"
+    "2118717555598614919",
+    "2118782708767965238"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -407,7 +408,8 @@
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash",
     "https://thinkingmachines.ai/news/inkling-2-small",
     "https://fia.com/news/yangwang-u9-xtreme-surpasses-500-kmh-speed-achievement-recognised-fia",
-    "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd"
+    "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd",
+    "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -425,7 +427,8 @@
     "77e72bb7d9619c30ee28eceff4a8288dc58443f78dac19bb1f45873dbd3e1ed4",
     "7eb3253880a6ec22eabeb0fde5cda755749276a0df0289bcc67df911fa783fcb",
     "e5a4c947ff44eed5ed5cb77ba516f681b91cf2fb55924d5e9f209ec7356bac70",
-    "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b"
+    "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b",
+    "dff9553582389c22666e90fbea394cdaaec10bc2ce1b9a047e5c6669a6441b8d"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -754,12 +757,58 @@
     "f3c9ff7b12671a93166e57a83e0b59cf4ea9b2c19f035f473ab8cacc53e16686",
     "742f7f6aee8e20d0e48f3888faa0fb9cdf915ad66b74299c3ee0bbf741de5fcb",
     "207bc590fbe851d10ceb3f39565710f8046ca065eb48e705533d290d7f10d390",
-    "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00"
+    "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00",
+    "9215868f60aaac9de02fd564638c78d1f3b8fa261a2fb6b103e2a231261f9b09"
   ],
   "last_posted_at": "2026-11-06T18:07:09.092211+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:35",
+      "due_at": "2026-11-06T21:03:00+00:00"
+    },
+    "source": {
+      "id": "2118782708767965238",
+      "url": "https://x.com/OpenAI/status/2118782708767965238",
+      "author": "OpenAI",
+      "author_id": "4398626122",
+      "text": "A new way to measure how AI agents handle the routine analyses of wet-lab science—BioBasicsBench.\n\nDeveloped with Ligo, a biotech company focused on enzyme design, the benchmark draws on 100 tasks from real experiments to test whether agents can interpret raw lab data, identify errors, and recognize when the evidence doesn’t support a conclusion.\n\nAccelerating biological research starts with getting the everyday work right. BioBasicsBench shows where models need to improve, and helps us track what those gains mean for scientific progress, biosafety, and biosecurity.\n\nhttps://t.co/wN2xLk0YeW",
+      "created_at": "2026-11-06T19:08:57+00:00",
+      "views": 240548,
+      "urls": [
+        "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science"
+      ],
+      "source_ids": [
+        "2118782708767965238"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — OpenAI reports: BioBasicsBench launched to evaluate AI agents in wet-lab science analysis.\n\nThe report says the benchmark was developed with Ligo and includes 100 real experiment tasks to test data interpretation and error detection.",
+      "event_key": "BioBasicsBench new AI benchmark for wet-lab science analysis",
+      "premise": "A new benchmark called BioBasicsBench was developed with Ligo to measure how AI agents handle routine analyses of wet-lab science."
+    },
+    "reserved_at": "2026-11-06T21:03:07.369640+00:00",
+    "approval": "f40b49e2f818184b7bb6205a7a055c7749a50b4ae5016e148131dca1ea43011b",
+    "run": [
+      "42293182162",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118782708767965238"
+      ],
+      "used_urls": [
+        "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science"
+      ],
+      "used_texts": [
+        "9215868f60aaac9de02fd564638c78d1f3b8fa261a2fb6b103e2a231261f9b09"
+      ],
+      "used_events": [
+        "dff9553582389c22666e90fbea394cdaaec10bc2ce1b9a047e5c6669a6441b8d"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:34",
     "at": "2026-11-06T21:01:29.070542+00:00",
