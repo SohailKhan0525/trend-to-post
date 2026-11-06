@@ -303,12 +303,14 @@
     "2118313957907652831",
     "2118412183860351084",
     "2118390838434693281",
-    "2118390015382454491"
+    "2118390015382454491",
+    "2118489527362912566"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
     "https://deepai.org/chat/ai-code",
-    "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash"
+    "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash",
+    "https://thinkingmachines.ai/news/inkling-2-small"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -320,7 +322,8 @@
     "545670c4cf571cbf8d382e1e240f7664d189b0d3358b26b14f72b1737ec15083",
     "b3d6620ca9af6e349b84024d8ae2e9164fde083b9d37e874df5cd82bf81e621f",
     "537b1bf8ec5863de07582ee92ff061af89ce300584128ca90f76118434f89f2e",
-    "95c660fd8d746d68a4f59203ef2b5fc89829ebb3f338686cc6aac9b6474f2fcd"
+    "95c660fd8d746d68a4f59203ef2b5fc89829ebb3f338686cc6aac9b6474f2fcd",
+    "5f896a342333a7f121f0afdd6f2625bdb5f53113bc5711ef73daa87fd0b99a69"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -643,12 +646,58 @@
     "148af21833351caddebd1d2c073d51d304e50cbc9d31115e7441740a7b3ca637",
     "2922bdf4f906ffec923c3fd0886405e182b20729c465873c2c39d8d3c3164442",
     "1f00f49cc79e6b9de5920572fe0a529b98ae304ebec1c5d88e14996bdeba76c5",
-    "099fa0617d966cc6851020bc070b959c9b77d1b154ffcf74c39725b67bd22a35"
+    "099fa0617d966cc6851020bc070b959c9b77d1b154ffcf74c39725b67bd22a35",
+    "851d09e3cc74781f1d16d160cd38a2d0f6cf697e5556c551277977e5fc5e30cb"
   ],
   "last_posted_at": "2026-11-06T10:47:13.284901+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-06:quote-v1:19",
+      "due_at": "2026-11-06T11:30:00+00:00"
+    },
+    "source": {
+      "id": "2118489527362912566",
+      "url": "https://x.com/thinkymachines/status/2118489527362912566",
+      "author": "thinkymachines",
+      "author_id": "1891523745929732096",
+      "text": "Introducing Inkling 2 Small. Scoring 31 on the AA Intelligence Index, it's a big jump over its predecessor.\n\nInkling 2 Small is available for fine-tuning and inference on Tinker today, with full weight release planned soon.\n\nhttps://t.co/VR02tw73fJ",
+      "created_at": "2026-11-05T23:43:57+00:00",
+      "views": 755174,
+      "urls": [
+        "https://thinkingmachines.ai/news/inkling-2-small"
+      ],
+      "source_ids": [
+        "2118489527362912566"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — thinkymachines reports: Inkling 2 Small scores 31 on the AA Intelligence Index, a significant jump from its predecessor.\n\nThe report says the model is available for fine-tuning and inference on Tinker, with full weights to follow.",
+      "event_key": "Inkling 2 Small Released with AA Intelligence Index Score 31",
+      "premise": "Inkling 2 Small is introduced with a score of 31 on the AA Intelligence Index and is available for fine-tuning and inference on Tinker, with full weight release planned soon."
+    },
+    "reserved_at": "2026-11-06T11:31:16.652776+00:00",
+    "approval": "0228aa63662c2ad504d020929ca8440acdd1e096206214be14391f806f6998b1",
+    "run": [
+      "42210809409",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118489527362912566"
+      ],
+      "used_urls": [
+        "https://thinkingmachines.ai/news/inkling-2-small"
+      ],
+      "used_texts": [
+        "851d09e3cc74781f1d16d160cd38a2d0f6cf697e5556c551277977e5fc5e30cb"
+      ],
+      "used_events": [
+        "5f896a342333a7f121f0afdd6f2625bdb5f53113bc5711ef73daa87fd0b99a69"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 2,
+  "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-06:quote-v1:18",
     "at": "2026-11-06T11:22:32.043371+00:00",
