@@ -1062,9 +1062,5 @@
     "slot": "2026-11-07:quote-v1:20",
     "at": "2026-11-07T12:15:19.590963+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
-  },
-  "verification_pending": {
-    "tweet_id": "2119045031357264376",
-    "source_id": "2118750610950332589"
   }
 }
