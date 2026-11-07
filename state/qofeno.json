@@ -390,6 +390,21 @@
       "source_created_at": "2026-11-06T12:30:12+00:00",
       "tweet_id": "2118960742892462320",
       "posted_at": "2026-11-07T06:56:24.498775+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:12",
+      "due_at": "2026-11-07T07:14:00+00:00",
+      "text": "BREAKING — EinsiaAI reports: Einsia AI introduces Frontier3DBench for evaluating coding agents in 3D environments.\n\nThe report says the benchmark includes 145 tasks across 9 categories and 11 frontier model-harness configurations.",
+      "event_key": "Einsia AI introduces Frontier3DBench for evaluating coding agents in 3D environments",
+      "premise": "Einsia AI introduces Frontier3DBench, a benchmark evaluating coding agents across 3D Objects, Scenes, and Interactive Open Worlds with 145 tasks and 11 model-harness configurations.",
+      "source_id": "2118716282971599349",
+      "author": "EinsiaAI",
+      "source_url": "https://x.com/EinsiaAI/status/2118716282971599349",
+      "source_views": 306683,
+      "source_checked_at": "2026-11-07T07:31:42.800594+00:00",
+      "source_created_at": "2026-11-06T14:45:00+00:00",
+      "tweet_id": "2118969635278369043",
+      "posted_at": "2026-11-07T07:31:44.597728+00:00"
     }
   ],
   "used_source_ids": [
@@ -947,62 +962,17 @@
     "50af75ae50c064e4662d4ab218b96f93648b4755fbb40bf8e46b55175ee9bd9d",
     "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57"
   ],
-  "last_posted_at": "2026-11-07T06:56:24.498775+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:12",
-      "due_at": "2026-11-07T07:14:00+00:00"
-    },
-    "source": {
-      "id": "2118716282971599349",
-      "url": "https://x.com/EinsiaAI/status/2118716282971599349",
-      "author": "EinsiaAI",
-      "author_id": "2016491434120294400",
-      "text": "Can coding agents replace traditional 3D vision pipelines and build a entire interactive worlds from code?\n\nIntroducing Einsia AI's Frontier3DBench — a unified benchmark evaluating coding agents across 3D Objects, Scenes, and Interactive Open Worlds.\n\n- 145 tasks across 9 categories (Blender & UE5)\n- 11 frontier model-harness configurations\n- Joint evaluation: Appearance, Structure & Behavior\n\nProject: https://t.co/yalc6nOeNO\nGitHub: https://t.co/6QbvF2UFeV\npaper:https://t.co/bLRqF9yYO5\n\n🧵 See key findings below 👇",
-      "created_at": "2026-11-06T14:45:00+00:00",
-      "views": 306683,
-      "urls": [
-        "https://lab.einsia.ai/frontier3dbench",
-        "https://github.com/Einsia/Frontier3D",
-        "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf"
-      ],
-      "source_ids": [
-        "2118716282971599349"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — EinsiaAI reports: Einsia AI introduces Frontier3DBench for evaluating coding agents in 3D environments.\n\nThe report says the benchmark includes 145 tasks across 9 categories and 11 frontier model-harness configurations.",
-      "event_key": "Einsia AI introduces Frontier3DBench for evaluating coding agents in 3D environments",
-      "premise": "Einsia AI introduces Frontier3DBench, a benchmark evaluating coding agents across 3D Objects, Scenes, and Interactive Open Worlds with 145 tasks and 11 model-harness configurations."
-    },
-    "reserved_at": "2026-11-07T07:31:42.800594+00:00",
-    "approval": "800928ecc398521e53d1b035eda9f63f9be0415838dd1634ed5362e1654894ea",
-    "run": [
-      "42351591132",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118716282971599349"
-      ],
-      "used_urls": [
-        "https://github.com/Einsia/Frontier3D",
-        "https://lab.einsia.ai/frontier3dbench",
-        "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf"
-      ],
-      "used_texts": [
-        "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57"
-      ],
-      "used_events": [
-        "4e4468e2383fd86d23017ce1191b8bd923a93c93724f22ba65a6d782febfe00d"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T07:31:44.597728+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:12",
     "at": "2026-11-07T07:21:33.694230+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118969635278369043",
+    "source_id": "2118716282971599349"
   }
 }
