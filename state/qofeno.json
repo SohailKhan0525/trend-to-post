@@ -405,6 +405,21 @@
       "source_created_at": "2026-11-06T14:45:00+00:00",
       "tweet_id": "2118969635278369043",
       "posted_at": "2026-11-07T07:31:44.597728+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:14",
+      "due_at": "2026-11-07T08:28:00+00:00",
+      "text": "BREAKING — WSJ reports: Tesla will wind down Cybertruck production at its Texas gigafactory next year. \n\nThe report says CEO Elon Musk made the statement, citing persistent weak sales for the vehicle.",
+      "event_key": "Tesla Cybertruck Production Wind Down",
+      "premise": "Reported by WSJ: Tesla will wind down production of the Cybertruck at its Texas gigafactory next year, according to Elon Musk.",
+      "source_id": "2118687615557730637",
+      "author": "WSJ",
+      "source_url": "https://x.com/WSJ/status/2118687615557730637",
+      "source_views": 391112,
+      "source_checked_at": "2026-11-07T08:31:15.596772+00:00",
+      "source_created_at": "2026-11-06T12:51:05+00:00",
+      "tweet_id": "2118984619462943138",
+      "posted_at": "2026-11-07T08:31:17.008271+00:00"
     }
   ],
   "used_source_ids": [
@@ -966,58 +981,17 @@
     "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57",
     "7aeb432d10c69e902817e719e1e970b1b997ca15d1cf8943c70b678012b624f8"
   ],
-  "last_posted_at": "2026-11-07T07:31:44.597728+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:14",
-      "due_at": "2026-11-07T08:28:00+00:00"
-    },
-    "source": {
-      "id": "2118687615557730637",
-      "url": "https://x.com/WSJ/status/2118687615557730637",
-      "author": "WSJ",
-      "author_id": "3108351",
-      "text": "Tesla will wind down production of the Cybertruck at its Texas gigafactory next year, Chief Executive Elon Musk said https://t.co/haTCEv30fP",
-      "created_at": "2026-11-06T12:51:05+00:00",
-      "views": 391112,
-      "urls": [
-        "https://on.wsj.com/4sIOA5L"
-      ],
-      "source_ids": [
-        "2118687615557730637"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — WSJ reports: Tesla will wind down Cybertruck production at its Texas gigafactory next year. \n\nThe report says CEO Elon Musk made the statement, citing persistent weak sales for the vehicle.",
-      "event_key": "Tesla Cybertruck Production Wind Down",
-      "premise": "Reported by WSJ: Tesla will wind down production of the Cybertruck at its Texas gigafactory next year, according to Elon Musk."
-    },
-    "reserved_at": "2026-11-07T08:31:15.596772+00:00",
-    "approval": "22beca62ced6c0783fe70ca14ea4d497f7a3e17c03c5afb39de12b1950d811a2",
-    "run": [
-      "42355800211",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118687615557730637"
-      ],
-      "used_urls": [
-        "https://on.wsj.com/4sIOA5L"
-      ],
-      "used_texts": [
-        "7aeb432d10c69e902817e719e1e970b1b997ca15d1cf8943c70b678012b624f8"
-      ],
-      "used_events": [
-        "cc37e487e819dfefe4c7961a9356af6a8a7f6c111eaceac9aba5f14f09645865"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T08:31:17.008271+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 9,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:13",
     "at": "2026-11-07T08:17:06.533579+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118984619462943138",
+    "source_id": "2118687615557730637"
   }
 }
