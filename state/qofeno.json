@@ -480,6 +480,21 @@
       "source_created_at": "2026-11-06T17:01:24+00:00",
       "tweet_id": "2119045031357264376",
       "posted_at": "2026-11-07T12:31:20.392977+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:22",
+      "due_at": "2026-11-07T13:16:00+00:00",
+      "text": "BREAKING — ChatGPT reports: Remix feature rolling out to ChatGPT Business and Enterprise accounts.\n\nThe report says users can now make their own version of a site by telling ChatGPT what they want to change, then keep editing their copy in chat.",
+      "event_key": "Remix feature rolling out to ChatGPT Business and Enterprise accounts",
+      "premise": "Reported by ChatGPT: Now rolling out to ChatGPT Business and Enterprise accounts.",
+      "source_id": "2118827837239226387",
+      "author": "ChatGPT",
+      "source_url": "https://x.com/ChatGPT/status/2118827837239226387",
+      "source_views": 127856,
+      "source_checked_at": "2026-11-07T13:16:09.179422+00:00",
+      "source_created_at": "2026-11-06T22:08:16+00:00",
+      "tweet_id": "2119056315012272197",
+      "posted_at": "2026-11-07T13:16:10.590501+00:00"
     }
   ],
   "used_source_ids": [
@@ -1057,54 +1072,17 @@
     "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6",
     "ca493f805b4e59a80650b7f0c7f950cd0733ba5d7b14c32b5d032f1ff9712ed3"
   ],
-  "last_posted_at": "2026-11-07T12:31:20.392977+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:22",
-      "due_at": "2026-11-07T13:16:00+00:00"
-    },
-    "source": {
-      "id": "2118827837239226387",
-      "url": "https://x.com/ChatGPT/status/2118827837239226387",
-      "author": "ChatGPT",
-      "author_id": "1714438092655149056",
-      "text": "Your teammate built a great site. Naturally, you have notes.\n\nWith Remix, make your own version of a site by telling ChatGPT what you'd like to change. Then keep editing your copy in chat.\n\nNow rolling out to ChatGPT Business and Enterprise accounts. https://t.co/OW3gDwHa4Q",
-      "created_at": "2026-11-06T22:08:16+00:00",
-      "views": 127856,
-      "urls": [],
-      "source_ids": [
-        "2118827837239226387"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — ChatGPT reports: Remix feature rolling out to ChatGPT Business and Enterprise accounts.\n\nThe report says users can now make their own version of a site by telling ChatGPT what they want to change, then keep editing their copy in chat.",
-      "event_key": "Remix feature rolling out to ChatGPT Business and Enterprise accounts",
-      "premise": "Reported by ChatGPT: Now rolling out to ChatGPT Business and Enterprise accounts."
-    },
-    "reserved_at": "2026-11-07T13:16:09.179422+00:00",
-    "approval": "547dd3535035dd4352489d8c3b0b67cc2d39fd1bddba5bac05501936ac0ff153",
-    "run": [
-      "42375009387",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118827837239226387"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "ca493f805b4e59a80650b7f0c7f950cd0733ba5d7b14c32b5d032f1ff9712ed3"
-      ],
-      "used_events": [
-        "1587d9b031307a6c381115e51fcc8ad1507a04a1019885ee23f07981ff9ac03c"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T13:16:10.590501+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:21",
     "at": "2026-11-07T13:06:40.294815+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119056315012272197",
+    "source_id": "2118827837239226387"
   }
 }
