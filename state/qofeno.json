@@ -703,7 +703,8 @@
     "2118750610950332589",
     "2118827837239226387",
     "2118779807676686382",
-    "2118783186859884688"
+    "2118783186859884688",
+    "2118895128152621153"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -721,7 +722,8 @@
     "https://lab.einsia.ai/frontier3dbench",
     "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf",
     "https://on.wsj.com/4sIOA5L",
-    "https://composio.dev/instant"
+    "https://composio.dev/instant",
+    "https://opencode.ai/product/browse"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -758,7 +760,8 @@
     "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd",
     "1587d9b031307a6c381115e51fcc8ad1507a04a1019885ee23f07981ff9ac03c",
     "af177cde2a04ca8ff146dffa79bb0e656365c5db84d81289e1040366a150e6ce",
-    "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e"
+    "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e",
+    "b2c25890d03f674e1fa087d22761d1c776fcb38b91bf19d47c285b44762da951"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1106,12 +1109,58 @@
     "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6",
     "ca493f805b4e59a80650b7f0c7f950cd0733ba5d7b14c32b5d032f1ff9712ed3",
     "784d78157eb0aab6761ce81c44455c880795402576d3d1d52510da746812a3e3",
-    "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570"
+    "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570",
+    "f0487fd8c433b4f2b89359abcffbd39b898a0fb6c153e2856a0c51c87f8db692"
   ],
   "last_posted_at": "2026-11-07T15:03:08.612259+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:26",
+      "due_at": "2026-11-07T15:41:00+00:00"
+    },
+    "source": {
+      "id": "2118895128152621153",
+      "url": "https://x.com/opencode/status/2118895128152621153",
+      "author": "opencode",
+      "author_id": "1965545045089792000",
+      "text": "OpenCode Browse is now available\n\nit lets your agent control your real browser with your tabs and logins and extensions\n\nhttps://t.co/tJUu3TapR0",
+      "created_at": "2026-11-07T02:35:40+00:00",
+      "views": 182870,
+      "urls": [
+        "https://opencode.ai/product/browse"
+      ],
+      "source_ids": [
+        "2118895128152621153"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — opencode reports: OpenCode Browse is now available\n\nOpenCode Browse lets your agent control your real browser with your tabs, logins, and extensions.",
+      "event_key": "OpenCode Browse available with browser control",
+      "premise": "OpenCode Browse is now available, letting your agent control your real browser with your tabs, logins, and extensions."
+    },
+    "reserved_at": "2026-11-07T15:51:15.981400+00:00",
+    "approval": "8e6752408aea5b1483cc1588a0baec978f710438f7a11f56705566dec362c294",
+    "run": [
+      "42386742575",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118895128152621153"
+      ],
+      "used_urls": [
+        "https://opencode.ai/product/browse"
+      ],
+      "used_texts": [
+        "f0487fd8c433b4f2b89359abcffbd39b898a0fb6c153e2856a0c51c87f8db692"
+      ],
+      "used_events": [
+        "b2c25890d03f674e1fa087d22761d1c776fcb38b91bf19d47c285b44762da951"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 2,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:26",
     "at": "2026-11-07T15:41:07.064582+00:00",
