@@ -495,6 +495,21 @@
       "source_created_at": "2026-11-06T22:08:16+00:00",
       "tweet_id": "2119056315012272197",
       "posted_at": "2026-11-07T13:16:10.590501+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:24",
+      "due_at": "2026-11-07T14:31:00+00:00",
+      "text": "BREAKING — Complex reports: Tesla to wind down Cybertruck production at Texas factory by mid-2027\n\nThe report says the decision is to make room for increased production of the two-seat Cybercab robotaxi.",
+      "event_key": "Tesla Cybertruck Discontinued for Cybercab Production",
+      "premise": "Reported by Complex: Elon Musk announced that Tesla will wind down Cybertruck production at its Texas factory around mid-2027 to make room for increased production of its two-seat Cybercab robotaxi.",
+      "source_id": "2118779807676686382",
+      "author": "Complex",
+      "source_url": "https://x.com/Complex/status/2118779807676686382",
+      "source_views": 454616,
+      "source_checked_at": "2026-11-07T14:31:20.719926+00:00",
+      "source_created_at": "2026-11-06T18:57:25+00:00",
+      "tweet_id": "2119075237816054261",
+      "posted_at": "2026-11-07T14:31:22.114402+00:00"
     }
   ],
   "used_source_ids": [
@@ -1075,54 +1090,17 @@
     "ca493f805b4e59a80650b7f0c7f950cd0733ba5d7b14c32b5d032f1ff9712ed3",
     "784d78157eb0aab6761ce81c44455c880795402576d3d1d52510da746812a3e3"
   ],
-  "last_posted_at": "2026-11-07T13:16:10.590501+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:24",
-      "due_at": "2026-11-07T14:31:00+00:00"
-    },
-    "source": {
-      "id": "2118779807676686382",
-      "url": "https://x.com/Complex/status/2118779807676686382",
-      "author": "Complex",
-      "author_id": "13049362",
-      "text": "The CyberTruck is officially being discontinued 🪦\n\nElon Musk announced that Tesla will wind down Cybertruck production at its Texas factory around mid-2027 to make room for increased production of its two-seat Cybercab robotaxi. https://t.co/VvGY1Kbuta",
-      "created_at": "2026-11-06T18:57:25+00:00",
-      "views": 454616,
-      "urls": [],
-      "source_ids": [
-        "2118779807676686382"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — Complex reports: Tesla to wind down Cybertruck production at Texas factory by mid-2027\n\nThe report says the decision is to make room for increased production of the two-seat Cybercab robotaxi.",
-      "event_key": "Tesla Cybertruck Discontinued for Cybercab Production",
-      "premise": "Reported by Complex: Elon Musk announced that Tesla will wind down Cybertruck production at its Texas factory around mid-2027 to make room for increased production of its two-seat Cybercab robotaxi."
-    },
-    "reserved_at": "2026-11-07T14:31:20.719926+00:00",
-    "approval": "486f4d31e3aabcaabebeabe5aff28ed026450a12eb914f063816934bd17f630b",
-    "run": [
-      "42381949020",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118779807676686382"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "784d78157eb0aab6761ce81c44455c880795402576d3d1d52510da746812a3e3"
-      ],
-      "used_events": [
-        "af177cde2a04ca8ff146dffa79bb0e656365c5db84d81289e1040366a150e6ce"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T14:31:22.114402+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:23",
     "at": "2026-11-07T14:15:28.791537+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119075237816054261",
+    "source_id": "2118779807676686382"
   }
 }
