@@ -559,7 +559,8 @@
     "2118785613436698719",
     "2118764469270802447",
     "2118753617637409000",
-    "2118682358442271159"
+    "2118682358442271159",
+    "2118716282971599349"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -572,7 +573,10 @@
     "https://anthropic.com/research/components-of-agent-memory",
     "https://anthropic.com/research/teaching-ai-to-build-scientific-models",
     "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai",
-    "https://reut.rs/4zuYVVD"
+    "https://reut.rs/4zuYVVD",
+    "https://github.com/Einsia/Frontier3D",
+    "https://lab.einsia.ai/frontier3dbench",
+    "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -600,7 +604,8 @@
     "5d0e1c02f6f5263e570028ae842fd2971e03f112dbe55fb3811dbfd9be994e28",
     "0278fcd3a58749fc3a05f7abccfca5a4016001e604af43a4644dac588fe87de6",
     "7bb0952091e6c967881599f0abf1c0f27c4e10db00ad33e18a0f8e50dfb24689",
-    "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf"
+    "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf",
+    "4e4468e2383fd86d23017ce1191b8bd923a93c93724f22ba65a6d782febfe00d"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -939,12 +944,62 @@
     "3f69a57fbd2c623e610fd08d4e1dc31bdea68c49619866ac9e1a20d307df1981",
     "aa0b5ce36025f2b542ecff770cba831b18f4b8f16a468d93ad795c0b8d56f1be",
     "be2f49b76dd5701cebf6ca51941ab40d638d6b9294b109fdb28827093a0ddfd2",
-    "50af75ae50c064e4662d4ab218b96f93648b4755fbb40bf8e46b55175ee9bd9d"
+    "50af75ae50c064e4662d4ab218b96f93648b4755fbb40bf8e46b55175ee9bd9d",
+    "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57"
   ],
   "last_posted_at": "2026-11-07T06:56:24.498775+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:12",
+      "due_at": "2026-11-07T07:14:00+00:00"
+    },
+    "source": {
+      "id": "2118716282971599349",
+      "url": "https://x.com/EinsiaAI/status/2118716282971599349",
+      "author": "EinsiaAI",
+      "author_id": "2016491434120294400",
+      "text": "Can coding agents replace traditional 3D vision pipelines and build a entire interactive worlds from code?\n\nIntroducing Einsia AI's Frontier3DBench — a unified benchmark evaluating coding agents across 3D Objects, Scenes, and Interactive Open Worlds.\n\n- 145 tasks across 9 categories (Blender & UE5)\n- 11 frontier model-harness configurations\n- Joint evaluation: Appearance, Structure & Behavior\n\nProject: https://t.co/yalc6nOeNO\nGitHub: https://t.co/6QbvF2UFeV\npaper:https://t.co/bLRqF9yYO5\n\n🧵 See key findings below 👇",
+      "created_at": "2026-11-06T14:45:00+00:00",
+      "views": 306683,
+      "urls": [
+        "https://lab.einsia.ai/frontier3dbench",
+        "https://github.com/Einsia/Frontier3D",
+        "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf"
+      ],
+      "source_ids": [
+        "2118716282971599349"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — EinsiaAI reports: Einsia AI introduces Frontier3DBench for evaluating coding agents in 3D environments.\n\nThe report says the benchmark includes 145 tasks across 9 categories and 11 frontier model-harness configurations.",
+      "event_key": "Einsia AI introduces Frontier3DBench for evaluating coding agents in 3D environments",
+      "premise": "Einsia AI introduces Frontier3DBench, a benchmark evaluating coding agents across 3D Objects, Scenes, and Interactive Open Worlds with 145 tasks and 11 model-harness configurations."
+    },
+    "reserved_at": "2026-11-07T07:31:42.800594+00:00",
+    "approval": "800928ecc398521e53d1b035eda9f63f9be0415838dd1634ed5362e1654894ea",
+    "run": [
+      "42351591132",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118716282971599349"
+      ],
+      "used_urls": [
+        "https://github.com/Einsia/Frontier3D",
+        "https://lab.einsia.ai/frontier3dbench",
+        "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf"
+      ],
+      "used_texts": [
+        "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57"
+      ],
+      "used_events": [
+        "4e4468e2383fd86d23017ce1191b8bd923a93c93724f22ba65a6d782febfe00d"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 4,
+  "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:12",
     "at": "2026-11-07T07:21:33.694230+00:00",
