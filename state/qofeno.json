@@ -479,7 +479,8 @@
     "2118770823347507273",
     "2118814753154064501",
     "2118795192090386454",
-    "2118792930211107115"
+    "2118792930211107115",
+    "2118767522782626104"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -490,7 +491,8 @@
     "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd",
     "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
     "https://anthropic.com/research/components-of-agent-memory",
-    "https://anthropic.com/research/teaching-ai-to-build-scientific-models"
+    "https://anthropic.com/research/teaching-ai-to-build-scientific-models",
+    "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -513,7 +515,8 @@
     "a632332a47d1a73c1e065ff0df623635081454574216c2b838ab34d8ab5fdae1",
     "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c",
     "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2",
-    "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf"
+    "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf",
+    "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -847,12 +850,58 @@
     "fd9e29885a8dfb6b5a72b26d9173d6e87576574d81089eec0cc6eda9d2add22f",
     "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d",
     "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e",
-    "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370"
+    "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370",
+    "0bd3324555955d444b2f2cff6f4fd0f99dc2bc4019f4f6c178d2943afb7ac1db"
   ],
   "last_posted_at": "2026-11-07T01:01:30.487951+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:2",
+      "due_at": "2026-11-07T01:19:00+00:00"
+    },
+    "source": {
+      "id": "2118767522782626104",
+      "url": "https://x.com/finkd/status/2118767522782626104",
+      "author": "finkd",
+      "author_id": "20749410",
+      "text": "Upgraded the models for Muse and Meta Al, bringing Active Memory and Active Focus from Muse Wonder to everyone. In Muse, these new specialized models are 2.4x less likely to forget critical info and are 67% better at self correcting and completing everyday tasks which means less repeating yourself and fewer dead ends.\n\nMore on the models: https://t.co/P2DvI43xDj",
+      "created_at": "2026-11-06T18:08:36+00:00",
+      "views": 223989,
+      "urls": [
+        "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai"
+      ],
+      "source_ids": [
+        "2118767522782626104"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — finkd reports: Muse and Meta Al models upgraded with Active Memory and Active Focus.\n\nThe report says the new models are 2.4x less likely to forget critical info and 67% better at self-correcting and completing tasks.",
+      "event_key": "Muse and Meta Al models upgraded with Active Memory and Active Focus",
+      "premise": "Upgraded the models for Muse and Meta Al, bringing Active Memory and Active Focus from Muse Wonder to everyone."
+    },
+    "reserved_at": "2026-11-07T01:26:36.444135+00:00",
+    "approval": "f680229a865401de6b266aa81a77ac7205875e373e0298d47c30229c04f40b96",
+    "run": [
+      "42321666648",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118767522782626104"
+      ],
+      "used_urls": [
+        "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai"
+      ],
+      "used_texts": [
+        "0bd3324555955d444b2f2cff6f4fd0f99dc2bc4019f4f6c178d2943afb7ac1db"
+      ],
+      "used_events": [
+        "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:1",
     "at": "2026-11-07T00:39:12.406618+00:00",
