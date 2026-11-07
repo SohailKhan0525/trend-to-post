@@ -510,6 +510,21 @@
       "source_created_at": "2026-11-06T18:57:25+00:00",
       "tweet_id": "2119075237816054261",
       "posted_at": "2026-11-07T14:31:22.114402+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:25",
+      "due_at": "2026-11-07T15:03:00+00:00",
+      "text": "BREAKING — AsideAI reports: Aside Computer Use launches with 2.7x faster performance\n\nThe report says it uses 65% fewer tokens than Codex and runs in the background across multiple apps on macOS.",
+      "event_key": "Aside Computer Use release with 2.7x faster performance",
+      "premise": "Introducing Aside Computer Use, which claims to be 2.7x faster with 65% fewer tokens vs Codex, runs in the background across multiple apps on macOS, and is available now on Mac & Windows.",
+      "source_id": "2118783186859884688",
+      "author": "AsideAI",
+      "source_url": "https://x.com/AsideAI/status/2118783186859884688",
+      "source_views": 101891,
+      "source_checked_at": "2026-11-07T15:03:07.044524+00:00",
+      "source_created_at": "2026-11-06T19:10:51+00:00",
+      "tweet_id": "2119083233925353935",
+      "posted_at": "2026-11-07T15:03:08.612259+00:00"
     }
   ],
   "used_source_ids": [
@@ -1093,54 +1108,17 @@
     "784d78157eb0aab6761ce81c44455c880795402576d3d1d52510da746812a3e3",
     "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570"
   ],
-  "last_posted_at": "2026-11-07T14:31:22.114402+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:25",
-      "due_at": "2026-11-07T15:03:00+00:00"
-    },
-    "source": {
-      "id": "2118783186859884688",
-      "url": "https://x.com/AsideAI/status/2118783186859884688",
-      "author": "AsideAI",
-      "author_id": "1781311066460557312",
-      "text": "Introducing Aside Computer Use.\n80% of work happens on browser, this covers the rest.\n\n- 2.7x faster with 65% fewer tokens vs Codex*\n- Runs in the background across multiple apps (macOS)\n- Available now on Mac &amp; Windows\n\nAside meets your computer.\n\n*based on internal evals https://t.co/5V8QApGvtk",
-      "created_at": "2026-11-06T19:10:51+00:00",
-      "views": 101891,
-      "urls": [],
-      "source_ids": [
-        "2118783186859884688"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — AsideAI reports: Aside Computer Use launches with 2.7x faster performance\n\nThe report says it uses 65% fewer tokens than Codex and runs in the background across multiple apps on macOS.",
-      "event_key": "Aside Computer Use release with 2.7x faster performance",
-      "premise": "Introducing Aside Computer Use, which claims to be 2.7x faster with 65% fewer tokens vs Codex, runs in the background across multiple apps on macOS, and is available now on Mac & Windows."
-    },
-    "reserved_at": "2026-11-07T15:03:07.044524+00:00",
-    "approval": "7d4129b89e716867444ab1cc0cf97f2cf208f5d05c25dcc67b62308b25939c0d",
-    "run": [
-      "42384301971",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118783186859884688"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570"
-      ],
-      "used_events": [
-        "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T15:03:08.612259+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 4,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:23",
     "at": "2026-11-07T14:15:28.791537+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119083233925353935",
+    "source_id": "2118783186859884688"
   }
 }
