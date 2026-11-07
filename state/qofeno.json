@@ -719,7 +719,8 @@
     "2118827837239226387",
     "2118779807676686382",
     "2118783186859884688",
-    "2118895128152621153"
+    "2118895128152621153",
+    "2118869352447656367"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -776,7 +777,8 @@
     "1587d9b031307a6c381115e51fcc8ad1507a04a1019885ee23f07981ff9ac03c",
     "af177cde2a04ca8ff146dffa79bb0e656365c5db84d81289e1040366a150e6ce",
     "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e",
-    "b2c25890d03f674e1fa087d22761d1c776fcb38b91bf19d47c285b44762da951"
+    "b2c25890d03f674e1fa087d22761d1c776fcb38b91bf19d47c285b44762da951",
+    "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1125,12 +1127,54 @@
     "ca493f805b4e59a80650b7f0c7f950cd0733ba5d7b14c32b5d032f1ff9712ed3",
     "784d78157eb0aab6761ce81c44455c880795402576d3d1d52510da746812a3e3",
     "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570",
-    "f0487fd8c433b4f2b89359abcffbd39b898a0fb6c153e2856a0c51c87f8db692"
+    "f0487fd8c433b4f2b89359abcffbd39b898a0fb6c153e2856a0c51c87f8db692",
+    "bbb40062db3a5f5bf88be897701d36c85e190b01d6544a5f07146594a69c9af7"
   ],
   "last_posted_at": "2026-11-07T15:51:17.434830+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:30",
+      "due_at": "2026-11-07T18:07:00+00:00"
+    },
+    "source": {
+      "id": "2118869352447656367",
+      "url": "https://x.com/CARN0N/status/2118869352447656367",
+      "author": "CARN0N",
+      "author_id": "1330815565649170432",
+      "text": "Yangwang just hit a top speed record of 503.17 km/h with the $3 million U9 Xtreme.\n\nThe new Tesla Roadster's top speed will be Mach 0.5, around 618 km/h or 385mph.\n\nThe Thrust reservation is $250,000. Final pricing hasn’t been announced. https://t.co/L9GMHuNvIV",
+      "created_at": "2026-11-07T00:53:14+00:00",
+      "views": 204009,
+      "urls": [],
+      "source_ids": [
+        "2118869352447656367"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — CARN0N reports: Tesla Roadster's top speed to reach 618 km/h\n\nThe report says the new Tesla Roadster will have a top speed of Mach 0.5, or approximately 618 km/h.",
+      "event_key": "Tesla Roadster Top Speed Announcement",
+      "premise": "Reported by CARN0N: The new Tesla Roadster's top speed will be Mach 0.5, around 618 km/h or 385mph."
+    },
+    "reserved_at": "2026-11-07T18:07:16.209110+00:00",
+    "approval": "a82f01cfcc15b9eb50ddaf9fc67a684b48c6065d3ff3bcebbebcf07606f03d9e",
+    "run": [
+      "42399137707",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118869352447656367"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "bbb40062db3a5f5bf88be897701d36c85e190b01d6544a5f07146594a69c9af7"
+      ],
+      "used_events": [
+        "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 4,
+  "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:29",
     "at": "2026-11-07T18:01:34.616885+00:00",
