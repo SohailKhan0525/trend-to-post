@@ -607,7 +607,8 @@
     "2118682358442271159",
     "2118716282971599349",
     "2118687615557730637",
-    "2118791723606593694"
+    "2118791723606593694",
+    "2118744950825275680"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -655,7 +656,8 @@
     "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf",
     "4e4468e2383fd86d23017ce1191b8bd923a93c93724f22ba65a6d782febfe00d",
     "cc37e487e819dfefe4c7961a9356af6a8a7f6c111eaceac9aba5f14f09645865",
-    "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79"
+    "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79",
+    "cf880ae2baaccec5d9afe84d817b27ac8a253aa9d300d654198f4fc337a4efa1"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -997,12 +999,54 @@
     "50af75ae50c064e4662d4ab218b96f93648b4755fbb40bf8e46b55175ee9bd9d",
     "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57",
     "7aeb432d10c69e902817e719e1e970b1b997ca15d1cf8943c70b678012b624f8",
-    "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6"
+    "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6",
+    "469539ba418562844780cd9f9409b2f1a06f8360bf67704cc055050cb2655739"
   ],
   "last_posted_at": "2026-11-07T09:17:26.392461+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:18",
+      "due_at": "2026-11-07T10:54:00+00:00"
+    },
+    "source": {
+      "id": "2118744950825275680",
+      "url": "https://x.com/ravisparikh/status/2118744950825275680",
+      "author": "ravisparikh",
+      "author_id": "93052930",
+      "text": "Dear Claude: you are being held back by human-centric graphics APIs.\n\nI've built a 3D and VFX engine where agents can write their own shaders, materials, cameras, physics.\n\nThe core API fits in ~2,500 tokens.\n\nVork is:\n• 2x more token-efficient vs Blender, Unreal Engine, Houdini\n• Up to 24x faster rendering times\n• Rust and Slang based engine, runs on GPU via Metal/Vulkan\n\nBelow is a simulation of 1 million birds - each with unique trajectories - rendered in 97 sec on one NVIDIA L4 GPU (Blender EEVEE: 31 minutes)",
+      "created_at": "2026-11-06T16:38:55+00:00",
+      "views": 356794,
+      "urls": [],
+      "source_ids": [
+        "2118744950825275680"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — ravisparikh reports: Vork 3D and VFX engine launched with 2x token efficiency and 24x faster rendering.\n\nThe report says the core API fits in ~2,500 tokens and runs on GPU via Metal/Vulkan.",
+      "event_key": "Vork 3D and VFX engine with 2x token efficiency and 24x faster rendering",
+      "premise": "A 3D and VFX engine called Vork was built with a 2,500 token core API, claims 2x token efficiency vs Blender, Unreal Engine, Houdini, and up to 24x faster rendering times."
+    },
+    "reserved_at": "2026-11-07T11:11:44.809156+00:00",
+    "approval": "b82daeab0fa836576cf8231aff40cadca5f3c465f33b907a7d1cae9cb47651ba",
+    "run": [
+      "42366365783",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118744950825275680"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "469539ba418562844780cd9f9409b2f1a06f8360bf67704cc055050cb2655739"
+      ],
+      "used_events": [
+        "cf880ae2baaccec5d9afe84d817b27ac8a253aa9d300d654198f4fc337a4efa1"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 5,
+  "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:18",
     "at": "2026-11-07T11:01:36.960499+00:00",
