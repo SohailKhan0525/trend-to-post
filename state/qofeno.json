@@ -735,7 +735,8 @@
     "2118779807676686382",
     "2118783186859884688",
     "2118895128152621153",
-    "2118869352447656367"
+    "2118869352447656367",
+    "2118816694101491973"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -793,7 +794,8 @@
     "af177cde2a04ca8ff146dffa79bb0e656365c5db84d81289e1040366a150e6ce",
     "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e",
     "b2c25890d03f674e1fa087d22761d1c776fcb38b91bf19d47c285b44762da951",
-    "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0"
+    "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0",
+    "845349d7acaf03efeca14d6f7e4b3e7ba1dc44636e4b0887ad0c803baa00ac20"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1143,12 +1145,54 @@
     "784d78157eb0aab6761ce81c44455c880795402576d3d1d52510da746812a3e3",
     "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570",
     "f0487fd8c433b4f2b89359abcffbd39b898a0fb6c153e2856a0c51c87f8db692",
-    "bbb40062db3a5f5bf88be897701d36c85e190b01d6544a5f07146594a69c9af7"
+    "bbb40062db3a5f5bf88be897701d36c85e190b01d6544a5f07146594a69c9af7",
+    "4f14f1bb7354122b0c9190bc42d1f84297ae7d2d771c23912e8c4d0465b51e0f"
   ],
   "last_posted_at": "2026-11-07T18:07:17.766373+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:31",
+      "due_at": "2026-11-07T18:42:00+00:00"
+    },
+    "source": {
+      "id": "2118816694101491973",
+      "url": "https://x.com/DailyLoud/status/2118816694101491973",
+      "author": "DailyLoud",
+      "author_id": "452540168",
+      "text": "Elon Musk says Tesla will end Cybertruck production in 2027",
+      "created_at": "2026-11-06T21:24:00+00:00",
+      "views": 193137,
+      "urls": [],
+      "source_ids": [
+        "2118816694101491973"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — DailyLoud reports: Tesla will end Cybertruck production in 2027\n\nThe report says Elon Musk announced the decision, citing persistent weak sales in few markets.",
+      "event_key": "Tesla Cybertruck production ending in 2027",
+      "premise": "Reported by DailyLoud: Elon Musk says Tesla will end Cybertruck production in 2027"
+    },
+    "reserved_at": "2026-11-07T18:42:11.021594+00:00",
+    "approval": "d6d8d292df96e57a8ebec359aad962192dcda28d8e214abd2c4af8e769707070",
+    "run": [
+      "42401661386",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118816694101491973"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "4f14f1bb7354122b0c9190bc42d1f84297ae7d2d771c23912e8c4d0465b51e0f"
+      ],
+      "used_events": [
+        "845349d7acaf03efeca14d6f7e4b3e7ba1dc44636e4b0887ad0c803baa00ac20"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 2,
+  "candidate_cursor": 6,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:29",
     "at": "2026-11-07T18:01:34.616885+00:00",
