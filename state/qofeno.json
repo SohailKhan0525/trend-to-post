@@ -300,6 +300,21 @@
       "source_created_at": "2026-11-06T19:58:33+00:00",
       "tweet_id": "2118838983220412422",
       "posted_at": "2026-11-06T22:52:34.645788+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:1",
+      "due_at": "2026-11-07T00:39:00+00:00",
+      "text": "BREAKING — AnthropicAI reports: AI is starting to help with writing, running, fitting, and revising scientific models as code.\n\nThe report says AI can explore many possible model structures and find which explanations the data support.",
+      "event_key": "AI aiding scientific modeling process",
+      "premise": "Reported by AnthropicAI: AI is starting to help with writing, running, fitting, and revising scientific models as code, exploring many possible model structures, and finding which explanations the data support.",
+      "source_id": "2118792930211107115",
+      "author": "AnthropicAI",
+      "source_url": "https://x.com/AnthropicAI/status/2118792930211107115",
+      "source_views": 162656,
+      "source_checked_at": "2026-11-07T01:01:29.017878+00:00",
+      "source_created_at": "2026-11-06T19:49:34+00:00",
+      "tweet_id": "2118871429693227428",
+      "posted_at": "2026-11-07T01:01:30.487951+00:00"
     }
   ],
   "used_source_ids": [
@@ -834,58 +849,17 @@
     "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e",
     "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370"
   ],
-  "last_posted_at": "2026-11-06T22:52:34.645788+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:1",
-      "due_at": "2026-11-07T00:39:00+00:00"
-    },
-    "source": {
-      "id": "2118792930211107115",
-      "url": "https://x.com/AnthropicAI/status/2118792930211107115",
-      "author": "AnthropicAI",
-      "author_id": "1353836358901501952",
-      "text": "New on our Science Blog: How AI is beginning to change scientific modeling.\n\nScientific models help researchers explain and predict real-world systems—like how a single nerve cell fires, or what happens when neutron stars collide. Recent advances have transformed how scientists fit complex models to data. But scientists still typically write the models manually, and usually need to weigh up several competing versions, each of which might explain the data in a different way.\n\nIn a guest post, Jakob Macke, Daniel Gedon, and Stefan Wahl describe how AI is starting to help with these parts of the process. By writing, running, fitting, and revising scientific models as code, AI can explore many possible model structures, and find out which explanations the data support.\n\nhttps://t.co/qsFJG76FDw",
-      "created_at": "2026-11-06T19:49:34+00:00",
-      "views": 162656,
-      "urls": [
-        "https://anthropic.com/research/teaching-ai-to-build-scientific-models"
-      ],
-      "source_ids": [
-        "2118792930211107115"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — AnthropicAI reports: AI is starting to help with writing, running, fitting, and revising scientific models as code.\n\nThe report says AI can explore many possible model structures and find which explanations the data support.",
-      "event_key": "AI aiding scientific modeling process",
-      "premise": "Reported by AnthropicAI: AI is starting to help with writing, running, fitting, and revising scientific models as code, exploring many possible model structures, and finding which explanations the data support."
-    },
-    "reserved_at": "2026-11-07T01:01:29.017878+00:00",
-    "approval": "de28a6dd5c7ae5894ee7a201440cfd834ebe590014fbc2d01ceb2170ecc62691",
-    "run": [
-      "42321666648",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118792930211107115"
-      ],
-      "used_urls": [
-        "https://anthropic.com/research/teaching-ai-to-build-scientific-models"
-      ],
-      "used_texts": [
-        "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370"
-      ],
-      "used_events": [
-        "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T01:01:30.487951+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:1",
     "at": "2026-11-07T00:39:12.406618+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118871429693227428",
+    "source_id": "2118792930211107115"
   }
 }
