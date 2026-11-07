@@ -495,7 +495,8 @@
     "2118814753154064501",
     "2118795192090386454",
     "2118792930211107115",
-    "2118767522782626104"
+    "2118767522782626104",
+    "2118785613436698719"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -531,7 +532,8 @@
     "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c",
     "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2",
     "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf",
-    "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2"
+    "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2",
+    "5d0e1c02f6f5263e570028ae842fd2971e03f112dbe55fb3811dbfd9be994e28"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -866,12 +868,54 @@
     "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d",
     "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e",
     "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370",
-    "0bd3324555955d444b2f2cff6f4fd0f99dc2bc4019f4f6c178d2943afb7ac1db"
+    "0bd3324555955d444b2f2cff6f4fd0f99dc2bc4019f4f6c178d2943afb7ac1db",
+    "3f69a57fbd2c623e610fd08d4e1dc31bdea68c49619866ac9e1a20d307df1981"
   ],
   "last_posted_at": "2026-11-07T01:26:38.079786+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:3",
+      "due_at": "2026-11-07T01:52:00+00:00"
+    },
+    "source": {
+      "id": "2118785613436698719",
+      "url": "https://x.com/davidsuttonca/status/2118785613436698719",
+      "author": "davidsuttonca",
+      "author_id": "21024784",
+      "text": "Claude Duet: now with Claude Code sessions\n\nCheck what's running, approve changes and send updates - all from your phone. Works with sessions on your computer or in the cloud.\n\n/cc @navbryce and @joshleibsly https://t.co/tsUk9pSXV9",
+      "created_at": "2026-11-06T19:20:30+00:00",
+      "views": 104670,
+      "urls": [],
+      "source_ids": [
+        "2118785613436698719"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — davidsuttonca reports: Claude Duet now includes Claude Code sessions\n\nThe report says users can check what's running, approve changes, and send updates from their phone, working with sessions on their computer or in the cloud.",
+      "event_key": "Claude Duet with Claude Code sessions",
+      "premise": "Reported by davidsuttonca: Claude Duet now includes Claude Code sessions, allowing users to check what's running, approve changes, and send updates from their phone, working with sessions on their computer or in the cloud."
+    },
+    "reserved_at": "2026-11-07T02:02:20.517257+00:00",
+    "approval": "e3492e7edb89d9871d9f2eb679f08ac89a23428506e8463d21bd8e94ab45812e",
+    "run": [
+      "42327063949",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118785613436698719"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "3f69a57fbd2c623e610fd08d4e1dc31bdea68c49619866ac9e1a20d307df1981"
+      ],
+      "used_events": [
+        "5d0e1c02f6f5263e570028ae842fd2971e03f112dbe55fb3811dbfd9be994e28"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 2,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:3",
     "at": "2026-11-07T01:52:10.943373+00:00",
