@@ -889,10 +889,10 @@
   "last_posted_at": "2026-11-07T02:02:22.466340+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 4,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:5",
-    "at": "2026-11-07T03:31:16.479084+00:00",
+    "at": "2026-11-07T03:41:25.797795+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   }
 }
