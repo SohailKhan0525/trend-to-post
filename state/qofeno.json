@@ -511,7 +511,8 @@
     "2118795192090386454",
     "2118792930211107115",
     "2118767522782626104",
-    "2118785613436698719"
+    "2118785613436698719",
+    "2118764469270802447"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -548,7 +549,8 @@
     "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2",
     "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf",
     "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2",
-    "5d0e1c02f6f5263e570028ae842fd2971e03f112dbe55fb3811dbfd9be994e28"
+    "5d0e1c02f6f5263e570028ae842fd2971e03f112dbe55fb3811dbfd9be994e28",
+    "0278fcd3a58749fc3a05f7abccfca5a4016001e604af43a4644dac588fe87de6"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -884,12 +886,54 @@
     "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e",
     "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370",
     "0bd3324555955d444b2f2cff6f4fd0f99dc2bc4019f4f6c178d2943afb7ac1db",
-    "3f69a57fbd2c623e610fd08d4e1dc31bdea68c49619866ac9e1a20d307df1981"
+    "3f69a57fbd2c623e610fd08d4e1dc31bdea68c49619866ac9e1a20d307df1981",
+    "aa0b5ce36025f2b542ecff770cba831b18f4b8f16a468d93ad795c0b8d56f1be"
   ],
   "last_posted_at": "2026-11-07T02:02:22.466340+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:8",
+      "due_at": "2026-11-07T04:55:00+00:00"
+    },
+    "source": {
+      "id": "2118764469270802447",
+      "url": "https://x.com/dhh/status/2118764469270802447",
+      "author": "dhh",
+      "author_id": "14561327",
+      "text": "Omarchy is up and running on the @anduriltech BlueChip!! All our work on @Snapdragon compatibility is paying off. This thing is awesome, @PalmerLuckey! We are going to make it a superb Omarchy machine 🦅🫡 https://t.co/fdyMOu2MgZ",
+      "created_at": "2026-11-06T17:56:28+00:00",
+      "views": 103530,
+      "urls": [],
+      "source_ids": [
+        "2118764469270802447"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — dhh reports: Omarchy is up and running on the Anduriltech BlueChip\n\nThe report says work on Snapdragon compatibility is paying off, with dhh praising the performance and noting it's a 'superb Omarchy machine'.",
+      "event_key": "Omarchy running on Anduriltech BlueChip",
+      "premise": "Reported by dhh: Omarchy is up and running on the Anduriltech BlueChip. Work on Snapdragon compatibility is paying off."
+    },
+    "reserved_at": "2026-11-07T05:01:33.307556+00:00",
+    "approval": "8456df2e93e5b8cfd9c548f807087c8a2e5242dc294c95d4f2b431e7eeb0f57e",
+    "run": [
+      "42340899957",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118764469270802447"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "aa0b5ce36025f2b542ecff770cba831b18f4b8f16a468d93ad795c0b8d56f1be"
+      ],
+      "used_events": [
+        "0278fcd3a58749fc3a05f7abccfca5a4016001e604af43a4644dac588fe87de6"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:7",
     "at": "2026-11-07T04:41:18.034237+00:00",
