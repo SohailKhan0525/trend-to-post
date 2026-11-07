@@ -435,6 +435,21 @@
       "source_created_at": "2026-11-06T19:44:46+00:00",
       "tweet_id": "2118996234929307779",
       "posted_at": "2026-11-07T09:17:26.392461+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:18",
+      "due_at": "2026-11-07T10:54:00+00:00",
+      "text": "BREAKING — ravisparikh reports: Vork 3D and VFX engine launched with 2x token efficiency and 24x faster rendering.\n\nThe report says the core API fits in ~2,500 tokens and runs on GPU via Metal/Vulkan.",
+      "event_key": "Vork 3D and VFX engine with 2x token efficiency and 24x faster rendering",
+      "premise": "A 3D and VFX engine called Vork was built with a 2,500 token core API, claims 2x token efficiency vs Blender, Unreal Engine, Houdini, and up to 24x faster rendering times.",
+      "source_id": "2118744950825275680",
+      "author": "ravisparikh",
+      "source_url": "https://x.com/ravisparikh/status/2118744950825275680",
+      "source_views": 356794,
+      "source_checked_at": "2026-11-07T11:11:44.809156+00:00",
+      "source_created_at": "2026-11-06T16:38:55+00:00",
+      "tweet_id": "2119025007162700117",
+      "posted_at": "2026-11-07T11:11:46.183696+00:00"
     }
   ],
   "used_source_ids": [
@@ -1002,54 +1017,17 @@
     "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6",
     "469539ba418562844780cd9f9409b2f1a06f8360bf67704cc055050cb2655739"
   ],
-  "last_posted_at": "2026-11-07T09:17:26.392461+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:18",
-      "due_at": "2026-11-07T10:54:00+00:00"
-    },
-    "source": {
-      "id": "2118744950825275680",
-      "url": "https://x.com/ravisparikh/status/2118744950825275680",
-      "author": "ravisparikh",
-      "author_id": "93052930",
-      "text": "Dear Claude: you are being held back by human-centric graphics APIs.\n\nI've built a 3D and VFX engine where agents can write their own shaders, materials, cameras, physics.\n\nThe core API fits in ~2,500 tokens.\n\nVork is:\n• 2x more token-efficient vs Blender, Unreal Engine, Houdini\n• Up to 24x faster rendering times\n• Rust and Slang based engine, runs on GPU via Metal/Vulkan\n\nBelow is a simulation of 1 million birds - each with unique trajectories - rendered in 97 sec on one NVIDIA L4 GPU (Blender EEVEE: 31 minutes)",
-      "created_at": "2026-11-06T16:38:55+00:00",
-      "views": 356794,
-      "urls": [],
-      "source_ids": [
-        "2118744950825275680"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — ravisparikh reports: Vork 3D and VFX engine launched with 2x token efficiency and 24x faster rendering.\n\nThe report says the core API fits in ~2,500 tokens and runs on GPU via Metal/Vulkan.",
-      "event_key": "Vork 3D and VFX engine with 2x token efficiency and 24x faster rendering",
-      "premise": "A 3D and VFX engine called Vork was built with a 2,500 token core API, claims 2x token efficiency vs Blender, Unreal Engine, Houdini, and up to 24x faster rendering times."
-    },
-    "reserved_at": "2026-11-07T11:11:44.809156+00:00",
-    "approval": "b82daeab0fa836576cf8231aff40cadca5f3c465f33b907a7d1cae9cb47651ba",
-    "run": [
-      "42366365783",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118744950825275680"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "469539ba418562844780cd9f9409b2f1a06f8360bf67704cc055050cb2655739"
-      ],
-      "used_events": [
-        "cf880ae2baaccec5d9afe84d817b27ac8a253aa9d300d654198f4fc337a4efa1"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T11:11:46.183696+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:18",
     "at": "2026-11-07T11:01:36.960499+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119025007162700117",
+    "source_id": "2118744950825275680"
   }
 }
