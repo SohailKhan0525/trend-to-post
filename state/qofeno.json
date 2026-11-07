@@ -570,6 +570,21 @@
       "source_created_at": "2026-11-06T21:24:00+00:00",
       "tweet_id": "2119138365190856788",
       "posted_at": "2026-11-07T18:42:12.889162+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:37",
+      "due_at": "2026-11-07T22:14:00+00:00",
+      "text": "BREAKING — XFreeze reports: Tesla Model Y is the world’s best-selling passenger vehicle for 3 consecutive years\n\nThe report says the Model Y has surpassed 4 million global sales, while Tesla has delivered more than 10 million vehicles worldwide.",
+      "event_key": "Tesla Model Y best-selling passenger vehicle for 3 consecutive years",
+      "premise": "Reported by XFreeze: Tesla Model Y has been the world’s best-selling passenger vehicle for 3 consecutive years, with over 4 million global sales and more than 10 million vehicles delivered worldwide.",
+      "source_id": "2119144915456417842",
+      "author": "XFreeze",
+      "source_url": "https://x.com/XFreeze/status/2119144915456417842",
+      "source_views": 543902,
+      "source_checked_at": "2026-11-07T22:31:14.988242+00:00",
+      "source_created_at": "2026-11-07T19:08:14+00:00",
+      "tweet_id": "2119196010891370992",
+      "posted_at": "2026-11-07T22:31:16.707002+00:00"
     }
   ],
   "used_source_ids": [
@@ -1166,54 +1181,17 @@
     "4f14f1bb7354122b0c9190bc42d1f84297ae7d2d771c23912e8c4d0465b51e0f",
     "fb78ed0e8210ef6880c5f9d764bd183d5f1848cc7b38a55dc9e5b10781b01ab7"
   ],
-  "last_posted_at": "2026-11-07T18:42:12.889162+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:37",
-      "due_at": "2026-11-07T22:14:00+00:00"
-    },
-    "source": {
-      "id": "2119144915456417842",
-      "url": "https://x.com/XFreeze/status/2119144915456417842",
-      "author": "XFreeze",
-      "author_id": "1818311005698678784",
-      "text": "Tesla Model Y has been the world’s best-selling passenger vehicle for 3 consecutive years\n\n2023 → #1  \n2024 → #1  \n2025 → #1\n\nModel Y alone has surpassed 4 million global sales, while Tesla has now delivered more than 10 million vehicles worldwide\n\nNot just the best-selling EV\n\nModel Y beat every gas, hybrid and electric passenger vehicle worldwide for three straight years\n\nAn electric car reaching this scale would have sounded impossible not long ago\n\nNow millions of Model Ys are on roads around the world",
-      "created_at": "2026-11-07T19:08:14+00:00",
-      "views": 543902,
-      "urls": [],
-      "source_ids": [
-        "2119144915456417842"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — XFreeze reports: Tesla Model Y is the world’s best-selling passenger vehicle for 3 consecutive years\n\nThe report says the Model Y has surpassed 4 million global sales, while Tesla has delivered more than 10 million vehicles worldwide.",
-      "event_key": "Tesla Model Y best-selling passenger vehicle for 3 consecutive years",
-      "premise": "Reported by XFreeze: Tesla Model Y has been the world’s best-selling passenger vehicle for 3 consecutive years, with over 4 million global sales and more than 10 million vehicles delivered worldwide."
-    },
-    "reserved_at": "2026-11-07T22:31:14.988242+00:00",
-    "approval": "42a2ea933b938b0f49e7b1518b82ce04e779f1ccd6c4fc02864ad7df1d074116",
-    "run": [
-      "42420959899",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2119144915456417842"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "fb78ed0e8210ef6880c5f9d764bd183d5f1848cc7b38a55dc9e5b10781b01ab7"
-      ],
-      "used_events": [
-        "d4ab65797ebcc6cfb2b746b17a96260489e87e2748048f99d9f51cf6b502c111"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T22:31:16.707002+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:36",
     "at": "2026-11-07T22:11:35.779341+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119196010891370992",
+    "source_id": "2119144915456417842"
   }
 }
