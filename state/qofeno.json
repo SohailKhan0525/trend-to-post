@@ -465,6 +465,21 @@
       "source_created_at": "2026-11-07T00:02:21+00:00",
       "tweet_id": "2119031344701247789",
       "posted_at": "2026-11-07T11:36:57.178626+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:20",
+      "due_at": "2026-11-07T12:05:00+00:00",
+      "text": "BREAKING — composio reports: Composio Instant offers a service to win AEO for product categories with pay-per-call pricing and a free first call.\n\nThe report says users can see what AI says about their product and find keywords to beat competitors.",
+      "event_key": "Composio Instant - Win AEO for product category",
+      "premise": "Composio Instant offers a service to win AEO for product categories, with pay-per-call pricing and a free first call.",
+      "source_id": "2118750610950332589",
+      "author": "composio",
+      "source_url": "https://x.com/composio/status/2118750610950332589",
+      "source_views": 122284,
+      "source_checked_at": "2026-11-07T12:31:18.571198+00:00",
+      "source_created_at": "2026-11-06T17:01:24+00:00",
+      "tweet_id": "2119045031357264376",
+      "posted_at": "2026-11-07T12:31:20.392977+00:00"
     }
   ],
   "used_source_ids": [
@@ -1039,58 +1054,17 @@
     "9f6e624b560105c9c099f33a1a7f70517f6f43bee508b74ce09162466747b14f",
     "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6"
   ],
-  "last_posted_at": "2026-11-07T11:36:57.178626+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:20",
-      "due_at": "2026-11-07T12:05:00+00:00"
-    },
-    "source": {
-      "id": "2118750610950332589",
-      "url": "https://x.com/composio/status/2118750610950332589",
-      "author": "composio",
-      "author_id": "1710011976179728384",
-      "text": "Win AEO for your product category with Composio Instant\n\nPay per call, first $2 free on https://t.co/aZwPzrGfzr\n\n- see what AI says about your product;\n- find the keywords your competitors win, and beat them;\n- become #1 in AI-search with one prompt. https://t.co/gy4dUClRSd",
-      "created_at": "2026-11-06T17:01:24+00:00",
-      "views": 122284,
-      "urls": [
-        "https://composio.dev/instant"
-      ],
-      "source_ids": [
-        "2118750610950332589"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — composio reports: Composio Instant offers a service to win AEO for product categories with pay-per-call pricing and a free first call.\n\nThe report says users can see what AI says about their product and find keywords to beat competitors.",
-      "event_key": "Composio Instant - Win AEO for product category",
-      "premise": "Composio Instant offers a service to win AEO for product categories, with pay-per-call pricing and a free first call."
-    },
-    "reserved_at": "2026-11-07T12:31:18.571198+00:00",
-    "approval": "ffab86bb90de4ecad38a8193ce582d4022f0860649cf000f01d998ededbd26be",
-    "run": [
-      "42372822136",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118750610950332589"
-      ],
-      "used_urls": [
-        "https://composio.dev/instant"
-      ],
-      "used_texts": [
-        "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6"
-      ],
-      "used_events": [
-        "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T12:31:20.392977+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:20",
     "at": "2026-11-07T12:15:19.590963+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119045031357264376",
+    "source_id": "2118750610950332589"
   }
 }
