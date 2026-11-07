@@ -420,6 +420,21 @@
       "source_created_at": "2026-11-06T12:51:05+00:00",
       "tweet_id": "2118984619462943138",
       "posted_at": "2026-11-07T08:31:17.008271+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:15",
+      "due_at": "2026-11-07T09:07:00+00:00",
+      "text": "BREAKING — robocurve reports: Video tampering misleads frontier models into harmful actions.\n\nThe report says the models attempted to stab a baby doll, produce toxic gas, and pour water into a toaster with 100% success rate.",
+      "event_key": "Perceptual Attacks on Embodied AI presented at CoRL",
+      "premise": "Reported by robocurve: Video tampering can mislead frontier models into harmful actions, including a 100% attempt rate on stabbing a baby doll, producing toxic gas, and pouring water into a toaster. Presented at CoRL Late Breaking Results.",
+      "source_id": "2118791723606593694",
+      "author": "robocurve",
+      "source_url": "https://x.com/robocurve/status/2118791723606593694",
+      "source_views": 1135580,
+      "source_checked_at": "2026-11-07T09:17:24.648244+00:00",
+      "source_created_at": "2026-11-06T19:44:46+00:00",
+      "tweet_id": "2118996234929307779",
+      "posted_at": "2026-11-07T09:17:26.392461+00:00"
     }
   ],
   "used_source_ids": [
@@ -984,54 +999,17 @@
     "7aeb432d10c69e902817e719e1e970b1b997ca15d1cf8943c70b678012b624f8",
     "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6"
   ],
-  "last_posted_at": "2026-11-07T08:31:17.008271+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:15",
-      "due_at": "2026-11-07T09:07:00+00:00"
-    },
-    "source": {
-      "id": "2118791723606593694",
-      "url": "https://x.com/robocurve/status/2118791723606593694",
-      "author": "robocurve",
-      "author_id": "2072443693165166592",
-      "text": "Video tampering can mislead every frontier model we tested into harmful actions, including a 100% attempt rate on stabbing a baby doll, producing toxic gas, and pouring water into a toaster.\n\nWe're presenting at CoRL Late Breaking Results next week.\n\n🧵 You Can't See Everything: Perceptual Attacks on Embodied AI",
-      "created_at": "2026-11-06T19:44:46+00:00",
-      "views": 1135580,
-      "urls": [],
-      "source_ids": [
-        "2118791723606593694"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — robocurve reports: Video tampering misleads frontier models into harmful actions.\n\nThe report says the models attempted to stab a baby doll, produce toxic gas, and pour water into a toaster with 100% success rate.",
-      "event_key": "Perceptual Attacks on Embodied AI presented at CoRL",
-      "premise": "Reported by robocurve: Video tampering can mislead frontier models into harmful actions, including a 100% attempt rate on stabbing a baby doll, producing toxic gas, and pouring water into a toaster. Presented at CoRL Late Breaking Results."
-    },
-    "reserved_at": "2026-11-07T09:17:24.648244+00:00",
-    "approval": "4ac50892d976c20907b40c75297764e3c061d4800b772979496ddaa88e8a94bd",
-    "run": [
-      "42357897137",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118791723606593694"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6"
-      ],
-      "used_events": [
-        "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T09:17:26.392461+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 4,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:15",
     "at": "2026-11-07T09:07:12.724862+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118996234929307779",
+    "source_id": "2118791723606593694"
   }
 }
