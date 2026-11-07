@@ -330,6 +330,21 @@
       "source_created_at": "2026-11-06T18:08:36+00:00",
       "tweet_id": "2118877752736792641",
       "posted_at": "2026-11-07T01:26:38.079786+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:3",
+      "due_at": "2026-11-07T01:52:00+00:00",
+      "text": "BREAKING — davidsuttonca reports: Claude Duet now includes Claude Code sessions\n\nThe report says users can check what's running, approve changes, and send updates from their phone, working with sessions on their computer or in the cloud.",
+      "event_key": "Claude Duet with Claude Code sessions",
+      "premise": "Reported by davidsuttonca: Claude Duet now includes Claude Code sessions, allowing users to check what's running, approve changes, and send updates from their phone, working with sessions on their computer or in the cloud.",
+      "source_id": "2118785613436698719",
+      "author": "davidsuttonca",
+      "source_url": "https://x.com/davidsuttonca/status/2118785613436698719",
+      "source_views": 104670,
+      "source_checked_at": "2026-11-07T02:02:20.517257+00:00",
+      "source_created_at": "2026-11-06T19:20:30+00:00",
+      "tweet_id": "2118886747119739241",
+      "posted_at": "2026-11-07T02:02:22.466340+00:00"
     }
   ],
   "used_source_ids": [
@@ -871,54 +886,17 @@
     "0bd3324555955d444b2f2cff6f4fd0f99dc2bc4019f4f6c178d2943afb7ac1db",
     "3f69a57fbd2c623e610fd08d4e1dc31bdea68c49619866ac9e1a20d307df1981"
   ],
-  "last_posted_at": "2026-11-07T01:26:38.079786+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:3",
-      "due_at": "2026-11-07T01:52:00+00:00"
-    },
-    "source": {
-      "id": "2118785613436698719",
-      "url": "https://x.com/davidsuttonca/status/2118785613436698719",
-      "author": "davidsuttonca",
-      "author_id": "21024784",
-      "text": "Claude Duet: now with Claude Code sessions\n\nCheck what's running, approve changes and send updates - all from your phone. Works with sessions on your computer or in the cloud.\n\n/cc @navbryce and @joshleibsly https://t.co/tsUk9pSXV9",
-      "created_at": "2026-11-06T19:20:30+00:00",
-      "views": 104670,
-      "urls": [],
-      "source_ids": [
-        "2118785613436698719"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — davidsuttonca reports: Claude Duet now includes Claude Code sessions\n\nThe report says users can check what's running, approve changes, and send updates from their phone, working with sessions on their computer or in the cloud.",
-      "event_key": "Claude Duet with Claude Code sessions",
-      "premise": "Reported by davidsuttonca: Claude Duet now includes Claude Code sessions, allowing users to check what's running, approve changes, and send updates from their phone, working with sessions on their computer or in the cloud."
-    },
-    "reserved_at": "2026-11-07T02:02:20.517257+00:00",
-    "approval": "e3492e7edb89d9871d9f2eb679f08ac89a23428506e8463d21bd8e94ab45812e",
-    "run": [
-      "42327063949",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118785613436698719"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "3f69a57fbd2c623e610fd08d4e1dc31bdea68c49619866ac9e1a20d307df1981"
-      ],
-      "used_events": [
-        "5d0e1c02f6f5263e570028ae842fd2971e03f112dbe55fb3811dbfd9be994e28"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T02:02:22.466340+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:3",
     "at": "2026-11-07T01:52:10.943373+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118886747119739241",
+    "source_id": "2118785613436698719"
   }
 }
