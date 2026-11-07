@@ -623,7 +623,8 @@
     "2118716282971599349",
     "2118687615557730637",
     "2118791723606593694",
-    "2118744950825275680"
+    "2118744950825275680",
+    "2118856544733532452"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -672,7 +673,8 @@
     "4e4468e2383fd86d23017ce1191b8bd923a93c93724f22ba65a6d782febfe00d",
     "cc37e487e819dfefe4c7961a9356af6a8a7f6c111eaceac9aba5f14f09645865",
     "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79",
-    "cf880ae2baaccec5d9afe84d817b27ac8a253aa9d300d654198f4fc337a4efa1"
+    "cf880ae2baaccec5d9afe84d817b27ac8a253aa9d300d654198f4fc337a4efa1",
+    "fdfd32ec2ae4a7965be8272f89df4601dc7d9bd38cb72c55a86c9016342f4fb2"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1015,12 +1017,54 @@
     "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57",
     "7aeb432d10c69e902817e719e1e970b1b997ca15d1cf8943c70b678012b624f8",
     "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6",
-    "469539ba418562844780cd9f9409b2f1a06f8360bf67704cc055050cb2655739"
+    "469539ba418562844780cd9f9409b2f1a06f8360bf67704cc055050cb2655739",
+    "9f6e624b560105c9c099f33a1a7f70517f6f43bee508b74ce09162466747b14f"
   ],
   "last_posted_at": "2026-11-07T11:11:46.183696+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:19",
+      "due_at": "2026-11-07T11:29:00+00:00"
+    },
+    "source": {
+      "id": "2118856544733532452",
+      "url": "https://x.com/OpenAIDevs/status/2118856544733532452",
+      "author": "OpenAIDevs",
+      "author_id": "1633874951508721686",
+      "text": "Kickstart your weekend build with the new Showcase tab in the OpenAI Developers plugin.\n\nEligible ChatGPT Pro and Business subscribers can claim API credits in billing settings to cover their app’s API usage. https://t.co/NcM12ToGsH",
+      "created_at": "2026-11-07T00:02:21+00:00",
+      "views": 101960,
+      "urls": [],
+      "source_ids": [
+        "2118856544733532452"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — OpenAIDevs reports: OpenAI Developers plugin adds Showcase tab for app promotion.\n\nThe report says eligible ChatGPT Pro and Business subscribers can claim API credits to cover their app’s usage costs.",
+      "event_key": "OpenAI Developers plugin Showcase tab launch",
+      "premise": "Reported by OpenAIDevs: Eligible ChatGPT Pro and Business subscribers can claim API credits in billing settings to cover their app’s API usage."
+    },
+    "reserved_at": "2026-11-07T11:36:55.814033+00:00",
+    "approval": "bd4278e804eb823b91c0e34f2f4eb826190e972095523b5983c97c8d1ae356bd",
+    "run": [
+      "42368491441",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118856544733532452"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "9f6e624b560105c9c099f33a1a7f70517f6f43bee508b74ce09162466747b14f"
+      ],
+      "used_events": [
+        "fdfd32ec2ae4a7965be8272f89df4601dc7d9bd38cb72c55a86c9016342f4fb2"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 4,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:18",
     "at": "2026-11-07T11:01:36.960499+00:00",
