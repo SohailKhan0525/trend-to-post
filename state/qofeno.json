@@ -1187,7 +1187,7 @@
   "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:39",
-    "at": "2026-11-07T23:31:11.100308+00:00",
+    "at": "2026-11-07T23:41:19.997997+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   }
 }
