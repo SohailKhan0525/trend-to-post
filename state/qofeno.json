@@ -655,7 +655,8 @@
     "2118791723606593694",
     "2118744950825275680",
     "2118856544733532452",
-    "2118750610950332589"
+    "2118750610950332589",
+    "2118827837239226387"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -707,7 +708,8 @@
     "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79",
     "cf880ae2baaccec5d9afe84d817b27ac8a253aa9d300d654198f4fc337a4efa1",
     "fdfd32ec2ae4a7965be8272f89df4601dc7d9bd38cb72c55a86c9016342f4fb2",
-    "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd"
+    "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd",
+    "1587d9b031307a6c381115e51fcc8ad1507a04a1019885ee23f07981ff9ac03c"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1052,12 +1054,54 @@
     "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6",
     "469539ba418562844780cd9f9409b2f1a06f8360bf67704cc055050cb2655739",
     "9f6e624b560105c9c099f33a1a7f70517f6f43bee508b74ce09162466747b14f",
-    "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6"
+    "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6",
+    "ca493f805b4e59a80650b7f0c7f950cd0733ba5d7b14c32b5d032f1ff9712ed3"
   ],
   "last_posted_at": "2026-11-07T12:31:20.392977+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:22",
+      "due_at": "2026-11-07T13:16:00+00:00"
+    },
+    "source": {
+      "id": "2118827837239226387",
+      "url": "https://x.com/ChatGPT/status/2118827837239226387",
+      "author": "ChatGPT",
+      "author_id": "1714438092655149056",
+      "text": "Your teammate built a great site. Naturally, you have notes.\n\nWith Remix, make your own version of a site by telling ChatGPT what you'd like to change. Then keep editing your copy in chat.\n\nNow rolling out to ChatGPT Business and Enterprise accounts. https://t.co/OW3gDwHa4Q",
+      "created_at": "2026-11-06T22:08:16+00:00",
+      "views": 127856,
+      "urls": [],
+      "source_ids": [
+        "2118827837239226387"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — ChatGPT reports: Remix feature rolling out to ChatGPT Business and Enterprise accounts.\n\nThe report says users can now make their own version of a site by telling ChatGPT what they want to change, then keep editing their copy in chat.",
+      "event_key": "Remix feature rolling out to ChatGPT Business and Enterprise accounts",
+      "premise": "Reported by ChatGPT: Now rolling out to ChatGPT Business and Enterprise accounts."
+    },
+    "reserved_at": "2026-11-07T13:16:09.179422+00:00",
+    "approval": "547dd3535035dd4352489d8c3b0b67cc2d39fd1bddba5bac05501936ac0ff153",
+    "run": [
+      "42375009387",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118827837239226387"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "ca493f805b4e59a80650b7f0c7f950cd0733ba5d7b14c32b5d032f1ff9712ed3"
+      ],
+      "used_events": [
+        "1587d9b031307a6c381115e51fcc8ad1507a04a1019885ee23f07981ff9ac03c"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:21",
     "at": "2026-11-07T13:06:40.294815+00:00",
