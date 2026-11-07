@@ -575,7 +575,8 @@
     "2118764469270802447",
     "2118753617637409000",
     "2118682358442271159",
-    "2118716282971599349"
+    "2118716282971599349",
+    "2118687615557730637"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -591,7 +592,8 @@
     "https://reut.rs/4zuYVVD",
     "https://github.com/Einsia/Frontier3D",
     "https://lab.einsia.ai/frontier3dbench",
-    "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf"
+    "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf",
+    "https://on.wsj.com/4sIOA5L"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -620,7 +622,8 @@
     "0278fcd3a58749fc3a05f7abccfca5a4016001e604af43a4644dac588fe87de6",
     "7bb0952091e6c967881599f0abf1c0f27c4e10db00ad33e18a0f8e50dfb24689",
     "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf",
-    "4e4468e2383fd86d23017ce1191b8bd923a93c93724f22ba65a6d782febfe00d"
+    "4e4468e2383fd86d23017ce1191b8bd923a93c93724f22ba65a6d782febfe00d",
+    "cc37e487e819dfefe4c7961a9356af6a8a7f6c111eaceac9aba5f14f09645865"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -960,12 +963,58 @@
     "aa0b5ce36025f2b542ecff770cba831b18f4b8f16a468d93ad795c0b8d56f1be",
     "be2f49b76dd5701cebf6ca51941ab40d638d6b9294b109fdb28827093a0ddfd2",
     "50af75ae50c064e4662d4ab218b96f93648b4755fbb40bf8e46b55175ee9bd9d",
-    "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57"
+    "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57",
+    "7aeb432d10c69e902817e719e1e970b1b997ca15d1cf8943c70b678012b624f8"
   ],
   "last_posted_at": "2026-11-07T07:31:44.597728+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:14",
+      "due_at": "2026-11-07T08:28:00+00:00"
+    },
+    "source": {
+      "id": "2118687615557730637",
+      "url": "https://x.com/WSJ/status/2118687615557730637",
+      "author": "WSJ",
+      "author_id": "3108351",
+      "text": "Tesla will wind down production of the Cybertruck at its Texas gigafactory next year, Chief Executive Elon Musk said https://t.co/haTCEv30fP",
+      "created_at": "2026-11-06T12:51:05+00:00",
+      "views": 391112,
+      "urls": [
+        "https://on.wsj.com/4sIOA5L"
+      ],
+      "source_ids": [
+        "2118687615557730637"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — WSJ reports: Tesla will wind down Cybertruck production at its Texas gigafactory next year. \n\nThe report says CEO Elon Musk made the statement, citing persistent weak sales for the vehicle.",
+      "event_key": "Tesla Cybertruck Production Wind Down",
+      "premise": "Reported by WSJ: Tesla will wind down production of the Cybertruck at its Texas gigafactory next year, according to Elon Musk."
+    },
+    "reserved_at": "2026-11-07T08:31:15.596772+00:00",
+    "approval": "22beca62ced6c0783fe70ca14ea4d497f7a3e17c03c5afb39de12b1950d811a2",
+    "run": [
+      "42355800211",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118687615557730637"
+      ],
+      "used_urls": [
+        "https://on.wsj.com/4sIOA5L"
+      ],
+      "used_texts": [
+        "7aeb432d10c69e902817e719e1e970b1b997ca15d1cf8943c70b678012b624f8"
+      ],
+      "used_events": [
+        "cc37e487e819dfefe4c7961a9356af6a8a7f6c111eaceac9aba5f14f09645865"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 8,
+  "candidate_cursor": 9,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:13",
     "at": "2026-11-07T08:17:06.533579+00:00",
