@@ -463,7 +463,8 @@
     "2118782708767965238",
     "2118770823347507273",
     "2118814753154064501",
-    "2118795192090386454"
+    "2118795192090386454",
+    "2118792930211107115"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -473,7 +474,8 @@
     "https://fia.com/news/yangwang-u9-xtreme-surpasses-500-kmh-speed-achievement-recognised-fia",
     "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd",
     "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
-    "https://anthropic.com/research/components-of-agent-memory"
+    "https://anthropic.com/research/components-of-agent-memory",
+    "https://anthropic.com/research/teaching-ai-to-build-scientific-models"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -495,7 +497,8 @@
     "dff9553582389c22666e90fbea394cdaaec10bc2ce1b9a047e5c6669a6441b8d",
     "a632332a47d1a73c1e065ff0df623635081454574216c2b838ab34d8ab5fdae1",
     "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c",
-    "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2"
+    "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2",
+    "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -828,12 +831,58 @@
     "9215868f60aaac9de02fd564638c78d1f3b8fa261a2fb6b103e2a231261f9b09",
     "fd9e29885a8dfb6b5a72b26d9173d6e87576574d81089eec0cc6eda9d2add22f",
     "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d",
-    "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e"
+    "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e",
+    "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370"
   ],
   "last_posted_at": "2026-11-06T22:52:34.645788+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:1",
+      "due_at": "2026-11-07T00:39:00+00:00"
+    },
+    "source": {
+      "id": "2118792930211107115",
+      "url": "https://x.com/AnthropicAI/status/2118792930211107115",
+      "author": "AnthropicAI",
+      "author_id": "1353836358901501952",
+      "text": "New on our Science Blog: How AI is beginning to change scientific modeling.\n\nScientific models help researchers explain and predict real-world systems—like how a single nerve cell fires, or what happens when neutron stars collide. Recent advances have transformed how scientists fit complex models to data. But scientists still typically write the models manually, and usually need to weigh up several competing versions, each of which might explain the data in a different way.\n\nIn a guest post, Jakob Macke, Daniel Gedon, and Stefan Wahl describe how AI is starting to help with these parts of the process. By writing, running, fitting, and revising scientific models as code, AI can explore many possible model structures, and find out which explanations the data support.\n\nhttps://t.co/qsFJG76FDw",
+      "created_at": "2026-11-06T19:49:34+00:00",
+      "views": 162656,
+      "urls": [
+        "https://anthropic.com/research/teaching-ai-to-build-scientific-models"
+      ],
+      "source_ids": [
+        "2118792930211107115"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — AnthropicAI reports: AI is starting to help with writing, running, fitting, and revising scientific models as code.\n\nThe report says AI can explore many possible model structures and find which explanations the data support.",
+      "event_key": "AI aiding scientific modeling process",
+      "premise": "Reported by AnthropicAI: AI is starting to help with writing, running, fitting, and revising scientific models as code, exploring many possible model structures, and finding which explanations the data support."
+    },
+    "reserved_at": "2026-11-07T01:01:29.017878+00:00",
+    "approval": "de28a6dd5c7ae5894ee7a201440cfd834ebe590014fbc2d01ceb2170ecc62691",
+    "run": [
+      "42321666648",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118792930211107115"
+      ],
+      "used_urls": [
+        "https://anthropic.com/research/teaching-ai-to-build-scientific-models"
+      ],
+      "used_texts": [
+        "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370"
+      ],
+      "used_events": [
+        "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 4,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:1",
     "at": "2026-11-07T00:39:12.406618+00:00",
