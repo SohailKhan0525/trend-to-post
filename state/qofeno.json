@@ -543,7 +543,8 @@
     "2118767522782626104",
     "2118785613436698719",
     "2118764469270802447",
-    "2118753617637409000"
+    "2118753617637409000",
+    "2118682358442271159"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -555,7 +556,8 @@
     "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
     "https://anthropic.com/research/components-of-agent-memory",
     "https://anthropic.com/research/teaching-ai-to-build-scientific-models",
-    "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai"
+    "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai",
+    "https://reut.rs/4zuYVVD"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -582,7 +584,8 @@
     "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2",
     "5d0e1c02f6f5263e570028ae842fd2971e03f112dbe55fb3811dbfd9be994e28",
     "0278fcd3a58749fc3a05f7abccfca5a4016001e604af43a4644dac588fe87de6",
-    "7bb0952091e6c967881599f0abf1c0f27c4e10db00ad33e18a0f8e50dfb24689"
+    "7bb0952091e6c967881599f0abf1c0f27c4e10db00ad33e18a0f8e50dfb24689",
+    "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -920,12 +923,58 @@
     "0bd3324555955d444b2f2cff6f4fd0f99dc2bc4019f4f6c178d2943afb7ac1db",
     "3f69a57fbd2c623e610fd08d4e1dc31bdea68c49619866ac9e1a20d307df1981",
     "aa0b5ce36025f2b542ecff770cba831b18f4b8f16a468d93ad795c0b8d56f1be",
-    "be2f49b76dd5701cebf6ca51941ab40d638d6b9294b109fdb28827093a0ddfd2"
+    "be2f49b76dd5701cebf6ca51941ab40d638d6b9294b109fdb28827093a0ddfd2",
+    "50af75ae50c064e4662d4ab218b96f93648b4755fbb40bf8e46b55175ee9bd9d"
   ],
   "last_posted_at": "2026-11-07T06:31:15.145541+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:11",
+      "due_at": "2026-11-07T06:43:00+00:00"
+    },
+    "source": {
+      "id": "2118682358442271159",
+      "url": "https://x.com/Reuters/status/2118682358442271159",
+      "author": "Reuters",
+      "author_id": "1652541",
+      "text": "Tesla to wind down Cybertruck production after years of poor sales in few markets https://t.co/G8qIet1Bfb",
+      "created_at": "2026-11-06T12:30:12+00:00",
+      "views": 1000130,
+      "urls": [
+        "https://reut.rs/4zuYVVD"
+      ],
+      "source_ids": [
+        "2118682358442271159"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — Reuters reports: Tesla to wind down Cybertruck production after years of poor sales\n\nThe report says the decision follows persistent weak sales in few markets, with no specific timeline provided beyond general industry speculation.",
+      "event_key": "Tesla to wind down Cybertruck production",
+      "premise": "Reported by Reuters: Tesla to wind down Cybertruck production after years of poor sales in few markets."
+    },
+    "reserved_at": "2026-11-07T06:56:22.699537+00:00",
+    "approval": "42186969bb5fff16634c686f5793b7a9db03ec08df69e7f3ce86145b029940c8",
+    "run": [
+      "42347341991",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118682358442271159"
+      ],
+      "used_urls": [
+        "https://reut.rs/4zuYVVD"
+      ],
+      "used_texts": [
+        "50af75ae50c064e4662d4ab218b96f93648b4755fbb40bf8e46b55175ee9bd9d"
+      ],
+      "used_events": [
+        "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 3,
+  "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:10",
     "at": "2026-11-07T06:07:08.921652+00:00",
