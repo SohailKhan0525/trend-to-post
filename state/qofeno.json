@@ -525,6 +525,21 @@
       "source_created_at": "2026-11-06T19:10:51+00:00",
       "tweet_id": "2119083233925353935",
       "posted_at": "2026-11-07T15:03:08.612259+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:26",
+      "due_at": "2026-11-07T15:41:00+00:00",
+      "text": "BREAKING — opencode reports: OpenCode Browse is now available\n\nOpenCode Browse lets your agent control your real browser with your tabs, logins, and extensions.",
+      "event_key": "OpenCode Browse available with browser control",
+      "premise": "OpenCode Browse is now available, letting your agent control your real browser with your tabs, logins, and extensions.",
+      "source_id": "2118895128152621153",
+      "author": "opencode",
+      "source_url": "https://x.com/opencode/status/2118895128152621153",
+      "source_views": 182870,
+      "source_checked_at": "2026-11-07T15:51:15.981400+00:00",
+      "source_created_at": "2026-11-07T02:35:40+00:00",
+      "tweet_id": "2119095350757920868",
+      "posted_at": "2026-11-07T15:51:17.434830+00:00"
     }
   ],
   "used_source_ids": [
@@ -1112,58 +1127,17 @@
     "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570",
     "f0487fd8c433b4f2b89359abcffbd39b898a0fb6c153e2856a0c51c87f8db692"
   ],
-  "last_posted_at": "2026-11-07T15:03:08.612259+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:26",
-      "due_at": "2026-11-07T15:41:00+00:00"
-    },
-    "source": {
-      "id": "2118895128152621153",
-      "url": "https://x.com/opencode/status/2118895128152621153",
-      "author": "opencode",
-      "author_id": "1965545045089792000",
-      "text": "OpenCode Browse is now available\n\nit lets your agent control your real browser with your tabs and logins and extensions\n\nhttps://t.co/tJUu3TapR0",
-      "created_at": "2026-11-07T02:35:40+00:00",
-      "views": 182870,
-      "urls": [
-        "https://opencode.ai/product/browse"
-      ],
-      "source_ids": [
-        "2118895128152621153"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — opencode reports: OpenCode Browse is now available\n\nOpenCode Browse lets your agent control your real browser with your tabs, logins, and extensions.",
-      "event_key": "OpenCode Browse available with browser control",
-      "premise": "OpenCode Browse is now available, letting your agent control your real browser with your tabs, logins, and extensions."
-    },
-    "reserved_at": "2026-11-07T15:51:15.981400+00:00",
-    "approval": "8e6752408aea5b1483cc1588a0baec978f710438f7a11f56705566dec362c294",
-    "run": [
-      "42386742575",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118895128152621153"
-      ],
-      "used_urls": [
-        "https://opencode.ai/product/browse"
-      ],
-      "used_texts": [
-        "f0487fd8c433b4f2b89359abcffbd39b898a0fb6c153e2856a0c51c87f8db692"
-      ],
-      "used_events": [
-        "b2c25890d03f674e1fa087d22761d1c776fcb38b91bf19d47c285b44762da951"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T15:51:17.434830+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:26",
     "at": "2026-11-07T15:41:07.064582+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119095350757920868",
+    "source_id": "2118895128152621153"
   }
 }
