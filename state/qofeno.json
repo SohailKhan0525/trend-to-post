@@ -639,7 +639,8 @@
     "2118687615557730637",
     "2118791723606593694",
     "2118744950825275680",
-    "2118856544733532452"
+    "2118856544733532452",
+    "2118750610950332589"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -656,7 +657,8 @@
     "https://github.com/Einsia/Frontier3D",
     "https://lab.einsia.ai/frontier3dbench",
     "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf",
-    "https://on.wsj.com/4sIOA5L"
+    "https://on.wsj.com/4sIOA5L",
+    "https://composio.dev/instant"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -689,7 +691,8 @@
     "cc37e487e819dfefe4c7961a9356af6a8a7f6c111eaceac9aba5f14f09645865",
     "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79",
     "cf880ae2baaccec5d9afe84d817b27ac8a253aa9d300d654198f4fc337a4efa1",
-    "fdfd32ec2ae4a7965be8272f89df4601dc7d9bd38cb72c55a86c9016342f4fb2"
+    "fdfd32ec2ae4a7965be8272f89df4601dc7d9bd38cb72c55a86c9016342f4fb2",
+    "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1033,12 +1036,58 @@
     "7aeb432d10c69e902817e719e1e970b1b997ca15d1cf8943c70b678012b624f8",
     "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6",
     "469539ba418562844780cd9f9409b2f1a06f8360bf67704cc055050cb2655739",
-    "9f6e624b560105c9c099f33a1a7f70517f6f43bee508b74ce09162466747b14f"
+    "9f6e624b560105c9c099f33a1a7f70517f6f43bee508b74ce09162466747b14f",
+    "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6"
   ],
   "last_posted_at": "2026-11-07T11:36:57.178626+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:20",
+      "due_at": "2026-11-07T12:05:00+00:00"
+    },
+    "source": {
+      "id": "2118750610950332589",
+      "url": "https://x.com/composio/status/2118750610950332589",
+      "author": "composio",
+      "author_id": "1710011976179728384",
+      "text": "Win AEO for your product category with Composio Instant\n\nPay per call, first $2 free on https://t.co/aZwPzrGfzr\n\n- see what AI says about your product;\n- find the keywords your competitors win, and beat them;\n- become #1 in AI-search with one prompt. https://t.co/gy4dUClRSd",
+      "created_at": "2026-11-06T17:01:24+00:00",
+      "views": 122284,
+      "urls": [
+        "https://composio.dev/instant"
+      ],
+      "source_ids": [
+        "2118750610950332589"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — composio reports: Composio Instant offers a service to win AEO for product categories with pay-per-call pricing and a free first call.\n\nThe report says users can see what AI says about their product and find keywords to beat competitors.",
+      "event_key": "Composio Instant - Win AEO for product category",
+      "premise": "Composio Instant offers a service to win AEO for product categories, with pay-per-call pricing and a free first call."
+    },
+    "reserved_at": "2026-11-07T12:31:18.571198+00:00",
+    "approval": "ffab86bb90de4ecad38a8193ce582d4022f0860649cf000f01d998ededbd26be",
+    "run": [
+      "42372822136",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118750610950332589"
+      ],
+      "used_urls": [
+        "https://composio.dev/instant"
+      ],
+      "used_texts": [
+        "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6"
+      ],
+      "used_events": [
+        "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 5,
+  "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:20",
     "at": "2026-11-07T12:15:19.590963+00:00",
