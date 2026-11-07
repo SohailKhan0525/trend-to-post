@@ -315,6 +315,21 @@
       "source_created_at": "2026-11-06T19:49:34+00:00",
       "tweet_id": "2118871429693227428",
       "posted_at": "2026-11-07T01:01:30.487951+00:00"
+    },
+    {
+      "slot": "2026-11-07:quote-v1:2",
+      "due_at": "2026-11-07T01:19:00+00:00",
+      "text": "BREAKING — finkd reports: Muse and Meta Al models upgraded with Active Memory and Active Focus.\n\nThe report says the new models are 2.4x less likely to forget critical info and 67% better at self-correcting and completing tasks.",
+      "event_key": "Muse and Meta Al models upgraded with Active Memory and Active Focus",
+      "premise": "Upgraded the models for Muse and Meta Al, bringing Active Memory and Active Focus from Muse Wonder to everyone.",
+      "source_id": "2118767522782626104",
+      "author": "finkd",
+      "source_url": "https://x.com/finkd/status/2118767522782626104",
+      "source_views": 223989,
+      "source_checked_at": "2026-11-07T01:26:36.444135+00:00",
+      "source_created_at": "2026-11-06T18:08:36+00:00",
+      "tweet_id": "2118877752736792641",
+      "posted_at": "2026-11-07T01:26:38.079786+00:00"
     }
   ],
   "used_source_ids": [
@@ -853,58 +868,17 @@
     "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370",
     "0bd3324555955d444b2f2cff6f4fd0f99dc2bc4019f4f6c178d2943afb7ac1db"
   ],
-  "last_posted_at": "2026-11-07T01:01:30.487951+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-07:quote-v1:2",
-      "due_at": "2026-11-07T01:19:00+00:00"
-    },
-    "source": {
-      "id": "2118767522782626104",
-      "url": "https://x.com/finkd/status/2118767522782626104",
-      "author": "finkd",
-      "author_id": "20749410",
-      "text": "Upgraded the models for Muse and Meta Al, bringing Active Memory and Active Focus from Muse Wonder to everyone. In Muse, these new specialized models are 2.4x less likely to forget critical info and are 67% better at self correcting and completing everyday tasks which means less repeating yourself and fewer dead ends.\n\nMore on the models: https://t.co/P2DvI43xDj",
-      "created_at": "2026-11-06T18:08:36+00:00",
-      "views": 223989,
-      "urls": [
-        "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai"
-      ],
-      "source_ids": [
-        "2118767522782626104"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — finkd reports: Muse and Meta Al models upgraded with Active Memory and Active Focus.\n\nThe report says the new models are 2.4x less likely to forget critical info and 67% better at self-correcting and completing tasks.",
-      "event_key": "Muse and Meta Al models upgraded with Active Memory and Active Focus",
-      "premise": "Upgraded the models for Muse and Meta Al, bringing Active Memory and Active Focus from Muse Wonder to everyone."
-    },
-    "reserved_at": "2026-11-07T01:26:36.444135+00:00",
-    "approval": "f680229a865401de6b266aa81a77ac7205875e373e0298d47c30229c04f40b96",
-    "run": [
-      "42321666648",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2118767522782626104"
-      ],
-      "used_urls": [
-        "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai"
-      ],
-      "used_texts": [
-        "0bd3324555955d444b2f2cff6f4fd0f99dc2bc4019f4f6c178d2943afb7ac1db"
-      ],
-      "used_events": [
-        "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-07T01:26:38.079786+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:1",
     "at": "2026-11-07T00:39:12.406618+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2118877752736792641",
+    "source_id": "2118767522782626104"
   }
 }
