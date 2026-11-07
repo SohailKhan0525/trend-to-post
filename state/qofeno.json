@@ -687,7 +687,8 @@
     "2118856544733532452",
     "2118750610950332589",
     "2118827837239226387",
-    "2118779807676686382"
+    "2118779807676686382",
+    "2118783186859884688"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -741,7 +742,8 @@
     "fdfd32ec2ae4a7965be8272f89df4601dc7d9bd38cb72c55a86c9016342f4fb2",
     "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd",
     "1587d9b031307a6c381115e51fcc8ad1507a04a1019885ee23f07981ff9ac03c",
-    "af177cde2a04ca8ff146dffa79bb0e656365c5db84d81289e1040366a150e6ce"
+    "af177cde2a04ca8ff146dffa79bb0e656365c5db84d81289e1040366a150e6ce",
+    "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1088,12 +1090,54 @@
     "9f6e624b560105c9c099f33a1a7f70517f6f43bee508b74ce09162466747b14f",
     "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6",
     "ca493f805b4e59a80650b7f0c7f950cd0733ba5d7b14c32b5d032f1ff9712ed3",
-    "784d78157eb0aab6761ce81c44455c880795402576d3d1d52510da746812a3e3"
+    "784d78157eb0aab6761ce81c44455c880795402576d3d1d52510da746812a3e3",
+    "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570"
   ],
   "last_posted_at": "2026-11-07T14:31:22.114402+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-07:quote-v1:25",
+      "due_at": "2026-11-07T15:03:00+00:00"
+    },
+    "source": {
+      "id": "2118783186859884688",
+      "url": "https://x.com/AsideAI/status/2118783186859884688",
+      "author": "AsideAI",
+      "author_id": "1781311066460557312",
+      "text": "Introducing Aside Computer Use.\n80% of work happens on browser, this covers the rest.\n\n- 2.7x faster with 65% fewer tokens vs Codex*\n- Runs in the background across multiple apps (macOS)\n- Available now on Mac &amp; Windows\n\nAside meets your computer.\n\n*based on internal evals https://t.co/5V8QApGvtk",
+      "created_at": "2026-11-06T19:10:51+00:00",
+      "views": 101891,
+      "urls": [],
+      "source_ids": [
+        "2118783186859884688"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — AsideAI reports: Aside Computer Use launches with 2.7x faster performance\n\nThe report says it uses 65% fewer tokens than Codex and runs in the background across multiple apps on macOS.",
+      "event_key": "Aside Computer Use release with 2.7x faster performance",
+      "premise": "Introducing Aside Computer Use, which claims to be 2.7x faster with 65% fewer tokens vs Codex, runs in the background across multiple apps on macOS, and is available now on Mac & Windows."
+    },
+    "reserved_at": "2026-11-07T15:03:07.044524+00:00",
+    "approval": "7d4129b89e716867444ab1cc0cf97f2cf208f5d05c25dcc67b62308b25939c0d",
+    "run": [
+      "42384301971",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2118783186859884688"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570"
+      ],
+      "used_events": [
+        "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 3,
+  "candidate_cursor": 4,
   "last_attempt": {
     "slot": "2026-11-07:quote-v1:23",
     "at": "2026-11-07T14:15:28.791537+00:00",
