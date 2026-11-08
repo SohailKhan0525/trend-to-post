@@ -8,10 +8,14 @@ from twikit.errors import InvalidSession
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("command",choices=("inspect","run"))
+    parser.add_argument("command",choices=("inspect","diagnose","run"))
     args=parser.parse_args()
     try:
-        asyncio.run(queue.inspect() if args.command=="inspect" else queue.run(os.environ.get("GITHUB_EVENT_NAME","manual")))
+        if args.command=="diagnose":
+            from .diagnostics import diagnose
+            asyncio.run(diagnose())
+        else:
+            asyncio.run(queue.inspect() if args.command=="inspect" else queue.run(os.environ.get("GITHUB_EVENT_NAME","manual")))
     except (queue.SessionUnavailable,InvalidSession):
         print("::error::X did not accept the session. Check account access and the stored X_AUTH_TOKEN and X_CT0 secrets.",file=sys.stderr)
         raise SystemExit(1) from None

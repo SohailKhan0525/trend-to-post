@@ -51,6 +51,21 @@ class WriterTests(unittest.TestCase):
         self.assertNotIn("views", review["source"])
         self.assertNotIn("100000", result["text"])
 
+    def test_company_operational_news_can_use_a_source_named_company_subject(self):
+        source = {**SOURCE, "author": "factorybrief",
+                  "text": "Acme Robotics opened a battery recycling plant today. It can process 800 packs per day."}
+        gate = {**GATE, "primary": False, "subject": "Acme Robotics",
+                "event_key": "acme robotics battery recycling plant opens",
+                "facts": "Acme Robotics opened a battery recycling plant with capacity for 800 packs per day."}
+        fields = {"headline": "Acme Robotics opens a battery recycling plant.",
+                  "body": "It can process 800 packs per day."}
+        evidence = {**PASS,
+                    "headline_evidence": "Acme Robotics opened a battery recycling plant today.",
+                    "body_evidence": "It can process 800 packs per day."}
+        result, complete = self.generate_with([gate, fields, evidence], source=source)
+        self.assertEqual(result["text"], "BREAKING — factorybrief reports: " + fields["headline"] + "\n\n" + fields["body"])
+        self.assertEqual(complete.call_count, 3)
+
     def test_structured_fields_render_the_exact_prefix_and_blank_line(self):
         fields = {"headline": " Atlas SDK 2.1 adds offline CSV export. ",
                   "body": " All users can access the feature. "}

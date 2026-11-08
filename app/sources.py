@@ -16,17 +16,19 @@ from .policy import has_excluded_terms
 MIN_VIEWS = 100_000
 MAX_AGE = timedelta(hours=24)
 SEARCH_COUNT = 20
-# Search topics, never author lists. Top helps find measured reach while Latest
-# adds new candidates. Hourly term rotation widens coverage without pagination
-# or extra requests; the writer separately verifies relevance and attribution.
+# Search topics, never author lists. Pair concrete subjects with announcement
+# terms so generic viral opinions do not occupy every result. The fourth Top
+# query remains broader to catch news phrased without one of these verbs.
+# Hourly rotation adds coverage within the same four-request budget.
 TOPIC_QUERIES = (
-    ('("artificial intelligence" OR ChatGPT OR Claude OR Gemini OR LLM)',
-     '(AI OR OpenAI OR Anthropic OR Grok OR DeepSeek OR NVIDIA)'),
-    ('(coding OR programming OR "developer tools" OR SaaS OR startup)',
-     '(technology OR software OR GitHub OR OpenCode OR Cursor OR "open source")'),
-    ('(cars OR automotive OR "electric car" OR Tesla OR EV)',
-     '("electric vehicle" OR "self driving" OR battery OR Porsche OR BMW)'),
+    ('(ChatGPT OR Claude OR Gemini OR DeepSeek)',
+     '(OpenAI OR Anthropic OR Grok OR "AI model")'),
+    ('(OpenCode OR Cursor OR GitHub OR SaaS)',
+     '("developer tools" OR "open source" OR coding OR software)'),
+    ('(Tesla OR automotive OR "electric car" OR EV)',
+     '(Porsche OR BMW OR "electric vehicle" OR cars)'),
 )
+ANNOUNCEMENT_TERMS = '(launch OR launched OR release OR released OR announces OR available OR unveiled OR "rolls out")'
 _HANDLE = re.compile(r"[A-Za-z0-9_]{1,15}\Z")
 _NUMBER = re.compile(r"[0-9]+\Z")
 _URL = re.compile(r"https?://\S+", re.I)
@@ -269,14 +271,15 @@ def _snapshot(tweet, now):
 
 
 def search_plan(now):
-    """Three topic Top searches and one rotating Latest search, at most four."""
+    """Three news-intent Top searches and one broader Top search, at most four."""
     current = _utc(now, "invalid current timestamp")
     hour = int(current.timestamp() // 3600)
     since = (current - MAX_AGE).date().isoformat()
     suffix = f" since:{since} -filter:replies -filter:retweets"
-    plan = [(variants[hour % len(variants)] + suffix, "Top") for variants in TOPIC_QUERIES]
-    latest = TOPIC_QUERIES[hour % len(TOPIC_QUERIES)]
-    plan.append((latest[(hour + 1) % len(latest)] + suffix, "Latest"))
+    plan = [(variants[hour % len(variants)] + " " + ANNOUNCEMENT_TERMS + suffix, "Top")
+            for variants in TOPIC_QUERIES]
+    broader = TOPIC_QUERIES[hour % len(TOPIC_QUERIES)]
+    plan.append((broader[(hour + 1) % len(broader)] + suffix, "Top"))
     return plan
 
 
@@ -294,7 +297,9 @@ async def discover(connection, state, now):
     candidates = []
     counts = Counter()
     rejections = Counter()
-    for query, product in search_plan(current):
+    for index, (query, product) in enumerate(search_plan(current), start=1):
+        before = dict(counts)
+        eligible_before = len(candidates)
         results = await connection.search_tweet(query, product, count=SEARCH_COUNT)
         for tweet in results:
             counts["examined"] += 1
@@ -310,6 +315,11 @@ async def discover(connection, state, now):
             used_ids.update(candidate["source_ids"])
             used_urls.update(candidate["urls"])
             candidates.append(candidate)
+        print(f"Source query {index} ({product}): "
+              f"examined={counts['examined'] - before.get('examined', 0)} "
+              f"eligible={len(candidates) - eligible_before} "
+              f"ineligible={counts['ineligible'] - before.get('ineligible', 0)} "
+              f"duplicates={counts['duplicates'] - before.get('duplicates', 0)}")
     candidates.sort(key=lambda candidate: (candidate["created_at"], candidate["views"]), reverse=True)
     print(f"Source discovery: examined={counts['examined']} eligible={len(candidates)} "
           f"ineligible={counts['ineligible']} duplicates={counts['duplicates']}; "

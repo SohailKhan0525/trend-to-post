@@ -9,7 +9,7 @@ from unittest.mock import AsyncMock
 from twikit.tweet import Tweet
 
 from app.sources import (
-    MAX_AGE, SEARCH_COUNT, SourceError,
+    ANNOUNCEMENT_TERMS, MAX_AGE, SEARCH_COUNT, SourceError,
     canonical_url, discover, search_plan, snapshot, validate,
 )
 
@@ -225,7 +225,7 @@ class CanonicalUrlTests(unittest.TestCase):
 
 
 class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
-    async def test_four_bounded_topic_queries_use_top_and_latest_without_author_limits(self):
+    async def test_four_bounded_news_queries_use_top_without_author_limits(self):
         client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(author="indie_builder")], [], [], []]))
         output = io.StringIO()
         with redirect_stdout(output):
@@ -233,7 +233,7 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["author"],"indie_builder")
         self.assertEqual(client.search_tweet.await_count, 4)
-        self.assertEqual([call.args[1] for call in client.search_tweet.call_args_list],["Top","Top","Top","Latest"])
+        self.assertEqual([call.args[1] for call in client.search_tweet.call_args_list],["Top"]*4)
         for call in client.search_tweet.call_args_list:
             self.assertEqual(call.kwargs["count"], SEARCH_COUNT)
             self.assertNotIn("from:",call.args[0])
@@ -242,6 +242,8 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
             self.assertIn("-filter:retweets",call.args[0])
             self.assertLess(len(call.args[0]),220)
         self.assertIn("examined=1 eligible=1", output.getvalue())
+        self.assertIn("Source query 1 (Top): examined=1 eligible=1",output.getvalue())
+        self.assertIn("Source query 4 (Top): examined=0 eligible=0",output.getvalue())
         self.assertNotIn(TEXT, output.getvalue())
 
     def test_query_rotation_expands_coverage_without_extra_requests(self):
@@ -251,9 +253,15 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotEqual(first,second)
         self.assertEqual(len(first),4)
         self.assertEqual(len(second),4)
-        self.assertEqual([product for _,product in second],["Top","Top","Top","Latest"])
+        self.assertEqual([product for _,product in second],["Top"]*4)
         self.assertTrue(any('SaaS' in query or 'software' in query for query,_ in first))
-        self.assertTrue(any('cars' in query or 'vehicle' in query for query,_ in first))
+        self.assertTrue(any('electric car' in query or 'vehicle' in query for query,_ in first))
+        for plan in (first,second):
+            for query,_ in plan[:3]:
+                self.assertIn(ANNOUNCEMENT_TERMS,query)
+                self.assertLess(len(query),220)
+            self.assertNotIn(ANNOUNCEMENT_TERMS,plan[3][0])
+            self.assertFalse(any('battery' in query or 'startup' in query for query,_ in plan))
 
     async def test_used_source_ids_include_older_edit_aliases(self):
         client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(author="indie_builder",aliases=["900", "1001"])], [], [], []]))

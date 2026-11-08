@@ -45,9 +45,8 @@ jobs:
         run: |
           if [[ "$INSPECT_ONLY" == 'true' ]]; then
             python -m app inspect
+          elif [[ "$GITHUB_EVENT_NAME" == 'push' ]]; then
+            python -m app diagnose
           else
-            if [[ "$GITHUB_EVENT_NAME" == 'push' ]]; then
-              python -m app inspect
-            fi
             python -m app run
           fi
