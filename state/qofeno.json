@@ -1238,10 +1238,10 @@
   "last_posted_at": "2026-11-08T09:06:15.801178+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 8,
+  "candidate_cursor": 5,
   "last_attempt": {
     "slot": "2026-11-08:quote-v1:16",
-    "at": "2026-11-08T09:49:25.558311+00:00",
+    "at": "2026-11-08T10:01:29.457042+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   }
 }
