@@ -1311,10 +1311,10 @@
   "last_posted_at": "2026-11-08T15:48:17.785964+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 4,
+  "candidate_cursor": 2,
   "last_attempt": {
-    "slot": "2026-11-08:quote-v1:29",
-    "at": "2026-11-08T18:01:36.289899+00:00",
+    "slot": "2026-11-08:quote-v1:30",
+    "at": "2026-11-08T18:07:12.005914+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   }
 }
