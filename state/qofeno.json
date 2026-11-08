@@ -1259,7 +1259,7 @@
   "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-08:quote-v1:20",
-    "at": "2026-11-08T12:04:06.271331+00:00",
+    "at": "2026-11-08T12:31:13.567866+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   }
 }
