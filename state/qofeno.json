@@ -660,6 +660,21 @@
       "source_created_at": "2026-11-07T17:25:55+00:00",
       "tweet_id": "2119420785995481594",
       "posted_at": "2026-11-08T13:24:27.226413+00:00"
+    },
+    {
+      "slot": "2026-11-08:quote-v1:25",
+      "due_at": "2026-11-08T15:06:00+00:00",
+      "text": "BREAKING — Polymarket reports: Starlink contest allows Super Bowl ad creation with Grok\n\nWinning entry may air during Super Bowl.",
+      "event_key": "Starlink contest allowing creation of Super Bowl ad using Grok",
+      "premise": "Reported by Polymarket: Starlink announces contest allowing anyone to create a Super Bowl ad using Grok, with the winning entry potentially airing during the big game.",
+      "source_id": "2119114359666577909",
+      "author": "Polymarket",
+      "source_url": "https://x.com/Polymarket/status/2119114359666577909",
+      "source_views": 224766,
+      "source_checked_at": "2026-11-08T15:06:09.264990+00:00",
+      "source_created_at": "2026-11-07T17:06:49+00:00",
+      "tweet_id": "2119446386089627777",
+      "posted_at": "2026-11-08T15:06:10.747025+00:00"
     }
   ],
   "used_source_ids": [
@@ -1274,54 +1289,17 @@
     "a506337ed288f3ea5b96c13f7b6594830d7a043fe785c61619cb7c914c872539",
     "b085bac70e3c9e5fafe6f4fdceb7a7a09e42311339de9c5ce2f2ce602e7569bd"
   ],
-  "last_posted_at": "2026-11-08T13:24:27.226413+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-08:quote-v1:25",
-      "due_at": "2026-11-08T15:06:00+00:00"
-    },
-    "source": {
-      "id": "2119114359666577909",
-      "url": "https://x.com/Polymarket/status/2119114359666577909",
-      "author": "Polymarket",
-      "author_id": "1261335549215989760",
-      "text": "JUST IN: Starlink announces contest allowing anyone to create a Super Bowl ad using Grok, with the winning entry potentially airing during the big game.",
-      "created_at": "2026-11-07T17:06:49+00:00",
-      "views": 224766,
-      "urls": [],
-      "source_ids": [
-        "2119114359666577909"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — Polymarket reports: Starlink contest allows Super Bowl ad creation with Grok\n\nWinning entry may air during Super Bowl.",
-      "event_key": "Starlink contest allowing creation of Super Bowl ad using Grok",
-      "premise": "Reported by Polymarket: Starlink announces contest allowing anyone to create a Super Bowl ad using Grok, with the winning entry potentially airing during the big game."
-    },
-    "reserved_at": "2026-11-08T15:06:09.264990+00:00",
-    "approval": "66f51134946bc8f371e68b510bfae7dde7c5ce8cd8c194e963ce791561baf90e",
-    "run": [
-      "42492635016",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2119114359666577909"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "b085bac70e3c9e5fafe6f4fdceb7a7a09e42311339de9c5ce2f2ce602e7569bd"
-      ],
-      "used_events": [
-        "51d0a5a37923b89492c5147ac2bf7f2c8fe43388ebaeaa01f9d885a8c1b08a94"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-08T15:06:10.747025+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-08:quote-v1:24",
     "at": "2026-11-08T15:01:30.929318+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119446386089627777",
+    "source_id": "2119114359666577909"
   }
 }
