@@ -154,6 +154,7 @@ GENERIC_SUBJECTS = {"pro", "plus", "free", "premium", "enterprise", "plan", "pla
 BARE_TIER = re.compile(r"(?:pro|plus|free|premium|enterprise)(?:\s*\d+)?", re.IGNORECASE)
 MAX_HEADLINE_WEIGHT = 100
 MAX_ATTEMPTS = 2
+CLASSIFICATION_ATTEMPTS = 2
 RETRY_REASONS = {
     "grounded": "Remove every detail not explicitly stated in the source.",
     "clear": "Use plain English and a concrete subject in both paragraphs.",
@@ -187,6 +188,75 @@ def normalized(text):
 
 def fingerprint(text):
     return hashlib.sha256(normalized(text).encode("utf-8")).hexdigest()
+
+
+def validate_metadata(value, field, limit, source_text=None, minimum=8):
+    """Validate immutable metadata before spending any quote-writing attempts."""
+    if not isinstance(value, str):
+        raise DraftError(f"{field}: must be a string")
+    if (any(unicodedata.category(char).startswith("C") for char in value)
+            or "\\n" in value or "\\r" in value):
+        raise DraftError(f"{field}: must be single-line text without control characters")
+    value = unicodedata.normalize("NFC", value).strip()
+    if not minimum <= len(value) <= limit:
+        raise DraftError(f"{field}: must be {minimum}-{limit} characters")
+    if LINK_OR_TAG.search(value):
+        raise DraftError(f"{field}: must not contain links, mentions or hashtags")
+    if INJECTION.search(value):
+        raise DraftError(f"{field}: must not contain instructions")
+    if has_excluded_terms(value):
+        raise DraftError(f"{field}: contains an excluded subject")
+    if source_text is not None and not set(NUMBER.findall(value)) <= set(NUMBER.findall(source_text)):
+        raise DraftError(f"{field}: number or version is not present in the source")
+    return value
+
+
+class SourceRejected(DraftError):
+    """A semantic rejection must not be retried as a formatting repair."""
+
+
+def validate_classification(assessment, source_text):
+    expected = {*GATE_FLAGS, "event_key", "facts", "subject"}
+    if not isinstance(assessment, dict) or set(assessment) != expected:
+        raise DraftError("classification: must contain exactly the required fields")
+    for key in GATE_FLAGS:
+        if type(assessment[key]) is not bool:
+            raise DraftError(f"{key}: must be a boolean")
+    failed = [key for key in ("new_announcement", "relevant", "safe") if not assessment[key]]
+    if failed:
+        raise SourceRejected("Source classification rejected: " + ", ".join(failed))
+    subject = assessment["subject"]
+    if not isinstance(subject, str):
+        raise DraftError("subject: must be a string")
+    subject = subject.strip()
+    if (not subject or normalized(subject) in GENERIC_SUBJECTS or BARE_TIER.fullmatch(subject)
+            or evidence_text(subject).casefold() not in evidence_text(source_text).casefold()):
+        raise SourceRejected("The source must identify the actual product or project")
+    return {**assessment,
+            "event_key": validate_metadata(assessment["event_key"], "event_key", 140, source_text),
+            "facts": validate_metadata(assessment["facts"], "facts", 210, source_text),
+            "subject": validate_metadata(subject, "subject", 80, source_text, minimum=2)}
+
+
+def classify_source(evidence):
+    data = {"source": evidence}
+    for attempt in range(1, CLASSIFICATION_ATTEMPTS + 1):
+        try:
+            try:
+                assessment = complete(SOURCE_GATE, data, temperature=0, max_tokens=650,
+                                      schema=schema(("event_key", "facts", "subject"), GATE_FLAGS))
+            except DraftError:
+                # Provider/parser details are never copied into diagnostic feedback.
+                raise DraftError("classification: must return the required JSON object") from None
+            return validate_classification(assessment, evidence["text"])
+        except SourceRejected:
+            raise
+        except DraftError as exc:
+            reason = str(exc)  # Every validator message uses fixed field names/rules.
+            print(f"Source classification format check failed ({attempt}/{CLASSIFICATION_ATTEMPTS}): {reason}", flush=True)
+            if attempt == CLASSIFICATION_ATTEMPTS:
+                raise DraftError("Source classification format rejected: " + reason) from None
+            data = {"source": evidence, "correction": reason + ". Return all fields again; preserve source-based eligibility decisions."}
 
 
 def content_words(text):
@@ -302,10 +372,7 @@ def validate(draft, source):
     if LINK_OR_TAG.search(text) or BAIT.search(text) or INJECTION.search(text):
         raise DraftError("Remove links, tags, engagement bait and instructions")
     for key, limit in (("event_key", 140), ("premise", 240)):
-        if (not 8 <= len(result[key]) <= limit
-                or any(unicodedata.category(char).startswith("C") for char in result[key])
-                or LINK_OR_TAG.search(result[key]) or INJECTION.search(result[key])):
-            raise DraftError("Use short single-line event metadata")
+        result[key] = validate_metadata(draft[key], key, limit)
     source_text = source.get("text", "")
     if not isinstance(source_text, str) or not source_text.strip():
         raise DraftError("The source must contain announcement text")
@@ -362,24 +429,8 @@ def generate(source, state, now):
     if INJECTION.search(source_text) or has_excluded_terms(source_text):
         raise DraftError("The source contains instructions or an excluded subject")
     evidence = {key: source.get(key) for key in ("author", "author_id", "text", "created_at")}
-    assessment = complete(SOURCE_GATE, {"source": evidence}, temperature=0,
-                          max_tokens=650, schema=schema(("event_key", "facts", "subject"), GATE_FLAGS))
-    expected = {*GATE_FLAGS, "event_key", "facts", "subject"}
-    if not isinstance(assessment, dict) or set(assessment) != expected:
-        raise DraftError("Source classification returned invalid fields")
-    if any(type(assessment[key]) is not bool for key in GATE_FLAGS):
-        raise DraftError("Source classification must return booleans")
-    required_flags = ("new_announcement", "relevant", "safe")
-    if any(not assessment[key] for key in required_flags):
-        failed = ", ".join(key for key in required_flags if not assessment[key])
-        raise DraftError("Source classification rejected: " + failed)
-    if any(not isinstance(assessment[key], str) for key in ("event_key", "facts", "subject")):
-        raise DraftError("Source classification returned invalid event metadata")
-    subject = assessment["subject"].strip()
-    if (not 2 <= len(subject) <= 80 or normalized(subject) in GENERIC_SUBJECTS
-            or BARE_TIER.fullmatch(subject)
-            or evidence_text(subject).casefold() not in evidence_text(source_text).casefold()):
-        raise DraftError("The source must identify the actual product or project")
+    assessment = classify_source(evidence)
+    subject = assessment["subject"]
     reported = not assessment["primary"]
     premise = assessment["facts"]
     headline_prefix = "BREAKING — "
