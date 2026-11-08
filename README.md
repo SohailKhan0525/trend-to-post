@@ -4,7 +4,7 @@ Qofeno quotes fresh announcements and clearly attributed news about AI, models, 
 
 ## What qualifies
 
-The source must be an original public post, no more than 24 hours old, with a measured post-view count of at least 100,000. There is no account allowlist or badge requirement. Missing counts, video-play counts, follower counts and engagement totals cannot satisfy this threshold. Discovery uses bounded topic searches across Top and Latest results. Its diagnostics show the number examined, excluded and deduplicated, with reasons for exclusions. High views establish reach, not the truth of a claim.
+The source must be an original public post, no more than 24 hours old, with a measured post-view count of at least 100,000. There is no account allowlist or badge requirement. Missing counts, video-play counts, follower counts and engagement totals cannot satisfy this threshold. Discovery uses three bounded Top searches combining concrete topics with announcement terms, plus one broader rotating Top search. Per-query diagnostics show the number examined, excluded and deduplicated, with reasons for exclusions. High views establish reach, not the truth of a claim.
 
 Cloudflare Workers AI must identify a concrete new announcement or news report supported by the source. Third-party reporting must be explicitly attributed to the source account; the quote must not present it as independently verified or remove uncertainty. Teasers, retrospectively described launches, tips, rumours and generic promotional posts are rejected. The writer then drafts a short headline, a blank line, and a useful practical observation or specific question. An independent review checks the exact source against every claim and checks prior events. English is the initial shared voice. All parts of the source, available linked titles, and the quote are checked for politics and countries.
 
@@ -24,7 +24,7 @@ The existing GitHub Actions secrets `X_AUTH_TOKEN` and `X_CT0` authorize the ses
 
 The workflow shares the prior publishing concurrency group. Approved source evidence and copy are committed before one send. A confirmed X ID is committed before attachment readback. A timeout or unknown send retains its reservation, preventing a retry that could create a duplicate. A proven-unsent attempt releases only its own duplicate claims; the pinned client's initial rejected-session error also requires a session check next time. An unavailable attachment keeps verification pending, blocking new sends until readback succeeds. A confirmed incorrect attachment pauses delivery for inspection.
 
-`python -m app inspect` checks sources and one sample without publishing. Code pushes first run that live writing check, then process the current opportunity with the same spacing and duplicate checks as scheduled and dispatcher wakes. `python -m app run` processes that opportunity. Manual workflow runs have an inspect-only option. Tests run with `python -m unittest discover -s tests -v`.
+`python -m app inspect` checks sources and one sample without publishing. `python -m app diagnose` logs bounded public-source evidence and editorial decisions for up to four candidates, without sending or changing publication state. Code pushes, scheduled and dispatcher wakes run `python -m app run`, which processes the current opportunity with the same spacing and duplicate checks. Manual workflow runs have an inspect-only option. Tests run with `python -m unittest discover -s tests -v`.
 
 ## Editorial basis
 
