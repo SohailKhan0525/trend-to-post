@@ -767,7 +767,8 @@
     "2118895128152621153",
     "2118869352447656367",
     "2118816694101491973",
-    "2119144915456417842"
+    "2119144915456417842",
+    "2119124538701025721"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -827,7 +828,8 @@
     "b2c25890d03f674e1fa087d22761d1c776fcb38b91bf19d47c285b44762da951",
     "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0",
     "845349d7acaf03efeca14d6f7e4b3e7ba1dc44636e4b0887ad0c803baa00ac20",
-    "d4ab65797ebcc6cfb2b746b17a96260489e87e2748048f99d9f51cf6b502c111"
+    "d4ab65797ebcc6cfb2b746b17a96260489e87e2748048f99d9f51cf6b502c111",
+    "64b99189032a93459ace7fcf3cadb46bed5ced26f7e80796b2e8edbfbae76888"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1179,12 +1181,54 @@
     "f0487fd8c433b4f2b89359abcffbd39b898a0fb6c153e2856a0c51c87f8db692",
     "bbb40062db3a5f5bf88be897701d36c85e190b01d6544a5f07146594a69c9af7",
     "4f14f1bb7354122b0c9190bc42d1f84297ae7d2d771c23912e8c4d0465b51e0f",
-    "fb78ed0e8210ef6880c5f9d764bd183d5f1848cc7b38a55dc9e5b10781b01ab7"
+    "fb78ed0e8210ef6880c5f9d764bd183d5f1848cc7b38a55dc9e5b10781b01ab7",
+    "783d12594424269dcf8636e8360422f50f397087d53d466a92e0e8f90a45a566"
   ],
   "last_posted_at": "2026-11-07T22:31:16.707002+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-08:quote-v1:10",
+      "due_at": "2026-11-08T06:05:00+00:00"
+    },
+    "source": {
+      "id": "2119124538701025721",
+      "url": "https://x.com/niccruzpatane/status/2119124538701025721",
+      "author": "niccruzpatane",
+      "author_id": "1494873435863977985",
+      "text": "Tesla just released a video on how their Adaptive Headlights work at night. \n\nThis feature comes standard on every Model 3, and every Premium Model Y. https://t.co/huwEPtD0fi",
+      "created_at": "2026-11-07T17:47:16+00:00",
+      "views": 112716,
+      "urls": [],
+      "source_ids": [
+        "2119124538701025721"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — niccruzpatane reports: Tesla releases video on Adaptive Headlights feature\n\nThe report says the video explains how the headlights work at night and that the feature comes standard on every Model 3 and Premium Model Y.",
+      "event_key": "Tesla Adaptive Headlights Feature Release",
+      "premise": "Reported by niccruzpatane: Tesla released a video explaining how their Adaptive Headlights work at night, which comes standard on every Model 3 and Premium Model Y."
+    },
+    "reserved_at": "2026-11-08T06:05:08.395415+00:00",
+    "approval": "bd0cca6ce567ca8ca4cd1d3994ddcf9a1a9f557180bfa41be4404ad46bffb28c",
+    "run": [
+      "42452999718",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2119124538701025721"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "783d12594424269dcf8636e8360422f50f397087d53d466a92e0e8f90a45a566"
+      ],
+      "used_events": [
+        "64b99189032a93459ace7fcf3cadb46bed5ced26f7e80796b2e8edbfbae76888"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-08:quote-v1:9",
     "at": "2026-11-08T06:01:25.502033+00:00",
