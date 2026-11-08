@@ -815,7 +815,8 @@
     "2119144915456417842",
     "2119124538701025721",
     "2119130949434888330",
-    "2119003243909165429"
+    "2119003243909165429",
+    "2119296267545419987"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -878,7 +879,8 @@
     "d4ab65797ebcc6cfb2b746b17a96260489e87e2748048f99d9f51cf6b502c111",
     "64b99189032a93459ace7fcf3cadb46bed5ced26f7e80796b2e8edbfbae76888",
     "34b461a43032827c11e4ddb5dcfe75a6565fb23f758b55fc7229568aa94cfb96",
-    "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3"
+    "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3",
+    "962237cd7326d4281207a2bf044a990ef5a6da344c5a01ea155b5f9c6783a3f2"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1233,12 +1235,54 @@
     "fb78ed0e8210ef6880c5f9d764bd183d5f1848cc7b38a55dc9e5b10781b01ab7",
     "783d12594424269dcf8636e8360422f50f397087d53d466a92e0e8f90a45a566",
     "fd506c45cd3c37e7b364afd96ff0d20f1f3949785560812f5f5d5696ca9a900f",
-    "bdea8b8c22b13c46b1768c4d0eb15679daca806b89390a11b6a7862d46b13fc9"
+    "bdea8b8c22b13c46b1768c4d0eb15679daca806b89390a11b6a7862d46b13fc9",
+    "c2f11c295613e0231315e4e82d71b3304546e543dc0f286ed04b4d03d9bcc15d"
   ],
   "last_posted_at": "2026-11-08T09:06:15.801178+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-08:quote-v1:16",
+      "due_at": "2026-11-08T09:39:00+00:00"
+    },
+    "source": {
+      "id": "2119296267545419987",
+      "url": "https://x.com/thsottiaux/status/2119296267545419987",
+      "author": "thsottiaux",
+      "author_id": "1953337039510003712",
+      "text": "Saw some confusions, but all Pro plans have no 5-hour limits, and give the following usage compared to Plus.\n\n✅ Pro 100 = 10X\n✅ Pro 200 = 20X\n✅ Pro 500 = 50X, access to ultrafast",
+      "created_at": "2026-11-08T05:09:39+00:00",
+      "views": 1021825,
+      "urls": [],
+      "source_ids": [
+        "2119296267545419987"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — thsottiaux reports: Pro plans offer 10X, 20X, and 50X usage compared to Plus, with Pro 500 providing access to ultrafast.\n\nThe report says Pro 100, 200, and 500 plans have no 5-hour limits and include ultrafast access for Pro 500.",
+      "event_key": "Pro Plans Usage Multipliers and Ultrafast Access",
+      "premise": "Reported by thsottiaux: Pro plans have no 5-hour limits and offer 10X, 20X, and 50X usage compared to Plus, with Pro 500 providing access to ultrafast."
+    },
+    "reserved_at": "2026-11-08T10:11:39.069533+00:00",
+    "approval": "b8ee840e2108e21941d6ed13841b2fb4c070bf51c359123b97f4d81cef26c7a5",
+    "run": [
+      "42469603716",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2119296267545419987"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "c2f11c295613e0231315e4e82d71b3304546e543dc0f286ed04b4d03d9bcc15d"
+      ],
+      "used_events": [
+        "962237cd7326d4281207a2bf044a990ef5a6da344c5a01ea155b5f9c6783a3f2"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 5,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-08:quote-v1:16",
     "at": "2026-11-08T10:01:29.457042+00:00",
