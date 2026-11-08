@@ -20,8 +20,17 @@ DRAFT = {
     "premise": "Atlas SDK 2.1 now offers offline CSV export to all users.",
 }
 GATE = {**dict.fromkeys(writer.GATE_FLAGS, True),
-        "event_key": DRAFT["event_key"], "facts": DRAFT["premise"]}
-PASS = dict.fromkeys(writer.REVIEW_FLAGS, True)
+        "event_key": DRAFT["event_key"], "facts": DRAFT["premise"], "subject": "Atlas SDK"}
+PASS = {**dict.fromkeys(writer.REVIEW_FLAGS, True),
+        "headline_evidence": SOURCE["text"], "body_evidence": SOURCE["text"]}
+
+
+def output(text):
+    headline, body = text.split("\n\n")
+    headline = headline.removeprefix("BREAKING — ")
+    if " reports: " in headline:
+        headline = headline.split(" reports: ", 1)[1]
+    return {"headline": headline, "body": body}
 
 
 class WriterTests(unittest.TestCase):
@@ -31,7 +40,7 @@ class WriterTests(unittest.TestCase):
         return result, complete
 
     def test_primary_announcement_becomes_grounded_two_paragraph_quote(self):
-        result, complete = self.generate_with([GATE, {"text": DRAFT["text"]}, PASS])
+        result, complete = self.generate_with([GATE, output(DRAFT["text"]), PASS])
         self.assertEqual(result, DRAFT)
         self.assertEqual(complete.call_count, 3)
         # The critic gets the original evidence, not the previous model's gloss.
@@ -42,10 +51,91 @@ class WriterTests(unittest.TestCase):
         self.assertNotIn("views", review["source"])
         self.assertNotIn("100000", result["text"])
 
+    def test_structured_fields_render_the_exact_prefix_and_blank_line(self):
+        fields = {"headline": " Atlas SDK 2.1 adds offline CSV export. ",
+                  "body": " All users can access the feature. "}
+        text = writer.render(fields, "BREAKING — ", "Atlas SDK")
+        self.assertEqual(text, "BREAKING — Atlas SDK 2.1 adds offline CSV export.\n\nAll users can access the feature.")
+        self.assertEqual(text.count("\n"), 2)
+        for bad in (
+            {**fields, "headline": "Atlas SDK\nadds export."},
+            {**fields, "body": "All users\\ncan access the feature."},
+            {**fields, "headline": "BREAKING — Atlas SDK adds export."},
+            {**fields, "headline": "Pro plans add offline CSV export."},
+            {"text": text},
+        ):
+            with self.subTest(bad=bad), self.assertRaises(DraftError):
+                writer.render(bad, "BREAKING — ", "Atlas SDK")
+
+    def test_unnamed_pro_plan_does_not_gain_a_product_name_from_model_memory(self):
+        source = {**SOURCE, "text": "Pro plans now have no 5-hour limits, with 10X, 20X and 50X usage compared to Plus."}
+        for subject in ("Pro", "Pro plans", "ChatGPT"):
+            with self.subTest(subject=subject), patch.object(writer, "complete", return_value={**GATE, "subject": subject}) as complete:
+                with self.assertRaisesRegex(DraftError, "identify the actual product"):
+                    writer.generate(source, {}, NOW)
+                self.assertEqual(complete.call_count, 1)
+
+    def test_numbered_bare_tier_is_rejected_but_a_named_product_pro_tier_is_allowed(self):
+        for subject in ("Pro 500", "Pro500", "Plus 100", "Free 20", "Premium 200", "Enterprise500"):
+            source = {**SOURCE, "text": f"{subject} now includes offline CSV export for all users."}
+            with self.subTest(subject=subject), patch.object(writer, "complete", return_value={**GATE, "subject": subject}) as complete:
+                with self.assertRaisesRegex(DraftError, "identify the actual product"):
+                    writer.generate(source, {}, NOW)
+                self.assertEqual(complete.call_count, 1)
+        source = {**SOURCE, "text": "Atlas Pro 500 now includes offline CSV export for all users."}
+        gate = {**GATE, "subject": "Atlas Pro 500", "facts": source["text"],
+                "event_key": "atlas pro 500 offline csv export release"}
+        fields = {"headline": "Atlas Pro 500 adds offline CSV export.", "body": "All users can access the feature."}
+        evidence = {**PASS, "headline_evidence": source["text"], "body_evidence": source["text"]}
+        result, _ = self.generate_with([gate, fields, evidence], source=source)
+        self.assertIn("Atlas Pro 500", result["text"])
+
+    def test_published_repeated_paragraphs_fail_the_local_repeat_guard(self):
+        # These are the observed published drafts. Source fixtures reproduce the
+        # ledger's stated facts; they are not claimed to be the original raw posts.
+        cases = [
+            ("k2sbhai", "DeepSeek V4.1 Flash is free with $20 monthly usage and almost 2x limits until Sunday 11:59 PM ET.",
+             "BREAKING — k2sbhai reports: DeepSeek V4.1 Flash is free with $20 monthly usage and almost 2x limits until Sunday 11:59 PM ET.\n\nThe report says the free plan includes $20 of usage per month and extends limits until the specified time."),
+            ("thsottiaux", "Pro 100, 200 and 500 plans have no 5-hour limits and offer 10X, 20X and 50X usage compared to Plus; Pro 500 includes ultrafast access.",
+             "BREAKING — thsottiaux reports: Pro plans offer 10X, 20X, and 50X usage compared to Plus, with Pro 500 providing access to ultrafast.\n\nThe report says Pro 100, 200, and 500 plans have no 5-hour limits and include ultrafast access for Pro 500."),
+        ]
+        for author, source_text, quote in cases:
+            with self.subTest(author=author):
+                fields = output(quote)
+                self.assertTrue(writer.paragraph_repeats(fields["headline"], fields["body"]))
+                draft = {"text": quote, "event_key": "a product plan change",
+                         "premise": f"Reported by {author}: {source_text}"}
+                with self.assertRaises(DraftError):
+                    writer.validate(draft, {**SOURCE, "author": author, "text": source_text})
+
+    def test_a_reported_free_tier_names_the_product_and_puts_the_cap_in_the_body(self):
+        source = {**SOURCE, "author": "k2sbhai",
+                  "text": "DeepSeek V4.1 Flash is free with $20 monthly usage; almost 2x limits last until Sunday 11:59 PM ET."}
+        gate = {**GATE, "primary": False, "subject": "DeepSeek V4.1 Flash",
+                "event_key": "deepseek v4.1 flash free tier and temporary limits",
+                "facts": source["text"]}
+        fields = {"headline": "DeepSeek V4.1 Flash gets a free tier.",
+                  "body": "The offer includes $20 monthly usage, with almost 2x limits until Sunday 11:59 PM ET."}
+        evidence = {**PASS, "headline_evidence": source["text"], "body_evidence": source["text"]}
+        result, complete = self.generate_with([gate, fields, evidence], source=source)
+        self.assertEqual(result["text"], "BREAKING — k2sbhai reports: " + fields["headline"] + "\n\n" + fields["body"])
+        self.assertEqual(complete.call_count, 3)
+        self.assertNotIn("The report says", result["text"])
+
+    def test_critic_must_provide_exact_source_evidence_even_when_all_flags_pass(self):
+        for evidence in ("Available only to paying users.", "Atlas is much faster now.", "", None):
+            with self.subTest(evidence=evidence), self.assertRaisesRegex(DraftError, "exact source evidence"):
+                writer.validate_review({**PASS, "body_evidence": evidence}, SOURCE, DRAFT)
+
+    def test_critic_rejection_of_missing_material_catch_prevents_publication(self):
+        with self.assertRaisesRegex(DraftError, "material cap, prerequisite or deadline"):
+            writer.validate_review({**PASS, "qualified": False}, SOURCE, DRAFT)
+
     def test_unfamiliar_account_can_report_concrete_news_with_explicit_attribution(self):
-        source = {**SOURCE, "author": "devreader73", "text": "Atlas released SDK 2.1 today with offline CSV export, available to all users."}
+        source = {**SOURCE, "author": "devreader73", "text": "Atlas SDK 2.1 was released today with offline CSV export, available to all users."}
         quote = "BREAKING — devreader73 reports: Atlas SDK 2.1 adds offline CSV export.\n\nThe report says all users can access it."
-        result, complete = self.generate_with([{**GATE, "primary": False}, {"text": quote}, PASS], source=source)
+        result, complete = self.generate_with([{**GATE, "primary": False}, output(quote),
+            {**PASS, "headline_evidence": source["text"], "body_evidence": source["text"]}], source=source)
         self.assertEqual(result["text"], quote)
         self.assertEqual(result["premise"], "Reported by devreader73: " + DRAFT["premise"])
         self.assertEqual(result["event_key"], DRAFT["event_key"])
@@ -60,7 +150,6 @@ class WriterTests(unittest.TestCase):
         for headline, detail in (
             ("BREAKING — Atlas SDK 2.1 adds offline CSV export.", "All users can access it."),
             ("BREAKING — anotherwriter reports: Atlas SDK 2.1 adds offline CSV export.", "The report says all users can access it."),
-            ("BREAKING — devreader73 reports: Atlas SDK 2.1 adds offline CSV export.", "All users can access it."),
         ):
             with self.subTest(headline=headline, detail=detail), self.assertRaises(DraftError):
                 writer.validate({**draft, "text": headline + "\n\n" + detail}, source)
@@ -76,12 +165,12 @@ class WriterTests(unittest.TestCase):
         source = {**SOURCE, "author": "devreader73", "text": "Report: Atlas SDK 2.1 now has offline CSV export."}
         draft = {**DRAFT, "premise": "Reported by devreader73: Atlas SDK 2.1 adds offline CSV export.",
                  "text": "BREAKING — devreader73 reports: Atlas SDK 2.1 adds offline CSV export.\n\nThe report says developers can access offline CSV export."}
-        with self.assertRaisesRegex(DraftError, "distinct source detail"):
+        with self.assertRaisesRegex(DraftError, "distinct source detail|repeats a fact"):
             writer.validate(draft, source)
 
     def test_independent_critic_rejects_missing_attribution_even_if_gate_misclassified_source(self):
-        responses = [GATE, {"text": DRAFT["text"]}, {**PASS, "attributed": False},
-                     {"text": DRAFT["text"]}, {**PASS, "attributed": False}]
+        responses = [GATE, output(DRAFT["text"]), {**PASS, "attributed": False},
+                     output(DRAFT["text"]), {**PASS, "attributed": False}]
         with patch.object(writer, "complete", side_effect=responses), patch("builtins.print"):
             with self.assertRaisesRegex(DraftError, "No grounded original quote"):
                 writer.generate({**SOURCE, "author": "devreader73"}, {}, NOW)
@@ -112,8 +201,8 @@ class WriterTests(unittest.TestCase):
     def test_critic_can_reject_abstract_question_in_favor_of_supported_detail(self):
         abstract = DRAFT["text"].split("\n\n")[0] + "\n\nHow will this affect broader workflows?"
         useful = DRAFT["text"].split("\n\n")[0] + "\n\nAll users can access the feature."
-        responses = [GATE, {"text": abstract}, {**PASS, "useful": False},
-                     {"text": useful}, PASS]
+        responses = [GATE, output(abstract), {**PASS, "useful": False},
+                     output(useful), PASS]
         with patch("builtins.print"):
             result, complete = self.generate_with(responses)
         self.assertEqual(result["text"], useful)
@@ -255,8 +344,8 @@ class WriterTests(unittest.TestCase):
 
     def test_critic_can_reject_invented_non_numeric_claim_then_accept_fixed_copy(self):
         invented = DRAFT["text"].replace("offline CSV export", "an autonomous coding agent")
-        responses = [GATE, {"text": invented}, {**PASS, "grounded": False},
-                     {"text": DRAFT["text"]}, PASS]
+        responses = [GATE, output(invented), {**PASS, "grounded": False},
+                     output(DRAFT["text"]), PASS]
         with patch("builtins.print"):
             result, complete = self.generate_with(responses)
         self.assertEqual(result, DRAFT)
@@ -266,8 +355,8 @@ class WriterTests(unittest.TestCase):
     def test_semantic_duplicate_or_bad_review_never_returns_fallback_copy(self):
         for verdict in ({**PASS, "fresh": False}, {**PASS, "new_announcement": False},
                         {**PASS, "safe": "true"}, {"grounded": True}):
-            responses = [GATE, {"text": DRAFT["text"]}, verdict,
-                         {"text": DRAFT["text"]}, verdict]
+            responses = [GATE, output(DRAFT["text"]), verdict,
+                         output(DRAFT["text"]), verdict]
             with self.subTest(verdict=verdict), patch.object(writer, "complete", side_effect=responses) as complete, patch("builtins.print") as log:
                 with self.assertRaisesRegex(DraftError, "No grounded original quote"):
                     writer.generate(SOURCE, {"history": [{"premise": "The same export release was covered already."}]}, NOW)
