@@ -831,7 +831,8 @@
     "2119124538701025721",
     "2119130949434888330",
     "2119003243909165429",
-    "2119296267545419987"
+    "2119296267545419987",
+    "2119119166510862752"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -895,7 +896,8 @@
     "64b99189032a93459ace7fcf3cadb46bed5ced26f7e80796b2e8edbfbae76888",
     "34b461a43032827c11e4ddb5dcfe75a6565fb23f758b55fc7229568aa94cfb96",
     "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3",
-    "962237cd7326d4281207a2bf044a990ef5a6da344c5a01ea155b5f9c6783a3f2"
+    "962237cd7326d4281207a2bf044a990ef5a6da344c5a01ea155b5f9c6783a3f2",
+    "0b850b751f44e80abcda87cb4f1d81809c4b9592bee59f5cccb08d719e0b2127"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1251,10 +1253,52 @@
     "783d12594424269dcf8636e8360422f50f397087d53d466a92e0e8f90a45a566",
     "fd506c45cd3c37e7b364afd96ff0d20f1f3949785560812f5f5d5696ca9a900f",
     "bdea8b8c22b13c46b1768c4d0eb15679daca806b89390a11b6a7862d46b13fc9",
-    "c2f11c295613e0231315e4e82d71b3304546e543dc0f286ed04b4d03d9bcc15d"
+    "c2f11c295613e0231315e4e82d71b3304546e543dc0f286ed04b4d03d9bcc15d",
+    "a506337ed288f3ea5b96c13f7b6594830d7a043fe785c61619cb7c914c872539"
   ],
   "last_posted_at": "2026-11-08T10:11:40.652160+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-08:quote-v1:22",
+      "due_at": "2026-11-08T13:16:00+00:00"
+    },
+    "source": {
+      "id": "2119119166510862752",
+      "url": "https://x.com/vercel_dev/status/2119119166510862752",
+      "author": "vercel_dev",
+      "author_id": "1333485844053839878",
+      "text": "DeepSeek V4.1 Flash 1017 Ultrafast is now available on AI Gateway. It generates over 1,000 tokens per second.\n\nUse 𝚍𝚎𝚎𝚙𝚜𝚎𝚎𝚔/𝚍𝚎𝚎𝚙𝚜𝚎𝚎𝚔-𝚟𝟺.𝟷-𝚏𝚕𝚊𝚜𝚑-𝟷𝟶𝟷𝟽-𝚞𝚕𝚝𝚛𝚊𝚏𝚊𝚜𝚝 for coding, reasoning, and agents. https://t.co/izA1D8DcWo",
+      "created_at": "2026-11-07T17:25:55+00:00",
+      "views": 106317,
+      "urls": [],
+      "source_ids": [
+        "2119119166510862752"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — vercel_dev reports: DeepSeek V4.1 Flash 1017 Ultrafast available on AI Gateway\n\nIt generates over 1,000 tokens per second.",
+      "event_key": "DeepSeek V4.1 Flash 1017 Ultrafast available on AI Gateway",
+      "premise": "Reported by vercel_dev: DeepSeek V4.1 Flash 1017 Ultrafast is now available on AI Gateway and generates over 1,000 tokens per second."
+    },
+    "reserved_at": "2026-11-08T13:24:25.676693+00:00",
+    "approval": "9838b720336bdc915991b84b996301ed4c2b4976a665de32736a47e9832644f2",
+    "run": [
+      "42484774732",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2119119166510862752"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "a506337ed288f3ea5b96c13f7b6594830d7a043fe785c61619cb7c914c872539"
+      ],
+      "used_events": [
+        "0b850b751f44e80abcda87cb4f1d81809c4b9592bee59f5cccb08d719e0b2127"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 0,
   "last_attempt": {
