@@ -799,7 +799,8 @@
     "2118816694101491973",
     "2119144915456417842",
     "2119124538701025721",
-    "2119130949434888330"
+    "2119130949434888330",
+    "2119003243909165429"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -861,7 +862,8 @@
     "845349d7acaf03efeca14d6f7e4b3e7ba1dc44636e4b0887ad0c803baa00ac20",
     "d4ab65797ebcc6cfb2b746b17a96260489e87e2748048f99d9f51cf6b502c111",
     "64b99189032a93459ace7fcf3cadb46bed5ced26f7e80796b2e8edbfbae76888",
-    "34b461a43032827c11e4ddb5dcfe75a6565fb23f758b55fc7229568aa94cfb96"
+    "34b461a43032827c11e4ddb5dcfe75a6565fb23f758b55fc7229568aa94cfb96",
+    "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1215,12 +1217,54 @@
     "4f14f1bb7354122b0c9190bc42d1f84297ae7d2d771c23912e8c4d0465b51e0f",
     "fb78ed0e8210ef6880c5f9d764bd183d5f1848cc7b38a55dc9e5b10781b01ab7",
     "783d12594424269dcf8636e8360422f50f397087d53d466a92e0e8f90a45a566",
-    "fd506c45cd3c37e7b364afd96ff0d20f1f3949785560812f5f5d5696ca9a900f"
+    "fd506c45cd3c37e7b364afd96ff0d20f1f3949785560812f5f5d5696ca9a900f",
+    "bdea8b8c22b13c46b1768c4d0eb15679daca806b89390a11b6a7862d46b13fc9"
   ],
   "last_posted_at": "2026-11-08T08:11:37.242541+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-08:quote-v1:15",
+      "due_at": "2026-11-08T09:06:00+00:00"
+    },
+    "source": {
+      "id": "2119003243909165429",
+      "url": "https://x.com/k2sbhai/status/2119003243909165429",
+      "author": "k2sbhai",
+      "author_id": "1548759486491402240",
+      "text": "DeepSeek V4.1 Flash FREE 😳\n\n- FREE plan, no paid sub\n- $20 usage included a month\n- almost 2x limits till sun 11:59 PM ET\n- 456 tok/s speed\n\n&gt; Qwen 3.8 Max also FREE till nov 20\n\nhttps://t.co/ihngVDsVAV https://t.co/hUCQYBCZzJ",
+      "created_at": "2026-11-07T09:45:17+00:00",
+      "views": 146083,
+      "urls": [],
+      "source_ids": [
+        "2119003243909165429"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — k2sbhai reports: DeepSeek V4.1 Flash is free with $20 monthly usage and almost 2x limits until Sunday 11:59 PM ET.\n\nThe report says the free plan includes $20 of usage per month and extends limits until the specified time.",
+      "event_key": "DeepSeek V4.1 Flash FREE with $20 monthly usage",
+      "premise": "Reported by k2sbhai: DeepSeek V4.1 Flash is FREE with $20 usage included a month and almost 2x limits till sun 11:59 PM ET."
+    },
+    "reserved_at": "2026-11-08T09:06:14.192231+00:00",
+    "approval": "abbbf4f1102bd228116b610c40af0475e5883e247e9faa6ada51dcc3ef290f9c",
+    "run": [
+      "42465354446",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2119003243909165429"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "bdea8b8c22b13c46b1768c4d0eb15679daca806b89390a11b6a7862d46b13fc9"
+      ],
+      "used_events": [
+        "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 4,
+  "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-08:quote-v1:14",
     "at": "2026-11-08T09:01:34.730488+00:00",
