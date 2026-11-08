@@ -675,6 +675,21 @@
       "source_created_at": "2026-11-07T17:06:49+00:00",
       "tweet_id": "2119446386089627777",
       "posted_at": "2026-11-08T15:06:10.747025+00:00"
+    },
+    {
+      "slot": "2026-11-08:quote-v1:26",
+      "due_at": "2026-11-08T15:38:00+00:00",
+      "text": "BREAKING — GoogleCloudTech reports: Google Elephant-Goldfish Model adds agent stress-testing\n\nIt allows stress-testing specs with zero-context subagents before implementation.",
+      "event_key": "Google Elephant-Goldfish Model open-source plugin",
+      "premise": "Reported by GoogleCloudTech: Google announces the Elephant-Goldfish Model, an open-source plugin that allows drafting specs with deep-context agents and stress-testing with zero-context subagents.",
+      "source_id": "2119203243054023129",
+      "author": "GoogleCloudTech",
+      "source_url": "https://x.com/GoogleCloudTech/status/2119203243054023129",
+      "source_views": 100226,
+      "source_checked_at": "2026-11-08T15:48:16.491876+00:00",
+      "source_created_at": "2026-11-07T23:00:00+00:00",
+      "tweet_id": "2119456985229971965",
+      "posted_at": "2026-11-08T15:48:17.785964+00:00"
     }
   ],
   "used_source_ids": [
@@ -1293,58 +1308,17 @@
     "b085bac70e3c9e5fafe6f4fdceb7a7a09e42311339de9c5ce2f2ce602e7569bd",
     "27b2c888dc20f41fae113947673a6c7af2950b16d37d7ac512817a9953d07898"
   ],
-  "last_posted_at": "2026-11-08T15:06:10.747025+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-08:quote-v1:26",
-      "due_at": "2026-11-08T15:38:00+00:00"
-    },
-    "source": {
-      "id": "2119203243054023129",
-      "url": "https://x.com/GoogleCloudTech/status/2119203243054023129",
-      "author": "GoogleCloudTech",
-      "author_id": "15813140",
-      "text": "Check out Google's Elephant-Goldfish Model, our new open-source plugin → https://t.co/eIWb2HAeDt\n\nDraft specs with deep-context agents and stress-test them with zero-context subagents before writing code. You make the architectural decisions and approve the spec before implementation. Works with Antigravity, Claude, Codex and ChatGPT.",
-      "created_at": "2026-11-07T23:00:00+00:00",
-      "views": 100226,
-      "urls": [
-        "https://goo.gle/480yn2n"
-      ],
-      "source_ids": [
-        "2119203243054023129"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — GoogleCloudTech reports: Google Elephant-Goldfish Model adds agent stress-testing\n\nIt allows stress-testing specs with zero-context subagents before implementation.",
-      "event_key": "Google Elephant-Goldfish Model open-source plugin",
-      "premise": "Reported by GoogleCloudTech: Google announces the Elephant-Goldfish Model, an open-source plugin that allows drafting specs with deep-context agents and stress-testing with zero-context subagents."
-    },
-    "reserved_at": "2026-11-08T15:48:16.491876+00:00",
-    "approval": "f3dddfcc4d9a38179ae0957b9e64f3ed9ab6aed3af04b81fb0af58de1c901f70",
-    "run": [
-      "42495182631",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2119203243054023129"
-      ],
-      "used_urls": [
-        "https://goo.gle/480yn2n"
-      ],
-      "used_texts": [
-        "27b2c888dc20f41fae113947673a6c7af2950b16d37d7ac512817a9953d07898"
-      ],
-      "used_events": [
-        "1d4ec3e76872c0cd62ff57ad9a24065663dc97d07c5a4f59299200be9d123c1b"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-08T15:48:17.785964+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-08:quote-v1:26",
     "at": "2026-11-08T15:38:07.506367+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119456985229971965",
+    "source_id": "2119203243054023129"
   }
 }
