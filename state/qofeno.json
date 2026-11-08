@@ -863,7 +863,8 @@
     "2119003243909165429",
     "2119296267545419987",
     "2119119166510862752",
-    "2119114359666577909"
+    "2119114359666577909",
+    "2119203243054023129"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -882,7 +883,8 @@
     "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf",
     "https://on.wsj.com/4sIOA5L",
     "https://composio.dev/instant",
-    "https://opencode.ai/product/browse"
+    "https://opencode.ai/product/browse",
+    "https://goo.gle/480yn2n"
   ],
   "used_events": [
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -929,7 +931,8 @@
     "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3",
     "962237cd7326d4281207a2bf044a990ef5a6da344c5a01ea155b5f9c6783a3f2",
     "0b850b751f44e80abcda87cb4f1d81809c4b9592bee59f5cccb08d719e0b2127",
-    "51d0a5a37923b89492c5147ac2bf7f2c8fe43388ebaeaa01f9d885a8c1b08a94"
+    "51d0a5a37923b89492c5147ac2bf7f2c8fe43388ebaeaa01f9d885a8c1b08a94",
+    "1d4ec3e76872c0cd62ff57ad9a24065663dc97d07c5a4f59299200be9d123c1b"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1287,12 +1290,58 @@
     "bdea8b8c22b13c46b1768c4d0eb15679daca806b89390a11b6a7862d46b13fc9",
     "c2f11c295613e0231315e4e82d71b3304546e543dc0f286ed04b4d03d9bcc15d",
     "a506337ed288f3ea5b96c13f7b6594830d7a043fe785c61619cb7c914c872539",
-    "b085bac70e3c9e5fafe6f4fdceb7a7a09e42311339de9c5ce2f2ce602e7569bd"
+    "b085bac70e3c9e5fafe6f4fdceb7a7a09e42311339de9c5ce2f2ce602e7569bd",
+    "27b2c888dc20f41fae113947673a6c7af2950b16d37d7ac512817a9953d07898"
   ],
   "last_posted_at": "2026-11-08T15:06:10.747025+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-08:quote-v1:26",
+      "due_at": "2026-11-08T15:38:00+00:00"
+    },
+    "source": {
+      "id": "2119203243054023129",
+      "url": "https://x.com/GoogleCloudTech/status/2119203243054023129",
+      "author": "GoogleCloudTech",
+      "author_id": "15813140",
+      "text": "Check out Google's Elephant-Goldfish Model, our new open-source plugin → https://t.co/eIWb2HAeDt\n\nDraft specs with deep-context agents and stress-test them with zero-context subagents before writing code. You make the architectural decisions and approve the spec before implementation. Works with Antigravity, Claude, Codex and ChatGPT.",
+      "created_at": "2026-11-07T23:00:00+00:00",
+      "views": 100226,
+      "urls": [
+        "https://goo.gle/480yn2n"
+      ],
+      "source_ids": [
+        "2119203243054023129"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — GoogleCloudTech reports: Google Elephant-Goldfish Model adds agent stress-testing\n\nIt allows stress-testing specs with zero-context subagents before implementation.",
+      "event_key": "Google Elephant-Goldfish Model open-source plugin",
+      "premise": "Reported by GoogleCloudTech: Google announces the Elephant-Goldfish Model, an open-source plugin that allows drafting specs with deep-context agents and stress-testing with zero-context subagents."
+    },
+    "reserved_at": "2026-11-08T15:48:16.491876+00:00",
+    "approval": "f3dddfcc4d9a38179ae0957b9e64f3ed9ab6aed3af04b81fb0af58de1c901f70",
+    "run": [
+      "42495182631",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2119203243054023129"
+      ],
+      "used_urls": [
+        "https://goo.gle/480yn2n"
+      ],
+      "used_texts": [
+        "27b2c888dc20f41fae113947673a6c7af2950b16d37d7ac512817a9953d07898"
+      ],
+      "used_events": [
+        "1d4ec3e76872c0cd62ff57ad9a24065663dc97d07c5a4f59299200be9d123c1b"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-08:quote-v1:26",
     "at": "2026-11-08T15:38:07.506367+00:00",
