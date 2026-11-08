@@ -1313,8 +1313,8 @@
   "check_session": false,
   "candidate_cursor": 2,
   "last_attempt": {
-    "slot": "2026-11-08:quote-v1:26",
-    "at": "2026-11-08T15:38:07.506367+00:00",
+    "slot": "2026-11-08:quote-v1:27",
+    "at": "2026-11-08T16:15:07.323693+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   }
 }
