@@ -895,7 +895,8 @@
     "2119119166510862752",
     "2119114359666577909",
     "2119203243054023129",
-    "2119406396160540738"
+    "2119406396160540738",
+    "2119883176726409645"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -964,7 +965,8 @@
     "0b850b751f44e80abcda87cb4f1d81809c4b9592bee59f5cccb08d719e0b2127",
     "51d0a5a37923b89492c5147ac2bf7f2c8fe43388ebaeaa01f9d885a8c1b08a94",
     "1d4ec3e76872c0cd62ff57ad9a24065663dc97d07c5a4f59299200be9d123c1b",
-    "fe6ea411cb16ee4db4600dc074d3ec8ec2539aa0e2f0a7dad4365efcd34be33e"
+    "fe6ea411cb16ee4db4600dc074d3ec8ec2539aa0e2f0a7dad4365efcd34be33e",
+    "28d116a946692352da13819ca098b11c72017aefe9e35254ea0979323a75e839"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1324,12 +1326,54 @@
     "a506337ed288f3ea5b96c13f7b6594830d7a043fe785c61619cb7c914c872539",
     "b085bac70e3c9e5fafe6f4fdceb7a7a09e42311339de9c5ce2f2ce602e7569bd",
     "27b2c888dc20f41fae113947673a6c7af2950b16d37d7ac512817a9953d07898",
-    "9b5b4d97edb0828833f86c171d3b542a1b619287e6efd17d970aca9f6f56eef7"
+    "9b5b4d97edb0828833f86c171d3b542a1b619287e6efd17d970aca9f6f56eef7",
+    "17904ecc3d07caf4e8b8b64e417937a3f108f688d040b5a71f0a8c5384ada1b8"
   ],
   "last_posted_at": "2026-11-09T04:01:28.363481+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-09:quote-v1:36",
+      "due_at": "2026-11-09T21:41:00+00:00"
+    },
+    "source": {
+      "id": "2119883176726409645",
+      "url": "https://x.com/OpenAIDevs/status/2119883176726409645",
+      "author": "OpenAIDevs",
+      "author_id": "1633874951508721686",
+      "text": "You can now connect multiple local computers to the same dot and choose which one it uses for a task.\n\nIt can build and test your app on a dedicated machine while you keep coding on your laptop. https://t.co/7NcrytEqHC",
+      "created_at": "2026-11-09T20:01:49+00:00",
+      "views": 177497,
+      "urls": [],
+      "source_ids": [
+        "2119883176726409645"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — OpenAIDevs reports: dot connects multiple local computers\n\nUsers can now select which computer to use for a task while building and testing apps.",
+      "event_key": "dot connects multiple local computers",
+      "premise": "Reported by OpenAIDevs: You can now connect multiple local computers to the same dot and choose which one it uses for a task."
+    },
+    "reserved_at": "2026-11-09T22:01:43.802385+00:00",
+    "approval": "8d337a29c13d63e8bd45bbd18c6780836af0e060d7e1194bfa319ed3b1c52ec2",
+    "run": [
+      "42707928090",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2119883176726409645"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "17904ecc3d07caf4e8b8b64e417937a3f108f688d040b5a71f0a8c5384ada1b8"
+      ],
+      "used_events": [
+        "28d116a946692352da13819ca098b11c72017aefe9e35254ea0979323a75e839"
+      ]
+    }
+  },
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-09:quote-v1:36",
     "at": "2026-11-09T21:41:25.353676+00:00",
