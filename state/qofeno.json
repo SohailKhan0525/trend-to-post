@@ -705,6 +705,21 @@
       "source_created_at": "2026-11-08T12:27:16+00:00",
       "tweet_id": "2119641494977949797",
       "posted_at": "2026-11-09T04:01:28.363481+00:00"
+    },
+    {
+      "slot": "2026-11-09:quote-v1:36",
+      "due_at": "2026-11-09T21:41:00+00:00",
+      "text": "BREAKING — OpenAIDevs reports: dot connects multiple local computers\n\nUsers can now select which computer to use for a task while building and testing apps.",
+      "event_key": "dot connects multiple local computers",
+      "premise": "Reported by OpenAIDevs: You can now connect multiple local computers to the same dot and choose which one it uses for a task.",
+      "source_id": "2119883176726409645",
+      "author": "OpenAIDevs",
+      "source_url": "https://x.com/OpenAIDevs/status/2119883176726409645",
+      "source_views": 177497,
+      "source_checked_at": "2026-11-09T22:01:43.802385+00:00",
+      "source_created_at": "2026-11-09T20:01:49+00:00",
+      "tweet_id": "2119913357167718824",
+      "posted_at": "2026-11-09T22:01:45.355746+00:00"
     }
   ],
   "used_source_ids": [
@@ -1329,54 +1344,17 @@
     "9b5b4d97edb0828833f86c171d3b542a1b619287e6efd17d970aca9f6f56eef7",
     "17904ecc3d07caf4e8b8b64e417937a3f108f688d040b5a71f0a8c5384ada1b8"
   ],
-  "last_posted_at": "2026-11-09T04:01:28.363481+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-09:quote-v1:36",
-      "due_at": "2026-11-09T21:41:00+00:00"
-    },
-    "source": {
-      "id": "2119883176726409645",
-      "url": "https://x.com/OpenAIDevs/status/2119883176726409645",
-      "author": "OpenAIDevs",
-      "author_id": "1633874951508721686",
-      "text": "You can now connect multiple local computers to the same dot and choose which one it uses for a task.\n\nIt can build and test your app on a dedicated machine while you keep coding on your laptop. https://t.co/7NcrytEqHC",
-      "created_at": "2026-11-09T20:01:49+00:00",
-      "views": 177497,
-      "urls": [],
-      "source_ids": [
-        "2119883176726409645"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — OpenAIDevs reports: dot connects multiple local computers\n\nUsers can now select which computer to use for a task while building and testing apps.",
-      "event_key": "dot connects multiple local computers",
-      "premise": "Reported by OpenAIDevs: You can now connect multiple local computers to the same dot and choose which one it uses for a task."
-    },
-    "reserved_at": "2026-11-09T22:01:43.802385+00:00",
-    "approval": "8d337a29c13d63e8bd45bbd18c6780836af0e060d7e1194bfa319ed3b1c52ec2",
-    "run": [
-      "42707928090",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2119883176726409645"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "17904ecc3d07caf4e8b8b64e417937a3f108f688d040b5a71f0a8c5384ada1b8"
-      ],
-      "used_events": [
-        "28d116a946692352da13819ca098b11c72017aefe9e35254ea0979323a75e839"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-09T22:01:45.355746+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-09:quote-v1:36",
     "at": "2026-11-09T21:41:25.353676+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119913357167718824",
+    "source_id": "2119883176726409645"
   }
 }
