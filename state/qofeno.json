@@ -879,7 +879,8 @@
     "2119296267545419987",
     "2119119166510862752",
     "2119114359666577909",
-    "2119203243054023129"
+    "2119203243054023129",
+    "2119406396160540738"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -947,7 +948,8 @@
     "962237cd7326d4281207a2bf044a990ef5a6da344c5a01ea155b5f9c6783a3f2",
     "0b850b751f44e80abcda87cb4f1d81809c4b9592bee59f5cccb08d719e0b2127",
     "51d0a5a37923b89492c5147ac2bf7f2c8fe43388ebaeaa01f9d885a8c1b08a94",
-    "1d4ec3e76872c0cd62ff57ad9a24065663dc97d07c5a4f59299200be9d123c1b"
+    "1d4ec3e76872c0cd62ff57ad9a24065663dc97d07c5a4f59299200be9d123c1b",
+    "fe6ea411cb16ee4db4600dc074d3ec8ec2539aa0e2f0a7dad4365efcd34be33e"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1306,10 +1308,52 @@
     "c2f11c295613e0231315e4e82d71b3304546e543dc0f286ed04b4d03d9bcc15d",
     "a506337ed288f3ea5b96c13f7b6594830d7a043fe785c61619cb7c914c872539",
     "b085bac70e3c9e5fafe6f4fdceb7a7a09e42311339de9c5ce2f2ce602e7569bd",
-    "27b2c888dc20f41fae113947673a6c7af2950b16d37d7ac512817a9953d07898"
+    "27b2c888dc20f41fae113947673a6c7af2950b16d37d7ac512817a9953d07898",
+    "9b5b4d97edb0828833f86c171d3b542a1b619287e6efd17d970aca9f6f56eef7"
   ],
   "last_posted_at": "2026-11-08T15:48:17.785964+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-09:quote-v1:6",
+      "due_at": "2026-11-09T03:40:00+00:00"
+    },
+    "source": {
+      "id": "2119406396160540738",
+      "url": "https://x.com/emilkowalski/status/2119406396160540738",
+      "author": "emilkowalski",
+      "author_id": "1255500442898964481",
+      "text": "New skill: /gestures\n\nHelps you build beautiful, intuitive gestures for your app.\n\nAdds rubber banding, velocity support for dragging, drags that carry momentum, everything I learned from building Sonner and Vaul, and more.\n\nI’ve been using it a lot recently, you’ll love it. https://t.co/1vIxxNo8NI",
+      "created_at": "2026-11-08T12:27:16+00:00",
+      "views": 201709,
+      "urls": [],
+      "source_ids": [
+        "2119406396160540738"
+      ]
+    },
+    "draft": {
+      "text": "BREAKING — emilkowalski reports: /gestures adds rubber banding and velocity support\n\nSupports drags that carry momentum and includes features from Sonner and Vaul.",
+      "event_key": "New skill: /gestures adds gesture features",
+      "premise": "Reported by emilkowalski: New skill: /gestures helps build beautiful, intuitive gestures for apps with features like rubber banding and velocity support."
+    },
+    "reserved_at": "2026-11-09T04:01:26.794732+00:00",
+    "approval": "329e7b5afea97381580b6fb00b0f5aa5d78f3f4e68bb4e9329da056a250946e3",
+    "run": [
+      "42559451455",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2119406396160540738"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "9b5b4d97edb0828833f86c171d3b542a1b619287e6efd17d970aca9f6f56eef7"
+      ],
+      "used_events": [
+        "fe6ea411cb16ee4db4600dc074d3ec8ec2539aa0e2f0a7dad4365efcd34be33e"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 0,
   "last_attempt": {
