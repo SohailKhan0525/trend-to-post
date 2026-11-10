@@ -720,6 +720,21 @@
       "source_created_at": "2026-11-09T20:01:49+00:00",
       "tweet_id": "2119913357167718824",
       "posted_at": "2026-11-09T22:01:45.355746+00:00"
+    },
+    {
+      "slot": "2026-11-10:quote-v1:0",
+      "due_at": "2026-11-10T00:06:00+00:00",
+      "text": "BREAKING — OpenAIDevs reports: ModRetro Chromatic plugin in Codex now on Supply Co.\n\nThe plugin allows level design, sprite animation, and playtesting on a handheld.",
+      "event_key": "ModRetro Chromatic plugin in Codex now on Supply Co.",
+      "premise": "Reported by OpenAIDevs: The ModRetro Chromatic plugin in Codex is now on Supply Co.",
+      "source_id": "2119864571733446774",
+      "author": "OpenAIDevs",
+      "source_url": "https://x.com/OpenAIDevs/status/2119864571733446774",
+      "source_views": 341574,
+      "source_checked_at": "2026-11-10T00:16:29.320875+00:00",
+      "source_created_at": "2026-11-09T18:47:53+00:00",
+      "tweet_id": "2119947271274189011",
+      "posted_at": "2026-11-10T00:16:31.082505+00:00"
     }
   ],
   "used_source_ids": [
@@ -1347,54 +1362,17 @@
     "17904ecc3d07caf4e8b8b64e417937a3f108f688d040b5a71f0a8c5384ada1b8",
     "badc9751d297a07acf02a71cdc629608dfd4623075a99246cef9a313bb934370"
   ],
-  "last_posted_at": "2026-11-09T22:01:45.355746+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-10:quote-v1:0",
-      "due_at": "2026-11-10T00:06:00+00:00"
-    },
-    "source": {
-      "id": "2119864571733446774",
-      "url": "https://x.com/OpenAIDevs/status/2119864571733446774",
-      "author": "OpenAIDevs",
-      "author_id": "1633874951508721686",
-      "text": "Ever thought about building your own games? The Codex edition @modretro Chromatic is now on Supply Co.\n\nWith the ModRetro Chromatic plugin in Codex, you can design levels, animate sprites, and playtest on your handheld.\n\nSpeedrun checkout while Codex builds your ROM 😉 https://t.co/3OViRHh2Ry",
-      "created_at": "2026-11-09T18:47:53+00:00",
-      "views": 341574,
-      "urls": [],
-      "source_ids": [
-        "2119864571733446774"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — OpenAIDevs reports: ModRetro Chromatic plugin in Codex now on Supply Co.\n\nThe plugin allows level design, sprite animation, and playtesting on a handheld.",
-      "event_key": "ModRetro Chromatic plugin in Codex now on Supply Co.",
-      "premise": "Reported by OpenAIDevs: The ModRetro Chromatic plugin in Codex is now on Supply Co."
-    },
-    "reserved_at": "2026-11-10T00:16:29.320875+00:00",
-    "approval": "81fd4e678780dc35dccb9a76651e52b08964c607cae03f3d8f9b885848e32fb8",
-    "run": [
-      "42725032887",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2119864571733446774"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "badc9751d297a07acf02a71cdc629608dfd4623075a99246cef9a313bb934370"
-      ],
-      "used_events": [
-        "6b2da1536d55e67de8e4a37faac4ca97c96dc13b0280bcf72195a79117470c60"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-10T00:16:31.082505+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-10:quote-v1:0",
     "at": "2026-11-10T00:06:19.258460+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2119947271274189011",
+    "source_id": "2119864571733446774"
   }
 }
