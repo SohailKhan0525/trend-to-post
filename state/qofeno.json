@@ -1368,7 +1368,7 @@
   "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-10:quote-v1:6",
-    "at": "2026-11-10T04:01:31.838061+00:00",
+    "at": "2026-11-10T04:11:52.218816+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   }
 }
