@@ -735,6 +735,21 @@
       "source_created_at": "2026-11-09T18:47:53+00:00",
       "tweet_id": "2119947271274189011",
       "posted_at": "2026-11-10T00:16:31.082505+00:00"
+    },
+    {
+      "slot": "2026-11-10:quote-v1:20",
+      "due_at": "2026-11-10T12:02:00+00:00",
+      "text": "BREAKING — emilkowalski reports: emilkowalski updates 17 skills with UI comparisons\n\nEach skill includes before-and-after UI examples and pairing suggestions.",
+      "event_key": "Documentation released for 17 skills with UI comparisons and example prompts",
+      "premise": "Reported by emilkowalski: Released documentation for 17 skills with before and after UI, example prompts, when to use, and skill pairings.",
+      "source_id": "2119780441658212842",
+      "author": "emilkowalski",
+      "source_url": "https://x.com/emilkowalski/status/2119780441658212842",
+      "source_views": 117386,
+      "source_checked_at": "2026-11-10T12:31:22.630395+00:00",
+      "source_created_at": "2026-11-09T13:13:35+00:00",
+      "tweet_id": "2120132217150259633",
+      "posted_at": "2026-11-10T12:31:25.735790+00:00"
     }
   ],
   "used_source_ids": [
@@ -1366,58 +1381,17 @@
     "badc9751d297a07acf02a71cdc629608dfd4623075a99246cef9a313bb934370",
     "ed56147d29668d0c4e016a5714275970b210ce6af243b4c317634dffb48eb3c7"
   ],
-  "last_posted_at": "2026-11-10T00:16:31.082505+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-10:quote-v1:20",
-      "due_at": "2026-11-10T12:02:00+00:00"
-    },
-    "source": {
-      "id": "2119780441658212842",
-      "url": "https://x.com/emilkowalski/status/2119780441658212842",
-      "author": "emilkowalski",
-      "author_id": "1255500442898964481",
-      "text": "Just released documentation for my skills.\n\nEach of the 17 skills now has a before and after of the same UI, example prompts, when to reach for it, and which skills pair well with it.\n\nAn improvement over a plain README on GitHub, with more coming soon.\n\nhttps://t.co/wSHp04XjT0",
-      "created_at": "2026-11-09T13:13:35+00:00",
-      "views": 117386,
-      "urls": [
-        "https://aiforui.dev/skills"
-      ],
-      "source_ids": [
-        "2119780441658212842"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — emilkowalski reports: emilkowalski updates 17 skills with UI comparisons\n\nEach skill includes before-and-after UI examples and pairing suggestions.",
-      "event_key": "Documentation released for 17 skills with UI comparisons and example prompts",
-      "premise": "Reported by emilkowalski: Released documentation for 17 skills with before and after UI, example prompts, when to use, and skill pairings."
-    },
-    "reserved_at": "2026-11-10T12:31:22.630395+00:00",
-    "approval": "f5d5b3c1b11ea187db8b3a5e9423de32316c3a4b2769565ff7c47e92d8f7fbbf",
-    "run": [
-      "42816412237",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2119780441658212842"
-      ],
-      "used_urls": [
-        "https://aiforui.dev/skills"
-      ],
-      "used_texts": [
-        "ed56147d29668d0c4e016a5714275970b210ce6af243b4c317634dffb48eb3c7"
-      ],
-      "used_events": [
-        "fed466de0ddd9b6791192cf668fce28358966278a1664ba555a07d3b10c1e458"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-10T12:31:25.735790+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-10:quote-v1:20",
     "at": "2026-11-10T12:02:16.540829+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2120132217150259633",
+    "source_id": "2119780441658212842"
   }
 }
