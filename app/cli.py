@@ -8,12 +8,12 @@ from twikit.errors import InvalidSession
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("command",choices=("inspect","diagnose","run"))
+    parser.add_argument("command",choices=("inspect","diagnose","metrics","run"))
     args=parser.parse_args()
     try:
-        if args.command=="diagnose":
-            from .diagnostics import diagnose
-            asyncio.run(diagnose())
+        if args.command in ("diagnose","metrics"):
+            from .diagnostics import diagnose, metrics
+            asyncio.run(metrics() if args.command=="metrics" else diagnose())
         else:
             asyncio.run(queue.inspect() if args.command=="inspect" else queue.run(os.environ.get("GITHUB_EVENT_NAME","manual")))
     except (queue.SessionUnavailable,InvalidSession):
