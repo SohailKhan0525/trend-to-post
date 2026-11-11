@@ -1468,5 +1468,10 @@
       "until": "2026-11-11T20:21:20+00:00",
       "reason": "A future launch or performance prediction is not a new announcement"
     }
+  },
+  "ai_pause": {
+    "reason": "Cloudflare daily free AI allocation exhausted; waiting for 00:00 UTC reset.",
+    "until": "2026-11-12T00:00:00+00:00",
+    "observed_run": "https://github.com/SohailKhan0525/trend-to-post/actions/runs/43012567926"
   }
 }
