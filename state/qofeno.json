@@ -765,6 +765,21 @@
       "source_created_at": "2026-11-10T22:16:43+00:00",
       "tweet_id": "2120313426664681951",
       "posted_at": "2026-11-11T00:31:29.366317+00:00"
+    },
+    {
+      "slot": "2026-11-11:quote-v1:6",
+      "due_at": "2026-11-11T03:38:00+00:00",
+      "text": "BREAKING — cursor_ai reports: Gemini 4 Carbon available in Cursor\n\nIt's the top model on CursorBench at 60.4%.",
+      "event_key": "Gemini 4 Carbon available in Cursor",
+      "premise": "Reported by cursor_ai: Gemini 4 Carbon is now available in Cursor. It's the top model on CursorBench at 60.4%.",
+      "source_id": "2120193584670580857",
+      "author": "cursor_ai",
+      "source_url": "https://x.com/cursor_ai/status/2120193584670580857",
+      "source_views": 407750,
+      "source_checked_at": "2026-11-11T04:11:49.429040+00:00",
+      "source_created_at": "2026-11-10T16:35:16+00:00",
+      "tweet_id": "2120368882053472454",
+      "posted_at": "2026-11-11T04:11:50.944481+00:00"
     }
   ],
   "used_source_ids": [
@@ -1402,54 +1417,17 @@
     "84c756ecdeea9a1170eda072f3fa19d95e5011e53469b8912c6656da45e783ac",
     "d877991f75762929859ea8c4092d4bd68f9300880f862e23b92053d2db797f59"
   ],
-  "last_posted_at": "2026-11-11T00:31:29.366317+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-11:quote-v1:6",
-      "due_at": "2026-11-11T03:38:00+00:00"
-    },
-    "source": {
-      "id": "2120193584670580857",
-      "url": "https://x.com/cursor_ai/status/2120193584670580857",
-      "author": "cursor_ai",
-      "author_id": "1695890961094909952",
-      "text": "Gemini 4 Carbon is now available in Cursor!\n\nAt high effort, it's the top model on CursorBench at 60.4% https://t.co/4I32nozQsb",
-      "created_at": "2026-11-10T16:35:16+00:00",
-      "views": 407750,
-      "urls": [],
-      "source_ids": [
-        "2120193584670580857"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — cursor_ai reports: Gemini 4 Carbon available in Cursor\n\nIt's the top model on CursorBench at 60.4%.",
-      "event_key": "Gemini 4 Carbon available in Cursor",
-      "premise": "Reported by cursor_ai: Gemini 4 Carbon is now available in Cursor. It's the top model on CursorBench at 60.4%."
-    },
-    "reserved_at": "2026-11-11T04:11:49.429040+00:00",
-    "approval": "ff83bdb5935bd218238ed5d3e3dfda738fffc8005afc42acdd369cfa8e00f47d",
-    "run": [
-      "42956458210",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2120193584670580857"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "d877991f75762929859ea8c4092d4bd68f9300880f862e23b92053d2db797f59"
-      ],
-      "used_events": [
-        "969353d7054536833563b5ba92a27b6ea34653d51476500e2cbe9f6ef26db218"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-11T04:11:50.944481+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 3,
   "last_attempt": {
     "slot": "2026-11-11:quote-v1:6",
     "at": "2026-11-11T04:01:33.264021+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2120368882053472454",
+    "source_id": "2120193584670580857"
   }
 }
