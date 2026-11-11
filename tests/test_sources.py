@@ -254,14 +254,17 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(first),4)
         self.assertEqual(len(second),4)
         self.assertEqual([product for _,product in second],["Top"]*4)
-        self.assertTrue(any('SaaS' in query or 'software' in query for query,_ in first))
-        self.assertTrue(any('electric car' in query or 'vehicle' in query for query,_ in first))
         for plan in (first,second):
+            self.assertTrue(any('Claude Code' in query or 'GitHub Copilot' in query for query,_ in plan))
+            self.assertTrue(any('coding' in query for query,_ in plan))
+            self.assertTrue(any('agent SDK' in query or 'code review' in query for query,_ in plan))
             for query,_ in plan[:3]:
                 self.assertIn(ANNOUNCEMENT_TERMS,query)
+                self.assertIn('announced',query)
                 self.assertLess(len(query),220)
             self.assertNotIn(ANNOUNCEMENT_TERMS,plan[3][0])
-            self.assertFalse(any('battery' in query or 'startup' in query for query,_ in plan))
+            self.assertFalse(any(term in query for query,_ in plan
+                                 for term in ('battery','startup','Tesla','Porsche','BMW','cars','automotive')))
 
     async def test_used_source_ids_include_older_edit_aliases(self):
         client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(author="indie_builder",aliases=["900", "1001"])], [], [], []]))

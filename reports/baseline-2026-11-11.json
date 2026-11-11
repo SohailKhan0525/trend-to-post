@@ -1,0 +1,240 @@
+{
+  "captured_at": "2026-11-11T11:44:57.206545+00:00",
+  "minimum_age_hours": 6,
+  "maximum_reads": 12,
+  "selected_posts": 12,
+  "posts": [
+    {
+      "tweet_id": "2120368882053472454",
+      "url": "https://x.com/i/status/2120368882053472454",
+      "posted_at": "2026-11-11T04:11:50.944481+00:00",
+      "age_hours": 7.6,
+      "text": "BREAKING — cursor_ai reports: Gemini 4 Carbon available in Cursor\n\nIt's the top model on CursorBench at 60.4%.",
+      "source_id": "2120193584670580857",
+      "source_author": "cursor_ai",
+      "source_views_at_publication": 407750,
+      "metrics": {
+        "views": 32,
+        "likes": 2,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2120313426664681951",
+      "url": "https://x.com/i/status/2120313426664681951",
+      "posted_at": "2026-11-11T00:31:29.366317+00:00",
+      "age_hours": 11.2,
+      "text": "BREAKING — bot reports: Grok Bot joins Tailscale tailnets\n\nIt now securely accesses private MCP servers, internal tools, and apps on networks.",
+      "source_id": "2120279511707386263",
+      "source_author": "bot",
+      "source_views_at_publication": 114775,
+      "metrics": {
+        "views": 22,
+        "likes": 1,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2120132217150259633",
+      "url": "https://x.com/i/status/2120132217150259633",
+      "posted_at": "2026-11-10T12:31:25.735790+00:00",
+      "age_hours": 23.2,
+      "text": "BREAKING — emilkowalski reports: emilkowalski updates 17 skills with UI comparisons\n\nEach skill includes before-and-after UI examples and pairing suggestions.",
+      "source_id": "2119780441658212842",
+      "source_author": "emilkowalski",
+      "source_views_at_publication": 117386,
+      "metrics": {
+        "views": 37,
+        "likes": 3,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2119947271274189011",
+      "url": "https://x.com/i/status/2119947271274189011",
+      "posted_at": "2026-11-10T00:16:31.082505+00:00",
+      "age_hours": 35.5,
+      "text": "BREAKING — OpenAIDevs reports: ModRetro Chromatic plugin in Codex now on Supply Co.\n\nThe plugin allows level design, sprite animation, and playtesting on a handheld.",
+      "source_id": "2119864571733446774",
+      "source_author": "OpenAIDevs",
+      "source_views_at_publication": 341574,
+      "metrics": {
+        "views": 60,
+        "likes": 2,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2119913357167718824",
+      "url": "https://x.com/i/status/2119913357167718824",
+      "posted_at": "2026-11-09T22:01:45.355746+00:00",
+      "age_hours": 37.7,
+      "text": "BREAKING — OpenAIDevs reports: dot connects multiple local computers\n\nUsers can now select which computer to use for a task while building and testing apps.",
+      "source_id": "2119883176726409645",
+      "source_author": "OpenAIDevs",
+      "source_views_at_publication": 177497,
+      "metrics": {
+        "views": 12,
+        "likes": 3,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2119641494977949797",
+      "url": "https://x.com/i/status/2119641494977949797",
+      "posted_at": "2026-11-09T04:01:28.363481+00:00",
+      "age_hours": 55.7,
+      "text": "BREAKING — emilkowalski reports: /gestures adds rubber banding and velocity support\n\nSupports drags that carry momentum and includes features from Sonner and Vaul.",
+      "source_id": "2119406396160540738",
+      "source_author": "emilkowalski",
+      "source_views_at_publication": 201709,
+      "metrics": {
+        "views": 17,
+        "likes": 3,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2119456985229971965",
+      "url": "https://x.com/i/status/2119456985229971965",
+      "posted_at": "2026-11-08T15:48:17.785964+00:00",
+      "age_hours": 67.9,
+      "text": "BREAKING — GoogleCloudTech reports: Google Elephant-Goldfish Model adds agent stress-testing\n\nIt allows stress-testing specs with zero-context subagents before implementation.",
+      "source_id": "2119203243054023129",
+      "source_author": "GoogleCloudTech",
+      "source_views_at_publication": 100226,
+      "metrics": {
+        "views": 18,
+        "likes": 0,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2119446386089627777",
+      "url": "https://x.com/i/status/2119446386089627777",
+      "posted_at": "2026-11-08T15:06:10.747025+00:00",
+      "age_hours": 68.6,
+      "text": "BREAKING — Polymarket reports: Starlink contest allows Super Bowl ad creation with Grok\n\nWinning entry may air during Super Bowl.",
+      "source_id": "2119114359666577909",
+      "source_author": "Polymarket",
+      "source_views_at_publication": 224766,
+      "metrics": {
+        "views": 19,
+        "likes": 0,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2119420785995481594",
+      "url": "https://x.com/i/status/2119420785995481594",
+      "posted_at": "2026-11-08T13:24:27.226413+00:00",
+      "age_hours": 70.3,
+      "text": "BREAKING — vercel_dev reports: DeepSeek V4.1 Flash 1017 Ultrafast available on AI Gateway\n\nIt generates over 1,000 tokens per second.",
+      "source_id": "2119119166510862752",
+      "source_author": "vercel_dev",
+      "source_views_at_publication": 106317,
+      "metrics": {
+        "views": 78,
+        "likes": 2,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2119372272305664154",
+      "url": "https://x.com/i/status/2119372272305664154",
+      "posted_at": "2026-11-08T10:11:40.652160+00:00",
+      "age_hours": 73.6,
+      "text": "BREAKING — thsottiaux reports: Pro plans offer 10X, 20X, and 50X usage compared to Plus, with Pro 500 providing access to ultrafast.\n\nThe report says Pro 100, 200, and 500 plans have no 5-hour limits and include ultrafast access for Pro 500.",
+      "source_id": "2119296267545419987",
+      "source_author": "thsottiaux",
+      "source_views_at_publication": 1021825,
+      "metrics": {
+        "views": 22,
+        "likes": 2,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2119355810241487346",
+      "url": "https://x.com/i/status/2119355810241487346",
+      "posted_at": "2026-11-08T09:06:15.801178+00:00",
+      "age_hours": 74.6,
+      "text": "BREAKING — k2sbhai reports: DeepSeek V4.1 Flash is free with $20 monthly usage and almost 2x limits until Sunday 11:59 PM ET.\n\nThe report says the free plan includes $20 of usage per month and extends limits until the specified time.",
+      "source_id": "2119003243909165429",
+      "source_author": "k2sbhai",
+      "source_views_at_publication": 146083,
+      "metrics": {
+        "views": 45,
+        "likes": 1,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    },
+    {
+      "tweet_id": "2119342058897129498",
+      "url": "https://x.com/i/status/2119342058897129498",
+      "posted_at": "2026-11-08T08:11:37.242541+00:00",
+      "age_hours": 75.6,
+      "text": "BREAKING — elonmusk reports: Tesla will add an extra shift to address Cybertruck order backlog before dismantling the line for Cybercab expansion.\n\nThe report says the backlog is more than can be made before June/July next year.",
+      "source_id": "2119130949434888330",
+      "source_author": "elonmusk",
+      "source_views_at_publication": 5125322,
+      "metrics": {
+        "views": 11,
+        "likes": 1,
+        "replies": 0,
+        "reposts": 0,
+        "quotes": 0
+      }
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "views": {
+      "available_posts": 12,
+      "median": 22,
+      "total": 373
+    },
+    "likes": {
+      "available_posts": 12,
+      "median": 2,
+      "total": 20
+    },
+    "replies": {
+      "available_posts": 12,
+      "median": 0,
+      "total": 0
+    },
+    "reposts": {
+      "available_posts": 12,
+      "median": 0,
+      "total": 0
+    },
+    "quotes": {
+      "available_posts": 12,
+      "median": 0,
+      "total": 0
+    }
+  }
+}

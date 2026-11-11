@@ -73,6 +73,45 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
         return SimpleNamespace(create_tweet=AsyncMock(return_value=SimpleNamespace(id='333')),
                                get_tweet_by_id=AsyncMock(return_value=SimpleNamespace(quoted_status_id='111')))
 
+    async def test_ai_pause_survives_reload_without_search_generation_or_send(self):
+        state=empty()
+        state['ai_pause']={'until':(self.now+timedelta(hours=1)).isoformat(),'reason':'provider daily allowance'}
+        self.persist(state)
+        conn=self.connection()
+        with patch.object(queue,'client',return_value=conn),\
+             patch.object(queue.sources,'discover',AsyncMock()) as discover,\
+             patch.object(queue.writer,'generate') as generate:
+            await queue.run('schedule')
+        discover.assert_not_awaited();generate.assert_not_called();conn.create_tweet.assert_not_awaited()
+
+    async def test_editorial_cache_does_not_consume_source_and_reopens_on_edit_or_policy_change(self):
+        state=empty()
+        queue.remember_rejection(state,SOURCE,queue.writer.SourceRejected('not news'),self.now)
+        self.persist(state)
+        loaded=queue.load()
+        self.assertEqual(queue.unreviewed_candidates(loaded,[SOURCE],self.now),[])
+        self.assertEqual(loaded['used_source_ids'],[])
+        edited={**SOURCE,'text':SOURCE['text']+' Available in Cursor.'}
+        self.assertEqual(queue.unreviewed_candidates(loaded,[edited],self.now),[edited])
+        with patch.object(queue.writer,'EDITORIAL_POLICY_VERSION','new-policy'):
+            self.assertEqual(queue.unreviewed_candidates(loaded,[SOURCE],self.now),[SOURCE])
+
+    async def test_draft_failures_cool_down_without_permanently_hiding_a_source(self):
+        state=empty()
+        queue.remember_rejection(state,SOURCE,queue.DraftError('format rejected'),self.now)
+        self.assertEqual(queue.unreviewed_candidates(state,[SOURCE],self.now+timedelta(hours=5)),[])
+        self.assertEqual(queue.unreviewed_candidates(state,[SOURCE],self.now+timedelta(hours=6)),[SOURCE])
+
+    async def test_quota_during_generation_does_not_become_an_editorial_rejection(self):
+        state=empty();conn=self.connection()
+        with patch.object(queue.sources,'discover',AsyncMock(return_value=[SOURCE])),\
+             patch.object(queue.writer,'generate',side_effect=queue.AIPaused('quota',self.now+timedelta(hours=1))),\
+             patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.publish_slot(state,self.slot,conn)
+        self.assertEqual(queue.load()['editorial_rejections'],{})
+        self.assertEqual(queue.load()['used_source_ids'],[])
+        conn.create_tweet.assert_not_awaited()
+
     async def test_one_quote_has_durable_reservation_then_verified_source(self):
         conn=self.connection()
         async def send(**kwargs):
@@ -140,7 +179,8 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(generate.call_args.args[0]['id'],'115')
         self.assertEqual(generate.call_count,1)
         self.assertEqual(queue.load()['candidate_cursor'],4)
-        save.assert_not_called()
+        self.assertEqual(save.call_args.args[0]['used_source_ids'], [])
+        self.assertEqual(save.call_args.args[0]['history'], [])
 
     async def test_editorial_reasons_are_bounded_and_visible_in_inspection_and_publishing(self):
         candidate={**SOURCE}
@@ -151,7 +191,7 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
                  patch.object(queue,'client',return_value=self.connection()),\
                  patch.object(queue.sources,'discover',AsyncMock(return_value=[candidate])),\
                  patch.object(queue.writer,'generate',side_effect=queue.DraftError(reason)),\
-                 patch.object(queue,'reject'),patch.object(queue,'summary') as output:
+                 patch.object(queue,'reject'),patch.object(queue,'save_and_push'),patch.object(queue,'summary') as output:
                 if inspect:
                     await queue.inspect()
                 else:

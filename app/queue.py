@@ -10,7 +10,8 @@ from pathlib import Path
 from twikit import Client
 from twikit.errors import InvalidSession, TweetNotAvailable
 from . import sources, writer
-from .cloudflare import DraftError
+from .cloudflare import DraftError, selected_model
+from .ai_budget import AIPaused, active_pause, budget_scope
 from .schedule import next_slot
 
 STATE = Path("state/qofeno.json")
@@ -202,20 +203,62 @@ def candidate_batch(state,candidates):
             for offset in range(min(4,len(ranked)))]
 
 
+def review_key(source):
+    evidence = [writer.EDITORIAL_POLICY_VERSION, source['id'], source['text'],
+                source.get('author'), source.get('urls'), source.get('source_ids')]
+    return hashlib.sha256(json.dumps(evidence, sort_keys=True).encode()).hexdigest()
+
+
+def unreviewed_candidates(state, candidates, now):
+    cached = state.get('editorial_rejections', {})
+    state['editorial_rejections'] = cached = {
+        key: row for key, row in cached.items()
+        if row.get('policy') == writer.EDITORIAL_POLICY_VERSION
+        and datetime.fromisoformat(row['until']) > now}
+    available = [row for row in candidates if review_key(row) not in cached]
+    if len(available) < len(candidates):
+        summary(f"Saved AI calls: {len(candidates)-len(available)} unchanged candidates already failed editorial review.")
+    return available
+
+
+def remember_rejection(state, candidate, error, now):
+    expires = datetime.fromisoformat(candidate['created_at'].replace('Z', '+00:00')) + timedelta(hours=24)
+    if not isinstance(error, writer.SourceRejected):
+        expires = min(expires, now + timedelta(hours=6))
+    state.setdefault('editorial_rejections', {})[review_key(candidate)] = {
+        'policy': writer.EDITORIAL_POLICY_VERSION, 'until': expires.isoformat(),
+        'reason': str(error)[:200]}
+
+
+def report_pause(state):
+    pause = active_pause(state, utcnow())
+    if pause:
+        summary(f"AI paused until {pause.until.isoformat()}: {pause.reason} No post sent.")
+        return True
+    return False
+
+
 async def publish_slot(state,slot,connection):
     require_open(state)
+    if report_pause(state):
+        return
     if state.get("check_session"):
         if not await connection.is_logged_in():
             raise SessionUnavailable()
         state["check_session"]=False
-    candidates=await sources.discover(connection,state,utcnow())
+    candidates=unreviewed_candidates(state,await sources.discover(connection,state,utcnow()),utcnow())
+    summary('Workers AI model: '+selected_model())
     for cursor,candidate in candidate_batch(state,candidates):
-        # Persisted by the existing rejection or reservation write. Editorial
-        # failures stay eligible for a future review instead of being consumed.
+        # Editorial cooldowns are separate from publication/deduplication claims.
         state["candidate_cursor"]=cursor
         try:
-            draft=writer.generate(candidate,state,utcnow())
+            with budget_scope(state,save_and_push,utcnow):
+                draft=writer.generate(candidate,state,utcnow())
+        except AIPaused as exc:
+            reject(state,slot,f"AI paused until {exc.until.isoformat()}: {exc.reason} No post sent.")
+            return
         except DraftError as exc:
+            remember_rejection(state,candidate,exc,utcnow())
             summary(f"Candidate skipped by news, wording or duplicate checks: {str(exc)[:600]}")
             continue
         try:
@@ -290,6 +333,8 @@ async def send_once(state,slot,source,draft,connection):
         raise ValueError("Unconfirmed send; quote reservation retained")
     posted_at=utcnow().isoformat()
     durable["history"].append({**slot,**draft,"source_id":source["id"],"author":source["author"],
+                               "editorial_version":writer.EDITORIAL_POLICY_VERSION,
+                               "body_style":"question" if '?' in draft['text'].split('\n\n')[-1] else "detail",
                                "source_url":source["url"],"source_views":source["views"],
                                "source_checked_at":now.isoformat(),"source_created_at":source["created_at"],
                                "tweet_id":ident,"posted_at":posted_at})
@@ -305,16 +350,22 @@ async def send_once(state,slot,source,draft,connection):
 async def inspect():
     state=load()
     require_open(state)
+    if report_pause(state):
+        return
     conn=client()
-    candidates=await sources.discover(conn,state,utcnow())
+    candidates=unreviewed_candidates(state,await sources.discover(conn,state,utcnow()),utcnow())
     summary(f"Eligible source candidates found: {len(candidates)}")
     for _,candidate in candidate_batch(state,candidates):
         summary(f"Source · {candidate['author']} · {candidate['views']:,} views · {candidate['url']}")
         try:
-            draft=writer.generate(candidate,state,utcnow())
+            with budget_scope(state,save_and_push,utcnow):
+                draft=writer.generate(candidate,state,utcnow())
         except DraftError as exc:
+            remember_rejection(state,candidate,exc,utcnow())
+            save_and_push(state)
             summary(f"This candidate did not pass editorial review: {str(exc)[:600]}")
             continue
+        save_and_push(state)
         summary("Inspection draft\n\n"+draft["text"])
         return
 
@@ -326,12 +377,16 @@ async def run(event):
     connection=client()
     if not await verify_quote(connection,state):
         return
+    if report_pause(state):
+        return
     window=None
     if event=="repository_dispatch":
         window=start.replace(minute=start.minute//30*30,second=0,microsecond=0)+timedelta(minutes=30)
     for _ in range(2 if window else 1):
         state=load()
         require_open(state)
+        if report_pause(state):
+            return
         found=next_slot(state,utcnow(),window)
         if not found:
             summary("No eligible quote opportunity in this wake.")

@@ -3,6 +3,7 @@ import asyncio
 import os
 import sys
 from . import queue
+from .ai_budget import AIPaused
 from twikit.errors import InvalidSession
 
 
@@ -16,6 +17,8 @@ def main():
             asyncio.run(metrics() if args.command=="metrics" else diagnose())
         else:
             asyncio.run(queue.inspect() if args.command=="inspect" else queue.run(os.environ.get("GITHUB_EVENT_NAME","manual")))
+    except AIPaused as exc:
+        queue.summary(f"AI paused until {exc.until.isoformat()}: {exc.reason} No post sent.")
     except (queue.SessionUnavailable,InvalidSession):
         print("::error::X did not accept the session. Check account access and the stored X_AUTH_TOKEN and X_CT0 secrets.",file=sys.stderr)
         raise SystemExit(1) from None

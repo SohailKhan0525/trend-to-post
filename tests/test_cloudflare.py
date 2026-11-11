@@ -5,6 +5,7 @@ import unittest
 import urllib.error
 from unittest.mock import patch
 from app.cloudflare import complete,DraftError
+from app.ai_budget import AIPaused
 
 
 class CloudflareTests(unittest.TestCase):
@@ -18,7 +19,7 @@ class CloudflareTests(unittest.TestCase):
     def test_json_mode_generation_failure_is_retryable_but_rate_limits_are_not(self):
         mode_error=urllib.error.HTTPError('https://api.cloudflare.com',400,'bad',{},io.BytesIO(json.dumps({'errors':[{'message':"JSON Mode couldn't be met"}]}).encode()))
         quota_error=urllib.error.HTTPError('https://api.cloudflare.com',429,'limit',{},io.BytesIO(b'{}'))
-        for error,expected in ((mode_error,DraftError),(quota_error,urllib.error.HTTPError)):
+        for error,expected in ((mode_error,DraftError),(quota_error,AIPaused)):
             with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',side_effect=error),self.assertRaises(expected):complete('rules',{})
 
     def test_provider_diagnostics_redact_before_truncating(self):
@@ -29,6 +30,21 @@ class CloudflareTests(unittest.TestCase):
         logged=output.call_args.args[0]
         self.assertNotIn('secret-test',logged);self.assertNotIn('a'*8,logged)
         self.assertIn('[redacted]',logged);self.assertIn('[account]',logged)
+
+    def test_quota_pause_and_provider_logs_do_not_expose_credentials(self):
+        token='fixture-super-secret-token'
+        account='a'*32
+        message=f'daily free allocation of neurons exhausted: {token} {account} Bearer other-private-value'
+        error=urllib.error.HTTPError('https://api.cloudflare.com',429,'limit',{},io.BytesIO(json.dumps({'errors':[{'message':message}]}).encode()))
+        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':account,'CLOUDFLARE_API_TOKEN':token}),\
+             patch('urllib.request.urlopen',side_effect=error),patch('builtins.print') as output,self.assertRaises(AIPaused) as raised:
+            complete('rules',{})
+        logged='\n'.join(call.args[0] for call in output.call_args_list)
+        for value in (token,account,'other-private-value'):
+            self.assertNotIn(value,logged)
+            self.assertNotIn(value,str(raised.exception))
+        self.assertIn('[redacted]',logged)
+        self.assertIn('[account]',logged)
 
     def test_model_receives_native_script_in_the_review_message(self):
         response=io.StringIO(json.dumps({'success':True,'result':{'response':{'safe':True}}}))

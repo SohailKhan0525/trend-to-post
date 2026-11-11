@@ -5,6 +5,8 @@ import re
 import secrets
 import urllib.error
 import urllib.request
+from datetime import datetime, timedelta, timezone
+from .ai_budget import ACTIVE, AIPaused, midnight
 
 
 class DraftError(ValueError):
@@ -18,10 +20,14 @@ def json_mode_failed(payload):
     return 'jsonmode' in message and any(term in message for term in ('couldntbemet','couldnotbemet','cannotbemet'))
 
 
+def selected_model():
+    return os.environ.get('QOFENO_AI_MODEL') or os.environ.get('DASH_RATTLE_MODEL') or '@cf/qwen/qwen3-30b-a3b-fp8'
+
+
 def complete(system,data,temperature=.8,max_tokens=450,schema=None):
     account=os.environ.get('CLOUDFLARE_ACCOUNT_ID','').strip()
     token=os.environ.get('CLOUDFLARE_API_TOKEN','').strip()
-    model=os.environ.get('QOFENO_AI_MODEL') or os.environ.get('DASH_RATTLE_MODEL') or '@cf/qwen/qwen3-30b-a3b-fp8'
+    model=selected_model()
     if not re.fullmatch(r'[a-fA-F0-9]{32}',account) or not token:
         raise ValueError('Cloudflare configuration required')
     if not re.fullmatch(r'@cf/[\w.-]+/[\w.-]+',model):
@@ -36,6 +42,8 @@ def complete(system,data,temperature=.8,max_tokens=450,schema=None):
         payload['messages'][0]['content'] += '\nReturn only valid JSON. /no_think'
     request=urllib.request.Request(f'https://api.cloudflare.com/client/v4/accounts/{account}/ai/run/{model}',
         data=json.dumps(payload).encode(),headers={'Authorization':f'Bearer {token}','Content-Type':'application/json'},method='POST')
+    budget=ACTIVE.get()
+    reservation=budget.reserve(model,payload) if budget else None
     try:
         with urllib.request.urlopen(request,timeout=60) as response:
             result=json.load(response)
@@ -54,12 +62,23 @@ def complete(system,data,temperature=.8,max_tokens=450,schema=None):
                 print('Cloudflare HTTP '+str(exc.code)+': '+json.dumps(message[:400],ensure_ascii=True))
         except (ValueError,AttributeError,TypeError):
             print('Cloudflare HTTP '+str(exc.code)+'; no structured error details')
+        if exc.code==429:
+            now=budget.clock() if budget else datetime.now(timezone.utc)
+            daily='daily free allocation' in body.casefold() and 'neurons' in body.casefold()
+            until=midnight(now) if daily else now+timedelta(minutes=15)
+            reason=('Cloudflare daily free AI allocation exhausted; waiting for 00:00 UTC reset.'
+                    if daily else 'Cloudflare rate limit; waiting 15 minutes before another request.')
+            if budget:
+                budget.pause(reason,until)
+            raise AIPaused(reason,until) from None
         raise
     if result.get('success') is not True:
         if json_mode_failed(result.get('errors',[])):
             raise DraftError('Cloudflare could not meet the requested JSON schema')
         raise ValueError('Cloudflare generation failed')
     output = result.get('result',{})
+    if budget:
+        budget.settle(reservation,output)
     raw = output.get('response')
     if raw is None and output.get('choices'):
         raw = output['choices'][0].get('message',{}).get('content')

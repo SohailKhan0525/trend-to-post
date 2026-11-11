@@ -7,6 +7,7 @@ from twikit.errors import InvalidSession, TooManyRequests
 
 from . import queue, sources, writer
 from .cloudflare import DraftError
+from .ai_budget import budget_scope
 
 
 METRIC_FIELDS = {"views": "view_count", "likes": "favorite_count",
@@ -91,6 +92,8 @@ async def metrics():
                 "text": str(row.get("text") or "")[:1000],
                 "source_id": str(row.get("source_id") or ""),
                 "source_author": str(row.get("author") or "")[:80],
+                "editorial_version": row.get("editorial_version", "legacy"),
+                "body_style": row.get("body_style", "question" if '?' in str(row.get("text", "")) else "detail"),
                 "source_views_at_publication": row.get("source_views"),
                 "metrics": {name: public_count(post, field) for name, field in METRIC_FIELDS.items()},
             })
@@ -110,8 +113,10 @@ async def metrics():
 async def diagnose():
     state = queue.load()
     queue.require_open(state)
+    if queue.report_pause(state):
+        return
     connection = queue.client()
-    candidates = await sources.discover(connection, state, queue.utcnow())
+    candidates = queue.unreviewed_candidates(state, await sources.discover(connection, state, queue.utcnow()), queue.utcnow())
     original_complete = writer.complete
 
     def traced_complete(system, data, **kwargs):
@@ -131,11 +136,15 @@ async def diagnose():
             evidence = {key: candidate[key] for key in ("id", "author", "text", "views", "created_at")}
             print("Source diagnostic " + json.dumps(evidence, ensure_ascii=True)[:18000], flush=True)
             try:
-                draft = writer.generate(candidate, state, queue.utcnow())
+                with budget_scope(state, queue.save_and_push, queue.utcnow):
+                    draft = writer.generate(candidate, state, queue.utcnow())
             except DraftError as exc:
+                queue.remember_rejection(state, candidate, exc, queue.utcnow())
+                queue.save_and_push(state)
                 queue.summary("Diagnostic rejection: " + str(exc)[:600])
             else:
+                queue.save_and_push(state)
                 queue.summary("Diagnostic approved draft\n\n" + draft["text"])
     finally:
         writer.complete = original_complete
-    queue.summary("Read-only diagnostic finished; no post sent and no publication state changed.")
+    queue.summary("Diagnostic finished; no post sent. Only AI spending and editorial cooldowns were saved.")

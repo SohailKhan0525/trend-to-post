@@ -16,19 +16,20 @@ from .policy import has_excluded_terms
 MIN_VIEWS = 100_000
 MAX_AGE = timedelta(hours=24)
 SEARCH_COUNT = 20
-# Search topics, never author lists. Pair concrete subjects with announcement
-# terms so generic viral opinions do not occupy every result. The fourth Top
-# query remains broader to catch news phrased without one of these verbs.
-# Hourly rotation adds coverage within the same four-request budget.
+# Search topics, never author lists. Focus on AI coding tools and practical
+# developer workflows; unrelated model hype and car news dilute this audience.
+# Pair subjects with announcement terms so generic viral opinions do not occupy
+# every result. The fourth Top query stays within the niche without requiring a
+# news verb. Hourly rotation adds coverage within the same four-request budget.
 TOPIC_QUERIES = (
-    ('(ChatGPT OR Claude OR Gemini OR DeepSeek)',
-     '(OpenAI OR Anthropic OR Grok OR "AI model")'),
-    ('(OpenCode OR Cursor OR GitHub OR SaaS)',
-     '("developer tools" OR "open source" OR coding OR software)'),
-    ('(Tesla OR automotive OR "electric car" OR EV)',
-     '(Porsche OR BMW OR "electric vehicle" OR cars)'),
+    ('("Claude Code" OR Codex OR OpenCode OR Cursor)',
+     '("GitHub Copilot" OR Windsurf OR Cline OR Aider)'),
+    ('(Claude OR ChatGPT OR Gemini OR DeepSeek) coding',
+     '(Anthropic OR OpenAI OR "AI model") coding'),
+    ('("coding agent" OR "agent SDK" OR MCP)',
+     '("AI IDE" OR "code review" OR "AI debugging")'),
 )
-ANNOUNCEMENT_TERMS = '(launch OR launched OR release OR released OR announces OR available OR unveiled OR "rolls out")'
+ANNOUNCEMENT_TERMS = '(launch OR launched OR release OR released OR announces OR announced OR available OR unveiled OR "rolls out")'
 _HANDLE = re.compile(r"[A-Za-z0-9_]{1,15}\Z")
 _NUMBER = re.compile(r"[0-9]+\Z")
 _URL = re.compile(r"https?://\S+", re.I)

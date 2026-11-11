@@ -51,20 +51,95 @@ class WriterTests(unittest.TestCase):
         self.assertNotIn("views", review["source"])
         self.assertNotIn("100000", result["text"])
 
-    def test_company_operational_news_can_use_a_source_named_company_subject(self):
-        source = {**SOURCE, "author": "factorybrief",
-                  "text": "Acme Robotics opened a battery recycling plant today. It can process 800 packs per day."}
-        gate = {**GATE, "primary": False, "subject": "Acme Robotics",
-                "event_key": "acme robotics battery recycling plant opens",
-                "facts": "Acme Robotics opened a battery recycling plant with capacity for 800 packs per day."}
-        fields = {"headline": "Acme Robotics opens a battery recycling plant.",
-                  "body": "It can process 800 packs per day."}
+    def test_company_developer_access_change_can_use_a_source_named_company_subject(self):
+        source = {**SOURCE, "author": "devbrief",
+                  "text": "Acme AI opened its coding agent API to individual developers today. It includes 800 requests per day."}
+        gate = {**GATE, "primary": False, "subject": "Acme AI",
+                "event_key": "acme ai coding agent api individual access opens",
+                "facts": "Acme AI opened its coding agent API to individual developers with 800 requests per day."}
+        fields = {"headline": "Acme AI opens its coding agent API to individuals.",
+                  "body": "It includes 800 requests per day."}
         evidence = {**PASS,
-                    "headline_evidence": "Acme Robotics opened a battery recycling plant today.",
-                    "body_evidence": "It can process 800 packs per day."}
+                    "headline_evidence": "Acme AI opened its coding agent API to individual developers today.",
+                    "body_evidence": "It includes 800 requests per day."}
         result, complete = self.generate_with([gate, fields, evidence], source=source)
-        self.assertEqual(result["text"], "BREAKING — factorybrief reports: " + fields["headline"] + "\n\n" + fields["body"])
+        self.assertEqual(result["text"], "BREAKING — devbrief reports: " + fields["headline"] + "\n\n" + fields["body"])
         self.assertEqual(complete.call_count, 3)
+
+    def test_explicit_future_launch_or_performance_forecasts_never_spend_model_calls(self):
+        texts = [
+            "Elon Musk predicts Grok 5 will surpass Claude Opus 5.5, potentially launching within 2 to 3 months.",
+            "Atlas SDK is expected to launch next month with a coding agent.",
+            "Rumours suggest Atlas SDK launches tomorrow.",
+            "An unconfirmed release of Atlas SDK will include a coding agent.",
+        ]
+        with patch.object(writer, "complete") as complete:
+            for text in texts:
+                with self.subTest(text=text), self.assertRaisesRegex(writer.SourceRejected, "prediction"):
+                    writer.generate({**SOURCE, "text": text}, {}, NOW)
+            complete.assert_not_called()
+
+    def test_released_prediction_tool_is_not_mistaken_for_a_launch_forecast(self):
+        source = {**SOURCE, "text": "Atlas SDK 2.1 released a test prediction API today. It predicts which tests will fail."}
+        gate = {**GATE, "event_key": "atlas sdk 2.1 test prediction api release", "facts": source["text"]}
+        fields = {"headline": "Atlas SDK 2.1 releases a test prediction API.",
+                  "body": "Which failing test would you check first?"}
+        evidence = {**PASS, "headline_evidence": source["text"],
+                    "body_evidence": "It predicts which tests will fail."}
+        result, complete = self.generate_with([gate, fields, evidence], source=source)
+        self.assertIn("test prediction API", result["text"])
+        self.assertEqual(complete.call_count, 3)
+
+    def test_bounded_history_retains_related_older_events_and_recent_quotes(self):
+        history = [{"event_key": f"unrelated project {index} release", "premise": f"Unrelated project {index} is released.",
+                    "text": f"Quote {index}"} for index in range(160)]
+        related = "Atlas SDK adds a new way to export CSV data offline."
+        history[3] = {"event_key": "atlas sdk new export", "premise": related, "text": "Older related quote"}
+        result, complete = self.generate_with([GATE, output(DRAFT["text"]), PASS], state={"history": history})
+        self.assertEqual(result, DRAFT)
+        for call in (complete.call_args_list[1], complete.call_args_list[2]):
+            context = call.args[1]
+            self.assertEqual(len(context["recent_event_summaries"]), 20)
+            self.assertIn(related, context["recent_event_summaries"])
+            self.assertEqual(context["recent_quotes"], [f"Quote {index}" for index in range(156, 160)])
+            self.assertTrue(all(history[index]["premise"] in context["recent_event_summaries"]
+                                for index in range(156, 160)))
+
+    def test_older_permanent_fingerprint_still_blocks_when_outside_model_context(self):
+        state = {"history": [{"event_key": f"other release {index}"} for index in range(200)],
+                 "used_events": [writer.fingerprint(DRAFT["event_key"])]}
+        with patch.object(writer, "complete", return_value=GATE) as complete:
+            with self.assertRaisesRegex(DraftError, "already been used"):
+                writer.generate(SOURCE, state, NOW)
+            self.assertEqual(complete.call_count, 1)
+
+    def test_experimental_body_preference_is_stable_for_the_same_event_across_authors(self):
+        preferences = []
+        for author in ("devreader73", "anotherdev"):
+            source = {**SOURCE, "author": author}
+            quote = DRAFT["text"].replace("BREAKING — ", f"BREAKING — {author} reports: ")
+            _, complete = self.generate_with([{**GATE, "primary": False}, output(quote), PASS], source=source)
+            preferences.append(complete.call_args_list[1].args[1]["body_style"])
+        self.assertEqual(preferences[0], preferences[1])
+        self.assertEqual(preferences[0], writer.preferred_body_style(DRAFT["event_key"]))
+        self.assertEqual(writer.preferred_body_style("ＡＴＬＡＳ SDK — Release!"),
+                         writer.preferred_body_style("atlas sdk release"))
+        # Both variants are reachable; this is assignment, not an engagement score.
+        self.assertEqual({writer.preferred_body_style(f"atlas sdk {index} release") for index in range(30)},
+                         {"practical_question", "useful_detail"})
+
+    def test_question_preference_can_publish_a_useful_detail_without_forcing_a_question(self):
+        event = next(f"atlas sdk release variant {index}" for index in range(30)
+                     if writer.preferred_body_style(f"atlas sdk release variant {index}") == "practical_question")
+        # Use a source containing the event's numeric marker so metadata grounding
+        # still applies exactly as it does for a normal named release.
+        source = {**SOURCE, "text": SOURCE["text"] + f" Release variant {event.split()[-1]}."}
+        fields = {"headline": "Atlas SDK 2.1 adds offline CSV export.",
+                  "body": "All users can access the feature."}
+        result, complete = self.generate_with([{**GATE, "event_key": event}, fields, PASS], source=source)
+        self.assertEqual(complete.call_args_list[1].args[1]["body_style"], "practical_question")
+        self.assertEqual(result["text"].split("\n\n")[1], fields["body"])
+        self.assertNotIn("?", result["text"])
 
     def test_structured_fields_render_the_exact_prefix_and_blank_line(self):
         fields = {"headline": " Atlas SDK 2.1 adds offline CSV export. ",
