@@ -1456,10 +1456,10 @@
   "last_posted_at": "2026-11-11T06:37:36.899159+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 3,
+  "candidate_cursor": 2,
   "last_attempt": {
     "slot": "2026-11-11:quote-v1:14",
-    "at": "2026-11-11T08:31:22.467753+00:00",
+    "at": "2026-11-11T08:41:33.597076+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   }
 }
