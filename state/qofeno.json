@@ -1456,10 +1456,17 @@
   "last_posted_at": "2026-11-11T06:37:36.899159+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 2,
+  "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-11:quote-v1:19",
-    "at": "2026-11-11T11:31:32.445642+00:00",
+    "at": "2026-11-11T11:51:44.704662+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "editorial_rejections": {
+    "ec814e49e40dadd6c2cbb21db9eed8cc2f161de601fa43bff42596b436031dd3": {
+      "policy": "ai-coding-v2",
+      "until": "2026-11-11T20:21:20+00:00",
+      "reason": "A future launch or performance prediction is not a new announcement"
+    }
   }
 }
