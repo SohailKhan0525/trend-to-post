@@ -795,6 +795,21 @@
       "source_created_at": "2026-11-10T17:50:49+00:00",
       "tweet_id": "2120396642906231097",
       "posted_at": "2026-11-11T06:02:09.646804+00:00"
+    },
+    {
+      "slot": "2026-11-11:quote-v1:10",
+      "due_at": "2026-11-11T06:03:00+00:00",
+      "text": "BREAKING — Polymarket reports: Grok 5 to launch in 2-3 months\n\nElon Musk predicts Grok 5 will surpass Claude Opus 5.5.",
+      "event_key": "Elon Musk predicts Grok 5 will surpass Claude Opus 5.5",
+      "premise": "Reported by Polymarket: Elon Musk predicts Grok 5 will surpass Claude Opus 5.5, potentially launching within the next 2 to 3 months.",
+      "source_id": "2120163066302079201",
+      "author": "Polymarket",
+      "source_url": "https://x.com/Polymarket/status/2120163066302079201",
+      "source_views": 109197,
+      "source_checked_at": "2026-11-11T06:37:31.966983+00:00",
+      "source_created_at": "2026-11-10T14:34:00+00:00",
+      "tweet_id": "2120405560822792481",
+      "posted_at": "2026-11-11T06:37:36.899159+00:00"
     }
   ],
   "used_source_ids": [
@@ -1438,54 +1453,17 @@
     "ff1c54b893c1427fe364de2a7d320cbe898817d07aa552bc71a24506ba287945",
     "bcdbf176306f01c013aed57554fab41928615ec9de61c254470723db199acad3"
   ],
-  "last_posted_at": "2026-11-11T06:02:09.646804+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-11:quote-v1:10",
-      "due_at": "2026-11-11T06:03:00+00:00"
-    },
-    "source": {
-      "id": "2120163066302079201",
-      "url": "https://x.com/Polymarket/status/2120163066302079201",
-      "author": "Polymarket",
-      "author_id": "1261335549215989760",
-      "text": "JUST IN: Elon Musk predicts Grok 5 will surpass Claude Opus 5.5, potentially launching within the next 2 to 3 months.",
-      "created_at": "2026-11-10T14:34:00+00:00",
-      "views": 109197,
-      "urls": [],
-      "source_ids": [
-        "2120163066302079201"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — Polymarket reports: Grok 5 to launch in 2-3 months\n\nElon Musk predicts Grok 5 will surpass Claude Opus 5.5.",
-      "event_key": "Elon Musk predicts Grok 5 will surpass Claude Opus 5.5",
-      "premise": "Reported by Polymarket: Elon Musk predicts Grok 5 will surpass Claude Opus 5.5, potentially launching within the next 2 to 3 months."
-    },
-    "reserved_at": "2026-11-11T06:37:31.966983+00:00",
-    "approval": "bd582c3e416d6a653297da0ffb9fc0b3e29c44175e2d3b473059feddba04cb5a",
-    "run": [
-      "42972963961",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2120163066302079201"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "bcdbf176306f01c013aed57554fab41928615ec9de61c254470723db199acad3"
-      ],
-      "used_events": [
-        "5cd40e9bb38857c58a90f8c1905cdeb756a3e518fc7b730dee3e907e58f7dc69"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-11T06:37:36.899159+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 7,
   "last_attempt": {
     "slot": "2026-11-11:quote-v1:10",
     "at": "2026-11-11T06:27:23.783313+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
+  },
+  "verification_pending": {
+    "tweet_id": "2120405560822792481",
+    "source_id": "2120163066302079201"
   }
 }
