@@ -1456,7 +1456,7 @@
   "last_posted_at": "2026-11-11T06:37:36.899159+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 1,
   "last_attempt": {
     "slot": "2026-11-12:quote-v1:9",
     "at": "2026-11-12T05:31:13.986933+00:00",
@@ -1496,10 +1496,10 @@
   },
   "ai_usage": {
     "day": "2026-11-12",
-    "neurons_reserved": 145,
-    "requests": 16,
+    "neurons_reserved": 187,
+    "requests": 17,
     "hour": "2026-11-12T05",
-    "hour_neurons_reserved": 6,
+    "hour_neurons_reserved": 48,
     "model": "@cf/qwen/qwen3-30b-a3b-fp8"
   }
 }
