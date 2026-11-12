@@ -1486,10 +1486,10 @@
   },
   "ai_usage": {
     "day": "2026-11-12",
-    "neurons_reserved": 133,
-    "requests": 14,
-    "hour": "2026-11-12T01",
-    "hour_neurons_reserved": 35,
+    "neurons_reserved": 174,
+    "requests": 15,
+    "hour": "2026-11-12T03",
+    "hour_neurons_reserved": 41,
     "model": "@cf/qwen/qwen3-30b-a3b-fp8"
   }
 }
