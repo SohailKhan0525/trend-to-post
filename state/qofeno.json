@@ -1458,16 +1458,11 @@
   "check_session": false,
   "candidate_cursor": 0,
   "last_attempt": {
-    "slot": "2026-11-12:quote-v1:26",
-    "at": "2026-11-12T16:11:34.162889+00:00",
+    "slot": "2026-11-12:quote-v1:27",
+    "at": "2026-11-12T16:31:19.464548+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   },
   "editorial_rejections": {
-    "59c246813d347d67799cc267142b9936470bb8a36814f44c3f400ae05090ee76": {
-      "policy": "ai-coding-v2",
-      "until": "2026-11-12T16:27:30+00:00",
-      "reason": "Source classification rejected: new_announcement, relevant"
-    },
     "728157ad984e79ba3547fbbe17b254825b513aa8d77d835fbd2190eadf186c78": {
       "policy": "ai-coding-v2",
       "until": "2026-11-12T22:56:24+00:00",
