@@ -1521,9 +1521,5 @@
     "hour": "2026-11-12T21",
     "hour_neurons_reserved": 36,
     "model": "@cf/qwen/qwen3-30b-a3b-fp8"
-  },
-  "verification_pending": {
-    "tweet_id": "2120985803015004254",
-    "source_id": "2120904821373096408"
   }
 }
