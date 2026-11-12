@@ -1459,7 +1459,7 @@
   "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-12:quote-v1:4",
-    "at": "2026-11-12T02:41:24.848109+00:00",
+    "at": "2026-11-12T03:01:31.795488+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   },
   "editorial_rejections": {
@@ -1482,14 +1482,19 @@
       "policy": "ai-coding-v2",
       "until": "2026-11-12T07:01:47.007193+00:00",
       "reason": "No grounded original quote passed review"
+    },
+    "728157ad984e79ba3547fbbe17b254825b513aa8d77d835fbd2190eadf186c78": {
+      "policy": "ai-coding-v2",
+      "until": "2026-11-12T22:56:24+00:00",
+      "reason": "Source classification rejected: new_announcement, relevant"
     }
   },
   "ai_usage": {
     "day": "2026-11-12",
-    "neurons_reserved": 174,
+    "neurons_reserved": 139,
     "requests": 15,
     "hour": "2026-11-12T03",
-    "hour_neurons_reserved": 41,
+    "hour_neurons_reserved": 6,
     "model": "@cf/qwen/qwen3-30b-a3b-fp8"
   }
 }
