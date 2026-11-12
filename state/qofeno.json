@@ -810,6 +810,23 @@
       "source_created_at": "2026-11-10T14:34:00+00:00",
       "tweet_id": "2120405560822792481",
       "posted_at": "2026-11-11T06:37:36.899159+00:00"
+    },
+    {
+      "slot": "2026-11-12:quote-v1:35",
+      "due_at": "2026-11-12T21:03:00+00:00",
+      "text": "BREAKING — SimularAI reports: box introduces autonomous computer for agents\n\nCan developers use box with existing agents without additional setup?",
+      "event_key": "box introduces autonomous computer for agents",
+      "premise": "Reported by SimularAI: box introduces autonomous computer for ChatGPT, Claude, Codex, Gemini, DeepSeek and other agents",
+      "source_id": "2120904821373096408",
+      "author": "SimularAI",
+      "editorial_version": "ai-coding-v2",
+      "body_style": "question",
+      "source_url": "https://x.com/SimularAI/status/2120904821373096408",
+      "source_views": 711133,
+      "source_checked_at": "2026-11-12T21:03:13.988899+00:00",
+      "source_created_at": "2026-11-12T15:41:28+00:00",
+      "tweet_id": "2120985803015004254",
+      "posted_at": "2026-11-12T21:03:16.376565+00:00"
     }
   ],
   "used_source_ids": [
@@ -1456,49 +1473,8 @@
     "bcdbf176306f01c013aed57554fab41928615ec9de61c254470723db199acad3",
     "eeaf70f267cd05dde4b006bed635af967fb7ac95d456d13ee7c53178f83b63ba"
   ],
-  "last_posted_at": "2026-11-11T06:37:36.899159+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-12:quote-v1:35",
-      "due_at": "2026-11-12T21:03:00+00:00"
-    },
-    "source": {
-      "id": "2120904821373096408",
-      "url": "https://x.com/SimularAI/status/2120904821373096408",
-      "author": "SimularAI",
-      "author_id": "1491478290091024389",
-      "text": "2,000,000,000 PCs sit on people's desks today.\n\nThe next billion computers?\n\nThey’ll be autonomous computers, driven by agents.\n\nIntroducing box by @Simular: one computer for ChatGPT, Claude, Codex, Gemini, DeepSeek and all your other agents.\n\nWith box, agents open apps, run the terminal, fill in forms, and stay signed in for whatever tasks come next.",
-      "created_at": "2026-11-12T15:41:28+00:00",
-      "views": 711133,
-      "urls": [],
-      "source_ids": [
-        "2120904821373096408"
-      ]
-    },
-    "draft": {
-      "text": "BREAKING — SimularAI reports: box introduces autonomous computer for agents\n\nCan developers use box with existing agents without additional setup?",
-      "event_key": "box introduces autonomous computer for agents",
-      "premise": "Reported by SimularAI: box introduces autonomous computer for ChatGPT, Claude, Codex, Gemini, DeepSeek and other agents"
-    },
-    "reserved_at": "2026-11-12T21:03:13.988899+00:00",
-    "approval": "c2224e7ccee9e081c178bd0025f53cde7b8c7073ccf7acfb00327f03023a745f",
-    "run": [
-      "43306012822",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2120904821373096408"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "eeaf70f267cd05dde4b006bed635af967fb7ac95d456d13ee7c53178f83b63ba"
-      ],
-      "used_events": [
-        "32ed124f514d1d80315822cd8103542fec2f4ad138e2be5d20cff105e7f0fc73"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-12T21:03:16.376565+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
   "last_attempt": {
@@ -1545,5 +1521,9 @@
     "hour": "2026-11-12T21",
     "hour_neurons_reserved": 36,
     "model": "@cf/qwen/qwen3-30b-a3b-fp8"
+  },
+  "verification_pending": {
+    "tweet_id": "2120985803015004254",
+    "source_id": "2120904821373096408"
   }
 }
