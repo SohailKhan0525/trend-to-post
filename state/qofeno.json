@@ -1462,16 +1462,13 @@
     "at": "2026-11-11T11:51:44.704662+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   },
-  "editorial_rejections": {
-    "ec814e49e40dadd6c2cbb21db9eed8cc2f161de601fa43bff42596b436031dd3": {
-      "policy": "ai-coding-v2",
-      "until": "2026-11-11T20:21:20+00:00",
-      "reason": "A future launch or performance prediction is not a new announcement"
-    }
-  },
-  "ai_pause": {
-    "reason": "Cloudflare daily free AI allocation exhausted; waiting for 00:00 UTC reset.",
-    "until": "2026-11-12T00:00:00+00:00",
-    "observed_run": "https://github.com/SohailKhan0525/trend-to-post/actions/runs/43012567926"
+  "editorial_rejections": {},
+  "ai_usage": {
+    "day": "2026-11-12",
+    "neurons_reserved": 44,
+    "requests": 1,
+    "hour": "2026-11-12T00",
+    "hour_neurons_reserved": 44,
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8"
   }
 }
