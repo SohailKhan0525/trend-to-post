@@ -1465,10 +1465,10 @@
   "editorial_rejections": {},
   "ai_usage": {
     "day": "2026-11-12",
-    "neurons_reserved": 70,
-    "requests": 3,
+    "neurons_reserved": 87,
+    "requests": 4,
     "hour": "2026-11-12T00",
-    "hour_neurons_reserved": 70,
+    "hour_neurons_reserved": 87,
     "model": "@cf/qwen/qwen3-30b-a3b-fp8"
   }
 }
