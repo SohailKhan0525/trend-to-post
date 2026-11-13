@@ -1478,8 +1478,8 @@
   "check_session": false,
   "candidate_cursor": 0,
   "last_attempt": {
-    "slot": "2026-11-13:quote-v1:10",
-    "at": "2026-11-13T06:31:30.065180+00:00",
+    "slot": "2026-11-13:quote-v1:11",
+    "at": "2026-11-13T06:38:03.599972+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   },
   "editorial_rejections": {
