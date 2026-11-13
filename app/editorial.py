@@ -12,6 +12,7 @@ from twikit.errors import Forbidden, NotFound, TooManyRequests, TweetNotAvailabl
 from . import follow_writer, reply_writer, sources
 from .ai_budget import AIPaused, active_pause, budget_scope
 from .cloudflare import DraftError, selected_model
+from .identity import authenticated_user
 from .reply_schedule import next_slot, timestamp
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
 
@@ -215,13 +216,18 @@ async def run(event):
     start = utcnow()
     state = load()
     connection = client()
+    had_outbox = bool(state.get('outbox'))
     if not await verify_delivery(state, connection):
         return
     if not delivery_open(state):
         summary('A previous publication requires reconciliation. No new send.')
         return
+    if had_outbox:
+        # Readback may issue identity cookies. Start the account check with a
+        # fresh client so only its own profile response can supply the marker.
+        connection = client()
     stage('verify authenticated account')
-    user = await connection.user()
+    user = await authenticated_user(connection)
     if str(getattr(user, 'screen_name', '')).casefold() != ACCOUNT:
         raise SessionUnavailable()
     window = None

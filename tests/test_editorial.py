@@ -53,6 +53,8 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
                                full_text=(DRAFT if kind == 'reply' else FOLLOW)['text'],
                                in_reply_to='111' if kind == 'reply' else None)
         return SimpleNamespace(user=AsyncMock(return_value=self.user),
+                               get_user_by_screen_name=AsyncMock(return_value=self.user),
+                               http=SimpleNamespace(cookies=SimpleNamespace(jar=[])),
                                create_tweet=AsyncMock(return_value=post),
                                get_tweet_by_id=AsyncMock(return_value=post))
 
