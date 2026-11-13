@@ -1631,7 +1631,7 @@
   "last_posted_at": "2026-11-13T15:43:02.303749+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 6,
+  "candidate_cursor": 7,
   "editorial_rejections": {
     "ab28e8a3bcca111913ca1a78d0c723d34551a8295d02fc71b07b3619f7d605cc": {
       "policy": "reactions-v4",
@@ -1686,10 +1686,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1679,
-    "requests": 149,
+    "neurons_reserved": 1717,
+    "requests": 150,
     "hour": "2026-11-13T16",
-    "hour_neurons_reserved": 184,
+    "hour_neurons_reserved": 222,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
