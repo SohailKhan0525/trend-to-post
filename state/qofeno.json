@@ -1108,7 +1108,8 @@
     "2120940338869055788",
     "2120941982004523367",
     "2120944334023389476",
-    "2120940373665091856"
+    "2120940373665091856",
+    "2120940683233984862"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -1190,7 +1191,8 @@
     "c680dad137f76b510aea1cc88053989bed87bbf6b7b7f5ae1d79d83c83f9a375",
     "66bfe10331ee792aac910d242c85a8e0151cf3d9086c5554c98e97930a22d638",
     "521ed6389d4be1a63910a02bc1cdefc6735c71075ebee636e00076c21496fe7e",
-    "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb"
+    "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb",
+    "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1561,10 +1563,54 @@
     "eeaf70f267cd05dde4b006bed635af967fb7ac95d456d13ee7c53178f83b63ba",
     "de1f4182063a690c5aa7454860274992d0b9fb0eb6a90c34414763f20f0f5675",
     "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1",
-    "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a"
+    "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a",
+    "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e"
   ],
   "last_posted_at": "2026-11-13T13:53:00.019974+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-13:quote-v1:24",
+      "due_at": "2026-11-13T14:26:00+00:00"
+    },
+    "source": {
+      "id": "2120940683233984862",
+      "url": "https://x.com/GoogleAI/status/2120940683233984862",
+      "author": "GoogleAI",
+      "author_id": "33838201",
+      "text": "Today, we’re growing the Gemini 4 model series by introducing Gemini 4 Hydrogen.\n\nWhile Gemini 4 Carbon tackles your hardest problems, Hydrogen brings cutting-edge intelligence to everyone — with speed and efficiency for everyday coding and agentic workflows, surpassing Argon on the Artificial Analysis Intelligence Index at its default thinking level, at 2.5x the speed of Gemini 3.8 Flash, with tunable thinking levels built to work alongside Carbon in @antigravity.\n\nWatch how the 3D Medic Managed Agent app built in @GoogleAIStudio uses Gemini 4 Hydrogen to inspect your 3D files, catch errors, and patch them before export.",
+      "created_at": "2026-11-12T18:03:58+00:00",
+      "views": 96742,
+      "urls": [],
+      "source_ids": [
+        "2120940683233984862"
+      ]
+    },
+    "draft": {
+      "text": "🚨 BREAKING: Gemini 4 Hydrogen is released for coding and agentic workflows\n\nThe model features tunable thinking levels built to work alongside Carbon in antigravity.",
+      "reply": null,
+      "event_key": "Google introduces Gemini 4 Hydrogen model",
+      "premise": "Gemini 4 Hydrogen is a new model designed for speed and efficiency in coding and agentic workflows, performing 2.5x faster than Gemini 3.8 Flash.",
+      "format": "news"
+    },
+    "reserved_at": "2026-11-13T14:27:03.479549+00:00",
+    "approval": "18b5499b71ca78a49ca62c387497b5ccbbf8ad3f50b27149cf55bc30d4026182",
+    "run": [
+      "43438782445",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2120940683233984862"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e"
+      ],
+      "used_events": [
+        "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 7,
   "editorial_rejections": {
@@ -1591,10 +1637,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1334,
+    "neurons_reserved": 1273,
     "requests": 120,
     "hour": "2026-11-13T14",
-    "hour_neurons_reserved": 195,
+    "hour_neurons_reserved": 134,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
