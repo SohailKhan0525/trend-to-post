@@ -963,6 +963,25 @@
       "source_created_at": "2026-11-12T19:11:49+00:00",
       "tweet_id": "2121267601196355866",
       "posted_at": "2026-11-13T15:43:02.303749+00:00"
+    },
+    {
+      "slot": "2026-11-13:quote-v1:27",
+      "due_at": "2026-11-13T16:15:00+00:00",
+      "text": "🚨 BREAKING: Gemini 4 Hydrogen introduces four adjustable thinking levels\n\nAccording to NewsFromGoogle, the model performs 2.5X faster than Gemini 3.8 Flash for daily coding tasks.",
+      "reply": null,
+      "event_key": "Google releases Gemini 4 Hydrogen model for coding and agentic tasks",
+      "premise": "Reported by NewsFromGoogle: Gemini 4 Hydrogen offers four adjustable thinking levels and achieves 2.5X faster performance than Gemini 3.8 Flash for daily coding tasks.",
+      "format": "news",
+      "source_id": "2120943020803801198",
+      "author": "NewsFromGoogle",
+      "editorial_version": "reactions-v4",
+      "body_style": "detail",
+      "source_url": "https://x.com/NewsFromGoogle/status/2120943020803801198",
+      "source_views": 17692,
+      "source_checked_at": "2026-11-13T16:27:26.115908+00:00",
+      "source_created_at": "2026-11-12T18:13:16+00:00",
+      "tweet_id": "2121278789141627144",
+      "posted_at": "2026-11-13T16:27:29.698887+00:00"
     }
   ],
   "used_source_ids": [
@@ -1631,51 +1650,8 @@
     "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83",
     "3a9b0086c0eabced7a24d85e3de5ca1f040a88bb92f454e553d1f87ceedd51ce"
   ],
-  "last_posted_at": "2026-11-13T15:43:02.303749+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-13:quote-v1:27",
-      "due_at": "2026-11-13T16:15:00+00:00"
-    },
-    "source": {
-      "id": "2120943020803801198",
-      "url": "https://x.com/NewsFromGoogle/status/2120943020803801198",
-      "author": "NewsFromGoogle",
-      "author_id": "913521757100769280",
-      "text": "Today we’re bringing the Gemini 4 series to everyone with Gemini 4 Hydrogen, pairing cutting-edge intelligence with the speed and efficiency needed for everyday coding and agentic work.\n\nHydrogen stands on its own for daily tasks or teams up with Gemini 4 Carbon or Gemini 4 Argon on bigger builds, finishing tasks 2.5X faster than Gemini 3.8 Flash and faster than competing models in its class. Here’s what’s new:\n\n🎛️ Control how hard it thinks: Choose from 4 thinking levels (low, medium, high, and xhigh) so you only wait and pay for the depth a task needs — surpassing Argon on the @ArtificialAnlys Intelligence Index at default high thinking.\n\n🤝 Team up models automatically: With Orchestrator in @Antigravity (available to Google AI Ultra subscribers), Carbon sets the architectural plan while Hydrogen writes and tests code, reaching near-Carbon task success rates on Terminal-Bench 4.0 while consuming 24% less quota and completing 19% faster on average.\n\n💻 Faster coding, research and everyday help: More than triples 3.8 Flash on coding benchmarks, cuts fabricated claims by >5X, turns dense PDFs and spreadsheets into clean reports, and gives more intuitive, visual answers in Google Search and @GeminiApp.",
-      "created_at": "2026-11-12T18:13:16+00:00",
-      "views": 17692,
-      "urls": [],
-      "source_ids": [
-        "2120943020803801198"
-      ]
-    },
-    "draft": {
-      "text": "🚨 BREAKING: Gemini 4 Hydrogen introduces four adjustable thinking levels\n\nAccording to NewsFromGoogle, the model performs 2.5X faster than Gemini 3.8 Flash for daily coding tasks.",
-      "reply": null,
-      "event_key": "Google releases Gemini 4 Hydrogen model for coding and agentic tasks",
-      "premise": "Reported by NewsFromGoogle: Gemini 4 Hydrogen offers four adjustable thinking levels and achieves 2.5X faster performance than Gemini 3.8 Flash for daily coding tasks.",
-      "format": "news"
-    },
-    "reserved_at": "2026-11-13T16:27:26.115908+00:00",
-    "approval": "1b2117be20e67898355e8cd25762086dc1a654c5b635c4eae4a20ab9badf66b2",
-    "run": [
-      "43458409304",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2120943020803801198"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "3a9b0086c0eabced7a24d85e3de5ca1f040a88bb92f454e553d1f87ceedd51ce"
-      ],
-      "used_events": [
-        "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-13T16:27:29.698887+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 9,
   "editorial_rejections": {
@@ -1753,5 +1729,9 @@
     "at": "2026-11-13T16:16:21.641706+00:00",
     "reason": "No fresh, distinct source with at least 10,000 post views passed this check.",
     "policy": "reactions-v4"
+  },
+  "verification_pending": {
+    "tweet_id": "2121278789141627144",
+    "source_id": "2120943020803801198"
   }
 }
