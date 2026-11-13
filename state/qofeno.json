@@ -865,7 +865,7 @@
       "source_created_at": "2026-11-12T18:09:08+00:00",
       "tweet_id": "2121221385825706286",
       "posted_at": "2026-11-13T12:39:23.646717+00:00",
-      "reply_status": "planned"
+      "reply_status": "reserved"
     }
   ],
   "used_source_ids": [
@@ -1540,7 +1540,7 @@
   "pending_reply": {
     "quote_id": "2121221385825706286",
     "text": "How do the four thinking levels impact latency during real-time agentic loops?",
-    "status": "planned",
+    "status": "reserved",
     "planned_at": "2026-11-13T12:39:23.646717+00:00",
     "draft": {
       "text": "🚀⚡🧠",
@@ -1562,6 +1562,11 @@
         "2120941982004523367"
       ]
     },
-    "approval": "c0a2964ccf0e88fc41fb98493040a07a3e43c358600825aac77f7a9016d0cc6a"
+    "approval": "c0a2964ccf0e88fc41fb98493040a07a3e43c358600825aac77f7a9016d0cc6a",
+    "reserved_at": "2026-11-13T12:39:26.586097+00:00",
+    "run": [
+      "43425818196",
+      "1"
+    ]
   }
 }
