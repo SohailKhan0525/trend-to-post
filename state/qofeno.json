@@ -1653,7 +1653,7 @@
   "last_posted_at": "2026-11-13T16:27:29.698887+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 0,
+  "candidate_cursor": 1,
   "editorial_rejections": {
     "ab28e8a3bcca111913ca1a78d0c723d34551a8295d02fc71b07b3619f7d605cc": {
       "policy": "reactions-v4",
@@ -1709,19 +1709,14 @@
       "policy": "reactions-v4",
       "until": "2026-11-13T19:56:00+00:00",
       "reason": "The source must identify the actual product or coding topic"
-    },
-    "0da8a2ae6602ca554d6fbdcd4f50ee5dba2ea0b61330f761180d1b2cf8df0524": {
-      "policy": "reactions-v4",
-      "until": "2026-11-13T16:53:11+00:00",
-      "reason": "No grounded original reaction passed review"
     }
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1818,
-    "requests": 159,
-    "hour": "2026-11-13T16",
-    "hour_neurons_reserved": 323,
+    "neurons_reserved": 1858,
+    "requests": 160,
+    "hour": "2026-11-13T17",
+    "hour_neurons_reserved": 40,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -1729,9 +1724,5 @@
     "at": "2026-11-13T16:53:05.696104+00:00",
     "reason": "AI paused until 2026-11-13T17:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
-  },
-  "ai_pause": {
-    "reason": "Local hourly AI budget reserved; spreading research across the day.",
-    "until": "2026-11-13T17:00:00+00:00"
   }
 }
