@@ -5,6 +5,7 @@ than retrying. Native X permission and rate-limit failures are never bypassed.
 """
 import asyncio
 import html
+import json
 import unicodedata
 from datetime import timedelta
 
@@ -91,6 +92,13 @@ async def verify_delivery(state, connection):
         state['pause_reason'] = 'Published post does not match the reserved author, text or reply parent'
         save_and_push(state)
         summary(state['pause_reason'])
+        summary('Public readback: ' + json.dumps({
+            'id': str(getattr(post, 'id', '')), 'author_id': str(getattr(user, 'id', '')),
+            'author': str(getattr(user, 'screen_name', '')), 'parent': actual_parent,
+            'text': text, 'quote_id': getattr(post, 'quoted_status_id', None),
+            'is_quote': bool(legacy.get('is_quote_status') or getattr(post, 'quote', None)),
+            'is_repost': bool(getattr(post, 'retweeted_tweet', None)),
+        }, ensure_ascii=False))
         return False
     now = utcnow().isoformat()
     row = {**pending, 'posted_at': pending.get('sent_at', pending['reserved_at']), 'completed_at': now, 'verified_at': now}
