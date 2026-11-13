@@ -1489,5 +1489,11 @@
   "ai_pause": {
     "reason": "Local hourly AI budget reserved; spreading research across the day.",
     "until": "2026-11-13T12:00:00+00:00"
+  },
+  "last_attempt": {
+    "slot": "2026-11-13:quote-v1:19",
+    "at": "2026-11-13T11:58:22.964682+00:00",
+    "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
+    "policy": "reactions-v4"
   }
 }
