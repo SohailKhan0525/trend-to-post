@@ -1624,9 +1624,5 @@
     "at": "2026-11-13T11:58:22.964682+00:00",
     "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
-  },
-  "verification_pending": {
-    "tweet_id": "2121248493880705396",
-    "source_id": "2120940683233984862"
   }
 }
