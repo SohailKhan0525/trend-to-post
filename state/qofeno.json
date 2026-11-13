@@ -1119,6 +1119,33 @@
       "posted_at": "2026-11-13T20:35:48+00:00",
       "completed_at": "2026-11-13T20:35:48+00:00",
       "verified_at": "2026-11-13T20:35:51.955177+00:00"
+    },
+    {
+      "text": "Do you think the gap between Claude Code's app stability and the current ChatGPT experience is primarily a UI/UX issue or a backend latency problem?",
+      "event_key": "User dissatisfaction with OpenAI's product releases and model competitiveness compared to Claude",
+      "premise": "The author expresses frustration with OpenAI, claiming their current models and app experience lag behind competitors like Claude Code and Opus 5.5.",
+      "slot": "2026-11-13:reply-v1:42",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-13T21:06:06.100289+00:00",
+      "source": {
+        "id": "2121288291655852072",
+        "url": "https://x.com/TokenGremlin/status/2121288291655852072",
+        "author": "TokenGremlin",
+        "author_id": "1499460382158725120",
+        "text": "I believe OpenAI is facing a lot of internal difficulties right now. People like me who genuinely love ChatGPT are speaking out in huge numbers, and there's a clear consensus:\n\nDevDay was a disappointment, and that's where it all started. Then Tibo's 28 days didn't include the new model we'd been dreaming of. We got several resets, some minor tweaks that could've easily been covered by regular company updates (after all, most of them are just bug fixes!), all in an attempt to bring the ChatGPT App up to the level Claude Code is already at: a lightweight, smooth, functional app without too many bugs.\n\nOpus 5.5 was a shock. It's available on $20 plans with very generous usage limits. Unfortunately, GPT-6.1 Sol simply can't compete, even though it's a \"good\" model. Fable 5.2 widened the gap even further, and it's terrifying. And so far, all we're seeing are grayscale tests of the GPT-6.2 models, which are far better than the current ones, but OpenAI simply won't release them. All we get are leaks from users themselves, desperately collecting whatever crumbs they can find.\n\nIt's like I love ChatGPT and always end up coming back to it, but I'm starting to realize that it's no longer worth waiting for improvements beyond what I already have in the current app and models. Either I come to terms with \"the defeat of my favorite AI,\" or I completely lose my mind. Oh, and apparently touching grass isn't a solution either.",
+        "created_at": "2026-11-13T17:05:15+00:00",
+        "views": 25696,
+        "urls": [],
+        "source_ids": [
+          "2121288291655852072"
+        ]
+      },
+      "tweet_id": "2121348912195961136",
+      "sent_at": "2026-11-13T21:06:07.847140+00:00",
+      "posted_at": "2026-11-13T21:06:08+00:00",
+      "completed_at": "2026-11-13T21:06:08+00:00",
+      "verified_at": "2026-11-13T21:06:10.369232+00:00"
     }
   ],
   "used_source_ids": [
@@ -1807,7 +1834,7 @@
     "ff7563f88879241855b97c6219c4f090ac32ecae3a672576fa28d4cd9b959ff4",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-13T20:35:48+00:00",
+  "last_posted_at": "2026-11-13T21:06:08+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -1926,6 +1953,12 @@
       "kind": "reply",
       "completed_at": "2026-11-13T20:35:48+00:00",
       "tweet_id": "2121341280907071684"
+    },
+    {
+      "slot": "2026-11-13:reply-v1:42",
+      "kind": "reply",
+      "completed_at": "2026-11-13T21:06:08+00:00",
+      "tweet_id": "2121348912195961136"
     }
   ],
   "last_attempts": {
@@ -1946,28 +1979,5 @@
       "until": "2026-11-14T02:31:43.863753+00:00"
     }
   },
-  "outbox": {
-    "text": "Do you think the gap between Claude Code's app stability and the current ChatGPT experience is primarily a UI/UX issue or a backend latency problem?",
-    "event_key": "User dissatisfaction with OpenAI's product releases and model competitiveness compared to Claude",
-    "premise": "The author expresses frustration with OpenAI, claiming their current models and app experience lag behind competitors like Claude Code and Opus 5.5.",
-    "slot": "2026-11-13:reply-v1:42",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-13T21:06:06.100289+00:00",
-    "source": {
-      "id": "2121288291655852072",
-      "url": "https://x.com/TokenGremlin/status/2121288291655852072",
-      "author": "TokenGremlin",
-      "author_id": "1499460382158725120",
-      "text": "I believe OpenAI is facing a lot of internal difficulties right now. People like me who genuinely love ChatGPT are speaking out in huge numbers, and there's a clear consensus:\n\nDevDay was a disappointment, and that's where it all started. Then Tibo's 28 days didn't include the new model we'd been dreaming of. We got several resets, some minor tweaks that could've easily been covered by regular company updates (after all, most of them are just bug fixes!), all in an attempt to bring the ChatGPT App up to the level Claude Code is already at: a lightweight, smooth, functional app without too many bugs.\n\nOpus 5.5 was a shock. It's available on $20 plans with very generous usage limits. Unfortunately, GPT-6.1 Sol simply can't compete, even though it's a \"good\" model. Fable 5.2 widened the gap even further, and it's terrifying. And so far, all we're seeing are grayscale tests of the GPT-6.2 models, which are far better than the current ones, but OpenAI simply won't release them. All we get are leaks from users themselves, desperately collecting whatever crumbs they can find.\n\nIt's like I love ChatGPT and always end up coming back to it, but I'm starting to realize that it's no longer worth waiting for improvements beyond what I already have in the current app and models. Either I come to terms with \"the defeat of my favorite AI,\" or I completely lose my mind. Oh, and apparently touching grass isn't a solution either.",
-      "created_at": "2026-11-13T17:05:15+00:00",
-      "views": 25696,
-      "urls": [],
-      "source_ids": [
-        "2121288291655852072"
-      ]
-    },
-    "tweet_id": "2121348912195961136",
-    "sent_at": "2026-11-13T21:06:07.847140+00:00"
-  }
+  "outbox": null
 }
