@@ -868,6 +868,25 @@
       "reply_status": "verified",
       "reply_id": "2121221406335926393",
       "reply_posted_at": "2026-11-13T12:39:28.458669+00:00"
+    },
+    {
+      "slot": "2026-11-13:quote-v1:22",
+      "due_at": "2026-11-13T13:16:00+00:00",
+      "text": "That jump from 18.2% to 57% on Terminal-Bench is absolutely wild. 🤯💻",
+      "reply": null,
+      "event_key": "Google Antigravity rolls out Gemini 4 Hydrogen",
+      "premise": "Gemini 4 Hydrogen is now available in Google Antigravity for paid and enterprise users, featuring improved scores on Terminal-Bench 4.1.",
+      "format": "commentary",
+      "source_id": "2120944334023389476",
+      "author": "antigravity",
+      "editorial_version": "reactions-v4",
+      "body_style": "detail",
+      "source_url": "https://x.com/antigravity/status/2120944334023389476",
+      "source_views": 98259,
+      "source_checked_at": "2026-11-13T13:16:17.502871+00:00",
+      "source_created_at": "2026-11-12T18:18:29+00:00",
+      "tweet_id": "2121230678532710418",
+      "posted_at": "2026-11-13T13:16:19.221464+00:00"
     }
   ],
   "used_source_ids": [
@@ -1523,51 +1542,8 @@
     "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1",
     "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a"
   ],
-  "last_posted_at": "2026-11-13T12:39:23.646717+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-13:quote-v1:22",
-      "due_at": "2026-11-13T13:16:00+00:00"
-    },
-    "source": {
-      "id": "2120944334023389476",
-      "url": "https://x.com/antigravity/status/2120944334023389476",
-      "author": "antigravity",
-      "author_id": "1965856473084473347",
-      "text": "Today, we’re rolling out Gemini 4 Hydrogen in Google Antigravity, bringing cutting-edge intelligence for everyday coding and agentic workflows. Currently available to paid plans including Pro, Ultra, and enterprise customers.\n\nIt stands strong, scoring 51 on the Artificial Analysis Intelligence Index (surpassing Argon’s 50, and reaching 54 at its highest setting) and 57% on Terminal-Bench 4.1 (more than tripling 3.8 Flash’s 18.2%).\n\nWatch how we are using Hydrogen to maintain codebases",
-      "created_at": "2026-11-12T18:18:29+00:00",
-      "views": 98259,
-      "urls": [],
-      "source_ids": [
-        "2120944334023389476"
-      ]
-    },
-    "draft": {
-      "text": "That jump from 18.2% to 57% on Terminal-Bench is absolutely wild. 🤯💻",
-      "reply": null,
-      "event_key": "Google Antigravity rolls out Gemini 4 Hydrogen",
-      "premise": "Gemini 4 Hydrogen is now available in Google Antigravity for paid and enterprise users, featuring improved scores on Terminal-Bench 4.1.",
-      "format": "commentary"
-    },
-    "reserved_at": "2026-11-13T13:16:17.502871+00:00",
-    "approval": "4dfdb3268008106221a72716db92539a87b4164c4ee9df2021252d01784442ba",
-    "run": [
-      "43430026808",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2120944334023389476"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a"
-      ],
-      "used_events": [
-        "521ed6389d4be1a63910a02bc1cdefc6735c71075ebee636e00076c21496fe7e"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-13T13:16:19.221464+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 1,
   "editorial_rejections": {},
@@ -1584,5 +1560,9 @@
     "at": "2026-11-13T11:58:22.964682+00:00",
     "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
+  },
+  "verification_pending": {
+    "tweet_id": "2121230678532710418",
+    "source_id": "2120944334023389476"
   }
 }
