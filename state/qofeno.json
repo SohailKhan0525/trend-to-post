@@ -1521,10 +1521,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 710,
-    "requests": 77,
+    "neurons_reserved": 750,
+    "requests": 78,
     "hour": "2026-11-13T11",
-    "hour_neurons_reserved": 208,
-    "model": "@cf/zai-org/glm-4.7-flash"
+    "hour_neurons_reserved": 248,
+    "model": "@cf/google/gemma-4-26b-a4b-it"
   }
 }
