@@ -1211,7 +1211,8 @@
     "2121031171572412716",
     "2120957757004354002",
     "2120943020803801198",
-    "2121059953649819771"
+    "2121059953649819771",
+    "2121181844570017856"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -1298,7 +1299,8 @@
     "15a273b1963c28bbe841ed71a49216ebcf2beca1d08e372497bc0596ef8f1bb0",
     "56b1e9779c40b155a7d6a240caf938d469cd36e57ca410b9c04214ed4f4f8b19",
     "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c",
-    "f23096426f2504b486ba7a148b7ef9e4c9dac32e5ebb413feb45d3ba8c70f2ba"
+    "f23096426f2504b486ba7a148b7ef9e4c9dac32e5ebb413feb45d3ba8c70f2ba",
+    "7050257affc71221a48dc4ec0b081fb187c81bb78f9a8362677601ab12f4659d"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1673,10 +1675,54 @@
     "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e",
     "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83",
     "3a9b0086c0eabced7a24d85e3de5ca1f040a88bb92f454e553d1f87ceedd51ce",
-    "d10b237328c1fd211bef11097296e21a7334e0425b171405fd78ee4303fcf1d9"
+    "d10b237328c1fd211bef11097296e21a7334e0425b171405fd78ee4303fcf1d9",
+    "ad119a9bab2bae01225622ad38d80de1648e4d9c8f622b742ed8e73356e47a92"
   ],
   "last_posted_at": "2026-11-13T17:03:50.675172+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-13:quote-v1:29",
+      "due_at": "2026-11-13T17:30:00+00:00"
+    },
+    "source": {
+      "id": "2121181844570017856",
+      "url": "https://x.com/Israfilv2/status/2121181844570017856",
+      "author": "Israfilv2",
+      "author_id": "2091995542662365184",
+      "text": "how the f*ck Opencode let people use 12 models for absolutely free?? https://t.co/Hi5IO7BuBs",
+      "created_at": "2026-11-13T10:02:16+00:00",
+      "views": 28932,
+      "urls": [],
+      "source_ids": [
+        "2121181844570017856"
+      ]
+    },
+    "draft": {
+      "text": "That is a wild deal for Opencode. 🤯💸",
+      "reply": null,
+      "event_key": "Opencode offering free access to 12 models",
+      "premise": "Reported by Israfilv2: Opencode provides free access to 12 different models.",
+      "format": "commentary"
+    },
+    "reserved_at": "2026-11-13T18:02:25.375535+00:00",
+    "approval": "fb04f864eaf37e4ea021ed4e87f6f7fb5ef875b6336bf93b8ecbfda06c9331d6",
+    "run": [
+      "43478474499",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2121181844570017856"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "ad119a9bab2bae01225622ad38d80de1648e4d9c8f622b742ed8e73356e47a92"
+      ],
+      "used_events": [
+        "7050257affc71221a48dc4ec0b081fb187c81bb78f9a8362677601ab12f4659d"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 4,
   "editorial_rejections": {
@@ -1758,10 +1804,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2106,
+    "neurons_reserved": 2046,
     "requests": 176,
     "hour": "2026-11-13T18",
-    "hour_neurons_reserved": 187,
+    "hour_neurons_reserved": 127,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
