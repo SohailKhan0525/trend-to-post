@@ -982,6 +982,26 @@
       "source_created_at": "2026-11-12T18:13:16+00:00",
       "tweet_id": "2121278789141627144",
       "posted_at": "2026-11-13T16:27:29.698887+00:00"
+    },
+    {
+      "slot": "2026-11-13:quote-v1:28",
+      "due_at": "2026-11-13T16:50:00+00:00",
+      "text": "🤯🧐",
+      "reply": "How does the 1M context window impact inference latency on the cloud version?",
+      "event_key": "Inkling 2 Small model availability on Ollama Cloud",
+      "premise": "Inkling 2 Small, a 594B mixture-of-experts model with a 1M context window, is available on Ollama Cloud with zero data retention.",
+      "format": "emoji_question",
+      "source_id": "2121059953649819771",
+      "author": "ollama",
+      "editorial_version": "reactions-v4",
+      "body_style": "self_reply_question",
+      "source_url": "https://x.com/ollama/status/2121059953649819771",
+      "source_views": 18762,
+      "source_checked_at": "2026-11-13T17:03:49.112121+00:00",
+      "source_created_at": "2026-11-13T01:57:54+00:00",
+      "tweet_id": "2121287936880869823",
+      "posted_at": "2026-11-13T17:03:50.675172+00:00",
+      "reply_status": "planned"
     }
   ],
   "used_source_ids": [
@@ -1653,51 +1673,8 @@
     "3a9b0086c0eabced7a24d85e3de5ca1f040a88bb92f454e553d1f87ceedd51ce",
     "d10b237328c1fd211bef11097296e21a7334e0425b171405fd78ee4303fcf1d9"
   ],
-  "last_posted_at": "2026-11-13T16:27:29.698887+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-13:quote-v1:28",
-      "due_at": "2026-11-13T16:50:00+00:00"
-    },
-    "source": {
-      "id": "2121059953649819771",
-      "url": "https://x.com/ollama/status/2121059953649819771",
-      "author": "ollama",
-      "author_id": "1688410127378829312",
-      "text": "Inkling 2 Small from Thinking Machines (@thinkymachines) is now on Ollama with zero data retention! \n\nThe 594B mixture-of-experts model with 1M context window demonstrates strong visual interpretation and creation, agentic knowledge work, and finance and quantitative reasoning. \n\nExample use cases: \n- OCR\n- grounding\n- infographic interpretation\n- visual reasoning \n- tool calling with MCP \n- finance spreadsheet reasoning, filings and documents \n\nAvailable on Ollama Cloud with zero data retention:\n\nollama run inkling-2-small:cloud",
-      "created_at": "2026-11-13T01:57:54+00:00",
-      "views": 18762,
-      "urls": [],
-      "source_ids": [
-        "2121059953649819771"
-      ]
-    },
-    "draft": {
-      "text": "🤯🧐",
-      "reply": "How does the 1M context window impact inference latency on the cloud version?",
-      "event_key": "Inkling 2 Small model availability on Ollama Cloud",
-      "premise": "Inkling 2 Small, a 594B mixture-of-experts model with a 1M context window, is available on Ollama Cloud with zero data retention.",
-      "format": "emoji_question"
-    },
-    "reserved_at": "2026-11-13T17:03:49.112121+00:00",
-    "approval": "fe8596008145dddbd26e5390404ce0c4c9e0f4e91d715a8620f96711b337a0f1",
-    "run": [
-      "43468546598",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2121059953649819771"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "d10b237328c1fd211bef11097296e21a7334e0425b171405fd78ee4303fcf1d9"
-      ],
-      "used_events": [
-        "f23096426f2504b486ba7a148b7ef9e4c9dac32e5ebb413feb45d3ba8c70f2ba"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-13T17:03:50.675172+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "editorial_rejections": {
@@ -1775,5 +1752,36 @@
     "at": "2026-11-13T16:53:05.696104+00:00",
     "reason": "AI paused until 2026-11-13T17:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
+  },
+  "verification_pending": {
+    "tweet_id": "2121287936880869823",
+    "source_id": "2121059953649819771"
+  },
+  "pending_reply": {
+    "quote_id": "2121287936880869823",
+    "text": "How does the 1M context window impact inference latency on the cloud version?",
+    "status": "planned",
+    "planned_at": "2026-11-13T17:03:50.675172+00:00",
+    "draft": {
+      "text": "🤯🧐",
+      "reply": "How does the 1M context window impact inference latency on the cloud version?",
+      "event_key": "Inkling 2 Small model availability on Ollama Cloud",
+      "premise": "Inkling 2 Small, a 594B mixture-of-experts model with a 1M context window, is available on Ollama Cloud with zero data retention.",
+      "format": "emoji_question"
+    },
+    "source": {
+      "id": "2121059953649819771",
+      "url": "https://x.com/ollama/status/2121059953649819771",
+      "author": "ollama",
+      "author_id": "1688410127378829312",
+      "text": "Inkling 2 Small from Thinking Machines (@thinkymachines) is now on Ollama with zero data retention! \n\nThe 594B mixture-of-experts model with 1M context window demonstrates strong visual interpretation and creation, agentic knowledge work, and finance and quantitative reasoning. \n\nExample use cases: \n- OCR\n- grounding\n- infographic interpretation\n- visual reasoning \n- tool calling with MCP \n- finance spreadsheet reasoning, filings and documents \n\nAvailable on Ollama Cloud with zero data retention:\n\nollama run inkling-2-small:cloud",
+      "created_at": "2026-11-13T01:57:54+00:00",
+      "views": 18762,
+      "urls": [],
+      "source_ids": [
+        "2121059953649819771"
+      ]
+    },
+    "approval": "f034b4fbb70a705f6ac8589bc60a606a1ea6794464d824ea8af4083d51752a26"
   }
 }
