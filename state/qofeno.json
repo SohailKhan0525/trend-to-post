@@ -1068,7 +1068,8 @@
     "2120163066302079201",
     "2120904821373096408",
     "2120940338869055788",
-    "2120941982004523367"
+    "2120941982004523367",
+    "2120944334023389476"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -1148,7 +1149,8 @@
     "5cd40e9bb38857c58a90f8c1905cdeb756a3e518fc7b730dee3e907e58f7dc69",
     "32ed124f514d1d80315822cd8103542fec2f4ad138e2be5d20cff105e7f0fc73",
     "c680dad137f76b510aea1cc88053989bed87bbf6b7b7f5ae1d79d83c83f9a375",
-    "66bfe10331ee792aac910d242c85a8e0151cf3d9086c5554c98e97930a22d638"
+    "66bfe10331ee792aac910d242c85a8e0151cf3d9086c5554c98e97930a22d638",
+    "521ed6389d4be1a63910a02bc1cdefc6735c71075ebee636e00076c21496fe7e"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1518,19 +1520,63 @@
     "bcdbf176306f01c013aed57554fab41928615ec9de61c254470723db199acad3",
     "eeaf70f267cd05dde4b006bed635af967fb7ac95d456d13ee7c53178f83b63ba",
     "de1f4182063a690c5aa7454860274992d0b9fb0eb6a90c34414763f20f0f5675",
-    "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1"
+    "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1",
+    "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a"
   ],
   "last_posted_at": "2026-11-13T12:39:23.646717+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-13:quote-v1:22",
+      "due_at": "2026-11-13T13:16:00+00:00"
+    },
+    "source": {
+      "id": "2120944334023389476",
+      "url": "https://x.com/antigravity/status/2120944334023389476",
+      "author": "antigravity",
+      "author_id": "1965856473084473347",
+      "text": "Today, we’re rolling out Gemini 4 Hydrogen in Google Antigravity, bringing cutting-edge intelligence for everyday coding and agentic workflows. Currently available to paid plans including Pro, Ultra, and enterprise customers.\n\nIt stands strong, scoring 51 on the Artificial Analysis Intelligence Index (surpassing Argon’s 50, and reaching 54 at its highest setting) and 57% on Terminal-Bench 4.1 (more than tripling 3.8 Flash’s 18.2%).\n\nWatch how we are using Hydrogen to maintain codebases",
+      "created_at": "2026-11-12T18:18:29+00:00",
+      "views": 98259,
+      "urls": [],
+      "source_ids": [
+        "2120944334023389476"
+      ]
+    },
+    "draft": {
+      "text": "That jump from 18.2% to 57% on Terminal-Bench is absolutely wild. 🤯💻",
+      "reply": null,
+      "event_key": "Google Antigravity rolls out Gemini 4 Hydrogen",
+      "premise": "Gemini 4 Hydrogen is now available in Google Antigravity for paid and enterprise users, featuring improved scores on Terminal-Bench 4.1.",
+      "format": "commentary"
+    },
+    "reserved_at": "2026-11-13T13:16:17.502871+00:00",
+    "approval": "4dfdb3268008106221a72716db92539a87b4164c4ee9df2021252d01784442ba",
+    "run": [
+      "43430026808",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2120944334023389476"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a"
+      ],
+      "used_events": [
+        "521ed6389d4be1a63910a02bc1cdefc6735c71075ebee636e00076c21496fe7e"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 1,
   "editorial_rejections": {},
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1058,
+    "neurons_reserved": 1002,
     "requests": 101,
     "hour": "2026-11-13T13",
-    "hour_neurons_reserved": 103,
+    "hour_neurons_reserved": 47,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
