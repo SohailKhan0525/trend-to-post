@@ -1148,7 +1148,8 @@
     "2120944334023389476",
     "2120940373665091856",
     "2120940683233984862",
-    "2121031171572412716"
+    "2121031171572412716",
+    "2120957757004354002"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -1232,7 +1233,8 @@
     "521ed6389d4be1a63910a02bc1cdefc6735c71075ebee636e00076c21496fe7e",
     "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb",
     "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e",
-    "15a273b1963c28bbe841ed71a49216ebcf2beca1d08e372497bc0596ef8f1bb0"
+    "15a273b1963c28bbe841ed71a49216ebcf2beca1d08e372497bc0596ef8f1bb0",
+    "56b1e9779c40b155a7d6a240caf938d469cd36e57ca410b9c04214ed4f4f8b19"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1604,10 +1606,54 @@
     "de1f4182063a690c5aa7454860274992d0b9fb0eb6a90c34414763f20f0f5675",
     "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1",
     "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a",
-    "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e"
+    "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e",
+    "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83"
   ],
   "last_posted_at": "2026-11-13T15:05:12.515895+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-13:quote-v1:26",
+      "due_at": "2026-11-13T15:42:00+00:00"
+    },
+    "source": {
+      "id": "2120957757004354002",
+      "url": "https://x.com/github/status/2120957757004354002",
+      "author": "github",
+      "author_id": "13334762",
+      "text": "Building software takes more than code generation. Here's what an effective agentic engineering workflow looks like with GitHub Copilot 👇 https://t.co/wGGKj5mVVD",
+      "created_at": "2026-11-12T19:11:49+00:00",
+      "views": 47858,
+      "urls": [],
+      "source_ids": [
+        "2120957757004354002"
+      ]
+    },
+    "draft": {
+      "text": "Finally acknowledging that just spitting out code isn't the whole job. 🙄💻",
+      "reply": null,
+      "event_key": "GitHub Copilot agentic engineering workflow demonstration",
+      "premise": "Reported by github: GitHub demonstrates an effective agentic engineering workflow that extends beyond simple code generation.",
+      "format": "commentary"
+    },
+    "reserved_at": "2026-11-13T15:43:00.332383+00:00",
+    "approval": "e2449e21263f20d557b0b5995356057fcf74ce94b6cfee31baa237a66db1ffe9",
+    "run": [
+      "43453379684",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2120957757004354002"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83"
+      ],
+      "used_events": [
+        "56b1e9779c40b155a7d6a240caf938d469cd36e57ca410b9c04214ed4f4f8b19"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 2,
   "editorial_rejections": {
@@ -1649,10 +1695,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1552,
+    "neurons_reserved": 1495,
     "requests": 135,
     "hour": "2026-11-13T15",
-    "hour_neurons_reserved": 279,
+    "hour_neurons_reserved": 222,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
