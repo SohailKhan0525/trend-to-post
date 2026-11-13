@@ -1480,10 +1480,10 @@
   "editorial_rejections": {},
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 876,
-    "requests": 91,
+    "neurons_reserved": 922,
+    "requests": 92,
     "hour": "2026-11-13T12",
-    "hour_neurons_reserved": 40,
+    "hour_neurons_reserved": 86,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
