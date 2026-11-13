@@ -1545,14 +1545,14 @@
   "last_posted_at": "2026-11-13T13:16:19.221464+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 2,
   "editorial_rejections": {},
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1002,
-    "requests": 101,
+    "neurons_reserved": 1045,
+    "requests": 102,
     "hour": "2026-11-13T13",
-    "hour_neurons_reserved": 47,
+    "hour_neurons_reserved": 90,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
