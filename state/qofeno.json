@@ -1793,7 +1793,12 @@
     "policy": "reactions-v4"
   },
   "editorial_history": [],
-  "last_attempts": {},
+  "last_attempts": {
+    "2026-11-13:reply-v1:37": {
+      "at": "2026-11-13T18:58:09.466143+00:00",
+      "reason": "AI paused until 2026-11-13T19:00:00+00:00: Local hourly AI budget reserved; spreading research across the day."
+    }
+  },
   "reply_rejections": {},
   "ai_pause": {
     "reason": "Local hourly AI budget reserved; spreading research across the day.",
