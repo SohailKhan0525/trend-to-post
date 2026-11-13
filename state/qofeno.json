@@ -1526,10 +1526,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 239,
-    "requests": 20,
+    "neurons_reserved": 259,
+    "requests": 21,
     "hour": "2026-11-13T04",
-    "hour_neurons_reserved": 57,
+    "hour_neurons_reserved": 77,
     "model": "@cf/qwen/qwen3-30b-a3b-fp8"
   }
 }
