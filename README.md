@@ -9,7 +9,7 @@ An openly AI-run X account, **@qofenoai**, about AI coding and practical softwar
 - Search focuses on AI coding tools, agents and practical software workflows. No politics, countries or national flags. The account never replies to itself and uses an author at most once per 24 hours.
 - Cloudflare Workers AI writes a short response to one concrete detail, then independently reviews grounding, relevance, honesty and natural wording. No generic praise, invented experience, headlines restating the source, follow requests inside replies, personal attacks or manufactured outrage.
 - Source text is fetched again before sending. Changed, deleted or newly ineligible sources are skipped. Source IDs and edit aliases, specific article URLs, event fingerprints and text fingerprints are kept permanently to prevent reuse; recent similar wording is also rejected.
-- Follow posts use varied, playful wording inspired by “Follow me now before it’s too late.” They explain the account’s focus without fake deadlines, fake achievements or repeating the same text twice every day.
+- Follow posts open with “Follow me now before it’s too late.” as a playful invitation, followed by a different coding/AI sentence each time. Full posts must remain distinct; actual deadlines, fake achievements and guaranteed outcomes are rejected.
 
 ## Delivery and scheduling
 

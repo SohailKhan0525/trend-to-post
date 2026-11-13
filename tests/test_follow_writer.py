@@ -9,8 +9,9 @@ from app.reply_writer import fingerprint
 
 
 NOW = datetime(2026, 11, 13, 20, tzinfo=timezone.utc)
-TEXT = 'Follow for useful questions about AI coding tools and occasional disagreements with a semicolon.'
-OTHER = 'Debugging deserves better questions. Follow along for software tradeoffs with a little dry humor.'
+OPENING = "Follow me now before it's too late. "
+TEXT = OPENING + 'Expect useful questions about AI coding tools and occasional disagreements with a semicolon.'
+OTHER = OPENING + 'Debugging deserves a witness, even when the culprit is a missing bracket.'
 RAW = {'text': TEXT, 'safe': True, 'honest': True, 'natural': True}
 
 
@@ -24,7 +25,7 @@ class FollowWriterTests(unittest.TestCase):
         self.assertEqual(calls.call_args.args[1]['current_date'], '2026-11-13')
 
     def test_shape_and_local_validation_get_at_most_one_repair(self):
-        for bad in ({}, {**RAW, 'text': 'Follow me now before it is too late.'}):
+        for bad in ({}, {**RAW, 'text': OPENING + 'Last chance to join this limited time coding club.'}):
             with self.subTest(bad=bad), patch.object(writer, 'complete', side_effect=[bad, RAW]) as calls:
                 self.assertEqual(writer.generate({}, NOW)['text'], TEXT)
             self.assertEqual(calls.call_count, 2)
@@ -56,7 +57,7 @@ class FollowWriterTests(unittest.TestCase):
             with self.subTest(state=state), self.assertRaises(DraftError):
                 writer.check_duplicates(writer.validate(RAW), state)
 
-    def test_recent_near_duplicate_requires_a_different_reason_and_opening(self):
+    def test_recent_near_duplicate_requires_a_different_second_sentence(self):
         for name in ('history', 'editorial_history'):
             state = {name: [{'text': TEXT.replace('useful', 'practical')}]}
             with self.subTest(name=name), patch.object(writer, 'complete', side_effect=[RAW, {**RAW, 'text': OTHER}]) as calls:
@@ -66,15 +67,24 @@ class FollowWriterTests(unittest.TestCase):
 
     def test_false_urgency_achievements_experience_insults_and_extra_engagement_are_rejected(self):
         invalid = [
-            "Follow me now before it's too late, this is your last chance.",
-            'Follow me for guaranteed results with your next coding project.',
-            'I made a million from software. Follow to learn all the secrets.',
-            'I tested all the coding tools. Follow me for practical software tips.',
-            'Follow for software tips, unlike those stupid developers.',
-            'Follow and repost this for useful questions about software tools.',
-            'Follow for practical coding tips. DM me for more details.',
+            OPENING + 'Last chance to join this coding account.',
+            OPENING + 'Get guaranteed results with your next coding project.',
+            OPENING + 'I made a million from software and know all the secrets.',
+            OPENING + 'I tested all the coding tools to find the best ones.',
+            OPENING + 'Software tips without those stupid developers.',
+            OPENING + 'Repost this for useful questions about software tools.',
+            OPENING + 'DM me for more practical coding tips.',
         ]
         for text in invalid:
+            with self.subTest(text=text), self.assertRaises(DraftError):
+                writer.validate({**RAW, 'text': text})
+
+    def test_required_playful_opening_accepts_apostrophe_variants_and_needs_fresh_detail(self):
+        for text in (TEXT, TEXT.replace("it's", 'it’s')):
+            with self.subTest(text=text):
+                self.assertEqual(writer.validate({**RAW, 'text': text})['text'], text)
+        for text in (OPENING.strip(), OPENING + 'Please.',
+                     'Follow for practical coding questions and dry software humor.'):
             with self.subTest(text=text), self.assertRaises(DraftError):
                 writer.validate({**RAW, 'text': text})
 
