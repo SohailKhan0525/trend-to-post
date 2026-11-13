@@ -1025,7 +1025,8 @@
     "2120193584670580857",
     "2120212596850663712",
     "2120163066302079201",
-    "2120904821373096408"
+    "2120904821373096408",
+    "2120940338869055788"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -1103,7 +1104,8 @@
     "969353d7054536833563b5ba92a27b6ea34653d51476500e2cbe9f6ef26db218",
     "b5a5b054963511235988ad2bc8e03d90dd1a2799ca4f1cd88020d93fead2f8b6",
     "5cd40e9bb38857c58a90f8c1905cdeb756a3e518fc7b730dee3e907e58f7dc69",
-    "32ed124f514d1d80315822cd8103542fec2f4ad138e2be5d20cff105e7f0fc73"
+    "32ed124f514d1d80315822cd8103542fec2f4ad138e2be5d20cff105e7f0fc73",
+    "c680dad137f76b510aea1cc88053989bed87bbf6b7b7f5ae1d79d83c83f9a375"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1471,19 +1473,63 @@
     "d877991f75762929859ea8c4092d4bd68f9300880f862e23b92053d2db797f59",
     "ff1c54b893c1427fe364de2a7d320cbe898817d07aa552bc71a24506ba287945",
     "bcdbf176306f01c013aed57554fab41928615ec9de61c254470723db199acad3",
-    "eeaf70f267cd05dde4b006bed635af967fb7ac95d456d13ee7c53178f83b63ba"
+    "eeaf70f267cd05dde4b006bed635af967fb7ac95d456d13ee7c53178f83b63ba",
+    "de1f4182063a690c5aa7454860274992d0b9fb0eb6a90c34414763f20f0f5675"
   ],
   "last_posted_at": "2026-11-12T21:03:16.376565+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-13:quote-v1:20",
+      "due_at": "2026-11-13T12:04:00+00:00"
+    },
+    "source": {
+      "id": "2120940338869055788",
+      "url": "https://x.com/GoogleDeepMind/status/2120940338869055788",
+      "author": "GoogleDeepMind",
+      "author_id": "4783690002",
+      "text": "Meet Gemini 4 Hydrogen: built for rapid coding, multimodal synthesis, and everyday workflows.\n\nIt finishes tasks 2.5x faster than 3.8 Flash and surpasses Argon on the @ArtificialAnlys Intelligence Index.",
+      "created_at": "2026-11-12T18:02:36+00:00",
+      "views": 1276981,
+      "urls": [],
+      "source_ids": [
+        "2120940338869055788"
+      ]
+    },
+    "draft": {
+      "text": "🚨 BREAKING: Gemini 4 Hydrogen is released for rapid coding\n\nThe model is designed for multimodal synthesis and everyday workflows.",
+      "reply": null,
+      "event_key": "Google DeepMind releases Gemini 4 Hydrogen",
+      "premise": "Gemini 4 Hydrogen is designed for rapid coding and multimodal synthesis, performing 2.5x faster than 3.8 Flash.",
+      "format": "news"
+    },
+    "reserved_at": "2026-11-13T12:04:23.908346+00:00",
+    "approval": "e092726ca0dc4dfdb09d187b4da7fb36d68fc95f81ad574bdf2a84cc62e04a25",
+    "run": [
+      "43421665061",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2120940338869055788"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "de1f4182063a690c5aa7454860274992d0b9fb0eb6a90c34414763f20f0f5675"
+      ],
+      "used_events": [
+        "c680dad137f76b510aea1cc88053989bed87bbf6b7b7f5ae1d79d83c83f9a375"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 2,
   "editorial_rejections": {},
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 970,
+    "neurons_reserved": 910,
     "requests": 95,
     "hour": "2026-11-13T12",
-    "hour_neurons_reserved": 134,
+    "hour_neurons_reserved": 74,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
