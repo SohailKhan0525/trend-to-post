@@ -1479,15 +1479,10 @@
   "candidate_cursor": 0,
   "last_attempt": {
     "slot": "2026-11-13:quote-v1:14",
-    "at": "2026-11-13T08:31:20.951238+00:00",
+    "at": "2026-11-13T08:41:23.705796+00:00",
     "reason": "No new verified announcement with at least 100,000 source-post views passed this check."
   },
   "editorial_rejections": {
-    "693d5f89cbf27767aaece924823f3440b45d4c910f3c216239e970cc3f2090ef": {
-      "policy": "ai-coding-v2",
-      "until": "2026-11-13T08:33:56+00:00",
-      "reason": "Source classification rejected: new_announcement, relevant"
-    },
     "2aeafc56b641e6c5ef4f0543b25230b69f620583b681836a4b93a47c9c30dd1b": {
       "policy": "ai-coding-v2",
       "until": "2026-11-14T02:09:55+00:00",
