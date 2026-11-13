@@ -37,7 +37,7 @@ No other users receive automated replies. No automatic likes, follows or manufac
 
 ## Free AI budget
 
-The default model is \`@cf/google/gemma-4-26b-a4b-it\`, evaluated live against all three fixture formats on November 13. Old overrides selecting the retiring Qwen default map to Gemma; other explicit compatible, priced model overrides remain supported. The fixture check validates these examples and the response contract, not every possible factual claim. Every live draft still receives source checks and independent review.
+The default model is `@cf/google/gemma-4-26b-a4b-it`, evaluated live against all three fixture formats on November 13. Old overrides selecting the retiring Qwen default map to Gemma; other explicit compatible, priced model overrides remain supported. The fixture check validates these examples and the response contract, not every possible factual claim. Every live draft still receives source checks and independent review.
 
 Workers AI uses `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`. The account-wide free allowance is 10,000 neurons per UTC day. Local estimates reserve at most 9,000/day and 400/hour, adjusted when provider token usage is available. Spending is committed before requests; crashes cannot erase it. Other apps sharing the same Cloudflare allowance are not visible to this ledger.
 
