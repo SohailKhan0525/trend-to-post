@@ -1678,7 +1678,7 @@
   "last_posted_at": "2026-11-13T17:03:50.675172+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 2,
   "editorial_rejections": {
     "ab28e8a3bcca111913ca1a78d0c723d34551a8295d02fc71b07b3619f7d605cc": {
       "policy": "reactions-v4",
@@ -1739,14 +1739,19 @@
       "policy": "reactions-v4",
       "until": "2026-11-14T13:30:00+00:00",
       "reason": "The source must identify the actual product or coding topic"
+    },
+    "468f17cdc4ca75ad7472bc4433ea86bcf2a546545041b798d808e9994ee72638": {
+      "policy": "reactions-v4",
+      "until": "2026-11-14T00:02:00.854812+00:00",
+      "reason": "No grounded original reaction passed review"
     }
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2052,
-    "requests": 171,
+    "neurons_reserved": 2034,
+    "requests": 172,
     "hour": "2026-11-13T18",
-    "hour_neurons_reserved": 133,
+    "hour_neurons_reserved": 115,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
