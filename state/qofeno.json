@@ -1780,10 +1780,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2347,
-    "requests": 193,
+    "neurons_reserved": 2363,
+    "requests": 194,
     "hour": "2026-11-13T19",
-    "hour_neurons_reserved": 90,
+    "hour_neurons_reserved": 106,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -1799,5 +1799,9 @@
       "reason": "AI paused until 2026-11-13T19:00:00+00:00: Local hourly AI budget reserved; spreading research across the day."
     }
   },
-  "reply_rejections": {}
+  "reply_rejections": {
+    "7eb33a93a3c3c6ebd87de7a498b76fd7ae99776b01241afef0cf998636d48c07": {
+      "until": "2026-11-14T01:05:42.805015+00:00"
+    }
+  }
 }
