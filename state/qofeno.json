@@ -1502,10 +1502,10 @@
   "editorial_rejections": {},
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 951,
-    "requests": 96,
+    "neurons_reserved": 1004,
+    "requests": 97,
     "hour": "2026-11-13T12",
-    "hour_neurons_reserved": 115,
+    "hour_neurons_reserved": 168,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
