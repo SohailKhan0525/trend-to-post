@@ -1269,6 +1269,7 @@
     "2120943020803801198",
     "2120944334023389476",
     "2120957757004354002",
+    "2121003856280657921",
     "2121031171572412716",
     "2121059953649819771",
     "2121181844570017856",
@@ -1282,6 +1283,7 @@
     "https://composio.dev/instant",
     "https://deepai.org/chat/ai-code",
     "https://fia.com/news/yangwang-u9-xtreme-surpasses-500-kmh-speed-achievement-recognised-fia",
+    "https://github.com/Alishahryar1/free-claude-code",
     "https://github.com/Einsia/Frontier3D",
     "https://goo.gle/480yn2n",
     "https://lab.einsia.ai/frontier3dbench",
@@ -1334,6 +1336,7 @@
     "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e",
     "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf",
     "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb",
+    "8fa300e11cd7aa06e7da06d5e2166802325594a30c3886f47cad2995069519aa",
     "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c",
     "95c660fd8d746d68a4f59203ef2b5fc89829ebb3f338686cc6aac9b6474f2fcd",
     "962237cd7326d4281207a2bf044a990ef5a6da344c5a01ea155b5f9c6783a3f2",
@@ -1684,6 +1687,7 @@
     "de1f4182063a690c5aa7454860274992d0b9fb0eb6a90c34414763f20f0f5675",
     "de733f7c6441b05465dd54bf749f9e5eb889789711abedc9d12afc74efe9870e",
     "dfe3e7ddfe7d1447594ace7cb702f2c1f275460dd2d03c79497e14f85e65e904",
+    "e06fefe46f082afd06b59c51a5a714595c4bd046c41cf9cbfe0ca907a65b0aea",
     "e0ee8b2383109e85499ee323f2bd9b10023c4b66dfac9d56f691bd10236929cd",
     "e168ea4ff3926dea02fa417ebe341609c8f5c16e714f7d0df736f66a308f115f",
     "e17f6675fa87333416072c74e2ce5dd303af885918d20d3dc9bb2dcb99d28d6c",
@@ -1824,10 +1828,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2427,
+    "neurons_reserved": 2367,
     "requests": 198,
     "hour": "2026-11-13T19",
-    "hour_neurons_reserved": 170,
+    "hour_neurons_reserved": 110,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -1861,5 +1865,28 @@
       "until": "2026-11-14T01:05:42.805015+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Does the tool support local model providers via Ollama, or is it limited to cloud-based API keys?",
+    "event_key": "release of Free Claude Code open-source project",
+    "premise": "Free Claude Code is an open-source project that allows using coding agents like Claude Code and Codex with free-tier AI model providers via API keys.",
+    "slot": "2026-11-13:reply-v1:39",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-13T19:36:14.054206+00:00",
+    "source": {
+      "id": "2121003856280657921",
+      "url": "https://x.com/RoundtableSpace/status/2121003856280657921",
+      "author": "RoundtableSpace",
+      "author_id": "1536693901230321666",
+      "text": "Want to use Claude Code without paying for an expensive AI subscription?\n\nFree Claude Code is an open-source project aimed at making AI-assisted coding more affordable.\n\nGet started in 3 steps:\n\n1. Install: Download Free Claude Code from GitHub\n2. Connect: Add a free AI model provider and configure your API key\n3. Code: Run fcc-claude to start coding\n\nUse Claude Code, Codex and other coding agents with free-tier AI models instead of paying for every request.\n\nRepo: https://t.co/70SF7kPkJ8",
+      "created_at": "2026-11-12T22:15:00+00:00",
+      "views": 52052,
+      "urls": [
+        "https://github.com/Alishahryar1/free-claude-code"
+      ],
+      "source_ids": [
+        "2121003856280657921"
+      ]
+    }
+  }
 }
