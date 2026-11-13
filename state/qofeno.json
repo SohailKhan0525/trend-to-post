@@ -1756,19 +1756,24 @@
       "policy": "reactions-v4",
       "until": "2026-11-14T13:27:51+00:00",
       "reason": "The source must identify the actual product or coding topic"
+    },
+    "2599f5a1d713fc823acadc0dc7a0fba3ab506722301b1db705dd8aab9569474e": {
+      "policy": "reactions-v4",
+      "until": "2026-11-13T23:51:13+00:00",
+      "reason": "No grounded original reaction passed review"
     }
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2183,
+    "neurons_reserved": 2124,
     "requests": 181,
     "hour": "2026-11-13T18",
-    "hour_neurons_reserved": 264,
+    "hour_neurons_reserved": 205,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
-    "slot": "2026-11-13:quote-v1:29",
-    "at": "2026-11-13T17:41:21.350141+00:00",
+    "slot": "2026-11-13:quote-v1:30",
+    "at": "2026-11-13T18:27:52.641457+00:00",
     "reason": "No fresh, distinct source with at least 10,000 post views passed this check.",
     "policy": "reactions-v4"
   }
