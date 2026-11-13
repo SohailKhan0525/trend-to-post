@@ -1700,7 +1700,7 @@
   "last_posted_at": "2026-11-13T18:02:27.132312+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 2,
+  "candidate_cursor": 0,
   "editorial_rejections": {
     "ab28e8a3bcca111913ca1a78d0c723d34551a8295d02fc71b07b3619f7d605cc": {
       "policy": "reactions-v4",
@@ -1766,14 +1766,19 @@
       "policy": "reactions-v4",
       "until": "2026-11-13T22:27:57+00:00",
       "reason": "No grounded original reaction passed review"
+    },
+    "d1bd2f5a0a2683600a9a6e784bf3021db9cb2338a9b745b8612264c737147861": {
+      "policy": "reactions-v4",
+      "until": "2026-11-14T00:38:25.911148+00:00",
+      "reason": "No grounded original reaction passed review"
     }
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2292,
-    "requests": 189,
+    "neurons_reserved": 2276,
+    "requests": 190,
     "hour": "2026-11-13T18",
-    "hour_neurons_reserved": 373,
+    "hour_neurons_reserved": 357,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
