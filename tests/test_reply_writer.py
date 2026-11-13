@@ -21,7 +21,7 @@ DRAFT = {
     'event_key': 'Atlas DevKit 2.4 local parallel test runner',
     'premise': 'Atlas DevKit 2.4 runs 8 worker tests in parallel locally and keeps test logs on the machine.',
 }
-ASSESSMENT = {**DRAFT, 'relevant': True, 'safe': True}
+ASSESSMENT = {**DRAFT, **dict.fromkeys(writer.SOURCE_FLAGS, True)}
 VERDICT = {**dict.fromkeys(writer.FLAGS, True),
            'source_evidence': 'It runs 8 worker tests in parallel without a cloud connection.'}
 
@@ -38,13 +38,14 @@ class ReplyWriterTests(unittest.TestCase):
         self.assertEqual(calls.call_count, 2)
         review = calls.call_args_list[1].args[1]
         self.assertEqual(review['source']['text'], SOURCE['text'])
-        self.assertEqual(review['reply'], DRAFT['text'])
-        self.assertNotIn('premise', review)
+        self.assertEqual(review['draft'], DRAFT)
+        self.assertEqual(review['draft']['event_key'], DRAFT['event_key'])
+        self.assertEqual(review['draft']['premise'], DRAFT['premise'])
         self.assertNotIn('views', review['source'])
 
     def test_a_specific_statement_does_not_need_a_question(self):
         draft = {**DRAFT, 'text': 'Local logs make failures easier to inspect, but parallel workers still need sensible resource limits.'}
-        result, _ = self.generate([{**draft, 'safe': True, 'relevant': True}, VERDICT])
+        result, _ = self.generate([{**ASSESSMENT, **draft}, VERDICT])
         self.assertEqual(result, draft)
 
     def test_relevant_opinions_do_not_need_a_new_announcement(self):
@@ -53,7 +54,7 @@ class ReplyWriterTests(unittest.TestCase):
                  'event_key': 'Parallel tests exhausting available memory',
                  'premise': 'The source points out that parallel test workers can contend for available memory.'}
         verdict = {**VERDICT, 'source_evidence': source['text']}
-        result, calls = self.generate([{**draft,'safe':True,'relevant':True}, verdict], source=source)
+        result, calls = self.generate([{**ASSESSMENT, **draft}, verdict], source=source)
         self.assertEqual(result, draft)
         self.assertEqual(calls.call_count, 2)
 
@@ -77,11 +78,50 @@ class ReplyWriterTests(unittest.TestCase):
             calls.assert_not_called()
 
     def test_semantic_source_rejection_is_not_retried_as_a_format_error(self):
-        for flag in ('safe','relevant'):
+        for flag in writer.SOURCE_FLAGS:
             raw = {**ASSESSMENT,flag:False,'text':None}
             with patch.object(writer,'complete',return_value=raw) as calls, self.assertRaises(writer.SourceRejected):
                 writer.generate(SOURCE,{},NOW)
             self.assertEqual(calls.call_count,1)
+
+    def test_ambiguous_chart_caption_is_a_source_rejection_without_draft_repair(self):
+        source = {**SOURCE, 'text': "As the top scores move 3x faster, April’s best costs 20x less."}
+        assessment = {**ASSESSMENT, 'context_complete': False,
+                      'text': '', 'event_key': '', 'premise': ''}
+        with patch.object(writer, 'complete', return_value=assessment) as calls:
+            with self.assertRaisesRegex(writer.SourceRejected, 'missing context'):
+                writer.generate(source, {}, NOW)
+        self.assertEqual(calls.call_count, 1)
+
+    def test_independent_reviewer_can_reject_missing_context_without_rewriting(self):
+        with patch.object(writer, 'complete', side_effect=[
+                ASSESSMENT, {**VERDICT, 'context_complete': False}]) as calls:
+            with self.assertRaisesRegex(writer.SourceRejected, 'missing source context'):
+                writer.generate(SOURCE, {}, NOW)
+        self.assertEqual(calls.call_count, 2)
+
+    def test_invented_entity_in_metadata_reaches_review_and_blocks_publication(self):
+        invented = {**ASSESSMENT,
+                    'event_key': 'Atlas DevKit Falcon reasoning model local test runner',
+                    'premise': 'Atlas DevKit uses a Falcon reasoning model for its local test runner.'}
+        with patch.object(writer, 'complete', side_effect=[
+                invented, {**VERDICT, 'grounded': False}]) as calls:
+            with self.assertRaisesRegex(DraftError, 'grounded'):
+                writer.generate(SOURCE, {}, NOW)
+        self.assertEqual(calls.call_count, 2)
+        review = calls.call_args_list[1].args[1]
+        self.assertEqual(review['draft']['text'], DRAFT['text'])
+        self.assertEqual(review['draft']['event_key'], invented['event_key'])
+        self.assertEqual(review['draft']['premise'], invented['premise'])
+        self.assertNotIn('Falcon', review['source']['text'])
+
+    def test_live_praise_padding_is_rejected_before_independent_review(self):
+        source = {**SOURCE, 'text': "As the top scores move 3x faster, April’s best costs 20x less."}
+        draft = {'text': 'The cost reduction is impressive, but does that 20x efficiency come at the expense of reasoning depth compared to the top scorers?',
+                 'event_key': 'April model cost reduction',
+                 'premise': 'April model costs 20x less.'}
+        with self.assertRaisesRegex(DraftError, 'canned praise'):
+            writer.validate(draft, source)
 
     def test_canned_praise_self_promotion_and_fake_experience_are_rejected(self):
         phrases = [
@@ -90,6 +130,9 @@ class ReplyWriterTests(unittest.TestCase):
             'I tested Atlas DevKit locally and the parallel runner makes every debugging session much easier.',
             'My team already uses local test logs and this parallel runner makes our debugging much easier.',
             'Keeping logs local is a game changer for everyone trying to make parallel test runs more useful.',
+            'The local runner is impressive, but does it expose a per-worker memory limit for parallel tests?',
+            'The local runner seems genuinely fascinating, but does it expose a per-worker memory limit?',
+            'Interesting to see local test logs. Does the runner expose a per-worker memory limit?',
         ]
         for text in phrases:
             with self.subTest(text=text), self.assertRaises(DraftError):
@@ -141,7 +184,7 @@ class ReplyWriterTests(unittest.TestCase):
         self.assertEqual(calls.call_count,3)
         self.assertEqual(calls.call_args_list[1].args[0],writer.REVIEW)
         self.assertEqual(calls.call_args_list[2].args[0],writer.REVIEW)
-        self.assertEqual(calls.call_args_list[1].args[1]['reply'],calls.call_args_list[2].args[1]['reply'])
+        self.assertEqual(calls.call_args_list[1].args[1]['draft'],calls.call_args_list[2].args[1]['draft'])
 
     def test_review_json_failure_can_use_the_single_repair(self):
         result,calls = self.generate([ASSESSMENT,DraftError('Invalid JSON from Cloudflare'),VERDICT])

@@ -7,7 +7,7 @@ import asyncio
 import html
 import json
 import unicodedata
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 
 from twikit.errors import Forbidden, NotFound, TooManyRequests, TweetNotAvailable
 from . import follow_writer, reply_writer, sources
@@ -25,7 +25,11 @@ def stage(name, source_id=None):
 
 
 def schedule_state(state):
-    return {**state, 'history': state.get('editorial_history', []),
+    published = {row.get('tweet_id'): row['posted_at'] for row in state['history']
+                 if row.get('tweet_id') and row.get('verified_at') and row.get('posted_at')}
+    history = [{**row, 'completed_at': published.get(row.get('tweet_id'), row['completed_at'])}
+               for row in state.get('editorial_history', [])]
+    return {**state, 'history': history,
             'pending': state.get('pending') or state.get('pending_reply') or state.get('follow_pending') or state.get('outbox')}
 
 
@@ -107,8 +111,16 @@ async def verify_delivery(state, connection):
             'is_repost': bool(getattr(post, 'retweeted_tweet', None)),
         }, ensure_ascii=False))
         return False
-    now = utcnow().isoformat()
-    row = {**pending, 'posted_at': pending.get('sent_at', pending['reserved_at']), 'completed_at': now, 'verified_at': now}
+    now = utcnow()
+    # Reconciliation can happen much later than publication. Prefer the verified
+    # server timestamp so caps and the 30-minute gap track actual published posts.
+    created = getattr(post, 'created_at_datetime', None)
+    if (isinstance(created, datetime) and created.tzinfo is not None
+            and timestamp(pending['reserved_at']) - timedelta(seconds=2) <= created <= now + timedelta(seconds=2)):
+        completed = created.astimezone(timezone.utc).isoformat()
+    else:
+        completed = now.isoformat()
+    row = {**pending, 'posted_at': completed, 'completed_at': completed, 'verified_at': now.isoformat()}
     state['history'].append(row)
     state['editorial_history'].append({key: row[key] for key in ('slot', 'kind', 'completed_at', 'tweet_id')})
     state['last_posted_at'] = row['posted_at']

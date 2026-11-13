@@ -262,6 +262,27 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
             if known_id is None:
                 connection.get_tweet_by_id.assert_not_awaited()
 
+    async def test_delayed_readback_uses_verified_publication_time(self):
+        state, connection = empty(), self.connection()
+        state['outbox'] = self.pending('333')
+        published = self.now + timedelta(seconds=2)
+        connection.get_tweet_by_id.return_value.created_at_datetime = published
+        self.now += timedelta(minutes=20)
+        self.assertTrue(await editorial.verify_delivery(state, connection))
+        self.assertEqual(self.saved['editorial_history'][0]['completed_at'], published.isoformat())
+        self.assertEqual(self.saved['history'][0]['verified_at'], self.now.isoformat())
+        connection.create_tweet.assert_not_awaited()
+
+    def test_scheduler_uses_published_time_after_delayed_reconciliation(self):
+        state = empty()
+        published = self.now.isoformat()
+        verified = (self.now + timedelta(minutes=20)).isoformat()
+        state['history'] = [{'tweet_id': '333', 'posted_at': published, 'verified_at': verified}]
+        state['editorial_history'] = [{'tweet_id': '333', 'kind': 'reply', 'completed_at': verified}]
+        view = editorial.schedule_state(state)
+        self.assertEqual(view['history'][0]['completed_at'], published)
+        self.assertEqual(state['editorial_history'][0]['completed_at'], verified)
+
     async def test_native_parent_mention_verifies_existing_reply_without_resend(self):
         state, connection = empty(), self.connection()
         state['outbox'] = self.pending('333')
