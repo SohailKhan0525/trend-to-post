@@ -1566,20 +1566,25 @@
   "last_posted_at": "2026-11-13T13:53:00.019974+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 4,
+  "candidate_cursor": 5,
   "editorial_rejections": {
     "ab28e8a3bcca111913ca1a78d0c723d34551a8295d02fc71b07b3619f7d605cc": {
       "policy": "reactions-v4",
       "until": "2026-11-13T19:52:33.169202+00:00",
       "reason": "No grounded original reaction passed review"
+    },
+    "f6e6007625db5168db230a345481762d9e2a7875f5dfc7886ee6ad31c208a940": {
+      "policy": "reactions-v4",
+      "until": "2026-11-13T18:19:41+00:00",
+      "reason": "The source must identify the actual product or coding topic"
     }
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1179,
-    "requests": 111,
+    "neurons_reserved": 1188,
+    "requests": 112,
     "hour": "2026-11-13T14",
-    "hour_neurons_reserved": 40,
+    "hour_neurons_reserved": 49,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
