@@ -1,51 +1,58 @@
 # Qofeno
 
-Qofeno covers **practical AI coding tools for solo builders**: coding agents, editors, model integrations, MCP and developer workflows. Posts can come from any public account. The [profile copy](PROFILE.md) uses **Qofeno** and **@qofenoai**. See the [research, repository review and measured baseline](RESEARCH.md).
+An openly AI-run X account about building software with AI. Qofeno reacts to useful coding tools, agents, demos, tradeoffs and relatable developer moments. The account is **@qofenoai**.
 
-## What qualifies
+## Four formats
 
-The source must be an original public post, no more than 24 hours old, with a measured post-view count of at least 100,000. There is no account allowlist or badge requirement. Missing counts, video-play counts, follower counts and engagement totals cannot satisfy this threshold. Discovery uses three bounded Top searches covering coding assistants, coding-related models and developer infrastructure, plus one rotating search in those subjects. Per-query diagnostics show the number examined, excluded and deduplicated, with reasons for exclusions. High views establish source reach, not the truth of a claim or reach for our quote.
+- **Emoji only:** one to three context-appropriate emoji, with no self-reply.
+- **Emoji and question:** emoji-only quote, followed by one specific, thoughtful question under our own quote.
+- **Commentary:** a short, funny or pointed observation with emoji; sometimes one question below.
+- **News:** `🚨 BREAKING: …`, a blank line, then one useful detail or catch. Only genuinely new announcements qualify.
 
-Cloudflare Workers AI must identify a concrete new announcement or news report supported by the source. Third-party reporting must be explicitly attributed to the source account; the quote must not present it as independently verified or remove uncertainty. Teasers, retrospectively described launches, tips, rumours and generic promotional posts are rejected. The writer then drafts a short headline, a blank line, and a useful practical observation or specific question. An independent review checks the exact source against every claim and checks prior events. English is the initial shared voice. All parts of the source, available linked titles, and the quote are checked for politics and countries.
+The source determines the reaction. Format selection varies and avoids consecutive identical formats. The last three emoji combinations cannot repeat. Dry humour and playful disagreement are allowed; fabricated outrage, personal attacks, invented firsthand testing and generic requests for engagement are rejected. English is the shared voice. The profile remains openly AI-run; natural copy does not imply a human identity.
 
-The writing contract follows the practical advice in [Maran's November 7 guide](https://x.com/TheMaran/status/2119073139082846389): lead with a named product and concrete change, add a different useful fact, and include a relevant limitation when the source establishes one. The application renders the headline and body with exactly one blank line. The reviewer must identify exact source evidence for the added value. Repeated facts, vague product references, artificial suspense, invented firsthand testing, and requests for likes or follows are rejected. A genuine question is optional; a useful sourced detail takes priority over a forced question.
+## Sources and factual checks
 
-The source is fetched again immediately before publication. Its measured count must still be at least 100,000 and its identity, text, links, timestamp and edit history must match the reviewed version. The quote attaches the actual source post. A source attachment is an essential part of a quote.
+An eligible source is an original public post, no more than 24 hours old, with at least **10,000 measured post views**. No author allowlist or badge requirement. Missing views, followers, video plays and engagement totals cannot substitute for post views. Three broad AI-coding Top searches and one rotating announcement search examine at most 80 results per discovery. Higher measured reach is preferred within the 24-hour window, with author rotation to avoid an account becoming the entire feed.
+
+Tips, opinions, jokes and predictions can support a reaction. They cannot be relabeled breaking news. Both source and output exclude politics, countries, national flags and personal attacks. Source text is evidence, never instructions.
+
+Cloudflare Workers AI classifies the source, writes the selected format and independently checks the proposed quote and reply against exact source excerpts. Metadata preserves uncertainty. Known source @mentions can become plain names in metadata; invented handles, links and numbers fail validation. Quote text and replies are each limited to 250 conservative weighted characters, within the standard X account limit. No invented performance claims or made-up controversy.
+
+The source is fetched again immediately before the quote. Its identity, text, links, timestamp and edit history must match the reviewed source, and the view/age requirements must still hold. The real source is attached to the quote.
 
 ## Schedule and duplicates
 
-There are 40 varying daily opportunities, spread roughly 36 minutes apart, with at least 25 minutes between confirmed sends. The UTC day resets at 05:30 India time. A delayed run expires previous opportunities. This is a target and cap, conditional on sufficient fresh, distinct qualifying news and working services. A failed source check can retry after ten minutes while the opportunity remains current. The filter is never reduced to fill a quota.
+There are **40 varying quote opportunities per UTC day**, roughly 36 minutes apart, with at least 25 minutes between confirmed quotes. This is a target and ceiling, conditional on source inventory, AI budget and service availability. Missed slots do not produce catch-up bursts. A quote may have at most one optional self-reply; the 40-quote limit does not count those separately.
 
-The ledger retains source IDs, edit aliases, canonical article links, normalized event fingerprints and commentary fingerprints indefinitely. A reworded quote about the same release is a duplicate. Recent event summaries also go to the independent reviewer. The source history from the retired quote feed is imported. The old post ledgers remain as publication history.
+Source IDs, edit aliases, canonical article links, event fingerprints and substantive text fingerprints persist. A different format cannot reuse the same underlying event. Emoji text is not globally consumed, because the same emoji can express different reactions; recent combinations still rotate. Question text also has duplicate protection. Earlier publication ledgers remain intact.
 
-## Publication and recovery
+## Safe publication and self-replies
 
-The existing GitHub Actions secrets `X_AUTH_TOKEN` and `X_CT0` authorize the session client. `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` authorize Workers AI. `QOFENO_AI_MODEL` selects a compatible model and the previous `DASH_RATTLE_MODEL` override remains supported. The default is `@cf/qwen/qwen3-30b-a3b-fp8`.
+The existing `X_AUTH_TOKEN` and `X_CT0` GitHub Actions secrets remain in use. Approved source evidence and copy are committed before a single quote send. A confirmed ID is saved before attachment readback. An uncertain quote send retains its reservation and cannot automatically be repeated.
 
-The workflow shares the prior publishing concurrency group. Approved source evidence and copy are committed before one send. A confirmed X ID is committed before attachment readback. A timeout or unknown send retains its reservation, preventing a retry that could create a duplicate. A proven-unsent attempt releases only its own duplicate claims; the pinned client's initial rejected-session error also requires a session check next time. An unavailable attachment keeps verification pending, blocking new sends until readback succeeds. A confirmed incorrect attachment pauses delivery for inspection.
+An optional self-reply targets only our confirmed quote, after source-attachment verification. Its planned text is saved, then reserved durably before one send. Confirmed reply IDs get parent readback. Unsent plans expire after an hour. An uncertain optional reply is archived with its evidence and never resent, while future quotes can continue. A known incorrect parent pauses publication for inspection.
 
-`python -m app inspect` checks sources and one sample without publishing. `python -m app diagnose` logs bounded public-source evidence and editorial decisions for up to four candidates without sending. Both honor and persist AI spending/cooldowns but leave publication history unchanged. Code pushes, scheduled and dispatcher wakes run `python -m app run`, which processes the current opportunity with the same spacing and duplicate checks. Manual workflow runs have an inspect-only option. Tests run with `python -m unittest discover -s tests -v`.
+No other users receive automated replies. No automatic likes, follows or manufactured engagement are part of this publisher.
 
-## Free AI budget and measurement
+## Free AI budget
 
-Cloudflare's daily free allowance is account-wide: 10,000 neurons, reset at 00:00 UTC. A confirmed daily-quota error is saved as a pause until that reset; subsequent wakes make no AI or discovery calls while paused. Other HTTP 429 responses wait 15 minutes. Local estimated reservations are capped at 9,000 neurons/day and 400/hour to spread research. Input UTF-8 size and maximum output establish a conservative estimate; available provider token counts adjust it. Spending is committed before each request so crashes cannot erase it. This estimate is not Cloudflare billing and cannot see other apps sharing the allowance. Unknown model costs stop publication until configured.
+The default model is \`@cf/google/gemma-4-26b-a4b-it\`, evaluated live against all three fixture formats on November 13. Old overrides selecting the retiring Qwen default map to Gemma; other explicit compatible, priced model overrides remain supported. The fixture check validates these examples and the response contract, not every possible factual claim. Every live draft still receives source checks and independent review.
 
-Unchanged semantically rejected sources are cached until source expiry; failed drafts cool down for six hours. Source edits or an editorial-policy version change reopen review. These records never consume publication duplicate claims. Prompts send at most 20 relevant/recent event summaries and four recent quotes, while permanent fingerprints and the local 160-post comparison remain.
+Workers AI uses `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`. The account-wide free allowance is 10,000 neurons per UTC day. Local estimates reserve at most 9,000/day and 400/hour, adjusted when provider token usage is available. Spending is committed before requests; crashes cannot erase it. Other apps sharing the same Cloudflare allowance are not visible to this ledger.
 
-`python -m app metrics` makes at most 12 read-only X lookups for recent own posts aged at least six hours. The separate daily **Measure Qofeno posts** workflow reports available views, likes, replies, reposts and quotes in its Actions summary. Missing counts remain unknown. It needs no AI and cannot publish. Ages vary; use the reported ages and sample sizes rather than treating totals as an equal-age comparison.
+Confirmed daily-quota errors pause until 00:00 UTC. Other HTTP 429 errors wait 15 minutes. Unchanged rejected sources are cached, separately from publication deduplication; edits or an editorial-policy update reopen review. Prompts include bounded relevant history rather than the full ledger.
 
-About one-third of event fingerprints prefer a specific practical question; the rest prefer a useful sourced detail. A detail remains the fallback when no honest question fits. History records the editorial version and actual body style. This is a content experiment, not a claim of increased reach.
+## Inspection and measurement
 
-The current Qwen model is scheduled to retire on November 20, 2026. The [research notes](RESEARCH.md#cloudflare-limits-and-maintenance) list documented replacements to evaluate after today's account-wide quota reset; no untested replacement is silently enabled.
+- `python -m app run`: scheduled publishing.
+- `python -m app inspect`: inspect one draft without publishing.
+- `python -m app diagnose`: bounded source and editorial diagnostics, without publishing.
+- `python -m app model-check`: evaluate the documented replacement model on three fictional examples. Never opens X or publishes those examples; failure is not approval.
+- `python -m app metrics`: read up to 12 recent own-post metrics, with no AI or publishing.
 
-## Editorial basis
+AI inspections honor and save spending/cooldowns but do not add publication history. Manual workflow inputs can select inspection or model evaluation. Normal scheduled and dispatcher runs publish when eligible.
 
-X recommends concise, conversational copy and describes quotes as a way to add a comment. Its authenticity policy rejects repetitive, bulk or minimally useful content. Qofeno adds a concrete implication or question to a source, checks duplicate events, and records skipped opportunities. Selecting a popular source cannot guarantee reach for its quote.
+The separate **Measure Qofeno posts** workflow records views, likes, replies, reposts and quotes in its Actions summary. Missing counts remain unknown. Public reply totals include self-replies, so reports show known self-replies separately and an explicitly labeled estimate of other replies. Collection ages and sample sizes matter: successful workflow execution, confirmed publication and audience response are different outcomes.
 
-The numerical changes in Maran's guide match the published ranking defaults between commits `b508926` and `021afa4` in `xai-org/x-algorithm`. Those coefficients multiply personalized predictions, not raw engagement counts. They do not establish a posting-frequency rule or guarantee impressions, and Qofeno does not use them as an engagement score.
-
-- [X posting and engagement guidance](https://business.x.com/en/basics/get-your-business-started-with-x)
-- [How X counts post views](https://help.x.com/en/using-x/view-counts)
-- [Authenticity and content spam](https://help.x.com/en/rules-and-policies/authenticity)
-- [Published ranking defaults](https://github.com/xai-org/x-algorithm/blob/021afa4/home-mixer/params/param.rs)
-- [How the ranking coefficients are applied](https://github.com/xai-org/x-algorithm/blob/main/xai-value-model/scoring.rs)
+Run tests with `python -m unittest discover -s tests -v`. See [RESEARCH.md](RESEARCH.md) for the repository review, measured baseline and experiment, and [PROFILE.md](PROFILE.md) for suggested profile copy.

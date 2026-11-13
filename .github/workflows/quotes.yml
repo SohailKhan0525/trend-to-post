@@ -48,7 +48,7 @@ jobs:
           INSPECT_ONLY: ${{ inputs.inspect_only }}
           MODEL_CHECK_ONLY: ${{ inputs.model_check_only }}
         run: |
-          if [[ "$MODEL_CHECK_ONLY" == 'true' || "$GITHUB_EVENT_NAME" == 'push' ]]; then
+          if [[ "$MODEL_CHECK_ONLY" == 'true' ]]; then
             python -m app model-check
           elif [[ "$INSPECT_ONLY" == 'true' ]]; then
             python -m app inspect

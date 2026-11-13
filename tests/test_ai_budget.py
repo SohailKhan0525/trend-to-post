@@ -13,7 +13,7 @@ from app import ai_budget
 from app.cloudflare import complete
 
 
-MODEL = '@cf/qwen/qwen3-30b-a3b-fp8'
+MODEL = '@cf/zai-org/glm-4.7-flash'
 NOW = datetime(2026, 11, 11, 12, 34, tzinfo=timezone.utc)
 PAYLOAD = {'messages': [{'role': 'user', 'content': 'Review this source.'}], 'max_tokens': 100}
 ENV = {'CLOUDFLARE_ACCOUNT_ID': 'a' * 32, 'CLOUDFLARE_API_TOKEN': 'fixture-token',
@@ -87,7 +87,7 @@ class BudgetTests(unittest.TestCase):
         reserved = self.saved()['ai_usage']['neurons_reserved']
         self.assertGreater(reserved, 2)
         self.budget.settle(reservation, {'usage': {'prompt_tokens': 100, 'completion_tokens': 20}})
-        # Published model rates yield ceil(0.4625 + 0.6095) = 2 neurons.
+        # Published model rates yield ceil(0.55 + 0.728) = 2 neurons.
         self.assertEqual(self.state['ai_usage']['neurons_reserved'], 2)
         self.assertEqual(self.state['ai_usage']['hour_neurons_reserved'], 2)
         # A crash before the next save conservatively keeps the durable maximum.
@@ -111,8 +111,8 @@ class BudgetTests(unittest.TestCase):
     def test_usage_above_estimate_is_charged_and_cannot_create_a_refund(self):
         reservation = self.budget.reserve(MODEL, PAYLOAD)
         self.budget.settle(reservation, {'usage': {'prompt_tokens': 10_000, 'completion_tokens': 1000}})
-        self.assertEqual(self.state['ai_usage']['neurons_reserved'], 77)
-        self.assertEqual(self.state['ai_usage']['hour_neurons_reserved'], 77)
+        self.assertEqual(self.state['ai_usage']['neurons_reserved'], 92)
+        self.assertEqual(self.state['ai_usage']['hour_neurons_reserved'], 92)
 
     def test_hourly_cap_pauses_until_next_hour_and_preserves_daily_spending(self):
         self.state['ai_usage'] = {'day': NOW.date().isoformat(), 'hour': NOW.strftime('%Y-%m-%dT%H'),

@@ -1,4 +1,14 @@
-# Qofeno research and experiment — November 11, 2026
+# Qofeno research and experiment — November 11–13, 2026
+
+## November 13 update
+
+The quota reset worked, but only one further quote had published by the audit: November 13 at 02:33 IST. The current blockers were a sparse 100,000-view source pool and rigid announcement-only copy. After the user delegated the threshold choice, the source minimum changed to **10,000 measured views**, preferring higher reach within 24 hours. Relevance, exclusions and duplicate checks remain.
+
+The user requested varied emoji reactions, occasional self-replies and conversational humour. The new policy mixes emoji-only, emoji-with-question, commentary and genuinely new announcements. Optional replies target only Qofeno's own quote. Reports distinguish our replies from estimated audience responses. These changes are a new experiment; the earlier baseline cannot prove they will increase reach.
+
+Live replacement-model evaluation exposed news formatting and citation failures in GLM. News now uses structured headline/body fields, with the prefix and blank line inserted by code. **Gemma 4 passed all three fictional fixture cases** through the real writer and review path in [run 43420534920](https://github.com/SohailKhan0525/trend-to-post/actions/runs/43420534920). It is now the default, replacing the Qwen model scheduled to retire November 20. Fictional examples were never published. This is a bounded compatibility check, not a general accuracy benchmark.
+
+The notes below record the November 11 investigation and its then-current settings. See [README.md](README.md) for current operation.
 
 ## Finding and niche
 

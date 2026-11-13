@@ -133,7 +133,7 @@ async def diagnose():
 
     def traced_complete(system, data, **kwargs):
         result = original_complete(system, data, **kwargs)
-        stage = "classify" if system == writer.SOURCE_GATE else "write" if system == writer.VOICE else "review"
+        stage = "classify" if system == writer.SOURCE_GATE else "review" if system == writer.CRITIC else "write"
         keys = {"subject", "event_key", "facts", "headline", "body", "text", "format", "reply",
                 *writer.GATE_FLAGS, *writer.REVIEW_FLAGS, *writer.REVIEW_EVIDENCE}
         selected = ({key: value for key, value in result.items() if key in keys}
@@ -156,7 +156,9 @@ async def diagnose():
                 queue.summary("Diagnostic rejection: " + str(exc)[:600])
             else:
                 queue.save_and_push(state)
-                queue.summary("Diagnostic approved draft\n\n" + draft["text"])
+                queue.summary("Diagnostic approved draft (" + draft.get('format','legacy') + ")\n\n" + draft["text"])
+                if draft.get('reply'):
+                    queue.summary('Optional self-reply\n\n' + draft['reply'])
     finally:
         writer.complete = original_complete
     queue.summary("Diagnostic finished; no post sent. Only AI spending and editorial cooldowns were saved.")

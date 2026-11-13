@@ -84,6 +84,21 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
             await queue.run('schedule')
         discover.assert_not_awaited();generate.assert_not_called();conn.create_tweet.assert_not_awaited()
 
+    async def test_changed_editorial_policy_reopens_old_skip_but_keeps_post_spacing(self):
+        for policy, recent_post, should_check in [('older-policy',False,True),
+                (queue.writer.EDITORIAL_POLICY_VERSION,False,False),('older-policy',True,False)]:
+            with self.subTest(policy=policy,recent_post=recent_post):
+                state=empty()
+                state['last_attempt']={'slot':self.slot['slot'],'at':self.now.isoformat(),'policy':policy}
+                if recent_post:
+                    state['last_posted_at']=(self.now-timedelta(minutes=1)).isoformat()
+                self.persist(state)
+                with patch.object(queue,'client',return_value=self.connection()),\
+                     patch.object(queue,'save_and_push',side_effect=self.persist),\
+                     patch.object(queue,'publish_slot',AsyncMock()) as publish:
+                    await queue.run('push')
+                self.assertEqual(publish.await_count,int(should_check))
+
     async def test_editorial_cache_does_not_consume_source_and_reopens_on_edit_or_policy_change(self):
         state=empty()
         queue.remember_rejection(state,SOURCE,queue.writer.SourceRejected('not news'),self.now)

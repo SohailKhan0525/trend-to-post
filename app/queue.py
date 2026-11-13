@@ -152,7 +152,8 @@ def unchanged(before, after):
 
 
 def reject(state, slot, reason):
-    state["last_attempt"]={"slot":slot["slot"],"at":utcnow().isoformat(),"reason":reason}
+    state["last_attempt"]={"slot":slot["slot"],"at":utcnow().isoformat(),"reason":reason,
+                           "policy":writer.EDITORIAL_POLICY_VERSION}
     save_and_push(state)
     summary(reason)
 
@@ -507,7 +508,9 @@ async def inspect():
             summary(f"This candidate did not pass editorial review: {str(exc)[:600]}")
             continue
         save_and_push(state)
-        summary("Inspection draft\n\n"+draft["text"])
+        summary("Inspection draft ("+draft.get('format','legacy')+")\n\n"+draft["text"])
+        if draft.get('reply'):
+            summary('Optional self-reply\n\n'+draft['reply'])
         return
 
 
@@ -521,6 +524,9 @@ async def run(event):
     if not await finish_reply(connection,state):
         return
     state=load()
+    if state.get('last_attempt') and state['last_attempt'].get('policy') != writer.EDITORIAL_POLICY_VERSION:
+        state.pop('last_attempt')
+        save_and_push(state)
     if report_pause(state):
         return
     window=None

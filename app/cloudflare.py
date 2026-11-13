@@ -21,7 +21,9 @@ def json_mode_failed(payload):
 
 
 def selected_model():
-    return os.environ.get('QOFENO_AI_MODEL') or os.environ.get('DASH_RATTLE_MODEL') or '@cf/qwen/qwen3-30b-a3b-fp8'
+    selected = os.environ.get('QOFENO_AI_MODEL') or os.environ.get('DASH_RATTLE_MODEL') or '@cf/google/gemma-4-26b-a4b-it'
+    # Migrate the retired default, including old repository-variable overrides.
+    return '@cf/google/gemma-4-26b-a4b-it' if selected == '@cf/qwen/qwen3-30b-a3b-fp8' else selected
 
 
 def complete(system,data,temperature=.8,max_tokens=450,schema=None,model=None):

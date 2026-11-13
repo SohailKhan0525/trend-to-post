@@ -4,11 +4,17 @@ import os
 import unittest
 import urllib.error
 from unittest.mock import patch
-from app.cloudflare import complete,DraftError
+from app.cloudflare import complete,DraftError,selected_model
 from app.ai_budget import AIPaused
 
 
 class CloudflareTests(unittest.TestCase):
+    def test_retiring_model_overrides_migrate_but_other_explicit_models_remain(self):
+        for key in ('QOFENO_AI_MODEL','DASH_RATTLE_MODEL'):
+            with patch.dict(os.environ,{key:'@cf/qwen/qwen3-30b-a3b-fp8'},clear=True):
+                self.assertEqual(selected_model(),'@cf/google/gemma-4-26b-a4b-it')
+        with patch.dict(os.environ,{'QOFENO_AI_MODEL':'@cf/google/gemma-4-26b-a4b-it'},clear=True):
+            self.assertEqual(selected_model(),'@cf/google/gemma-4-26b-a4b-it')
     def test_glm_uses_documented_schema_envelope_and_bounded_nonreasoning_output(self):
         schema={'type':'object','properties':{'text':{'type':'string'}},'required':['text'],'additionalProperties':False}
         response=io.StringIO(json.dumps({'success':True,'result':{'choices':[{'message':{'content':'{"text":"😂"}'}}]}}))
@@ -66,5 +72,5 @@ class CloudflareTests(unittest.TestCase):
     def test_qwen_decodes_native_scripts_and_chat_completions(self):
         response=io.StringIO(json.dumps({'success':True,'result':{'choices':[{'message':{'content':'{"text":"雨が止んだ。"}'}}]}}))
         with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test','DASH_RATTLE_MODEL':'@cf/qwen/qwen3-30b-a3b-fp8'}),patch('urllib.request.urlopen',return_value=response) as req:
-            self.assertEqual(complete('write',{}),{'text':'雨が止んだ。'})
+            self.assertEqual(complete('write',{},model='@cf/qwen/qwen3-30b-a3b-fp8'),{'text':'雨が止んだ。'})
         self.assertNotIn('response_format',json.loads(req.call_args.args[0].data))
