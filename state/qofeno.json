@@ -1751,7 +1751,7 @@
   },
   "last_attempt": {
     "slot": "2026-11-13:quote-v1:29",
-    "at": "2026-11-13T17:31:17.067620+00:00",
+    "at": "2026-11-13T17:41:21.350141+00:00",
     "reason": "No fresh, distinct source with at least 10,000 post views passed this check.",
     "policy": "reactions-v4"
   }
