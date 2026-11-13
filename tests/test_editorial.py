@@ -206,9 +206,9 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
                 connection.user.assert_not_awaited()
                 connection.create_tweet.assert_not_awaited()
 
-    async def test_wrong_authenticated_account_prevents_research_and_send(self):
+    async def test_wrong_configured_account_prevents_research_and_send(self):
         connection = self.connection()
-        connection.user.return_value = SimpleNamespace(id='666', screen_name='someone_else')
+        connection.get_user_by_screen_name.return_value = SimpleNamespace(id='666', screen_name='someone_else')
         with patch.object(editorial, 'client', return_value=connection), \
              patch.object(editorial, 'publish_reply', AsyncMock()) as reply, \
              patch.object(editorial, 'publish_follow', AsyncMock()) as follow:
