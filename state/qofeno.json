@@ -1830,5 +1830,6 @@
     },
     "tweet_id": "2121318651823575477",
     "sent_at": "2026-11-13T19:05:53.200110+00:00"
-  }
+  },
+  "pause_reason": "Published post does not match the reserved author, text or reply parent"
 }
