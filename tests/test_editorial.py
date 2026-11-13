@@ -262,6 +262,26 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
             if known_id is None:
                 connection.get_tweet_by_id.assert_not_awaited()
 
+    async def test_native_parent_mention_verifies_existing_reply_without_resend(self):
+        state, connection = empty(), self.connection()
+        state['outbox'] = self.pending('333')
+        state['pause_reason'] = 'Published post does not match the reserved author, text or reply parent'
+        connection.get_tweet_by_id.return_value.full_text = '@Acme ' + DRAFT['text']
+        self.assertTrue(await editorial.verify_delivery(state, connection))
+        connection.create_tweet.assert_not_awaited()
+        self.assertIsNone(self.saved['outbox'])
+        self.assertNotIn('pause_reason', self.saved)
+        self.assertEqual(self.saved['history'][0]['tweet_id'], '333')
+
+    async def test_unrelated_mention_and_changed_punctuation_do_not_verify(self):
+        for text in ('@SomeoneElse ' + DRAFT['text'], '@Acme ' + DRAFT['text'].replace('?', '!')):
+            state, connection = empty(), self.connection()
+            state['outbox'] = self.pending('333')
+            connection.get_tweet_by_id.return_value.full_text = text
+            self.assertFalse(await editorial.verify_delivery(state, connection))
+            connection.create_tweet.assert_not_awaited()
+            self.assertIsNotNone(self.saved['outbox'])
+
     async def test_readback_mismatch_pauses_instead_of_resending(self):
         mutations = ({'id': '444'}, {'full_text': 'Unexpected text'},
                      {'user': SimpleNamespace(id='666', screen_name=editorial.ACCOUNT)},

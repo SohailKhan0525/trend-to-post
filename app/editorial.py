@@ -82,13 +82,20 @@ async def verify_delivery(state, connection):
     legacy = raw.get('legacy', {}) or {}
     def copy_identity(value):
         return unicodedata.normalize('NFC', html.unescape(value))
+    body = copy_identity(text)
+    # X prepends the original author's @mention to native reply full_text.
+    # Accept only that exact parent handle, once; all other copy stays exact.
+    if pending['kind'] == 'reply':
+        prefix = '@' + pending['source']['author'] + ' '
+        if body[:len(prefix)].casefold() == prefix.casefold():
+            body = body[len(prefix):]
     if (str(getattr(post, 'id', '')) != pending['tweet_id']
             or str(getattr(user, 'id', '')) != pending['author_id']
             or str(getattr(user, 'screen_name', '')).casefold() != ACCOUNT
             or actual_parent != expected_parent
             or getattr(post, 'quoted_status_id', None) or getattr(post, 'quote', None)
             or legacy.get('is_quote_status') or getattr(post, 'retweeted_tweet', None)
-            or copy_identity(text) != copy_identity(pending['text'])):
+            or body != copy_identity(pending['text'])):
         state['pause_reason'] = 'Published post does not match the reserved author, text or reply parent'
         save_and_push(state)
         summary(state['pause_reason'])
@@ -106,6 +113,8 @@ async def verify_delivery(state, connection):
     state['editorial_history'].append({key: row[key] for key in ('slot', 'kind', 'completed_at', 'tweet_id')})
     state['last_posted_at'] = row['posted_at']
     state['outbox'] = None
+    if state.get('pause_reason') == 'Published post does not match the reserved author, text or reply parent':
+        state.pop('pause_reason')
     save_and_push(state)
     summary(f'{row["kind"].capitalize()} verified: https://x.com/{ACCOUNT}/status/{row["tweet_id"]}')
     return True
