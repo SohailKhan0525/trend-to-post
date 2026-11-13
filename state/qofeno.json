@@ -1771,19 +1771,24 @@
       "policy": "reactions-v4",
       "until": "2026-11-14T00:38:25.911148+00:00",
       "reason": "No grounded original reaction passed review"
+    },
+    "81cf97463669650a0149cafb090e0cabd3816c64f1a3014ae9cab9cd5707abbc": {
+      "policy": "reactions-v4",
+      "until": "2026-11-13T20:48:33+00:00",
+      "reason": "This event or idea has already been used"
     }
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2276,
+    "neurons_reserved": 2242,
     "requests": 190,
     "hour": "2026-11-13T18",
-    "hour_neurons_reserved": 357,
+    "hour_neurons_reserved": 323,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
     "slot": "2026-11-13:quote-v1:30",
-    "at": "2026-11-13T18:27:52.641457+00:00",
+    "at": "2026-11-13T18:38:29.331265+00:00",
     "reason": "No fresh, distinct source with at least 10,000 post views passed this check.",
     "policy": "reactions-v4"
   }
