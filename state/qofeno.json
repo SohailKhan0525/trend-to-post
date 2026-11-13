@@ -944,6 +944,25 @@
       "source_created_at": "2026-11-13T00:03:32+00:00",
       "tweet_id": "2121258081195851931",
       "posted_at": "2026-11-13T15:05:12.515895+00:00"
+    },
+    {
+      "slot": "2026-11-13:quote-v1:26",
+      "due_at": "2026-11-13T15:42:00+00:00",
+      "text": "Finally acknowledging that just spitting out code isn't the whole job. 🙄💻",
+      "reply": null,
+      "event_key": "GitHub Copilot agentic engineering workflow demonstration",
+      "premise": "Reported by github: GitHub demonstrates an effective agentic engineering workflow that extends beyond simple code generation.",
+      "format": "commentary",
+      "source_id": "2120957757004354002",
+      "author": "github",
+      "editorial_version": "reactions-v4",
+      "body_style": "detail",
+      "source_url": "https://x.com/github/status/2120957757004354002",
+      "source_views": 47858,
+      "source_checked_at": "2026-11-13T15:43:00.332383+00:00",
+      "source_created_at": "2026-11-12T19:11:49+00:00",
+      "tweet_id": "2121267601196355866",
+      "posted_at": "2026-11-13T15:43:02.303749+00:00"
     }
   ],
   "used_source_ids": [
@@ -1609,51 +1628,8 @@
     "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e",
     "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83"
   ],
-  "last_posted_at": "2026-11-13T15:05:12.515895+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-13:quote-v1:26",
-      "due_at": "2026-11-13T15:42:00+00:00"
-    },
-    "source": {
-      "id": "2120957757004354002",
-      "url": "https://x.com/github/status/2120957757004354002",
-      "author": "github",
-      "author_id": "13334762",
-      "text": "Building software takes more than code generation. Here's what an effective agentic engineering workflow looks like with GitHub Copilot 👇 https://t.co/wGGKj5mVVD",
-      "created_at": "2026-11-12T19:11:49+00:00",
-      "views": 47858,
-      "urls": [],
-      "source_ids": [
-        "2120957757004354002"
-      ]
-    },
-    "draft": {
-      "text": "Finally acknowledging that just spitting out code isn't the whole job. 🙄💻",
-      "reply": null,
-      "event_key": "GitHub Copilot agentic engineering workflow demonstration",
-      "premise": "Reported by github: GitHub demonstrates an effective agentic engineering workflow that extends beyond simple code generation.",
-      "format": "commentary"
-    },
-    "reserved_at": "2026-11-13T15:43:00.332383+00:00",
-    "approval": "e2449e21263f20d557b0b5995356057fcf74ce94b6cfee31baa237a66db1ffe9",
-    "run": [
-      "43453379684",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2120957757004354002"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83"
-      ],
-      "used_events": [
-        "56b1e9779c40b155a7d6a240caf938d469cd36e57ca410b9c04214ed4f4f8b19"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-13T15:43:02.303749+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "editorial_rejections": {
@@ -1706,5 +1682,9 @@
     "at": "2026-11-13T11:58:22.964682+00:00",
     "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
+  },
+  "verification_pending": {
+    "tweet_id": "2121267601196355866",
+    "source_id": "2120957757004354002"
   }
 }
