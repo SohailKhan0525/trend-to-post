@@ -10,7 +10,7 @@ from . import cloudflare, queue, writer
 from .ai_budget import AIPaused, budget_scope
 
 
-MODEL = '@cf/zai-org/glm-4.7-flash'
+MODEL = '@cf/google/gemma-4-26b-a4b-it'
 FORMATS = ('emoji_question', 'commentary', 'news')
 MAX_REQUESTS = 15
 
