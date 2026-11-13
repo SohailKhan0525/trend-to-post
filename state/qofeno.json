@@ -1168,7 +1168,8 @@
     "2120940373665091856",
     "2120940683233984862",
     "2121031171572412716",
-    "2120957757004354002"
+    "2120957757004354002",
+    "2120943020803801198"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -1253,7 +1254,8 @@
     "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb",
     "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e",
     "15a273b1963c28bbe841ed71a49216ebcf2beca1d08e372497bc0596ef8f1bb0",
-    "56b1e9779c40b155a7d6a240caf938d469cd36e57ca410b9c04214ed4f4f8b19"
+    "56b1e9779c40b155a7d6a240caf938d469cd36e57ca410b9c04214ed4f4f8b19",
+    "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1626,10 +1628,54 @@
     "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1",
     "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a",
     "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e",
-    "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83"
+    "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83",
+    "3a9b0086c0eabced7a24d85e3de5ca1f040a88bb92f454e553d1f87ceedd51ce"
   ],
   "last_posted_at": "2026-11-13T15:43:02.303749+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-13:quote-v1:27",
+      "due_at": "2026-11-13T16:15:00+00:00"
+    },
+    "source": {
+      "id": "2120943020803801198",
+      "url": "https://x.com/NewsFromGoogle/status/2120943020803801198",
+      "author": "NewsFromGoogle",
+      "author_id": "913521757100769280",
+      "text": "Today we’re bringing the Gemini 4 series to everyone with Gemini 4 Hydrogen, pairing cutting-edge intelligence with the speed and efficiency needed for everyday coding and agentic work.\n\nHydrogen stands on its own for daily tasks or teams up with Gemini 4 Carbon or Gemini 4 Argon on bigger builds, finishing tasks 2.5X faster than Gemini 3.8 Flash and faster than competing models in its class. Here’s what’s new:\n\n🎛️ Control how hard it thinks: Choose from 4 thinking levels (low, medium, high, and xhigh) so you only wait and pay for the depth a task needs — surpassing Argon on the @ArtificialAnlys Intelligence Index at default high thinking.\n\n🤝 Team up models automatically: With Orchestrator in @Antigravity (available to Google AI Ultra subscribers), Carbon sets the architectural plan while Hydrogen writes and tests code, reaching near-Carbon task success rates on Terminal-Bench 4.0 while consuming 24% less quota and completing 19% faster on average.\n\n💻 Faster coding, research and everyday help: More than triples 3.8 Flash on coding benchmarks, cuts fabricated claims by >5X, turns dense PDFs and spreadsheets into clean reports, and gives more intuitive, visual answers in Google Search and @GeminiApp.",
+      "created_at": "2026-11-12T18:13:16+00:00",
+      "views": 17692,
+      "urls": [],
+      "source_ids": [
+        "2120943020803801198"
+      ]
+    },
+    "draft": {
+      "text": "🚨 BREAKING: Gemini 4 Hydrogen introduces four adjustable thinking levels\n\nAccording to NewsFromGoogle, the model performs 2.5X faster than Gemini 3.8 Flash for daily coding tasks.",
+      "reply": null,
+      "event_key": "Google releases Gemini 4 Hydrogen model for coding and agentic tasks",
+      "premise": "Reported by NewsFromGoogle: Gemini 4 Hydrogen offers four adjustable thinking levels and achieves 2.5X faster performance than Gemini 3.8 Flash for daily coding tasks.",
+      "format": "news"
+    },
+    "reserved_at": "2026-11-13T16:27:26.115908+00:00",
+    "approval": "1b2117be20e67898355e8cd25762086dc1a654c5b635c4eae4a20ab9badf66b2",
+    "run": [
+      "43458409304",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2120943020803801198"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "3a9b0086c0eabced7a24d85e3de5ca1f040a88bb92f454e553d1f87ceedd51ce"
+      ],
+      "used_events": [
+        "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 9,
   "editorial_rejections": {
@@ -1696,10 +1742,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1874,
+    "neurons_reserved": 1810,
     "requests": 158,
     "hour": "2026-11-13T16",
-    "hour_neurons_reserved": 379,
+    "hour_neurons_reserved": 315,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
