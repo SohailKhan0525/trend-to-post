@@ -906,6 +906,25 @@
       "source_created_at": "2026-11-12T18:02:44+00:00",
       "tweet_id": "2121239909306618167",
       "posted_at": "2026-11-13T13:53:00.019974+00:00"
+    },
+    {
+      "slot": "2026-11-13:quote-v1:24",
+      "due_at": "2026-11-13T14:26:00+00:00",
+      "text": "🚨 BREAKING: Gemini 4 Hydrogen is released for coding and agentic workflows\n\nThe model features tunable thinking levels built to work alongside Carbon in antigravity.",
+      "reply": null,
+      "event_key": "Google introduces Gemini 4 Hydrogen model",
+      "premise": "Gemini 4 Hydrogen is a new model designed for speed and efficiency in coding and agentic workflows, performing 2.5x faster than Gemini 3.8 Flash.",
+      "format": "news",
+      "source_id": "2120940683233984862",
+      "author": "GoogleAI",
+      "editorial_version": "reactions-v4",
+      "body_style": "detail",
+      "source_url": "https://x.com/GoogleAI/status/2120940683233984862",
+      "source_views": 96742,
+      "source_checked_at": "2026-11-13T14:27:03.479549+00:00",
+      "source_created_at": "2026-11-12T18:03:58+00:00",
+      "tweet_id": "2121248493880705396",
+      "posted_at": "2026-11-13T14:27:06.832429+00:00"
     }
   ],
   "used_source_ids": [
@@ -1566,51 +1585,8 @@
     "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a",
     "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e"
   ],
-  "last_posted_at": "2026-11-13T13:53:00.019974+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-13:quote-v1:24",
-      "due_at": "2026-11-13T14:26:00+00:00"
-    },
-    "source": {
-      "id": "2120940683233984862",
-      "url": "https://x.com/GoogleAI/status/2120940683233984862",
-      "author": "GoogleAI",
-      "author_id": "33838201",
-      "text": "Today, we’re growing the Gemini 4 model series by introducing Gemini 4 Hydrogen.\n\nWhile Gemini 4 Carbon tackles your hardest problems, Hydrogen brings cutting-edge intelligence to everyone — with speed and efficiency for everyday coding and agentic workflows, surpassing Argon on the Artificial Analysis Intelligence Index at its default thinking level, at 2.5x the speed of Gemini 3.8 Flash, with tunable thinking levels built to work alongside Carbon in @antigravity.\n\nWatch how the 3D Medic Managed Agent app built in @GoogleAIStudio uses Gemini 4 Hydrogen to inspect your 3D files, catch errors, and patch them before export.",
-      "created_at": "2026-11-12T18:03:58+00:00",
-      "views": 96742,
-      "urls": [],
-      "source_ids": [
-        "2120940683233984862"
-      ]
-    },
-    "draft": {
-      "text": "🚨 BREAKING: Gemini 4 Hydrogen is released for coding and agentic workflows\n\nThe model features tunable thinking levels built to work alongside Carbon in antigravity.",
-      "reply": null,
-      "event_key": "Google introduces Gemini 4 Hydrogen model",
-      "premise": "Gemini 4 Hydrogen is a new model designed for speed and efficiency in coding and agentic workflows, performing 2.5x faster than Gemini 3.8 Flash.",
-      "format": "news"
-    },
-    "reserved_at": "2026-11-13T14:27:03.479549+00:00",
-    "approval": "18b5499b71ca78a49ca62c387497b5ccbbf8ad3f50b27149cf55bc30d4026182",
-    "run": [
-      "43438782445",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2120940683233984862"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e"
-      ],
-      "used_events": [
-        "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-13T14:27:06.832429+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 7,
   "editorial_rejections": {
@@ -1648,5 +1624,9 @@
     "at": "2026-11-13T11:58:22.964682+00:00",
     "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
+  },
+  "verification_pending": {
+    "tweet_id": "2121248493880705396",
+    "source_id": "2120940683233984862"
   }
 }
