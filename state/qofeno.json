@@ -1498,14 +1498,14 @@
   "last_posted_at": "2026-11-13T12:04:27.142425+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 2,
+  "candidate_cursor": 3,
   "editorial_rejections": {},
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 910,
-    "requests": 95,
+    "neurons_reserved": 951,
+    "requests": 96,
     "hour": "2026-11-13T12",
-    "hour_neurons_reserved": 74,
+    "hour_neurons_reserved": 115,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
