@@ -1188,7 +1188,8 @@
     "2120940683233984862",
     "2121031171572412716",
     "2120957757004354002",
-    "2120943020803801198"
+    "2120943020803801198",
+    "2121059953649819771"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -1274,7 +1275,8 @@
     "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e",
     "15a273b1963c28bbe841ed71a49216ebcf2beca1d08e372497bc0596ef8f1bb0",
     "56b1e9779c40b155a7d6a240caf938d469cd36e57ca410b9c04214ed4f4f8b19",
-    "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c"
+    "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c",
+    "f23096426f2504b486ba7a148b7ef9e4c9dac32e5ebb413feb45d3ba8c70f2ba"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1648,10 +1650,54 @@
     "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a",
     "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e",
     "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83",
-    "3a9b0086c0eabced7a24d85e3de5ca1f040a88bb92f454e553d1f87ceedd51ce"
+    "3a9b0086c0eabced7a24d85e3de5ca1f040a88bb92f454e553d1f87ceedd51ce",
+    "d10b237328c1fd211bef11097296e21a7334e0425b171405fd78ee4303fcf1d9"
   ],
   "last_posted_at": "2026-11-13T16:27:29.698887+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-13:quote-v1:28",
+      "due_at": "2026-11-13T16:50:00+00:00"
+    },
+    "source": {
+      "id": "2121059953649819771",
+      "url": "https://x.com/ollama/status/2121059953649819771",
+      "author": "ollama",
+      "author_id": "1688410127378829312",
+      "text": "Inkling 2 Small from Thinking Machines (@thinkymachines) is now on Ollama with zero data retention! \n\nThe 594B mixture-of-experts model with 1M context window demonstrates strong visual interpretation and creation, agentic knowledge work, and finance and quantitative reasoning. \n\nExample use cases: \n- OCR\n- grounding\n- infographic interpretation\n- visual reasoning \n- tool calling with MCP \n- finance spreadsheet reasoning, filings and documents \n\nAvailable on Ollama Cloud with zero data retention:\n\nollama run inkling-2-small:cloud",
+      "created_at": "2026-11-13T01:57:54+00:00",
+      "views": 18762,
+      "urls": [],
+      "source_ids": [
+        "2121059953649819771"
+      ]
+    },
+    "draft": {
+      "text": "🤯🧐",
+      "reply": "How does the 1M context window impact inference latency on the cloud version?",
+      "event_key": "Inkling 2 Small model availability on Ollama Cloud",
+      "premise": "Inkling 2 Small, a 594B mixture-of-experts model with a 1M context window, is available on Ollama Cloud with zero data retention.",
+      "format": "emoji_question"
+    },
+    "reserved_at": "2026-11-13T17:03:49.112121+00:00",
+    "approval": "fe8596008145dddbd26e5390404ce0c4c9e0f4e91d715a8620f96711b337a0f1",
+    "run": [
+      "43468546598",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2121059953649819771"
+      ],
+      "used_urls": [],
+      "used_texts": [
+        "d10b237328c1fd211bef11097296e21a7334e0425b171405fd78ee4303fcf1d9"
+      ],
+      "used_events": [
+        "f23096426f2504b486ba7a148b7ef9e4c9dac32e5ebb413feb45d3ba8c70f2ba"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 2,
   "editorial_rejections": {
@@ -1718,10 +1764,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1974,
+    "neurons_reserved": 1911,
     "requests": 165,
     "hour": "2026-11-13T17",
-    "hour_neurons_reserved": 156,
+    "hour_neurons_reserved": 93,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
