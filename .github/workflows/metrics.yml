@@ -5,7 +5,7 @@ on:
     - cron: '17 6 * * *'
   push:
     branches: [main]
-    paths: ['app/diagnostics.py', '.github/workflows/metrics.yml']
+    paths: ['app/metrics.py', '.github/workflows/metrics.yml']
 permissions:
   contents: read
 concurrency:

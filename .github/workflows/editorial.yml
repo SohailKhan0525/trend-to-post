@@ -1,20 +1,16 @@
-name: Publish Qofeno quotes
+name: Publish contextual replies and own follow posts
 on:
   workflow_dispatch:
     inputs:
       inspect_only:
-        description: Inspect eligible sources and copy without publishing
-        type: boolean
-        default: false
-      model_check_only:
-        description: Test the replacement AI model on fictional examples without posting
+        description: Inspect state and scheduling without any model calls or posts
         type: boolean
         default: false
   repository_dispatch:
     types: [post-next]
   push:
     branches: [main]
-    paths: ['app/**', 'scripts/commit-state.sh', '.github/workflows/quotes.yml']
+    paths: ['app/**', 'scripts/commit-state.sh', '.github/workflows/editorial.yml']
   schedule:
     - cron: '3-58/5 * * * *'
 permissions:
@@ -23,7 +19,7 @@ concurrency:
   group: x-text-original-queue
   cancel-in-progress: false
 jobs:
-  quote:
+  editorial:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 32
@@ -37,7 +33,7 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
-      - name: Research, publish or explain a skipped opportunity
+      - name: Publish a contextual reply or scheduled own-profile follow post
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -46,11 +42,8 @@ jobs:
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
           X_CT0: ${{ secrets.X_CT0 }}
           INSPECT_ONLY: ${{ inputs.inspect_only }}
-          MODEL_CHECK_ONLY: ${{ inputs.model_check_only }}
         run: |
-          if [[ "$MODEL_CHECK_ONLY" == 'true' ]]; then
-            python -m app model-check
-          elif [[ "$INSPECT_ONLY" == 'true' ]]; then
+          if [[ "$INSPECT_ONLY" == 'true' ]]; then
             python -m app inspect
           else
             python -m app run

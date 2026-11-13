@@ -1,58 +1,37 @@
 # Qofeno
 
-An openly AI-run X account about building software with AI. Qofeno reacts to useful coding tools, agents, demos, tradeoffs and relatable developer moments. The account is **@qofenoai**.
+An openly AI-run X account, **@qofenoai**, about AI coding and practical software tools. This repository publishes contextual replies to original posts and two separate invitations to follow the account. The former quote/repost and self-reply workflows have been removed. Existing posts, publication history and session secrets are preserved.
 
-## Four formats
+## Current publishing rules
 
-- **Emoji only:** one to three context-appropriate emoji, with no self-reply.
-- **Emoji and question:** emoji-only quote, followed by one specific, thoughtful question under our own quote.
-- **Commentary:** a short, funny or pointed observation with emoji; sometimes one question below.
-- **News:** `🚨 BREAKING: …`, a blank line, then one useful detail or catch. Only genuinely new announcements qualify.
+- At most **one contextual reply every 30 minutes**, with **48 reply opportunities per UTC day**, plus **two own-profile follow posts** at least six hours apart. One every half hour means 48 replies, not 50.
+- A source must be a public original post from the last 24 hours with **at least 10,000 measured post views**. Followers, video plays and missing counts do not qualify. No protected/blocked authors, sensitive posts, replies, reposts or quotes.
+- Search focuses on AI coding tools, agents and practical software workflows. No politics, countries or national flags. The account never replies to itself and uses an author at most once per 24 hours.
+- Cloudflare Workers AI writes a short response to one concrete detail, then independently reviews grounding, relevance, honesty and natural wording. No generic praise, invented experience, headlines restating the source, follow requests inside replies, personal attacks or manufactured outrage.
+- Source text is fetched again before sending. Changed, deleted or newly ineligible sources are skipped. Source IDs and edit aliases, specific article URLs, event fingerprints and text fingerprints are kept permanently to prevent reuse; recent similar wording is also rejected.
+- Follow posts use varied, playful wording inspired by “Follow me now before it’s too late.” They explain the account’s focus without fake deadlines, fake achievements or repeating the same text twice every day.
 
-The source determines the reaction. Format selection varies and avoids consecutive identical formats. The last three emoji combinations cannot repeat. Dry humour and playful disagreement are allowed; fabricated outrage, personal attacks, invented firsthand testing and generic requests for engagement are rejected. English is the shared voice. The profile remains openly AI-run; natural copy does not imply a human identity.
+## Delivery and scheduling
 
-## Sources and factual checks
+The active workflow is **Publish contextual replies and own follow posts**, in `.github/workflows/editorial.yml`. It accepts the existing `post-next` repository dispatcher, GitHub cron, manual runs and code pushes. A day-seeded offset varies scheduled times. Actual confirmed completion timestamps enforce the minimum 30-minute reply spacing, including across midnight. Missed opportunities are skipped; there are no catch-up bursts. Research time, GitHub scheduling delays, source quality, AI quota and X access can reduce the number actually sent.
 
-An eligible source is an original public post, no more than 24 hours old, with at least **10,000 measured post views**. No author allowlist or badge requirement. Missing views, followers, video plays and engagement totals cannot substitute for post views. Three broad AI-coding Top searches and one rotating announcement search examine at most 80 results per discovery. Higher measured reach is preferred within the 24-hour window, with author rotation to avoid an account becoming the entire feed.
+The existing `X_AUTH_TOKEN` and `X_CT0` secrets authenticate the expected account. Each approved post and its duplicate identities are committed **before** the send. The returned ID is saved before readback verifies author, exact normalized copy and the intended reply parent. An uncertain send keeps its reservation and stops further publication rather than automatically retrying. A known wrong parent or author also pauses delivery. Explicit X permission errors skip the rejected source; rate limits pause publication. No alternate accounts, transport switching or restriction bypasses are attempted.
 
-Tips, opinions, jokes and predictions can support a reaction. They cannot be relabeled breaking news. Both source and output exclude politics, countries, national flags and personal attacks. Source text is evidence, never instructions.
+This repository uses the existing cookie-based client. Working credentials do not establish platform approval: X’s automation rules restrict unsolicited automated replies and require approval for AI reply bots, and its self-service API limits reply eligibility. The code cannot promise successful delivery or continued account access. See the current [automation rules](https://help.x.com/en/rules-and-policies/x-automation) and [API reply guidance](https://docs.x.com/x-api/posts/manage-tweets/introduction).
 
-Cloudflare Workers AI classifies the source, writes the selected format and independently checks the proposed quote and reply against exact source excerpts. Metadata preserves uncertainty. Known source @mentions can become plain names in metadata; invented handles, links and numbers fail validation. Quote text and replies are each limited to 250 conservative weighted characters, within the standard X account limit. No invented performance claims or made-up controversy.
+## Workers AI
 
-The source is fetched again immediately before the quote. Its identity, text, links, timestamp and edit history must match the reviewed source, and the view/age requirements must still hold. The real source is attached to the quote.
+Default model: `@cf/google/gemma-4-26b-a4b-it`. Credentials remain in `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`. A retiring Qwen override maps to the current default; other explicitly supported priced model overrides are retained.
 
-## Schedule and duplicates
+A local budget reserves estimated usage before requests: 9,000 neurons/day and 400/hour, adjusted when token usage is available. Other apps sharing the Cloudflare allowance are not visible to this ledger. Confirmed daily-quota errors pause until the next UTC day; other AI rate-limit errors pause for 15 minutes. Source review normally uses two model calls, with at most one format repair. Rejected sources are cached so the same unsuitable material is not repeatedly reviewed.
 
-There are **40 varying quote opportunities per UTC day**, roughly 36 minutes apart, with at least 25 minutes between confirmed quotes. This is a target and ceiling, conditional on source inventory, AI budget and service availability. Missed slots do not produce catch-up bursts. A quote may have at most one optional self-reply; the 40-quote limit does not count those separately.
+## Operations
 
-Source IDs, edit aliases, canonical article links, event fingerprints and substantive text fingerprints persist. A different format cannot reuse the same underlying event. Emoji text is not globally consumed, because the same emoji can express different reactions; recent combinations still rotate. Question text also has duplicate protection. Earlier publication ledgers remain intact.
+- `python -m app run`: research and publish an eligible scheduled reply or own follow post.
+- `python -m app inspect`: report ledger/schedule status without model calls or sends.
+- `python -m app metrics`: read actual own-post views, likes, replies, reposts and quotes. Never publishes or writes the ledger.
+- `python -m unittest discover -s tests -v`: validate scheduling, content rules, durable delivery and provider behavior.
 
-## Safe publication and self-replies
+Metrics distinguish Qofeno’s impressions from source-post views. Missing values remain unknown. Historic self-replies are shown separately from estimated audience replies. Publication success does not guarantee impressions, likes or replies.
 
-The existing `X_AUTH_TOKEN` and `X_CT0` GitHub Actions secrets remain in use. Approved source evidence and copy are committed before a single quote send. A confirmed ID is saved before attachment readback. An uncertain quote send retains its reservation and cannot automatically be repeated.
-
-An optional self-reply targets only our confirmed quote, after source-attachment verification. Its planned text is saved, then reserved durably before one send. Confirmed reply IDs get parent readback. Unsent plans expire after an hour. An uncertain optional reply is archived with its evidence and never resent, while future quotes can continue. A known incorrect parent pauses publication for inspection.
-
-No other users receive automated replies. No automatic likes, follows or manufactured engagement are part of this publisher.
-
-## Free AI budget
-
-The default model is `@cf/google/gemma-4-26b-a4b-it`, evaluated live against all three fixture formats on November 13. Old overrides selecting the retiring Qwen default map to Gemma; other explicit compatible, priced model overrides remain supported. The fixture check validates these examples and the response contract, not every possible factual claim. Every live draft still receives source checks and independent review.
-
-Workers AI uses `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`. The account-wide free allowance is 10,000 neurons per UTC day. Local estimates reserve at most 9,000/day and 400/hour, adjusted when provider token usage is available. Spending is committed before requests; crashes cannot erase it. Other apps sharing the same Cloudflare allowance are not visible to this ledger.
-
-Confirmed daily-quota errors pause until 00:00 UTC. Other HTTP 429 errors wait 15 minutes. Unchanged rejected sources are cached, separately from publication deduplication; edits or an editorial-policy update reopen review. Prompts include bounded relevant history rather than the full ledger.
-
-## Inspection and measurement
-
-- `python -m app run`: scheduled publishing.
-- `python -m app inspect`: inspect one draft without publishing.
-- `python -m app diagnose`: bounded source and editorial diagnostics, without publishing.
-- `python -m app model-check`: evaluate the documented replacement model on three fictional examples. Never opens X or publishes those examples; failure is not approval.
-- `python -m app metrics`: read up to 12 recent own-post metrics, with no AI or publishing.
-
-AI inspections honor and save spending/cooldowns but do not add publication history. Manual workflow inputs can select inspection or model evaluation. Normal scheduled and dispatcher runs publish when eligible.
-
-The separate **Measure Qofeno posts** workflow records views, likes, replies, reposts and quotes in its Actions summary. Missing counts remain unknown. Public reply totals include self-replies, so reports show known self-replies separately and an explicitly labeled estimate of other replies. Collection ages and sample sizes matter: successful workflow execution, confirmed publication and audience response are different outcomes.
-
-Run tests with `python -m unittest discover -s tests -v`. See [RESEARCH.md](RESEARCH.md) for the repository review, measured baseline and experiment, and [PROFILE.md](PROFILE.md) for suggested profile copy.
+Failures include the operation and source ID without exposing credentials. The ledger in `state/qofeno.json` must not be deleted or reset to force publication. Old ledger files are retained as historical records, not active publishers.

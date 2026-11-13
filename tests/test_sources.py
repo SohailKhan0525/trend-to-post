@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import AsyncMock
 
 from twikit.tweet import Tweet
+from twikit.errors import NotFound, TweetNotAvailable
 
 from app.sources import (
     ANNOUNCEMENT_TERMS, MAX_AGE, SEARCH_COUNT, SourceError,
@@ -89,6 +90,18 @@ class SnapshotTests(unittest.TestCase):
         source.user = None
         with self.assertRaises(SourceError):
             snapshot(source, NOW)
+
+    def test_blocked_authors_and_sensitive_sources_fail_despite_high_views(self):
+        for relationship in ('blocked_by', 'blocking'):
+            source = tweet(views='9999999')
+            setattr(source.user, relationship, True)
+            with self.subTest(relationship=relationship), self.assertRaises(SourceError):
+                snapshot(source, NOW)
+        with self.assertRaises(SourceError):
+            snapshot(tweet(views='9999999', possibly_sensitive=True), NOW)
+        source = tweet(possibly_sensitive=False)
+        source.user.blocked_by = source.user.blocking = False
+        self.assertEqual(snapshot(source, NOW)['id'], '1001')
 
     def test_reply_quote_and_repost_fail_even_when_nested_object_is_missing(self):
         for fields in (
@@ -225,6 +238,30 @@ class CanonicalUrlTests(unittest.TestCase):
 
 
 class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
+    async def test_unavailable_query_preserves_prior_candidates_and_checks_remaining_queries(self):
+        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[
+            [tweet('101')], NotFound('private transport detail'), [tweet('102')], []]))
+        output = io.StringIO()
+        with redirect_stdout(output):
+            result = await discover(client, {}, NOW)
+        self.assertEqual({item['id'] for item in result}, {'101', '102'})
+        self.assertEqual(client.search_tweet.await_count, 4)
+        self.assertEqual([call.args[:2] for call in client.search_tweet.call_args_list], search_plan(NOW))
+        self.assertIn('Source query 2 (Top): unavailable=NotFound', output.getvalue())
+        self.assertNotIn('private transport detail', output.getvalue())
+
+    async def test_all_unavailable_queries_raise_the_last_error_without_endpoint_retries(self):
+        last = TweetNotAvailable('last unavailable query')
+        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[
+            NotFound('one'), TweetNotAvailable('two'), NotFound('three'), last]))
+        output = io.StringIO()
+        with redirect_stdout(output), self.assertRaises(TweetNotAvailable) as raised:
+            await discover(client, {}, NOW)
+        self.assertIs(raised.exception, last)
+        self.assertEqual(client.search_tweet.await_count, 4)
+        self.assertEqual([call.args[:2] for call in client.search_tweet.call_args_list], search_plan(NOW))
+        self.assertEqual(output.getvalue().count('unavailable='), 4)
+
     async def test_stronger_fresh_sources_are_prioritized_without_excluding_ten_thousand_views(self):
         items = [tweet('101', views=10_000, age=timedelta(minutes=1)),
                  tweet('102', views=100_000, age=timedelta(hours=23)),

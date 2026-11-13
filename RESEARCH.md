@@ -1,3 +1,15 @@
+# Current method — November 14, 2026 (India time)
+
+The active publisher now uses contextual replies, at most one every 30 minutes (48 daily opportunities), and two separate own-profile follow prompts. It replaces the former quote and self-reply workflows. Historical observations below describe previous experiments, not the current active method.
+
+The failed run 43463456110 passed its tests but ended with a generic NotFound at 16:52 UTC on November 13; the log did not identify the failing operation. Later publications succeeded, so the record does not support a blanket claim that authentication stopped working. New errors identify the stage and source ID. Durable reservations and exact parent/author/copy readback protect against duplicates and misplaced replies.
+
+Current platform references: [X automation rules](https://help.x.com/en/rules-and-policies/x-automation) and [Manage Posts API](https://docs.x.com/x-api/posts/manage-tweets/introduction). The rules restrict unsolicited automated replies and require approval for AI reply bots; self-service API replies have eligibility limits. The requested existing-client method is not a claim of platform approval. Native permission rejections and rate limits are respected, with no bypass fallback.
+
+The content experiment is specific, useful replies about AI coding and software tools. A 10,000-view source threshold establishes source reach, not likely impressions for Qofeno. The read-only metrics workflow measures Qofeno's own results. Publication volume alone is not evidence of audience growth.
+
+---
+
 # Qofeno research and experiment — November 11–13, 2026
 
 ## November 13 update

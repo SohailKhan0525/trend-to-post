@@ -10,6 +10,8 @@ import ipaddress
 import re
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
+from twikit.errors import NotFound, TweetNotAvailable
+
 from .policy import MIN_SOURCE_VIEWS, has_excluded_terms
 
 
@@ -212,7 +214,9 @@ def _snapshot(tweet, now):
             or getattr(tweet, "quote", None)):
         raise SourceError("source is a quote")
     author = getattr(tweet, "user", None)
-    if author is None or getattr(author, "protected", False):
+    if (author is None or getattr(author, "protected", False)
+            or getattr(author, "blocked_by", False) or getattr(author, "blocking", False)
+            or legacy.get("possibly_sensitive") or getattr(tweet, "possibly_sensitive", False)):
         raise SourceError("source author is unavailable or protected")
     # A long note can be complete even when legacy.full_text is truncated.
     note = ((raw.get("note_tweet") or {}).get("note_tweet_results") or {}).get("result") or {}
@@ -289,8 +293,9 @@ async def discover(connection, state, now):
     """Run four sequential topic searches; return unseen eligible snapshots.
 
     No pagination, endpoint retries, badge requirement, or volume fallback.
-    Session, authentication, rate-limit, and transport failures propagate to the
-    workflow rather than masquerading as a successful empty discovery.
+    An unavailable query does not discard successful independent queries.
+    Session, authentication, rate-limit, and other transport failures propagate;
+    if every query is unavailable, the final availability error also propagates.
     """
     current = _utc(now, "invalid current timestamp")
     used_ids = {str(value) for value in state.get("used_source_ids", [])}
@@ -299,10 +304,18 @@ async def discover(connection, state, now):
     candidates = []
     counts = Counter()
     rejections = Counter()
-    for index, (query, product) in enumerate(search_plan(current), start=1):
+    queries = search_plan(current)
+    unavailable = []
+    for index, (query, product) in enumerate(queries, start=1):
         before = dict(counts)
         eligible_before = len(candidates)
-        results = await connection.search_tweet(query, product, count=SEARCH_COUNT)
+        try:
+            results = await connection.search_tweet(query, product, count=SEARCH_COUNT)
+        except (NotFound, TweetNotAvailable) as exc:
+            unavailable.append(exc)
+            print(f"Source query {index} ({product}): unavailable={type(exc).__name__}; "
+                  "continuing independent queries without retry")
+            continue
         for tweet in results:
             counts["examined"] += 1
             try:
@@ -322,12 +335,14 @@ async def discover(connection, state, now):
               f"eligible={len(candidates) - eligible_before} "
               f"ineligible={counts['ineligible'] - before.get('ineligible', 0)} "
               f"duplicates={counts['duplicates'] - before.get('duplicates', 0)}")
+    if len(unavailable) == len(queries):
+        raise unavailable[-1]
     # Prefer stronger measured reach among already-fresh sources. The publisher
     # still rotates review candidates and avoids consecutive authors.
     candidates.sort(key=lambda candidate: (candidate["views"], candidate["created_at"]), reverse=True)
     print(f"Source discovery: examined={counts['examined']} eligible={len(candidates)} "
           f"ineligible={counts['ineligible']} duplicates={counts['duplicates']}; "
-          "40/day is a ceiling subject to source availability.")
+          "One contextual reply per 30 minutes is subject to source availability and native X access.")
     if rejections:
         print("Source exclusions: " + " ".join(f"{reason}={count}" for reason, count in sorted(rejections.items())))
     return candidates
