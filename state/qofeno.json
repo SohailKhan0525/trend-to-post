@@ -887,6 +887,25 @@
       "source_created_at": "2026-11-12T18:18:29+00:00",
       "tweet_id": "2121230678532710418",
       "posted_at": "2026-11-13T13:16:19.221464+00:00"
+    },
+    {
+      "slot": "2026-11-13:quote-v1:23",
+      "due_at": "2026-11-13T13:52:00+00:00",
+      "text": "🚀⚡💻",
+      "reply": null,
+      "event_key": "Gemini 4 Hydrogen release",
+      "premise": "Gemini 4 Hydrogen is released for coding and agentic tasks, offering improved speed and efficiency over Carbon across Gemini API, Antigravity, and Gemini app.",
+      "format": "emoji",
+      "source_id": "2120940373665091856",
+      "author": "patloeber",
+      "editorial_version": "reactions-v4",
+      "body_style": "emoji",
+      "source_url": "https://x.com/patloeber/status/2120940373665091856",
+      "source_views": 43648,
+      "source_checked_at": "2026-11-13T13:52:58.133362+00:00",
+      "source_created_at": "2026-11-12T18:02:44+00:00",
+      "tweet_id": "2121239909306618167",
+      "posted_at": "2026-11-13T13:53:00.019974+00:00"
     }
   ],
   "used_source_ids": [
@@ -1544,49 +1563,8 @@
     "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1",
     "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a"
   ],
-  "last_posted_at": "2026-11-13T13:16:19.221464+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-13:quote-v1:23",
-      "due_at": "2026-11-13T13:52:00+00:00"
-    },
-    "source": {
-      "id": "2120940373665091856",
-      "url": "https://x.com/patloeber/status/2120940373665091856",
-      "author": "patloeber",
-      "author_id": "1124273786893864960",
-      "text": "Today we are rolling out Gemini 4 Hydrogen🚀\n\nit's faster than Carbon, and brings the efficiency for everyday coding and agentic tasks.\n\navailable for:\n- free (!) &amp; paid tiers in Gemini API\n- Pro &amp; Ultra subs in Antigravity\n- Gemini app &amp; Search https://t.co/ZBJGwvPYNW",
-      "created_at": "2026-11-12T18:02:44+00:00",
-      "views": 43648,
-      "urls": [],
-      "source_ids": [
-        "2120940373665091856"
-      ]
-    },
-    "draft": {
-      "text": "🚀⚡💻",
-      "reply": null,
-      "event_key": "Gemini 4 Hydrogen release",
-      "premise": "Gemini 4 Hydrogen is released for coding and agentic tasks, offering improved speed and efficiency over Carbon across Gemini API, Antigravity, and Gemini app.",
-      "format": "emoji"
-    },
-    "reserved_at": "2026-11-13T13:52:58.133362+00:00",
-    "approval": "d6726bdc203e1df86f54102921e9a6b51cce3084c2b3eb17e90cd17d29e70658",
-    "run": [
-      "43434311801",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2120940373665091856"
-      ],
-      "used_urls": [],
-      "used_texts": [],
-      "used_events": [
-        "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-13T13:53:00.019974+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 3,
   "editorial_rejections": {
@@ -1609,5 +1587,9 @@
     "at": "2026-11-13T11:58:22.964682+00:00",
     "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
+  },
+  "verification_pending": {
+    "tweet_id": "2121239909306618167",
+    "source_id": "2120940373665091856"
   }
 }
