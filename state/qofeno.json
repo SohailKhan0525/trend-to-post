@@ -925,6 +925,25 @@
       "source_created_at": "2026-11-12T18:03:58+00:00",
       "tweet_id": "2121248493880705396",
       "posted_at": "2026-11-13T14:27:06.832429+00:00"
+    },
+    {
+      "slot": "2026-11-13:quote-v1:25",
+      "due_at": "2026-11-13T15:04:00+00:00",
+      "text": "🤖🔒🎯",
+      "reply": null,
+      "event_key": "Fencio launches AI firewall for coding agents",
+      "premise": "Fencio released an AI firewall that checks agent tool calls against plain English rules to prevent unauthorized actions in Claude Code, Codex, Cursor, and GitHub Copilot.",
+      "format": "emoji",
+      "source_id": "2121031171572412716",
+      "author": "avkashk",
+      "editorial_version": "reactions-v4",
+      "body_style": "emoji",
+      "source_url": "https://x.com/avkashk/status/2121031171572412716",
+      "source_views": 23003,
+      "source_checked_at": "2026-11-13T15:05:11.067754+00:00",
+      "source_created_at": "2026-11-13T00:03:32+00:00",
+      "tweet_id": "2121258081195851931",
+      "posted_at": "2026-11-13T15:05:12.515895+00:00"
     }
   ],
   "used_source_ids": [
@@ -1587,49 +1606,8 @@
     "8856dd75adb78d4863688667b06455a92defc06f53c6b9bc3b481edd3847e06a",
     "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e"
   ],
-  "last_posted_at": "2026-11-13T14:27:06.832429+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-13:quote-v1:25",
-      "due_at": "2026-11-13T15:04:00+00:00"
-    },
-    "source": {
-      "id": "2121031171572412716",
-      "url": "https://x.com/avkashk/status/2121031171572412716",
-      "author": "avkashk",
-      "author_id": "132895688",
-      "text": "today we launched Fencio's ai firewall for coding agents. free for individual developers.\n\n\"fix the tests\" is not permission to touch production.\n\nbut giving an agent access and telling it to be careful leaves the decision with the same agent doing the work.\n\nwe built a separate check.\n\nyou write rules in plain english. Fencio checks supported agent tool calls against those rules before they run.\n\nstart in monitor mode to see what it's doing. enable enforcement to block supported calls that break your rules.\n\nconnects with Claude Code, Codex, Cursor and GitHub Copilot.\n\ntry it on your repo. tell us what breaks. docs link in the reply.\n\n@fencio_dev",
-      "created_at": "2026-11-13T00:03:32+00:00",
-      "views": 23003,
-      "urls": [],
-      "source_ids": [
-        "2121031171572412716"
-      ]
-    },
-    "draft": {
-      "text": "🤖🔒🎯",
-      "reply": null,
-      "event_key": "Fencio launches AI firewall for coding agents",
-      "premise": "Fencio released an AI firewall that checks agent tool calls against plain English rules to prevent unauthorized actions in Claude Code, Codex, Cursor, and GitHub Copilot.",
-      "format": "emoji"
-    },
-    "reserved_at": "2026-11-13T15:05:11.067754+00:00",
-    "approval": "99bc8fe0bd3cfd4b162c24b7e6f6d301021ba3b0b3a63a377f4b1246a5e77084",
-    "run": [
-      "43448331378",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2121031171572412716"
-      ],
-      "used_urls": [],
-      "used_texts": [],
-      "used_events": [
-        "15a273b1963c28bbe841ed71a49216ebcf2beca1d08e372497bc0596ef8f1bb0"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-13T15:05:12.515895+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 2,
   "editorial_rejections": {
@@ -1667,5 +1645,9 @@
     "at": "2026-11-13T11:58:22.964682+00:00",
     "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
+  },
+  "verification_pending": {
+    "tweet_id": "2121258081195851931",
+    "source_id": "2121031171572412716"
   }
 }
