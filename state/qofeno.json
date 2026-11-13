@@ -1537,10 +1537,6 @@
     "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
   },
-  "verification_pending": {
-    "tweet_id": "2121221385825706286",
-    "source_id": "2120941982004523367"
-  },
   "pending_reply": {
     "quote_id": "2121221385825706286",
     "text": "How do the four thinking levels impact latency during real-time agentic loops?",
