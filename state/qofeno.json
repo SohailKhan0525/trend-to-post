@@ -846,6 +846,26 @@
       "source_created_at": "2026-11-12T18:02:36+00:00",
       "tweet_id": "2121212592240910660",
       "posted_at": "2026-11-13T12:04:27.142425+00:00"
+    },
+    {
+      "slot": "2026-11-13:quote-v1:21",
+      "due_at": "2026-11-13T12:39:00+00:00",
+      "text": "🚀⚡🧠",
+      "reply": "How do the four thinking levels impact latency during real-time agentic loops?",
+      "event_key": "Google releases Gemini 4 Hydrogen model",
+      "premise": "Gemini 4 Hydrogen offers four thinking levels and is 2.5X faster than 3.8 Flash for coding and agentic tasks.",
+      "format": "emoji_question",
+      "source_id": "2120941982004523367",
+      "author": "Google",
+      "editorial_version": "reactions-v4",
+      "body_style": "self_reply_question",
+      "source_url": "https://x.com/Google/status/2120941982004523367",
+      "source_views": 584109,
+      "source_checked_at": "2026-11-13T12:39:21.935556+00:00",
+      "source_created_at": "2026-11-12T18:09:08+00:00",
+      "tweet_id": "2121221385825706286",
+      "posted_at": "2026-11-13T12:39:23.646717+00:00",
+      "reply_status": "planned"
     }
   ],
   "used_source_ids": [
@@ -1498,51 +1518,8 @@
     "de1f4182063a690c5aa7454860274992d0b9fb0eb6a90c34414763f20f0f5675",
     "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1"
   ],
-  "last_posted_at": "2026-11-13T12:04:27.142425+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-13:quote-v1:21",
-      "due_at": "2026-11-13T12:39:00+00:00"
-    },
-    "source": {
-      "id": "2120941982004523367",
-      "url": "https://x.com/Google/status/2120941982004523367",
-      "author": "Google",
-      "author_id": "20536157",
-      "text": "Meet Gemini 4 Hydrogen.\n\nIt brings cutting-edge intelligence to everyone, with speed and efficiency for everyday coding and agentic work.\n\nAcross 4 thinking levels, it stands on its own or teams up with Carbon and Argon — 2.5X faster than 3.8 Flash, outpacing competing models in its class.",
-      "created_at": "2026-11-12T18:09:08+00:00",
-      "views": 584109,
-      "urls": [],
-      "source_ids": [
-        "2120941982004523367"
-      ]
-    },
-    "draft": {
-      "text": "🚀⚡🧠",
-      "reply": "How do the four thinking levels impact latency during real-time agentic loops?",
-      "event_key": "Google releases Gemini 4 Hydrogen model",
-      "premise": "Gemini 4 Hydrogen offers four thinking levels and is 2.5X faster than 3.8 Flash for coding and agentic tasks.",
-      "format": "emoji_question"
-    },
-    "reserved_at": "2026-11-13T12:39:21.935556+00:00",
-    "approval": "a821a1e94ac1edbf216b905d794530e8de9a7f39678ec3b791189d1160d5583e",
-    "run": [
-      "43425818196",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2120941982004523367"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1"
-      ],
-      "used_events": [
-        "66bfe10331ee792aac910d242c85a8e0151cf3d9086c5554c98e97930a22d638"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-13T12:39:23.646717+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 3,
   "editorial_rejections": {},
@@ -1559,5 +1536,36 @@
     "at": "2026-11-13T11:58:22.964682+00:00",
     "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
+  },
+  "verification_pending": {
+    "tweet_id": "2121221385825706286",
+    "source_id": "2120941982004523367"
+  },
+  "pending_reply": {
+    "quote_id": "2121221385825706286",
+    "text": "How do the four thinking levels impact latency during real-time agentic loops?",
+    "status": "planned",
+    "planned_at": "2026-11-13T12:39:23.646717+00:00",
+    "draft": {
+      "text": "🚀⚡🧠",
+      "reply": "How do the four thinking levels impact latency during real-time agentic loops?",
+      "event_key": "Google releases Gemini 4 Hydrogen model",
+      "premise": "Gemini 4 Hydrogen offers four thinking levels and is 2.5X faster than 3.8 Flash for coding and agentic tasks.",
+      "format": "emoji_question"
+    },
+    "source": {
+      "id": "2120941982004523367",
+      "url": "https://x.com/Google/status/2120941982004523367",
+      "author": "Google",
+      "author_id": "20536157",
+      "text": "Meet Gemini 4 Hydrogen.\n\nIt brings cutting-edge intelligence to everyone, with speed and efficiency for everyday coding and agentic work.\n\nAcross 4 thinking levels, it stands on its own or teams up with Carbon and Argon — 2.5X faster than 3.8 Flash, outpacing competing models in its class.",
+      "created_at": "2026-11-12T18:09:08+00:00",
+      "views": 584109,
+      "urls": [],
+      "source_ids": [
+        "2120941982004523367"
+      ]
+    },
+    "approval": "c0a2964ccf0e88fc41fb98493040a07a3e43c358600825aac77f7a9016d0cc6a"
   }
 }
