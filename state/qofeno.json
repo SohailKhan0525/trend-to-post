@@ -865,7 +865,7 @@
       "source_created_at": "2026-11-12T18:09:08+00:00",
       "tweet_id": "2121221385825706286",
       "posted_at": "2026-11-13T12:39:23.646717+00:00",
-      "reply_status": "confirmed",
+      "reply_status": "verified",
       "reply_id": "2121221406335926393",
       "reply_posted_at": "2026-11-13T12:39:28.458669+00:00"
     }
@@ -1538,38 +1538,5 @@
     "at": "2026-11-13T11:58:22.964682+00:00",
     "reason": "AI paused until 2026-11-13T12:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
-  },
-  "pending_reply": {
-    "quote_id": "2121221385825706286",
-    "text": "How do the four thinking levels impact latency during real-time agentic loops?",
-    "status": "confirmed",
-    "planned_at": "2026-11-13T12:39:23.646717+00:00",
-    "draft": {
-      "text": "🚀⚡🧠",
-      "reply": "How do the four thinking levels impact latency during real-time agentic loops?",
-      "event_key": "Google releases Gemini 4 Hydrogen model",
-      "premise": "Gemini 4 Hydrogen offers four thinking levels and is 2.5X faster than 3.8 Flash for coding and agentic tasks.",
-      "format": "emoji_question"
-    },
-    "source": {
-      "id": "2120941982004523367",
-      "url": "https://x.com/Google/status/2120941982004523367",
-      "author": "Google",
-      "author_id": "20536157",
-      "text": "Meet Gemini 4 Hydrogen.\n\nIt brings cutting-edge intelligence to everyone, with speed and efficiency for everyday coding and agentic work.\n\nAcross 4 thinking levels, it stands on its own or teams up with Carbon and Argon — 2.5X faster than 3.8 Flash, outpacing competing models in its class.",
-      "created_at": "2026-11-12T18:09:08+00:00",
-      "views": 584109,
-      "urls": [],
-      "source_ids": [
-        "2120941982004523367"
-      ]
-    },
-    "approval": "c0a2964ccf0e88fc41fb98493040a07a3e43c358600825aac77f7a9016d0cc6a",
-    "reserved_at": "2026-11-13T12:39:26.586097+00:00",
-    "run": [
-      "43425818196",
-      "1"
-    ],
-    "reply_id": "2121221406335926393"
   }
 }
