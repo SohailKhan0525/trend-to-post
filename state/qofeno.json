@@ -1753,10 +1753,6 @@
     "reason": "AI paused until 2026-11-13T17:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
     "policy": "reactions-v4"
   },
-  "verification_pending": {
-    "tweet_id": "2121287936880869823",
-    "source_id": "2121059953649819771"
-  },
   "pending_reply": {
     "quote_id": "2121287936880869823",
     "text": "How does the 1M context window impact inference latency on the cloud version?",
