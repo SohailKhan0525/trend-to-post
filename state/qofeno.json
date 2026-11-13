@@ -1476,19 +1476,15 @@
   "last_posted_at": "2026-11-12T21:03:16.376565+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 1,
+  "candidate_cursor": 2,
   "editorial_rejections": {},
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 836,
-    "requests": 90,
-    "hour": "2026-11-13T11",
-    "hour_neurons_reserved": 334,
+    "neurons_reserved": 876,
+    "requests": 91,
+    "hour": "2026-11-13T12",
+    "hour_neurons_reserved": 40,
     "model": "@cf/google/gemma-4-26b-a4b-it"
-  },
-  "ai_pause": {
-    "reason": "Local hourly AI budget reserved; spreading research across the day.",
-    "until": "2026-11-13T12:00:00+00:00"
   },
   "last_attempt": {
     "slot": "2026-11-13:quote-v1:19",
