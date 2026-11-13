@@ -1330,7 +1330,8 @@
     "2121059953649819771",
     "2121062974161092792",
     "2121181844570017856",
-    "2121277531152408782"
+    "2121277531152408782",
+    "2121288291655852072"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -1402,6 +1403,7 @@
     "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2",
     "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0",
     "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79",
+    "a1cc2bc4b38cd1851156edafab6ddf900a2d59fb30285e7ef69867dd7b01695b",
     "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e",
     "a55dd5215bdadc1c904a3682ed2128b35b9779aa7cb88b789f65cd3611122348",
     "a632332a47d1a73c1e065ff0df623635081454574216c2b838ab34d8ab5fdae1",
@@ -1786,6 +1788,7 @@
     "f92b826a5f40423139a4329dd614c37ebfd1a94923e3fe1f695b6bcc3853902d",
     "f9f257f5d41802126d3f8de84c0752a73ca34114c9029699a77e174fac7425eb",
     "fa4196e723015084e2e957b35e75f2bc2d4ab515b0d85f7f464add286a7f7561",
+    "fa5e570d7a43ce21e119f3f51e3349a8d8e85850e23d93fc65685b7956d6b402",
     "fb78ed0e8210ef6880c5f9d764bd183d5f1848cc7b38a55dc9e5b10781b01ab7",
     "fb9cec118e8645a7f7f8292fd49a0a7448756954fed4ab86d19f3d891d459e0d",
     "fc304fbe9447983e88d48584134764ef2dc6c742d573a032314e669520292bfd",
@@ -1887,10 +1890,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2542,
+    "neurons_reserved": 2475,
     "requests": 204,
     "hour": "2026-11-13T21",
-    "hour_neurons_reserved": 107,
+    "hour_neurons_reserved": 40,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -1943,5 +1946,26 @@
       "until": "2026-11-14T02:31:43.863753+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Do you think the gap between Claude Code's app stability and the current ChatGPT experience is primarily a UI/UX issue or a backend latency problem?",
+    "event_key": "User dissatisfaction with OpenAI's product releases and model competitiveness compared to Claude",
+    "premise": "The author expresses frustration with OpenAI, claiming their current models and app experience lag behind competitors like Claude Code and Opus 5.5.",
+    "slot": "2026-11-13:reply-v1:42",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-13T21:06:06.100289+00:00",
+    "source": {
+      "id": "2121288291655852072",
+      "url": "https://x.com/TokenGremlin/status/2121288291655852072",
+      "author": "TokenGremlin",
+      "author_id": "1499460382158725120",
+      "text": "I believe OpenAI is facing a lot of internal difficulties right now. People like me who genuinely love ChatGPT are speaking out in huge numbers, and there's a clear consensus:\n\nDevDay was a disappointment, and that's where it all started. Then Tibo's 28 days didn't include the new model we'd been dreaming of. We got several resets, some minor tweaks that could've easily been covered by regular company updates (after all, most of them are just bug fixes!), all in an attempt to bring the ChatGPT App up to the level Claude Code is already at: a lightweight, smooth, functional app without too many bugs.\n\nOpus 5.5 was a shock. It's available on $20 plans with very generous usage limits. Unfortunately, GPT-6.1 Sol simply can't compete, even though it's a \"good\" model. Fable 5.2 widened the gap even further, and it's terrifying. And so far, all we're seeing are grayscale tests of the GPT-6.2 models, which are far better than the current ones, but OpenAI simply won't release them. All we get are leaks from users themselves, desperately collecting whatever crumbs they can find.\n\nIt's like I love ChatGPT and always end up coming back to it, but I'm starting to realize that it's no longer worth waiting for improvements beyond what I already have in the current app and models. Either I come to terms with \"the defeat of my favorite AI,\" or I completely lose my mind. Oh, and apparently touching grass isn't a solution either.",
+      "created_at": "2026-11-13T17:05:15+00:00",
+      "views": 25696,
+      "urls": [],
+      "source_ids": [
+        "2121288291655852072"
+      ]
+    }
+  }
 }
