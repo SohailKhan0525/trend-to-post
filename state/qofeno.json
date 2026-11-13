@@ -1128,7 +1128,8 @@
     "2120941982004523367",
     "2120944334023389476",
     "2120940373665091856",
-    "2120940683233984862"
+    "2120940683233984862",
+    "2121031171572412716"
   ],
   "used_urls": [
     "https://openai.com/index/introducing-gpt-6-cyber",
@@ -1211,7 +1212,8 @@
     "66bfe10331ee792aac910d242c85a8e0151cf3d9086c5554c98e97930a22d638",
     "521ed6389d4be1a63910a02bc1cdefc6735c71075ebee636e00076c21496fe7e",
     "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb",
-    "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e"
+    "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e",
+    "15a273b1963c28bbe841ed71a49216ebcf2beca1d08e372497bc0596ef8f1bb0"
   ],
   "used_texts": [
     "021d975a07d5932e188139cc3ec07c7b501da64efa2c04f138f722b43aca7d50",
@@ -1586,7 +1588,48 @@
     "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e"
   ],
   "last_posted_at": "2026-11-13T14:27:06.832429+00:00",
-  "pending": null,
+  "pending": {
+    "slot": {
+      "slot": "2026-11-13:quote-v1:25",
+      "due_at": "2026-11-13T15:04:00+00:00"
+    },
+    "source": {
+      "id": "2121031171572412716",
+      "url": "https://x.com/avkashk/status/2121031171572412716",
+      "author": "avkashk",
+      "author_id": "132895688",
+      "text": "today we launched Fencio's ai firewall for coding agents. free for individual developers.\n\n\"fix the tests\" is not permission to touch production.\n\nbut giving an agent access and telling it to be careful leaves the decision with the same agent doing the work.\n\nwe built a separate check.\n\nyou write rules in plain english. Fencio checks supported agent tool calls against those rules before they run.\n\nstart in monitor mode to see what it's doing. enable enforcement to block supported calls that break your rules.\n\nconnects with Claude Code, Codex, Cursor and GitHub Copilot.\n\ntry it on your repo. tell us what breaks. docs link in the reply.\n\n@fencio_dev",
+      "created_at": "2026-11-13T00:03:32+00:00",
+      "views": 23003,
+      "urls": [],
+      "source_ids": [
+        "2121031171572412716"
+      ]
+    },
+    "draft": {
+      "text": "🤖🔒🎯",
+      "reply": null,
+      "event_key": "Fencio launches AI firewall for coding agents",
+      "premise": "Fencio released an AI firewall that checks agent tool calls against plain English rules to prevent unauthorized actions in Claude Code, Codex, Cursor, and GitHub Copilot.",
+      "format": "emoji"
+    },
+    "reserved_at": "2026-11-13T15:05:11.067754+00:00",
+    "approval": "99bc8fe0bd3cfd4b162c24b7e6f6d301021ba3b0b3a63a377f4b1246a5e77084",
+    "run": [
+      "43448331378",
+      "1"
+    ],
+    "added": {
+      "used_source_ids": [
+        "2121031171572412716"
+      ],
+      "used_urls": [],
+      "used_texts": [],
+      "used_events": [
+        "15a273b1963c28bbe841ed71a49216ebcf2beca1d08e372497bc0596ef8f1bb0"
+      ]
+    }
+  },
   "check_session": false,
   "candidate_cursor": 2,
   "editorial_rejections": {
@@ -1613,10 +1656,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1378,
+    "neurons_reserved": 1317,
     "requests": 123,
     "hour": "2026-11-13T15",
-    "hour_neurons_reserved": 105,
+    "hour_neurons_reserved": 44,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
