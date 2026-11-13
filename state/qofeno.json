@@ -1718,10 +1718,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1869,
-    "requests": 161,
+    "neurons_reserved": 1925,
+    "requests": 162,
     "hour": "2026-11-13T17",
-    "hour_neurons_reserved": 51,
+    "hour_neurons_reserved": 107,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
