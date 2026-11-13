@@ -1488,11 +1488,6 @@
       "until": "2026-11-13T08:33:56+00:00",
       "reason": "Source classification rejected: new_announcement, relevant"
     },
-    "fac0772b17ca62c31d61a1608112c3f50fa4641ecd303082b2951d846bd94385": {
-      "policy": "ai-coding-v2",
-      "until": "2026-11-13T07:01:39.099411+00:00",
-      "reason": "Source classification format rejected: facts: must not contain links, mentions or hashtags"
-    },
     "81b89c8c1a67f314d9821c9a248bd724586a8467f3d6b958a263b8692d0abe09": {
       "policy": "ai-coding-v2",
       "until": "2026-11-13T07:11:54.895246+00:00",
@@ -1536,10 +1531,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 364,
-    "requests": 34,
-    "hour": "2026-11-13T06",
-    "hour_neurons_reserved": 52,
+    "neurons_reserved": 408,
+    "requests": 35,
+    "hour": "2026-11-13T07",
+    "hour_neurons_reserved": 44,
     "model": "@cf/qwen/qwen3-30b-a3b-fp8"
   }
 }
