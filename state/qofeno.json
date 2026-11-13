@@ -1678,7 +1678,7 @@
   "last_posted_at": "2026-11-13T17:03:50.675172+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 3,
+  "candidate_cursor": 4,
   "editorial_rejections": {
     "ab28e8a3bcca111913ca1a78d0c723d34551a8295d02fc71b07b3619f7d605cc": {
       "policy": "reactions-v4",
@@ -1749,14 +1749,19 @@
       "policy": "reactions-v4",
       "until": "2026-11-13T18:02:12+00:00",
       "reason": "This event or idea has already been used"
+    },
+    "4eebc7fd951fa65262c93dd5507630c5d5cd4de971eb927f4737684508a8f1fd": {
+      "policy": "reactions-v4",
+      "until": "2026-11-14T13:27:51+00:00",
+      "reason": "The source must identify the actual product or coding topic"
     }
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2039,
-    "requests": 173,
+    "neurons_reserved": 2046,
+    "requests": 174,
     "hour": "2026-11-13T18",
-    "hour_neurons_reserved": 120,
+    "hour_neurons_reserved": 127,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
