@@ -1,6 +1,7 @@
 import argparse
 import asyncio
 import os
+import re
 import sys
 from . import editorial
 from .store import SessionUnavailable, summary
@@ -25,5 +26,8 @@ def main():
         raise SystemExit(1) from None
     except Exception as exc:
         stage = editorial.STAGE
-        print(f"::error::Qofeno stopped ({type(exc).__name__}); stage={stage['name']}; source={stage['source_id'] or 'none'}. Inspect the preserved ledger before retrying an unknown send.",file=sys.stderr)
+        # X numeric error codes are actionable; raw response bodies and headers
+        # can contain credentials or interstitial markup and must never be logged.
+        codes = ','.join(sorted(set(re.findall(r'[\"\x27]code[\"\x27]\s*:\s*(\d{1,4})\b', str(exc))))) or 'unavailable'
+        print(f"::error::Qofeno stopped ({type(exc).__name__}); stage={stage['name']}; source={stage['source_id'] or 'none'}; X error codes={codes}. Inspect the preserved ledger before retrying an unknown send.",file=sys.stderr)
         raise SystemExit(1) from None
