@@ -1417,6 +1417,7 @@
     "310c8c2d30e895736d48dba91bcb41261064d94bc0307c7bfb456c9e688c4f0b",
     "311618e60631c47862936125729318eaab50783ee4ab76745213cee352fd21bf",
     "312c1af8cd86d573cb80b48ac4b92480127a8b19c94445b28d7323de56cd17c5",
+    "32751ce0b24de43e501ba640b7b321f32e50e43dd9b03bd854bfa94a62199256",
     "32deb13546aa95851dc14562ada225b869e8880d0e6670b2b7c74aae77553aa1",
     "32fc5fafc8ee6cbe7a4bdc597f5615b7e7f405e43df24b8dbaca52857aa9cfb8",
     "34516c7b8f9b3c43a8c0dbc1789a28684655243e393fd8c562f51a09ca780146",
@@ -1810,10 +1811,10 @@
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 2375,
+    "neurons_reserved": 2331,
     "requests": 196,
     "hour": "2026-11-13T19",
-    "hour_neurons_reserved": 118,
+    "hour_neurons_reserved": 74,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -1841,5 +1842,12 @@
       "until": "2026-11-14T01:05:42.805015+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Follow for dry coding humor, practical tool tradeoffs, and questions about how software actually works. 🤖",
+    "event_key": "follow:32751ce0b24de43e501ba640b7b321f32e50e43dd9b03bd854bfa94a62199256",
+    "slot": "2026-11-13:follow-v1:1",
+    "kind": "follow",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-13T19:26:42.197089+00:00"
+  }
 }
