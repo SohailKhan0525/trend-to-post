@@ -63,7 +63,7 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
         for mock in (patch.object(queue,'STATE',root/'qofeno.json'),patch.object(queue,'LEGACY',root/'old.json'),
                      patch.object(queue,'OLDER_QUOTES',root/'older.json'),patch.object(queue,'utcnow',return_value=self.now),
                      patch.object(queue,'summary'),patch.dict(os.environ,{'GITHUB_RUN_ID':'1','GITHUB_RUN_ATTEMPT':'1'}),
-                     patch.object(queue.sources,'validate',return_value=SOURCE),patch.object(queue.writer,'validate',return_value=DRAFT)):
+                     patch.object(queue.sources,'validate',return_value=SOURCE),patch.object(queue.writer,'validate',side_effect=lambda draft,source:draft)):
             mock.start();self.addCleanup(mock.stop)
 
     def persist(self,state):
@@ -127,6 +127,232 @@ class PublicationTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(state['pending'])
         self.assertNotIn('verification_pending',state)
         self.assertIsNone(next_slot(state,self.now))
+        conn.create_tweet.assert_awaited_once()
+
+    def reply_draft(self):
+        return {**DRAFT,'text':'😭😂','format':'emoji_question',
+                'reply':'Would you use Acme for a production code review?'}
+
+    def reply_connection(self):
+        return SimpleNamespace(
+            create_tweet=AsyncMock(side_effect=[SimpleNamespace(id='333'),SimpleNamespace(id='444')]),
+            get_tweet_by_id=AsyncMock(side_effect=lambda ident: SimpleNamespace(id=ident,
+                quoted_status_id='111' if ident=='333' else None,
+                in_reply_to='333' if ident=='444' else None)),
+            is_logged_in=AsyncMock(return_value=True))
+
+    async def test_emoji_quote_has_no_text_duplicate_claim_and_no_reply(self):
+        draft={**DRAFT,'text':'😭😂','format':'emoji','reply':None}
+        conn=self.connection()
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.send_once(empty(),self.slot,SOURCE,draft,conn)
+        state=queue.load()
+        self.assertEqual(state['used_texts'],[])
+        self.assertIn('111',state['used_source_ids'])
+        self.assertIn(queue.writer.fingerprint(draft['event_key']),state['used_events'])
+        self.assertNotIn('pending_reply',state)
+        conn.create_tweet.assert_awaited_once_with(text='😭😂',attachment_url=SOURCE['url'])
+
+    async def test_self_reply_is_durable_and_targets_only_the_confirmed_quote(self):
+        draft=self.reply_draft();conn=self.reply_connection()
+        async def create(**kwargs):
+            state=queue.load()
+            if 'attachment_url' in kwargs:
+                self.assertIsNotNone(state['pending'])
+                self.assertNotIn('pending_reply',state)
+                return SimpleNamespace(id='333')
+            self.assertEqual(kwargs,{'text':draft['reply'],'reply_to':'333'})
+            self.assertNotIn('verification_pending',state)
+            self.assertEqual(state['pending_reply']['status'],'reserved')
+            self.assertEqual(state['history'][-1]['tweet_id'],'333')
+            self.assertEqual(state['history'][-1]['reply_status'],'reserved')
+            return SimpleNamespace(id='444')
+        conn.create_tweet.side_effect=create
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.send_once(empty(),self.slot,SOURCE,draft,conn)
+        state=queue.load()
+        self.assertNotIn('pending_reply',state)
+        self.assertEqual(len(state['history']),1)
+        self.assertEqual(state['history'][0]['reply_id'],'444')
+        self.assertEqual(state['history'][0]['reply_status'],'verified')
+        self.assertEqual(state['used_texts'],[queue.writer.fingerprint(draft['reply'])])
+        self.assertEqual(conn.create_tweet.await_count,2)
+
+    async def test_quote_verification_must_finish_before_reply_and_restart_sends_only_reply(self):
+        draft=self.reply_draft();conn=self.reply_connection()
+        conn.get_tweet_by_id.side_effect=TimeoutError()
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.send_once(empty(),self.slot,SOURCE,draft,conn)
+        self.assertEqual(queue.load()['pending_reply']['status'],'planned')
+        conn.create_tweet.assert_awaited_once()
+        restarted=self.reply_connection()
+        restarted.create_tweet.side_effect=[SimpleNamespace(id='444')]
+        with patch.object(queue,'client',return_value=restarted),\
+             patch.object(queue,'save_and_push',side_effect=self.persist),\
+             patch.object(queue.sources,'discover',AsyncMock()) as discover:
+            await queue.run('schedule')
+        restarted.create_tweet.assert_awaited_once_with(text=draft['reply'],reply_to='333')
+        discover.assert_not_awaited()
+        self.assertEqual(queue.load()['history'][0]['reply_status'],'verified')
+
+    async def test_ambiguous_self_reply_is_archived_never_resent_and_future_quotes_can_continue(self):
+        for outcome in (TimeoutError(),SimpleNamespace(id=None)):
+            with self.subTest(outcome=type(outcome).__name__):
+                conn=self.reply_connection()
+                conn.create_tweet.side_effect=[SimpleNamespace(id='333'),outcome]
+                with patch.object(queue,'save_and_push',side_effect=self.persist):
+                    await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+                state=queue.load()
+                self.assertNotIn('pending_reply',state)
+                archived=state['uncertain_replies'][0]
+                self.assertEqual(archived['reservation']['status'],'reserved')
+                self.assertEqual(archived['reservation']['quote_id'],'333')
+                self.assertEqual(archived['reservation']['text'],self.reply_draft()['reply'])
+                self.assertIsNone(state['pending'])
+                self.assertEqual(state['history'][0]['tweet_id'],'333')
+                self.assertEqual(state['history'][0]['reply_status'],'unconfirmed')
+                queue.require_open(state)
+                restarted=self.reply_connection()
+                next_time=self.now+timedelta(minutes=37)
+                with patch.object(queue,'utcnow',return_value=next_time),\
+                     patch.object(queue,'client',return_value=restarted),\
+                     patch.object(queue,'save_and_push',side_effect=self.persist),\
+                     patch.object(queue,'publish_slot',AsyncMock()) as publish,\
+                     patch.object(queue.sources,'discover',AsyncMock()) as discover:
+                    await queue.run('schedule')
+                restarted.create_tweet.assert_not_awaited()
+                restarted.get_tweet_by_id.assert_not_awaited()
+                discover.assert_not_awaited()
+                publish.assert_awaited_once()
+
+    async def test_interrupted_reserved_reply_is_archived_on_restart_without_resending(self):
+        conn=self.reply_connection()
+        conn.create_tweet.side_effect=[SimpleNamespace(id='333'),TimeoutError()]
+        def fail_archive(state):
+            if state.get('uncertain_replies'):
+                raise OSError('archive not committed')
+            self.persist(state)
+        with patch.object(queue,'save_and_push',side_effect=fail_archive),self.assertRaises(OSError):
+            await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+        state=queue.load()
+        self.assertEqual(state['pending_reply']['status'],'reserved')
+        reserved=dict(state['pending_reply'])
+        restarted=self.reply_connection()
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            self.assertTrue(await queue.finish_reply(restarted,state))
+        restarted.create_tweet.assert_not_awaited()
+        self.assertEqual(queue.load()['uncertain_replies'][0]['reservation'],reserved)
+        self.assertNotIn('pending_reply',queue.load())
+
+    async def test_failed_archive_commit_aborts_wake_before_any_future_quote(self):
+        conn=self.reply_connection()
+        conn.create_tweet.side_effect=[SimpleNamespace(id='333'),TimeoutError()]
+        def fail_archive(state):
+            if state.get('uncertain_replies'):
+                raise OSError('archive not committed')
+            self.persist(state)
+        with patch.object(queue,'save_and_push',side_effect=fail_archive),self.assertRaises(OSError):
+            await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+        restarted=self.reply_connection()
+        with patch.object(queue,'client',return_value=restarted),\
+             patch.object(queue,'save_and_push',side_effect=fail_archive),\
+             patch.object(queue,'publish_slot',AsyncMock()) as publish,self.assertRaises(OSError):
+            await queue.run('schedule')
+        restarted.create_tweet.assert_not_awaited()
+        publish.assert_not_awaited()
+        self.assertEqual(queue.load()['pending_reply']['status'],'reserved')
+
+    async def test_failed_reply_reservation_commit_prevents_reply_network_send(self):
+        def persist_until_reply(state):
+            if state.get('pending_reply',{}).get('status')=='reserved':
+                raise OSError('commit failed before reply')
+            self.persist(state)
+        conn=self.reply_connection()
+        with patch.object(queue,'save_and_push',side_effect=persist_until_reply),self.assertRaises(OSError):
+            await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+        conn.create_tweet.assert_awaited_once()
+        self.assertEqual(queue.load()['pending_reply']['status'],'planned')
+
+    async def test_known_reply_id_is_read_back_without_sending_again(self):
+        conn=self.reply_connection()
+        conn.get_tweet_by_id.side_effect=[SimpleNamespace(id='333',quoted_status_id='111'),TimeoutError()]
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+        state=queue.load()
+        self.assertEqual(state['pending_reply']['status'],'confirmed')
+        self.assertEqual(state['history'][0]['reply_id'],'444')
+        restarted=self.reply_connection()
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            self.assertTrue(await queue.finish_reply(restarted,state))
+        restarted.create_tweet.assert_not_awaited()
+        restarted.get_tweet_by_id.assert_awaited_once_with('444')
+        self.assertEqual(queue.load()['history'][0]['reply_status'],'verified')
+
+    async def test_known_reply_unavailable_after_an_hour_is_archived_without_resending(self):
+        conn=self.reply_connection()
+        conn.get_tweet_by_id.side_effect=[SimpleNamespace(id='333',quoted_status_id='111'),TimeoutError()]
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+        state=queue.load()
+        restarted=self.reply_connection();restarted.get_tweet_by_id.side_effect=TimeoutError()
+        with patch.object(queue,'utcnow',return_value=self.now+timedelta(hours=1,seconds=1)),\
+             patch.object(queue,'save_and_push',side_effect=self.persist):
+            self.assertTrue(await queue.finish_reply(restarted,state))
+        restarted.create_tweet.assert_not_awaited()
+        retained=queue.load()
+        self.assertEqual(retained['history'][0]['reply_id'],'444')
+        self.assertEqual(retained['history'][0]['reply_status'],'verification_pending')
+        self.assertEqual(retained['uncertain_replies'][0]['reservation']['reply_id'],'444')
+        self.assertNotIn('pending_reply',retained)
+
+    async def test_wrong_reply_parent_pauses_after_recording_its_id(self):
+        conn=self.reply_connection()
+        conn.get_tweet_by_id.side_effect=[SimpleNamespace(id='333',quoted_status_id='111'),
+                                         SimpleNamespace(id='444',in_reply_to='999')]
+        with patch.object(queue,'save_and_push',side_effect=self.persist),self.assertRaises(ValueError):
+            await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+        state=queue.load()
+        self.assertEqual(state['history'][0]['reply_id'],'444')
+        self.assertTrue(state['pause_reason'])
+        self.assertEqual(conn.create_tweet.await_count,2)
+
+    async def test_proven_unsent_reply_session_failure_keeps_only_the_reply_plan(self):
+        conn=self.reply_connection()
+        conn.create_tweet.side_effect=[SimpleNamespace(id='333'),InvalidSession('fixture')]
+        with patch.object(queue,'save_and_push',side_effect=self.persist),self.assertRaises(queue.SessionUnavailable):
+            await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+        state=queue.load()
+        self.assertEqual(state['pending_reply']['status'],'planned')
+        self.assertTrue(state['check_session'])
+        self.assertEqual(state['history'][0]['tweet_id'],'333')
+        restarted=self.reply_connection();restarted.create_tweet.side_effect=[SimpleNamespace(id='444')]
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            self.assertTrue(await queue.finish_reply(restarted,state))
+        restarted.is_logged_in.assert_awaited_once()
+        restarted.create_tweet.assert_awaited_once_with(text=self.reply_draft()['reply'],reply_to='333')
+
+    async def test_expired_unsent_reply_is_skipped_without_deleting_the_quote(self):
+        conn=self.reply_connection();conn.get_tweet_by_id.side_effect=TimeoutError()
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+        state=queue.load();state.pop('verification_pending')
+        with patch.object(queue,'utcnow',return_value=self.now+timedelta(hours=1,seconds=1)),\
+             patch.object(queue,'save_and_push',side_effect=self.persist):
+            self.assertTrue(await queue.finish_reply(conn,state))
+        conn.create_tweet.assert_awaited_once()
+        self.assertEqual(queue.load()['history'][0]['tweet_id'],'333')
+        self.assertEqual(queue.load()['history'][0]['reply_status'],'expired_unsent')
+        self.assertNotIn('pending_reply',queue.load())
+
+    async def test_tampered_reply_target_or_text_cannot_send(self):
+        conn=self.reply_connection();conn.get_tweet_by_id.side_effect=TimeoutError()
+        with patch.object(queue,'save_and_push',side_effect=self.persist):
+            await queue.send_once(empty(),self.slot,SOURCE,self.reply_draft(),conn)
+        original=queue.load();original.pop('verification_pending')
+        for field,value in (('quote_id','999'),('text','A different question?'),('approval','changed')):
+            state=json.loads(json.dumps(original));state['pending_reply'][field]=value
+            with self.subTest(field=field),self.assertRaises(ValueError):
+                await queue.finish_reply(conn,state)
         conn.create_tweet.assert_awaited_once()
 
     async def test_rejected_first_four_do_not_starve_fifth_candidate_on_next_check(self):

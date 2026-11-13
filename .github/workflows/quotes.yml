@@ -6,6 +6,10 @@ on:
         description: Inspect eligible sources and copy without publishing
         type: boolean
         default: false
+      model_check_only:
+        description: Test the replacement AI model on fictional examples without posting
+        type: boolean
+        default: false
   repository_dispatch:
     types: [post-next]
   push:
@@ -42,8 +46,11 @@ jobs:
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
           X_CT0: ${{ secrets.X_CT0 }}
           INSPECT_ONLY: ${{ inputs.inspect_only }}
+          MODEL_CHECK_ONLY: ${{ inputs.model_check_only }}
         run: |
-          if [[ "$INSPECT_ONLY" == 'true' ]]; then
+          if [[ "$MODEL_CHECK_ONLY" == 'true' || "$GITHUB_EVENT_NAME" == 'push' ]]; then
+            python -m app model-check
+          elif [[ "$INSPECT_ONLY" == 'true' ]]; then
             python -m app inspect
           else
             python -m app run

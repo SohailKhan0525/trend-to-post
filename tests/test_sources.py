@@ -225,7 +225,7 @@ class CanonicalUrlTests(unittest.TestCase):
 
 
 class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
-    async def test_four_bounded_news_queries_use_top_without_author_limits(self):
+    async def test_four_bounded_topic_queries_use_top_without_author_limits(self):
         client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(author="indie_builder")], [], [], []]))
         output = io.StringIO()
         with redirect_stdout(output):
@@ -259,10 +259,11 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
             self.assertTrue(any('coding' in query for query,_ in plan))
             self.assertTrue(any('agent SDK' in query or 'code review' in query for query,_ in plan))
             for query,_ in plan[:3]:
-                self.assertIn(ANNOUNCEMENT_TERMS,query)
-                self.assertIn('announced',query)
+                self.assertNotIn(ANNOUNCEMENT_TERMS,query)
                 self.assertLess(len(query),220)
-            self.assertNotIn(ANNOUNCEMENT_TERMS,plan[3][0])
+            self.assertIn(ANNOUNCEMENT_TERMS,plan[3][0])
+            self.assertIn('announced',plan[3][0])
+            self.assertLess(len(plan[3][0]),220)
             self.assertFalse(any(term in query for query,_ in plan
                                  for term in ('battery','startup','Tesla','Porsche','BMW','cars','automotive')))
 

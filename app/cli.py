@@ -9,10 +9,13 @@ from twikit.errors import InvalidSession
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("command",choices=("inspect","diagnose","metrics","run"))
+    parser.add_argument("command",choices=("inspect","diagnose","metrics","model-check","run"))
     args=parser.parse_args()
     try:
-        if args.command in ("diagnose","metrics"):
+        if args.command == 'model-check':
+            from .model_check import check
+            check()
+        elif args.command in ("diagnose","metrics"):
             from .diagnostics import diagnose, metrics
             asyncio.run(metrics() if args.command=="metrics" else diagnose())
         else:

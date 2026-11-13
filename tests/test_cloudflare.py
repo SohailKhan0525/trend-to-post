@@ -9,6 +9,17 @@ from app.ai_budget import AIPaused
 
 
 class CloudflareTests(unittest.TestCase):
+    def test_glm_uses_documented_schema_envelope_and_bounded_nonreasoning_output(self):
+        schema={'type':'object','properties':{'text':{'type':'string'}},'required':['text'],'additionalProperties':False}
+        response=io.StringIO(json.dumps({'success':True,'result':{'choices':[{'message':{'content':'{"text":"😂"}'}}]}}))
+        with patch.dict(os.environ,{'CLOUDFLARE_ACCOUNT_ID':'a'*32,'CLOUDFLARE_API_TOKEN':'test'}),patch('urllib.request.urlopen',return_value=response) as request:
+            self.assertEqual(complete('Return JSON',{},schema=schema,max_tokens=200,model='@cf/zai-org/glm-4.7-flash'),{'text':'😂'})
+        payload=json.loads(request.call_args.args[0].data)
+        self.assertEqual(payload['response_format']['json_schema'],{'name':'qofeno_response','schema':schema,'strict':True})
+        self.assertEqual(payload['max_completion_tokens'],200)
+        self.assertNotIn('max_tokens',payload)
+        self.assertEqual(payload['chat_template_kwargs'],{'enable_thinking':False})
+
     def test_cloudflare_request_uses_native_schema_when_supplied(self):
         schema={'type':'object','properties':{'allowed':{'type':'boolean'}},'required':['allowed']}
         response=io.StringIO(json.dumps({'success':True,'result':{'response':{'allowed':False}}}))

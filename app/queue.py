@@ -1,4 +1,4 @@
-"""Discover, verify, reserve and publish one original quote."""
+"""Publish a verified quote and, when approved, one durable optional self-reply."""
 import asyncio
 import hashlib
 import json
@@ -131,11 +131,13 @@ def run_key():
     return [os.environ["GITHUB_RUN_ID"],os.environ["GITHUB_RUN_ATTEMPT"]]
 
 
-def require_open(state):
+def require_open(state, *, allow_reply=False):
     if state.get("pending"):
         raise ValueError("Unconfirmed send requires reconciliation")
     if state.get("pause_reason"):
         raise ValueError("Quote delivery is paused for inspection")
+    if state.get("pending_reply") and not allow_reply:
+        raise ValueError("A self-reply must finish or be reconciled before another quote")
 
 
 def seal(slot, source, draft):
@@ -187,6 +189,133 @@ async def verify_quote(connection,state):
     except (AttributeError,KeyError,TypeError,ValueError):
         pass
     return True
+
+
+def reply_seal(quote_id, text, planned_at):
+    return hashlib.sha256(json.dumps(["qofeno-reply-v1",quote_id,text,planned_at]).encode()).hexdigest()
+
+
+def reply_history(state, pending):
+    rows=[row for row in state['history'] if row.get('tweet_id')==pending['quote_id']]
+    if len(rows)!=1 or rows[0].get('reply')!=pending['text']:
+        raise ValueError('Self-reply does not match a confirmed own quote')
+    if pending['approval']!=reply_seal(pending['quote_id'],pending['text'],pending['planned_at']):
+        raise ValueError('Self-reply reservation changed')
+    return rows[0]
+
+
+def archive_reply(state, pending, status, error_type=None):
+    """Keep uncertainty durable without ever scheduling the optional reply again."""
+    if state.get('pending_reply')!=pending:
+        raise ValueError('Self-reply reservation changed')
+    row=reply_history(state,pending)
+    evidence={'reservation':pending,'status':status,'archived_at':utcnow().isoformat()}
+    if error_type:
+        evidence['error_type']=error_type
+    state.setdefault('uncertain_replies',[]).append(evidence)
+    row['reply_status']=status
+    state.pop('pending_reply',None)
+    # Archive + removal of the active item are one durable state commit. Failure
+    # aborts this wake; the next wake can archive the old reservation, never send it.
+    save_and_push(state)
+    summary('Optional self-reply archived for inspection; it will not be resent. Future quotes may continue.')
+
+
+def reply_verification_expired(state, pending):
+    row=reply_history(state,pending)
+    return utcnow()-datetime.fromisoformat(row['reply_posted_at'])>timedelta(hours=1)
+
+
+async def finish_reply(connection,state):
+    """Send only a proven-unsent plan; an ambiguous reserved send is never repeated."""
+    pending=state.get('pending_reply')
+    if not pending:
+        return True
+    require_open(state,allow_reply=True)
+    if state.get('verification_pending'):
+        return False
+    row=reply_history(state,pending)
+    status=pending.get('status')
+    if status=='reserved':
+        archive_reply(state,pending,'unconfirmed','InterruptedSend')
+        return True
+    if status=='confirmed':
+        try:
+            post=await asyncio.wait_for(connection.get_tweet_by_id(pending['reply_id']),timeout=20)
+        except Exception as exc:
+            if reply_verification_expired(state,pending):
+                archive_reply(state,pending,'verification_pending',type(exc).__name__)
+                return True
+            summary(f"Self-reply ID recorded. Parent verification is pending ({type(exc).__name__}).")
+            return False
+        parent=str(getattr(post,'in_reply_to','') or '')
+        if not parent:
+            if reply_verification_expired(state,pending):
+                archive_reply(state,pending,'verification_pending','MissingParentMetadata')
+                return True
+            summary('Self-reply ID recorded. Parent metadata is not available yet; no resend attempted.')
+            return False
+        if str(getattr(post,'id',''))!=pending['reply_id'] or parent!=pending['quote_id']:
+            state['pause_reason']='Confirmed self-reply does not belong to the expected own quote'
+            save_and_push(state)
+            raise ValueError('Unexpected self-reply parent')
+        row['reply_status']='verified'
+        state.pop('pending_reply',None)
+        save_and_push(state)
+        summary('X readback confirmed the self-reply belongs to the intended Qofeno quote.')
+        return True
+    if status!='planned':
+        raise ValueError('Unknown self-reply state')
+    age=utcnow()-datetime.fromisoformat(pending['planned_at'])
+    if not timedelta(0)<=age<=timedelta(hours=1):
+        row['reply_status']='expired_unsent'
+        state.pop('pending_reply',None)
+        save_and_push(state)
+        summary('Optional self-reply expired before sending. The confirmed quote remains published.')
+        return True
+    if state.get('check_session'):
+        if not await connection.is_logged_in():
+            raise SessionUnavailable()
+        state['check_session']=False
+    validated=writer.validate(pending['draft'],pending['source'])
+    if validated.get('reply')!=pending['text'] or row.get('reply_id'):
+        raise ValueError('Self-reply approval changed or already has a confirmed ID')
+    reserved={**pending,'status':'reserved','reserved_at':utcnow().isoformat(),'run':run_key()}
+    state['pending_reply']=reserved
+    row['reply_status']='reserved'
+    save_and_push(state)
+    durable=load()
+    if durable.get('pending_reply')!=reserved or reserved['run']!=run_key():
+        raise ValueError('Self-reply reservation changed')
+    # Like quote sends, stale reservations are known-unsent before create_tweet.
+    send_at=utcnow()
+    wait=send_at-datetime.fromisoformat(reserved['reserved_at'])
+    age=send_at-datetime.fromisoformat(reserved['planned_at'])
+    if not timedelta(0)<=wait<=timedelta(seconds=90) or not timedelta(0)<=age<=timedelta(hours=1):
+        reply_history(durable,reserved)['reply_status']='expired_unsent'
+        durable.pop('pending_reply',None)
+        save_and_push(durable)
+        return True
+    try:
+        post=await connection.create_tweet(text=reserved['text'],reply_to=reserved['quote_id'])
+    except InvalidSession:
+        durable['pending_reply']=pending
+        reply_history(durable,pending)['reply_status']='planned'
+        durable['check_session']=True
+        save_and_push(durable)
+        raise SessionUnavailable() from None
+    except Exception as exc:
+        archive_reply(durable,reserved,'unconfirmed',type(exc).__name__)
+        return True
+    ident=str(getattr(post,'id','') or '')
+    if not ident.isdigit():
+        archive_reply(durable,reserved,'unconfirmed','MissingPostID')
+        return True
+    durable['pending_reply']={**reserved,'status':'confirmed','reply_id':ident}
+    reply_history(durable,reserved).update(reply_status='confirmed',reply_id=ident,reply_posted_at=utcnow().isoformat())
+    save_and_push(durable)
+    summary(f"Published Qofeno self-reply · https://x.com/i/status/{ident}")
+    return await finish_reply(connection,durable)
 
 
 def candidate_batch(state,candidates):
@@ -259,7 +388,7 @@ async def publish_slot(state,slot,connection):
             return
         except DraftError as exc:
             remember_rejection(state,candidate,exc,utcnow())
-            summary(f"Candidate skipped by news, wording or duplicate checks: {str(exc)[:600]}")
+            summary(f"Candidate skipped by topic, wording or duplicate checks: {str(exc)[:600]}")
             continue
         try:
             fresh=sources.snapshot(await connection.get_tweet_by_id(candidate["id"]),utcnow())
@@ -272,7 +401,7 @@ async def publish_slot(state,slot,connection):
         if set(fresh["source_ids"]) & set(state["used_source_ids"]) or set(fresh["urls"]) & set(state["used_urls"]):
             continue
         return await send_once(state,slot,fresh,draft,connection)
-    reject(state,slot,"No new verified announcement with at least 100,000 source-post views passed this check.")
+    reject(state,slot,"No fresh, distinct source with at least 100,000 post views passed this check.")
 
 
 def release_unsent(state,pending):
@@ -293,9 +422,12 @@ async def send_once(state,slot,source,draft,connection):
         reject(state,slot,"Opportunity expired during research. Skipped.")
         return
     sources.validate(source,now)
-    writer.validate(draft,source)
+    draft=writer.validate(draft,source)
+    text_claims=[] if draft.get('format') in ('emoji','emoji_question') else [writer.fingerprint(draft['text'])]
+    if draft.get('reply'):
+        text_claims.append(writer.fingerprint(draft['reply']))
     requested={"used_source_ids":source["source_ids"],"used_urls":source["urls"],
-               "used_texts":[writer.fingerprint(draft["text"])],
+               "used_texts":text_claims,
                "used_events":[writer.fingerprint(draft["event_key"])]}
     added={key:sorted(set(values)-set(state[key])) for key,values in requested.items()}
     pending={"slot":slot,"source":source,"draft":draft,"reserved_at":now.isoformat(),
@@ -334,7 +466,9 @@ async def send_once(state,slot,source,draft,connection):
     posted_at=utcnow().isoformat()
     durable["history"].append({**slot,**draft,"source_id":source["id"],"author":source["author"],
                                "editorial_version":writer.EDITORIAL_POLICY_VERSION,
-                               "body_style":"question" if '?' in draft['text'].split('\n\n')[-1] else "detail",
+                               "body_style":('self_reply_question' if draft.get('reply') else
+                                             'emoji' if draft.get('format')=='emoji' else
+                                             'question' if '?' in draft['text'].split('\n\n')[-1] else 'detail'),
                                "source_url":source["url"],"source_views":source["views"],
                                "source_checked_at":now.isoformat(),"source_created_at":source["created_at"],
                                "tweet_id":ident,"posted_at":posted_at})
@@ -342,9 +476,15 @@ async def send_once(state,slot,source,draft,connection):
     durable["last_posted_at"]=posted_at
     durable["pending"]=None
     durable["verification_pending"]={"tweet_id":ident,"source_id":source["id"]}
+    if draft.get('reply'):
+        durable['pending_reply']={'quote_id':ident,'text':draft['reply'],'status':'planned',
+                                  'planned_at':posted_at,'draft':draft,'source':source,
+                                  'approval':reply_seal(ident,draft['reply'],posted_at)}
+        durable['history'][-1]['reply_status']='planned'
     save_and_push(durable)
     summary(f"Published Qofeno quote · {source['views']:,} source views · https://x.com/i/status/{ident}")
-    await verify_quote(connection,durable)
+    if await verify_quote(connection,durable):
+        await finish_reply(connection,durable)
 
 
 async def inspect():
@@ -373,10 +513,13 @@ async def inspect():
 async def run(event):
     start=utcnow()
     state=load()
-    require_open(state)
+    require_open(state,allow_reply=True)
     connection=client()
     if not await verify_quote(connection,state):
         return
+    if not await finish_reply(connection,state):
+        return
+    state=load()
     if report_pause(state):
         return
     window=None

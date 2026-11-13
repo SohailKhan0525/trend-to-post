@@ -11,6 +11,7 @@ RATES = {
     '@cf/meta/llama-3.3-70b-instruct-fp8-fast': (26668, 204805),
     '@cf/meta/llama-3.1-8b-instruct-fp8-fast': (4119, 34868),
     '@cf/zai-org/glm-4.7-flash': (5500, 36400),
+    '@cf/google/gemma-4-26b-a4b-it': (9091, 27273),
 }
 DAILY_LIMIT = 9000
 HOURLY_LIMIT = 400

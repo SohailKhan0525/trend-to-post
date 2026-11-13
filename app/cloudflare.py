@@ -24,10 +24,10 @@ def selected_model():
     return os.environ.get('QOFENO_AI_MODEL') or os.environ.get('DASH_RATTLE_MODEL') or '@cf/qwen/qwen3-30b-a3b-fp8'
 
 
-def complete(system,data,temperature=.8,max_tokens=450,schema=None):
+def complete(system,data,temperature=.8,max_tokens=450,schema=None,model=None):
     account=os.environ.get('CLOUDFLARE_ACCOUNT_ID','').strip()
     token=os.environ.get('CLOUDFLARE_API_TOKEN','').strip()
-    model=selected_model()
+    model=model or selected_model()
     if not re.fullmatch(r'[a-fA-F0-9]{32}',account) or not token:
         raise ValueError('Cloudflare configuration required')
     if not re.fullmatch(r'@cf/[\w.-]+/[\w.-]+',model):
@@ -40,10 +40,17 @@ def complete(system,data,temperature=.8,max_tokens=450,schema=None):
         # Decode scripts normally. Validate the completed object in the editor.
         payload.pop('response_format')
         payload['messages'][0]['content'] += '\nReturn only valid JSON. /no_think'
+    if model in ('@cf/zai-org/glm-4.7-flash', '@cf/google/gemma-4-26b-a4b-it'):
+        # These model endpoints expose the OpenAI-compatible schema envelope.
+        if schema is not None:
+            payload['response_format']={'type':'json_schema','json_schema':{
+                'name':'qofeno_response','schema':schema,'strict':True}}
+        payload['max_completion_tokens']=payload.pop('max_tokens')
+        payload['chat_template_kwargs']={'enable_thinking':False}
     request=urllib.request.Request(f'https://api.cloudflare.com/client/v4/accounts/{account}/ai/run/{model}',
         data=json.dumps(payload).encode(),headers={'Authorization':f'Bearer {token}','Content-Type':'application/json'},method='POST')
     budget=ACTIVE.get()
-    reservation=budget.reserve(model,payload) if budget else None
+    reservation=budget.reserve(model,{**payload,'max_tokens':max_tokens}) if budget else None
     try:
         with urllib.request.urlopen(request,timeout=60) as response:
             result=json.load(response)

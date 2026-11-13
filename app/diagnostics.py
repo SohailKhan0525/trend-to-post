@@ -85,6 +85,8 @@ async def metrics():
                 # Exception messages can include requests or headers; only expose the class.
                 report["errors"].append({"tweet_id": ident, "error": type(exc).__name__})
                 continue
+            counts = {name: public_count(post, field) for name, field in METRIC_FIELDS.items()}
+            known_self = int(bool(row.get('reply_id')))
             report["posts"].append({
                 "tweet_id": ident, "url": "https://x.com/i/status/" + ident,
                 "posted_at": posted.isoformat(),
@@ -95,7 +97,10 @@ async def metrics():
                 "editorial_version": row.get("editorial_version", "legacy"),
                 "body_style": row.get("body_style", "question" if '?' in str(row.get("text", "")) else "detail"),
                 "source_views_at_publication": row.get("source_views"),
-                "metrics": {name: public_count(post, field) for name, field in METRIC_FIELDS.items()},
+                "metrics": counts,
+                "known_self_replies": known_self,
+                "other_replies_estimate": (max(0, counts['replies'] - known_self)
+                                            if counts['replies'] is not None else None),
             })
     report["summary"] = {}
     for name in METRIC_FIELDS:
@@ -104,6 +109,11 @@ async def metrics():
         report["summary"][name] = {"available_posts": len(known),
                                    "median": median(known) if known else None,
                                    "total": sum(known) if known else None}
+    report['summary']['known_self_replies'] = sum(row['known_self_replies'] for row in report['posts'])
+    external = [row['other_replies_estimate'] for row in report['posts'] if row['other_replies_estimate'] is not None]
+    report['summary']['other_replies_estimate'] = {'available_posts': len(external),
+        'total': sum(external) if external else None, 'median': median(external) if external else None}
+    report['reply_note'] = 'Public reply totals include our self-replies. Other replies subtract known sent self-replies and remain an estimate.'
     queue.summary("Own-post performance snapshot (views are not unique viewers; null means unavailable).\n\n"
                   "```json\n" + json.dumps(report, ensure_ascii=True, indent=2) + "\n```")
     queue.summary("Read-only metrics audit finished; no AI calls, posts, or publication-state changes.")
@@ -122,7 +132,7 @@ async def diagnose():
     def traced_complete(system, data, **kwargs):
         result = original_complete(system, data, **kwargs)
         stage = "classify" if system == writer.SOURCE_GATE else "write" if system == writer.VOICE else "review"
-        keys = {"subject", "event_key", "facts", "headline", "body", "text",
+        keys = {"subject", "event_key", "facts", "headline", "body", "text", "format", "reply",
                 *writer.GATE_FLAGS, *writer.REVIEW_FLAGS, *writer.REVIEW_EVIDENCE}
         selected = ({key: value for key, value in result.items() if key in keys}
                     if isinstance(result, dict) else {"result_type": type(result).__name__})

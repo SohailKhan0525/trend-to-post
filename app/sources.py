@@ -18,9 +18,11 @@ MAX_AGE = timedelta(hours=24)
 SEARCH_COUNT = 20
 # Search topics, never author lists. Focus on AI coding tools and practical
 # developer workflows; unrelated model hype and car news dilute this audience.
-# Pair subjects with announcement terms so generic viral opinions do not occupy
-# every result. The fourth Top query stays within the niche without requiring a
-# news verb. Hourly rotation adds coverage within the same four-request budget.
+# Reactions can address useful discussions and demonstrations, not only launches.
+# Three Top queries cover the niche without a news-verb requirement; a fourth
+# rotating query specifically looks for announcements. Hourly rotation adds
+# coverage within the same four-request budget. Editorial review decides whether
+# the source supports a news headline, a reaction, or neither.
 TOPIC_QUERIES = (
     ('("Claude Code" OR Codex OR OpenCode OR Cursor)',
      '("GitHub Copilot" OR Windsurf OR Cline OR Aider)'),
@@ -272,15 +274,15 @@ def _snapshot(tweet, now):
 
 
 def search_plan(now):
-    """Three news-intent Top searches and one broader Top search, at most four."""
+    """Three topic Top searches and one rotating news search, at most four."""
     current = _utc(now, "invalid current timestamp")
     hour = int(current.timestamp() // 3600)
     since = (current - MAX_AGE).date().isoformat()
     suffix = f" since:{since} -filter:replies -filter:retweets"
-    plan = [(variants[hour % len(variants)] + " " + ANNOUNCEMENT_TERMS + suffix, "Top")
+    plan = [(variants[hour % len(variants)] + suffix, "Top")
             for variants in TOPIC_QUERIES]
-    broader = TOPIC_QUERIES[hour % len(TOPIC_QUERIES)]
-    plan.append((broader[(hour + 1) % len(broader)] + suffix, "Top"))
+    news = TOPIC_QUERIES[hour % len(TOPIC_QUERIES)]
+    plan.append((news[(hour + 1) % len(news)] + " " + ANNOUNCEMENT_TERMS + suffix, "Top"))
     return plan
 
 

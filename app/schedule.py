@@ -16,7 +16,7 @@ def daily_plan(day):
 
 
 def next_slot(state, now, window_end=None):
-    if state.get("pending") or state.get("pause_reason") or state.get("verification_pending"):
+    if state.get("pending") or state.get("pause_reason") or state.get("verification_pending") or state.get('pending_reply'):
         return None
     now = now.astimezone(timezone.utc)
     day = now.date().isoformat()

@@ -65,6 +65,15 @@ class MetricsTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual([post["tweet_id"] for post in report["posts"]],
                          [str(100 + i) for i in range(12)])
 
+    async def test_our_self_reply_is_not_reported_as_an_audience_response(self):
+        self.state['history'] = [{**row('101'), 'reply_id': '201', 'reply_status': 'verified'}, row('102',13)]
+        self.connection.get_tweet_by_id.side_effect = [tweet('101',reply_count=1),tweet('102',reply_count=None)]
+        report = await diagnostics.metrics()
+        self.assertEqual(report['summary']['replies']['total'],1)
+        self.assertEqual(report['summary']['known_self_replies'],1)
+        self.assertEqual(report['summary']['other_replies_estimate']['total'],0)
+        self.assertIsNone(report['posts'][1]['other_replies_estimate'])
+
     async def test_lookup_failure_is_redacted_and_does_not_hide_next_post(self):
         self.state["history"] = [row(101, 8), row(102, 9)]
         self.connection.get_tweet_by_id.side_effect = [
