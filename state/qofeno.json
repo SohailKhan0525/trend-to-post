@@ -1734,20 +1734,25 @@
       "policy": "reactions-v4",
       "until": "2026-11-13T19:56:00+00:00",
       "reason": "The source must identify the actual product or coding topic"
+    },
+    "cc889ef16f8157cb4ead621e89359bf0e1dbc5684641b6a7d17fdc996c5d214a": {
+      "policy": "reactions-v4",
+      "until": "2026-11-14T13:30:00+00:00",
+      "reason": "The source must identify the actual product or coding topic"
     }
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1951,
+    "neurons_reserved": 1919,
     "requests": 166,
     "hour": "2026-11-13T17",
-    "hour_neurons_reserved": 133,
+    "hour_neurons_reserved": 101,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
-    "slot": "2026-11-13:quote-v1:28",
-    "at": "2026-11-13T16:53:05.696104+00:00",
-    "reason": "AI paused until 2026-11-13T17:00:00+00:00: Local hourly AI budget reserved; spreading research across the day. No post sent.",
+    "slot": "2026-11-13:quote-v1:29",
+    "at": "2026-11-13T17:31:17.067620+00:00",
+    "reason": "No fresh, distinct source with at least 10,000 post views passed this check.",
     "policy": "reactions-v4"
   }
 }
