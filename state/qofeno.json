@@ -1566,7 +1566,7 @@
   "last_posted_at": "2026-11-13T13:53:00.019974+00:00",
   "pending": null,
   "check_session": false,
-  "candidate_cursor": 6,
+  "candidate_cursor": 7,
   "editorial_rejections": {
     "ab28e8a3bcca111913ca1a78d0c723d34551a8295d02fc71b07b3619f7d605cc": {
       "policy": "reactions-v4",
@@ -1582,14 +1582,19 @@
       "policy": "reactions-v4",
       "until": "2026-11-13T20:26:38.865821+00:00",
       "reason": "No grounded original reaction passed review"
+    },
+    "fe42d309cff42e2caecc3860d8922696aa1255bd456cd11dd31b2789fc939dbb": {
+      "policy": "reactions-v4",
+      "until": "2026-11-13T18:04:32+00:00",
+      "reason": "This event or idea has already been used"
     }
   },
   "ai_usage": {
     "day": "2026-11-13",
-    "neurons_reserved": 1261,
-    "requests": 117,
+    "neurons_reserved": 1272,
+    "requests": 118,
     "hour": "2026-11-13T14",
-    "hour_neurons_reserved": 122,
+    "hour_neurons_reserved": 133,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
