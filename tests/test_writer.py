@@ -27,8 +27,12 @@ def draft(text='😂', kind='emoji', reply=None, **extra):
 
 class WriterTests(unittest.TestCase):
     def generate(self, kind='emoji', text='😂', reply=None, *, gate=None, source=None, state=None, verdict=None):
+        raw = {'text':text,'reply':reply}
+        if kind == 'news':
+            headline, body = text.removeprefix('🚨 BREAKING: ').split('\n\n')
+            raw = {'headline':headline, 'body':body}
         with patch.object(writer, 'select_format', return_value=kind), \
-             patch.object(writer, 'complete', side_effect=[gate or GATE, {'text':text,'reply':reply}, verdict or PASS]) as complete:
+             patch.object(writer, 'complete', side_effect=[gate or GATE, raw, verdict or PASS]) as complete:
             result=writer.generate(source or SOURCE, state or {}, NOW)
         return result, complete
 
@@ -68,9 +72,28 @@ class WriterTests(unittest.TestCase):
         self.assertEqual(result['reply'],QUESTION)
 
     def test_news_has_emoji_breaking_label_and_blank_line(self):
-        result,_=self.generate(kind='news',text=NEWS)
+        result,calls=self.generate(kind='news',text=NEWS)
         self.assertEqual(result,draft(NEWS,'news'))
         self.assertEqual(result['text'].count('\n'),2)
+        self.assertEqual(calls.call_args_list[1].args[0], writer.NEWS_VOICE)
+        self.assertEqual(set(calls.call_args_list[1].kwargs['schema']['properties']), {'headline','body'})
+
+    def test_news_rendering_rejects_model_prefix_literal_newline_or_wrong_fields(self):
+        good={'headline':'Atlas SDK 2.1 adds offline CSV export.', 'body':'All users can access the feature.'}
+        self.assertEqual(writer.render(good,'🚨 BREAKING: ','Atlas SDK'),NEWS)
+        for raw in ({'text':NEWS,'reply':None}, {**good,'headline':'🚨 BREAKING: '+good['headline']},
+                    {**good,'body':'All users\\ncan access the feature.'},
+                    {**good,'body':'All users\ncan access the feature.'},
+                    {**good,'headline':'The tool adds CSV export.'}):
+            with self.subTest(raw=raw),self.assertRaises(DraftError):
+                writer.render(raw,'🚨 BREAKING: ','Atlas SDK')
+
+    def test_source_metadata_schema_bounds_and_short_summary_instruction(self):
+        _,calls=self.generate()
+        fields=calls.call_args_list[0].kwargs['schema']['properties']
+        self.assertEqual({key:fields[key]['maxLength'] for key in ('event_key','facts','subject')},
+                         {'event_key':140,'facts':210,'subject':80})
+        self.assertIn('under 160 characters',writer.SOURCE_GATE)
 
     def test_non_news_idea_is_eligible_for_reaction(self):
         source={**SOURCE,'text':'Atlas SDK users spend more time reviewing generated code than writing prompts.'}
@@ -267,7 +290,7 @@ class WriterTests(unittest.TestCase):
         self.assertEqual(quotes,[f'Quote {index}' for index in range(156,160)])
 
     def test_stale_future_missing_and_unverified_view_count_never_reach_model(self):
-        invalid=[{**SOURCE,'views':99999},{**SOURCE,'views':'100000'},{**SOURCE,'views':True},
+        invalid=[{**SOURCE,'views':writer.MIN_SOURCE_VIEWS-1},{**SOURCE,'views':str(writer.MIN_SOURCE_VIEWS)},{**SOURCE,'views':True},
                  {**SOURCE,'created_at':(NOW-timedelta(hours=24,seconds=1)).isoformat()},
                  {**SOURCE,'created_at':(NOW+timedelta(seconds=1)).isoformat()},
                  {**SOURCE,'created_at':'2026-11-13T10:00:00'},{**SOURCE,'created_at':'invalid'}]
@@ -275,6 +298,11 @@ class WriterTests(unittest.TestCase):
             for source in invalid:
                 with self.subTest(source=source),self.assertRaises(DraftError):writer.generate(source,{},NOW)
             complete.assert_not_called()
+
+    def test_lower_source_view_floor_is_shared_and_boundary_is_eligible(self):
+        result,_=self.generate(source={**SOURCE,'views':writer.MIN_SOURCE_VIEWS})
+        self.assertEqual(result['text'],'😂')
+        self.assertEqual(writer.MIN_SOURCE_VIEWS,10000)
 
     def test_source_politics_countries_or_instructions_never_reach_model(self):
         with patch.object(writer,'complete') as complete:

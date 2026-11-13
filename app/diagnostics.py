@@ -87,6 +87,7 @@ async def metrics():
                 continue
             counts = {name: public_count(post, field) for name, field in METRIC_FIELDS.items()}
             known_self = int(bool(row.get('reply_id')))
+            self_uncertain = row.get('reply_status') == 'unconfirmed' and not known_self
             report["posts"].append({
                 "tweet_id": ident, "url": "https://x.com/i/status/" + ident,
                 "posted_at": posted.isoformat(),
@@ -99,8 +100,9 @@ async def metrics():
                 "source_views_at_publication": row.get("source_views"),
                 "metrics": counts,
                 "known_self_replies": known_self,
+                "self_reply_uncertain": self_uncertain,
                 "other_replies_estimate": (max(0, counts['replies'] - known_self)
-                                            if counts['replies'] is not None else None),
+                                            if counts['replies'] is not None and not self_uncertain else None),
             })
     report["summary"] = {}
     for name in METRIC_FIELDS:
@@ -113,7 +115,7 @@ async def metrics():
     external = [row['other_replies_estimate'] for row in report['posts'] if row['other_replies_estimate'] is not None]
     report['summary']['other_replies_estimate'] = {'available_posts': len(external),
         'total': sum(external) if external else None, 'median': median(external) if external else None}
-    report['reply_note'] = 'Public reply totals include our self-replies. Other replies subtract known sent self-replies and remain an estimate.'
+    report['reply_note'] = 'Public reply totals include our self-replies. Other replies subtract known sent self-replies and remain an estimate; unresolved self-reply sends make that estimate unavailable.'
     queue.summary("Own-post performance snapshot (views are not unique viewers; null means unavailable).\n\n"
                   "```json\n" + json.dumps(report, ensure_ascii=True, indent=2) + "\n```")
     queue.summary("Read-only metrics audit finished; no AI calls, posts, or publication-state changes.")

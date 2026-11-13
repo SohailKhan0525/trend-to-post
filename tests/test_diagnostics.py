@@ -74,6 +74,13 @@ class MetricsTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(report['summary']['other_replies_estimate']['total'],0)
         self.assertIsNone(report['posts'][1]['other_replies_estimate'])
 
+    async def test_unknown_self_reply_outcome_does_not_become_apparent_audience_engagement(self):
+        self.state['history'] = [{**row('101'), 'reply_status': 'unconfirmed'}]
+        self.connection.get_tweet_by_id.return_value = tweet('101',reply_count=1)
+        report = await diagnostics.metrics()
+        self.assertTrue(report['posts'][0]['self_reply_uncertain'])
+        self.assertIsNone(report['summary']['other_replies_estimate']['total'])
+
     async def test_lookup_failure_is_redacted_and_does_not_hide_next_post(self):
         self.state["history"] = [row(101, 8), row(102, 9)]
         self.connection.get_tweet_by_id.side_effect = [

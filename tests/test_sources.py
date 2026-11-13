@@ -41,14 +41,14 @@ def tweet(source_id="1001", *, views="100000", age=timedelta(hours=1),
 
 class SnapshotTests(unittest.TestCase):
     def test_exact_threshold_numeric_string_without_badge_is_eligible(self):
-        source = snapshot(tweet(), NOW)
-        self.assertEqual(source["views"], 100000)
+        source = snapshot(tweet(views="10000"), NOW)
+        self.assertEqual(source["views"], 10000)
         self.assertEqual(source["url"], "https://x.com/OpenAI/status/1001")
         self.assertEqual(source["created_at"], "2026-11-05T11:00:00+00:00")
         self.assertEqual(source["source_ids"], ["1001"])
 
     def test_missing_below_threshold_and_inferred_view_counts_fail(self):
-        for value in (None, 99999, True, False, -100000, 100000.0, "100K", "100,000", "1e6", "-100000", " 100000"):
+        for value in (None, 9999, "9999", True, False, -100000, 100000.0, "100K", "100,000", "1e6", "-100000", " 100000"):
             with self.subTest(value=value), self.assertRaises(SourceError):
                 snapshot(tweet(views=value), NOW)
 
@@ -74,7 +74,7 @@ class SnapshotTests(unittest.TestCase):
                 snapshot(tweet(author=author),NOW)
 
     def test_popular_author_or_badge_does_not_substitute_for_source_views(self):
-        for views in (None,"99999"):
+        for views in (None,"9999"):
             item=tweet(author="indie_builder",views=views)
             item.user.followers_count=10_000_000
             item.user.verified=item.user.is_blue_verified=True
@@ -225,6 +225,16 @@ class CanonicalUrlTests(unittest.TestCase):
 
 
 class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
+    async def test_stronger_fresh_sources_are_prioritized_without_excluding_ten_thousand_views(self):
+        items = [tweet('101', views=10_000, age=timedelta(minutes=1)),
+                 tweet('102', views=100_000, age=timedelta(hours=23)),
+                 tweet('103', views=100_000, age=timedelta(hours=1)),
+                 tweet('104', views=9999)]
+        client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[items, [], [], []]))
+        with redirect_stdout(io.StringIO()):
+            result = await discover(client, {}, NOW)
+        self.assertEqual([item['id'] for item in result], ['103', '102', '101'])
+
     async def test_four_bounded_topic_queries_use_top_without_author_limits(self):
         client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(author="indie_builder")], [], [], []]))
         output = io.StringIO()
@@ -300,7 +310,7 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual([item["id"] for item in result], ["1002"])
 
     async def test_diagnostic_counts_explain_rejection_without_printing_source_text(self):
-        items=[tweet("1",views=None),tweet("2",views="99999"),
+        items=[tweet("1",views=None),tweet("2",views="9999"),
                tweet("3",text=TEXT+" The government is involved."),
                tweet("4",age=MAX_AGE+timedelta(seconds=1)),
                tweet("5",text=TEXT+"…"),tweet("6",in_reply_to_status_id_str="7"),
@@ -310,7 +320,7 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         with redirect_stdout(output):
             result=await discover(client,{},NOW)
         self.assertEqual([item['id'] for item in result],['8'])
-        for reason in ('unknown_views','below_100k','excluded_topic','outside_24h','truncated_text','reply'):
+        for reason in ('unknown_views','below_min_views','excluded_topic','outside_24h','truncated_text','reply'):
             self.assertIn(reason+'=1',output.getvalue())
         self.assertIn('examined=7 eligible=1 ineligible=6 duplicates=0',output.getvalue())
         self.assertNotIn(TEXT,output.getvalue())

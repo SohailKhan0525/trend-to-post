@@ -49,7 +49,11 @@ def check():
         if calls >= MAX_REQUESTS:
             raise ModelCheckError('Model evaluation reached its request bound')
         calls += 1
-        return original_complete(system, data, **{**kwargs, 'model': MODEL})
+        result = original_complete(system, data, **{**kwargs, 'model': MODEL})
+        stage = 'classify' if system == writer.SOURCE_GATE else 'review' if system == writer.CRITIC else 'write'
+        # Only fictional-source model output is logged, never request credentials.
+        queue.summary('Fixture model output ' + json.dumps({'stage': stage, 'result': result}, ensure_ascii=True)[:4000])
+        return result
 
     failure = None
     try:

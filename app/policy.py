@@ -3,6 +3,9 @@ import re
 import unicodedata
 from pathlib import Path
 
+# Prefer high reach while allowing relevant smaller sources into the queue.
+MIN_SOURCE_VIEWS = 10_000
+
 EXCLUDED_TERMS = re.compile(
     r'\b(?:politic\w*|geopolitic\w*|elections?|vot(?:e|es|ing)|ballots?|'
     r'presidents?|prime minister|parliament\w*|governments?|senat\w*|'

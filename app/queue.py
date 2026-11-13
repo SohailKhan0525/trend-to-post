@@ -13,6 +13,7 @@ from . import sources, writer
 from .cloudflare import DraftError, selected_model
 from .ai_budget import AIPaused, active_pause, budget_scope
 from .schedule import next_slot
+from .policy import MIN_SOURCE_VIEWS
 
 STATE = Path("state/qofeno.json")
 LEGACY = Path("state/dash_rattle.json")
@@ -401,7 +402,7 @@ async def publish_slot(state,slot,connection):
         if set(fresh["source_ids"]) & set(state["used_source_ids"]) or set(fresh["urls"]) & set(state["used_urls"]):
             continue
         return await send_once(state,slot,fresh,draft,connection)
-    reject(state,slot,"No fresh, distinct source with at least 100,000 post views passed this check.")
+    reject(state,slot,f"No fresh, distinct source with at least {MIN_SOURCE_VIEWS:,} post views passed this check.")
 
 
 def release_unsent(state,pending):

@@ -10,10 +10,9 @@ import ipaddress
 import re
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-from .policy import has_excluded_terms
+from .policy import MIN_SOURCE_VIEWS, has_excluded_terms
 
 
-MIN_VIEWS = 100_000
 MAX_AGE = timedelta(hours=24)
 SEARCH_COUNT = 20
 # Search topics, never author lists. Focus on AI coding tools and practical
@@ -45,7 +44,7 @@ _SOCIAL_OR_SHORT = frozenset({
 })
 _LANDINGS = frozenset({"/", "/index.html", "/index.htm", "/home", "/blog", "/news"})
 _REJECTION_REASONS = {
-    "source has fewer than 100000 measured views": "below_100k",
+    f"source has fewer than {MIN_SOURCE_VIEWS} measured views": "below_min_views",
     "missing or invalid measured views": "unknown_views",
     "source is outside the 24-hour freshness window": "outside_24h",
     "source is a reply": "reply",
@@ -163,8 +162,8 @@ def validate(candidate, now):
     if age < timedelta(0) or age > MAX_AGE:
         raise SourceError("source is outside the 24-hour freshness window")
     views = _number(candidate.get("views"), "missing or invalid measured views")
-    if views < MIN_VIEWS:
-        raise SourceError("source has fewer than 100000 measured views")
+    if views < MIN_SOURCE_VIEWS:
+        raise SourceError(f"source has fewer than {MIN_SOURCE_VIEWS} measured views")
     text = _text(candidate.get("text"))
     aliases = candidate.get("source_ids")
     if not isinstance(aliases, list) or not aliases:
@@ -323,7 +322,9 @@ async def discover(connection, state, now):
               f"eligible={len(candidates) - eligible_before} "
               f"ineligible={counts['ineligible'] - before.get('ineligible', 0)} "
               f"duplicates={counts['duplicates'] - before.get('duplicates', 0)}")
-    candidates.sort(key=lambda candidate: (candidate["created_at"], candidate["views"]), reverse=True)
+    # Prefer stronger measured reach among already-fresh sources. The publisher
+    # still rotates review candidates and avoids consecutive authors.
+    candidates.sort(key=lambda candidate: (candidate["views"], candidate["created_at"]), reverse=True)
     print(f"Source discovery: examined={counts['examined']} eligible={len(candidates)} "
           f"ineligible={counts['ineligible']} duplicates={counts['duplicates']}; "
           "40/day is a ceiling subject to source availability.")
