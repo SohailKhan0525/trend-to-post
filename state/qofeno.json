@@ -1001,7 +1001,7 @@
       "source_created_at": "2026-11-13T01:57:54+00:00",
       "tweet_id": "2121287936880869823",
       "posted_at": "2026-11-13T17:03:50.675172+00:00",
-      "reply_status": "planned"
+      "reply_status": "reserved"
     }
   ],
   "used_source_ids": [
@@ -1756,7 +1756,7 @@
   "pending_reply": {
     "quote_id": "2121287936880869823",
     "text": "How does the 1M context window impact inference latency on the cloud version?",
-    "status": "planned",
+    "status": "reserved",
     "planned_at": "2026-11-13T17:03:50.675172+00:00",
     "draft": {
       "text": "🤯🧐",
@@ -1778,6 +1778,11 @@
         "2121059953649819771"
       ]
     },
-    "approval": "f034b4fbb70a705f6ac8589bc60a606a1ea6794464d824ea8af4083d51752a26"
+    "approval": "f034b4fbb70a705f6ac8589bc60a606a1ea6794464d824ea8af4083d51752a26",
+    "reserved_at": "2026-11-13T17:03:53.868830+00:00",
+    "run": [
+      "43468546598",
+      "1"
+    ]
   }
 }
