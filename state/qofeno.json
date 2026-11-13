@@ -1004,6 +1004,25 @@
       "reply_status": "verified",
       "reply_id": "2121287956589871237",
       "reply_posted_at": "2026-11-13T17:03:55.266877+00:00"
+    },
+    {
+      "slot": "2026-11-13:quote-v1:29",
+      "due_at": "2026-11-13T17:30:00+00:00",
+      "text": "That is a wild deal for Opencode. 🤯💸",
+      "reply": null,
+      "event_key": "Opencode offering free access to 12 models",
+      "premise": "Reported by Israfilv2: Opencode provides free access to 12 different models.",
+      "format": "commentary",
+      "source_id": "2121181844570017856",
+      "author": "Israfilv2",
+      "editorial_version": "reactions-v4",
+      "body_style": "detail",
+      "source_url": "https://x.com/Israfilv2/status/2121181844570017856",
+      "source_views": 28932,
+      "source_checked_at": "2026-11-13T18:02:25.375535+00:00",
+      "source_created_at": "2026-11-13T10:02:16+00:00",
+      "tweet_id": "2121302686012485822",
+      "posted_at": "2026-11-13T18:02:27.132312+00:00"
     }
   ],
   "used_source_ids": [
@@ -1678,51 +1697,8 @@
     "d10b237328c1fd211bef11097296e21a7334e0425b171405fd78ee4303fcf1d9",
     "ad119a9bab2bae01225622ad38d80de1648e4d9c8f622b742ed8e73356e47a92"
   ],
-  "last_posted_at": "2026-11-13T17:03:50.675172+00:00",
-  "pending": {
-    "slot": {
-      "slot": "2026-11-13:quote-v1:29",
-      "due_at": "2026-11-13T17:30:00+00:00"
-    },
-    "source": {
-      "id": "2121181844570017856",
-      "url": "https://x.com/Israfilv2/status/2121181844570017856",
-      "author": "Israfilv2",
-      "author_id": "2091995542662365184",
-      "text": "how the f*ck Opencode let people use 12 models for absolutely free?? https://t.co/Hi5IO7BuBs",
-      "created_at": "2026-11-13T10:02:16+00:00",
-      "views": 28932,
-      "urls": [],
-      "source_ids": [
-        "2121181844570017856"
-      ]
-    },
-    "draft": {
-      "text": "That is a wild deal for Opencode. 🤯💸",
-      "reply": null,
-      "event_key": "Opencode offering free access to 12 models",
-      "premise": "Reported by Israfilv2: Opencode provides free access to 12 different models.",
-      "format": "commentary"
-    },
-    "reserved_at": "2026-11-13T18:02:25.375535+00:00",
-    "approval": "fb04f864eaf37e4ea021ed4e87f6f7fb5ef875b6336bf93b8ecbfda06c9331d6",
-    "run": [
-      "43478474499",
-      "1"
-    ],
-    "added": {
-      "used_source_ids": [
-        "2121181844570017856"
-      ],
-      "used_urls": [],
-      "used_texts": [
-        "ad119a9bab2bae01225622ad38d80de1648e4d9c8f622b742ed8e73356e47a92"
-      ],
-      "used_events": [
-        "7050257affc71221a48dc4ec0b081fb187c81bb78f9a8362677601ab12f4659d"
-      ]
-    }
-  },
+  "last_posted_at": "2026-11-13T18:02:27.132312+00:00",
+  "pending": null,
   "check_session": false,
   "candidate_cursor": 4,
   "editorial_rejections": {
@@ -1815,5 +1791,9 @@
     "at": "2026-11-13T17:41:21.350141+00:00",
     "reason": "No fresh, distinct source with at least 10,000 post views passed this check.",
     "policy": "reactions-v4"
+  },
+  "verification_pending": {
+    "tweet_id": "2121302686012485822",
+    "source_id": "2121181844570017856"
   }
 }
