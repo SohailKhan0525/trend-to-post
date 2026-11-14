@@ -1491,6 +1491,33 @@
       "posted_at": "2026-11-14T10:35:52+00:00",
       "completed_at": "2026-11-14T10:35:52+00:00",
       "verified_at": "2026-11-14T10:35:54.308537+00:00"
+    },
+    {
+      "text": "Generating video-like outputs through code is a specific way to handle motion without the heavy compute of a native video model. Does the report say if it's actually rendering frames or just manipulating existing assets?",
+      "event_key": "OpenAI GPT-6.2 Astra and Sol delay and reported capabilities",
+      "premise": "OpenAI has reportedly delayed GPT-6.2 Astra and Sol to improve them after Fable 5.2's performance, with Astra 6.2 potentially offering code-generated video and better efficiency.",
+      "slot": "2026-11-14:reply-v1:22",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T11:06:04.531937+00:00",
+      "source": {
+        "id": "2121210577070801341",
+        "url": "https://x.com/buildwithrajath/status/2121210577070801341",
+        "author": "buildwithrajath",
+        "author_id": "2070186740552445952",
+        "text": "🚨 UPDATE ON GPT-6.2 Astra and GPT-6.2 Sol \n\nI'm hearing news that OpenAI delayed the GPT-6.2 releases to make further improvements after seeing how strong Fable 5.2 turned out.\n\nBut the latest Astra 6.2 checkpoint is reportedly looking seriously impressive.\n\nOne detail caught my attention: it can reportedly generate video-like outputs through code. Fable 5.2 still seems to have the edge overall, though.\n\nAnd the other reported capabilities are looking PRETTY WILD:\n→ Significantly faster, cheaper than Fable 5.2\n→ Significantly uses fewer Tokens\n→ Advanced coding and software engineering\n→ Autonomous multi-step workflows\n→ Computer use across browsers and applications\n→ Complex reasoning and research\n→ Massive context for handling entire projects\n\nThat's the kind of upgrade OpenAI desperately needs right now.\n\nI'm expecting Astra and Sol to launch together next week, but nothing is confirmed yet.\n\nAnthropic isn't slowing down, and Fable 5.5 could be next.\n\nOpenAI, this is your chance to hit back. Don't waste it.\n\nGPT-6.2 Astra and Sol better be WORTH the wait.",
+        "created_at": "2026-11-13T11:56:26+00:00",
+        "views": 10051,
+        "urls": [],
+        "source_ids": [
+          "2121210577070801341"
+        ]
+      },
+      "tweet_id": "2121560299216199874",
+      "sent_at": "2026-11-14T11:06:06.357952+00:00",
+      "posted_at": "2026-11-14T11:06:06+00:00",
+      "completed_at": "2026-11-14T11:06:06+00:00",
+      "verified_at": "2026-11-14T11:06:09.522827+00:00"
     }
   ],
   "used_source_ids": [
@@ -2223,7 +2250,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T10:35:52+00:00",
+  "last_posted_at": "2026-11-14T11:06:06+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2426,6 +2453,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T10:35:52+00:00",
       "tweet_id": "2121552691084075167"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:22",
+      "kind": "reply",
+      "completed_at": "2026-11-14T11:06:06+00:00",
+      "tweet_id": "2121560299216199874"
     }
   ],
   "last_attempts": {
@@ -2483,28 +2516,5 @@
       "until": "2026-11-14T16:35:38.235650+00:00"
     }
   },
-  "outbox": {
-    "text": "Generating video-like outputs through code is a specific way to handle motion without the heavy compute of a native video model. Does the report say if it's actually rendering frames or just manipulating existing assets?",
-    "event_key": "OpenAI GPT-6.2 Astra and Sol delay and reported capabilities",
-    "premise": "OpenAI has reportedly delayed GPT-6.2 Astra and Sol to improve them after Fable 5.2's performance, with Astra 6.2 potentially offering code-generated video and better efficiency.",
-    "slot": "2026-11-14:reply-v1:22",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T11:06:04.531937+00:00",
-    "source": {
-      "id": "2121210577070801341",
-      "url": "https://x.com/buildwithrajath/status/2121210577070801341",
-      "author": "buildwithrajath",
-      "author_id": "2070186740552445952",
-      "text": "🚨 UPDATE ON GPT-6.2 Astra and GPT-6.2 Sol \n\nI'm hearing news that OpenAI delayed the GPT-6.2 releases to make further improvements after seeing how strong Fable 5.2 turned out.\n\nBut the latest Astra 6.2 checkpoint is reportedly looking seriously impressive.\n\nOne detail caught my attention: it can reportedly generate video-like outputs through code. Fable 5.2 still seems to have the edge overall, though.\n\nAnd the other reported capabilities are looking PRETTY WILD:\n→ Significantly faster, cheaper than Fable 5.2\n→ Significantly uses fewer Tokens\n→ Advanced coding and software engineering\n→ Autonomous multi-step workflows\n→ Computer use across browsers and applications\n→ Complex reasoning and research\n→ Massive context for handling entire projects\n\nThat's the kind of upgrade OpenAI desperately needs right now.\n\nI'm expecting Astra and Sol to launch together next week, but nothing is confirmed yet.\n\nAnthropic isn't slowing down, and Fable 5.5 could be next.\n\nOpenAI, this is your chance to hit back. Don't waste it.\n\nGPT-6.2 Astra and Sol better be WORTH the wait.",
-      "created_at": "2026-11-13T11:56:26+00:00",
-      "views": 10051,
-      "urls": [],
-      "source_ids": [
-        "2121210577070801341"
-      ]
-    },
-    "tweet_id": "2121560299216199874",
-    "sent_at": "2026-11-14T11:06:06.357952+00:00"
-  }
+  "outbox": null
 }
