@@ -1468,6 +1468,7 @@
     "2121062974161092792",
     "2121181844570017856",
     "2121233913406214200",
+    "2121271926131974444",
     "2121277531152408782",
     "2121288291655852072",
     "2121319695626518823",
@@ -1486,6 +1487,7 @@
     "https://github.com/Alishahryar1/free-claude-code",
     "https://github.com/Einsia/Frontier3D",
     "https://goo.gle/480yn2n",
+    "https://huggingface.co/spaces/joelniklaus/harness-leaderboard",
     "https://lab.einsia.ai/frontier3dbench",
     "https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf",
     "https://nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817?cid=sm_npd_nn_tw_ma&taid=6aede91b49b1f20001e0c5dd",
@@ -1531,6 +1533,7 @@
     "736ec963282878156988f452e19989faba4beed6a6c254e5b8bdabf1068559bd",
     "77e72bb7d9619c30ee28eceff4a8288dc58443f78dac19bb1f45873dbd3e1ed4",
     "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf",
+    "7ad785e8114fff5741705dafca09d360324a947c4764d25f89504c41bd56b2ad",
     "7bb0952091e6c967881599f0abf1c0f27c4e10db00ad33e18a0f8e50dfb24689",
     "7eb3253880a6ec22eabeb0fde5cda755749276a0df0289bcc67df911fa783fcb",
     "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3",
@@ -1697,6 +1700,7 @@
     "58c9a1390d885de0f6ca974d61d27f3ae6ad9f6af88e1d8f980dcb7e7f5cf9dc",
     "58ee39c55afd28cb4fc3aca86f64d75e131c806adadad4b37bb4a2995783a13d",
     "597fa56e0ee19ca1f2254964ae3a3afaeb3e59675f71e5e5e0a0998edf7222b3",
+    "59df755574eafa742df5de21b80dcfde962d8471a8145aa0b2f313408cb22857",
     "5b1989535e6936826fdb4e0c1309f79416fdfc044c9ab80b7c4599c7a767d317",
     "5c0ba73dfd3a104a04332ab685f79ac9a23cc236d8ac077ff9d261da1dc97307",
     "5ea6bf66e37c91786838be4706cbdb5db08ba8716bb102c6ac2c7cc911199e26",
@@ -2040,10 +2044,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 437,
+    "neurons_reserved": 384,
     "requests": 11,
     "hour": "2026-11-14T04",
-    "hour_neurons_reserved": 118,
+    "hour_neurons_reserved": 65,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2119,5 +2123,28 @@
       "until": "2026-11-14T09:25:15.282501+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "The extra cost for DeepSeek is basically a tax on thinking it has already done.",
+    "event_key": "DeepSeek-V4.1-Flash reasoning effort vs performance comparison",
+    "premise": "DeepSeek-V4.1-Flash sees negligible performance gains from high reasoning effort despite a 28% cost increase, whereas GLM-5.3-Flash shows significant improvement.",
+    "slot": "2026-11-14:reply-v1:9",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T04:46:19.753546+00:00",
+    "source": {
+      "id": "2121271926131974444",
+      "url": "https://x.com/joelniklaus/status/2121271926131974444",
+      "author": "joelniklaus",
+      "author_id": "390741977",
+      "text": "High reasoning effort makes DeepSeek-V4.1-Flash 28% more expensive and not one point better.\n\nReasoning effort sets how much the model thinks before it acts.\n\nOn the @huggingface Harness Leaderboard, I compared low and high effort with five coding agents: Claude Code, Codex, OpenCode, Pi and mini-swe-agent.\n\nThe likely reason: DeepSeek-V4.1-Flash already reasons a lot at low effort, about 470 reasoning tokens per model call. High adds only 19% more, against 60% on GLM-5.3-Flash.\n\nOn GLM-5.3-Flash, the extra thinking pays off: high effort lifts the same five agents by 5.8 percentage points on average.\n\nEach agent ran 198 coding tasks from the Terminal-Bench 2.1 and DeepSWE benchmarks at both efforts, three attempts each. The DeepSeek difference is within noise (95% CI -1.8 to +2.0 points). The GLM gain is not (+3.5 to +8.0).\n\nLeaderboard: https://t.co/AiWiQtBOz5",
+      "created_at": "2026-11-13T16:00:13+00:00",
+      "views": 16641,
+      "urls": [
+        "https://huggingface.co/spaces/joelniklaus/harness-leaderboard"
+      ],
+      "source_ids": [
+        "2121271926131974444"
+      ]
+    }
+  }
 }
