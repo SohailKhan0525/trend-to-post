@@ -1592,6 +1592,7 @@
     "2121059953649819771",
     "2121062974161092792",
     "2121181844570017856",
+    "2121201233667281074",
     "2121226585751912582",
     "2121233913406214200",
     "2121271926131974444",
@@ -1656,6 +1657,7 @@
     "5cd40e9bb38857c58a90f8c1905cdeb756a3e518fc7b730dee3e907e58f7dc69",
     "5d0e1c02f6f5263e570028ae842fd2971e03f112dbe55fb3811dbfd9be994e28",
     "5f896a342333a7f121f0afdd6f2625bdb5f53113bc5711ef73daa87fd0b99a69",
+    "60c209f549cd1d7d383fad9b625de43b4072d309e91119c93cbfe2662d27e20d",
     "64b99189032a93459ace7fcf3cadb46bed5ced26f7e80796b2e8edbfbae76888",
     "66bfe10331ee792aac910d242c85a8e0151cf3d9086c5554c98e97930a22d638",
     "6b2da1536d55e67de8e4a37faac4ca97c96dc13b0280bcf72195a79117470c60",
@@ -1737,6 +1739,7 @@
     "14479570302661e74de0dcc064fa8c703d008369e3cdcc4c2bdb087711e6412e",
     "148af21833351caddebd1d2c073d51d304e50cbc9d31115e7441740a7b3ca637",
     "1511cc411e0234f3525dfdcdf29f23d8c7c4caba875406677acacf7f026abe79",
+    "161a009ec5b4e13efbcd5b80eec660b79f3c9e6f08c2c22033561c6611421a3f",
     "16279723c2de9fa40cdf6a6157924363c4a8c9bd0e0621286075b8d7c1e041e1",
     "17904ecc3d07caf4e8b8b64e417937a3f108f688d040b5a71f0a8c5384ada1b8",
     "17cf234e6437942a3e258d75ee6b939cc17c0c5f0ad419c7365c948c14186ee1",
@@ -2180,10 +2183,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 711,
+    "neurons_reserved": 648,
     "requests": 28,
     "hour": "2026-11-14T08",
-    "hour_neurons_reserved": 121,
+    "hour_neurons_reserved": 58,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2313,5 +2316,26 @@
       "until": "2026-11-14T12:35:35.435335+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "The learning requirement is the real hedge against the content itself becoming obsolete.",
+    "event_key": "career advice on becoming an AI content creator",
+    "premise": "The author suggests that becoming an AI content creator is a lucrative path because companies are increasingly paying small influencers for exposure, and the process itself forces continuous learning.",
+    "slot": "2026-11-14:reply-v1:16",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T08:05:08.378712+00:00",
+    "source": {
+      "id": "2121201233667281074",
+      "url": "https://x.com/Leobai825/status/2121201233667281074",
+      "author": "Leobai825",
+      "author_id": "1936480895692869633",
+      "text": "给现在的年轻人指一条明路：去做 AI 博主\n\n钓鱼要去有鱼的地方，赚钱也要去有钱的地方\n\n前几年钱最多的地方是 Web3，现在很明显是 AI\n所以想赚钱就离 AI 近一点，因为这个桌子上有饭吃\n\n具体怎么做？\n\n前期别搞什么vibe coding，AI小程序，AI Agent，你需要每天去看AI前沿信息在说什么，读懂、消化，变成你自己的理解，再结合你自己的使用体验，做成内容发出来。口播也好，长文也好，露不露脸都行\n\n坚持一年、两年，哪怕只有两三万粉丝，你的收入很可能就会超过现在的工资，甚至超过很多 985 毕业生\n\n为什么？\n\n几年前，服装、护肤品、日化、家居品牌，在小红书上大量找一两万粉丝的小博主打广告，一条几百到一千\n\nAI 现在就在重复这个过程。越来越多做 AI、做 IT 的公司需要曝光，他们会去找讲 AI 的博主投广告，而且粉丝量的收益不是简单的加法。一万粉丝，一个月接几条广告，几千块；到十万粉丝，一个月可能就是十万、二十万\n\n更重要的是，做 AI 博主这件事本身，就在逼你学习\n\n你得第一时间拿到最前沿的信息，得快速读懂一件事是怎么做的、怎么用，再把它讲清楚。一两年下来，你对 AI 的理解，会超过身边绝大多数人\n\n所以 3 万粉丝是什么？是你在 AI 时代上桌的门票\n\n桌子上有饭有菜，能吃多少，取决于你自己的能力和上限。但一个这么大的蛋糕摆在面前，总有很多人能吃到\n\n也别有 AI 焦虑。焦虑只会让你乱做决定。你完全可以先保住主业，下班或者课余时间去做，往 AI 方向靠。我身边就有不少还在上班、还在上学的同学，在做 AI 相关的自媒体\n\n再说一点：以后 985 毕业生会越来越多，学历的含金量会被稀释。但一个有几万粉丝、真正懂 AI 的博主，在任何时候都是稀缺的\n\n听得懂就去做，听不懂就算了",
+      "created_at": "2026-11-13T11:19:18+00:00",
+      "views": 99701,
+      "urls": [],
+      "source_ids": [
+        "2121201233667281074"
+      ]
+    }
+  }
 }
