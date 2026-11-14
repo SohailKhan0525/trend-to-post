@@ -1599,6 +1599,35 @@
       "posted_at": "2026-11-14T12:36:55+00:00",
       "completed_at": "2026-11-14T12:36:55+00:00",
       "verified_at": "2026-11-14T12:36:57.868435+00:00"
+    },
+    {
+      "text": "Productivity gains often favor capital over entry-level workers.",
+      "event_key": "Anthropic IPO prospectus discusses AI impact on global wages and entry-level employment.",
+      "premise": "Anthropic's IPO filing suggests AI's opportunity lies in the $40T global wage market of knowledge workers rather than just software budgets.",
+      "slot": "2026-11-14:reply-v1:27",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T13:35:01.290531+00:00",
+      "source": {
+        "id": "2121436843216650733",
+        "url": "https://x.com/CryptoPulseGLBL/status/2121436843216650733",
+        "author": "CryptoPulseGLBL",
+        "author_id": "4561656812",
+        "text": "🌏#Hot Topic Analysis🔥🔥🔥\nAnthropic Sees a $40T Opportunity in Global Wages, Not Just Software Budgets\n\nOn November 10, Anthropic filed an updated IPO prospectus, estimating that global knowledge workers represented over $40 trillion in annual wages in 2025. The filing calls this “economic value,” not market size, but frames it as part of the opportunity ahead.⭐️⭐️⭐️\nThe shift reflects AI moving from assisting workers to performing tasks itself. Anthropic research found that entry rates for 22–25-year-olds in AI-exposed jobs fell about 14% from 2022, while overall unemployment has not shown a systematic rise. AI is increasingly targeting cognitive work such as writing, coding and research.🚨🚨🚨\nThe $40 trillion will not simply flow to AI companies. It could be redistributed among businesses, model providers and consumers. But if productivity gains mainly accrue to capital, young workers may face fewer entry-level opportunities and weaker career paths. The bigger question is who benefits from AI-driven productivity.🔥🔥🔥\n\n🔡 Subscribe: Key Crypto Events\n⭐ https://t.co/Jj4P2BJUig",
+        "created_at": "2026-11-14T02:55:32+00:00",
+        "views": 15034,
+        "urls": [
+          "https://t.me/CryptoPulseCommunity"
+        ],
+        "source_ids": [
+          "2121436843216650733"
+        ]
+      },
+      "tweet_id": "2121597780225601873",
+      "sent_at": "2026-11-14T13:35:02.775544+00:00",
+      "posted_at": "2026-11-14T13:35:02+00:00",
+      "completed_at": "2026-11-14T13:35:02+00:00",
+      "verified_at": "2026-11-14T13:35:04.868737+00:00"
     }
   ],
   "used_source_ids": [
@@ -2344,7 +2373,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T12:36:55+00:00",
+  "last_posted_at": "2026-11-14T13:35:02+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2571,6 +2600,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T12:36:55+00:00",
       "tweet_id": "2121583152519107024"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:27",
+      "kind": "reply",
+      "completed_at": "2026-11-14T13:35:02+00:00",
+      "tweet_id": "2121597780225601873"
     }
   ],
   "last_attempts": {
@@ -2620,30 +2655,5 @@
       "until": "2026-11-14T16:35:38.235650+00:00"
     }
   },
-  "outbox": {
-    "text": "Productivity gains often favor capital over entry-level workers.",
-    "event_key": "Anthropic IPO prospectus discusses AI impact on global wages and entry-level employment.",
-    "premise": "Anthropic's IPO filing suggests AI's opportunity lies in the $40T global wage market of knowledge workers rather than just software budgets.",
-    "slot": "2026-11-14:reply-v1:27",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T13:35:01.290531+00:00",
-    "source": {
-      "id": "2121436843216650733",
-      "url": "https://x.com/CryptoPulseGLBL/status/2121436843216650733",
-      "author": "CryptoPulseGLBL",
-      "author_id": "4561656812",
-      "text": "🌏#Hot Topic Analysis🔥🔥🔥\nAnthropic Sees a $40T Opportunity in Global Wages, Not Just Software Budgets\n\nOn November 10, Anthropic filed an updated IPO prospectus, estimating that global knowledge workers represented over $40 trillion in annual wages in 2025. The filing calls this “economic value,” not market size, but frames it as part of the opportunity ahead.⭐️⭐️⭐️\nThe shift reflects AI moving from assisting workers to performing tasks itself. Anthropic research found that entry rates for 22–25-year-olds in AI-exposed jobs fell about 14% from 2022, while overall unemployment has not shown a systematic rise. AI is increasingly targeting cognitive work such as writing, coding and research.🚨🚨🚨\nThe $40 trillion will not simply flow to AI companies. It could be redistributed among businesses, model providers and consumers. But if productivity gains mainly accrue to capital, young workers may face fewer entry-level opportunities and weaker career paths. The bigger question is who benefits from AI-driven productivity.🔥🔥🔥\n\n🔡 Subscribe: Key Crypto Events\n⭐ https://t.co/Jj4P2BJUig",
-      "created_at": "2026-11-14T02:55:32+00:00",
-      "views": 15034,
-      "urls": [
-        "https://t.me/CryptoPulseCommunity"
-      ],
-      "source_ids": [
-        "2121436843216650733"
-      ]
-    },
-    "tweet_id": "2121597780225601873",
-    "sent_at": "2026-11-14T13:35:02.775544+00:00"
-  }
+  "outbox": null
 }
