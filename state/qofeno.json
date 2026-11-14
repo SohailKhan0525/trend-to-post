@@ -2065,6 +2065,7 @@
     "2121392666244186327",
     "2121393821955334328",
     "2121400217526505567",
+    "2121412800559907182",
     "2121430939029159979",
     "2121436843216650733",
     "2121455178570436847",
@@ -2082,6 +2083,7 @@
     "https://anthropic.com/research/teaching-ai-to-build-scientific-models",
     "https://apps.apple.com/gb/app/gist-it/id6775965170",
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash",
+    "https://code.claude.com/docs/en/agent-view",
     "https://composio.dev/instant",
     "https://deepai.org/chat/ai-code",
     "https://e2e.com/blog/5-tips-for-writing-good-agentic-tests",
@@ -2152,6 +2154,7 @@
     "7bb0952091e6c967881599f0abf1c0f27c4e10db00ad33e18a0f8e50dfb24689",
     "7eb3253880a6ec22eabeb0fde5cda755749276a0df0289bcc67df911fa783fcb",
     "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3",
+    "8338fe4b263c8690f1fc02fd95ea83abd81d03f43912c4bf49739316636c3ce5",
     "845349d7acaf03efeca14d6f7e4b3e7ba1dc44636e4b0887ad0c803baa00ac20",
     "847d6558582980f775c3ef2dc67b4fe715a439a0df2c419c5dd2bf7919b9c15d",
     "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e",
@@ -2475,6 +2478,7 @@
     "b48acf72b2b1971f37d0af04117d70580ee590e7854862d3c0bf26416f581700",
     "b4ded6ca1d6ec1039781dd3e77eab0dffb479c0d16fd89f7abb674e9daccf2da",
     "b5919b88317ca39d82675a8aa7d0fbe645da3a7e0e5d3fab05349e0b33a977e8",
+    "b6a9935194a691b0f165f2e073e7d7a5aeb07cf90487ca710bfe0b34a15c58d4",
     "b6f60a256f49eabc1426230862be7934175bcc4fe8aaecd18a2d82c351afc443",
     "b7c8319f2ffffacb8a42a12bffa5181b0066fe533d69c273ae4107550dcff177",
     "b87b42c2e072d5a59bcb3ba82f6d215cade53fa55a46ab9beab3ba99cf34fb80",
@@ -2692,10 +2696,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1470,
+    "neurons_reserved": 1425,
     "requests": 78,
     "hour": "2026-11-14T19",
-    "hour_neurons_reserved": 72,
+    "hour_neurons_reserved": 27,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2953,5 +2957,28 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Using worktrees keeps the main branch clean during background tasks. 🛠️",
+    "event_key": "Claude Code introduces multi-agent task management with Git worktree isolation.",
+    "premise": "Claude Code updated with Claude agents to manage multiple coding tasks in a terminal dashboard using Git worktrees.",
+    "slot": "2026-11-14:reply-v1:38",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T19:16:07.415535+00:00",
+    "source": {
+      "id": "2121412800559907182",
+      "url": "https://x.com/Xudong07452910/status/2121412800559907182",
+      "author": "Xudong07452910",
+      "author_id": "1327292278000349185",
+      "text": "Claude Code 最近有个小更新：claude agents，还蛮实用的。\n\n用这个命令能在终端打开多个 Coding Agent 的任务管理面板。\n\n你可以同时安排修 Bug、审 PR、排查测试等任务，每个 Agent 在独立 Session 中后台运行，在 Git 项目里还能通过 Worktree 隔离代码修改。\n\n面板会显示谁在工作、谁需要人工介入、谁已经完成。随时可以查看进度、回复消息，或者直接进入对应的 Session 接管任务。\n\n官方文档：https://t.co/NNmlBChQ7i",
+      "created_at": "2026-11-14T01:20:00+00:00",
+      "views": 10173,
+      "urls": [
+        "https://code.claude.com/docs/en/agent-view"
+      ],
+      "source_ids": [
+        "2121412800559907182"
+      ]
+    }
+  }
 }
