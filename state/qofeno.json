@@ -1649,6 +1649,7 @@
     "2121201233667281074",
     "2121226585751912582",
     "2121233913406214200",
+    "2121266842396205485",
     "2121271926131974444",
     "2121277531152408782",
     "2121288291655852072",
@@ -1670,6 +1671,7 @@
     "https://github.blog/changelog/2026-11-13-gemini-4-hydrogen-in-github-copilot",
     "https://github.com/Alishahryar1/free-claude-code",
     "https://github.com/Einsia/Frontier3D",
+    "https://github.com/OnlyTerp/turnpack",
     "https://github.com/garrytan/g-harness-evals/blob/cc8619d977f126ddb6d8f03a4b6cd02c5634c1bc/docs/benchmarks/2026-11-12-fable-5-2-coding-cc322/report.md",
     "https://goo.gle/480yn2n",
     "https://huggingface.co/spaces/joelniklaus/harness-leaderboard",
@@ -1760,6 +1762,7 @@
     "e5a4c947ff44eed5ed5cb77ba516f681b91cf2fb55924d5e9f209ec7356bac70",
     "e958b8976a7fef12420b0057b6b08eadb6f0981a8709cdc4421806959782d996",
     "f23096426f2504b486ba7a148b7ef9e4c9dac32e5ebb413feb45d3ba8c70f2ba",
+    "f66304d0fc9c683a16683d3757e824ffc470e81371770e936a4836a55cd81a17",
     "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd",
     "fdfd32ec2ae4a7965be8272f89df4601dc7d9bd38cb72c55a86c9016342f4fb2",
     "fe6ea411cb16ee4db4600dc074d3ec8ec2539aa0e2f0a7dad4365efcd34be33e",
@@ -2055,6 +2058,7 @@
     "c301bb61ddc2d6bee036518cade0310f7ca8c65047323fd8305c08482e60fccb",
     "c35478875fbd9a37f1459931bb0f0862ffcf11279f859a5b569f42c3fd7b824f",
     "c3ca568114116e9ecfaa5002f94ff5f3a2b3d78a6472a89e42e31c240a2ad942",
+    "c475884a8de732cf3c20d29423be12170246a6615276eee6d3db52ff72612429",
     "c62eaf2a3c7e47ec35376c31f758eec04f28a37487a20db8d2d8cc5e208083a5",
     "c749bd291864b14beb8b823126544ef51d03257fbc67844bd58736fb01f57c11",
     "c7c32285d1520a2f1651160214a6a759afae25433d1030a2a9e7ee38006052a1",
@@ -2240,10 +2244,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 967,
+    "neurons_reserved": 914,
     "requests": 42,
     "hour": "2026-11-14T10",
-    "hour_neurons_reserved": 180,
+    "hour_neurons_reserved": 127,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2402,5 +2406,28 @@
       "until": "2026-11-14T16:05:15.972371+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Folding those sequential waits into single steps is a smart way to fight the latency tax. Does the rollback feature trigger on a specific error code or just any failed test execution?",
+    "event_key": "launch of Turnpack open source tool for AI coding agents",
+    "premise": "OnlyTerp built Turnpack, an open-source tool that reduces AI coding agent latency and cost by folding sequential steps together and adding an automated rollback feature for failed tests.",
+    "slot": "2026-11-14:reply-v1:20",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T10:05:25.977261+00:00",
+    "source": {
+      "id": "2121266842396205485",
+      "url": "https://x.com/OnlyTerp/status/2121266842396205485",
+      "author": "OnlyTerp",
+      "author_id": "55739295",
+      "text": "Your AI coding agent is slow because it keeps waiting on itself.\n\nSearch, wait, read, wait, edit, wait, test, wait.\n\nSo I built Turnpack. It folds those steps together. Half the round trips, roughly half the time, 36% cheaper in my test.\n\nIt also lets the AI test its edits before they stick. If something breaks, every file snaps back to how it was.\n\nFree and open source. Works with Claude Code, Codex, Cursor, Gemini CLI, Grok, anything MCP :)\n\nhttps://t.co/d740kasMCo",
+      "created_at": "2026-11-13T15:40:01+00:00",
+      "views": 11058,
+      "urls": [
+        "https://github.com/OnlyTerp/turnpack"
+      ],
+      "source_ids": [
+        "2121266842396205485"
+      ]
+    }
+  }
 }
