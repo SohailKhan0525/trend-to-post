@@ -1285,6 +1285,33 @@
       "posted_at": "2026-11-14T04:46:21+00:00",
       "completed_at": "2026-11-14T04:46:21+00:00",
       "verified_at": "2026-11-14T04:46:22.677519+00:00"
+    },
+    {
+      "text": "The concentration of capital is wild. It looks like the race for foundational models is still a two-horse sprint for the vast majority of the industry's cash.",
+      "event_key": "Forbes AI 50 2026 funding distribution",
+      "premise": "The Forbes AI 50 list for 2026 shows private AI companies raised $305.6B, with OpenAI and Anthropic capturing roughly 80% of that total.",
+      "slot": "2026-11-14:reply-v1:10",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T05:16:37.956334+00:00",
+      "source": {
+        "id": "2121305802707284332",
+        "url": "https://x.com/Mortezabihzadeh/status/2121305802707284332",
+        "author": "Mortezabihzadeh",
+        "author_id": "1384799128463495168",
+        "text": "Just checked the Forbes AI 50 list for 2026\n\nThe 50 private AI companies raised $305.6B combined and about 80% of that went to just @OpenAI & @AnthropicAI\n\nWhat surprised me most is how far it goes beyond chatbots, like:\n\n> ROBOTICS \n> LEGAL \n> HEALTHCARE \n> MUSIC \n> CODING \n\nI use a bunch of these every day, claude and cursor especially\n\nWhich company on this list are you betting on for the next big thing?",
+        "created_at": "2026-11-13T18:14:49+00:00",
+        "views": 31190,
+        "urls": [],
+        "source_ids": [
+          "2121305802707284332"
+        ]
+      },
+      "tweet_id": "2121472356946153539",
+      "sent_at": "2026-11-14T05:16:39.541487+00:00",
+      "posted_at": "2026-11-14T05:16:39+00:00",
+      "completed_at": "2026-11-14T05:16:39+00:00",
+      "verified_at": "2026-11-14T05:16:41.488265+00:00"
     }
   ],
   "used_source_ids": [
@@ -1993,7 +2020,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T04:46:21+00:00",
+  "last_posted_at": "2026-11-14T05:16:39+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2148,6 +2175,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T04:46:21+00:00",
       "tweet_id": "2121464729504026647"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:10",
+      "kind": "reply",
+      "completed_at": "2026-11-14T05:16:39+00:00",
+      "tweet_id": "2121472356946153539"
     }
   ],
   "last_attempts": {
@@ -2161,28 +2194,5 @@
       "until": "2026-11-14T09:25:15.282501+00:00"
     }
   },
-  "outbox": {
-    "text": "The concentration of capital is wild. It looks like the race for foundational models is still a two-horse sprint for the vast majority of the industry's cash.",
-    "event_key": "Forbes AI 50 2026 funding distribution",
-    "premise": "The Forbes AI 50 list for 2026 shows private AI companies raised $305.6B, with OpenAI and Anthropic capturing roughly 80% of that total.",
-    "slot": "2026-11-14:reply-v1:10",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T05:16:37.956334+00:00",
-    "source": {
-      "id": "2121305802707284332",
-      "url": "https://x.com/Mortezabihzadeh/status/2121305802707284332",
-      "author": "Mortezabihzadeh",
-      "author_id": "1384799128463495168",
-      "text": "Just checked the Forbes AI 50 list for 2026\n\nThe 50 private AI companies raised $305.6B combined and about 80% of that went to just @OpenAI & @AnthropicAI\n\nWhat surprised me most is how far it goes beyond chatbots, like:\n\n> ROBOTICS \n> LEGAL \n> HEALTHCARE \n> MUSIC \n> CODING \n\nI use a bunch of these every day, claude and cursor especially\n\nWhich company on this list are you betting on for the next big thing?",
-      "created_at": "2026-11-13T18:14:49+00:00",
-      "views": 31190,
-      "urls": [],
-      "source_ids": [
-        "2121305802707284332"
-      ]
-    },
-    "tweet_id": "2121472356946153539",
-    "sent_at": "2026-11-14T05:16:39.541487+00:00"
-  }
+  "outbox": null
 }
