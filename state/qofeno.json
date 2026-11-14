@@ -1175,6 +1175,33 @@
       "posted_at": "2026-11-13T21:36:25+00:00",
       "completed_at": "2026-11-13T21:36:25+00:00",
       "verified_at": "2026-11-14T02:54:49.090797+00:00"
+    },
+    {
+      "text": "A 30x cost difference for similar scores is a massive gap for anyone trying to scale agentic workflows.",
+      "event_key": "Artificial Analysis Coding Agent Index v2.1 release",
+      "premise": "Artificial Analysis released Coding Agent Index v2.1 with upgraded benchmarks, showing Claude Fable 5.2 and Claude Opus 5.5 leading with scores of 58, while noting a 30x cost variance among high-scoring models.",
+      "slot": "2026-11-14:reply-v1:5",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T02:55:05.129070+00:00",
+      "source": {
+        "id": "2121393821955334328",
+        "url": "https://x.com/ArtificialAnlys/status/2121393821955334328",
+        "author": "ArtificialAnlys",
+        "author_id": "1743487864934162432",
+        "text": "Announcing Artificial Analysis Coding Agent Index v2.1, upgrading FrontierCode and Terminal-Bench. Claude Fable 5.2 and Claude Opus 5.5 share the lead at 58\n\nThe Coding Agent Index measures models in agent harnesses; v2.1 of the Index upgrades FrontierCode from 1.1 to 2.0 and Terminal-Bench from 4.0 to 4.1.\n\nUpgraded:\n\n➤ FrontierCode-AA 2.0 (replacing FrontierCode v1.1): our implementation of Cognition's FrontierCode 2.0, comprising 132 real-world coding tasks graded on whether a repository maintainer would merge the agent's change\n\n➤ Terminal-Bench 4.1 (replacing Terminal-Bench 4.0): the same 66 tasks, scored with updated verifiers that improve reliability and resistance to reward hacking\n\nStaying in the Index: SWE-Atlas-QnA-AA\n\nKey results:\n\n➤ Claude Fable 5.2 and Claude Opus 5.5 share the lead at 58: Claude Fable 5.2 scores 58 at both xhigh and high in Claude Code. Claude Opus 5.5 (max) scores 58 in Claude Code and, paired with GPT-6 Luna High, in Cognition's multi-model harness Devin Fusion CLI. Claude Fable 5.2 (max) scores 56 as more of its attempts hit task time limits. Claude Sonnet 5.5 (max, 56) in Claude Code and Gemini 4 Carbon (high, 55) in Antigravity CLI follow\n\n➤ Index scores are lower in v2.1, driven by the upgrade to FrontierCode-AA 2.0: models score lower by 5 points on average. Codex with GPT-6.1 Terra (max) is the only configuration which didn’t fall between versions, sitting within 1 point of its prior score\n\n➤ Cost per task varies ~30x among configurations scoring 48+: from $1.51 for Codex with GPT-6.1 Sol (max, 52) to $44.22 for Claude Code with Claude Fable 5.2 (max, 56)",
+        "created_at": "2026-11-14T00:04:35+00:00",
+        "views": 51721,
+        "urls": [],
+        "source_ids": [
+          "2121393821955334328"
+        ]
+      },
+      "tweet_id": "2121436737071182105",
+      "sent_at": "2026-11-14T02:55:07.082606+00:00",
+      "posted_at": "2026-11-14T02:55:07+00:00",
+      "completed_at": "2026-11-14T02:55:07+00:00",
+      "verified_at": "2026-11-14T02:55:09.322204+00:00"
     }
   ],
   "used_source_ids": [
@@ -1870,7 +1897,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-13T21:36:25+00:00",
+  "last_posted_at": "2026-11-14T02:55:07+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2001,6 +2028,12 @@
       "kind": "reply",
       "completed_at": "2026-11-13T21:36:25+00:00",
       "tweet_id": "2121356534630252708"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:5",
+      "kind": "reply",
+      "completed_at": "2026-11-14T02:55:07+00:00",
+      "tweet_id": "2121436737071182105"
     }
   ],
   "last_attempts": {
@@ -2014,28 +2047,5 @@
     }
   },
   "reply_rejections": {},
-  "outbox": {
-    "text": "A 30x cost difference for similar scores is a massive gap for anyone trying to scale agentic workflows.",
-    "event_key": "Artificial Analysis Coding Agent Index v2.1 release",
-    "premise": "Artificial Analysis released Coding Agent Index v2.1 with upgraded benchmarks, showing Claude Fable 5.2 and Claude Opus 5.5 leading with scores of 58, while noting a 30x cost variance among high-scoring models.",
-    "slot": "2026-11-14:reply-v1:5",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T02:55:05.129070+00:00",
-    "source": {
-      "id": "2121393821955334328",
-      "url": "https://x.com/ArtificialAnlys/status/2121393821955334328",
-      "author": "ArtificialAnlys",
-      "author_id": "1743487864934162432",
-      "text": "Announcing Artificial Analysis Coding Agent Index v2.1, upgrading FrontierCode and Terminal-Bench. Claude Fable 5.2 and Claude Opus 5.5 share the lead at 58\n\nThe Coding Agent Index measures models in agent harnesses; v2.1 of the Index upgrades FrontierCode from 1.1 to 2.0 and Terminal-Bench from 4.0 to 4.1.\n\nUpgraded:\n\n➤ FrontierCode-AA 2.0 (replacing FrontierCode v1.1): our implementation of Cognition's FrontierCode 2.0, comprising 132 real-world coding tasks graded on whether a repository maintainer would merge the agent's change\n\n➤ Terminal-Bench 4.1 (replacing Terminal-Bench 4.0): the same 66 tasks, scored with updated verifiers that improve reliability and resistance to reward hacking\n\nStaying in the Index: SWE-Atlas-QnA-AA\n\nKey results:\n\n➤ Claude Fable 5.2 and Claude Opus 5.5 share the lead at 58: Claude Fable 5.2 scores 58 at both xhigh and high in Claude Code. Claude Opus 5.5 (max) scores 58 in Claude Code and, paired with GPT-6 Luna High, in Cognition's multi-model harness Devin Fusion CLI. Claude Fable 5.2 (max) scores 56 as more of its attempts hit task time limits. Claude Sonnet 5.5 (max, 56) in Claude Code and Gemini 4 Carbon (high, 55) in Antigravity CLI follow\n\n➤ Index scores are lower in v2.1, driven by the upgrade to FrontierCode-AA 2.0: models score lower by 5 points on average. Codex with GPT-6.1 Terra (max) is the only configuration which didn’t fall between versions, sitting within 1 point of its prior score\n\n➤ Cost per task varies ~30x among configurations scoring 48+: from $1.51 for Codex with GPT-6.1 Sol (max, 52) to $44.22 for Claude Code with Claude Fable 5.2 (max, 56)",
-      "created_at": "2026-11-14T00:04:35+00:00",
-      "views": 51721,
-      "urls": [],
-      "source_ids": [
-        "2121393821955334328"
-      ]
-    },
-    "tweet_id": "2121436737071182105",
-    "sent_at": "2026-11-14T02:55:07.082606+00:00"
-  }
+  "outbox": null
 }
