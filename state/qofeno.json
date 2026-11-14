@@ -2102,6 +2102,7 @@
     "2121464508225053153",
     "2121471758234501493",
     "2121510581471707145",
+    "2121539888260567427",
     "2121541577004757073",
     "2121602766976237610",
     "2121616149129691255"
@@ -2121,6 +2122,7 @@
     "https://github.com/Alishahryar1/free-claude-code",
     "https://github.com/Einsia/Frontier3D",
     "https://github.com/OnlyTerp/turnpack",
+    "https://github.com/cloudflare/security-audit-skill",
     "https://github.com/garrytan/g-harness-evals/blob/cc8619d977f126ddb6d8f03a4b6cd02c5634c1bc/docs/benchmarks/2026-11-12-fable-5-2-coding-cc322/report.md",
     "https://github.com/virgiliojr94/book-to-skill",
     "https://goo.gle/480yn2n",
@@ -2200,6 +2202,7 @@
     "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2",
     "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0",
     "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79",
+    "9e90fa724f3e446f669d4d7e5b1c040e5d5a12f6513bd8638789853da7aab278",
     "a1cc2bc4b38cd1851156edafab6ddf900a2d59fb30285e7ef69867dd7b01695b",
     "a230b16a8a12050e02fa000cfb4005bc016fa8cba7246a114396efabaae2c18e",
     "a55dd5215bdadc1c904a3682ed2128b35b9779aa7cb88b789f65cd3611122348",
@@ -2464,6 +2467,7 @@
     "99462282df8e89075f38ec62ccf18fb49834c82a904bc21ba46589d21f330d33",
     "99689428ae5422e0e0c32a4f4168d1c175aec290810a47a7634e6452d0dfaedf",
     "99a4765e67238fe03fb858f7bcca9f08882abef417f63139a1bc023617ebf8a6",
+    "9a57b34d688807ce6cae027fe9835505371d0559376f5b503cf6a3739078ad7d",
     "9ac5b7d68771a591fceb073f8af3729f759e1d9d0c04d201c13134b6af881493",
     "9b5b4d97edb0828833f86c171d3b542a1b619287e6efd17d970aca9f6f56eef7",
     "9b6800a040050009789266ab374b901999257eed2aae127997f9deb49970674a",
@@ -2725,10 +2729,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1498,
+    "neurons_reserved": 1452,
     "requests": 80,
     "hour": "2026-11-14T19",
-    "hour_neurons_reserved": 100,
+    "hour_neurons_reserved": 54,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2992,5 +2996,28 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Does it support scanning private repositories?",
+    "event_key": "Cloudflare releases an AI-driven security auditing skill for coding agents.",
+    "premise": "Cloudflare released a skill that uses multi-agent AI workflows to perform security audits on codebases.",
+    "slot": "2026-11-14:reply-v1:39",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T19:46:27.996706+00:00",
+    "source": {
+      "id": "2121539888260567427",
+      "url": "https://x.com/RoundtableSpace/status/2121539888260567427",
+      "author": "RoundtableSpace",
+      "author_id": "1536693901230321666",
+      "text": "Cloudflare gave away the skill that started its own AI bug-hunting system. 72,000 stars.\n\nIt turns your coding agent into a security auditor:\n•⁠  ⁠Maps your app, its inputs and its trust boundaries first\n•⁠  ⁠Sends separate AI hunters after each part of the code\n•⁠  ⁠Every bug they find goes to a fresh AI that tries to prove it wrong\n•⁠  ⁠Only bugs that survive get marked confirmed\n•⁠  ⁠Writes a full report with every finding and how it was checked\n\nUse it:\n1.⁠ ⁠npx skills add https://t.co/ptOfJggqQB --skill security-audit\n2.⁠ ⁠Open your coding agent in your project\n3.⁠ ⁠Type: security audit this codebase\n\nRun it before hackers do.",
+      "created_at": "2026-11-14T09:45:00+00:00",
+      "views": 46826,
+      "urls": [
+        "https://github.com/cloudflare/security-audit-skill"
+      ],
+      "source_ids": [
+        "2121539888260567427"
+      ]
+    }
+  }
 }
