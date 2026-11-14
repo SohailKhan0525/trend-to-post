@@ -1413,6 +1413,7 @@
     "2121059953649819771",
     "2121062974161092792",
     "2121181844570017856",
+    "2121233913406214200",
     "2121277531152408782",
     "2121288291655852072",
     "2121319695626518823",
@@ -1460,6 +1461,7 @@
     "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0",
     "51d0a5a37923b89492c5147ac2bf7f2c8fe43388ebaeaa01f9d885a8c1b08a94",
     "521ed6389d4be1a63910a02bc1cdefc6735c71075ebee636e00076c21496fe7e",
+    "5241950cf4e4a124464a1e16136d0cb56251d174902ec313bde67a217174bd6c",
     "537b1bf8ec5863de07582ee92ff061af89ce300584128ca90f76118434f89f2e",
     "545670c4cf571cbf8d382e1e240f7664d189b0d3358b26b14f72b1737ec15083",
     "56b1e9779c40b155a7d6a240caf938d469cd36e57ca410b9c04214ed4f4f8b19",
@@ -1646,6 +1648,7 @@
     "5f8958d1593026286bfabd9e20a6d37a2b1bba27cb5812e7bf6d4e96aae437cb",
     "603d455c852d50911e1d077df55f422fa6735a8c920b824c065df77f959fc769",
     "622db8cabd1784e55e59d467c6e63f1c27d34b89d8d37ff5c7c1cc8ca6ee98f3",
+    "642b9b56fd3ce5ef1b40f93c92726b44ec4673c05d4b3325b06d12c7e2bb919f",
     "64699c65afde87ef74972e7f485d41a99075260578647b9092dee6368ab46b83",
     "656b59f76f8910bceee13ee91594780551a386828c21f32a01e046d5dfccd3cb",
     "66a944a536be8a945d980dbde56a221ead3479294ec52f22acc2b21723a75d79",
@@ -1980,10 +1983,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 369,
+    "neurons_reserved": 319,
     "requests": 7,
     "hour": "2026-11-14T03",
-    "hour_neurons_reserved": 322,
+    "hour_neurons_reserved": 272,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2047,5 +2050,26 @@
       "until": "2026-11-14T09:25:15.282501+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Turning a diff into a narrative is a massive leap over just scrolling through line changes. Will the visual diagrams be generated automatically from the code structure?",
+    "event_key": "GitHub Copilot testing Code Tour feature",
+    "premise": "GitHub is testing Code Tour in the Copilot app to turn code reviews into readable chapters and visual diagrams alongside a new UI.",
+    "slot": "2026-11-14:reply-v1:7",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T03:45:40.030462+00:00",
+    "source": {
+      "id": "2121233913406214200",
+      "url": "https://x.com/lichinlin/status/2121233913406214200",
+      "author": "lichinlin",
+      "author_id": "713972038180864001",
+      "text": "We’re testing Code Tour in the GitHub Copilot app:\n\nCode review is more than reading diffs, it’s about understanding the story behind the changes. We want to turn context into readable chapters, visual diagrams, and lets you tune how the story is told.\n\nComing soon alongside our new GitHub 2.0 UI! 🚀",
+      "created_at": "2026-11-13T13:29:10+00:00",
+      "views": 11166,
+      "urls": [],
+      "source_ids": [
+        "2121233913406214200"
+      ]
+    }
+  }
 }
