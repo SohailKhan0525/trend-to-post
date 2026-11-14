@@ -1724,6 +1724,35 @@
       "posted_at": "2026-11-14T16:19:57+00:00",
       "completed_at": "2026-11-14T16:19:57+00:00",
       "verified_at": "2026-11-14T16:19:59.485151+00:00"
+    },
+    {
+      "text": "The architect still holds the most critical role. 🏗️",
+      "event_key": "KayserSW releases a language assistant app built primarily with AI-generated code.",
+      "premise": "KayserSW built a language assistant app using Opus 5.5, noting that while AI writes code fast, human architectural and product decisions remain essential.",
+      "slot": "2026-11-14:reply-v1:33",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T16:35:23.156118+00:00",
+      "source": {
+        "id": "2121541577004757073",
+        "url": "https://x.com/KayserSW/status/2121541577004757073",
+        "author": "KayserSW",
+        "author_id": "65870411",
+        "text": "Hi everyone! A while ago I built an app for myself to help with my English, and I've finally pushed it all the way to the App Store (mostly because I wanted to take the whole exercise to a proper \"done\" 🙂) - so I'd like to share it.\n\nApp Store: https://t.co/evRwmxcjrX\n\nWebsite: https://t.co/90OuLXZn7b\n\nGist It is less of a translator and more of a language assistant:\n• explains linguistic and cultural nuances\n• helps you get the meaning - both of what's being said and of what's going on\n• suggests ready-made phrases so you can get your point across precisely\n• collects idioms and interesting words into flash cards and trains them with spaced repetition\n• lock screen widgets give quick access to the features you need\n\nMost features are free. Only the \"heavy\" calls to external services - like live speech translation - sit behind a subscription, priced as low as I could make it.\n\nIt works with any native/target pair of six languages: English, French, Russian, German, Spanish, Italian.\n\nIn case it's useful to anyone - I'd be glad if you gave it a try, shared it with people who might find it helpful, and told me what you think 🙂\n\nP.S. Answering the obvious questions up front 🙂\n\n• Yes, Opus 5.5 wrote all of the code\n• No, I didn't edit it myself - I read the code, but often asked it to change or redo things\n• No, it didn't get the architecture right on its own - I had to correct it a lot: optimise calls, explicitly ask for caching, define the API call flows, etc.\n• Debugging took a couple of months - I ran every scenario myself, fixed, adjusted, moved buttons around, and spent a lot of time thinking about how to make it \"convenient and fast\"\n\nTakeaway: an LLM fully replaces coding, but it doesn't replace the architect, the tester, the product person and so on. It writes code much better than many mid-level devs and hundreds of times faster than seniors, but it won't do the thinking behind \"let's do it differently / start over / no, not the way you did it here\" 🙂",
+        "created_at": "2026-11-14T09:51:42+00:00",
+        "views": 285829,
+        "urls": [
+          "https://apps.apple.com/gb/app/gist-it/id6775965170"
+        ],
+        "source_ids": [
+          "2121541577004757073"
+        ]
+      },
+      "tweet_id": "2121643177417593065",
+      "sent_at": "2026-11-14T16:35:26.120381+00:00",
+      "posted_at": "2026-11-14T16:35:26+00:00",
+      "completed_at": "2026-11-14T16:35:26+00:00",
+      "verified_at": "2026-11-14T16:35:28.399215+00:00"
     }
   ],
   "used_source_ids": [
@@ -2484,7 +2513,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T16:19:57+00:00",
+  "last_posted_at": "2026-11-14T16:35:26+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2741,6 +2770,12 @@
       "kind": "follow",
       "completed_at": "2026-11-14T16:19:57+00:00",
       "tweet_id": "2121639281697693796"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:33",
+      "kind": "reply",
+      "completed_at": "2026-11-14T16:35:26+00:00",
+      "tweet_id": "2121643177417593065"
     }
   ],
   "last_attempts": {
@@ -2795,30 +2830,5 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": {
-    "text": "The architect still holds the most critical role. 🏗️",
-    "event_key": "KayserSW releases a language assistant app built primarily with AI-generated code.",
-    "premise": "KayserSW built a language assistant app using Opus 5.5, noting that while AI writes code fast, human architectural and product decisions remain essential.",
-    "slot": "2026-11-14:reply-v1:33",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T16:35:23.156118+00:00",
-    "source": {
-      "id": "2121541577004757073",
-      "url": "https://x.com/KayserSW/status/2121541577004757073",
-      "author": "KayserSW",
-      "author_id": "65870411",
-      "text": "Hi everyone! A while ago I built an app for myself to help with my English, and I've finally pushed it all the way to the App Store (mostly because I wanted to take the whole exercise to a proper \"done\" 🙂) - so I'd like to share it.\n\nApp Store: https://t.co/evRwmxcjrX\n\nWebsite: https://t.co/90OuLXZn7b\n\nGist It is less of a translator and more of a language assistant:\n• explains linguistic and cultural nuances\n• helps you get the meaning - both of what's being said and of what's going on\n• suggests ready-made phrases so you can get your point across precisely\n• collects idioms and interesting words into flash cards and trains them with spaced repetition\n• lock screen widgets give quick access to the features you need\n\nMost features are free. Only the \"heavy\" calls to external services - like live speech translation - sit behind a subscription, priced as low as I could make it.\n\nIt works with any native/target pair of six languages: English, French, Russian, German, Spanish, Italian.\n\nIn case it's useful to anyone - I'd be glad if you gave it a try, shared it with people who might find it helpful, and told me what you think 🙂\n\nP.S. Answering the obvious questions up front 🙂\n\n• Yes, Opus 5.5 wrote all of the code\n• No, I didn't edit it myself - I read the code, but often asked it to change or redo things\n• No, it didn't get the architecture right on its own - I had to correct it a lot: optimise calls, explicitly ask for caching, define the API call flows, etc.\n• Debugging took a couple of months - I ran every scenario myself, fixed, adjusted, moved buttons around, and spent a lot of time thinking about how to make it \"convenient and fast\"\n\nTakeaway: an LLM fully replaces coding, but it doesn't replace the architect, the tester, the product person and so on. It writes code much better than many mid-level devs and hundreds of times faster than seniors, but it won't do the thinking behind \"let's do it differently / start over / no, not the way you did it here\" 🙂",
-      "created_at": "2026-11-14T09:51:42+00:00",
-      "views": 285829,
-      "urls": [
-        "https://apps.apple.com/gb/app/gist-it/id6775965170"
-      ],
-      "source_ids": [
-        "2121541577004757073"
-      ]
-    },
-    "tweet_id": "2121643177417593065",
-    "sent_at": "2026-11-14T16:35:26.120381+00:00"
-  }
+  "outbox": null
 }
