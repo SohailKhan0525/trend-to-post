@@ -1882,6 +1882,7 @@
     "83d22c2ef2b06f62972bb31be2fb11f5230df8a5fe857efc7997f45499de134a",
     "84c756ecdeea9a1170eda072f3fa19d95e5011e53469b8912c6656da45e783ac",
     "851d09e3cc74781f1d16d160cd38a2d0f6cf697e5556c551277977e5fc5e30cb",
+    "866946d0930962396a3c4ebfcc7d0009c6159c64363902bbb56db974f10aceba",
     "869e12ac4adb9940a9de81fc18a0f2e695fff82cd4fe9bd20988c438c3e8a057",
     "86eeb465080d39b53612668e0b6649def97a3ceb7545f01c2c2585c48ba440ec",
     "87137c6d2bff82a08df650ebf1e301596f9438ea28801032dbc21030f3f60703",
@@ -2166,10 +2167,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 634,
+    "neurons_reserved": 590,
     "requests": 25,
     "hour": "2026-11-14T06",
-    "hour_neurons_reserved": 203,
+    "hour_neurons_reserved": 159,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2285,5 +2286,12 @@
       "until": "2026-11-14T12:35:35.435335+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Follow me now before it's too late. I will post about the trade-offs between using local models and cloud APIs for coding tasks. 🤖",
+    "event_key": "follow:866946d0930962396a3c4ebfcc7d0009c6159c64363902bbb56db974f10aceba",
+    "slot": "2026-11-14:follow-v1:0",
+    "kind": "follow",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T06:49:51.615298+00:00"
+  }
 }
