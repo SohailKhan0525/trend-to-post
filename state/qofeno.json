@@ -2187,6 +2187,7 @@
     "2121456182183551028",
     "2121464508225053153",
     "2121471758234501493",
+    "2121485281744531496",
     "2121510581471707145",
     "2121539888260567427",
     "2121541577004757073",
@@ -2273,6 +2274,7 @@
     "77ebe396a81073b0801ce3b1e4b0b667c1c5bebf3c48f8b572f8e7e9f545e028",
     "78f3801cdbdc0a840fe93275775a60ff241cc4d4929c1db491cabfcada9f6349",
     "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf",
+    "79b55b2722af16254f9800fde3285c418800470c28cdd9a0857e24239551830f",
     "7ad785e8114fff5741705dafca09d360324a947c4764d25f89504c41bd56b2ad",
     "7bb0952091e6c967881599f0abf1c0f27c4e10db00ad33e18a0f8e50dfb24689",
     "7eb3253880a6ec22eabeb0fde5cda755749276a0df0289bcc67df911fa783fcb",
@@ -2514,6 +2516,7 @@
     "7afe21cd4e6c83e96601af11578ce9e1422b1d7db74f784df2042569325086d7",
     "7cbe47760e1048f659841f63329ad215a866bd2e84ab05eb6f0cb085043d024a",
     "7cedf76a0088ca79f791a7187fb423ca47b57ba73af5567179dace04891787a8",
+    "7e562cf4e049a26b4ba4b9bd28ab047cd26e05da63ce909b685aec0b65471745",
     "7f20c2f83c1b13393a9f835dbae2f9124187a2eb73a790d9f0b12c15ea71b016",
     "7f66f38020979bed96d9ee64a8f587fe8b7251348f22b162bdaa861783697ad9",
     "80d9d5aceed9d2ee8007a653800458ca3f6f434181e5ac6967e265ec4f333408",
@@ -2823,10 +2826,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1579,
+    "neurons_reserved": 1535,
     "requests": 86,
     "hour": "2026-11-14T21",
-    "hour_neurons_reserved": 69,
+    "hour_neurons_reserved": 25,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3102,5 +3105,26 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Mobile notifications for terminal agents solve the context switch problem. 📱",
+    "event_key": "Author shares implementation details and challenges of building a mobile-notifying terminal agent.",
+    "premise": "The author implemented an always-on agent inspired by Anthropic that sends mobile notifications when it pauses.",
+    "slot": "2026-11-14:reply-v1:42",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T21:17:15.013165+00:00",
+    "source": {
+      "id": "2121485281744531496",
+      "url": "https://x.com/AlchainHust/status/2121485281744531496",
+      "author": "AlchainHust",
+      "author_id": "232519529",
+      "text": "读了DeepSeek的Super-agent和Anthropic的Building always-on agents两篇，照着后一篇在FanBox里做了一版：终端里的agent停下来等你，而你不在电脑前，手机（微信或飞书）会收到它的一句话。两篇文章讲了什么、我们照着做踩到的四件事，都写在里面了。 https://t.co/BqA2aTsPsq",
+      "created_at": "2026-11-14T06:08:01+00:00",
+      "views": 12753,
+      "urls": [],
+      "source_ids": [
+        "2121485281744531496"
+      ]
+    }
+  }
 }
