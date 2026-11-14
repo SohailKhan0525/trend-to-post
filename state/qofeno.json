@@ -1980,10 +1980,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 257,
-    "requests": 4,
+    "neurons_reserved": 288,
+    "requests": 5,
     "hour": "2026-11-14T03",
-    "hour_neurons_reserved": 210,
+    "hour_neurons_reserved": 241,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
