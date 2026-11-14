@@ -35,6 +35,8 @@ Pick the reply_mode that this particular post earns:
 - observation: Give a concrete take, practical consequence or answer to the author.
   Be straightforward about a serious bug or lost work. When a question is unavailable,
   offer something useful from the source. Never disguise a question as a statement.
+  For a tutorial, pick a step that matters. A tool suggesting an update does not prove
+  the audit takes less time. Skip generic productivity claims and sales language.
 
 Aim for 4–12 words, one thought, at most 100 weighted characters. Use plain conversational
 English. Skip praise, recaps, generic reactions and follow-up questions after punchlines.
@@ -64,7 +66,8 @@ booleans and source_evidence. Every boolean must be true to publish.
   media, an author handle or assumed facts. Fail ambiguous captions.
 - grounded: verify every factual claim, number, entity and question premise in all three
   draft fields against the source. Keep caveats intact. Lower cost does not imply better
-  efficiency or a quality tradeoff. Do not convert a month into a model name.
+  efficiency or a quality tradeoff. Automating a step does not establish time savings.
+  Do not convert a month into a model name.
 - tone_fits: read the original first. A joke needs a funny premise you can point to AND a
   playful payoff specific to it. Fail a jab at a sincere problem or an insult to an author.
   For a plainly playful post, fail a generic interview question that misses the joke. A
@@ -87,6 +90,12 @@ detail that leaves it open. Never stitch excerpts together, quote the draft or s
 
 FLAGS = ('grounded', 'relevant', 'safe', 'specific', 'added_angle', 'non_repetitive', 'honest', 'natural', 'context_complete', 'tone_fits')
 SOURCE_FLAGS = ('relevant', 'safe', 'context_complete')
+LARGE_TIME_SAVING = re.compile(
+    r'\b(?:saves?|saving|saved)\s+(?:a\s+)?(?:significant|considerable|substantial|massive|huge)\s+'
+    r'(?:amount\s+of\s+)?(?:[\w-]+\s+){0,3}time\b', re.I)
+SOURCE_TIME_SAVING = re.compile(
+    r'\b(?:sav(?:e[ds]?|ing)|cut(?:s|ting)?|reduc(?:e[ds]?|ing))\b[^.!?\n]{0,80}\b(?:time|hours?|minutes?|seconds?)\b'
+    r'|\b(?:takes?|took|spend|spent)\s+(?:\w+\s+){0,2}less\s+time\b', re.I)
 NUMBER = re.compile(r'\d+(?:[.,]\d+)*(?:%|％)?')
 LINK_OR_TAG = re.compile(r'https?[:：]|www\.|[@＠#＃]|(?:[\w-]+\.)+(?:com|org|net|io|ai|dev|co|app|me|edu)\b', re.I)
 INJECTION = re.compile(r'ignore\s+(?:all\s+|any\s+|the\s+|previous\s+|above\s+)*(?:instructions|rules|prompts)|override\s+(?:the\s+)?(?:rules|instructions)|output exactly|return only (?:json|the)|you are now|</?(?:system|developer|instructions)\b', re.I)
@@ -199,6 +208,8 @@ def validate(draft, source):
             raise DraftError('A currency claim is not present in the source')
     text = draft['text']
     words = normalized(text)
+    if LARGE_TIME_SAVING.search(text) and not SOURCE_TIME_SAVING.search(source_text):
+        raise DraftError('The source does not report a time saving. Pick one concrete step or decision instead.')
     if (len(words.split()) < 2 or words in EMPTY_REACTIONS or GENERIC.search(text) or PADDED_PRAISE.search(text)
             or PROMO.search(text) or EXPERIENCE.search(text)):
         raise DraftError('Use a specific reply without canned praise, promotion or invented experience')

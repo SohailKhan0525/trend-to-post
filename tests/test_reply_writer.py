@@ -93,6 +93,26 @@ class ReplyWriterTests(unittest.TestCase):
                 writer.generate(SOURCE, {}, NOW)
         self.assertEqual(calls.call_count, 2)
 
+    def test_live_audit_time_claim_needs_a_time_saving_in_the_source(self):
+        source = {**SOURCE, 'text': 'Copilot suggests NuGet updates. Apply the changes, then run your tests.'}
+        draft = {'text': 'A suggested update still has to pass the tests.',
+                 'premise': 'Copilot suggests NuGet updates for the developer to apply and test.',
+                 'event_key': 'Testing suggested NuGet dependency updates'}
+        assessment = {**ASSESSMENT, **draft, 'reply_mode': 'observation'}
+        published = 'Automating the vulnerability review saves significant manual audit time.'
+        original = {**assessment, 'text': published}
+        result, calls = self.generate([original, assessment, {**VERDICT, 'source_evidence': source['text']}], source)
+        self.assertEqual(result, draft)
+        self.assertEqual(calls.call_count, 3)
+        self.assertIn('time saving', calls.call_args_list[1].args[1]['correction'].lower())
+        self.assertEqual(calls.call_args_list[-1].args[1]['draft'], draft)
+
+        finding = 'Our audit logs show that automating the vulnerability review saved significant manual audit time.'
+        measured = {**source, 'text': source['text'] + ' ' + finding}
+        result, calls = self.generate([original, {**VERDICT, 'source_evidence': finding}], measured)
+        self.assertEqual(result['text'], published)
+        self.assertEqual(calls.call_count, 2)
+
     def test_comparative_praise_before_a_question_gets_one_repair(self):
         source = {**SOURCE, 'text': 'Code Tour turns diffs into readable chapters and visual diagrams.'}
         draft = {'text': 'Will the visual diagrams be generated automatically from the code structure?',
