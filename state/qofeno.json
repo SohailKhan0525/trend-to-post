@@ -1984,6 +1984,7 @@
     "2121436843216650733",
     "2121456182183551028",
     "2121464508225053153",
+    "2121471758234501493",
     "2121510581471707145",
     "2121541577004757073",
     "2121602766976237610"
@@ -2003,6 +2004,7 @@
     "https://github.com/Einsia/Frontier3D",
     "https://github.com/OnlyTerp/turnpack",
     "https://github.com/garrytan/g-harness-evals/blob/cc8619d977f126ddb6d8f03a4b6cd02c5634c1bc/docs/benchmarks/2026-11-12-fable-5-2-coding-cc322/report.md",
+    "https://github.com/virgiliojr94/book-to-skill",
     "https://goo.gle/480yn2n",
     "https://huggingface.co/spaces/joelniklaus/harness-leaderboard",
     "https://lab.einsia.ai/frontier3dbench",
@@ -2102,6 +2104,7 @@
     "e958b8976a7fef12420b0057b6b08eadb6f0981a8709cdc4421806959782d996",
     "e9c9ad1ee2183d62ea44864b95aa0d37d60f54a0db8c560d8702659db85f2982",
     "f0affb88a5465d28dd777a32cb2e844362475121f27a93c77154c15964ad782c",
+    "f0f3be5202aa1058e61ef2f8fab622a9f4e3f97a6f1379d3272540d79f8e0bde",
     "f23096426f2504b486ba7a148b7ef9e4c9dac32e5ebb413feb45d3ba8c70f2ba",
     "f66304d0fc9c683a16683d3757e824ffc470e81371770e936a4836a55cd81a17",
     "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd",
@@ -2456,6 +2459,7 @@
     "e1fe5a1c679af6394a37e467cf93fd6f388c473da34288c5b0bf784656543e61",
     "e2c5be7d3db34253f3dd41887497a93076943d05aba21b5b478a9a8681b9a43c",
     "e3188425f09be6dbe130c785f08b2d88f5fde3aaae44281fae10a11a9df944a7",
+    "e4252544eae60b33ce572e12d01f672f556a0da5a8a79095b2ab6a0773b1ad00",
     "e43aaec20de5794d2d4b8ead844a4ab02eed67538ed89629c255af21d78eb280",
     "e4ff4f426f7d43e64559ed4d583e723bdd2289d4be23076d8612c15c1fd7a052",
     "e55a8695b62897b17643506fbde94b7b3f7ae8a45a4e5fd9e4071d66348a6a32",
@@ -2596,10 +2600,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1374,
+    "neurons_reserved": 1332,
     "requests": 71,
     "hour": "2026-11-14T17",
-    "hour_neurons_reserved": 67,
+    "hour_neurons_reserved": 25,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2831,5 +2835,28 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Does this work with offline documentation?",
+    "event_key": "Converting technical books into agent skills for coding tools.",
+    "premise": "The author converts technical books into structured agent skills for Claude Code and GitHub Copilot CLI.",
+    "slot": "2026-11-14:reply-v1:34",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T17:25:41.969400+00:00",
+    "source": {
+      "id": "2121471758234501493",
+      "url": "https://x.com/tom_doerr/status/2121471758234501493",
+      "author": "tom_doerr",
+      "author_id": "1326180756310331399",
+      "text": "turns technical books into structured agent skills for Claude Code and GitHub Copilot CLI\n\nhttps://t.co/GFnX15PgCP https://t.co/4abdGmHboO",
+      "created_at": "2026-11-14T05:14:16+00:00",
+      "views": 11835,
+      "urls": [
+        "https://github.com/virgiliojr94/book-to-skill"
+      ],
+      "source_ids": [
+        "2121471758234501493"
+      ]
+    }
+  }
 }
