@@ -1884,6 +1884,7 @@
     "2121400217526505567",
     "2121430939029159979",
     "2121436843216650733",
+    "2121456182183551028",
     "2121464508225053153",
     "2121510581471707145"
   ],
@@ -1894,6 +1895,7 @@
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash",
     "https://composio.dev/instant",
     "https://deepai.org/chat/ai-code",
+    "https://e2e.com/blog/5-tips-for-writing-good-agentic-tests",
     "https://fia.com/news/yangwang-u9-xtreme-surpasses-500-kmh-speed-achievement-recognised-fia",
     "https://github.blog/changelog/2026-11-13-gemini-4-hydrogen-in-github-copilot",
     "https://github.com/Alishahryar1/free-claude-code",
@@ -1925,6 +1927,7 @@
     "1d4ec3e76872c0cd62ff57ad9a24065663dc97d07c5a4f59299200be9d123c1b",
     "242b0770444069ac8ff64730834a878fc112485b0ea6ba0f2f18f57a1a4fd3fb",
     "28d116a946692352da13819ca098b11c72017aefe9e35254ea0979323a75e839",
+    "2a23f565daf11dd6473e4be914e5a4d5abe672f085b502a47ad8049030454e18",
     "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2",
     "32bdc0b3cb47e03a90537e35d15ec94eecfb9960b3996194f4c359f67e5d3fa9",
     "32ed124f514d1d80315822cd8103542fec2f4ad138e2be5d20cff105e7f0fc73",
@@ -2108,6 +2111,7 @@
     "46de184966ca69f2356a5468f5e5cff91563a99cd989306bdc96f6294d398c57",
     "48d2e260cbb565bff9966641dc9d78777f464deda312f2fb2869ada81f6f8892",
     "48f81fcb36e35631d44506829b4cf21b542e44f3efdb2116472cecfb0d83bd83",
+    "4906d365a30567c7b4dc137d986f0102a9c3281087c8afd1cc25577bc7d88a8f",
     "495bd61f49db9d5e171a05f88524e3aa0c30a3d49aeedb61e89e98f869315277",
     "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00",
     "49ee2a63032cad49412a6f47614cb715063ab8769166450b111f757f854a76fa",
@@ -2486,10 +2490,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1272,
+    "neurons_reserved": 1219,
     "requests": 63,
     "hour": "2026-11-14T15",
-    "hour_neurons_reserved": 86,
+    "hour_neurons_reserved": 33,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2695,5 +2699,28 @@
       "until": "2026-11-14T20:25:26.626906+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Using API data as the ground truth prevents hallucinated assertions. 🛠️",
+    "event_key": "Summary of best practices for AI-powered end-to-end testing frameworks.",
+    "premise": "The author summarizes core engineering practices for an AI-driven e2e testing framework, emphasizing intent-based testing, dynamic waiting, API-driven validation, atomicity, and automated debugging.",
+    "slot": "2026-11-14:reply-v1:30",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T15:05:32.683291+00:00",
+    "source": {
+      "id": "2121456182183551028",
+      "url": "https://x.com/hungryturbo/status/2121456182183551028",
+      "author": "hungryturbo",
+      "author_id": "1125056504816553985",
+      "text": "AI 时代的 e2e 测试该怎么做?\n\n最近 GitHub 斩获 13.8k Star，刚拿了 800 万美金融资的开源 AI 测试框架 e2e，其创始团队技术布道师 Kacper Kapuściak 写了一篇非常扎实的工程实践，下面总结几条核心内容：\n\n1、测用户意图目标，而非前端实现，越过 DOM 节点与 test-id 绑定，直接用自然语言向 Agent 下达具体，收敛的业务意图。由 AI 自主感知界面完成选日期，点生成等交互，哪怕前端重构组件库，测试照样稳定。\n\n2、废弃拖慢 CI 流水线的固定 Sleep 读秒，改用带超时上限的 AI 动态条件等待。忽略Loading 消失这类弱的 UI 信号，直接等上月报表已打开可查看等强业务状态，并将负责异步加载的动态等待，与只抓拍当前画面的瞬时断言严格解耦。\n\n3、执行 Agent 汇报点击完成，不能代表报表没空数据或串数据，更不能让大模型盲猜什么才是正确的画面。必须先从后端 API 查出真实任务列表作为唯一真值源，再调用独立的 AI Judge，严格比对屏幕渲染明细与 API 底账。\n\n4、严禁测试用例之间产生顺序依赖，开跑前通过可复用的 Fixture 调接口独立构造专属工作区与测试数据，跑完后在生命周期钩子中自动清理还原，确保单测重试或并发执行绝对幂等。\n\n5、将“生成报表，下载 CSV，发邮件”拆成命名清晰的独立原子测试。一旦断言失败，框架自动打包故障追踪轨迹，涵盖前置步骤、应用日志、Agent 推理上下文与屏幕快照，不仅人类能秒级定位，更能直接喂给 Coding Agent 自动修 Bug。\n\n传送门：https://t.co/nVZ7UOAPsd",
+      "created_at": "2026-11-14T04:12:23+00:00",
+      "views": 13187,
+      "urls": [
+        "https://e2e.com/blog/5-tips-for-writing-good-agentic-tests"
+      ],
+      "source_ids": [
+        "2121456182183551028"
+      ]
+    }
+  }
 }
