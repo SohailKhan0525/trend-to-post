@@ -1896,6 +1896,36 @@
       "posted_at": "2026-11-14T19:46:30+00:00",
       "completed_at": "2026-11-14T19:46:30+00:00",
       "verified_at": "2026-11-14T19:46:32.286264+00:00"
+    },
+    {
+      "text": "Automating the CI monitoring phase saves significant manual overhead. 🛠️",
+      "event_key": "Introduction of Theo's agent skills for automated PR and CI workflows.",
+      "premise": "Theo introduced five agent skills for Codex and Claude Code to automate PR management, CI monitoring, and code review consensus.",
+      "slot": "2026-11-14:reply-v1:40",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T20:16:43.417549+00:00",
+      "source": {
+        "id": "2121593777311613278",
+        "url": "https://x.com/Yarad_ai/status/2121593777311613278",
+        "author": "Yarad_ai",
+        "author_id": "2711114985",
+        "text": "یکی از مشکلات Agentهای برنامه‌نویسی اینه که کد رو می‌نویسن، اما بعدش این شما هستید که باید PR رو پیگیری کنید، خطاهای CI رو بررسی کنید و تا زمان Merge شدن همه‌چیز رو زیر نظر داشته باشید!\n\nTheo به‌تازگی مجموعه‌ای از Agent Skills رو معرفی کرده که دقیقاً برای حل همین مشکل ازشون استفاده می‌کنه.\n\nاین مجموعه ۵ دستور کاربردی داره:\n\n۱. Council\nسه مدل هوش مصنوعی از شرکت‌های مختلف کد شما رو بررسی می‌کنن و این روند ادامه پیدا می‌کنه تا به یک توافق مشترک برسن.\n\n۲. Full Send\nتغییرات رو از مرحله نوشتن کد تا ساخت PR و Merge شدن کامل پیش می‌بره؛ بدون اینکه مجبور باشید تمام مراحل رو دستی مدیریت کنید.\n\n۳. Babysit\nوضعیت CI و ابزارهای بررسی کد رو زیر نظر می‌گیره و فقط مشکلات واقعی رو برطرف می‌کنه، نه اینکه بی‌دلیل همه‌چیز رو تغییر بده.\n\n۴. Take Over\nیک PR نیمه‌کاره که توسط شخص دیگه‌ای ایجاد شده رو تحویل می‌گیره، کارهای باقی‌مونده رو انجام می‌ده و اعتبار و مشارکت سازنده اصلی رو هم حفظ می‌کنه.\n\n۵. File a PR\nیک PR کوتاه و مرتب می‌سازه که توضیحاتش رو با بیان مشکل اصلی شروع می‌کنه.\n\nنکته جالب: این مجموعه هم در Codex و هم در Claude Code قابل استفاده است.\n\nروش نصب و راه‌اندازی:\n\nابتدا مخزن پروژه رو دریافت کنید:\n\ngit clone https://t.co/B2HHI7CwL6\n\nسپس پوشه \"skills\" رو به مسیر مربوط به ابزار خودتون کپی کنید:\n\nبرای Codex:\n\ncp -r tstack/skills ~/.codex/skills\n\nبرای Claude Code:\n\ncp -r tstack/skills ~/.claude/skills\n\nبعد با GitHub CLI وارد حساب کاربری‌تون بشید:\n\ngh auth login\n\nحالا کافیه به Agent دستور بدید:\n\nfull send\n\nیا:\n\ncouncil\n\nبه همین سادگی می‌تونید بخشی از فرایند بررسی، رفع ایراد و مدیریت PR رو به Agent بسپارید.\n\n🔗 مخزن GitHub:\nhttps://t.co/B2HHI7CwL6\n\nکانال تلگرام : https://t.co/MO5ikgOb3n",
+        "created_at": "2026-11-14T13:19:08+00:00",
+        "views": 15239,
+        "urls": [
+          "https://github.com/t3dotgg/tstack",
+          "https://t.me/yarad_ai"
+        ],
+        "source_ids": [
+          "2121593777311613278"
+        ]
+      },
+      "tweet_id": "2121698870858219717",
+      "sent_at": "2026-11-14T20:16:44.672041+00:00",
+      "posted_at": "2026-11-14T20:16:44+00:00",
+      "completed_at": "2026-11-14T20:16:44+00:00",
+      "verified_at": "2026-11-14T20:16:46.277895+00:00"
     }
   ],
   "used_source_ids": [
@@ -2680,7 +2710,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T19:46:30+00:00",
+  "last_posted_at": "2026-11-14T20:16:44+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2973,6 +3003,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T19:46:30+00:00",
       "tweet_id": "2121691259391947034"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:40",
+      "kind": "reply",
+      "completed_at": "2026-11-14T20:16:44+00:00",
+      "tweet_id": "2121698870858219717"
     }
   ],
   "last_attempts": {
@@ -3033,31 +3069,5 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": {
-    "text": "Automating the CI monitoring phase saves significant manual overhead. 🛠️",
-    "event_key": "Introduction of Theo's agent skills for automated PR and CI workflows.",
-    "premise": "Theo introduced five agent skills for Codex and Claude Code to automate PR management, CI monitoring, and code review consensus.",
-    "slot": "2026-11-14:reply-v1:40",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T20:16:43.417549+00:00",
-    "source": {
-      "id": "2121593777311613278",
-      "url": "https://x.com/Yarad_ai/status/2121593777311613278",
-      "author": "Yarad_ai",
-      "author_id": "2711114985",
-      "text": "یکی از مشکلات Agentهای برنامه‌نویسی اینه که کد رو می‌نویسن، اما بعدش این شما هستید که باید PR رو پیگیری کنید، خطاهای CI رو بررسی کنید و تا زمان Merge شدن همه‌چیز رو زیر نظر داشته باشید!\n\nTheo به‌تازگی مجموعه‌ای از Agent Skills رو معرفی کرده که دقیقاً برای حل همین مشکل ازشون استفاده می‌کنه.\n\nاین مجموعه ۵ دستور کاربردی داره:\n\n۱. Council\nسه مدل هوش مصنوعی از شرکت‌های مختلف کد شما رو بررسی می‌کنن و این روند ادامه پیدا می‌کنه تا به یک توافق مشترک برسن.\n\n۲. Full Send\nتغییرات رو از مرحله نوشتن کد تا ساخت PR و Merge شدن کامل پیش می‌بره؛ بدون اینکه مجبور باشید تمام مراحل رو دستی مدیریت کنید.\n\n۳. Babysit\nوضعیت CI و ابزارهای بررسی کد رو زیر نظر می‌گیره و فقط مشکلات واقعی رو برطرف می‌کنه، نه اینکه بی‌دلیل همه‌چیز رو تغییر بده.\n\n۴. Take Over\nیک PR نیمه‌کاره که توسط شخص دیگه‌ای ایجاد شده رو تحویل می‌گیره، کارهای باقی‌مونده رو انجام می‌ده و اعتبار و مشارکت سازنده اصلی رو هم حفظ می‌کنه.\n\n۵. File a PR\nیک PR کوتاه و مرتب می‌سازه که توضیحاتش رو با بیان مشکل اصلی شروع می‌کنه.\n\nنکته جالب: این مجموعه هم در Codex و هم در Claude Code قابل استفاده است.\n\nروش نصب و راه‌اندازی:\n\nابتدا مخزن پروژه رو دریافت کنید:\n\ngit clone https://t.co/B2HHI7CwL6\n\nسپس پوشه \"skills\" رو به مسیر مربوط به ابزار خودتون کپی کنید:\n\nبرای Codex:\n\ncp -r tstack/skills ~/.codex/skills\n\nبرای Claude Code:\n\ncp -r tstack/skills ~/.claude/skills\n\nبعد با GitHub CLI وارد حساب کاربری‌تون بشید:\n\ngh auth login\n\nحالا کافیه به Agent دستور بدید:\n\nfull send\n\nیا:\n\ncouncil\n\nبه همین سادگی می‌تونید بخشی از فرایند بررسی، رفع ایراد و مدیریت PR رو به Agent بسپارید.\n\n🔗 مخزن GitHub:\nhttps://t.co/B2HHI7CwL6\n\nکانال تلگرام : https://t.co/MO5ikgOb3n",
-      "created_at": "2026-11-14T13:19:08+00:00",
-      "views": 15239,
-      "urls": [
-        "https://github.com/t3dotgg/tstack",
-        "https://t.me/yarad_ai"
-      ],
-      "source_ids": [
-        "2121593777311613278"
-      ]
-    },
-    "tweet_id": "2121698870858219717",
-    "sent_at": "2026-11-14T20:16:44.672041+00:00"
-  }
+  "outbox": null
 }
