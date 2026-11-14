@@ -2136,10 +2136,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 567,
-    "requests": 19,
+    "neurons_reserved": 580,
+    "requests": 20,
     "hour": "2026-11-14T06",
-    "hour_neurons_reserved": 136,
+    "hour_neurons_reserved": 149,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2241,6 +2241,9 @@
     },
     "73eb40fd8ae7f041e82f358889b21edee9e641ca95793bc5732e414eea30a484": {
       "until": "2026-11-14T12:35:17.472326+00:00"
+    },
+    "0c441218e5d044cab1aad6b3beeae73fb928652b5e3f5636a91280ffa29cc90a": {
+      "until": "2026-11-14T12:35:22.262907+00:00"
     }
   },
   "outbox": null
