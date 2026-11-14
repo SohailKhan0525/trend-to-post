@@ -2629,10 +2629,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1332,
-    "requests": 71,
-    "hour": "2026-11-14T17",
-    "hour_neurons_reserved": 25,
+    "neurons_reserved": 1394,
+    "requests": 72,
+    "hour": "2026-11-14T18",
+    "hour_neurons_reserved": 62,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
