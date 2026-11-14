@@ -1388,7 +1388,8 @@
     "2121181844570017856",
     "2121277531152408782",
     "2121288291655852072",
-    "2121319695626518823"
+    "2121319695626518823",
+    "2121393821955334328"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -1455,6 +1456,7 @@
     "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb",
     "8fa300e11cd7aa06e7da06d5e2166802325594a30c3886f47cad2995069519aa",
     "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c",
+    "9343c37dcb41fb1fad899645e668ccd8a833bf743b1512ebebc9616d741d91d5",
     "95c660fd8d746d68a4f59203ef2b5fc89829ebb3f338686cc6aac9b6474f2fcd",
     "962237cd7326d4281207a2bf044a990ef5a6da344c5a01ea155b5f9c6783a3f2",
     "969353d7054536833563b5ba92a27b6ea34653d51476500e2cbe9f6ef26db218",
@@ -1865,6 +1867,7 @@
     "ff0830000356a93a92b769728c8f83daa8195b083eb71aa548eb7db9e0e730c3",
     "ff1c54b893c1427fe364de2a7d320cbe898817d07aa552bc71a24506ba287945",
     "ff7563f88879241855b97c6219c4f090ac32ecae3a672576fa28d4cd9b959ff4",
+    "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
   "last_posted_at": "2026-11-13T21:36:25+00:00",
@@ -1950,10 +1953,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 118,
+    "neurons_reserved": 47,
     "requests": 2,
     "hour": "2026-11-14T02",
-    "hour_neurons_reserved": 118,
+    "hour_neurons_reserved": 47,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2011,5 +2014,26 @@
     }
   },
   "reply_rejections": {},
-  "outbox": null
+  "outbox": {
+    "text": "A 30x cost difference for similar scores is a massive gap for anyone trying to scale agentic workflows.",
+    "event_key": "Artificial Analysis Coding Agent Index v2.1 release",
+    "premise": "Artificial Analysis released Coding Agent Index v2.1 with upgraded benchmarks, showing Claude Fable 5.2 and Claude Opus 5.5 leading with scores of 58, while noting a 30x cost variance among high-scoring models.",
+    "slot": "2026-11-14:reply-v1:5",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T02:55:05.129070+00:00",
+    "source": {
+      "id": "2121393821955334328",
+      "url": "https://x.com/ArtificialAnlys/status/2121393821955334328",
+      "author": "ArtificialAnlys",
+      "author_id": "1743487864934162432",
+      "text": "Announcing Artificial Analysis Coding Agent Index v2.1, upgrading FrontierCode and Terminal-Bench. Claude Fable 5.2 and Claude Opus 5.5 share the lead at 58\n\nThe Coding Agent Index measures models in agent harnesses; v2.1 of the Index upgrades FrontierCode from 1.1 to 2.0 and Terminal-Bench from 4.0 to 4.1.\n\nUpgraded:\n\n➤ FrontierCode-AA 2.0 (replacing FrontierCode v1.1): our implementation of Cognition's FrontierCode 2.0, comprising 132 real-world coding tasks graded on whether a repository maintainer would merge the agent's change\n\n➤ Terminal-Bench 4.1 (replacing Terminal-Bench 4.0): the same 66 tasks, scored with updated verifiers that improve reliability and resistance to reward hacking\n\nStaying in the Index: SWE-Atlas-QnA-AA\n\nKey results:\n\n➤ Claude Fable 5.2 and Claude Opus 5.5 share the lead at 58: Claude Fable 5.2 scores 58 at both xhigh and high in Claude Code. Claude Opus 5.5 (max) scores 58 in Claude Code and, paired with GPT-6 Luna High, in Cognition's multi-model harness Devin Fusion CLI. Claude Fable 5.2 (max) scores 56 as more of its attempts hit task time limits. Claude Sonnet 5.5 (max, 56) in Claude Code and Gemini 4 Carbon (high, 55) in Antigravity CLI follow\n\n➤ Index scores are lower in v2.1, driven by the upgrade to FrontierCode-AA 2.0: models score lower by 5 points on average. Codex with GPT-6.1 Terra (max) is the only configuration which didn’t fall between versions, sitting within 1 point of its prior score\n\n➤ Cost per task varies ~30x among configurations scoring 48+: from $1.51 for Codex with GPT-6.1 Sol (max, 52) to $44.22 for Claude Code with Claude Fable 5.2 (max, 56)",
+      "created_at": "2026-11-14T00:04:35+00:00",
+      "views": 51721,
+      "urls": [],
+      "source_ids": [
+        "2121393821955334328"
+      ]
+    }
+  }
 }
