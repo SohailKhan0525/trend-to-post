@@ -1826,6 +1826,7 @@
     "2121393821955334328",
     "2121400217526505567",
     "2121430939029159979",
+    "2121436843216650733",
     "2121464508225053153",
     "2121510581471707145"
   ],
@@ -1853,6 +1854,7 @@
     "https://opencode.ai/product/browse",
     "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai",
     "https://reut.rs/4zuYVVD",
+    "https://t.me/CryptoPulseCommunity",
     "https://thinkingmachines.ai/news/inkling-2-small"
   ],
   "used_events": [
@@ -1902,6 +1904,7 @@
     "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e",
     "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf",
     "8996fd45fff847dfa920d45aeb539c516f7d7df0ad33161e4ccfc7caf2f35069",
+    "8e20dde00ed9fa02c026eae048292a6bcde39b9dc279cf1149e2140883108f9c",
     "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb",
     "8fa300e11cd7aa06e7da06d5e2166802325594a30c3886f47cad2995069519aa",
     "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c",
@@ -2006,6 +2009,7 @@
     "2e4cb43ede08309f8f12302574921be6ab32a1a6a5fb13dd11603f1e6d313767",
     "2e4cc06e70b580e674593b13a57f2c646d0fabbdb18f596eae1b82bcce29f2cd",
     "2ea909f93c1889cdc43376c8599c67c4d856be26c95bd04267fc620caa327caf",
+    "2f45a6000cb16390d6cb3a7ca18937a8cb387e20874ced3cb29894b5e62e08c5",
     "2f9798d25edcb64b2a0a819bf95143bfd66a50503c06096866f7ee96e5a5e4b0",
     "2fd77f6c75dc4fab9b8fbd570e50ef325d71618b42d774856a6c0f080f13795b",
     "30606eb7e3eb9e55c53f1b9a60e5ce3455d87b9414c24a77c1e50d02909dd655",
@@ -2423,10 +2427,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1175,
+    "neurons_reserved": 1124,
     "requests": 56,
     "hour": "2026-11-14T13",
-    "hour_neurons_reserved": 80,
+    "hour_neurons_reserved": 29,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2616,5 +2620,28 @@
       "until": "2026-11-14T16:35:38.235650+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Productivity gains often favor capital over entry-level workers.",
+    "event_key": "Anthropic IPO prospectus discusses AI impact on global wages and entry-level employment.",
+    "premise": "Anthropic's IPO filing suggests AI's opportunity lies in the $40T global wage market of knowledge workers rather than just software budgets.",
+    "slot": "2026-11-14:reply-v1:27",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T13:35:01.290531+00:00",
+    "source": {
+      "id": "2121436843216650733",
+      "url": "https://x.com/CryptoPulseGLBL/status/2121436843216650733",
+      "author": "CryptoPulseGLBL",
+      "author_id": "4561656812",
+      "text": "🌏#Hot Topic Analysis🔥🔥🔥\nAnthropic Sees a $40T Opportunity in Global Wages, Not Just Software Budgets\n\nOn November 10, Anthropic filed an updated IPO prospectus, estimating that global knowledge workers represented over $40 trillion in annual wages in 2025. The filing calls this “economic value,” not market size, but frames it as part of the opportunity ahead.⭐️⭐️⭐️\nThe shift reflects AI moving from assisting workers to performing tasks itself. Anthropic research found that entry rates for 22–25-year-olds in AI-exposed jobs fell about 14% from 2022, while overall unemployment has not shown a systematic rise. AI is increasingly targeting cognitive work such as writing, coding and research.🚨🚨🚨\nThe $40 trillion will not simply flow to AI companies. It could be redistributed among businesses, model providers and consumers. But if productivity gains mainly accrue to capital, young workers may face fewer entry-level opportunities and weaker career paths. The bigger question is who benefits from AI-driven productivity.🔥🔥🔥\n\n🔡 Subscribe: Key Crypto Events\n⭐ https://t.co/Jj4P2BJUig",
+      "created_at": "2026-11-14T02:55:32+00:00",
+      "views": 15034,
+      "urls": [
+        "https://t.me/CryptoPulseCommunity"
+      ],
+      "source_ids": [
+        "2121436843216650733"
+      ]
+    }
+  }
 }
