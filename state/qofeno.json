@@ -1530,7 +1530,8 @@
     "2121305802707284332",
     "2121319695626518823",
     "2121392666244186327",
-    "2121393821955334328"
+    "2121393821955334328",
+    "2121464508225053153"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -1543,6 +1544,7 @@
     "https://github.blog/changelog/2026-11-13-gemini-4-hydrogen-in-github-copilot",
     "https://github.com/Alishahryar1/free-claude-code",
     "https://github.com/Einsia/Frontier3D",
+    "https://github.com/garrytan/g-harness-evals/blob/cc8619d977f126ddb6d8f03a4b6cd02c5634c1bc/docs/benchmarks/2026-11-12-fable-5-2-coding-cc322/report.md",
     "https://goo.gle/480yn2n",
     "https://huggingface.co/spaces/joelniklaus/harness-leaderboard",
     "https://lab.einsia.ai/frontier3dbench",
@@ -1567,6 +1569,7 @@
     "242b0770444069ac8ff64730834a878fc112485b0ea6ba0f2f18f57a1a4fd3fb",
     "28d116a946692352da13819ca098b11c72017aefe9e35254ea0979323a75e839",
     "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2",
+    "32bdc0b3cb47e03a90537e35d15ec94eecfb9960b3996194f4c359f67e5d3fa9",
     "32ed124f514d1d80315822cd8103542fec2f4ad138e2be5d20cff105e7f0fc73",
     "33989bc816e7a08eaed36073c9c4ae7a2f37051b7391922537fe603ee7e65ab6",
     "34b461a43032827c11e4ddb5dcfe75a6565fb23f758b55fc7229568aa94cfb96",
@@ -1842,6 +1845,7 @@
     "92c3c4a1db6674e918a4bb72c0f75753e7ef751a5498d2a7efd72d147a3df4b0",
     "92ea92c74206b73e8441a5334a980854417f39bd5e3d44a255ee331f14afe106",
     "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6",
+    "942690ebeadca7f05dfeda427c1861378a39a6bff3fbaa8f10b542d2a07d966d",
     "951cdb3779bd7dd86a62dfb93113719b25d833234ef8f967ba5c309e22f1b754",
     "95a4caa075ec407076524a15d33b3e824c677233e4c97fd4d598bd8be18d8d0f",
     "97fd9c81593988761e1a45682ef1ffca3f3c94354e5cefa1a6c84909c47369ab",
@@ -2103,10 +2107,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 511,
+    "neurons_reserved": 462,
     "requests": 16,
     "hour": "2026-11-14T06",
-    "hour_neurons_reserved": 80,
+    "hour_neurons_reserved": 31,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2201,5 +2205,28 @@
       "until": "2026-11-14T11:46:45.664174+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "The efficiency gap is huge when the solve rate is almost identical. Fable is basically charging a premium for the same result.",
+    "event_key": "Claude Code model performance and cost comparison",
+    "premise": "In Claude Code 2.1.322, Opus 5.5 performs nearly as well as Fable 5.2 on 52 coding tasks but is 2.80x cheaper per solved task.",
+    "slot": "2026-11-14:reply-v1:12",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T06:05:05.393250+00:00",
+    "source": {
+      "id": "2121464508225053153",
+      "url": "https://x.com/garrytan/status/2121464508225053153",
+      "author": "garrytan",
+      "author_id": "11768582",
+      "text": "Keep Opus 5.5 as your coding default in Claude Code. On 52 coding tasks in Claude Code 2.1.322, Fable 5.2 solved about as many (82.7% vs 84.6%) but cost 2.80x as much per solved task.\n\nOpus already solves most of these tasks, though, so telling the two apart will take harder ones.\n\nhttps://t.co/SfIvr9pHNg",
+      "created_at": "2026-11-14T04:45:28+00:00",
+      "views": 11688,
+      "urls": [
+        "https://github.com/garrytan/g-harness-evals/blob/cc8619d977f126ddb6d8f03a4b6cd02c5634c1bc/docs/benchmarks/2026-11-12-fable-5-2-coding-cc322/report.md"
+      ],
+      "source_ids": [
+        "2121464508225053153"
+      ]
+    }
+  }
 }
