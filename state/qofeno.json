@@ -1956,12 +1956,14 @@
     "2121456182183551028",
     "2121464508225053153",
     "2121510581471707145",
+    "2121541577004757073",
     "2121602766976237610"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
     "https://anthropic.com/research/components-of-agent-memory",
     "https://anthropic.com/research/teaching-ai-to-build-scientific-models",
+    "https://apps.apple.com/gb/app/gist-it/id6775965170",
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash",
     "https://composio.dev/instant",
     "https://deepai.org/chat/ai-code",
@@ -2032,6 +2034,7 @@
     "7eb3253880a6ec22eabeb0fde5cda755749276a0df0289bcc67df911fa783fcb",
     "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3",
     "845349d7acaf03efeca14d6f7e4b3e7ba1dc44636e4b0887ad0c803baa00ac20",
+    "847d6558582980f775c3ef2dc67b4fe715a439a0df2c419c5dd2bf7919b9c15d",
     "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e",
     "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf",
     "8996fd45fff847dfa920d45aeb539c516f7d7df0ad33161e4ccfc7caf2f35069",
@@ -2187,6 +2190,7 @@
     "499fbaad9e43f9d089828720f39ab46e7991e61992f00e86d8e386efa3f6ab00",
     "49ee2a63032cad49412a6f47614cb715063ab8769166450b111f757f854a76fa",
     "4a7641de7093e7b0996be548ff3900f085ab27a3eed9e3910721015334ad9cc1",
+    "4a92f9f25ca5282b20758b57779477285438f917e03a5c2f160985749c38c1d0",
     "4b52df40bacff821686d2519734c99c389052118806de222a521d936c20dd23b",
     "4c8e6fc4fc1fdf7b7e1e824d8106e1634b0129b5749104830586f66dd76d20ac",
     "4ca2ed403ed2475404965e15283a2862ceb74c8324af0ab5c28430d05ffbbf37",
@@ -2563,10 +2567,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1362,
+    "neurons_reserved": 1307,
     "requests": 69,
     "hour": "2026-11-14T16",
-    "hour_neurons_reserved": 131,
+    "hour_neurons_reserved": 76,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2791,5 +2795,28 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "The architect still holds the most critical role. 🏗️",
+    "event_key": "KayserSW releases a language assistant app built primarily with AI-generated code.",
+    "premise": "KayserSW built a language assistant app using Opus 5.5, noting that while AI writes code fast, human architectural and product decisions remain essential.",
+    "slot": "2026-11-14:reply-v1:33",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T16:35:23.156118+00:00",
+    "source": {
+      "id": "2121541577004757073",
+      "url": "https://x.com/KayserSW/status/2121541577004757073",
+      "author": "KayserSW",
+      "author_id": "65870411",
+      "text": "Hi everyone! A while ago I built an app for myself to help with my English, and I've finally pushed it all the way to the App Store (mostly because I wanted to take the whole exercise to a proper \"done\" 🙂) - so I'd like to share it.\n\nApp Store: https://t.co/evRwmxcjrX\n\nWebsite: https://t.co/90OuLXZn7b\n\nGist It is less of a translator and more of a language assistant:\n• explains linguistic and cultural nuances\n• helps you get the meaning - both of what's being said and of what's going on\n• suggests ready-made phrases so you can get your point across precisely\n• collects idioms and interesting words into flash cards and trains them with spaced repetition\n• lock screen widgets give quick access to the features you need\n\nMost features are free. Only the \"heavy\" calls to external services - like live speech translation - sit behind a subscription, priced as low as I could make it.\n\nIt works with any native/target pair of six languages: English, French, Russian, German, Spanish, Italian.\n\nIn case it's useful to anyone - I'd be glad if you gave it a try, shared it with people who might find it helpful, and told me what you think 🙂\n\nP.S. Answering the obvious questions up front 🙂\n\n• Yes, Opus 5.5 wrote all of the code\n• No, I didn't edit it myself - I read the code, but often asked it to change or redo things\n• No, it didn't get the architecture right on its own - I had to correct it a lot: optimise calls, explicitly ask for caching, define the API call flows, etc.\n• Debugging took a couple of months - I ran every scenario myself, fixed, adjusted, moved buttons around, and spent a lot of time thinking about how to make it \"convenient and fast\"\n\nTakeaway: an LLM fully replaces coding, but it doesn't replace the architect, the tester, the product person and so on. It writes code much better than many mid-level devs and hundreds of times faster than seniors, but it won't do the thinking behind \"let's do it differently / start over / no, not the way you did it here\" 🙂",
+      "created_at": "2026-11-14T09:51:42+00:00",
+      "views": 285829,
+      "urls": [
+        "https://apps.apple.com/gb/app/gist-it/id6775965170"
+      ],
+      "source_ids": [
+        "2121541577004757073"
+      ]
+    }
+  }
 }
