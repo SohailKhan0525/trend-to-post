@@ -1867,6 +1867,35 @@
       "posted_at": "2026-11-14T19:16:09+00:00",
       "completed_at": "2026-11-14T19:16:09+00:00",
       "verified_at": "2026-11-14T19:16:11.008917+00:00"
+    },
+    {
+      "text": "Does it support scanning private repositories?",
+      "event_key": "Cloudflare releases an AI-driven security auditing skill for coding agents.",
+      "premise": "Cloudflare released a skill that uses multi-agent AI workflows to perform security audits on codebases.",
+      "slot": "2026-11-14:reply-v1:39",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T19:46:27.996706+00:00",
+      "source": {
+        "id": "2121539888260567427",
+        "url": "https://x.com/RoundtableSpace/status/2121539888260567427",
+        "author": "RoundtableSpace",
+        "author_id": "1536693901230321666",
+        "text": "Cloudflare gave away the skill that started its own AI bug-hunting system. 72,000 stars.\n\nIt turns your coding agent into a security auditor:\n•⁠  ⁠Maps your app, its inputs and its trust boundaries first\n•⁠  ⁠Sends separate AI hunters after each part of the code\n•⁠  ⁠Every bug they find goes to a fresh AI that tries to prove it wrong\n•⁠  ⁠Only bugs that survive get marked confirmed\n•⁠  ⁠Writes a full report with every finding and how it was checked\n\nUse it:\n1.⁠ ⁠npx skills add https://t.co/ptOfJggqQB --skill security-audit\n2.⁠ ⁠Open your coding agent in your project\n3.⁠ ⁠Type: security audit this codebase\n\nRun it before hackers do.",
+        "created_at": "2026-11-14T09:45:00+00:00",
+        "views": 46826,
+        "urls": [
+          "https://github.com/cloudflare/security-audit-skill"
+        ],
+        "source_ids": [
+          "2121539888260567427"
+        ]
+      },
+      "tweet_id": "2121691259391947034",
+      "sent_at": "2026-11-14T19:46:29.744646+00:00",
+      "posted_at": "2026-11-14T19:46:30+00:00",
+      "completed_at": "2026-11-14T19:46:30+00:00",
+      "verified_at": "2026-11-14T19:46:32.286264+00:00"
     }
   ],
   "used_source_ids": [
@@ -2646,7 +2675,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T19:16:09+00:00",
+  "last_posted_at": "2026-11-14T19:46:30+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2933,6 +2962,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T19:16:09+00:00",
       "tweet_id": "2121683621635670334"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:39",
+      "kind": "reply",
+      "completed_at": "2026-11-14T19:46:30+00:00",
+      "tweet_id": "2121691259391947034"
     }
   ],
   "last_attempts": {
@@ -2996,30 +3031,5 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": {
-    "text": "Does it support scanning private repositories?",
-    "event_key": "Cloudflare releases an AI-driven security auditing skill for coding agents.",
-    "premise": "Cloudflare released a skill that uses multi-agent AI workflows to perform security audits on codebases.",
-    "slot": "2026-11-14:reply-v1:39",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T19:46:27.996706+00:00",
-    "source": {
-      "id": "2121539888260567427",
-      "url": "https://x.com/RoundtableSpace/status/2121539888260567427",
-      "author": "RoundtableSpace",
-      "author_id": "1536693901230321666",
-      "text": "Cloudflare gave away the skill that started its own AI bug-hunting system. 72,000 stars.\n\nIt turns your coding agent into a security auditor:\n•⁠  ⁠Maps your app, its inputs and its trust boundaries first\n•⁠  ⁠Sends separate AI hunters after each part of the code\n•⁠  ⁠Every bug they find goes to a fresh AI that tries to prove it wrong\n•⁠  ⁠Only bugs that survive get marked confirmed\n•⁠  ⁠Writes a full report with every finding and how it was checked\n\nUse it:\n1.⁠ ⁠npx skills add https://t.co/ptOfJggqQB --skill security-audit\n2.⁠ ⁠Open your coding agent in your project\n3.⁠ ⁠Type: security audit this codebase\n\nRun it before hackers do.",
-      "created_at": "2026-11-14T09:45:00+00:00",
-      "views": 46826,
-      "urls": [
-        "https://github.com/cloudflare/security-audit-skill"
-      ],
-      "source_ids": [
-        "2121539888260567427"
-      ]
-    },
-    "tweet_id": "2121691259391947034",
-    "sent_at": "2026-11-14T19:46:29.744646+00:00"
-  }
+  "outbox": null
 }
