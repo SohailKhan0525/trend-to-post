@@ -1500,6 +1500,7 @@
     "2121271926131974444",
     "2121277531152408782",
     "2121288291655852072",
+    "2121305802707284332",
     "2121319695626518823",
     "2121392666244186327",
     "2121393821955334328"
@@ -1561,6 +1562,7 @@
     "7050257affc71221a48dc4ec0b081fb187c81bb78f9a8362677601ab12f4659d",
     "736ec963282878156988f452e19989faba4beed6a6c254e5b8bdabf1068559bd",
     "77e72bb7d9619c30ee28eceff4a8288dc58443f78dac19bb1f45873dbd3e1ed4",
+    "78f3801cdbdc0a840fe93275775a60ff241cc4d4929c1db491cabfcada9f6349",
     "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf",
     "7ad785e8114fff5741705dafca09d360324a947c4764d25f89504c41bd56b2ad",
     "7bb0952091e6c967881599f0abf1c0f27c4e10db00ad33e18a0f8e50dfb24689",
@@ -1764,6 +1766,7 @@
     "742f7f6aee8e20d0e48f3888faa0fb9cdf915ad66b74299c3ee0bbf741de5fcb",
     "752e0931b4a39ab4cc64dc1b419beb513ed96617456a686752a0ede7031f96c2",
     "758df15165be2ecbf9d60e587d0e7becb75b33aa767cbc3430ebe37b7dc5b86c",
+    "7665c132cb22f6dfc9b3d7c937449e2843a78ce1801aa97b24868216b2b93c99",
     "76d2dda709fb900b0b1b09635b6bd90376f2c487074e85353ae64dd70c31b538",
     "77303f7dcc04f9080e12900989080f8710e95bd31c8919dddfba076f99291ceb",
     "777aa0c18281dd30b99273d591b0a36a85e825eb3d9eda17a7c390fa628b34be",
@@ -2073,10 +2076,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 467,
+    "neurons_reserved": 416,
     "requests": 13,
     "hour": "2026-11-14T05",
-    "hour_neurons_reserved": 83,
+    "hour_neurons_reserved": 32,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2158,5 +2161,26 @@
       "until": "2026-11-14T09:25:15.282501+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "The concentration of capital is wild. It looks like the race for foundational models is still a two-horse sprint for the vast majority of the industry's cash.",
+    "event_key": "Forbes AI 50 2026 funding distribution",
+    "premise": "The Forbes AI 50 list for 2026 shows private AI companies raised $305.6B, with OpenAI and Anthropic capturing roughly 80% of that total.",
+    "slot": "2026-11-14:reply-v1:10",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T05:16:37.956334+00:00",
+    "source": {
+      "id": "2121305802707284332",
+      "url": "https://x.com/Mortezabihzadeh/status/2121305802707284332",
+      "author": "Mortezabihzadeh",
+      "author_id": "1384799128463495168",
+      "text": "Just checked the Forbes AI 50 list for 2026\n\nThe 50 private AI companies raised $305.6B combined and about 80% of that went to just @OpenAI & @AnthropicAI\n\nWhat surprised me most is how far it goes beyond chatbots, like:\n\n> ROBOTICS \n> LEGAL \n> HEALTHCARE \n> MUSIC \n> CODING \n\nI use a bunch of these every day, claude and cursor especially\n\nWhich company on this list are you betting on for the next big thing?",
+      "created_at": "2026-11-13T18:14:49+00:00",
+      "views": 31190,
+      "urls": [],
+      "source_ids": [
+        "2121305802707284332"
+      ]
+    }
+  }
 }
