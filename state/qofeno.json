@@ -1435,6 +1435,35 @@
       "posted_at": "2026-11-14T08:35:45+00:00",
       "completed_at": "2026-11-14T08:35:45+00:00",
       "verified_at": "2026-11-14T08:35:46.739591+00:00"
+    },
+    {
+      "text": "Folding those sequential waits into single steps is a smart way to fight the latency tax. Does the rollback feature trigger on a specific error code or just any failed test execution?",
+      "event_key": "launch of Turnpack open source tool for AI coding agents",
+      "premise": "OnlyTerp built Turnpack, an open-source tool that reduces AI coding agent latency and cost by folding sequential steps together and adding an automated rollback feature for failed tests.",
+      "slot": "2026-11-14:reply-v1:20",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T10:05:25.977261+00:00",
+      "source": {
+        "id": "2121266842396205485",
+        "url": "https://x.com/OnlyTerp/status/2121266842396205485",
+        "author": "OnlyTerp",
+        "author_id": "55739295",
+        "text": "Your AI coding agent is slow because it keeps waiting on itself.\n\nSearch, wait, read, wait, edit, wait, test, wait.\n\nSo I built Turnpack. It folds those steps together. Half the round trips, roughly half the time, 36% cheaper in my test.\n\nIt also lets the AI test its edits before they stick. If something breaks, every file snaps back to how it was.\n\nFree and open source. Works with Claude Code, Codex, Cursor, Gemini CLI, Grok, anything MCP :)\n\nhttps://t.co/d740kasMCo",
+        "created_at": "2026-11-13T15:40:01+00:00",
+        "views": 11058,
+        "urls": [
+          "https://github.com/OnlyTerp/turnpack"
+        ],
+        "source_ids": [
+          "2121266842396205485"
+        ]
+      },
+      "tweet_id": "2121545036026597484",
+      "sent_at": "2026-11-14T10:05:27.303056+00:00",
+      "posted_at": "2026-11-14T10:05:27+00:00",
+      "completed_at": "2026-11-14T10:05:27+00:00",
+      "verified_at": "2026-11-14T10:05:29.541845+00:00"
     }
   ],
   "used_source_ids": [
@@ -2161,7 +2190,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T08:35:45+00:00",
+  "last_posted_at": "2026-11-14T10:05:27+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2352,6 +2381,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T08:35:45+00:00",
       "tweet_id": "2121522459774173352"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:20",
+      "kind": "reply",
+      "completed_at": "2026-11-14T10:05:27+00:00",
+      "tweet_id": "2121545036026597484"
     }
   ],
   "last_attempts": {
@@ -2406,30 +2441,5 @@
       "until": "2026-11-14T16:05:15.972371+00:00"
     }
   },
-  "outbox": {
-    "text": "Folding those sequential waits into single steps is a smart way to fight the latency tax. Does the rollback feature trigger on a specific error code or just any failed test execution?",
-    "event_key": "launch of Turnpack open source tool for AI coding agents",
-    "premise": "OnlyTerp built Turnpack, an open-source tool that reduces AI coding agent latency and cost by folding sequential steps together and adding an automated rollback feature for failed tests.",
-    "slot": "2026-11-14:reply-v1:20",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T10:05:25.977261+00:00",
-    "source": {
-      "id": "2121266842396205485",
-      "url": "https://x.com/OnlyTerp/status/2121266842396205485",
-      "author": "OnlyTerp",
-      "author_id": "55739295",
-      "text": "Your AI coding agent is slow because it keeps waiting on itself.\n\nSearch, wait, read, wait, edit, wait, test, wait.\n\nSo I built Turnpack. It folds those steps together. Half the round trips, roughly half the time, 36% cheaper in my test.\n\nIt also lets the AI test its edits before they stick. If something breaks, every file snaps back to how it was.\n\nFree and open source. Works with Claude Code, Codex, Cursor, Gemini CLI, Grok, anything MCP :)\n\nhttps://t.co/d740kasMCo",
-      "created_at": "2026-11-13T15:40:01+00:00",
-      "views": 11058,
-      "urls": [
-        "https://github.com/OnlyTerp/turnpack"
-      ],
-      "source_ids": [
-        "2121266842396205485"
-      ]
-    },
-    "tweet_id": "2121545036026597484",
-    "sent_at": "2026-11-14T10:05:27.303056+00:00"
-  }
+  "outbox": null
 }
