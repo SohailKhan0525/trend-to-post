@@ -1949,11 +1949,11 @@
     }
   },
   "ai_usage": {
-    "day": "2026-11-13",
-    "neurons_reserved": 2509,
-    "requests": 206,
-    "hour": "2026-11-13T21",
-    "hour_neurons_reserved": 74,
+    "day": "2026-11-14",
+    "neurons_reserved": 106,
+    "requests": 1,
+    "hour": "2026-11-14T02",
+    "hour_neurons_reserved": 106,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2010,13 +2010,6 @@
       "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
     }
   },
-  "reply_rejections": {
-    "7eb33a93a3c3c6ebd87de7a498b76fd7ae99776b01241afef0cf998636d48c07": {
-      "until": "2026-11-14T01:05:42.805015+00:00"
-    },
-    "ad8925d5ffc437cd0709d2bb4af29138385804b91ae5bed35a951e99fc2ba185": {
-      "until": "2026-11-14T02:31:43.863753+00:00"
-    }
-  },
+  "reply_rejections": {},
   "outbox": null
 }
