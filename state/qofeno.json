@@ -1679,6 +1679,7 @@
     "2121226585751912582",
     "2121233913406214200",
     "2121266842396205485",
+    "2121267591230689391",
     "2121271926131974444",
     "2121277531152408782",
     "2121288291655852072",
@@ -1760,6 +1761,7 @@
     "845349d7acaf03efeca14d6f7e4b3e7ba1dc44636e4b0887ad0c803baa00ac20",
     "86f29c6fae0c24616cfad134b7c2adb5d72896a259b1dbcdcf0a4f563820da6e",
     "87c2f51c9c48c146c16d5b6141a0514aca4554af98881e8bedb94f1f54eb3acf",
+    "8996fd45fff847dfa920d45aeb539c516f7d7df0ad33161e4ccfc7caf2f35069",
     "8f31793e3b1887393dafdc8b4f75482cc48b77f9ff30be8bbfb00e72286821eb",
     "8fa300e11cd7aa06e7da06d5e2166802325594a30c3886f47cad2995069519aa",
     "92d53378082d6c6fa97cb864fb17836c9457e93e491e69405cfa50fb9273e18c",
@@ -2019,6 +2021,7 @@
     "9861af57080eefcd43f4242e240dcbae53269459c2d03568cc555ff1cd822609",
     "99462282df8e89075f38ec62ccf18fb49834c82a904bc21ba46589d21f330d33",
     "99689428ae5422e0e0c32a4f4168d1c175aec290810a47a7634e6452d0dfaedf",
+    "99a4765e67238fe03fb858f7bcca9f08882abef417f63139a1bc023617ebf8a6",
     "9ac5b7d68771a591fceb073f8af3729f759e1d9d0c04d201c13134b6af881493",
     "9b5b4d97edb0828833f86c171d3b542a1b619287e6efd17d970aca9f6f56eef7",
     "9b6800a040050009789266ab374b901999257eed2aae127997f9deb49970674a",
@@ -2273,10 +2276,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1030,
+    "neurons_reserved": 978,
     "requests": 46,
     "hour": "2026-11-14T10",
-    "hour_neurons_reserved": 243,
+    "hour_neurons_reserved": 191,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2444,5 +2447,26 @@
       "until": "2026-11-14T16:35:38.235650+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "If the medium setting is cutting corners, Sol High is usually the better test for depth before you commit to the Astra latency. Does the extra effort actually change the logic structure or just add more comments?",
+    "event_key": "evaluating GPT-6.1 Sol and Astra effort levels for coding in Codex",
+    "premise": "The author is using GPT-6.1 Sol at Medium effort in Codex but finds it lacks depth, and is debating whether switching to High effort or Astra is worth the speed and usage trade-offs.",
+    "slot": "2026-11-14:reply-v1:21",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T10:35:51.342905+00:00",
+    "source": {
+      "id": "2121267591230689391",
+      "url": "https://x.com/Im_IrushiK/status/2121267591230689391",
+      "author": "Im_IrushiK",
+      "author_id": "1455270436090957826",
+      "text": "What model are you guys using for everyday coding in Codex???\n\nI've been using GPT-6.1 Sol at Medium effort, and it's decent for most tasks.\n\nBut sometimes it feels like it does the bare minimum instead of going the extra mile. 😭\n\nI'm considering switching to High effort or even Astra, but I don't want to sacrifice too much speed.\n\nIs Sol at High the sweet spot, or is Astra actually worth the extra time and usage?\n\nWhat's your take?",
+      "created_at": "2026-11-13T15:42:59+00:00",
+      "views": 20854,
+      "urls": [],
+      "source_ids": [
+        "2121267591230689391"
+      ]
+    }
+  }
 }
