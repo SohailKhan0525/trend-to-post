@@ -10,7 +10,7 @@ from twikit.tweet import Tweet
 from twikit.errors import NotFound, TweetNotAvailable
 
 from app.sources import (
-    ANNOUNCEMENT_TERMS, MAX_AGE, SEARCH_COUNT, SourceError,
+    MAX_AGE, SEARCH_COUNT, SourceError,
     canonical_url, discover, search_plan, snapshot, validate,
 )
 
@@ -262,7 +262,7 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual([call.args[:2] for call in client.search_tweet.call_args_list], search_plan(NOW))
         self.assertEqual(output.getvalue().count('unavailable='), 4)
 
-    async def test_stronger_fresh_sources_are_prioritized_without_excluding_ten_thousand_views(self):
+    async def test_freshest_eligible_source_precedes_an_older_post_with_more_views(self):
         items = [tweet('101', views=10_000, age=timedelta(minutes=1)),
                  tweet('102', views=100_000, age=timedelta(hours=23)),
                  tweet('103', views=100_000, age=timedelta(hours=1)),
@@ -270,9 +270,9 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[items, [], [], []]))
         with redirect_stdout(io.StringIO()):
             result = await discover(client, {}, NOW)
-        self.assertEqual([item['id'] for item in result], ['103', '102', '101'])
+        self.assertEqual([item['id'] for item in result], ['101', '103', '102'])
 
-    async def test_four_bounded_topic_queries_use_top_without_author_limits(self):
+    async def test_four_bounded_topic_queries_include_latest_without_author_limits(self):
         client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(author="indie_builder")], [], [], []]))
         output = io.StringIO()
         with redirect_stdout(output):
@@ -280,7 +280,8 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["author"],"indie_builder")
         self.assertEqual(client.search_tweet.await_count, 4)
-        self.assertEqual([call.args[1] for call in client.search_tweet.call_args_list],["Top"]*4)
+        self.assertEqual([call.args[1] for call in client.search_tweet.call_args_list],
+                         ["Top", "Top", "Top", "Latest"])
         for call in client.search_tweet.call_args_list:
             self.assertEqual(call.kwargs["count"], SEARCH_COUNT)
             self.assertNotIn("from:",call.args[0])
@@ -290,7 +291,7 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
             self.assertLess(len(call.args[0]),220)
         self.assertIn("examined=1 eligible=1", output.getvalue())
         self.assertIn("Source query 1 (Top): examined=1 eligible=1",output.getvalue())
-        self.assertIn("Source query 4 (Top): examined=0 eligible=0",output.getvalue())
+        self.assertIn("Source query 4 (Latest): examined=0 eligible=0",output.getvalue())
         self.assertNotIn(TEXT, output.getvalue())
 
     def test_query_rotation_expands_coverage_without_extra_requests(self):
@@ -300,19 +301,32 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotEqual(first,second)
         self.assertEqual(len(first),4)
         self.assertEqual(len(second),4)
-        self.assertEqual([product for _,product in second],["Top"]*4)
         for plan in (first,second):
+            self.assertEqual([product for _, product in plan], ["Top", "Top", "Top", "Latest"])
             self.assertTrue(any('Claude Code' in query or 'GitHub Copilot' in query for query,_ in plan))
             self.assertTrue(any('coding' in query for query,_ in plan))
-            self.assertTrue(any('agent SDK' in query or 'code review' in query for query,_ in plan))
-            for query,_ in plan[:3]:
-                self.assertNotIn(ANNOUNCEMENT_TERMS,query)
-                self.assertLess(len(query),220)
-            self.assertIn(ANNOUNCEMENT_TERMS,plan[3][0])
-            self.assertIn('announced',plan[3][0])
-            self.assertLess(len(plan[3][0]),220)
+            self.assertTrue(all(len(query) < 220 for query, _ in plan))
+            self.assertTrue(any(term in plan[2][0] for term in ('debugging', 'refactoring')))
+            self.assertTrue(any(term in plan[3][0] for term in ('"I built"', '"I fixed"')))
             self.assertFalse(any(term in query for query,_ in plan
                                  for term in ('battery','startup','Tesla','Porsche','BMW','cars','automotive')))
+
+    async def test_latest_practitioner_can_be_first_among_eligible_posts_from_four_searches(self):
+        older_hits = [tweet(str(i), views=1_000_000, age=timedelta(hours=2)) for i in range(101, 106)]
+        practitioner = tweet('401', views=10_000, author='dev_notes',
+                             text='I fixed a race in our debugger by waiting for a breakpoint event.')
+        practitioner.user.followers_count = 0
+        batches = [older_hits, [tweet('201')], [tweet('301')], [practitioner, tweet('402', views=9999)]]
+        first_picks = []
+        for band in range(4):
+            client = SimpleNamespace(search_tweet=AsyncMock(side_effect=batches))
+            with redirect_stdout(io.StringIO()):
+                results = await discover(client, {}, NOW + timedelta(minutes=30 * band))
+            ids = [item['id'] for item in results]
+            self.assertEqual(set(ids[:4]), {'101', '201', '301', '401'})
+            self.assertNotIn('402', ids)
+            first_picks.append(ids[0])
+        self.assertEqual(set(first_picks), {'101', '201', '301', '401'})
 
     async def test_used_source_ids_include_older_edit_aliases(self):
         client = SimpleNamespace(search_tweet=AsyncMock(side_effect=[[tweet(author="indie_builder",aliases=["900", "1001"])], [], [], []]))

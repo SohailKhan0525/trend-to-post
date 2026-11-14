@@ -7,6 +7,7 @@ passing source. Search results are checked again by the publisher before send.
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 import ipaddress
+from itertools import zip_longest
 import re
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
@@ -17,22 +18,20 @@ from .policy import MIN_SOURCE_VIEWS, has_excluded_terms
 
 MAX_AGE = timedelta(hours=24)
 SEARCH_COUNT = 20
-# Search topics, never author lists. Focus on AI coding tools and practical
-# developer workflows; unrelated model hype and car news dilute this audience.
-# Reactions can address useful discussions and demonstrations, not only launches.
-# Three Top queries cover the niche without a news-verb requirement; a fourth
-# rotating query specifically looks for announcements. Hourly rotation adds
-# coverage within the same four-request budget. Editorial review decides whether
-# the source supports a news headline, a reaction, or neither.
+# The first two searches cover named tools. The others look for work people
+# describe regardless of which account posted it or which tools they used.
 TOPIC_QUERIES = (
     ('("Claude Code" OR Codex OR OpenCode OR Cursor)',
      '("GitHub Copilot" OR Windsurf OR Cline OR Aider)'),
     ('(Claude OR ChatGPT OR Gemini OR DeepSeek) coding',
      '(Anthropic OR OpenAI OR "AI model") coding'),
-    ('("coding agent" OR "agent SDK" OR MCP)',
-     '("AI IDE" OR "code review" OR "AI debugging")'),
+    ('("code review" OR debugging) (tests OR latency OR repro)',
+     '("coding agent" OR refactoring) (diff OR tests OR bug)'),
 )
-ANNOUNCEMENT_TERMS = '(launch OR launched OR release OR released OR announces OR announced OR available OR unveiled OR "rolls out")'
+PRACTITIONER_QUERIES = (
+    '("I built" OR "I tried" OR "my project") (debugging OR "code review" OR "coding agent")',
+    '("I shipped" OR "I fixed" OR "I wrote") (compiler OR debugger OR "unit tests")',
+)
 _HANDLE = re.compile(r"[A-Za-z0-9_]{1,15}\Z")
 _NUMBER = re.compile(r"[0-9]+\Z")
 _URL = re.compile(r"https?://\S+", re.I)
@@ -277,15 +276,14 @@ def _snapshot(tweet, now):
 
 
 def search_plan(now):
-    """Three topic Top searches and one rotating news search, at most four."""
+    """Search tools and development practice in Top, and firsthand posts in Latest."""
     current = _utc(now, "invalid current timestamp")
     hour = int(current.timestamp() // 3600)
     since = (current - MAX_AGE).date().isoformat()
     suffix = f" since:{since} -filter:replies -filter:retweets"
     plan = [(variants[hour % len(variants)] + suffix, "Top")
             for variants in TOPIC_QUERIES]
-    news = TOPIC_QUERIES[hour % len(TOPIC_QUERIES)]
-    plan.append((news[(hour + 1) % len(news)] + " " + ANNOUNCEMENT_TERMS + suffix, "Top"))
+    plan.append((PRACTITIONER_QUERIES[hour % len(PRACTITIONER_QUERIES)] + suffix, "Latest"))
     return plan
 
 
@@ -301,14 +299,15 @@ async def discover(connection, state, now):
     used_ids = {str(value) for value in state.get("used_source_ids", [])}
     used_urls = {canonical_url(value) for value in state.get("used_urls", [])}
     used_urls.discard("")
-    candidates = []
+    batches = []
     counts = Counter()
     rejections = Counter()
     queries = search_plan(current)
     unavailable = []
     for index, (query, product) in enumerate(queries, start=1):
         before = dict(counts)
-        eligible_before = len(candidates)
+        batch = []
+        batches.append(batch)
         try:
             results = await connection.search_tweet(query, product, count=SEARCH_COUNT)
         except (NotFound, TweetNotAvailable) as exc:
@@ -329,17 +328,20 @@ async def discover(connection, state, now):
                 continue
             used_ids.update(candidate["source_ids"])
             used_urls.update(candidate["urls"])
-            candidates.append(candidate)
+            batch.append(candidate)
+        batch.sort(key=lambda candidate: candidate["created_at"], reverse=True)
         print(f"Source query {index} ({product}): "
               f"examined={counts['examined'] - before.get('examined', 0)} "
-              f"eligible={len(candidates) - eligible_before} "
+              f"eligible={len(batch)} "
               f"ineligible={counts['ineligible'] - before.get('ineligible', 0)} "
               f"duplicates={counts['duplicates'] - before.get('duplicates', 0)}")
     if len(unavailable) == len(queries):
         raise unavailable[-1]
-    # Prefer stronger measured reach among already-fresh sources. The publisher
-    # still rotates review candidates and avoids consecutive authors.
-    candidates.sort(key=lambda candidate: (candidate["views"], candidate["created_at"]), reverse=True)
+    # The writer reviews at most four candidates. Give each nonempty search a
+    # turn before its second result, and rotate the first turn each half hour.
+    first = int(current.timestamp() // 1800) % len(batches)
+    batches = batches[first:] + batches[:first]
+    candidates = [item for round_ in zip_longest(*batches) for item in round_ if item is not None]
     print(f"Source discovery: examined={counts['examined']} eligible={len(candidates)} "
           f"ineligible={counts['ineligible']} duplicates={counts['duplicates']}; "
           "One contextual reply per 30 minutes is subject to source availability and native X access.")

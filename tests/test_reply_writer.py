@@ -17,7 +17,7 @@ SOURCE = {
              'Test logs stay on your machine.'),
 }
 DRAFT = {
-    'text': 'Keeping the logs local is useful; does the runner expose a per-worker memory limit for parallel tests?',
+    'text': 'Can you rerun one failed worker locally without starting the whole batch again?',
     'event_key': 'Atlas DevKit 2.4 local parallel test runner',
     'premise': 'Atlas DevKit 2.4 runs 8 worker tests in parallel locally and keeps test logs on the machine.',
 }
@@ -47,6 +47,57 @@ class ReplyWriterTests(unittest.TestCase):
         draft = {**DRAFT, 'text': 'Local logs make failures easier to inspect, but parallel workers still need sensible resource limits.'}
         result, _ = self.generate([{**ASSESSMENT, **draft}, VERDICT])
         self.assertEqual(result, draft)
+
+    def test_short_deadpan_gets_the_same_independent_source_review(self):
+        source = {**SOURCE, 'text': 'Added an error log to find out why our logger keeps crashing.'}
+        draft = {'text': 'A logger for the logger.', 'event_key': 'Logging the crashing logger',
+                 'premise': 'The author added an error log to investigate a crashing logger.'}
+        result, calls = self.generate([{**ASSESSMENT, **draft},
+                                       {**VERDICT, 'source_evidence': source['text']}], source=source)
+        self.assertEqual(result, draft)
+        self.assertEqual(calls.call_count, 2)
+        self.assertEqual(calls.call_args_list[1].args[1]['draft']['text'], 'A logger for the logger.')
+
+    def test_short_copy_still_rejects_canned_reactions_and_emoji_only(self):
+        for reply in ('Big if true.', 'You love to see it.', 'Skill issue.', '👏👏👏👏'):
+            with self.subTest(reply=reply), self.assertRaises(DraftError):
+                writer.validate({**DRAFT, 'text': reply}, SOURCE)
+
+    def test_source_specific_suggestion_can_answer_a_request_for_feedback(self):
+        source = {**SOURCE, 'text': 'Codex hides the failed command when I retry. How would you improve this?'}
+        draft = {'text': 'Pin the failed command above the retry.', 'event_key': 'Codex failed command visibility',
+                 'premise': 'The author asks how to improve retries that hide a failed command.'}
+        result, _ = self.generate([{**ASSESSMENT, **draft},
+                                   {**VERDICT, 'source_evidence': source['text']}], source=source)
+        self.assertEqual(result['text'], draft['text'])
+
+    def test_interview_template_repair_replaces_unsupported_root_cause_with_specific_answer(self):
+        source = {**SOURCE, 'text': 'Codex freezes after I click Retry. What should the retry screen show?'}
+        draft = {'text': 'Show which step the retry is waiting for.', 'event_key': 'Codex retry screen freeze',
+                 'premise': 'Codex freezes after Retry; the author asks what the screen should show.'}
+        interview = 'Do you think the freeze is primarily a UI/UX issue or a backend latency problem?'
+        verdict = {**VERDICT, 'source_evidence': source['text']}
+        result, calls = self.generate([{**ASSESSMENT, **draft, 'text': interview},
+                                       {**ASSESSMENT, **draft}, verdict], source=source)
+        self.assertEqual(result, draft)
+        self.assertEqual(calls.call_count, 3)
+        self.assertIn('interview prompt', calls.call_args_list[1].args[1]['correction'])
+        self.assertEqual(calls.call_args_list[2].args[1]['draft'], draft)
+
+    def test_recent_question_is_a_style_cue_and_concrete_choice_can_still_pass(self):
+        source = {**SOURCE, 'text': 'Our uploader automatically retries a file after a connection drop.'}
+        draft = {'text': 'Does the retry resume the file or start over?', 'event_key': 'Upload retry after disconnection',
+                 'premise': 'The uploader retries a file automatically after the connection drops.'}
+        history = [{'kind': 'quote', 'text': 'Which chart do you prefer?'},
+                   {'kind': 'reply', 'text': 'The test suite has a test suite.'},
+                   {'kind': 'reply', 'text': 'Can the logs survive a restart?'},
+                   {'kind': 'follow', 'text': 'Want more debugging notes?'}]
+        verdict = {**VERDICT, 'source_evidence': source['text']}
+        result, calls = self.generate([{**ASSESSMENT, **draft}, verdict], source=source, state={'history': history})
+        self.assertEqual(result, draft)
+        for call in calls.call_args_list:
+            self.assertEqual(call.args[1]['recent_question_count'], 1)
+            self.assertEqual(call.args[1]['recent_replies'], [history[1]['text'], history[2]['text']])
 
     def test_relevant_opinions_do_not_need_a_new_announcement(self):
         source = {**SOURCE, 'text': 'Parallel tests are great until every worker tries to use all the available memory at once.'}
@@ -205,7 +256,7 @@ class ReplyWriterTests(unittest.TestCase):
     def test_event_and_text_duplicates_do_not_spend_a_review_call(self):
         for state in ({'used_events':[writer.fingerprint(DRAFT['event_key'])]},
                       {'used_texts':[writer.fingerprint(DRAFT['text'])]},
-                      {'history':[{'text':DRAFT['text'].replace('useful','helpful')}]}):
+                      {'history':[{'text':DRAFT['text'].replace('whole','entire')}]}):
             with self.subTest(state=state), patch.object(writer,'complete',return_value=ASSESSMENT) as calls, self.assertRaises(DraftError):
                 writer.generate(SOURCE,state,NOW)
             self.assertEqual(calls.call_count,1)
@@ -215,7 +266,7 @@ class ReplyWriterTests(unittest.TestCase):
             writer.check_duplicates(DRAFT,{'history':[{'text':'🤯','reply':DRAFT['text']}]})
 
     def test_history_is_bounded_and_never_mutated(self):
-        state={'history':[{'event_key':f'different event {i}','text':f'unrelated earlier message {i}'} for i in range(100)]}
+        state={'history':[{'kind':'reply','event_key':f'different event {i}','text':f'unrelated earlier message {i}'} for i in range(100)]}
         before=copy.deepcopy(state)
         _,calls=self.generate([ASSESSMENT,VERDICT],state=state)
         self.assertEqual(len(calls.call_args_list[0].args[1]['recent_events']),20)

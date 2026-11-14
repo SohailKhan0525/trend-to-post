@@ -6,6 +6,7 @@ than retrying. Native X permission and rate-limit failures are never bypassed.
 import asyncio
 import html
 import json
+import re
 import unicodedata
 from datetime import datetime, timedelta, timezone
 
@@ -87,19 +88,27 @@ async def verify_delivery(state, connection):
     def copy_identity(value):
         return unicodedata.normalize('NFC', html.unescape(value))
     body = copy_identity(text)
-    # X prepends the original author's @mention to native reply full_text.
-    # Accept only that exact parent handle, once; all other copy stays exact.
-    if pending['kind'] == 'reply':
-        prefix = '@' + pending['source']['author'] + ' '
-        if body[:len(prefix)].casefold() == prefix.casefold():
-            body = body[len(prefix):]
+    expected_body = copy_identity(pending['text'])
+    # X may prepend the source author and other accounts tagged in the source.
+    # Only remove a complete recipient prefix immediately before our exact text.
+    if pending['kind'] == 'reply' and body != expected_body and body.endswith(' ' + expected_body):
+        source = pending['source']
+        parent = '@' + source['author'].casefold()
+        prose = re.sub(r'https?://\S+', '', source['text'], flags=re.I)
+        mentions = re.findall(r'(?<![\w/@])@[A-Za-z0-9_]{1,15}(?![A-Za-z0-9_])', prose)
+        allowed = {parent, *(mention.casefold() for mention in mentions)}
+        prefix = body[:-(len(expected_body) + 1)]
+        recipients = prefix.lower().split(' ')
+        if (prefix.isascii() and recipients[0] == parent and len(recipients) == len(set(recipients))
+                and all(recipient in allowed for recipient in recipients)):
+            body = expected_body
     if (str(getattr(post, 'id', '')) != pending['tweet_id']
             or str(getattr(user, 'id', '')) != pending['author_id']
             or str(getattr(user, 'screen_name', '')).casefold() != ACCOUNT
             or actual_parent != expected_parent
             or getattr(post, 'quoted_status_id', None) or getattr(post, 'quote', None)
             or legacy.get('is_quote_status') or getattr(post, 'retweeted_tweet', None)
-            or body != copy_identity(pending['text'])):
+            or body != expected_body):
         state['pause_reason'] = 'Published post does not match the reserved author, text or reply parent'
         save_and_push(state)
         summary(state['pause_reason'])

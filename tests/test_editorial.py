@@ -303,6 +303,34 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
             connection.create_tweet.assert_not_awaited()
             self.assertIsNotNone(self.saved['outbox'])
 
+    async def test_existing_reply_with_native_source_participants_reconciles_without_resend(self):
+        state, connection = empty(), self.connection()
+        source = {**SOURCE, 'author': 'github', 'text': "🚀 @GoogleAI's model is in the CLI and @code."}
+        state['outbox'] = {**self.pending('333'), 'source': source}
+        state['pause_reason'] = 'Published post does not match the reserved author, text or reply parent'
+        connection.get_tweet_by_id.return_value.full_text = '@github @GoogleAI @code ' + DRAFT['text']
+        self.assertTrue(await editorial.verify_delivery(state, connection))
+        self.assertTrue(await editorial.verify_delivery(state, connection))
+        self.assertIsNone(self.saved['outbox'])
+        self.assertNotIn('pause_reason', self.saved)
+        self.assertEqual([row['tweet_id'] for row in self.saved['history']], ['333'])
+        connection.get_tweet_by_id.assert_awaited_once_with('333')
+        connection.create_tweet.assert_not_awaited()
+
+    async def test_extra_recipients_need_real_source_mentions_and_the_exact_reply_body(self):
+        source = {**SOURCE, 'text': 'Built with @code. See https://example.com/@other or hello@inbox.example.'}
+        for prefix, body in (('@Acme @other', DRAFT['text']), ('@Acme @inbox', DRAFT['text']),
+                             ('@code @Acme', DRAFT['text']), ('@Acme @code @code', DRAFT['text']),
+                             ('@Acme @code', DRAFT['text'].replace('?', '!'))):
+            with self.subTest(prefix=prefix, body=body):
+                state, connection = empty(), self.connection()
+                state['outbox'] = {**self.pending('333'), 'source': source}
+                connection.get_tweet_by_id.return_value.full_text = prefix + ' ' + body
+                self.assertFalse(await editorial.verify_delivery(state, connection))
+                self.assertIsNotNone(self.saved['outbox'])
+                self.assertEqual(self.saved['history'], [])
+                connection.create_tweet.assert_not_awaited()
+
     async def test_readback_mismatch_pauses_instead_of_resending(self):
         mutations = ({'id': '444'}, {'full_text': 'Unexpected text'},
                      {'user': SimpleNamespace(id='666', screen_name=editorial.ACCOUNT)},
