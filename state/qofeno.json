@@ -2044,7 +2044,8 @@
     "2121471758234501493",
     "2121510581471707145",
     "2121541577004757073",
-    "2121602766976237610"
+    "2121602766976237610",
+    "2121616149129691255"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -2073,6 +2074,7 @@
     "https://opencode.ai/product/browse",
     "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai",
     "https://reut.rs/4zuYVVD",
+    "https://speakerdeck.com/minorun365/jouji-kadou-ejento-no-tsukurikata",
     "https://t.me/CryptoPulseCommunity",
     "https://thinkingmachines.ai/news/inkling-2-small"
   ],
@@ -2150,6 +2152,7 @@
     "b65f8d75a8e58437d90d8d8b7cbe7ed464373ff19041fdf78034cb137b148d81",
     "b7a401f70da244991f99023773daabcce9c34aaabaf9459cab2678999863bf82",
     "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c",
+    "c0450e458d0de658cc012f44ea137e05362643e80bf8cb4cda76425ca172ccd9",
     "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d",
     "c680dad137f76b510aea1cc88053989bed87bbf6b7b7f5ae1d79d83c83f9a375",
     "cc37e487e819dfefe4c7961a9356af6a8a7f6c111eaceac9aba5f14f09645865",
@@ -2297,6 +2300,7 @@
     "553685f29809353d5fbe1efb5168f4a905bd01a8251780942c203890a3a0c51e",
     "55c1e2ce8f92dd1eb7d13af3ce15051faf130685861885ddbf1f30c4ca76aaf1",
     "5601213e84ea7989223c44f2c00d96c83fb4f640261f5783fefe766a6d06dae5",
+    "568354a15f1f96c10cdc94fda28b68e2fc2ca87751d99c0672bcdb7b9a0d6276",
     "5756c7b20c382faadc2b9011c8dc37f619ab32066c158e4e8b73e49ec848a3a9",
     "58c9a1390d885de0f6ca974d61d27f3ae6ad9f6af88e1d8f980dcb7e7f5cf9dc",
     "58ee39c55afd28cb4fc3aca86f64d75e131c806adadad4b37bb4a2995783a13d",
@@ -2659,10 +2663,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1440,
+    "neurons_reserved": 1398,
     "requests": 76,
     "hour": "2026-11-14T18",
-    "hour_neurons_reserved": 108,
+    "hour_neurons_reserved": 66,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2914,5 +2918,28 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Does it handle the formatting of the output automatically?",
+    "event_key": "Generating documentation using Claude Code from a URL",
+    "premise": "The author used Claude Code to instantly generate documentation from an Anthropic blog URL.",
+    "slot": "2026-11-14:reply-v1:37",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T18:45:39.237770+00:00",
+    "source": {
+      "id": "2121616149129691255",
+      "url": "https://x.com/minorun365/status/2121616149129691255",
+      "author": "minorun365",
+      "author_id": "991206187",
+      "text": "AnthropicのブログURLをうちのClaude Codeに食わせるだけで、ポン出しでこんな資料ができてしまった。。\nすごい時代だ\nhttps://t.co/mtdRirbIp4",
+      "created_at": "2026-11-14T14:48:02+00:00",
+      "views": 12184,
+      "urls": [
+        "https://speakerdeck.com/minorun365/jouji-kadou-ejento-no-tsukurikata"
+      ],
+      "source_ids": [
+        "2121616149129691255"
+      ]
+    }
+  }
 }
