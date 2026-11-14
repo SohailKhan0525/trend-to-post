@@ -2715,6 +2715,10 @@
     "2026-11-14:reply-v1:28": {
       "at": "2026-11-14T14:25:26.627172+00:00",
       "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
+    },
+    "2026-11-14:reply-v1:31": {
+      "at": "2026-11-14T15:35:35.623234+00:00",
+      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
     }
   },
   "reply_rejections": {
