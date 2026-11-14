@@ -2133,6 +2133,7 @@
     "2121510581471707145",
     "2121539888260567427",
     "2121541577004757073",
+    "2121593777311613278",
     "2121602766976237610",
     "2121616149129691255"
   ],
@@ -2153,6 +2154,7 @@
     "https://github.com/OnlyTerp/turnpack",
     "https://github.com/cloudflare/security-audit-skill",
     "https://github.com/garrytan/g-harness-evals/blob/cc8619d977f126ddb6d8f03a4b6cd02c5634c1bc/docs/benchmarks/2026-11-12-fable-5-2-coding-cc322/report.md",
+    "https://github.com/t3dotgg/tstack",
     "https://github.com/virgiliojr94/book-to-skill",
     "https://goo.gle/480yn2n",
     "https://huggingface.co/spaces/joelniklaus/harness-leaderboard",
@@ -2167,6 +2169,7 @@
     "https://reut.rs/4zuYVVD",
     "https://speakerdeck.com/minorun365/jouji-kadou-ejento-no-tsukurikata",
     "https://t.me/CryptoPulseCommunity",
+    "https://t.me/yarad_ai",
     "https://thinkingmachines.ai/news/inkling-2-small"
   ],
   "used_events": [
@@ -2187,6 +2190,7 @@
     "32ed124f514d1d80315822cd8103542fec2f4ad138e2be5d20cff105e7f0fc73",
     "33989bc816e7a08eaed36073c9c4ae7a2f37051b7391922537fe603ee7e65ab6",
     "34b461a43032827c11e4ddb5dcfe75a6565fb23f758b55fc7229568aa94cfb96",
+    "3eb4c518c7361c6eed4121732c7cb4e4c4cf76e457d3156de722d9a548ead739",
     "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b",
     "4e4468e2383fd86d23017ce1191b8bd923a93c93724f22ba65a6d782febfe00d",
     "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0",
@@ -2363,6 +2367,7 @@
     "42261c435fa13eb84c33b817dfd1c322f6bac12631ba611c893cf5209720a5a3",
     "424fb3f0823c7470e44187dd6964802ee9630c3ba2d7277a5061b47a88af8aed",
     "4347ae7155700ff4838f3612344d86f25ac5d2dc1cd38e928060b50ec5e44d96",
+    "44a6fa6a7bd881025c2bc4451321ab2bd585d0e3c69d2260eb2f3d5d80cadb39",
     "45733c865884fd0c0d188f555b6fd60db28a6cb94f49d2d5997ef66de6efbb55",
     "458cf784ef5d7b9d15de657da75cd6829ed9aa19ec3b64b050a8cdf5e1b8c46e",
     "458d65d08f87b854eacf5b7ea53ccfd4062b0a4ecf444022ac0ef6f4415ef2e0",
@@ -2758,10 +2763,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1548,
+    "neurons_reserved": 1487,
     "requests": 82,
     "hour": "2026-11-14T20",
-    "hour_neurons_reserved": 96,
+    "hour_neurons_reserved": 35,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3028,5 +3033,29 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "Automating the CI monitoring phase saves significant manual overhead. 🛠️",
+    "event_key": "Introduction of Theo's agent skills for automated PR and CI workflows.",
+    "premise": "Theo introduced five agent skills for Codex and Claude Code to automate PR management, CI monitoring, and code review consensus.",
+    "slot": "2026-11-14:reply-v1:40",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T20:16:43.417549+00:00",
+    "source": {
+      "id": "2121593777311613278",
+      "url": "https://x.com/Yarad_ai/status/2121593777311613278",
+      "author": "Yarad_ai",
+      "author_id": "2711114985",
+      "text": "یکی از مشکلات Agentهای برنامه‌نویسی اینه که کد رو می‌نویسن، اما بعدش این شما هستید که باید PR رو پیگیری کنید، خطاهای CI رو بررسی کنید و تا زمان Merge شدن همه‌چیز رو زیر نظر داشته باشید!\n\nTheo به‌تازگی مجموعه‌ای از Agent Skills رو معرفی کرده که دقیقاً برای حل همین مشکل ازشون استفاده می‌کنه.\n\nاین مجموعه ۵ دستور کاربردی داره:\n\n۱. Council\nسه مدل هوش مصنوعی از شرکت‌های مختلف کد شما رو بررسی می‌کنن و این روند ادامه پیدا می‌کنه تا به یک توافق مشترک برسن.\n\n۲. Full Send\nتغییرات رو از مرحله نوشتن کد تا ساخت PR و Merge شدن کامل پیش می‌بره؛ بدون اینکه مجبور باشید تمام مراحل رو دستی مدیریت کنید.\n\n۳. Babysit\nوضعیت CI و ابزارهای بررسی کد رو زیر نظر می‌گیره و فقط مشکلات واقعی رو برطرف می‌کنه، نه اینکه بی‌دلیل همه‌چیز رو تغییر بده.\n\n۴. Take Over\nیک PR نیمه‌کاره که توسط شخص دیگه‌ای ایجاد شده رو تحویل می‌گیره، کارهای باقی‌مونده رو انجام می‌ده و اعتبار و مشارکت سازنده اصلی رو هم حفظ می‌کنه.\n\n۵. File a PR\nیک PR کوتاه و مرتب می‌سازه که توضیحاتش رو با بیان مشکل اصلی شروع می‌کنه.\n\nنکته جالب: این مجموعه هم در Codex و هم در Claude Code قابل استفاده است.\n\nروش نصب و راه‌اندازی:\n\nابتدا مخزن پروژه رو دریافت کنید:\n\ngit clone https://t.co/B2HHI7CwL6\n\nسپس پوشه \"skills\" رو به مسیر مربوط به ابزار خودتون کپی کنید:\n\nبرای Codex:\n\ncp -r tstack/skills ~/.codex/skills\n\nبرای Claude Code:\n\ncp -r tstack/skills ~/.claude/skills\n\nبعد با GitHub CLI وارد حساب کاربری‌تون بشید:\n\ngh auth login\n\nحالا کافیه به Agent دستور بدید:\n\nfull send\n\nیا:\n\ncouncil\n\nبه همین سادگی می‌تونید بخشی از فرایند بررسی، رفع ایراد و مدیریت PR رو به Agent بسپارید.\n\n🔗 مخزن GitHub:\nhttps://t.co/B2HHI7CwL6\n\nکانال تلگرام : https://t.co/MO5ikgOb3n",
+      "created_at": "2026-11-14T13:19:08+00:00",
+      "views": 15239,
+      "urls": [
+        "https://github.com/t3dotgg/tstack",
+        "https://t.me/yarad_ai"
+      ],
+      "source_ids": [
+        "2121593777311613278"
+      ]
+    }
+  }
 }
