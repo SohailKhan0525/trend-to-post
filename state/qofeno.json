@@ -1256,6 +1256,35 @@
       "posted_at": "2026-11-14T04:16:03+00:00",
       "completed_at": "2026-11-14T04:16:03+00:00",
       "verified_at": "2026-11-14T04:16:06.292560+00:00"
+    },
+    {
+      "text": "The extra cost for DeepSeek is basically a tax on thinking it has already done.",
+      "event_key": "DeepSeek-V4.1-Flash reasoning effort vs performance comparison",
+      "premise": "DeepSeek-V4.1-Flash sees negligible performance gains from high reasoning effort despite a 28% cost increase, whereas GLM-5.3-Flash shows significant improvement.",
+      "slot": "2026-11-14:reply-v1:9",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T04:46:19.753546+00:00",
+      "source": {
+        "id": "2121271926131974444",
+        "url": "https://x.com/joelniklaus/status/2121271926131974444",
+        "author": "joelniklaus",
+        "author_id": "390741977",
+        "text": "High reasoning effort makes DeepSeek-V4.1-Flash 28% more expensive and not one point better.\n\nReasoning effort sets how much the model thinks before it acts.\n\nOn the @huggingface Harness Leaderboard, I compared low and high effort with five coding agents: Claude Code, Codex, OpenCode, Pi and mini-swe-agent.\n\nThe likely reason: DeepSeek-V4.1-Flash already reasons a lot at low effort, about 470 reasoning tokens per model call. High adds only 19% more, against 60% on GLM-5.3-Flash.\n\nOn GLM-5.3-Flash, the extra thinking pays off: high effort lifts the same five agents by 5.8 percentage points on average.\n\nEach agent ran 198 coding tasks from the Terminal-Bench 2.1 and DeepSWE benchmarks at both efforts, three attempts each. The DeepSeek difference is within noise (95% CI -1.8 to +2.0 points). The GLM gain is not (+3.5 to +8.0).\n\nLeaderboard: https://t.co/AiWiQtBOz5",
+        "created_at": "2026-11-13T16:00:13+00:00",
+        "views": 16641,
+        "urls": [
+          "https://huggingface.co/spaces/joelniklaus/harness-leaderboard"
+        ],
+        "source_ids": [
+          "2121271926131974444"
+        ]
+      },
+      "tweet_id": "2121464729504026647",
+      "sent_at": "2026-11-14T04:46:21.024595+00:00",
+      "posted_at": "2026-11-14T04:46:21+00:00",
+      "completed_at": "2026-11-14T04:46:21+00:00",
+      "verified_at": "2026-11-14T04:46:22.677519+00:00"
     }
   ],
   "used_source_ids": [
@@ -1961,7 +1990,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T04:16:03+00:00",
+  "last_posted_at": "2026-11-14T04:46:21+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2110,6 +2139,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T04:16:03+00:00",
       "tweet_id": "2121457107895476427"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:9",
+      "kind": "reply",
+      "completed_at": "2026-11-14T04:46:21+00:00",
+      "tweet_id": "2121464729504026647"
     }
   ],
   "last_attempts": {
@@ -2123,30 +2158,5 @@
       "until": "2026-11-14T09:25:15.282501+00:00"
     }
   },
-  "outbox": {
-    "text": "The extra cost for DeepSeek is basically a tax on thinking it has already done.",
-    "event_key": "DeepSeek-V4.1-Flash reasoning effort vs performance comparison",
-    "premise": "DeepSeek-V4.1-Flash sees negligible performance gains from high reasoning effort despite a 28% cost increase, whereas GLM-5.3-Flash shows significant improvement.",
-    "slot": "2026-11-14:reply-v1:9",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T04:46:19.753546+00:00",
-    "source": {
-      "id": "2121271926131974444",
-      "url": "https://x.com/joelniklaus/status/2121271926131974444",
-      "author": "joelniklaus",
-      "author_id": "390741977",
-      "text": "High reasoning effort makes DeepSeek-V4.1-Flash 28% more expensive and not one point better.\n\nReasoning effort sets how much the model thinks before it acts.\n\nOn the @huggingface Harness Leaderboard, I compared low and high effort with five coding agents: Claude Code, Codex, OpenCode, Pi and mini-swe-agent.\n\nThe likely reason: DeepSeek-V4.1-Flash already reasons a lot at low effort, about 470 reasoning tokens per model call. High adds only 19% more, against 60% on GLM-5.3-Flash.\n\nOn GLM-5.3-Flash, the extra thinking pays off: high effort lifts the same five agents by 5.8 percentage points on average.\n\nEach agent ran 198 coding tasks from the Terminal-Bench 2.1 and DeepSWE benchmarks at both efforts, three attempts each. The DeepSeek difference is within noise (95% CI -1.8 to +2.0 points). The GLM gain is not (+3.5 to +8.0).\n\nLeaderboard: https://t.co/AiWiQtBOz5",
-      "created_at": "2026-11-13T16:00:13+00:00",
-      "views": 16641,
-      "urls": [
-        "https://huggingface.co/spaces/joelniklaus/harness-leaderboard"
-      ],
-      "source_ids": [
-        "2121271926131974444"
-      ]
-    },
-    "tweet_id": "2121464729504026647",
-    "sent_at": "2026-11-14T04:46:21.024595+00:00"
-  }
+  "outbox": null
 }
