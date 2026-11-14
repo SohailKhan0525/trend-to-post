@@ -2368,14 +2368,11 @@
       "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
     },
     "2026-11-14:reply-v1:18": {
-      "at": "2026-11-14T09:15:51.621178+00:00",
+      "at": "2026-11-14T09:25:55.487007+00:00",
       "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
     }
   },
   "reply_rejections": {
-    "cea67cdff834e0a68f884393815a9a2d757973c311a5be2f04907ef3cee6c7f0": {
-      "until": "2026-11-14T09:25:15.282501+00:00"
-    },
     "8f1f70aeb607ecd437ff9c421b6e139113b62f8d18a0de0e72a2e47376ecb3c5": {
       "until": "2026-11-14T11:46:45.664174+00:00"
     },
