@@ -2103,10 +2103,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 431,
-    "requests": 14,
-    "hour": "2026-11-14T05",
-    "hour_neurons_reserved": 47,
+    "neurons_reserved": 507,
+    "requests": 15,
+    "hour": "2026-11-14T06",
+    "hour_neurons_reserved": 76,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
