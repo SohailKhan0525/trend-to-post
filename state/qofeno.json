@@ -1850,6 +1850,7 @@
     "2121277531152408782",
     "2121288291655852072",
     "2121305802707284332",
+    "2121314662784672035",
     "2121319695626518823",
     "2121392666244186327",
     "2121393821955334328",
@@ -1966,6 +1967,7 @@
     "dff9553582389c22666e90fbea394cdaaec10bc2ce1b9a047e5c6669a6441b8d",
     "e5a4c947ff44eed5ed5cb77ba516f681b91cf2fb55924d5e9f209ec7356bac70",
     "e958b8976a7fef12420b0057b6b08eadb6f0981a8709cdc4421806959782d996",
+    "e9c9ad1ee2183d62ea44864b95aa0d37d60f54a0db8c560d8702659db85f2982",
     "f0affb88a5465d28dd777a32cb2e844362475121f27a93c77154c15964ad782c",
     "f23096426f2504b486ba7a148b7ef9e4c9dac32e5ebb413feb45d3ba8c70f2ba",
     "f66304d0fc9c683a16683d3757e824ffc470e81371770e936a4836a55cd81a17",
@@ -2365,6 +2367,7 @@
     "fd9e29885a8dfb6b5a72b26d9173d6e87576574d81089eec0cc6eda9d2add22f",
     "fded981cfdebb1b1deab27959f1658091ffd45a338089f6ef6725f449f523ed9",
     "fdfdf8bc598748bf4b3f49a879e6abd58df7ca86d098f1c08931c8fa3cc59c4e",
+    "fe1784ce2ec75558dc2e3226bb6f0b39ce2dac698c86a0ba87a63d5b97a6f089",
     "fe4d0fc18158609a3f7f29b05c4c1e14e06ff3297b0ada7de9c53ea7d55ef7e0",
     "feea60a32e635597a36d9e0e0949015674bd7eb5ac8ca878a53a6228f1749666",
     "ff0830000356a93a92b769728c8f83daa8195b083eb71aa548eb7db9e0e730c3",
@@ -2456,10 +2459,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1228,
+    "neurons_reserved": 1186,
     "requests": 61,
     "hour": "2026-11-14T14",
-    "hour_neurons_reserved": 104,
+    "hour_neurons_reserved": 62,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2665,5 +2668,26 @@
       "until": "2026-11-14T20:25:26.626906+00:00"
     }
   },
-  "outbox": null
+  "outbox": {
+    "text": "What is the context window for the Luna sessions?",
+    "event_key": "Price comparison of Kimi K3.1 Pro and GPT-6 Luna sessions via OpenCode Go",
+    "premise": "OpenCode Go offers 18 Kimi K3.1 Pro sessions or 1,000 GPT-6 Luna sessions for $10.",
+    "slot": "2026-11-14:reply-v1:29",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-14T14:35:15.364321+00:00",
+    "source": {
+      "id": "2121314662784672035",
+      "url": "https://x.com/AdamHoltererer/status/2121314662784672035",
+      "author": "AdamHoltererer",
+      "author_id": "1664269804558229509",
+      "text": "OpenCode Go's $10 buys 18 Kimi K3.1 Pro sessions a month\n\nOr 1,000 of GPT-6 Luna https://t.co/hBnMPvEBg3",
+      "created_at": "2026-11-13T18:50:02+00:00",
+      "views": 10297,
+      "urls": [],
+      "source_ids": [
+        "2121314662784672035"
+      ]
+    }
+  }
 }
