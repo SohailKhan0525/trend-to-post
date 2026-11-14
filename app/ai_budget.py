@@ -15,6 +15,7 @@ RATES = {
 }
 DAILY_LIMIT = 9000
 HOURLY_LIMIT = 400
+LOCAL_HOURLY_PAUSE = 'Local hourly AI budget reserved; spreading research across the day.'
 ACTIVE = ContextVar('qofeno_ai_budget', default=None)
 
 
@@ -24,8 +25,46 @@ class AIPaused(Exception):
         super().__init__(reason)
 
 
+class AIRequestTooLarge(AIPaused):
+    """This reservation exceeds hourly headroom. Smaller requests may still fit."""
+
+    def __init__(self, reason, until, needed, remaining):
+        self.needed, self.remaining = needed, remaining
+        super().__init__(reason, until)
+
+
+def estimate_reservation(model, payload):
+    """Upper bound in neurons for a request, with no ledger changes or I/O."""
+    if model not in RATES:
+        raise ValueError('Configure a documented Workers AI model cost before publishing')
+    output_tokens = payload['max_tokens']
+    if type(output_tokens) is not int or output_tokens <= 0:
+        raise ValueError('Expected a positive integer generation token limit')
+    input_rate, output_rate = RATES[model]
+    # UTF-8 bytes plus framing conservatively overestimate input tokens.
+    prompt_bound = len(json.dumps(payload['messages'], ensure_ascii=False).encode()) + 512
+    return math.ceil((prompt_bound * input_rate + output_tokens * output_rate) / 1_000_000)
+
+
 def midnight(now):
     return (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+
+
+def next_hour(now):
+    return now.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
+
+
+def _legacy_hourly_headroom(state, now, until):
+    """Recognize an old local pause caused by a single large estimate."""
+    usage = state.get('ai_usage')
+    if not isinstance(usage, dict) or until != next_hour(now):
+        return False
+    if usage.get('day') != now.date().isoformat() or usage.get('hour') != now.strftime('%Y-%m-%dT%H'):
+        return False
+    hourly = usage.get('hour_neurons_reserved')
+    daily = usage.get('neurons_reserved')
+    return (type(hourly) is int and 0 < hourly < HOURLY_LIMIT
+            and type(daily) is int and hourly <= daily < DAILY_LIMIT)
 
 
 def active_pause(state, now):
@@ -34,6 +73,8 @@ def active_pause(state, now):
         return None
     until = datetime.fromisoformat(pause['until'])
     if now < until:
+        if pause['reason'] == LOCAL_HOURLY_PAUSE and _legacy_hourly_headroom(state, now.astimezone(timezone.utc), until):
+            return None
         return AIPaused(pause['reason'], until)
     return None
 
@@ -52,30 +93,32 @@ class Budget:
         pause = active_pause(self.state, now)
         if pause:
             raise pause
-        self.state.pop('ai_pause', None)
-        if model not in RATES:
-            raise ValueError('Configure a documented Workers AI model cost before publishing')
-        usage = self.state.get('ai_usage', {})
+        amount = estimate_reservation(model, payload)
+        # Calculate changes in a copy so an unaffordable request cannot change
+        # the ledger, even across an hour boundary or an expired legacy pause.
+        usage = dict(self.state.get('ai_usage', {}))
         if usage.get('day') != now.date().isoformat():
             usage = {'day': now.date().isoformat(), 'neurons_reserved': 0, 'requests': 0}
-            self.state['ai_usage'] = usage
         hour = now.strftime('%Y-%m-%dT%H')
         if usage.get('hour') != hour:
             usage.update(hour=hour, hour_neurons_reserved=0)
-        input_rate, output_rate = RATES[model]
-        # UTF-8 bytes plus framing conservatively overestimate input tokens.
-        # Refund only when the provider returns usable token counts; otherwise keep it.
-        prompt_bound = len(json.dumps(payload['messages'], ensure_ascii=False).encode()) + 512
-        amount = math.ceil((prompt_bound * input_rate + payload['max_tokens'] * output_rate) / 1_000_000)
+        if any(type(usage.get(key)) is not int or usage[key] < 0
+               for key in ('neurons_reserved', 'hour_neurons_reserved', 'requests')):
+            raise ValueError('Invalid AI usage counters')
         if usage['neurons_reserved'] + amount > DAILY_LIMIT:
             self.pause('Local daily AI budget reserved; waiting for the next UTC day.', midnight(now))
-        if usage['hour_neurons_reserved'] + amount > HOURLY_LIMIT:
-            self.pause('Local hourly AI budget reserved; spreading research across the day.',
-                       now.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1))
+        remaining = HOURLY_LIMIT - usage['hour_neurons_reserved']
+        if remaining <= 0:
+            self.pause(LOCAL_HOURLY_PAUSE, next_hour(now))
+        if amount > remaining:
+            reason = f'This AI request needs {amount} reserved neurons; {remaining} remain this UTC hour.'
+            raise AIRequestTooLarge(reason, next_hour(now), amount, remaining)
         usage['neurons_reserved'] += amount
         usage['hour_neurons_reserved'] += amount
         usage['requests'] += 1
         usage['model'] = model
+        self.state['ai_usage'] = usage
+        self.state.pop('ai_pause', None)
         # Reserve durably before the request. A crash must not erase spending.
         self.persist(self.state)
         return (amount, model, usage['day'], hour)

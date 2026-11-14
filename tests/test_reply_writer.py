@@ -289,11 +289,19 @@ class ReplyWriterTests(unittest.TestCase):
             writer.check_duplicates(DRAFT,{'history':[{'text':'🤯','reply':DRAFT['text']}]})
 
     def test_history_is_bounded_and_never_mutated(self):
-        state={'history':[{'kind':'reply','event_key':f'different event {i}','text':f'unrelated earlier message {i}'} for i in range(100)]}
+        state={'history':[{'kind':'reply','event_key':f'different event {i}', 'premise':'longer description '*12,
+                           'text':f'unrelated earlier message {i}'} for i in range(100)]}
+        state['history'][-2].pop('event_key')  # Legacy rows may have only the premise.
+        state['history'].append({'kind':'follow','text':'Follow for more.'})
         before=copy.deepcopy(state)
         _,calls=self.generate([ASSESSMENT,VERDICT],state=state)
-        self.assertEqual(len(calls.call_args_list[0].args[1]['recent_events']),20)
-        self.assertEqual(len(calls.call_args_list[0].args[1]['recent_replies']),6)
+        for call in calls.call_args_list:
+            data=call.args[1]
+            self.assertEqual(len(data['recent_events']),8)
+            self.assertEqual(data['recent_events'][0],'different event 92')
+            self.assertEqual(data['recent_events'][-2],('longer description '*12)[:140])
+            self.assertEqual(data['recent_replies'],[f'unrelated earlier message {i}' for i in range(96,100)])
+            self.assertEqual(data['source']['text'],SOURCE['text'])
         self.assertEqual(state,before)
 
     def test_provider_transport_failures_do_not_recycle_or_fabricate_copy(self):

@@ -266,10 +266,13 @@ def check_duplicates(draft, state):
 
 
 def history_context(state):
-    history = state.get('history', [])
-    replies = [row['text'][:250] for row in history[-160:]
-               if row.get('kind') == 'reply' and isinstance(row.get('text'), str)][-6:]
-    return {'recent_events': [str(row.get('premise') or row.get('event_key', ''))[:240] for row in history[-20:]],
+    history = state.get('history', [])[-160:]
+    # The model needs a few recent topics and examples of our voice. The
+    # permanent ledgers and check_duplicates still cover the broader history.
+    events = [row.get('event_key') or row.get('premise') for row in history]
+    replies = [row['text'][:250] for row in history
+               if row.get('kind') == 'reply' and isinstance(row.get('text'), str)][-4:]
+    return {'recent_events': [event[:140] for event in events if isinstance(event, str) and event.strip()][-8:],
             'recent_replies': replies,
             'recent_question_count': sum('?' in text for text in replies[-3:])}
 

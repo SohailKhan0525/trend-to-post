@@ -25,6 +25,8 @@ Default model: `@cf/google/gemma-4-26b-a4b-it`. Credentials remain in `CLOUDFLAR
 
 A local budget reserves estimated usage before requests: 9,000 neurons/day and 400/hour, adjusted when token usage is available. Other apps sharing the Cloudflare allowance are not visible to this ledger. Confirmed daily-quota errors pause until the next UTC day; other AI rate-limit errors pause for 15 minutes. Source review normally uses two model calls, with at most one format repair. Rejected sources are cached so the same unsuitable material is not repeatedly reviewed.
 
+A Workers AI timeout defers that source for 30 minutes and keeps its estimated charge. If a request exceeds what remains in the hourly budget, the publisher defers that source until the next UTC hour and tries a shorter eligible post. Each opportunity considers at most four sources. If X times out during a send, the publisher keeps the pending send for reconciliation to prevent duplicate replies.
+
 ## Operations
 
 - `python -m app run`: research and publish an eligible scheduled reply or own follow post.

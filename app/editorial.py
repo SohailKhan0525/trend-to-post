@@ -12,8 +12,8 @@ from datetime import datetime, timedelta, timezone
 
 from twikit.errors import Forbidden, NotFound, TooManyRequests, TweetNotAvailable
 from . import follow_writer, reply_writer, sources
-from .ai_budget import AIPaused, active_pause, budget_scope
-from .cloudflare import DraftError, selected_model
+from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
+from .cloudflare import AIRequestTimeout, DraftError, selected_model
 from .reply_schedule import next_slot, timestamp
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
 
@@ -217,7 +217,12 @@ async def publish_reply(state, slot, connection, user):
         if timestamp(value['until']) > now}
     candidates = [candidate for candidate in candidates if eligible_author(candidate, state, now)
                   and rejection_key(candidate) not in rejections]
-    for candidate in candidates[:4]:
+    deferred = 0
+    for _ in range(min(4, len(candidates))):
+        candidate = candidates.pop(0)
+        if utcnow() >= timestamp(slot['expires_at']):
+            reject(state, slot, 'Reply opportunity ended during research.')
+            return
         try:
             stage('refresh source before writing', candidate['id'])
             fresh = sources.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
@@ -230,6 +235,21 @@ async def publish_reply(state, slot, connection, user):
             final = sources.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
             if not unchanged(fresh, final):
                 continue
+        except (AIRequestTimeout, AIRequestTooLarge) as exc:
+            if isinstance(exc, AIRequestTooLarge):
+                until = exc.until
+                reason = f'request needs {exc.needed} estimated neurons, {exc.remaining} available this hour'
+                # The source is included in both model calls. Prefer a shorter
+                # complete source among the remaining eligible candidates.
+                candidates.sort(key=lambda item: len(item['text'].encode('utf-8')))
+            else:
+                until = utcnow() + timedelta(minutes=30)
+                reason = 'Cloudflare timed out before publication'
+            rejections[rejection_key(candidate)] = {'until': until.isoformat(), 'reason': reason}
+            save_and_push(state)
+            summary(f'Deferred source {candidate["id"]} until {until.isoformat()}: {reason}.')
+            deferred += 1
+            continue
         except (sources.SourceError, NotFound, TweetNotAvailable):
             rejections[rejection_key(candidate)] = {'until': (utcnow() + timedelta(hours=2)).isoformat()}
             summary(f'Skipped unavailable or changed source {candidate["id"]}.')
@@ -239,13 +259,23 @@ async def publish_reply(state, slot, connection, user):
             summary(f'Source {candidate["id"]} did not pass reply review: {str(exc)[:240]}')
             continue
         return await send_once(state, slot, draft, connection, user, final)
-    reject(state, slot, 'No fresh, distinct 10,000+ view source passed this check. No reply sent.')
+    if deferred:
+        reject(state, slot, f'No reply sent in this check. Deferred {deferred} source(s) for AI availability or budget.')
+    else:
+        reject(state, slot, 'No fresh, distinct 10,000+ view source passed this check. No reply sent.')
 
 
 async def publish_follow(state, slot, connection, user):
     stage('write own follow post')
-    with budget_scope(state, save_and_push, utcnow):
-        draft = follow_writer.generate(state, utcnow())
+    try:
+        with budget_scope(state, save_and_push, utcnow):
+            draft = follow_writer.generate(state, utcnow())
+    except AIRequestTimeout:
+        reject(state, slot, 'Cloudflare timed out preparing the follow post. Deferred before sending.')
+        return
+    except AIRequestTooLarge as exc:
+        reject(state, slot, f'Deferred follow post: request needs {exc.needed} estimated neurons, {exc.remaining} available this hour.')
+        return
     await send_once(state, slot, draft, connection, user)
 
 

@@ -3,12 +3,64 @@ import json
 import os
 import unittest
 import urllib.error
+from datetime import datetime, timezone
 from unittest.mock import patch
-from app.cloudflare import complete,DraftError,selected_model
-from app.ai_budget import AIPaused
+from app.cloudflare import AIRequestTimeout,complete,DraftError,selected_model
+from app.ai_budget import AIPaused,budget_scope
 
 
 class CloudflareTests(unittest.TestCase):
+    def test_request_and_response_timeouts_keep_the_reserved_cost_without_repair_or_secrets(self):
+        secret = 'private-fixture-token'
+
+        class TimedOutBody(io.BytesIO):
+            def read(self, *args):
+                raise TimeoutError(secret)
+
+        errors = [TimeoutError(secret), urllib.error.URLError(TimeoutError(secret)),
+                  urllib.error.HTTPError('https://api.cloudflare.com', 500, 'server', {}, TimedOutBody())]
+        cases = [{'side_effect': error} for error in errors] + [{'return_value': TimedOutBody()}]
+        env = {'CLOUDFLARE_ACCOUNT_ID': 'a' * 32, 'CLOUDFLARE_API_TOKEN': secret}
+        for options in cases:
+            state, saved = {}, []
+            with self.subTest(options=list(options)), patch.dict(os.environ, env, clear=True), \
+                    budget_scope(state, lambda value: saved.append(dict(value['ai_usage'])),
+                                 lambda: datetime(2026, 11, 14, tzinfo=timezone.utc)), \
+                    patch('urllib.request.urlopen', **options) as request, patch('builtins.print') as output, \
+                    self.assertRaises(AIRequestTimeout) as raised:
+                complete('write', {})
+            self.assertEqual(request.call_count, 1)
+            self.assertEqual(len(saved), 1)
+            self.assertEqual(saved[0], state['ai_usage'])
+            self.assertGreater(saved[0]['neurons_reserved'], 0)
+            self.assertNotIn(secret, str(raised.exception))
+            self.assertTrue(raised.exception.__suppress_context__)
+            self.assertNotIsInstance(raised.exception, DraftError)
+            output.assert_not_called()
+
+    def test_unrelated_url_errors_propagate(self):
+        error = urllib.error.URLError(ConnectionRefusedError('fixture connect failure'))
+        env = {'CLOUDFLARE_ACCOUNT_ID': 'a' * 32, 'CLOUDFLARE_API_TOKEN': 'fixture'}
+        with patch.dict(os.environ, env, clear=True), patch('urllib.request.urlopen', side_effect=error) as request, \
+                self.assertRaises(urllib.error.URLError) as raised:
+            complete('write', {})
+        self.assertIs(raised.exception, error)
+        self.assertEqual(request.call_count, 1)
+
+    def test_429_status_still_pauses_when_error_body_times_out(self):
+        class TimedOutBody(io.BytesIO):
+            def read(self, *args):
+                raise TimeoutError()
+
+        error = urllib.error.HTTPError('https://api.cloudflare.com', 429, 'limit', {}, TimedOutBody())
+        now = datetime(2026, 11, 14, tzinfo=timezone.utc)
+        env = {'CLOUDFLARE_ACCOUNT_ID': 'a' * 32, 'CLOUDFLARE_API_TOKEN': 'fixture'}
+        state = {}
+        with patch.dict(os.environ, env, clear=True), budget_scope(state, lambda value: None, lambda: now), \
+                patch('urllib.request.urlopen', side_effect=error), patch('builtins.print'), self.assertRaises(AIPaused):
+            complete('write', {})
+        self.assertEqual(state['ai_pause']['until'], now.replace(minute=15).isoformat())
+
     def test_retiring_model_overrides_migrate_but_other_explicit_models_remain(self):
         for key in ('QOFENO_AI_MODEL','DASH_RATTLE_MODEL'):
             with patch.dict(os.environ,{key:'@cf/qwen/qwen3-30b-a3b-fp8'},clear=True):

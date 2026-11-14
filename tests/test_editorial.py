@@ -108,6 +108,47 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
                 if changed_at != 'second':
                     generate.assert_not_called()
 
+    async def test_ai_failure_defers_only_that_source_before_send(self):
+        reset = self.now.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
+        longer = {**SOURCE, 'id': '112', 'text': 'A longer observation about editor performance. ' * 8}
+        shorter = {**SOURCE, 'id': '113', 'text': 'We cut editor load time in half.'}
+        candidates = [SOURCE, longer, shorter]
+        by_id = {row['id']: row for row in candidates}
+        cases = [
+            (editorial.AIRequestTimeout(), longer, self.now + timedelta(minutes=30)),
+            (editorial.AIRequestTooLarge('Too large', reset, 170, 159), shorter, reset),
+        ]
+        for error, expected, retry_at in cases:
+            with self.subTest(error=type(error).__name__):
+                state, connection = empty(), self.connection()
+                connection.get_tweet_by_id.side_effect = by_id.__getitem__
+                with patch.object(editorial.sources, 'discover', AsyncMock(return_value=candidates)), \
+                     patch.object(editorial.sources, 'snapshot', side_effect=lambda row, now: row), \
+                     patch.object(editorial.reply_writer, 'generate', side_effect=[error, DRAFT]) as generate, \
+                     patch.object(editorial, 'send_once', new_callable=AsyncMock) as send:
+                    await editorial.publish_reply(state, self.slot, connection, self.user)
+                    self.assertEqual([call.args[0]['id'] for call in generate.call_args_list],
+                                     [SOURCE['id'], expected['id']])
+                    send.assert_awaited_once_with(state, self.slot, DRAFT, connection, self.user, expected)
+                    deferred = self.saved['reply_rejections'][editorial.rejection_key(SOURCE)]
+                    self.assertEqual(timestamp(deferred['until']), retry_at)
+                    self.assertFalse(self.saved.get('ai_pause'))
+                    self.assertFalse(self.saved.get('outbox'))
+                    self.assertEqual(self.saved['used_source_ids'], [])
+                with patch.object(editorial.sources, 'discover', AsyncMock(return_value=[SOURCE])), \
+                     patch.object(editorial.reply_writer, 'generate') as generate:
+                    await editorial.publish_reply(copy.deepcopy(self.saved), self.slot, connection, self.user)
+                    generate.assert_not_called()
+
+    async def test_follow_generation_timeout_precedes_x_reservation(self):
+        state, connection = empty(), self.connection('follow')
+        slot = next(row for row in self.plan if row['kind'] == 'follow')
+        with patch.object(editorial.follow_writer, 'generate', side_effect=editorial.AIRequestTimeout()):
+            await editorial.publish_follow(state, slot, connection, self.user)
+        connection.create_tweet.assert_not_awaited()
+        self.assertFalse(self.saved.get('outbox'))
+        self.assertIn('timed out', self.saved['last_attempts'][slot['slot']]['reason'])
+
     async def test_used_source_alias_or_url_cannot_be_sent_again(self):
         for key, value in (('used_source_ids', '110'), ('used_urls', SOURCE['urls'][0])):
             state, connection = empty(), self.connection()

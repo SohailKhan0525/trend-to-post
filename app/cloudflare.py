@@ -5,12 +5,28 @@ import re
 import secrets
 import urllib.error
 import urllib.request
+from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from .ai_budget import ACTIVE, AIPaused, midnight
 
 
 class DraftError(ValueError):
     pass
+
+
+class AIRequestTimeout(TimeoutError):
+    """Workers AI did not respond in time. The reserved usage may have been spent."""
+
+
+@contextmanager
+def cloudflare_response():
+    try:
+        yield
+    except (TimeoutError, urllib.error.URLError) as exc:
+        if isinstance(exc, urllib.error.URLError) and (
+                isinstance(exc, urllib.error.HTTPError) or not isinstance(exc.reason, TimeoutError)):
+            raise
+        raise AIRequestTimeout('Workers AI request timed out') from None
 
 
 def json_mode_failed(payload):
@@ -54,10 +70,18 @@ def complete(system,data,temperature=.8,max_tokens=450,schema=None,model=None):
     budget=ACTIVE.get()
     reservation=budget.reserve(model,{**payload,'max_tokens':max_tokens}) if budget else None
     try:
-        with urllib.request.urlopen(request,timeout=60) as response:
+        with cloudflare_response(), urllib.request.urlopen(request,timeout=60) as response:
             result=json.load(response)
     except urllib.error.HTTPError as exc:
-        body=exc.read(8192).decode('utf-8',errors='replace')
+        try:
+            with cloudflare_response():
+                body=exc.read(8192).decode('utf-8',errors='replace')
+        except AIRequestTimeout:
+            if exc.code != 429:
+                raise
+            # The status already confirmed a rate limit. Use the generic
+            # provider cooldown when the body cannot identify a daily quota.
+            body=''
         if exc.code==400 and json_mode_failed(body):
             raise DraftError('Cloudflare could not meet the requested JSON schema') from exc
         # Log only the provider's bounded JSON error messages, not exception
