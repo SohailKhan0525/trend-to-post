@@ -1381,6 +1381,33 @@
       "posted_at": "2026-11-14T06:49:52+00:00",
       "completed_at": "2026-11-14T06:49:52+00:00",
       "verified_at": "2026-11-14T06:49:54.679119+00:00"
+    },
+    {
+      "text": "The learning requirement is the real hedge against the content itself becoming obsolete.",
+      "event_key": "career advice on becoming an AI content creator",
+      "premise": "The author suggests that becoming an AI content creator is a lucrative path because companies are increasingly paying small influencers for exposure, and the process itself forces continuous learning.",
+      "slot": "2026-11-14:reply-v1:16",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T08:05:08.378712+00:00",
+      "source": {
+        "id": "2121201233667281074",
+        "url": "https://x.com/Leobai825/status/2121201233667281074",
+        "author": "Leobai825",
+        "author_id": "1936480895692869633",
+        "text": "给现在的年轻人指一条明路：去做 AI 博主\n\n钓鱼要去有鱼的地方，赚钱也要去有钱的地方\n\n前几年钱最多的地方是 Web3，现在很明显是 AI\n所以想赚钱就离 AI 近一点，因为这个桌子上有饭吃\n\n具体怎么做？\n\n前期别搞什么vibe coding，AI小程序，AI Agent，你需要每天去看AI前沿信息在说什么，读懂、消化，变成你自己的理解，再结合你自己的使用体验，做成内容发出来。口播也好，长文也好，露不露脸都行\n\n坚持一年、两年，哪怕只有两三万粉丝，你的收入很可能就会超过现在的工资，甚至超过很多 985 毕业生\n\n为什么？\n\n几年前，服装、护肤品、日化、家居品牌，在小红书上大量找一两万粉丝的小博主打广告，一条几百到一千\n\nAI 现在就在重复这个过程。越来越多做 AI、做 IT 的公司需要曝光，他们会去找讲 AI 的博主投广告，而且粉丝量的收益不是简单的加法。一万粉丝，一个月接几条广告，几千块；到十万粉丝，一个月可能就是十万、二十万\n\n更重要的是，做 AI 博主这件事本身，就在逼你学习\n\n你得第一时间拿到最前沿的信息，得快速读懂一件事是怎么做的、怎么用，再把它讲清楚。一两年下来，你对 AI 的理解，会超过身边绝大多数人\n\n所以 3 万粉丝是什么？是你在 AI 时代上桌的门票\n\n桌子上有饭有菜，能吃多少，取决于你自己的能力和上限。但一个这么大的蛋糕摆在面前，总有很多人能吃到\n\n也别有 AI 焦虑。焦虑只会让你乱做决定。你完全可以先保住主业，下班或者课余时间去做，往 AI 方向靠。我身边就有不少还在上班、还在上学的同学，在做 AI 相关的自媒体\n\n再说一点：以后 985 毕业生会越来越多，学历的含金量会被稀释。但一个有几万粉丝、真正懂 AI 的博主，在任何时候都是稀缺的\n\n听得懂就去做，听不懂就算了",
+        "created_at": "2026-11-13T11:19:18+00:00",
+        "views": 99701,
+        "urls": [],
+        "source_ids": [
+          "2121201233667281074"
+        ]
+      },
+      "tweet_id": "2121514765206102126",
+      "sent_at": "2026-11-14T08:05:10.199029+00:00",
+      "posted_at": "2026-11-14T08:05:10+00:00",
+      "completed_at": "2026-11-14T08:05:10+00:00",
+      "verified_at": "2026-11-14T08:05:12.818863+00:00"
     }
   ],
   "used_source_ids": [
@@ -2100,7 +2127,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T06:49:52+00:00",
+  "last_posted_at": "2026-11-14T08:05:10+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2279,6 +2306,12 @@
       "kind": "follow",
       "completed_at": "2026-11-14T06:49:52+00:00",
       "tweet_id": "2121495816967963037"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:16",
+      "kind": "reply",
+      "completed_at": "2026-11-14T08:05:10+00:00",
+      "tweet_id": "2121514765206102126"
     }
   ],
   "last_attempts": {
@@ -2316,28 +2349,5 @@
       "until": "2026-11-14T12:35:35.435335+00:00"
     }
   },
-  "outbox": {
-    "text": "The learning requirement is the real hedge against the content itself becoming obsolete.",
-    "event_key": "career advice on becoming an AI content creator",
-    "premise": "The author suggests that becoming an AI content creator is a lucrative path because companies are increasingly paying small influencers for exposure, and the process itself forces continuous learning.",
-    "slot": "2026-11-14:reply-v1:16",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T08:05:08.378712+00:00",
-    "source": {
-      "id": "2121201233667281074",
-      "url": "https://x.com/Leobai825/status/2121201233667281074",
-      "author": "Leobai825",
-      "author_id": "1936480895692869633",
-      "text": "给现在的年轻人指一条明路：去做 AI 博主\n\n钓鱼要去有鱼的地方，赚钱也要去有钱的地方\n\n前几年钱最多的地方是 Web3，现在很明显是 AI\n所以想赚钱就离 AI 近一点，因为这个桌子上有饭吃\n\n具体怎么做？\n\n前期别搞什么vibe coding，AI小程序，AI Agent，你需要每天去看AI前沿信息在说什么，读懂、消化，变成你自己的理解，再结合你自己的使用体验，做成内容发出来。口播也好，长文也好，露不露脸都行\n\n坚持一年、两年，哪怕只有两三万粉丝，你的收入很可能就会超过现在的工资，甚至超过很多 985 毕业生\n\n为什么？\n\n几年前，服装、护肤品、日化、家居品牌，在小红书上大量找一两万粉丝的小博主打广告，一条几百到一千\n\nAI 现在就在重复这个过程。越来越多做 AI、做 IT 的公司需要曝光，他们会去找讲 AI 的博主投广告，而且粉丝量的收益不是简单的加法。一万粉丝，一个月接几条广告，几千块；到十万粉丝，一个月可能就是十万、二十万\n\n更重要的是，做 AI 博主这件事本身，就在逼你学习\n\n你得第一时间拿到最前沿的信息，得快速读懂一件事是怎么做的、怎么用，再把它讲清楚。一两年下来，你对 AI 的理解，会超过身边绝大多数人\n\n所以 3 万粉丝是什么？是你在 AI 时代上桌的门票\n\n桌子上有饭有菜，能吃多少，取决于你自己的能力和上限。但一个这么大的蛋糕摆在面前，总有很多人能吃到\n\n也别有 AI 焦虑。焦虑只会让你乱做决定。你完全可以先保住主业，下班或者课余时间去做，往 AI 方向靠。我身边就有不少还在上班、还在上学的同学，在做 AI 相关的自媒体\n\n再说一点：以后 985 毕业生会越来越多，学历的含金量会被稀释。但一个有几万粉丝、真正懂 AI 的博主，在任何时候都是稀缺的\n\n听得懂就去做，听不懂就算了",
-      "created_at": "2026-11-13T11:19:18+00:00",
-      "views": 99701,
-      "urls": [],
-      "source_ids": [
-        "2121201233667281074"
-      ]
-    },
-    "tweet_id": "2121514765206102126",
-    "sent_at": "2026-11-14T08:05:10.199029+00:00"
-  }
+  "outbox": null
 }
