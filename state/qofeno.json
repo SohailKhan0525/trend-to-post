@@ -2037,13 +2037,9 @@
     }
   ],
   "last_attempts": {
-    "2026-11-13:reply-v1:37": {
-      "at": "2026-11-13T18:58:09.466143+00:00",
-      "reason": "AI paused until 2026-11-13T19:00:00+00:00: Local hourly AI budget reserved; spreading research across the day."
-    },
-    "2026-11-13:reply-v1:40": {
-      "at": "2026-11-13T20:31:43.863965+00:00",
-      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
+    "2026-11-14:reply-v1:6": {
+      "at": "2026-11-14T03:31:26.415381+00:00",
+      "reason": "AI paused until 2026-11-14T04:00:00+00:00: Local hourly AI budget reserved; spreading research across the day."
     }
   },
   "reply_rejections": {
