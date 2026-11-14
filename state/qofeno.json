@@ -1782,6 +1782,33 @@
       "posted_at": "2026-11-14T17:25:43+00:00",
       "completed_at": "2026-11-14T17:25:43+00:00",
       "verified_at": "2026-11-14T17:25:44.633719+00:00"
+    },
+    {
+      "text": "Opus 5.5 offers much better cost efficiency for the same score. 📉",
+      "event_key": "Artificial Analysis Coding Agent Index v2.1 compares Claude Opus and Fable performance.",
+      "premise": "Claude Opus 5.5 matches Fable 5.2 performance but costs significantly less per task.",
+      "slot": "2026-11-14:reply-v1:36",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T18:05:05.845869+00:00",
+      "source": {
+        "id": "2121455178570436847",
+        "url": "https://x.com/TekonBurns/status/2121455178570436847",
+        "author": "TekonBurns",
+        "author_id": "1864897473954877440",
+        "text": "💀Heavy Claude Code users were right all week about maining Opus 5.5 over maxed-out Fable 5.2.\n\nArtificial Analysis Coding Agent Index v2.1 just put hard receipts on why:\n\n→ Claude Opus 5.5 max: 58\n→ Claude Fable 5.2 high: 58\n→ Claude Fable 5.2 max: drops to 56 on task timeouts at $44.22 per task\n\nStop torching your 5-hour and $200 Ultra bars on Fable max effort when Opus 5.5 ties #1 for a fraction of the burn.",
+        "created_at": "2026-11-14T04:08:23+00:00",
+        "views": 20292,
+        "urls": [],
+        "source_ids": [
+          "2121455178570436847"
+        ]
+      },
+      "tweet_id": "2121665746077884471",
+      "sent_at": "2026-11-14T18:05:07.101383+00:00",
+      "posted_at": "2026-11-14T18:05:07+00:00",
+      "completed_at": "2026-11-14T18:05:07+00:00",
+      "verified_at": "2026-11-14T18:05:08.992029+00:00"
     }
   ],
   "used_source_ids": [
@@ -2549,7 +2576,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T17:25:43+00:00",
+  "last_posted_at": "2026-11-14T18:05:07+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2818,6 +2845,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T17:25:43+00:00",
       "tweet_id": "2121655830743560530"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:36",
+      "kind": "reply",
+      "completed_at": "2026-11-14T18:05:07+00:00",
+      "tweet_id": "2121665746077884471"
     }
   ],
   "last_attempts": {
@@ -2877,28 +2910,5 @@
       "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
-  "outbox": {
-    "text": "Opus 5.5 offers much better cost efficiency for the same score. 📉",
-    "event_key": "Artificial Analysis Coding Agent Index v2.1 compares Claude Opus and Fable performance.",
-    "premise": "Claude Opus 5.5 matches Fable 5.2 performance but costs significantly less per task.",
-    "slot": "2026-11-14:reply-v1:36",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T18:05:05.845869+00:00",
-    "source": {
-      "id": "2121455178570436847",
-      "url": "https://x.com/TekonBurns/status/2121455178570436847",
-      "author": "TekonBurns",
-      "author_id": "1864897473954877440",
-      "text": "💀Heavy Claude Code users were right all week about maining Opus 5.5 over maxed-out Fable 5.2.\n\nArtificial Analysis Coding Agent Index v2.1 just put hard receipts on why:\n\n→ Claude Opus 5.5 max: 58\n→ Claude Fable 5.2 high: 58\n→ Claude Fable 5.2 max: drops to 56 on task timeouts at $44.22 per task\n\nStop torching your 5-hour and $200 Ultra bars on Fable max effort when Opus 5.5 ties #1 for a fraction of the burn.",
-      "created_at": "2026-11-14T04:08:23+00:00",
-      "views": 20292,
-      "urls": [],
-      "source_ids": [
-        "2121455178570436847"
-      ]
-    },
-    "tweet_id": "2121665746077884471",
-    "sent_at": "2026-11-14T18:05:07.101383+00:00"
-  }
+  "outbox": null
 }
