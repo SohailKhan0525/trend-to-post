@@ -1408,6 +1408,33 @@
       "posted_at": "2026-11-14T08:05:10+00:00",
       "completed_at": "2026-11-14T08:05:10+00:00",
       "verified_at": "2026-11-14T08:05:12.818863+00:00"
+    },
+    {
+      "text": "The jump to Astra usually hits the wallet harder than the productivity gain justifies for routine tasks. If Sol High fixes that 'minimum effort' behavior without a massive latency spike, it's probably your best bet.",
+      "event_key": "Choosing between GPT-6.1 Sol, Sol High, and Astra for coding tasks",
+      "premise": "The author finds GPT-6.1 Sol (Medium effort) functional but lacking proactive optimization, and is weighing whether switching to Sol High or Astra is worth the potential increase in latency and cost.",
+      "slot": "2026-11-14:reply-v1:17",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T08:35:43.441731+00:00",
+      "source": {
+        "id": "2121400217526505567",
+        "url": "https://x.com/JamesDa55049936/status/2121400217526505567",
+        "author": "JamesDa55049936",
+        "author_id": "1643246417870491654",
+        "text": "现在用 Codex 写日常代码的兄弟，你们主力都选哪个模型？🤔\n\n我这段时间一直在用 GPT-6.1 Sol（Medium effort），大多数任务其实都够用，速度也还可以。\n\n但问题是，它很多时候像个“按最低标准交差”的实习生：能做完，但不太愿意多想一步，也不太会主动把方案做漂亮。💀\n\n所以我最近在纠结，要不要直接切到 Sol High，或者干脆上 Astra。\n可我又担心一个问题：能力是上去了，速度和消耗会不会也一起炸掉？ 🤡\n有没有长期用过这几个档位的兄弟说说：\n\n日常 Coding 场景下，Sol High 是不是最均衡的甜点位？还是 Astra 真值得为它多花时间和额度？",
+        "created_at": "2026-11-14T00:30:00+00:00",
+        "views": 13597,
+        "urls": [],
+        "source_ids": [
+          "2121400217526505567"
+        ]
+      },
+      "tweet_id": "2121522459774173352",
+      "sent_at": "2026-11-14T08:35:44.749936+00:00",
+      "posted_at": "2026-11-14T08:35:45+00:00",
+      "completed_at": "2026-11-14T08:35:45+00:00",
+      "verified_at": "2026-11-14T08:35:46.739591+00:00"
     }
   ],
   "used_source_ids": [
@@ -2130,7 +2157,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T08:05:10+00:00",
+  "last_posted_at": "2026-11-14T08:35:45+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2315,6 +2342,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T08:05:10+00:00",
       "tweet_id": "2121514765206102126"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:17",
+      "kind": "reply",
+      "completed_at": "2026-11-14T08:35:45+00:00",
+      "tweet_id": "2121522459774173352"
     }
   ],
   "last_attempts": {
@@ -2358,28 +2391,5 @@
       "until": "2026-11-14T14:35:31.431102+00:00"
     }
   },
-  "outbox": {
-    "text": "The jump to Astra usually hits the wallet harder than the productivity gain justifies for routine tasks. If Sol High fixes that 'minimum effort' behavior without a massive latency spike, it's probably your best bet.",
-    "event_key": "Choosing between GPT-6.1 Sol, Sol High, and Astra for coding tasks",
-    "premise": "The author finds GPT-6.1 Sol (Medium effort) functional but lacking proactive optimization, and is weighing whether switching to Sol High or Astra is worth the potential increase in latency and cost.",
-    "slot": "2026-11-14:reply-v1:17",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T08:35:43.441731+00:00",
-    "source": {
-      "id": "2121400217526505567",
-      "url": "https://x.com/JamesDa55049936/status/2121400217526505567",
-      "author": "JamesDa55049936",
-      "author_id": "1643246417870491654",
-      "text": "现在用 Codex 写日常代码的兄弟，你们主力都选哪个模型？🤔\n\n我这段时间一直在用 GPT-6.1 Sol（Medium effort），大多数任务其实都够用，速度也还可以。\n\n但问题是，它很多时候像个“按最低标准交差”的实习生：能做完，但不太愿意多想一步，也不太会主动把方案做漂亮。💀\n\n所以我最近在纠结，要不要直接切到 Sol High，或者干脆上 Astra。\n可我又担心一个问题：能力是上去了，速度和消耗会不会也一起炸掉？ 🤡\n有没有长期用过这几个档位的兄弟说说：\n\n日常 Coding 场景下，Sol High 是不是最均衡的甜点位？还是 Astra 真值得为它多花时间和额度？",
-      "created_at": "2026-11-14T00:30:00+00:00",
-      "views": 13597,
-      "urls": [],
-      "source_ids": [
-        "2121400217526505567"
-      ]
-    },
-    "tweet_id": "2121522459774173352",
-    "sent_at": "2026-11-14T08:35:44.749936+00:00"
-  }
+  "outbox": null
 }
