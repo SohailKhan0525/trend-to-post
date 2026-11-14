@@ -63,6 +63,29 @@ class ReplyWriterTests(unittest.TestCase):
             with self.subTest(reply=reply), self.assertRaises(DraftError):
                 writer.validate({**DRAFT, 'text': reply}, SOURCE)
 
+    def test_live_cost_summary_is_repaired_to_a_source_specific_deadpan_take(self):
+        source = {**SOURCE, 'text': 'Our coding eval put two agents at similar scores, but one cost 30x more per task.'}
+        published = 'A 30x cost difference for similar scores is a massive gap for anyone trying to scale agentic workflows.'
+        draft = {'text': 'The scores are a photo finish. The invoices aren’t.',
+                 'event_key': 'Coding eval similar scores divergent costs',
+                 'premise': 'Two agents scored similarly on the coding eval while one cost 30x more per task.'}
+        assessment = {**ASSESSMENT, **draft}
+        result, calls = self.generate([{**assessment, 'text': published}, assessment,
+                                       {**VERDICT, 'source_evidence': source['text']}], source=source)
+        self.assertEqual(result, draft)
+        self.assertEqual(calls.call_count, 3)
+        self.assertIn('vague impact claim', calls.call_args_list[1].args[1]['correction'])
+        self.assertEqual(calls.call_args_list[2].args[1]['draft']['text'], draft['text'])
+        specific = {**draft, 'text': 'Does that 30x gap include the retries for failed tasks?'}
+        self.assertEqual(writer.validate(specific, source), specific)
+
+    def test_accurate_recap_without_an_angle_fails_independent_review(self):
+        recap = {**ASSESSMENT, 'text': 'Keeping the logs local and the tests parallel is significant for software teams.'}
+        with patch.object(writer, 'complete', side_effect=[recap, {**VERDICT, 'added_angle': False}]) as calls:
+            with self.assertRaisesRegex(DraftError, 'added_angle'):
+                writer.generate(SOURCE, {}, NOW)
+        self.assertEqual(calls.call_count, 2)
+
     def test_source_specific_suggestion_can_answer_a_request_for_feedback(self):
         source = {**SOURCE, 'text': 'Codex hides the failed command when I retry. How would you improve this?'}
         draft = {'text': 'Pin the failed command above the retry.', 'event_key': 'Codex failed command visibility',
