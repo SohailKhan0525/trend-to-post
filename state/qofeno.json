@@ -1980,10 +1980,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 288,
-    "requests": 5,
+    "neurons_reserved": 364,
+    "requests": 6,
     "hour": "2026-11-14T03",
-    "hour_neurons_reserved": 241,
+    "hour_neurons_reserved": 317,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2047,9 +2047,5 @@
       "until": "2026-11-14T09:25:15.282501+00:00"
     }
   },
-  "outbox": null,
-  "ai_pause": {
-    "reason": "Local hourly AI budget reserved; spreading research across the day.",
-    "until": "2026-11-14T04:00:00+00:00"
-  }
+  "outbox": null
 }
