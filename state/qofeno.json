@@ -1628,6 +1628,33 @@
       "posted_at": "2026-11-14T13:35:02+00:00",
       "completed_at": "2026-11-14T13:35:02+00:00",
       "verified_at": "2026-11-14T13:35:04.868737+00:00"
+    },
+    {
+      "text": "What is the context window for the Luna sessions?",
+      "event_key": "Price comparison of Kimi K3.1 Pro and GPT-6 Luna sessions via OpenCode Go",
+      "premise": "OpenCode Go offers 18 Kimi K3.1 Pro sessions or 1,000 GPT-6 Luna sessions for $10.",
+      "slot": "2026-11-14:reply-v1:29",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T14:35:15.364321+00:00",
+      "source": {
+        "id": "2121314662784672035",
+        "url": "https://x.com/AdamHoltererer/status/2121314662784672035",
+        "author": "AdamHoltererer",
+        "author_id": "1664269804558229509",
+        "text": "OpenCode Go's $10 buys 18 Kimi K3.1 Pro sessions a month\n\nOr 1,000 of GPT-6 Luna https://t.co/hBnMPvEBg3",
+        "created_at": "2026-11-13T18:50:02+00:00",
+        "views": 10297,
+        "urls": [],
+        "source_ids": [
+          "2121314662784672035"
+        ]
+      },
+      "tweet_id": "2121612942127034813",
+      "sent_at": "2026-11-14T14:35:17.500615+00:00",
+      "posted_at": "2026-11-14T14:35:17+00:00",
+      "completed_at": "2026-11-14T14:35:17+00:00",
+      "verified_at": "2026-11-14T14:35:19.965914+00:00"
     }
   ],
   "used_source_ids": [
@@ -2376,7 +2403,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T13:35:02+00:00",
+  "last_posted_at": "2026-11-14T14:35:17+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2609,6 +2636,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T13:35:02+00:00",
       "tweet_id": "2121597780225601873"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:29",
+      "kind": "reply",
+      "completed_at": "2026-11-14T14:35:17+00:00",
+      "tweet_id": "2121612942127034813"
     }
   ],
   "last_attempts": {
@@ -2668,28 +2701,5 @@
       "until": "2026-11-14T20:25:26.626906+00:00"
     }
   },
-  "outbox": {
-    "text": "What is the context window for the Luna sessions?",
-    "event_key": "Price comparison of Kimi K3.1 Pro and GPT-6 Luna sessions via OpenCode Go",
-    "premise": "OpenCode Go offers 18 Kimi K3.1 Pro sessions or 1,000 GPT-6 Luna sessions for $10.",
-    "slot": "2026-11-14:reply-v1:29",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T14:35:15.364321+00:00",
-    "source": {
-      "id": "2121314662784672035",
-      "url": "https://x.com/AdamHoltererer/status/2121314662784672035",
-      "author": "AdamHoltererer",
-      "author_id": "1664269804558229509",
-      "text": "OpenCode Go's $10 buys 18 Kimi K3.1 Pro sessions a month\n\nOr 1,000 of GPT-6 Luna https://t.co/hBnMPvEBg3",
-      "created_at": "2026-11-13T18:50:02+00:00",
-      "views": 10297,
-      "urls": [],
-      "source_ids": [
-        "2121314662784672035"
-      ]
-    },
-    "tweet_id": "2121612942127034813",
-    "sent_at": "2026-11-14T14:35:17.500615+00:00"
-  }
+  "outbox": null
 }
