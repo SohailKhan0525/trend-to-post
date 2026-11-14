@@ -1518,6 +1518,33 @@
       "posted_at": "2026-11-14T11:06:06+00:00",
       "completed_at": "2026-11-14T11:06:06+00:00",
       "verified_at": "2026-11-14T11:06:09.522827+00:00"
+    },
+    {
+      "text": "Automating the vulnerability review saves significant manual audit time.",
+      "event_key": "GitHub Copilot integration for fixing NuGet package vulnerabilities",
+      "premise": "GitHub Copilot can identify vulnerable NuGet packages and suggest updates within Visual Studio.",
+      "slot": "2026-11-14:reply-v1:23",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-14T11:36:22.866879+00:00",
+      "source": {
+        "id": "2121229594053280235",
+        "url": "https://x.com/VisualStudio/status/2121229594053280235",
+        "author": "VisualStudio",
+        "author_id": "16913772",
+        "text": "✅ Fix package vulnerabilities with GitHub Copilot\n\nLearn how GitHub Copilot can help identify vulnerable NuGet packages and suggest updates to address them. We’ll review the recommendations, apply the fixes, and check that the project still works. #visualstudio #githubcopilot https://t.co/GXOP5c5jgz",
+        "created_at": "2026-11-13T13:12:00+00:00",
+        "views": 10413,
+        "urls": [],
+        "source_ids": [
+          "2121229594053280235"
+        ]
+      },
+      "tweet_id": "2121567924523503940",
+      "sent_at": "2026-11-14T11:36:24.625778+00:00",
+      "posted_at": "2026-11-14T11:36:24+00:00",
+      "completed_at": "2026-11-14T11:36:24+00:00",
+      "verified_at": "2026-11-14T11:36:27.317585+00:00"
     }
   ],
   "used_source_ids": [
@@ -2253,7 +2280,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T11:06:06+00:00",
+  "last_posted_at": "2026-11-14T11:36:24+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -2462,6 +2489,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T11:06:06+00:00",
       "tweet_id": "2121560299216199874"
+    },
+    {
+      "slot": "2026-11-14:reply-v1:23",
+      "kind": "reply",
+      "completed_at": "2026-11-14T11:36:24+00:00",
+      "tweet_id": "2121567924523503940"
     }
   ],
   "last_attempts": {
@@ -2519,28 +2552,5 @@
       "until": "2026-11-14T16:35:38.235650+00:00"
     }
   },
-  "outbox": {
-    "text": "Automating the vulnerability review saves significant manual audit time.",
-    "event_key": "GitHub Copilot integration for fixing NuGet package vulnerabilities",
-    "premise": "GitHub Copilot can identify vulnerable NuGet packages and suggest updates within Visual Studio.",
-    "slot": "2026-11-14:reply-v1:23",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-14T11:36:22.866879+00:00",
-    "source": {
-      "id": "2121229594053280235",
-      "url": "https://x.com/VisualStudio/status/2121229594053280235",
-      "author": "VisualStudio",
-      "author_id": "16913772",
-      "text": "✅ Fix package vulnerabilities with GitHub Copilot\n\nLearn how GitHub Copilot can help identify vulnerable NuGet packages and suggest updates to address them. We’ll review the recommendations, apply the fixes, and check that the project still works. #visualstudio #githubcopilot https://t.co/GXOP5c5jgz",
-      "created_at": "2026-11-13T13:12:00+00:00",
-      "views": 10413,
-      "urls": [],
-      "source_ids": [
-        "2121229594053280235"
-      ]
-    },
-    "tweet_id": "2121567924523503940",
-    "sent_at": "2026-11-14T11:36:24.625778+00:00"
-  }
+  "outbox": null
 }
