@@ -62,7 +62,8 @@ Reply: 'Does the retry pick up where the upload stopped?'
 
 Use plain conversational English in one short paragraph. A few words can land the
 point. Stop there. Maximum 250 weighted characters, at most one optional emoji.
-Skip headlines, recaps, generic praise, lectures, and compliments before a question.
+Skip headlines, recaps, generic praise and lectures. If the question works by
+itself, start there. Calling a feature 'a massive leap' adds no setup.
 No manufactured outrage, insults, politics, countries, flags, nationality or tragedies.
 
 Never pretend to be human or claim personal testing, purchases, employment, use of
@@ -139,6 +140,9 @@ EMPTY_REACTIONS = {'so true', 'so real', 'big if true', 'you love to see it',
 VAGUE_IMPACT = re.compile(
     r'\b(?:massive|huge|significant|major|substantial) (?:gap|difference|win|shift|advantage) '
     r'for (?:anyone|everyone|teams|developers|people) (?:trying|looking|hoping|aiming) to\b', re.I)
+PRAISE_THEN_QUESTION = re.compile(
+    r'^[^.!?]+\b(?:is|are) a (?:massive|huge|major) (?:leap|step|jump) '
+    r'(?:forward|(?:over|from) (?:just|simply|merely))\b[^.!?]*[.!]\s+[^.!?]+\?$', re.I)
 
 
 class SourceRejected(DraftError):
@@ -227,6 +231,8 @@ def validate(draft, source):
         raise DraftError('Use a specific reply without canned praise, promotion or invented experience')
     if '?' in text and INTERVIEW_QUESTION.search(text):
         raise DraftError('Replace the interview prompt with a direct take or a concrete question about the post')
+    if PRAISE_THEN_QUESTION.search(text):
+        raise DraftError('Drop the opening praise and ask the specific question directly. Keep any detail needed to understand it.')
     if NUMBER.search(text) and VAGUE_IMPACT.search(text):
         raise DraftError('The number already gives the magnitude. Replace the vague impact claim with a dry contrast or concrete implication.')
     if text.count('?') > 1 or ('?' in text and re.search(r'\b(?:and|or)\s+(?:how|why|what|which|who|when|where|do|does|would|will|can|could)\b', text, re.I)):

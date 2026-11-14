@@ -402,6 +402,73 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         follow.assert_not_awaited()
         sleep.assert_not_awaited()
 
+    async def test_inspect_and_idle_wake_report_spacing_from_verified_publication(self):
+        connection = self.connection()
+        published = self.now
+        self.saved['history'] = [{'kind': 'reply', 'tweet_id': '333', 'posted_at': published.isoformat(),
+                                  'verified_at': (published + timedelta(minutes=5)).isoformat()}]
+        self.saved['editorial_history'] = [{**self.slot, 'tweet_id': '333',
+                                           'completed_at': (published + timedelta(minutes=5)).isoformat()}]
+        self.now += timedelta(minutes=12)
+        expected = (published + timedelta(minutes=30)).isoformat()
+        with patch.object(editorial, 'client', return_value=connection) as client, \
+                patch.object(editorial, 'publish_reply', new_callable=AsyncMock) as reply, \
+                patch.object(editorial.asyncio, 'sleep', new_callable=AsyncMock) as sleep:
+            await editorial.inspect()
+            self.assertIn(expected, editorial.summary.call_args.args[0])
+            client.assert_not_called()
+            await editorial.run('push')
+            self.assertIn(expected, editorial.summary.call_args.args[0])
+            reply.assert_not_awaited()
+            sleep.assert_not_awaited()
+        connection.create_tweet.assert_not_awaited()
+        self.assertEqual(self.saves, [])
+
+    async def test_inspect_reports_next_day_after_final_reply(self):
+        last_reply = [row for row in self.plan if row['kind'] == 'reply'][-1]
+        last_send = START + timedelta(hours=23, minutes=55)
+        self.now = last_send + timedelta(minutes=1)
+        self.saved['editorial_history'] = [{**last_reply, 'completed_at': last_send.isoformat()}]
+        self.saved['editorial_history'] += [{**row, 'completed_at': row['due_at']} for row in self.plan
+                                            if row['kind'] == 'follow']
+        await editorial.inspect()
+        self.assertIn((last_send + timedelta(minutes=30)).isoformat(), editorial.summary.call_args.args[0])
+
+    async def test_dispatch_logs_its_research_time_once_before_sleep(self):
+        due = timestamp(self.slot['due_at'])
+        self.now = due - timedelta(seconds=65)
+        previous = [row for row in self.plan if row['kind'] == 'reply'][1]
+        self.saved['editorial_history'] = [{**previous, 'completed_at': previous['due_at']}]
+        waiting = f'Waiting until {due.isoformat()} to begin research for a reply.'
+
+        async def sleep(seconds):
+            editorial.summary.assert_any_call(waiting)
+            self.now += timedelta(seconds=seconds)
+
+        async def finish_slot(state, slot, connection, user):
+            self.saved['editorial_history'] = [{**slot, 'completed_at': self.now.isoformat()}]
+
+        with patch.object(editorial, 'client', return_value=self.connection()), \
+                patch.object(editorial, 'publish_reply', side_effect=finish_slot) as publish, \
+                patch.object(editorial.asyncio, 'sleep', side_effect=sleep) as sleeper:
+            await editorial.run('repository_dispatch')
+        publish.assert_awaited_once()
+        self.assertGreater(sleeper.await_count, 1)
+        self.assertEqual([call.args[0] for call in editorial.summary.call_args_list].count(waiting), 1)
+
+    async def test_inspect_identifies_holds_before_reporting_a_slot(self):
+        self.saved['x_pause_until'] = (self.now + timedelta(minutes=5)).isoformat()
+        self.saved['ai_pause'] = {'reason': 'quota', 'until': (self.now + timedelta(minutes=12)).isoformat()}
+        await editorial.inspect()
+        message = editorial.summary.call_args.args[0]
+        self.assertIn(self.saved['x_pause_until'], message)
+        self.assertIn(self.saved['ai_pause']['until'], message)
+        self.assertNotIn('research opportunity', message)
+        self.saved['outbox'] = self.pending()
+        await editorial.inspect()
+        self.assertIn('reconciliation', editorial.summary.call_args.args[0])
+        self.assertNotIn('research opportunity', editorial.summary.call_args.args[0])
+
     async def test_ai_pause_stops_research_and_send(self):
         state, connection = empty(), self.connection()
         state['ai_pause'] = {'until': (self.now+timedelta(hours=1)).isoformat(), 'reason': 'quota'}

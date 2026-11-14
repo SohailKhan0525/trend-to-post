@@ -86,6 +86,24 @@ class ReplyWriterTests(unittest.TestCase):
                 writer.generate(SOURCE, {}, NOW)
         self.assertEqual(calls.call_count, 2)
 
+    def test_comparative_praise_before_a_question_gets_one_repair(self):
+        source = {**SOURCE, 'text': 'Code Tour turns diffs into readable chapters and visual diagrams.'}
+        draft = {'text': 'Will the visual diagrams be generated automatically from the code structure?',
+                 'event_key': 'Code Tour turns diffs into chapters and diagrams',
+                 'premise': 'Code Tour presents changes as chapters and visual diagrams.'}
+        assessment = {**ASSESSMENT, **draft}
+        opening = 'Turning a diff into a narrative is a massive leap over just scrolling through line changes.'
+        result, calls = self.generate([{**assessment, 'text': opening + ' ' + draft['text']}, assessment,
+                                       {**VERDICT, 'source_evidence': source['text']}], source=source)
+        self.assertEqual(result, draft)
+        self.assertEqual(calls.call_count, 3)
+        self.assertIn('Drop the opening praise', calls.call_args_list[1].args[1]['correction'])
+        self.assertEqual(calls.call_args_list[-1].args[1]['draft'], draft)
+        for reply in ('Chapters give me the sequence. Can the diagram show which change depends on which?',
+                      'Does the diagram layout take a huge jump between chapters?'):
+            with self.subTest(reply=reply):
+                self.assertEqual(writer.validate({**draft, 'text': reply}, source)['text'], reply)
+
     def test_source_specific_suggestion_can_answer_a_request_for_feedback(self):
         source = {**SOURCE, 'text': 'Codex hides the failed command when I retry. How would you improve this?'}
         draft = {'text': 'Pin the failed command above the retry.', 'event_key': 'Codex failed command visibility',

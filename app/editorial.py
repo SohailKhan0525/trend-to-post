@@ -66,6 +66,32 @@ def delivery_open(state):
                                                'pause_reason', 'follow_pending', 'outbox'))
 
 
+def publication_hold(state, now):
+    if not delivery_open(state):
+        return 'Publication is paused for reconciliation of a previous send.'
+    holds = []
+    if state.get('x_pause_until'):
+        until = timestamp(state['x_pause_until'])
+        if until > now:
+            holds.append(f'X rate-limit cooldown until {until.isoformat()}.')
+    pause = active_pause(state, now)
+    if pause:
+        holds.append(f'AI paused until {pause.until.isoformat()}: {pause.reason}')
+    return ' '.join(holds)
+
+
+def upcoming_opportunity(state, now):
+    scheduled = schedule_state(state)
+    midnight = now.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+    # next_slot evaluates one UTC calendar day, including the actual publication
+    # times and retry delays. The next day may be the first with an unused slot.
+    found = next_slot(scheduled, now, midnight) or next_slot(scheduled, midnight, midnight + timedelta(days=1))
+    if not found:
+        return 'No eligible research opportunity in the current or following UTC day.'
+    slot, ready = found
+    return f'Next eligible research opportunity for a {slot["kind"]} starts at {ready.isoformat()}.'
+
+
 async def verify_delivery(state, connection):
     pending = state.get('outbox')
     if not pending:
@@ -302,20 +328,18 @@ async def run(event):
     summary('Mode: at most one contextual reply per 30 minutes + two own follow posts/day. Workers AI: ' + selected_model())
     for _ in range(3 if window else 1):
         state = load()
-        if not delivery_open(state):
+        now = utcnow()
+        hold = publication_hold(state, now)
+        if hold:
+            summary(hold)
             return
-        if state.get('x_pause_until') and timestamp(state['x_pause_until']) > utcnow():
-            summary('X publication rate-limit cooldown is active.')
-            return
-        paused = active_pause(state, utcnow())
-        if paused:
-            summary(f'AI paused until {paused.until.isoformat()}: {paused.reason}')
-            return
-        found = next_slot(schedule_state(state), utcnow(), window)
+        found = next_slot(schedule_state(state), now, window)
         if not found:
-            summary('No eligible reply or own-post opportunity in this wake.')
+            summary(upcoming_opportunity(state, now))
             return
         slot, ready = found
+        if ready > now:
+            summary(f'Waiting until {ready.isoformat()} to begin research for a {slot["kind"]}.')
         while (wait := (ready - utcnow()).total_seconds()) > 0:
             await asyncio.sleep(min(wait, 30))
         if utcnow() >= timestamp(slot['expires_at']):
@@ -334,7 +358,8 @@ async def run(event):
 
 async def inspect():
     state = load()
-    found = next_slot(schedule_state(state), utcnow())
-    summary(f'Next due opportunity: {found[0] if found else "none"}. '
+    now = utcnow()
+    status = publication_hold(state, now) or upcoming_opportunity(state, now)
+    summary(f'{status} '
             f'Confirmed publications: {len(state["history"])}. '
             f'Pending send: {bool(state.get("outbox"))}. No model or send calls.')
