@@ -2051,5 +2051,9 @@
       "until": "2026-11-14T09:25:15.282501+00:00"
     }
   },
-  "outbox": null
+  "outbox": null,
+  "ai_pause": {
+    "reason": "Local hourly AI budget reserved; spreading research across the day.",
+    "until": "2026-11-14T04:00:00+00:00"
+  }
 }
