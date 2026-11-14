@@ -2519,10 +2519,10 @@
   },
   "ai_usage": {
     "day": "2026-11-14",
-    "neurons_reserved": 1277,
+    "neurons_reserved": 1231,
     "requests": 64,
     "hour": "2026-11-14T15",
-    "hour_neurons_reserved": 91,
+    "hour_neurons_reserved": 45,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -2717,7 +2717,7 @@
       "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
     },
     "2026-11-14:reply-v1:31": {
-      "at": "2026-11-14T15:35:35.623234+00:00",
+      "at": "2026-11-14T15:45:46.404014+00:00",
       "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
     }
   },
@@ -2736,6 +2736,9 @@
     },
     "ee4b63dbc783270f4583d30a6f7b9319d8c154092f792c275f97a95c92af6c7e": {
       "until": "2026-11-14T20:25:26.626906+00:00"
+    },
+    "cea67cdff834e0a68f884393815a9a2d757973c311a5be2f04907ef3cee6c7f0": {
+      "until": "2026-11-14T21:45:46.403851+00:00"
     }
   },
   "outbox": null
