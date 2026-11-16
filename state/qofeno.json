@@ -2130,6 +2130,33 @@
       "posted_at": "2026-11-16T13:45:54+00:00",
       "completed_at": "2026-11-16T13:45:54+00:00",
       "verified_at": "2026-11-16T13:45:56.402579+00:00"
+    },
+    {
+      "text": "Fixing capacity errors is a bold comeback strategy. 🙃",
+      "event_key": "OpenAI resolves model capacity errors",
+      "premise": "The author claims OpenAI is back in the game because capacity errors are resolved, allowing use of less popular models.",
+      "slot": "2026-11-16:reply-v1:28",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T14:16:11.988906+00:00",
+      "source": {
+        "id": "2122298376456741208",
+        "url": "https://x.com/IndependentEco/status/2122298376456741208",
+        "author": "IndependentEco",
+        "author_id": "1736443605470916608",
+        "text": "OpenAI just made an epic announcement.\n\nEverybody has been waiting for them to start competing with Anthropic and they are finally back in the game.\n\nYou might be thinking “did codex release a new model that competes with Opus 5.5?”\n\nNope even better.\n\nTibo has announced today that the “model at capacity” errors are now resolved.\n\nThe models that nobody wants to use can now be used.\n\nOpenAI is so back!",
+        "created_at": "2026-11-16T11:58:58+00:00",
+        "views": 11973,
+        "urls": [],
+        "source_ids": [
+          "2122298376456741208"
+        ]
+      },
+      "tweet_id": "2122332928810336378",
+      "sent_at": "2026-11-16T14:16:15.863008+00:00",
+      "posted_at": "2026-11-16T14:16:15+00:00",
+      "completed_at": "2026-11-16T14:16:15+00:00",
+      "verified_at": "2026-11-16T14:16:20.135692+00:00"
     }
   ],
   "used_source_ids": [
@@ -2943,7 +2970,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T13:45:54+00:00",
+  "last_posted_at": "2026-11-16T14:16:15+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3290,6 +3317,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T13:45:54+00:00",
       "tweet_id": "2122325287493116162"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:28",
+      "kind": "reply",
+      "completed_at": "2026-11-16T14:16:15+00:00",
+      "tweet_id": "2122332928810336378"
     }
   ],
   "last_attempts": {
@@ -3347,30 +3380,7 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": {
-    "text": "Fixing capacity errors is a bold comeback strategy. 🙃",
-    "event_key": "OpenAI resolves model capacity errors",
-    "premise": "The author claims OpenAI is back in the game because capacity errors are resolved, allowing use of less popular models.",
-    "slot": "2026-11-16:reply-v1:28",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T14:16:11.988906+00:00",
-    "source": {
-      "id": "2122298376456741208",
-      "url": "https://x.com/IndependentEco/status/2122298376456741208",
-      "author": "IndependentEco",
-      "author_id": "1736443605470916608",
-      "text": "OpenAI just made an epic announcement.\n\nEverybody has been waiting for them to start competing with Anthropic and they are finally back in the game.\n\nYou might be thinking “did codex release a new model that competes with Opus 5.5?”\n\nNope even better.\n\nTibo has announced today that the “model at capacity” errors are now resolved.\n\nThe models that nobody wants to use can now be used.\n\nOpenAI is so back!",
-      "created_at": "2026-11-16T11:58:58+00:00",
-      "views": 11973,
-      "urls": [],
-      "source_ids": [
-        "2122298376456741208"
-      ]
-    },
-    "tweet_id": "2122332928810336378",
-    "sent_at": "2026-11-16T14:16:15.863008+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
