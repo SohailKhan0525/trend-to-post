@@ -2305,6 +2305,33 @@
       "posted_at": "2026-11-16T18:05:06+00:00",
       "completed_at": "2026-11-16T18:05:06+00:00",
       "verified_at": "2026-11-16T18:05:07.950716+00:00"
+    },
+    {
+      "text": "Reading the code remains the ultimate bottleneck.",
+      "event_key": "Speculative history of AI coding automation and its societal impacts.",
+      "premise": "A speculative timeline of AI coding evolution from late 2025 to late 2026, moving from model breakthroughs to orchestration and cognitive debt.",
+      "slot": "2026-11-16:reply-v1:37",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T18:35:21.488041+00:00",
+      "source": {
+        "id": "2122287575557706226",
+        "url": "https://x.com/mattpocockuk/status/2122287575557706226",
+        "author": "mattpocockuk",
+        "author_id": "346640777",
+        "text": "A brief history of AI Coding since Nov 2025:\n\nNov 2025: Opus 4.5 releases, OpenClaw gets built\nDec 2025: community agrees that models get good enough to handle 95% of coding tasks\nJan 2026: Ralph loops get popular, early efforts on loops/orchestration\nFeb: Everyone feels knackered, too much strategic decision-making, fears around cognitive debt begin\nMar: Skills explosion as community converges around easy-to-share processes (superpowers already ahead of the game here)\nApr: most SOTA devs haven't written a line of code in months\nMay: \"The unreasonable effectiveness of HTML\" - more interest in richer review surfaces\nJun: \"Loop Engineering\" wins vaguepost of the year, signals more hype around process\nJul: Every talk in every conference becomes \"here is my software factory\"\nAug: Opus 5 speaks incomprehensibly, interest in ASD-STE100 peaks\nSep: Grok Bot gets popular, more interest in long-running \"manager\" threads which retain context and delegate work\nOct: The promised speed gains haven't materialised, \"dark factory\" feels a long way off still\nNov: No-slop manifesto releases, reading the code still appears essential\n\nTL;DR: no-one is writing code anymore, and we are still figuring out what that means",
+        "created_at": "2026-11-16T11:16:02+00:00",
+        "views": 129184,
+        "urls": [],
+        "source_ids": [
+          "2122287575557706226"
+        ]
+      },
+      "tweet_id": "2122398138568982572",
+      "sent_at": "2026-11-16T18:35:22.803909+00:00",
+      "posted_at": "2026-11-16T18:35:23+00:00",
+      "completed_at": "2026-11-16T18:35:23+00:00",
+      "verified_at": "2026-11-16T18:35:25.234709+00:00"
     }
   ],
   "used_source_ids": [
@@ -3137,7 +3164,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T18:05:06+00:00",
+  "last_posted_at": "2026-11-16T18:35:23+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3526,6 +3553,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T18:05:06+00:00",
       "tweet_id": "2122390517388648502"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:37",
+      "kind": "reply",
+      "completed_at": "2026-11-16T18:35:23+00:00",
+      "tweet_id": "2122398138568982572"
     }
   ],
   "last_attempts": {
@@ -3554,30 +3587,7 @@
       "until": "2026-11-16T23:56:03.973028+00:00"
     }
   },
-  "outbox": {
-    "text": "Reading the code remains the ultimate bottleneck.",
-    "event_key": "Speculative history of AI coding automation and its societal impacts.",
-    "premise": "A speculative timeline of AI coding evolution from late 2025 to late 2026, moving from model breakthroughs to orchestration and cognitive debt.",
-    "slot": "2026-11-16:reply-v1:37",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T18:35:21.488041+00:00",
-    "source": {
-      "id": "2122287575557706226",
-      "url": "https://x.com/mattpocockuk/status/2122287575557706226",
-      "author": "mattpocockuk",
-      "author_id": "346640777",
-      "text": "A brief history of AI Coding since Nov 2025:\n\nNov 2025: Opus 4.5 releases, OpenClaw gets built\nDec 2025: community agrees that models get good enough to handle 95% of coding tasks\nJan 2026: Ralph loops get popular, early efforts on loops/orchestration\nFeb: Everyone feels knackered, too much strategic decision-making, fears around cognitive debt begin\nMar: Skills explosion as community converges around easy-to-share processes (superpowers already ahead of the game here)\nApr: most SOTA devs haven't written a line of code in months\nMay: \"The unreasonable effectiveness of HTML\" - more interest in richer review surfaces\nJun: \"Loop Engineering\" wins vaguepost of the year, signals more hype around process\nJul: Every talk in every conference becomes \"here is my software factory\"\nAug: Opus 5 speaks incomprehensibly, interest in ASD-STE100 peaks\nSep: Grok Bot gets popular, more interest in long-running \"manager\" threads which retain context and delegate work\nOct: The promised speed gains haven't materialised, \"dark factory\" feels a long way off still\nNov: No-slop manifesto releases, reading the code still appears essential\n\nTL;DR: no-one is writing code anymore, and we are still figuring out what that means",
-      "created_at": "2026-11-16T11:16:02+00:00",
-      "views": 129184,
-      "urls": [],
-      "source_ids": [
-        "2122287575557706226"
-      ]
-    },
-    "tweet_id": "2122398138568982572",
-    "sent_at": "2026-11-16T18:35:22.803909+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
