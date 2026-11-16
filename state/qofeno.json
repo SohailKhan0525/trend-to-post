@@ -3053,10 +3053,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 275,
-    "requests": 17,
+    "neurons_reserved": 285,
+    "requests": 18,
     "hour": "2026-11-16T14",
-    "hour_neurons_reserved": 89,
+    "hour_neurons_reserved": 99,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
