@@ -2265,6 +2265,19 @@
       "posted_at": "2026-11-16T17:25:57+00:00",
       "completed_at": "2026-11-16T17:25:57+00:00",
       "verified_at": "2026-11-16T17:25:58.853612+00:00"
+    },
+    {
+      "text": "Follow me now before it's too late. I post about the trade-offs between monoliths and microservices in modern software design. 🏗️",
+      "event_key": "follow:79d799e7470c4104d7f1fc08516cdaf382108b17b80c616668f0929844aaa6cf",
+      "slot": "2026-11-16:follow-v1:1",
+      "kind": "follow",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T17:31:24.520474+00:00",
+      "tweet_id": "2122382043770421466",
+      "sent_at": "2026-11-16T17:31:25.780806+00:00",
+      "posted_at": "2026-11-16T17:31:25+00:00",
+      "completed_at": "2026-11-16T17:31:25+00:00",
+      "verified_at": "2026-11-16T17:31:27.448799+00:00"
     }
   ],
   "used_source_ids": [
@@ -3091,7 +3104,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T17:25:57+00:00",
+  "last_posted_at": "2026-11-16T17:31:25+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3468,6 +3481,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T17:25:57+00:00",
       "tweet_id": "2122380665044025820"
+    },
+    {
+      "slot": "2026-11-16:follow-v1:1",
+      "kind": "follow",
+      "completed_at": "2026-11-16T17:31:25+00:00",
+      "tweet_id": "2122382043770421466"
     }
   ],
   "last_attempts": {
@@ -3492,16 +3511,7 @@
       "until": "2026-11-16T23:05:36.428605+00:00"
     }
   },
-  "outbox": {
-    "text": "Follow me now before it's too late. I post about the trade-offs between monoliths and microservices in modern software design. 🏗️",
-    "event_key": "follow:79d799e7470c4104d7f1fc08516cdaf382108b17b80c616668f0929844aaa6cf",
-    "slot": "2026-11-16:follow-v1:1",
-    "kind": "follow",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T17:31:24.520474+00:00",
-    "tweet_id": "2122382043770421466",
-    "sent_at": "2026-11-16T17:31:25.780806+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
