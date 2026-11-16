@@ -2683,6 +2683,7 @@
     "ca8befc29678e8a73a1de8e0d689076c4084e6a9670b3f314e5092942d57213e",
     "cc6f81e8f743390caeb213e0e04377fd8c10d55c9bf58c416e7db58628467d1d",
     "cc83817304f39805e984ca29ecdc3ffe541a42fcbf7b9039fe4f3676909b4214",
+    "cd525d9375df192fd5ded975c9291c3049ea3195eb8f19f4d88b326dd19d1365",
     "cffbf7168d7dde3b01173641520a59be698dbbeca23099504b714631bd4f8352",
     "d0cbf62b091eeced3f2d1fe0c5998cb23a46f8d1081939afb20ae90826c14523",
     "d10b237328c1fd211bef11097296e21a7334e0425b171405fd78ee4303fcf1d9",
@@ -2859,10 +2860,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 71,
+    "neurons_reserved": 33,
     "requests": 3,
     "hour": "2026-11-16T11",
-    "hour_neurons_reserved": 71,
+    "hour_neurons_reserved": 33,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3140,7 +3141,14 @@
     }
   },
   "reply_rejections": {},
-  "outbox": null,
+  "outbox": {
+    "text": "Follow me now before it's too late. I explore the practical trade-offs of different software tools and AI coding workflows. 🤖",
+    "event_key": "follow:cd525d9375df192fd5ded975c9291c3049ea3195eb8f19f4d88b326dd19d1365",
+    "slot": "2026-11-16:follow-v1:0",
+    "kind": "follow",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T11:31:18.962422+00:00"
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
