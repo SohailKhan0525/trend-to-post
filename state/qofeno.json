@@ -2293,7 +2293,8 @@
     "2121680044451872811",
     "2122053270764179618",
     "2122058578005487774",
-    "2122231173720224224"
+    "2122231173720224224",
+    "2122283790366134637"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -2416,6 +2417,7 @@
     "c0450e458d0de658cc012f44ea137e05362643e80bf8cb4cda76425ca172ccd9",
     "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d",
     "c680dad137f76b510aea1cc88053989bed87bbf6b7b7f5ae1d79d83c83f9a375",
+    "c93490cdfcbff85ce80d16542f2ae662a471277914e306400e91f3b148d785c4",
     "cc37e487e819dfefe4c7961a9356af6a8a7f6c111eaceac9aba5f14f09645865",
     "cf880ae2baaccec5d9afe84d817b27ac8a253aa9d300d654198f4fc337a4efa1",
     "d2dc3c84b6db7d9d2fbc749a4edce82a72a52f1f8aab73cdbe51f9ed6dc5f960",
@@ -2650,6 +2652,7 @@
     "8df683f039739dad2fc5378c98f84f2448dfb63eba819e6c607eda7b3b29a509",
     "8e4dd6dcde3afc0d2171a832f654f7f2229afd92f07a6885c06d23ef2c402573",
     "8eccb355c8340c77ebef8caa8a8249abf22e4970e8b44fda6cae5d35a8922448",
+    "8f7546e50ca1e127338171bb89f33033d3137f8d8a183a64233483c87ac622d2",
     "9172678ed0fb41d5649d4004e06f666a2aab449757b0579f5633b7f4f66f0c10",
     "9191becddfd5fbc835ba6f3b44f72a30704546506bd6122ccefe895757813221",
     "9215868f60aaac9de02fd564638c78d1f3b8fa261a2fb6b103e2a231261f9b09",
@@ -2933,10 +2936,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 167,
+    "neurons_reserved": 123,
     "requests": 10,
     "hour": "2026-11-16T12",
-    "hour_neurons_reserved": 93,
+    "hour_neurons_reserved": 49,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3236,7 +3239,28 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Are there third-party benchmarks available for these coding claims?",
+    "event_key": "Alibaba releases Qwen4-Max with 1 million token context window",
+    "premise": "Alibaba launched Qwen4-Max, a 2.4 trillion parameter model claiming to outperform Claude and Kimi in coding.",
+    "slot": "2026-11-16:reply-v1:25",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T12:45:06.831696+00:00",
+    "source": {
+      "id": "2122283790366134637",
+      "url": "https://x.com/Pirat_Nation/status/2122283790366134637",
+      "author": "Pirat_Nation",
+      "author_id": "1547929727960199180",
+      "text": "Alibaba has officially launched Qwen4-Max, its latest AI model, claiming it can outperform Claude and Kimi in coding tasks.\n\nThe model has 2.4 trillion parameters, but only uses 71 billion at a time to generate answers. It can also process up to 1 million tokens of information in one go and understand images.\n\nAlibaba says Qwen4-Max performs better than Claude Fable 5.1 and Kimi K3.1 Pro in its coding tests. It also ranks 6th on Code Arena.\n\nThe performance claims come from Alibaba’s own tests",
+      "created_at": "2026-11-16T11:01:00+00:00",
+      "views": 16359,
+      "urls": [],
+      "source_ids": [
+        "2122283790366134637"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
