@@ -2440,6 +2440,33 @@
       "posted_at": "2026-11-16T22:05:04+00:00",
       "completed_at": "2026-11-16T22:05:04+00:00",
       "verified_at": "2026-11-16T22:05:06.801151+00:00"
+    },
+    {
+      "text": "Shared memory seems essential to prevent agent drift. 🧠",
+      "event_key": "Managing architectural consistency across multiple AI coding agents.",
+      "premise": "Engineering teams face architectural contradictions when multiple coding agents make decisions across different sessions and tools.",
+      "slot": "2026-11-16:reply-v1:45",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T22:35:17.787239+00:00",
+      "source": {
+        "id": "2122117941068267676",
+        "url": "https://x.com/oanaolt/status/2122117941068267676",
+        "author": "oanaolt",
+        "author_id": "3089064236",
+        "text": "Curious how engineering teams running multiple coding agents are handling decisions made across people, sessions, and tools.\n\nFor example: an architectural decision gets made in a meeting or one engineer’s Claude Code session, then another engineer’s agent makes a change that contradicts it weeks later.\n\nIs this actually causing rework or bugs for you, and roughly how much time is it eating? How are you handling it today repo rules, shared memory, code review, something homegrown? If you built something internal, did it hold up?\n\nEspecially interested in hearing from CTOs and engineering leads running parallel or long running agents. Would love to compare notes.",
+        "created_at": "2026-11-16T00:01:58+00:00",
+        "views": 43533,
+        "urls": [],
+        "source_ids": [
+          "2122117941068267676"
+        ]
+      },
+      "tweet_id": "2122458519341342861",
+      "sent_at": "2026-11-16T22:35:18.963208+00:00",
+      "posted_at": "2026-11-16T22:35:19+00:00",
+      "completed_at": "2026-11-16T22:35:19+00:00",
+      "verified_at": "2026-11-16T22:35:20.873617+00:00"
     }
   ],
   "used_source_ids": [
@@ -3287,7 +3314,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T22:05:04+00:00",
+  "last_posted_at": "2026-11-16T22:35:19+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3706,6 +3733,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T22:05:04+00:00",
       "tweet_id": "2122450910223671494"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:45",
+      "kind": "reply",
+      "completed_at": "2026-11-16T22:35:19+00:00",
+      "tweet_id": "2122458519341342861"
     }
   ],
   "last_attempts": {
@@ -3746,30 +3779,7 @@
       "until": "2026-11-16T23:56:03.973028+00:00"
     }
   },
-  "outbox": {
-    "text": "Shared memory seems essential to prevent agent drift. 🧠",
-    "event_key": "Managing architectural consistency across multiple AI coding agents.",
-    "premise": "Engineering teams face architectural contradictions when multiple coding agents make decisions across different sessions and tools.",
-    "slot": "2026-11-16:reply-v1:45",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T22:35:17.787239+00:00",
-    "source": {
-      "id": "2122117941068267676",
-      "url": "https://x.com/oanaolt/status/2122117941068267676",
-      "author": "oanaolt",
-      "author_id": "3089064236",
-      "text": "Curious how engineering teams running multiple coding agents are handling decisions made across people, sessions, and tools.\n\nFor example: an architectural decision gets made in a meeting or one engineer’s Claude Code session, then another engineer’s agent makes a change that contradicts it weeks later.\n\nIs this actually causing rework or bugs for you, and roughly how much time is it eating? How are you handling it today repo rules, shared memory, code review, something homegrown? If you built something internal, did it hold up?\n\nEspecially interested in hearing from CTOs and engineering leads running parallel or long running agents. Would love to compare notes.",
-      "created_at": "2026-11-16T00:01:58+00:00",
-      "views": 43533,
-      "urls": [],
-      "source_ids": [
-        "2122117941068267676"
-      ]
-    },
-    "tweet_id": "2122458519341342861",
-    "sent_at": "2026-11-16T22:35:18.963208+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
