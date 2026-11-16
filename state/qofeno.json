@@ -2103,6 +2103,33 @@
       "posted_at": "2026-11-16T13:15:32+00:00",
       "completed_at": "2026-11-16T13:15:32+00:00",
       "verified_at": "2026-11-16T13:15:35.955148+00:00"
+    },
+    {
+      "text": "Will these models be accessible via a single API endpoint?",
+      "event_key": "Speculated Gemini 4 model tiering strategy",
+      "premise": "Google is reportedly preparing a Gemini 4 lineup categorized by model names Hydrogen, Carbon, Argon, and Krypton based on complexity.",
+      "slot": "2026-11-16:reply-v1:27",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T13:45:51.643427+00:00",
+      "source": {
+        "id": "2121965689023963608",
+        "url": "https://x.com/zzaba_a/status/2121965689023963608",
+        "author": "zzaba_a",
+        "author_id": "1948279697797988352",
+        "text": "🚨Google is preparing a full line of Gemini 4\n\nAccording to current tests and releases, the models are divided like this:\n\n▪ Hydrogen is a light workhorse. The fastest and cheapest, sharpened for everyday dialogues, simple tasks and agency cycles.\n\n▪ Carbon is a station waggon. The balance of speed and strength, well pulls conventional development and multimodal tasks.\n\n▪ Argon is a model of deep reasoning. Strong in complex logic, refactoring and long chains.\n\n▪ Krypton is a heavy flagship. Positioned as a competitor of Fable 5.2 and GPT-6.2 Sol, focussed on complex applications, simulations and high-load tasks.\n\nThe heavier the element, the more computing power and the higher the capability ceiling.\n\nGoogle's strategy is clear: give simple tasks to light models, complex ones to difficult ones, and dynamically route between them. One lineup covers everything - from regular chat to serious engineering work.",
+        "created_at": "2026-11-15T13:56:59+00:00",
+        "views": 36847,
+        "urls": [],
+        "source_ids": [
+          "2121965689023963608"
+        ]
+      },
+      "tweet_id": "2122325287493116162",
+      "sent_at": "2026-11-16T13:45:53.778066+00:00",
+      "posted_at": "2026-11-16T13:45:54+00:00",
+      "completed_at": "2026-11-16T13:45:54+00:00",
+      "verified_at": "2026-11-16T13:45:56.402579+00:00"
     }
   ],
   "used_source_ids": [
@@ -2913,7 +2940,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T13:15:32+00:00",
+  "last_posted_at": "2026-11-16T13:45:54+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3254,6 +3281,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T13:15:32+00:00",
       "tweet_id": "2122317645676765216"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:27",
+      "kind": "reply",
+      "completed_at": "2026-11-16T13:45:54+00:00",
+      "tweet_id": "2122325287493116162"
     }
   ],
   "last_attempts": {
@@ -3311,30 +3344,7 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": {
-    "text": "Will these models be accessible via a single API endpoint?",
-    "event_key": "Speculated Gemini 4 model tiering strategy",
-    "premise": "Google is reportedly preparing a Gemini 4 lineup categorized by model names Hydrogen, Carbon, Argon, and Krypton based on complexity.",
-    "slot": "2026-11-16:reply-v1:27",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T13:45:51.643427+00:00",
-    "source": {
-      "id": "2121965689023963608",
-      "url": "https://x.com/zzaba_a/status/2121965689023963608",
-      "author": "zzaba_a",
-      "author_id": "1948279697797988352",
-      "text": "🚨Google is preparing a full line of Gemini 4\n\nAccording to current tests and releases, the models are divided like this:\n\n▪ Hydrogen is a light workhorse. The fastest and cheapest, sharpened for everyday dialogues, simple tasks and agency cycles.\n\n▪ Carbon is a station waggon. The balance of speed and strength, well pulls conventional development and multimodal tasks.\n\n▪ Argon is a model of deep reasoning. Strong in complex logic, refactoring and long chains.\n\n▪ Krypton is a heavy flagship. Positioned as a competitor of Fable 5.2 and GPT-6.2 Sol, focussed on complex applications, simulations and high-load tasks.\n\nThe heavier the element, the more computing power and the higher the capability ceiling.\n\nGoogle's strategy is clear: give simple tasks to light models, complex ones to difficult ones, and dynamically route between them. One lineup covers everything - from regular chat to serious engineering work.",
-      "created_at": "2026-11-15T13:56:59+00:00",
-      "views": 36847,
-      "urls": [],
-      "source_ids": [
-        "2121965689023963608"
-      ]
-    },
-    "tweet_id": "2122325287493116162",
-    "sent_at": "2026-11-16T13:45:53.778066+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
