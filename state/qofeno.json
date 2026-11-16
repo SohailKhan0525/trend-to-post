@@ -2484,6 +2484,7 @@
     "2122053270764179618",
     "2122058578005487774",
     "2122120463627522475",
+    "2122185393143738493",
     "2122208795048964531",
     "2122231173720224224",
     "2122247739748630663",
@@ -2574,6 +2575,7 @@
     "74ec30b89b471441cfbbcde95601e4ed5c1dd6bd053d19954af6276502c572b5",
     "77e72bb7d9619c30ee28eceff4a8288dc58443f78dac19bb1f45873dbd3e1ed4",
     "77ebe396a81073b0801ce3b1e4b0b667c1c5bebf3c48f8b572f8e7e9f545e028",
+    "784e8318f4181c5d52b2f602b410f52a4e7153132f79c2a0893fbb6c1c853022",
     "78f3801cdbdc0a840fe93275775a60ff241cc4d4929c1db491cabfcada9f6349",
     "7991264fe3eef62d0d9fd9c8a3c623d967b946694d1bbf5a47f301e268742acf",
     "79b55b2722af16254f9800fde3285c418800470c28cdd9a0857e24239551830f",
@@ -3012,6 +3014,7 @@
     "e88222d5e90fc223bb25919a6db92552e6c60d3c60ddb70f4035f4744acde974",
     "e8ed15e0f5907fda1a4554d9e9ed903bd2fd50c2ff0e9fb418066f895050b508",
     "e98af53ead1dddae8f1adff36edd4568805f207f41c20ac109eccffd262d87e5",
+    "e9d1c4c9962c44d321756bd094f8dc140b5f4dabfca5db53fcb728db9705d7fd",
     "ea33d973ccfb282e2c6eda08d08950ca565e1b928628ca5774f07c5dae981a27",
     "ea56371f60a661ee643333ed20f5e7538ec207e81eb558a67f4da942ebd22c64",
     "eadfcf5933371b5c6c97062750e217f3e6ff874f53747c9ae2df7ef62a46895f",
@@ -3143,10 +3146,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 418,
+    "neurons_reserved": 356,
     "requests": 26,
     "hour": "2026-11-16T17",
-    "hour_neurons_reserved": 124,
+    "hour_neurons_reserved": 62,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3455,7 +3458,28 @@
       "until": "2026-11-16T23:05:36.428605+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Foundational knowledge still guides the AI output.",
+    "event_key": "Comparison of traditional software workflows versus modern AI-driven tools.",
+    "premise": "New AI tools allow people to perform tasks like coding, design, and video editing in minutes that previously took years to master.",
+    "slot": "2026-11-16:reply-v1:34",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T17:25:55.528222+00:00",
+    "source": {
+      "id": "2122185393143738493",
+      "url": "https://x.com/augusttherain/status/2122185393143738493",
+      "author": "augusttherain",
+      "author_id": "723159474077204480",
+      "text": "Skill บางอย่างที่เมื่อก่อนต้องใช้เวลาเรียนเป็นเดือนเป็นปี เดี๋ยวนี้แค่รู้จักใช้เครื่องมือใหม่ๆ ก็ทำงานหลายอย่างออกมาได้แล้ว บางงานที่เคยต้องจ้างคนทำ วันนี้เราลองทำเองได้ภายในไม่กี่นาทีด้วยซ้ำ\n\nTHEN → NOW\n\n• ทำ Presentation: PowerPoint → Canva / Gamma\n\n• รีทัชภาพ: Photoshop → ChatGPT Images / Canva AI\n\n• วาดภาพประกอบ: Illustrator → Midjourney / ChatGPT Images\n\n• ตัดต่อวิดีโอ: Premiere Pro → CapCut\n\n• ทำ Motion Graphic ง่ายๆ: After Effects → CapCut / Canva\n\n• ทำเว็บไซต์: เขียน HTML / CSS → Wix / Lovable\n\n• เขียนโค้ด: เขียนเอง → Cursor / Claude Code / GitHub Copilot\n\n• วิเคราะห์ข้อมูล Excel: สูตร / VBA → ChatGPT / Claude\n\n• แปลภาษา: Google Translate → ChatGPT / DeepL\n\n• ทำซับวิดีโอ: พิมพ์เองทีละประโยค → CapCut Auto Captions\n\n• ถอดเทปสัมภาษณ์: ฟังแล้วพิมพ์เอง → Whisper / ChatGPT\n\n• ทำเสียงพากย์: อัดเสียงเอง / จ้าง Voice Over → ElevenLabs / CapCut Text-to-Speech\n\nไม่ได้แปลว่า Skill เก่าไม่มีค่าแล้วนะ งานที่ต้องใช้ความเชี่ยวชาญจริงๆ ก็ยังต้องอาศัยคนที่มีพื้นฐานและประสบการณ์อยู่ดี แต่สิ่งที่เปลี่ยนไปคือคนทั่วไปสามารถเริ่มทำงานหลายอย่างได้ง่ายขึ้นมาก โดยไม่จำเป็นต้องใช้เวลาเรียนรู้เครื่องมือแบบเมื่อก่อน\n\nอีก 3–5 ปีข้างหน้า จะมี Skill ไหนที่วันนี้เรากำลังตั้งใจฝึกกันอยู่ จะกลายเป็นเรื่องที่ AI ทำให้ได้ภายในไม่กี่นาทีอีกบ้างนะ?",
+      "created_at": "2026-11-16T04:30:00+00:00",
+      "views": 18773,
+      "urls": [],
+      "source_ids": [
+        "2122185393143738493"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
