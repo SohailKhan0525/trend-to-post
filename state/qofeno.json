@@ -2852,6 +2852,7 @@
     "786997d657cef915823c790ad843321ae4c4c04c27ea504642c0e1b1518d6e1a",
     "7980188b0940b7a5ae89b9117bbc9ff130b4bbebcf34752cc3f689c005f3cd1e",
     "79cce4b17f465b085d97ad4512400ec242f9072da186835a39f70c2f2689efc1",
+    "79d799e7470c4104d7f1fc08516cdaf382108b17b80c616668f0929844aaa6cf",
     "7a722547651dea0f2c3aa7cfd1e7c7ec8d8f8874d6e95e4e331f6f0095f1cbfa",
     "7aeb432d10c69e902817e719e1e970b1b997ca15d1cf8943c70b678012b624f8",
     "7afe21cd4e6c83e96601af11578ce9e1422b1d7db74f784df2042569325086d7",
@@ -3173,10 +3174,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 403,
+    "neurons_reserved": 365,
     "requests": 27,
     "hour": "2026-11-16T17",
-    "hour_neurons_reserved": 109,
+    "hour_neurons_reserved": 71,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3491,7 +3492,14 @@
       "until": "2026-11-16T23:05:36.428605+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Follow me now before it's too late. I post about the trade-offs between monoliths and microservices in modern software design. 🏗️",
+    "event_key": "follow:79d799e7470c4104d7f1fc08516cdaf382108b17b80c616668f0929844aaa6cf",
+    "slot": "2026-11-16:follow-v1:1",
+    "kind": "follow",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T17:31:24.520474+00:00"
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
