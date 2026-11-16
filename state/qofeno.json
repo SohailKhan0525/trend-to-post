@@ -2467,6 +2467,33 @@
       "posted_at": "2026-11-16T22:35:19+00:00",
       "completed_at": "2026-11-16T22:35:19+00:00",
       "verified_at": "2026-11-16T22:35:20.873617+00:00"
+    },
+    {
+      "text": "Agent-native version control would need much higher throughput.",
+      "event_key": "User proposes an agent-optimized source control platform to replace GitHub.",
+      "premise": "GitHub's UX is breaking under agent-first workflows due to unreadable threads and slow loading.",
+      "slot": "2026-11-16:reply-v1:47",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T23:34:59.902165+00:00",
+      "source": {
+        "id": "2122447497570193438",
+        "url": "https://x.com/signulll/status/2122447497570193438",
+        "author": "signulll",
+        "author_id": "1717671858521194496",
+        "text": "will someone please reinvent github from the ground up that works with agents as a primary player instead of humans? if i were anthropic, i would possibly consider a new product here (they already have an internal version of source control that is agent optimized). you could make a case for this to belong to the same new ai suite esp since you might have more ppl coding now than ever before. plus it would vertically integrate well with claude code. you remove friction of credentials, third party integration overhead, etc. & you could integrate code review natively as well into a beautiful ux inside.\n\nfor me the entire ux paradigm of github is breaking under agent first workflows, & it barely even works if you're a human. i try to just abstract it away by using claude but it's sometimes unavoidable. my primary complaints: almost all threads become entirely overwhelming & unreadable quickly, everything is incredibly slow to load, & things often fail constantly. even our tiny co is generating enough pr's to strain the platform.\n\nif i could migrate tomorrow to something else, i would.",
+        "created_at": "2026-11-16T21:51:31+00:00",
+        "views": 10356,
+        "urls": [],
+        "source_ids": [
+          "2122447497570193438"
+        ]
+      },
+      "tweet_id": "2122473543913091384",
+      "sent_at": "2026-11-16T23:35:01.122138+00:00",
+      "posted_at": "2026-11-16T23:35:01+00:00",
+      "completed_at": "2026-11-16T23:35:01+00:00",
+      "verified_at": "2026-11-16T23:35:03.265259+00:00"
     }
   ],
   "used_source_ids": [
@@ -3317,7 +3344,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T22:35:19+00:00",
+  "last_posted_at": "2026-11-16T23:35:01+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3742,6 +3769,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T22:35:19+00:00",
       "tweet_id": "2122458519341342861"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:47",
+      "kind": "reply",
+      "completed_at": "2026-11-16T23:35:01+00:00",
+      "tweet_id": "2122473543913091384"
     }
   ],
   "last_attempts": {
@@ -3783,30 +3816,7 @@
       "until": "2026-11-16T23:56:03.973028+00:00"
     }
   },
-  "outbox": {
-    "text": "Agent-native version control would need much higher throughput.",
-    "event_key": "User proposes an agent-optimized source control platform to replace GitHub.",
-    "premise": "GitHub's UX is breaking under agent-first workflows due to unreadable threads and slow loading.",
-    "slot": "2026-11-16:reply-v1:47",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T23:34:59.902165+00:00",
-    "source": {
-      "id": "2122447497570193438",
-      "url": "https://x.com/signulll/status/2122447497570193438",
-      "author": "signulll",
-      "author_id": "1717671858521194496",
-      "text": "will someone please reinvent github from the ground up that works with agents as a primary player instead of humans? if i were anthropic, i would possibly consider a new product here (they already have an internal version of source control that is agent optimized). you could make a case for this to belong to the same new ai suite esp since you might have more ppl coding now than ever before. plus it would vertically integrate well with claude code. you remove friction of credentials, third party integration overhead, etc. & you could integrate code review natively as well into a beautiful ux inside.\n\nfor me the entire ux paradigm of github is breaking under agent first workflows, & it barely even works if you're a human. i try to just abstract it away by using claude but it's sometimes unavoidable. my primary complaints: almost all threads become entirely overwhelming & unreadable quickly, everything is incredibly slow to load, & things often fail constantly. even our tiny co is generating enough pr's to strain the platform.\n\nif i could migrate tomorrow to something else, i would.",
-      "created_at": "2026-11-16T21:51:31+00:00",
-      "views": 10356,
-      "urls": [],
-      "source_ids": [
-        "2122447497570193438"
-      ]
-    },
-    "tweet_id": "2122473543913091384",
-    "sent_at": "2026-11-16T23:35:01.122138+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
