@@ -2237,6 +2237,7 @@
     "2121602766976237610",
     "2121616149129691255",
     "2121680044451872811",
+    "2122053270764179618",
     "2122058578005487774"
   ],
   "used_urls": [
@@ -2295,6 +2296,7 @@
     "33989bc816e7a08eaed36073c9c4ae7a2f37051b7391922537fe603ee7e65ab6",
     "34b461a43032827c11e4ddb5dcfe75a6565fb23f758b55fc7229568aa94cfb96",
     "3eb4c518c7361c6eed4121732c7cb4e4c4cf76e457d3156de722d9a548ead739",
+    "4581f6f7eb8d878f91a32def1bc7dd54471b08cd834a289760bd7ce88c91ea2b",
     "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b",
     "4e4468e2383fd86d23017ce1191b8bd923a93c93724f22ba65a6d782febfe00d",
     "5199af6901e7ae44bb37733bc9b9795e097abe879c6493573eba0ee71dfd1da0",
@@ -2498,6 +2500,7 @@
     "50af75ae50c064e4662d4ab218b96f93648b4755fbb40bf8e46b55175ee9bd9d",
     "51b59acdfc9505b9f6b25d21aa0b6f0a6399436c6de3a143656f35b67d753340",
     "52412ff2950261f49217406b4e5c8f3ecb39e0ea2e336d35dc0d4980009af04c",
+    "52de4504f9fa1177ebb87753244b2a395343e80dec24573e56babedcf996034f",
     "52fd7695b9744f2b26ad0e2ebd7cd88ca8ce7768e8163124caf58c1770d0ccca",
     "530952c2d354514e586387b7007eb8c9c65d4df3fdb249df7f2428a0d1596bd6",
     "5387f86891742b7d7a505e5e70df9b29c60d257e07f4573191db205356047570",
@@ -2873,10 +2876,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 122,
+    "neurons_reserved": 74,
     "requests": 6,
     "hour": "2026-11-16T11",
-    "hour_neurons_reserved": 122,
+    "hour_neurons_reserved": 74,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3164,7 +3167,28 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Did Llama 4 launch this month too?",
+    "event_key": "A summary of recent major AI model launches.",
+    "premise": "A list of notable AI models released last month from various providers.",
+    "slot": "2026-11-16:reply-v1:23",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T11:44:38.189035+00:00",
+    "source": {
+      "id": "2122053270764179618",
+      "url": "https://x.com/RoundtableSpace/status/2122053270764179618",
+      "author": "RoundtableSpace",
+      "author_id": "1536693901230321666",
+      "text": "List of all the notable AI models that launched last month: \n\n- GPT-6.1 Terra (OpenAI) — Fast visual & computer-use model\n  \n- GPT-6 Rosalind (OpenAI) — Biological/life-sciences reasoning model\n  \n- Gemini 4 Argon (Google) — Flagship long-horizon reasoning model\n\n- Gemini 4 Carbon (Google) — Cybersecurity & advanced agentic model\n\n- Genie 4 (Google) — Real-time interactive world model\n  \n- Claude Haiku 5.5 (Anthropic) — Cheap, fast small model\n\n- Claude Sonnet 5.5 (Anthropic) — Strong coding & agent model\n  \n- Muse Wonder (Meta) — Frontier-tier reasoning model\n\n- Muse Spark Open (Meta) — Large open-weight multimodal model\n  \n- Kimi K3.1 Pro (Moonshot) — Strong open-weights coding/agent model\n  \n- Mistral Large 4 (Mistral) — Large open-weight general model\n\n- Grok Voice 3.0 (xAI) — Speech-to-speech model  \n\n- Nemotron 3.5 Super VL (NVIDIA) — Open-weight vision-language model  \n\n- Beam (Reflection AI) — Open-weight coding & reasoning model  \n\n- MiniMax M3.1 Flash (MiniMax) — Fast agentic & coding model\n\nWhich one did we miss, share them below.",
+      "created_at": "2026-11-15T19:45:00+00:00",
+      "views": 40352,
+      "urls": [],
+      "source_ids": [
+        "2122053270764179618"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
