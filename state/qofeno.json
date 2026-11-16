@@ -2278,6 +2278,33 @@
       "posted_at": "2026-11-16T17:31:25+00:00",
       "completed_at": "2026-11-16T17:31:25+00:00",
       "verified_at": "2026-11-16T17:31:27.448799+00:00"
+    },
+    {
+      "text": "Does the token overhead offset the lower per-token cost?",
+      "event_key": "Comparison of Claude and Codex pricing and token efficiency for coding.",
+      "premise": "The author asks if Claude is more cost-effective than Codex for coding, despite potential higher token consumption and a 5 hour usage limit.",
+      "slot": "2026-11-16:reply-v1:36",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T18:05:04.601528+00:00",
+      "source": {
+        "id": "2122308975182094644",
+        "url": "https://x.com/Im_IrushiK/status/2122308975182094644",
+        "author": "Im_IrushiK",
+        "author_id": "1455270436090957826",
+        "text": "Is Claude actually cheaper than Codex for everyday coding? \n\nI've been using Codex a lot, mostly GPT-6.1 Sol, but I'm considering giving full Claude a try.\n\nI've heard that models like Opus 5.5 can be cheaper per token than Astra, but Claude might consume more tokens to complete the same task.\n\nSo does that actually make it cheaper in practice? 😭\n\nAnd how does Claude's $100 plan compare to Codex's $100 plan in terms of real-world usage?\n\nThe 5 hour limit on Claude is honestly the biggest thing holding me back.\n\nAnyone who's used both extensively, which one gives you more coding value for your money?",
+        "created_at": "2026-11-16T12:41:04+00:00",
+        "views": 10413,
+        "urls": [],
+        "source_ids": [
+          "2122308975182094644"
+        ]
+      },
+      "tweet_id": "2122390517388648502",
+      "sent_at": "2026-11-16T18:05:05.836141+00:00",
+      "posted_at": "2026-11-16T18:05:06+00:00",
+      "completed_at": "2026-11-16T18:05:06+00:00",
+      "verified_at": "2026-11-16T18:05:07.950716+00:00"
     }
   ],
   "used_source_ids": [
@@ -3107,7 +3134,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T17:31:25+00:00",
+  "last_posted_at": "2026-11-16T18:05:06+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3490,6 +3517,12 @@
       "kind": "follow",
       "completed_at": "2026-11-16T17:31:25+00:00",
       "tweet_id": "2122382043770421466"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:36",
+      "kind": "reply",
+      "completed_at": "2026-11-16T18:05:06+00:00",
+      "tweet_id": "2122390517388648502"
     }
   ],
   "last_attempts": {
@@ -3518,30 +3551,7 @@
       "until": "2026-11-16T23:56:03.973028+00:00"
     }
   },
-  "outbox": {
-    "text": "Does the token overhead offset the lower per-token cost?",
-    "event_key": "Comparison of Claude and Codex pricing and token efficiency for coding.",
-    "premise": "The author asks if Claude is more cost-effective than Codex for coding, despite potential higher token consumption and a 5 hour usage limit.",
-    "slot": "2026-11-16:reply-v1:36",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T18:05:04.601528+00:00",
-    "source": {
-      "id": "2122308975182094644",
-      "url": "https://x.com/Im_IrushiK/status/2122308975182094644",
-      "author": "Im_IrushiK",
-      "author_id": "1455270436090957826",
-      "text": "Is Claude actually cheaper than Codex for everyday coding? \n\nI've been using Codex a lot, mostly GPT-6.1 Sol, but I'm considering giving full Claude a try.\n\nI've heard that models like Opus 5.5 can be cheaper per token than Astra, but Claude might consume more tokens to complete the same task.\n\nSo does that actually make it cheaper in practice? 😭\n\nAnd how does Claude's $100 plan compare to Codex's $100 plan in terms of real-world usage?\n\nThe 5 hour limit on Claude is honestly the biggest thing holding me back.\n\nAnyone who's used both extensively, which one gives you more coding value for your money?",
-      "created_at": "2026-11-16T12:41:04+00:00",
-      "views": 10413,
-      "urls": [],
-      "source_ids": [
-        "2122308975182094644"
-      ]
-    },
-    "tweet_id": "2122390517388648502",
-    "sent_at": "2026-11-16T18:05:05.836141+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
