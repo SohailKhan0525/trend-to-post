@@ -3113,10 +3113,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 266,
-    "requests": 20,
+    "neurons_reserved": 333,
+    "requests": 21,
     "hour": "2026-11-16T16",
-    "hour_neurons_reserved": 26,
+    "hour_neurons_reserved": 93,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
