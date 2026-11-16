@@ -2332,6 +2332,33 @@
       "posted_at": "2026-11-16T18:35:23+00:00",
       "completed_at": "2026-11-16T18:35:23+00:00",
       "verified_at": "2026-11-16T18:35:25.234709+00:00"
+    },
+    {
+      "text": "Technical debt creates a permanent loop of new work.",
+      "event_key": "Discussion on rising software workloads and AI token demand.",
+      "premise": "Increased digitalization and technical debt drive higher coding demand and token consumption despite hiring freezes.",
+      "slot": "2026-11-16:reply-v1:38",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T19:05:38.653306+00:00",
+      "source": {
+        "id": "2122215113897955666",
+        "url": "https://x.com/jiahanjimliu/status/2122215113897955666",
+        "author": "jiahanjimliu",
+        "author_id": "801548402387468288",
+        "text": "Most software teams I know are being given a bigger workload than ever before. There's no more hiring so there's going to be more token consumptions.\n\nPeople say that AI has solved coding and Anthropic needs a new revenue source but the demand for coding has increased each year as more of the world is digitalized and there's more technical debt as more of the world is digitalized. It all compounds because software always has dependencies.",
+        "created_at": "2026-11-16T06:28:06+00:00",
+        "views": 14166,
+        "urls": [],
+        "source_ids": [
+          "2122215113897955666"
+        ]
+      },
+      "tweet_id": "2122405759845581011",
+      "sent_at": "2026-11-16T19:05:40.078771+00:00",
+      "posted_at": "2026-11-16T19:05:40+00:00",
+      "completed_at": "2026-11-16T19:05:40+00:00",
+      "verified_at": "2026-11-16T19:05:42.363276+00:00"
     }
   ],
   "used_source_ids": [
@@ -3167,7 +3194,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T18:35:23+00:00",
+  "last_posted_at": "2026-11-16T19:05:40+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3562,6 +3589,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T18:35:23+00:00",
       "tweet_id": "2122398138568982572"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:38",
+      "kind": "reply",
+      "completed_at": "2026-11-16T19:05:40+00:00",
+      "tweet_id": "2122405759845581011"
     }
   ],
   "last_attempts": {
@@ -3590,30 +3623,7 @@
       "until": "2026-11-16T23:56:03.973028+00:00"
     }
   },
-  "outbox": {
-    "text": "Technical debt creates a permanent loop of new work.",
-    "event_key": "Discussion on rising software workloads and AI token demand.",
-    "premise": "Increased digitalization and technical debt drive higher coding demand and token consumption despite hiring freezes.",
-    "slot": "2026-11-16:reply-v1:38",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T19:05:38.653306+00:00",
-    "source": {
-      "id": "2122215113897955666",
-      "url": "https://x.com/jiahanjimliu/status/2122215113897955666",
-      "author": "jiahanjimliu",
-      "author_id": "801548402387468288",
-      "text": "Most software teams I know are being given a bigger workload than ever before. There's no more hiring so there's going to be more token consumptions.\n\nPeople say that AI has solved coding and Anthropic needs a new revenue source but the demand for coding has increased each year as more of the world is digitalized and there's more technical debt as more of the world is digitalized. It all compounds because software always has dependencies.",
-      "created_at": "2026-11-16T06:28:06+00:00",
-      "views": 14166,
-      "urls": [],
-      "source_ids": [
-        "2122215113897955666"
-      ]
-    },
-    "tweet_id": "2122405759845581011",
-    "sent_at": "2026-11-16T19:05:40.078771+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
