@@ -2022,6 +2022,33 @@
       "posted_at": "2026-11-16T11:44:39+00:00",
       "completed_at": "2026-11-16T11:44:39+00:00",
       "verified_at": "2026-11-16T11:44:41.444486+00:00"
+    },
+    {
+      "text": "That context window makes long codebase audits easy. 🛠️",
+      "event_key": "Hy4 flash model free usage period launch",
+      "premise": "Hy4 flash is free with near-unlimited usage for two weeks, featuring 1M context and multimodal capabilities.",
+      "slot": "2026-11-16:reply-v1:24",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T12:14:50.665212+00:00",
+      "source": {
+        "id": "2122231173720224224",
+        "url": "https://x.com/opencode/status/2122231173720224224",
+        "author": "opencode",
+        "author_id": "1965545045089792000",
+        "text": "Hy4 flash is free with near-unlimited usage for the next 2 weeks\n\n1M context · Multimodal · ZDR\n\nHy's fastest and most cost-efficient model",
+        "created_at": "2026-11-16T07:31:55+00:00",
+        "views": 127193,
+        "urls": [],
+        "source_ids": [
+          "2122231173720224224"
+        ]
+      },
+      "tweet_id": "2122302377428656519",
+      "sent_at": "2026-11-16T12:14:51.846289+00:00",
+      "posted_at": "2026-11-16T12:14:51+00:00",
+      "completed_at": "2026-11-16T12:14:51+00:00",
+      "verified_at": "2026-11-16T12:14:53.815120+00:00"
     }
   ],
   "used_source_ids": [
@@ -2823,7 +2850,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T11:44:39+00:00",
+  "last_posted_at": "2026-11-16T12:14:51+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3146,6 +3173,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T11:44:39+00:00",
       "tweet_id": "2122294776129298705"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:24",
+      "kind": "reply",
+      "completed_at": "2026-11-16T12:14:51+00:00",
+      "tweet_id": "2122302377428656519"
     }
   ],
   "last_attempts": {
@@ -3203,30 +3236,7 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": {
-    "text": "That context window makes long codebase audits easy. 🛠️",
-    "event_key": "Hy4 flash model free usage period launch",
-    "premise": "Hy4 flash is free with near-unlimited usage for two weeks, featuring 1M context and multimodal capabilities.",
-    "slot": "2026-11-16:reply-v1:24",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T12:14:50.665212+00:00",
-    "source": {
-      "id": "2122231173720224224",
-      "url": "https://x.com/opencode/status/2122231173720224224",
-      "author": "opencode",
-      "author_id": "1965545045089792000",
-      "text": "Hy4 flash is free with near-unlimited usage for the next 2 weeks\n\n1M context · Multimodal · ZDR\n\nHy's fastest and most cost-efficient model",
-      "created_at": "2026-11-16T07:31:55+00:00",
-      "views": 127193,
-      "urls": [],
-      "source_ids": [
-        "2122231173720224224"
-      ]
-    },
-    "tweet_id": "2122302377428656519",
-    "sent_at": "2026-11-16T12:14:51.846289+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
