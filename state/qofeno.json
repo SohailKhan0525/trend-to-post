@@ -2076,6 +2076,33 @@
       "posted_at": "2026-11-16T12:45:10+00:00",
       "completed_at": "2026-11-16T12:45:10+00:00",
       "verified_at": "2026-11-16T12:45:13.070053+00:00"
+    },
+    {
+      "text": "An architect model is better than a generalist one. 🏗️",
+      "event_key": "User review of Fable 5.2 model performance and marketing strategy",
+      "premise": "Fable 5.2 excels at architectural reasoning and business logic but remains mediocre at coding and UI design.",
+      "slot": "2026-11-16:reply-v1:26",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T13:15:29.212720+00:00",
+      "source": {
+        "id": "2122247739748630663",
+        "url": "https://x.com/Gegam245074/status/2122247739748630663",
+        "author": "Gegam245074",
+        "author_id": "2046291530567008256",
+        "text": "I was wrong about Fable 5.2, and so was Anthropic\n\nI recently reviewed it and had a lot of negative things to say. But after using it a bit more, my opinion has changed significantly\n\n1. It's still an uneven model. But that unevenness is outweighed by an almost supernatural brilliance in the areas it handles well. For a while I couldn't come up with a good business model for a product I was working on, and I kept putting it off. Fable 5.2 came up with a truly brilliant solution that left me stunned. It thought through the project's economics in a completely different paradigm, one that nobody on the market has tried before.\n\n2. The best architect and bug hunter. I had a complex system for data collection in ClickHouse, backups, and alerting as part of an analytics product. It was constantly breaking and glitching. Fable 5.2 found the root cause and completely reworked the architecture, fixing everything comprehensively. No model had managed to do this properly before. Every solution from Opus 5.5, Fable 5.1, and GPT-6 Astra kept breaking.\n\n3. It's still no better than Opus 5.5 at coding. There's no point in running it on coding tasks. Fable 5.2 is good exclusively at thinking things through and working out the details.\n\n4. In my previous review I said it has bad taste in UI. Compared to Opus 5.5, in my view, it does produce slightly worse results. It's not worth spending tokens on tasks like that.\n\n5. It's gotten faster. Fable 5.2 feels faster than Opus 5.5. On medium effort it's lightning fast\n\n6. Fable 5.2 has gone back to its awful \"Claudish\" language. Its writing is painful to read. This is a clear step back compared to Opus 5.5. But! Because Fable has started showing brilliance on certain questions, I've been turning to it more often in chat mode.\n\n7. On long-horizon agentic tasks it's also worse than Opus 5.5. Sometimes I notice it getting lazy and stopping at every tiny step. This is most noticeable on medium effort\n\nConclusions\n\nAnthropic built the wrong marketing campaign for Fable. Some of the benchmarks are clearly inflated and don't match what you see in real work. They should have positioned Fable 5.2 as an architect, analyst, and coordinator. Then users would have used it for the right things, and there wouldn't be so many negative posts about it. Anthropic didn't highlight the model's greatest strengths enough in its announcement. I consider this yet another communication failure on their part.",
+        "created_at": "2026-11-16T08:37:45+00:00",
+        "views": 22847,
+        "urls": [],
+        "source_ids": [
+          "2122247739748630663"
+        ]
+      },
+      "tweet_id": "2122317645676765216",
+      "sent_at": "2026-11-16T13:15:31.863356+00:00",
+      "posted_at": "2026-11-16T13:15:32+00:00",
+      "completed_at": "2026-11-16T13:15:32+00:00",
+      "verified_at": "2026-11-16T13:15:35.955148+00:00"
     }
   ],
   "used_source_ids": [
@@ -2883,7 +2910,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T12:45:10+00:00",
+  "last_posted_at": "2026-11-16T13:15:32+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3218,6 +3245,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T12:45:10+00:00",
       "tweet_id": "2122310003843575926"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:26",
+      "kind": "reply",
+      "completed_at": "2026-11-16T13:15:32+00:00",
+      "tweet_id": "2122317645676765216"
     }
   ],
   "last_attempts": {
@@ -3275,30 +3308,7 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": {
-    "text": "An architect model is better than a generalist one. 🏗️",
-    "event_key": "User review of Fable 5.2 model performance and marketing strategy",
-    "premise": "Fable 5.2 excels at architectural reasoning and business logic but remains mediocre at coding and UI design.",
-    "slot": "2026-11-16:reply-v1:26",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T13:15:29.212720+00:00",
-    "source": {
-      "id": "2122247739748630663",
-      "url": "https://x.com/Gegam245074/status/2122247739748630663",
-      "author": "Gegam245074",
-      "author_id": "2046291530567008256",
-      "text": "I was wrong about Fable 5.2, and so was Anthropic\n\nI recently reviewed it and had a lot of negative things to say. But after using it a bit more, my opinion has changed significantly\n\n1. It's still an uneven model. But that unevenness is outweighed by an almost supernatural brilliance in the areas it handles well. For a while I couldn't come up with a good business model for a product I was working on, and I kept putting it off. Fable 5.2 came up with a truly brilliant solution that left me stunned. It thought through the project's economics in a completely different paradigm, one that nobody on the market has tried before.\n\n2. The best architect and bug hunter. I had a complex system for data collection in ClickHouse, backups, and alerting as part of an analytics product. It was constantly breaking and glitching. Fable 5.2 found the root cause and completely reworked the architecture, fixing everything comprehensively. No model had managed to do this properly before. Every solution from Opus 5.5, Fable 5.1, and GPT-6 Astra kept breaking.\n\n3. It's still no better than Opus 5.5 at coding. There's no point in running it on coding tasks. Fable 5.2 is good exclusively at thinking things through and working out the details.\n\n4. In my previous review I said it has bad taste in UI. Compared to Opus 5.5, in my view, it does produce slightly worse results. It's not worth spending tokens on tasks like that.\n\n5. It's gotten faster. Fable 5.2 feels faster than Opus 5.5. On medium effort it's lightning fast\n\n6. Fable 5.2 has gone back to its awful \"Claudish\" language. Its writing is painful to read. This is a clear step back compared to Opus 5.5. But! Because Fable has started showing brilliance on certain questions, I've been turning to it more often in chat mode.\n\n7. On long-horizon agentic tasks it's also worse than Opus 5.5. Sometimes I notice it getting lazy and stopping at every tiny step. This is most noticeable on medium effort\n\nConclusions\n\nAnthropic built the wrong marketing campaign for Fable. Some of the benchmarks are clearly inflated and don't match what you see in real work. They should have positioned Fable 5.2 as an architect, analyst, and coordinator. Then users would have used it for the right things, and there wouldn't be so many negative posts about it. Anthropic didn't highlight the model's greatest strengths enough in its announcement. I consider this yet another communication failure on their part.",
-      "created_at": "2026-11-16T08:37:45+00:00",
-      "views": 22847,
-      "urls": [],
-      "source_ids": [
-        "2122247739748630663"
-      ]
-    },
-    "tweet_id": "2122317645676765216",
-    "sent_at": "2026-11-16T13:15:31.863356+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
