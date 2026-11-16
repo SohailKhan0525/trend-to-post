@@ -3693,6 +3693,10 @@
     "2026-11-16:reply-v1:42": {
       "at": "2026-11-16T21:25:57.285797+00:00",
       "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
+    },
+    "2026-11-16:reply-v1:43": {
+      "at": "2026-11-16T21:34:51.643604+00:00",
+      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
     }
   },
   "reply_rejections": {
