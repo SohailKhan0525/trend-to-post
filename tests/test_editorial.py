@@ -3,6 +3,7 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, patch
+from twikit.utils import Result
 
 from app import editorial
 from app.reply_schedule import daily_plan, timestamp
@@ -54,6 +55,7 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
                                in_reply_to='111' if kind == 'reply' else None)
         return SimpleNamespace(user=AsyncMock(return_value=self.user),
                                get_user_by_screen_name=AsyncMock(return_value=self.user),
+                               get_user_tweets=AsyncMock(return_value=Result([])),
                                http=SimpleNamespace(cookies=SimpleNamespace(jar=[])),
                                create_tweet=AsyncMock(return_value=post),
                                get_tweet_by_id=AsyncMock(return_value=post))
@@ -302,6 +304,85 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
             connection.create_tweet.assert_not_awaited()
             if known_id is None:
                 connection.get_tweet_by_id.assert_not_awaited()
+
+    async def test_missing_id_found_on_second_page_is_persisted_before_exact_readback(self):
+        for kind, feed in (('reply', 'Replies'), ('follow', 'Tweets')):
+            with self.subTest(kind=kind):
+                state, connection = empty(), self.connection(kind)
+                pending = self.pending()
+                if kind == 'follow':
+                    pending.update(FOLLOW, kind=kind)
+                    del pending['source']
+                state['outbox'] = pending
+                post = connection.create_tweet.return_value
+                post.created_at_datetime = self.now
+                if kind == 'reply':
+                    post.full_text = '@Acme ' + post.full_text
+                old = SimpleNamespace(**{**vars(post), 'id': '330', 'created_at_datetime': self.now-timedelta(hours=2)})
+                second_page = AsyncMock(return_value=Result([post, post]))
+                connection.get_user_tweets.return_value = Result([old], second_page, 'cursor')
+                async def read(ident):
+                    self.assertEqual(self.saved['outbox']['tweet_id'], ident)
+                    self.assertEqual(self.saved['history'], [])
+                    return post
+                connection.get_tweet_by_id.side_effect = read
+                self.assertTrue(await editorial.verify_delivery(state, connection))
+                connection.get_user_tweets.assert_awaited_once_with('999', feed, count=40)
+                second_page.assert_awaited_once()
+                connection.create_tweet.assert_not_awaited()
+                self.assertEqual(state['history'][0]['tweet_id'], '333')
+                self.assertTrue(await editorial.verify_delivery(state, connection))
+                self.assertEqual(len(state['history']), 1)
+
+    async def test_failed_or_ambiguous_timeline_lookup_cannot_resolve_reservation(self):
+        reserved = self.now
+        pending = self.pending()
+        pending['send_error'] = 'CouldNotTweet'
+        self.now += timedelta(days=2)
+        connection = self.connection()
+        post = connection.create_tweet.return_value
+        post.created_at_datetime = reserved
+        def changed(**kwargs):
+            return SimpleNamespace(**{**vars(post), **kwargs})
+        for page in (TimeoutError(), Result([]), Result([post, changed(id='334')]),
+                     Result([changed(full_text='Wrong text'), changed(in_reply_to='555'),
+                             changed(user=SimpleNamespace(id='555', screen_name=editorial.ACCOUNT)),
+                             changed(quote=object()), changed(retweeted_tweet=object()),
+                             changed(created_at_datetime=reserved+timedelta(hours=1))])):
+            with self.subTest(case=type(page).__name__):
+                state = empty()
+                state['outbox'] = dict(pending)
+                connection.get_user_tweets = AsyncMock(side_effect=[page])
+                self.assertFalse(await editorial.verify_delivery(state, connection))
+                self.assertEqual(state['outbox'], pending)
+                self.assertFalse(state.get('delivery_rejections'))
+                connection.create_tweet.assert_not_awaited()
+                connection.get_tweet_by_id.assert_not_awaited()
+
+    async def test_older_verified_timeline_anchor_retires_only_explicit_unconfirmed_error(self):
+        reserved = self.now
+        pending = self.pending()
+        self.now += timedelta(days=2)
+        prior_time = reserved - timedelta(minutes=30)
+        prior = {'tweet_id': '330', 'kind': 'reply', 'posted_at': prior_time.isoformat(),
+                 'verified_at': prior_time.isoformat()}
+        older = SimpleNamespace(id='330', user=self.user, created_at_datetime=prior_time)
+        for explicit in (False, True):
+            state, connection = empty(), self.connection()
+            state['used_source_ids'] = ['110', '111']
+            state['outbox'] = dict(pending)
+            if explicit:
+                state['outbox']['send_error'] = 'CouldNotTweet'
+            state['history'] = [prior]
+            connection.get_user_tweets.return_value = Result([older])
+            self.assertEqual(await editorial.verify_delivery(state, connection), explicit)
+            self.assertEqual(state['history'], [prior])
+            self.assertEqual(state['used_source_ids'], ['110', '111'])
+            self.assertEqual(state['outbox'] is None, explicit)
+            if explicit:
+                self.assertEqual(state['delivery_rejections'][0]['outcome'], 'unconfirmed')
+                self.assertEqual(state['delivery_rejections'][0]['error'], 'CouldNotTweet')
+            connection.create_tweet.assert_not_awaited()
 
     async def test_delayed_readback_uses_verified_publication_time(self):
         state, connection = empty(), self.connection()

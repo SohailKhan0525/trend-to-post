@@ -21,6 +21,9 @@ def main():
             asyncio.run(editorial.inspect() if args.command=="inspect" else editorial.run(os.environ.get("GITHUB_EVENT_NAME","manual")))
     except AIPaused as exc:
         summary(f"AI paused until {exc.until.isoformat()}: {exc.reason}")
+    except editorial.DeliveryUnresolved as exc:
+        print(f"::error::{exc}", file=sys.stderr)
+        raise SystemExit(1) from None
     except (SessionUnavailable,InvalidSession):
         print("::error::X did not accept the session. Check account access and the stored X_AUTH_TOKEN and X_CT0 secrets.",file=sys.stderr)
         raise SystemExit(1) from None

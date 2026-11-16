@@ -3106,6 +3106,8 @@
     }
   },
   "outbox": {
+    "send_error": "CouldNotTweet",
+    "send_error_run_id": "43640524760",
     "text": "Mobile notifications for terminal agents solve the context switch problem. 📱",
     "event_key": "Author shares implementation details and challenges of building a mobile-notifying terminal agent.",
     "premise": "The author implemented an always-on agent inspired by Anthropic that sends mobile notifications when it pauses.",

@@ -10,7 +10,7 @@ import re
 import unicodedata
 from datetime import datetime, timedelta, timezone
 
-from twikit.errors import Forbidden, NotFound, TooManyRequests, TweetNotAvailable
+from twikit.errors import CouldNotTweet, Forbidden, NotFound, TooManyRequests, TweetNotAvailable
 from . import follow_writer, reply_writer, sources
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError, selected_model
@@ -18,6 +18,10 @@ from .reply_schedule import next_slot, timestamp
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
 
 STAGE = {'name': 'startup', 'source_id': None}
+
+
+class DeliveryUnresolved(RuntimeError):
+    """A previous send still needs reconciliation after multiple scheduled wakes."""
 
 
 def stage(name, source_id=None):
@@ -92,21 +96,11 @@ def upcoming_opportunity(state, now):
     return f'Next eligible research opportunity for a {slot["kind"]} starts at {ready.isoformat()}.'
 
 
-async def verify_delivery(state, connection):
-    pending = state.get('outbox')
-    if not pending:
-        return True
-    if not pending.get('tweet_id'):
-        summary('A send has an unknown outcome. It will not be resent; manual reconciliation is required.')
-        return False
-    stage('verify published post', pending.get('source', {}).get('id'))
-    try:
-        post = await connection.get_tweet_by_id(pending['tweet_id'])
-    except Exception as exc:
-        summary(f'Post ID recorded; readback is pending ({type(exc).__name__}). No resend.')
-        return False
+def matches_publication(pending, post):
     user = getattr(post, 'user', None)
     text = getattr(post, 'full_text', None) or getattr(post, 'text', '')
+    if not isinstance(text, str):
+        return False
     expected_parent = pending.get('source', {}).get('id') if pending['kind'] == 'reply' else None
     actual_parent = str(getattr(post, 'in_reply_to', '') or '') or None
     raw = getattr(post, '_data', {}) or {}
@@ -128,20 +122,101 @@ async def verify_delivery(state, connection):
         if (prefix.isascii() and recipients[0] == parent and len(recipients) == len(set(recipients))
                 and all(recipient in allowed for recipient in recipients)):
             body = expected_body
-    if (str(getattr(post, 'id', '')) != pending['tweet_id']
-            or str(getattr(user, 'id', '')) != pending['author_id']
-            or str(getattr(user, 'screen_name', '')).casefold() != ACCOUNT
-            or actual_parent != expected_parent
-            or getattr(post, 'quoted_status_id', None) or getattr(post, 'quote', None)
-            or legacy.get('is_quote_status') or getattr(post, 'retweeted_tweet', None)
-            or body != expected_body):
+    return (str(getattr(user, 'id', '')) == pending['author_id']
+            and str(getattr(user, 'screen_name', '')).casefold() == ACCOUNT
+            and actual_parent == expected_parent and body == expected_body
+            and not (getattr(post, 'quoted_status_id', None) or getattr(post, 'quote', None)
+                     or legacy.get('is_quote_status') or getattr(post, 'retweeted_tweet', None)))
+
+
+async def recover_missing_id(state, connection):
+    pending = state['outbox']
+    reserved = timestamp(pending['reserved_at'])
+    now = utcnow()
+    # The job can run for at most 32 minutes. Allow for rounded X timestamps.
+    earliest = reserved - timedelta(seconds=2)
+    latest = min(now + timedelta(seconds=2), reserved + timedelta(minutes=32))
+    feed = 'Replies' if pending['kind'] == 'reply' else 'Tweets'
+    # A nearby verified post helps distinguish an actual timeline covering the
+    # incident from an empty or truncated response. Pinned rows can be old.
+    anchor = next((row['tweet_id'] for row in reversed(state['history'])
+                   if row.get('verified_at') and row.get('tweet_id') and row.get('posted_at')
+                   and (feed == 'Replies' or row.get('kind') == 'follow')
+                   and timestamp(row['posted_at']) < reserved), None)
+    matches = set()
+    covered = False
+    exhausted = False
+    try:
+        page = await connection.get_user_tweets(pending['author_id'], feed, count=40)
+        for index in range(3):
+            if not page:
+                exhausted = True
+                break
+            for post in page:
+                user = getattr(post, 'user', None)
+                if (str(getattr(user, 'id', '')) != pending['author_id']
+                        or str(getattr(user, 'screen_name', '')).casefold() != ACCOUNT):
+                    continue
+                post_id = str(getattr(post, 'id', ''))
+                if not post_id.isascii() or not post_id.isdigit() or int(post_id) <= 0:
+                    continue
+                created = getattr(post, 'created_at_datetime', None)
+                if not isinstance(created, datetime) or created.tzinfo is None:
+                    continue
+                if post_id == anchor and created < reserved:
+                    covered = True
+                if earliest <= created <= latest and matches_publication(pending, post):
+                    matches.add(post_id)
+            if covered or index == 2:
+                break
+            page = await page.next()
+    except Exception as exc:
+        summary(f'Own timeline read failed ({type(exc).__name__}). Reservation remains pending.')
+        return False
+    if len(matches) == 1 and (covered or exhausted):
+        pending['tweet_id'] = matches.pop()
+        save_and_push(state)
+        return True
+    if (not matches and covered and pending.get('send_error') == 'CouldNotTweet'
+            and now >= reserved + timedelta(minutes=32)):
+        state.setdefault('delivery_rejections', []).append(
+            {**pending, 'error': 'CouldNotTweet', 'outcome': 'unconfirmed', 'checked_at': now.isoformat()})
+        state['outbox'] = None
+        save_and_push(state)
+        summary('X returned CouldNotTweet. No matching publication appeared in the checked timeline. '
+                'Archived the unconfirmed attempt and kept its duplicate protections.')
+        return True
+    summary('Could not identify one matching publication. Reservation remains pending; no resend.')
+    return False
+
+
+async def verify_delivery(state, connection):
+    pending = state.get('outbox')
+    if not pending:
+        return True
+    if not pending.get('tweet_id'):
+        stage('check own timeline for reserved publication', pending.get('source', {}).get('id'))
+        if not await recover_missing_id(state, connection):
+            return False
+        if state['outbox'] is None:
+            return True
+    stage('verify published post', pending.get('source', {}).get('id'))
+    try:
+        post = await connection.get_tweet_by_id(pending['tweet_id'])
+    except Exception as exc:
+        summary(f'Post ID recorded; readback is pending ({type(exc).__name__}). No resend.')
+        return False
+    if str(getattr(post, 'id', '')) != pending['tweet_id'] or not matches_publication(pending, post):
         state['pause_reason'] = 'Published post does not match the reserved author, text or reply parent'
         save_and_push(state)
         summary(state['pause_reason'])
+        user = getattr(post, 'user', None)
+        legacy = (getattr(post, '_data', {}) or {}).get('legacy', {}) or {}
         summary('Public readback: ' + json.dumps({
             'id': str(getattr(post, 'id', '')), 'author_id': str(getattr(user, 'id', '')),
-            'author': str(getattr(user, 'screen_name', '')), 'parent': actual_parent,
-            'text': text, 'quote_id': getattr(post, 'quoted_status_id', None),
+            'author': str(getattr(user, 'screen_name', '')), 'parent': getattr(post, 'in_reply_to', None),
+            'text': getattr(post, 'full_text', None) or getattr(post, 'text', ''),
+            'quote_id': getattr(post, 'quoted_status_id', None),
             'is_quote': bool(legacy.get('is_quote_status') or getattr(post, 'quote', None)),
             'is_repost': bool(getattr(post, 'retweeted_tweet', None)),
         }, ensure_ascii=False))
@@ -223,6 +298,21 @@ async def send_once(state, slot, draft, connection, user, source=None):
         state['outbox'] = None
         state['x_pause_until'] = (utcnow() + timedelta(minutes=30)).isoformat()
         reject(state, slot, 'X rate limit reached; publication paused for at least 30 minutes.')
+        return
+    except CouldNotTweet as exc:
+        # The pinned client raises this exact type on a GraphQL error with
+        # no tweet result. DuplicateTweet can refer to an existing post.
+        if type(exc) is not CouldNotTweet:
+            raise
+        daily_limit = re.search(r'\b(?:daily (?:\w+ ){0,3}(?:limit|quota)|(?:limit|quota) (?:per|for the) day)\b',
+                                str(exc), re.I)
+        cooldown = timedelta(days=1) if daily_limit else timedelta(minutes=30)
+        until = utcnow() + cooldown
+        if state.get('x_pause_until'):
+            until = max(until, timestamp(state['x_pause_until']))
+        reserved['send_error'] = 'CouldNotTweet'
+        state['x_pause_until'] = until.isoformat()
+        reject(state, slot, f'X returned a posting error without an ID. Reserved for verification. Next check after {until.isoformat()}.')
         return
     # Other exceptions may have occurred after acceptance: retain the reservation.
     ident = str(getattr(post, 'id', ''))
@@ -308,8 +398,14 @@ async def publish_follow(state, slot, connection, user):
 async def run(event):
     start = utcnow()
     state = load()
+    if state.get('x_pause_until') and timestamp(state['x_pause_until']) > start:
+        summary(f'X cooldown until {state["x_pause_until"]}.')
+        return
     connection = client()
     if not await verify_delivery(state, connection):
+        pending = state.get('outbox')
+        if pending and start - timestamp(pending['reserved_at']) >= timedelta(hours=1):
+            raise DeliveryUnresolved(f'X delivery for slot {pending["slot"]} remains unverified. See the reconciliation result above.')
         return
     if not delivery_open(state):
         summary('A previous publication requires reconciliation. No new send.')
