@@ -2049,6 +2049,33 @@
       "posted_at": "2026-11-16T12:14:51+00:00",
       "completed_at": "2026-11-16T12:14:51+00:00",
       "verified_at": "2026-11-16T12:14:53.815120+00:00"
+    },
+    {
+      "text": "Are there third-party benchmarks available for these coding claims?",
+      "event_key": "Alibaba releases Qwen4-Max with 1 million token context window",
+      "premise": "Alibaba launched Qwen4-Max, a 2.4 trillion parameter model claiming to outperform Claude and Kimi in coding.",
+      "slot": "2026-11-16:reply-v1:25",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T12:45:06.831696+00:00",
+      "source": {
+        "id": "2122283790366134637",
+        "url": "https://x.com/Pirat_Nation/status/2122283790366134637",
+        "author": "Pirat_Nation",
+        "author_id": "1547929727960199180",
+        "text": "Alibaba has officially launched Qwen4-Max, its latest AI model, claiming it can outperform Claude and Kimi in coding tasks.\n\nThe model has 2.4 trillion parameters, but only uses 71 billion at a time to generate answers. It can also process up to 1 million tokens of information in one go and understand images.\n\nAlibaba says Qwen4-Max performs better than Claude Fable 5.1 and Kimi K3.1 Pro in its coding tests. It also ranks 6th on Code Arena.\n\nThe performance claims come from Alibaba’s own tests",
+        "created_at": "2026-11-16T11:01:00+00:00",
+        "views": 16359,
+        "urls": [],
+        "source_ids": [
+          "2122283790366134637"
+        ]
+      },
+      "tweet_id": "2122310003843575926",
+      "sent_at": "2026-11-16T12:45:10.123862+00:00",
+      "posted_at": "2026-11-16T12:45:10+00:00",
+      "completed_at": "2026-11-16T12:45:10+00:00",
+      "verified_at": "2026-11-16T12:45:13.070053+00:00"
     }
   ],
   "used_source_ids": [
@@ -2853,7 +2880,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T12:14:51+00:00",
+  "last_posted_at": "2026-11-16T12:45:10+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3182,6 +3209,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T12:14:51+00:00",
       "tweet_id": "2122302377428656519"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:25",
+      "kind": "reply",
+      "completed_at": "2026-11-16T12:45:10+00:00",
+      "tweet_id": "2122310003843575926"
     }
   ],
   "last_attempts": {
@@ -3239,30 +3272,7 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": {
-    "text": "Are there third-party benchmarks available for these coding claims?",
-    "event_key": "Alibaba releases Qwen4-Max with 1 million token context window",
-    "premise": "Alibaba launched Qwen4-Max, a 2.4 trillion parameter model claiming to outperform Claude and Kimi in coding.",
-    "slot": "2026-11-16:reply-v1:25",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T12:45:06.831696+00:00",
-    "source": {
-      "id": "2122283790366134637",
-      "url": "https://x.com/Pirat_Nation/status/2122283790366134637",
-      "author": "Pirat_Nation",
-      "author_id": "1547929727960199180",
-      "text": "Alibaba has officially launched Qwen4-Max, its latest AI model, claiming it can outperform Claude and Kimi in coding tasks.\n\nThe model has 2.4 trillion parameters, but only uses 71 billion at a time to generate answers. It can also process up to 1 million tokens of information in one go and understand images.\n\nAlibaba says Qwen4-Max performs better than Claude Fable 5.1 and Kimi K3.1 Pro in its coding tests. It also ranks 6th on Code Arena.\n\nThe performance claims come from Alibaba’s own tests",
-      "created_at": "2026-11-16T11:01:00+00:00",
-      "views": 16359,
-      "urls": [],
-      "source_ids": [
-        "2122283790366134637"
-      ]
-    },
-    "tweet_id": "2122310003843575926",
-    "sent_at": "2026-11-16T12:45:10.123862+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
