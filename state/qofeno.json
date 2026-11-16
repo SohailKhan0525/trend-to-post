@@ -2184,6 +2184,33 @@
       "posted_at": "2026-11-16T14:46:32+00:00",
       "completed_at": "2026-11-16T14:46:32+00:00",
       "verified_at": "2026-11-16T14:46:34.291418+00:00"
+    },
+    {
+      "text": "Environment isolation is critical for unverified extensions. 🛡️",
+      "event_key": "Discussion on security risks of unisolated AI coding tools in corporate environments.",
+      "premise": "The author claims companies lack security awareness by allowing AI tools like Codex and Claude Code on work devices without environment isolation or security checks for skill installations.",
+      "slot": "2026-11-16:reply-v1:32",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T16:05:05.977247+00:00",
+      "source": {
+        "id": "2122120463627522475",
+        "url": "https://x.com/CEO_loves_tech/status/2122120463627522475",
+        "author": "CEO_loves_tech",
+        "author_id": "843026174661951488",
+        "text": "セキュリティの専門家と先週話したが、CodexやClaude Codeを業務端末内で環境分離させずに使わせてる会社のセキュリティ意識も実態もガバガバだよね、って会話で盛り上がった。\n例えば「Skillsをセキュリティチェックなしで無限インストールとか死ぬ気か？」と。",
+        "created_at": "2026-11-16T00:12:00+00:00",
+        "views": 147597,
+        "urls": [],
+        "source_ids": [
+          "2122120463627522475"
+        ]
+      },
+      "tweet_id": "2122360326251295202",
+      "sent_at": "2026-11-16T16:05:07.890986+00:00",
+      "posted_at": "2026-11-16T16:05:07+00:00",
+      "completed_at": "2026-11-16T16:05:07+00:00",
+      "verified_at": "2026-11-16T16:05:10.107691+00:00"
     }
   ],
   "used_source_ids": [
@@ -3003,7 +3030,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T14:46:32+00:00",
+  "last_posted_at": "2026-11-16T16:05:07+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3362,6 +3389,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T14:46:32+00:00",
       "tweet_id": "2122340546278719566"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:32",
+      "kind": "reply",
+      "completed_at": "2026-11-16T16:05:07+00:00",
+      "tweet_id": "2122360326251295202"
     }
   ],
   "last_attempts": {
@@ -3379,30 +3412,7 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": {
-    "text": "Environment isolation is critical for unverified extensions. 🛡️",
-    "event_key": "Discussion on security risks of unisolated AI coding tools in corporate environments.",
-    "premise": "The author claims companies lack security awareness by allowing AI tools like Codex and Claude Code on work devices without environment isolation or security checks for skill installations.",
-    "slot": "2026-11-16:reply-v1:32",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T16:05:05.977247+00:00",
-    "source": {
-      "id": "2122120463627522475",
-      "url": "https://x.com/CEO_loves_tech/status/2122120463627522475",
-      "author": "CEO_loves_tech",
-      "author_id": "843026174661951488",
-      "text": "セキュリティの専門家と先週話したが、CodexやClaude Codeを業務端末内で環境分離させずに使わせてる会社のセキュリティ意識も実態もガバガバだよね、って会話で盛り上がった。\n例えば「Skillsをセキュリティチェックなしで無限インストールとか死ぬ気か？」と。",
-      "created_at": "2026-11-16T00:12:00+00:00",
-      "views": 147597,
-      "urls": [],
-      "source_ids": [
-        "2122120463627522475"
-      ]
-    },
-    "tweet_id": "2122360326251295202",
-    "sent_at": "2026-11-16T16:05:07.890986+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
