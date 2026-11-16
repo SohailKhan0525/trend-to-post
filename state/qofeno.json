@@ -2605,6 +2605,7 @@
     "2122053270764179618",
     "2122058578005487774",
     "2122120463627522475",
+    "2122169537592430882",
     "2122185393143738493",
     "2122208795048964531",
     "2122215113897955666",
@@ -2655,6 +2656,7 @@
   "used_events": [
     "0278fcd3a58749fc3a05f7abccfca5a4016001e604af43a4644dac588fe87de6",
     "0842bedea1fbcfa2f278fa73ba24e5496f56497a6c3797c33d5b752b7101240b",
+    "0933e92de38cdcec0ac87ffecaeb13f1aa6d343f8cb9239fde269857c5914cf0",
     "0b850b751f44e80abcda87cb4f1d81809c4b9592bee59f5cccb08d719e0b2127",
     "11bc9283753e9be955ff2eee7011c255dea50479ec27b613e1cfb0b2a84217b4",
     "152eb95c9116952e032caf8e7331a928f6bce455e88d0316b302b71c410d9f73",
@@ -2787,6 +2789,7 @@
     "0de78ab20b5479ab79a43917211d5c074a02108137358a9a20ee7b09000a2beb",
     "0dea78cc1c1b34d5102b7ed3aefff1da7f9eb444f593d0ed8928267e434af760",
     "0e058db8c1c26444be4d99c28fdf1928b4c57da64c5a30ab9f9cecba8012ba8d",
+    "0f48cfb937c92e9c1c9b21592d920747feea701a7175dfa578f78963cc3ddf74",
     "0f6cda5a409c4c623ebc0fefb7c9c86ee3355a0071d70bba1c19a86bd1f9a0ff",
     "0ff9a82d2e2ca7a621283622f26337e11926097bf2e65131f8161ccb70e2de40",
     "118ea9c4d8b35bb3f7662f26cee63b0973d2c0dcf6b571af0c32557f6f68adf4",
@@ -3277,10 +3280,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 537,
+    "neurons_reserved": 489,
     "requests": 36,
     "hour": "2026-11-16T20",
-    "hour_neurons_reserved": 78,
+    "hour_neurons_reserved": 30,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3627,7 +3630,28 @@
       "until": "2026-11-16T23:56:03.973028+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "How does Hydrogen compare to 3.8 Flash in latency?",
+    "event_key": "Google announces Gemini 4 models, Antigravity agent tools, and new hardware.",
+    "premise": "The author lists recent Google releases including Gemini 4 models, Antigravity agents, and various hardware updates.",
+    "slot": "2026-11-16:reply-v1:40",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T20:05:33.310126+00:00",
+    "source": {
+      "id": "2122169537592430882",
+      "url": "https://x.com/Saboo_Shubham_/status/2122169537592430882",
+      "author": "Saboo_Shubham_",
+      "author_id": "1275333333724000257",
+      "text": "We are cooking at Google. Look at the last few weeks:\n\nModels\n• Gemini 4 Carbon: now GA in the API and AI Studio, rolling out to Ultra\n• Gemini 4 Hydrogen: ~2.5x faster than 3.8 Flash, 1M context, $1.50/$7.50 per 1M tokens flat\n• Gemini Omni 1.2 Flash: 15-second clips, 30% cheaper\n• Gemini Robotics 2.5: new vision-language-action model\n• Genie 4: real-time interactive world model\n• Gemini Decisions API: score up to 1,000 questions in one call\n\nAgents and dev tools\n• Antigravity: Orchestrator, Swarm, Dynamic Workflows, Voice mode, Browser Use, Knowledge Work layout and a plugin marketplace\n• ADK 2.14: execution environments, A2A and eval go stable\n• A2UI 1.0: open protocol for generative UI\n• Elephant Goldfish: open-source plugin to design and review with coding agents\n\nHardware\n• Gemini glasses: pre-orders open with Warby Parker and Gentle Monster\n• XREAL AURA: first wired Android XR glasses with Gemini\n• TPU 8tx and 8i Max, plus TPU Sync open-sourced\n• Gemma 4 running on a TPU in space\n• Pixel Tag and Gemini Intelligence on Pixel 10\n\nBullish on Google.",
+      "created_at": "2026-11-16T03:27:00+00:00",
+      "views": 118543,
+      "urls": [],
+      "source_ids": [
+        "2122169537592430882"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
