@@ -2265,7 +2265,8 @@
     "2121616149129691255",
     "2121680044451872811",
     "2122053270764179618",
-    "2122058578005487774"
+    "2122058578005487774",
+    "2122231173720224224"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -2369,6 +2370,7 @@
     "969353d7054536833563b5ba92a27b6ea34653d51476500e2cbe9f6ef26db218",
     "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2",
     "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0",
+    "9d1a88851d00586b7a4f6ca3c55f16a789c3af22498e0e2d8d49069eea645ca9",
     "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79",
     "9e90fa724f3e446f669d4d7e5b1c040e5d5a12f6513bd8638789853da7aab278",
     "a1cc2bc4b38cd1851156edafab6ddf900a2d59fb30285e7ef69867dd7b01695b",
@@ -2657,6 +2659,7 @@
     "a23d88bd423270481710383ca675add0ba7883738f8d3f260774a542c659ea4c",
     "a359fd734f716a62ab18c98a757ac20409f337152ab4bf4175dfe14f61a77e0a",
     "a3a1a07104c6e56329e71d2df80e86ab0e7c9eb1c3798dfad14ab9aaa6369e9f",
+    "a46f6e89e6d7f2b5a0ede8f806033cbf5e5e66f838d0f0afbc673bd5c6afb565",
     "a506337ed288f3ea5b96c13f7b6594830d7a043fe785c61619cb7c914c872539",
     "a646eb3f6654e4b3e7cfca21ab392724bbc182c62c94f78f6a2b47908038b8b9",
     "a68e49492becbc035269a79d895694e1e86bc29eb5a78dbb0ee3142bee4b0006",
@@ -2903,10 +2906,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 139,
+    "neurons_reserved": 97,
     "requests": 8,
     "hour": "2026-11-16T12",
-    "hour_neurons_reserved": 65,
+    "hour_neurons_reserved": 23,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3200,7 +3203,28 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "That context window makes long codebase audits easy. 🛠️",
+    "event_key": "Hy4 flash model free usage period launch",
+    "premise": "Hy4 flash is free with near-unlimited usage for two weeks, featuring 1M context and multimodal capabilities.",
+    "slot": "2026-11-16:reply-v1:24",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T12:14:50.665212+00:00",
+    "source": {
+      "id": "2122231173720224224",
+      "url": "https://x.com/opencode/status/2122231173720224224",
+      "author": "opencode",
+      "author_id": "1965545045089792000",
+      "text": "Hy4 flash is free with near-unlimited usage for the next 2 weeks\n\n1M context · Multimodal · ZDR\n\nHy's fastest and most cost-efficient model",
+      "created_at": "2026-11-16T07:31:55+00:00",
+      "views": 127193,
+      "urls": [],
+      "source_ids": [
+        "2122231173720224224"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
