@@ -2157,6 +2157,33 @@
       "posted_at": "2026-11-16T14:16:15+00:00",
       "completed_at": "2026-11-16T14:16:15+00:00",
       "verified_at": "2026-11-16T14:16:20.135692+00:00"
+    },
+    {
+      "text": "Does Carbon support parallel task execution better than Opus5.5?",
+      "event_key": "User compares Gemini4 Carbon and Claude Opus5.5 coding and video capabilities.",
+      "premise": "Gemini4 Carbon coding performance reaches 90-95% of Opus5.5 but is significantly slower and has a poor harness experience.",
+      "slot": "2026-11-16:reply-v1:29",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T14:46:30.279543+00:00",
+      "source": {
+        "id": "2122208795048964531",
+        "url": "https://x.com/yihui_indie/status/2122208795048964531",
+        "author": "yihui_indie",
+        "author_id": "1718896922277314560",
+        "text": "我又把 Claude 给请了回来，这两天基本都在频繁使用 Gemini4 Carbon干事情，两天用掉了Ultra 20x账号50%的额度。我对 Gemini4 Carbon的大致结论是：\n1. 不考虑 Antigravity 那个糟糕的 Harness 体验， Gemini4 Carbon 在 Coding 上确实能够替代 Opus5.5 90 - 95%的水平\n\n2. 慢，太慢了。用 Claude 我一般并行4-8 个对话任务，但是 Gemini 我需要并行 8 - 12个。否则效率就太低了\n\n3. 做视频，Claude Opus5.5 和 Fable 5.2 无人能及。如果你要做视频，别考虑其他模型\n\n4. 说人话 + 写文案的能力，Gemini4 Carbon 是目前的SOTA\n\n所以虽然它最终产出的活儿还行，但因为慢 + Antigravity 那糟糕的体验，整体的体验真的比起 Claude Code来说，差太多了，基本属于没苦硬吃。",
+        "created_at": "2026-11-16T06:03:00+00:00",
+        "views": 43189,
+        "urls": [],
+        "source_ids": [
+          "2122208795048964531"
+        ]
+      },
+      "tweet_id": "2122340546278719566",
+      "sent_at": "2026-11-16T14:46:32.016672+00:00",
+      "posted_at": "2026-11-16T14:46:32+00:00",
+      "completed_at": "2026-11-16T14:46:32+00:00",
+      "verified_at": "2026-11-16T14:46:34.291418+00:00"
     }
   ],
   "used_source_ids": [
@@ -2973,7 +3000,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T14:16:15+00:00",
+  "last_posted_at": "2026-11-16T14:46:32+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3326,6 +3353,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T14:16:15+00:00",
       "tweet_id": "2122332928810336378"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:29",
+      "kind": "reply",
+      "completed_at": "2026-11-16T14:46:32+00:00",
+      "tweet_id": "2122340546278719566"
     }
   ],
   "last_attempts": {
@@ -3383,30 +3416,7 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": {
-    "text": "Does Carbon support parallel task execution better than Opus5.5?",
-    "event_key": "User compares Gemini4 Carbon and Claude Opus5.5 coding and video capabilities.",
-    "premise": "Gemini4 Carbon coding performance reaches 90-95% of Opus5.5 but is significantly slower and has a poor harness experience.",
-    "slot": "2026-11-16:reply-v1:29",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T14:46:30.279543+00:00",
-    "source": {
-      "id": "2122208795048964531",
-      "url": "https://x.com/yihui_indie/status/2122208795048964531",
-      "author": "yihui_indie",
-      "author_id": "1718896922277314560",
-      "text": "我又把 Claude 给请了回来，这两天基本都在频繁使用 Gemini4 Carbon干事情，两天用掉了Ultra 20x账号50%的额度。我对 Gemini4 Carbon的大致结论是：\n1. 不考虑 Antigravity 那个糟糕的 Harness 体验， Gemini4 Carbon 在 Coding 上确实能够替代 Opus5.5 90 - 95%的水平\n\n2. 慢，太慢了。用 Claude 我一般并行4-8 个对话任务，但是 Gemini 我需要并行 8 - 12个。否则效率就太低了\n\n3. 做视频，Claude Opus5.5 和 Fable 5.2 无人能及。如果你要做视频，别考虑其他模型\n\n4. 说人话 + 写文案的能力，Gemini4 Carbon 是目前的SOTA\n\n所以虽然它最终产出的活儿还行，但因为慢 + Antigravity 那糟糕的体验，整体的体验真的比起 Claude Code来说，差太多了，基本属于没苦硬吃。",
-      "created_at": "2026-11-16T06:03:00+00:00",
-      "views": 43189,
-      "urls": [],
-      "source_ids": [
-        "2122208795048964531"
-      ]
-    },
-    "tweet_id": "2122340546278719566",
-    "sent_at": "2026-11-16T14:46:32.016672+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
