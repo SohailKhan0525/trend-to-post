@@ -3307,10 +3307,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 549,
-    "requests": 37,
+    "neurons_reserved": 556,
+    "requests": 38,
     "hour": "2026-11-16T20",
-    "hour_neurons_reserved": 90,
+    "hour_neurons_reserved": 97,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
