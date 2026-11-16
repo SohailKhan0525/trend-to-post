@@ -1995,6 +1995,33 @@
       "posted_at": "2026-11-16T11:31:21+00:00",
       "completed_at": "2026-11-16T11:31:21+00:00",
       "verified_at": "2026-11-16T11:31:24.037119+00:00"
+    },
+    {
+      "text": "Did Llama 4 launch this month too?",
+      "event_key": "A summary of recent major AI model launches.",
+      "premise": "A list of notable AI models released last month from various providers.",
+      "slot": "2026-11-16:reply-v1:23",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T11:44:38.189035+00:00",
+      "source": {
+        "id": "2122053270764179618",
+        "url": "https://x.com/RoundtableSpace/status/2122053270764179618",
+        "author": "RoundtableSpace",
+        "author_id": "1536693901230321666",
+        "text": "List of all the notable AI models that launched last month: \n\n- GPT-6.1 Terra (OpenAI) — Fast visual & computer-use model\n  \n- GPT-6 Rosalind (OpenAI) — Biological/life-sciences reasoning model\n  \n- Gemini 4 Argon (Google) — Flagship long-horizon reasoning model\n\n- Gemini 4 Carbon (Google) — Cybersecurity & advanced agentic model\n\n- Genie 4 (Google) — Real-time interactive world model\n  \n- Claude Haiku 5.5 (Anthropic) — Cheap, fast small model\n\n- Claude Sonnet 5.5 (Anthropic) — Strong coding & agent model\n  \n- Muse Wonder (Meta) — Frontier-tier reasoning model\n\n- Muse Spark Open (Meta) — Large open-weight multimodal model\n  \n- Kimi K3.1 Pro (Moonshot) — Strong open-weights coding/agent model\n  \n- Mistral Large 4 (Mistral) — Large open-weight general model\n\n- Grok Voice 3.0 (xAI) — Speech-to-speech model  \n\n- Nemotron 3.5 Super VL (NVIDIA) — Open-weight vision-language model  \n\n- Beam (Reflection AI) — Open-weight coding & reasoning model  \n\n- MiniMax M3.1 Flash (MiniMax) — Fast agentic & coding model\n\nWhich one did we miss, share them below.",
+        "created_at": "2026-11-15T19:45:00+00:00",
+        "views": 40352,
+        "urls": [],
+        "source_ids": [
+          "2122053270764179618"
+        ]
+      },
+      "tweet_id": "2122294776129298705",
+      "sent_at": "2026-11-16T11:44:39.558129+00:00",
+      "posted_at": "2026-11-16T11:44:39+00:00",
+      "completed_at": "2026-11-16T11:44:39+00:00",
+      "verified_at": "2026-11-16T11:44:41.444486+00:00"
     }
   ],
   "used_source_ids": [
@@ -2793,7 +2820,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T11:31:21+00:00",
+  "last_posted_at": "2026-11-16T11:44:39+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3110,6 +3137,12 @@
       "kind": "follow",
       "completed_at": "2026-11-16T11:31:21+00:00",
       "tweet_id": "2122291428521054312"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:23",
+      "kind": "reply",
+      "completed_at": "2026-11-16T11:44:39+00:00",
+      "tweet_id": "2122294776129298705"
     }
   ],
   "last_attempts": {
@@ -3167,30 +3200,7 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": {
-    "text": "Did Llama 4 launch this month too?",
-    "event_key": "A summary of recent major AI model launches.",
-    "premise": "A list of notable AI models released last month from various providers.",
-    "slot": "2026-11-16:reply-v1:23",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T11:44:38.189035+00:00",
-    "source": {
-      "id": "2122053270764179618",
-      "url": "https://x.com/RoundtableSpace/status/2122053270764179618",
-      "author": "RoundtableSpace",
-      "author_id": "1536693901230321666",
-      "text": "List of all the notable AI models that launched last month: \n\n- GPT-6.1 Terra (OpenAI) — Fast visual & computer-use model\n  \n- GPT-6 Rosalind (OpenAI) — Biological/life-sciences reasoning model\n  \n- Gemini 4 Argon (Google) — Flagship long-horizon reasoning model\n\n- Gemini 4 Carbon (Google) — Cybersecurity & advanced agentic model\n\n- Genie 4 (Google) — Real-time interactive world model\n  \n- Claude Haiku 5.5 (Anthropic) — Cheap, fast small model\n\n- Claude Sonnet 5.5 (Anthropic) — Strong coding & agent model\n  \n- Muse Wonder (Meta) — Frontier-tier reasoning model\n\n- Muse Spark Open (Meta) — Large open-weight multimodal model\n  \n- Kimi K3.1 Pro (Moonshot) — Strong open-weights coding/agent model\n  \n- Mistral Large 4 (Mistral) — Large open-weight general model\n\n- Grok Voice 3.0 (xAI) — Speech-to-speech model  \n\n- Nemotron 3.5 Super VL (NVIDIA) — Open-weight vision-language model  \n\n- Beam (Reflection AI) — Open-weight coding & reasoning model  \n\n- MiniMax M3.1 Flash (MiniMax) — Fast agentic & coding model\n\nWhich one did we miss, share them below.",
-      "created_at": "2026-11-15T19:45:00+00:00",
-      "views": 40352,
-      "urls": [],
-      "source_ids": [
-        "2122053270764179618"
-      ]
-    },
-    "tweet_id": "2122294776129298705",
-    "sent_at": "2026-11-16T11:44:39.558129+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
