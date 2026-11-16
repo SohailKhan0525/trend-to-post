@@ -2377,7 +2377,8 @@
     "2122058578005487774",
     "2122231173720224224",
     "2122247739748630663",
-    "2122283790366134637"
+    "2122283790366134637",
+    "2122298376456741208"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -2500,6 +2501,7 @@
     "b7a401f70da244991f99023773daabcce9c34aaabaf9459cab2678999863bf82",
     "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c",
     "c0450e458d0de658cc012f44ea137e05362643e80bf8cb4cda76425ca172ccd9",
+    "c2819219ee660cf9b6431c686c59c4ca7c4da18f9ce0c5eb8d02d1c48d498fc4",
     "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d",
     "c680dad137f76b510aea1cc88053989bed87bbf6b7b7f5ae1d79d83c83f9a375",
     "c93490cdfcbff85ce80d16542f2ae662a471277914e306400e91f3b148d785c4",
@@ -2560,6 +2562,7 @@
     "18c37f45c0af5d872d23c0409380809c8021c3e554dd54b5a3af85fe82fffe5c",
     "1947ee4f32b284440f1a61c13085ce8af33cb6229c844dc76538bc53bce468d5",
     "19a12a45ab31a688f371dc2e76d72d9c856b70d0fbf6176a33c3da3f44b3264f",
+    "19a408ed863c70bb91a66385b39aa2e83158ad96e61c48192669fb29be1cf004",
     "19f354997f848c5c9422e2c4b773cdcf8d539ee4fcadf1cbf6aaeb6be133eca8",
     "1a4880935aeab142cb71599ca1ff8001bc6d8cea431581e56056f99a666ad024",
     "1a88ac7544f5f6b45095a2387107137c2c3389d4a54ca8f0dcdc3f47df3627da",
@@ -3023,10 +3026,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 254,
+    "neurons_reserved": 211,
     "requests": 16,
     "hour": "2026-11-16T14",
-    "hour_neurons_reserved": 68,
+    "hour_neurons_reserved": 25,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3344,7 +3347,28 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Fixing capacity errors is a bold comeback strategy. 🙃",
+    "event_key": "OpenAI resolves model capacity errors",
+    "premise": "The author claims OpenAI is back in the game because capacity errors are resolved, allowing use of less popular models.",
+    "slot": "2026-11-16:reply-v1:28",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T14:16:11.988906+00:00",
+    "source": {
+      "id": "2122298376456741208",
+      "url": "https://x.com/IndependentEco/status/2122298376456741208",
+      "author": "IndependentEco",
+      "author_id": "1736443605470916608",
+      "text": "OpenAI just made an epic announcement.\n\nEverybody has been waiting for them to start competing with Anthropic and they are finally back in the game.\n\nYou might be thinking “did codex release a new model that competes with Opus 5.5?”\n\nNope even better.\n\nTibo has announced today that the “model at capacity” errors are now resolved.\n\nThe models that nobody wants to use can now be used.\n\nOpenAI is so back!",
+      "created_at": "2026-11-16T11:58:58+00:00",
+      "views": 11973,
+      "urls": [],
+      "source_ids": [
+        "2122298376456741208"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
