@@ -1982,6 +1982,19 @@
       "posted_at": "2026-11-16T11:14:20+00:00",
       "completed_at": "2026-11-16T11:14:20+00:00",
       "verified_at": "2026-11-16T11:14:22.577929+00:00"
+    },
+    {
+      "text": "Follow me now before it's too late. I explore the practical trade-offs of different software tools and AI coding workflows. 🤖",
+      "event_key": "follow:cd525d9375df192fd5ded975c9291c3049ea3195eb8f19f4d88b326dd19d1365",
+      "slot": "2026-11-16:follow-v1:0",
+      "kind": "follow",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T11:31:18.962422+00:00",
+      "tweet_id": "2122291428521054312",
+      "sent_at": "2026-11-16T11:31:21.431592+00:00",
+      "posted_at": "2026-11-16T11:31:21+00:00",
+      "completed_at": "2026-11-16T11:31:21+00:00",
+      "verified_at": "2026-11-16T11:31:24.037119+00:00"
     }
   ],
   "used_source_ids": [
@@ -2777,7 +2790,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T11:14:20+00:00",
+  "last_posted_at": "2026-11-16T11:31:21+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3088,6 +3101,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T11:14:20+00:00",
       "tweet_id": "2122287146182791366"
+    },
+    {
+      "slot": "2026-11-16:follow-v1:0",
+      "kind": "follow",
+      "completed_at": "2026-11-16T11:31:21+00:00",
+      "tweet_id": "2122291428521054312"
     }
   ],
   "last_attempts": {
@@ -3141,16 +3160,7 @@
     }
   },
   "reply_rejections": {},
-  "outbox": {
-    "text": "Follow me now before it's too late. I explore the practical trade-offs of different software tools and AI coding workflows. 🤖",
-    "event_key": "follow:cd525d9375df192fd5ded975c9291c3049ea3195eb8f19f4d88b326dd19d1365",
-    "slot": "2026-11-16:follow-v1:0",
-    "kind": "follow",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T11:31:18.962422+00:00",
-    "tweet_id": "2122291428521054312",
-    "sent_at": "2026-11-16T11:31:21.431592+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
