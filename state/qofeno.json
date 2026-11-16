@@ -2826,10 +2826,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 60,
-    "requests": 1,
+    "neurons_reserved": 67,
+    "requests": 2,
     "hour": "2026-11-16T11",
-    "hour_neurons_reserved": 60,
+    "hour_neurons_reserved": 67,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
