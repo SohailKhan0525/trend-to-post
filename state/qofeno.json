@@ -2345,6 +2345,7 @@
     "2121602766976237610",
     "2121616149129691255",
     "2121680044451872811",
+    "2121965689023963608",
     "2122053270764179618",
     "2122058578005487774",
     "2122231173720224224",
@@ -2396,6 +2397,7 @@
     "1587d9b031307a6c381115e51fcc8ad1507a04a1019885ee23f07981ff9ac03c",
     "15a273b1963c28bbe841ed71a49216ebcf2beca1d08e372497bc0596ef8f1bb0",
     "1c6efd91efec9628950df5d7c3fff364720c3f246e3c9f81770104b5e520fab1",
+    "1cecbfdbfaff5c21e7128bbbc61e704164e46ed27b44d2fd1a298e71612d5fac",
     "1d4ec3e76872c0cd62ff57ad9a24065663dc97d07c5a4f59299200be9d123c1b",
     "20144f77fa5f29d8aaf4da384a2420e63c452ad1d6a5259f29284eaac0ea6d0f",
     "242b0770444069ac8ff64730834a878fc112485b0ea6ba0f2f18f57a1a4fd3fb",
@@ -2689,6 +2691,7 @@
     "81b43c8c70965aa6652227d515b6653b99c76bd6eacf20b194c9da4a14bd118d",
     "8235f5a5bd85549c30320b069b62586f6d9476b92d24d0e348d4273e867ef261",
     "82bc88b871921bb2711d045258742137c440a23bf82bd87faba991ba717f6ab2",
+    "8302af449ca0019dbe058ca880309abb3bf838ecf06c60c2c192c9cd87c0469a",
     "838136e6192aa45aac71cee290215daa21b7ed7f003a6d1a781346bd2882d7bd",
     "83d22c2ef2b06f62972bb31be2fb11f5230df8a5fe857efc7997f45499de134a",
     "84c756ecdeea9a1170eda072f3fa19d95e5011e53469b8912c6656da45e783ac",
@@ -2993,10 +2996,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 232,
+    "neurons_reserved": 186,
     "requests": 14,
     "hour": "2026-11-16T13",
-    "hour_neurons_reserved": 109,
+    "hour_neurons_reserved": 63,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3308,7 +3311,28 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Will these models be accessible via a single API endpoint?",
+    "event_key": "Speculated Gemini 4 model tiering strategy",
+    "premise": "Google is reportedly preparing a Gemini 4 lineup categorized by model names Hydrogen, Carbon, Argon, and Krypton based on complexity.",
+    "slot": "2026-11-16:reply-v1:27",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T13:45:51.643427+00:00",
+    "source": {
+      "id": "2121965689023963608",
+      "url": "https://x.com/zzaba_a/status/2121965689023963608",
+      "author": "zzaba_a",
+      "author_id": "1948279697797988352",
+      "text": "🚨Google is preparing a full line of Gemini 4\n\nAccording to current tests and releases, the models are divided like this:\n\n▪ Hydrogen is a light workhorse. The fastest and cheapest, sharpened for everyday dialogues, simple tasks and agency cycles.\n\n▪ Carbon is a station waggon. The balance of speed and strength, well pulls conventional development and multimodal tasks.\n\n▪ Argon is a model of deep reasoning. Strong in complex logic, refactoring and long chains.\n\n▪ Krypton is a heavy flagship. Positioned as a competitor of Fable 5.2 and GPT-6.2 Sol, focussed on complex applications, simulations and high-load tasks.\n\nThe heavier the element, the more computing power and the higher the capability ceiling.\n\nGoogle's strategy is clear: give simple tasks to light models, complex ones to difficult ones, and dynamically route between them. One lineup covers everything - from regular chat to serious engineering work.",
+      "created_at": "2026-11-15T13:56:59+00:00",
+      "views": 36847,
+      "urls": [],
+      "source_ids": [
+        "2121965689023963608"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
