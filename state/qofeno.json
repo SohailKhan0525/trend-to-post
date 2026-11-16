@@ -2642,7 +2642,8 @@
     "2122287575557706226",
     "2122298376456741208",
     "2122308975182094644",
-    "2122336040899711282"
+    "2122336040899711282",
+    "2122373063560110320"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -2738,6 +2739,7 @@
     "7bb0952091e6c967881599f0abf1c0f27c4e10db00ad33e18a0f8e50dfb24689",
     "7eb3253880a6ec22eabeb0fde5cda755749276a0df0289bcc67df911fa783fcb",
     "7fd87d5ca10658639e29b3eb658cba9ec26687eb4121e4c4ab8d4b5291dd86a3",
+    "8200949b410639e3e4a8a162d842ce13922ec32bf87b85b49a57edf82471c37f",
     "8338fe4b263c8690f1fc02fd95ea83abd81d03f43912c4bf49739316636c3ce5",
     "845349d7acaf03efeca14d6f7e4b3e7ba1dc44636e4b0887ad0c803baa00ac20",
     "847d6558582980f775c3ef2dc67b4fe715a439a0df2c419c5dd2bf7919b9c15d",
@@ -3015,6 +3017,7 @@
     "89dcbe5655438bdbecd8821c42e48ebff8f32913c2fd80456585be5cfb8f2340",
     "8bf8edb88403f2355ed4ad1f894e46760c887ebfab9b51d0493f1b515cd6bf29",
     "8cce67d30ec0cbf81791db8fd71fcf7b71fdbc7e51ec11b7b12eccd77f6333f8",
+    "8d1d885ae78d83183bdf8061e0f22cb4aafaeb43363bc5ae402c83026ffdbe07",
     "8d54b4920881292e20b889c136886b3b15aa41aa228cf6561cddc8685f582a98",
     "8df683f039739dad2fc5378c98f84f2448dfb63eba819e6c607eda7b3b29a509",
     "8e4dd6dcde3afc0d2171a832f654f7f2229afd92f07a6885c06d23ef2c402573",
@@ -3307,10 +3310,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 556,
+    "neurons_reserved": 513,
     "requests": 38,
     "hour": "2026-11-16T20",
-    "hour_neurons_reserved": 97,
+    "hour_neurons_reserved": 54,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3663,7 +3666,28 @@
       "until": "2026-11-16T23:56:03.973028+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Visualizing architecture makes the scaling bottlenecks clearer.",
+    "event_key": "Author shares an interactive app for learning system design visually.",
+    "premise": "System design knowledge improves app quality and AI prompting during vibe coding.",
+    "slot": "2026-11-16:reply-v1:41",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-16T20:35:47.665271+00:00",
+    "source": {
+      "id": "2122373063560110320",
+      "url": "https://x.com/DilumSanjaya/status/2122373063560110320",
+      "author": "DilumSanjaya",
+      "author_id": "428882772",
+      "text": "Understanding system design helps you build better apps, even when vibe coding.\n\nBetter architecture decisions. Better AI prompts. Fewer surprises when your app grows.\n\nSo I built an interactive app to learn system design visually.\n\nhttps://t.co/O0Rz621CcI https://t.co/qRdAYtVsYJ",
+      "created_at": "2026-11-16T16:55:44+00:00",
+      "views": 21511,
+      "urls": [],
+      "source_ids": [
+        "2122373063560110320"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
