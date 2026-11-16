@@ -1953,6 +1953,35 @@
       "posted_at": "2026-11-14T20:47:00+00:00",
       "completed_at": "2026-11-14T20:47:00+00:00",
       "verified_at": "2026-11-14T20:47:01.869591+00:00"
+    },
+    {
+      "text": "Managing security alerts directly in the chat saves context switching. 🛠️",
+      "event_key": "GitHub Copilot introduces a security extension for managing code scanning alerts.",
+      "premise": "GitHub Copilot now includes a security extension to find, explain, and fix code scanning alerts.",
+      "slot": "2026-11-16:reply-v1:22",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T11:14:18.449685+00:00",
+      "source": {
+        "id": "2122058578005487774",
+        "url": "https://x.com/github/status/2122058578005487774",
+        "author": "github",
+        "author_id": "13334762",
+        "text": "🔒 Check your repo's code scanning alerts without leaving the GitHub Copilot app.\n\nWith the new GitHub security extension, you can ask Copilot to find, explain, and fix (or dismiss!) an alert.\n\nNow in public preview ⬇️\nhttps://t.co/RE7rcSWtle https://t.co/ULnQbPtlkt",
+        "created_at": "2026-11-15T20:06:05+00:00",
+        "views": 66682,
+        "urls": [
+          "https://docs.github.com/copilot/how-tos/github-copilot-app/view-and-fix-security-alerts"
+        ],
+        "source_ids": [
+          "2122058578005487774"
+        ]
+      },
+      "tweet_id": "2122287146182791366",
+      "sent_at": "2026-11-16T11:14:20.153107+00:00",
+      "posted_at": "2026-11-16T11:14:20+00:00",
+      "completed_at": "2026-11-16T11:14:20+00:00",
+      "verified_at": "2026-11-16T11:14:22.577929+00:00"
     }
   ],
   "used_source_ids": [
@@ -2747,7 +2776,7 @@
     "ff94e5f2c51dcf80db3ff5651259fc432ec67ed4e9bf0b39966ff8ea1b055e44",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-14T20:47:00+00:00",
+  "last_posted_at": "2026-11-16T11:14:20+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3052,6 +3081,12 @@
       "kind": "reply",
       "completed_at": "2026-11-14T20:47:00+00:00",
       "tweet_id": "2121706484899963278"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:22",
+      "kind": "reply",
+      "completed_at": "2026-11-16T11:14:20+00:00",
+      "tweet_id": "2122287146182791366"
     }
   ],
   "last_attempts": {
@@ -3105,32 +3140,7 @@
     }
   },
   "reply_rejections": {},
-  "outbox": {
-    "text": "Managing security alerts directly in the chat saves context switching. 🛠️",
-    "event_key": "GitHub Copilot introduces a security extension for managing code scanning alerts.",
-    "premise": "GitHub Copilot now includes a security extension to find, explain, and fix code scanning alerts.",
-    "slot": "2026-11-16:reply-v1:22",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T11:14:18.449685+00:00",
-    "source": {
-      "id": "2122058578005487774",
-      "url": "https://x.com/github/status/2122058578005487774",
-      "author": "github",
-      "author_id": "13334762",
-      "text": "🔒 Check your repo's code scanning alerts without leaving the GitHub Copilot app.\n\nWith the new GitHub security extension, you can ask Copilot to find, explain, and fix (or dismiss!) an alert.\n\nNow in public preview ⬇️\nhttps://t.co/RE7rcSWtle https://t.co/ULnQbPtlkt",
-      "created_at": "2026-11-15T20:06:05+00:00",
-      "views": 66682,
-      "urls": [
-        "https://docs.github.com/copilot/how-tos/github-copilot-app/view-and-fix-security-alerts"
-      ],
-      "source_ids": [
-        "2122058578005487774"
-      ]
-    },
-    "tweet_id": "2122287146182791366",
-    "sent_at": "2026-11-16T11:14:20.153107+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
