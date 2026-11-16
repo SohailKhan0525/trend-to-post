@@ -2211,6 +2211,33 @@
       "posted_at": "2026-11-16T16:05:07+00:00",
       "completed_at": "2026-11-16T16:05:07+00:00",
       "verified_at": "2026-11-16T16:05:10.107691+00:00"
+    },
+    {
+      "text": "Would this API standardize the interface or the underlying implementation?",
+      "event_key": "Proposal for a standardized LLM component API to ease architectural experimentation.",
+      "premise": "The open-source LLM ecosystem needs a standardized building-block API to reduce switching costs between different architectural components.",
+      "slot": "2026-11-16:reply-v1:33",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T16:35:23.893645+00:00",
+      "source": {
+        "id": "2122336040899711282",
+        "url": "https://x.com/rasbt/status/2122336040899711282",
+        "author": "rasbt",
+        "author_id": "865622395",
+        "text": "The open-source LLM ecosystem could really benefit from an LLM building-block API.\n\nWe have so many LLM components across different models now. Whether you are using PyTorch or C++ and CUDA code directly, there is a major switching cost when you want to run experiments or ablation studies, say swapping GQA with MLA, dense FFNs with MoE, attention layers with Mamba2 or Gated DeltaNet, or standard residual connections with attention residuals.\n\nCurrently, it’s very messy even with LLM-assisted coding.\n\nIt could maybe be on top of PyTorch or CUDA directly, but it needs to be carefully engineered and maintained (versus quickly vibe-coded on a weekend) and efficient enough that people trust it to use in production (which is really a requirement to move beyond toy examples).\n\nMaybe some food for thought for a big, well-funded lab :)\n\n(There are some efforts that go into that direction, like torchtitan, torchtune, Megatron Core, OLMo-core, but they are not quite that level of abstraction, I'd say. \n\nAnd, as always, there’s the chicken-and-egg problem: it needs to be popular to get widely adopted, and it needs to get widely adopted to become popular.)",
+        "created_at": "2026-11-16T14:28:37+00:00",
+        "views": 12762,
+        "urls": [],
+        "source_ids": [
+          "2122336040899711282"
+        ]
+      },
+      "tweet_id": "2122367948191125980",
+      "sent_at": "2026-11-16T16:35:25.114512+00:00",
+      "posted_at": "2026-11-16T16:35:25+00:00",
+      "completed_at": "2026-11-16T16:35:25+00:00",
+      "verified_at": "2026-11-16T16:35:26.699628+00:00"
     }
   ],
   "used_source_ids": [
@@ -3033,7 +3060,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T16:05:07+00:00",
+  "last_posted_at": "2026-11-16T16:35:25+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3398,6 +3425,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T16:05:07+00:00",
       "tweet_id": "2122360326251295202"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:33",
+      "kind": "reply",
+      "completed_at": "2026-11-16T16:35:25+00:00",
+      "tweet_id": "2122367948191125980"
     }
   ],
   "last_attempts": {
@@ -3415,30 +3448,7 @@
       "until": "2026-11-16T17:44:30.194989+00:00"
     }
   },
-  "outbox": {
-    "text": "Would this API standardize the interface or the underlying implementation?",
-    "event_key": "Proposal for a standardized LLM component API to ease architectural experimentation.",
-    "premise": "The open-source LLM ecosystem needs a standardized building-block API to reduce switching costs between different architectural components.",
-    "slot": "2026-11-16:reply-v1:33",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T16:35:23.893645+00:00",
-    "source": {
-      "id": "2122336040899711282",
-      "url": "https://x.com/rasbt/status/2122336040899711282",
-      "author": "rasbt",
-      "author_id": "865622395",
-      "text": "The open-source LLM ecosystem could really benefit from an LLM building-block API.\n\nWe have so many LLM components across different models now. Whether you are using PyTorch or C++ and CUDA code directly, there is a major switching cost when you want to run experiments or ablation studies, say swapping GQA with MLA, dense FFNs with MoE, attention layers with Mamba2 or Gated DeltaNet, or standard residual connections with attention residuals.\n\nCurrently, it’s very messy even with LLM-assisted coding.\n\nIt could maybe be on top of PyTorch or CUDA directly, but it needs to be carefully engineered and maintained (versus quickly vibe-coded on a weekend) and efficient enough that people trust it to use in production (which is really a requirement to move beyond toy examples).\n\nMaybe some food for thought for a big, well-funded lab :)\n\n(There are some efforts that go into that direction, like torchtitan, torchtune, Megatron Core, OLMo-core, but they are not quite that level of abstraction, I'd say. \n\nAnd, as always, there’s the chicken-and-egg problem: it needs to be popular to get widely adopted, and it needs to get widely adopted to become popular.)",
-      "created_at": "2026-11-16T14:28:37+00:00",
-      "views": 12762,
-      "urls": [],
-      "source_ids": [
-        "2122336040899711282"
-      ]
-    },
-    "tweet_id": "2122367948191125980",
-    "sent_at": "2026-11-16T16:35:25.114512+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
