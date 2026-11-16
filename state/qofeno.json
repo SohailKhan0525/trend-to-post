@@ -3277,10 +3277,10 @@
   },
   "ai_usage": {
     "day": "2026-11-16",
-    "neurons_reserved": 459,
-    "requests": 34,
-    "hour": "2026-11-16T19",
-    "hour_neurons_reserved": 26,
+    "neurons_reserved": 527,
+    "requests": 35,
+    "hour": "2026-11-16T20",
+    "hour_neurons_reserved": 68,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
