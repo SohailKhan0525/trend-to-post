@@ -2413,6 +2413,33 @@
       "posted_at": "2026-11-16T20:35:49+00:00",
       "completed_at": "2026-11-16T20:35:49+00:00",
       "verified_at": "2026-11-16T20:35:51.194979+00:00"
+    },
+    {
+      "text": "How does the coding reasoning compare?",
+      "event_key": "User requesting comparison between Codex and Claude for coding.",
+      "premise": "A Codex user is asking for a reason to switch to Claude.",
+      "slot": "2026-11-16:reply-v1:44",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-16T22:05:03.548056+00:00",
+      "source": {
+        "id": "2122306857759015050",
+        "url": "https://x.com/Pallavi_345/status/2122306857759015050",
+        "author": "Pallavi_345",
+        "author_id": "2007153806531076096",
+        "text": "I'm a Codex user.\n\nGive me one reason to switch to Claude. https://t.co/ty354Jpb8F",
+        "created_at": "2026-11-16T12:32:40+00:00",
+        "views": 14644,
+        "urls": [],
+        "source_ids": [
+          "2122306857759015050"
+        ]
+      },
+      "tweet_id": "2122450910223671494",
+      "sent_at": "2026-11-16T22:05:04.766071+00:00",
+      "posted_at": "2026-11-16T22:05:04+00:00",
+      "completed_at": "2026-11-16T22:05:04+00:00",
+      "verified_at": "2026-11-16T22:05:06.801151+00:00"
     }
   ],
   "used_source_ids": [
@@ -3257,7 +3284,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-16T20:35:49+00:00",
+  "last_posted_at": "2026-11-16T22:05:04+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3670,6 +3697,12 @@
       "kind": "reply",
       "completed_at": "2026-11-16T20:35:49+00:00",
       "tweet_id": "2122428447402459252"
+    },
+    {
+      "slot": "2026-11-16:reply-v1:44",
+      "kind": "reply",
+      "completed_at": "2026-11-16T22:05:04+00:00",
+      "tweet_id": "2122450910223671494"
     }
   ],
   "last_attempts": {
@@ -3710,30 +3743,7 @@
       "until": "2026-11-16T23:56:03.973028+00:00"
     }
   },
-  "outbox": {
-    "text": "How does the coding reasoning compare?",
-    "event_key": "User requesting comparison between Codex and Claude for coding.",
-    "premise": "A Codex user is asking for a reason to switch to Claude.",
-    "slot": "2026-11-16:reply-v1:44",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-16T22:05:03.548056+00:00",
-    "source": {
-      "id": "2122306857759015050",
-      "url": "https://x.com/Pallavi_345/status/2122306857759015050",
-      "author": "Pallavi_345",
-      "author_id": "2007153806531076096",
-      "text": "I'm a Codex user.\n\nGive me one reason to switch to Claude. https://t.co/ty354Jpb8F",
-      "created_at": "2026-11-16T12:32:40+00:00",
-      "views": 14644,
-      "urls": [],
-      "source_ids": [
-        "2122306857759015050"
-      ]
-    },
-    "tweet_id": "2122450910223671494",
-    "sent_at": "2026-11-16T22:05:04.766071+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
