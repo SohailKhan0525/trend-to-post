@@ -48,6 +48,11 @@ def report(state, now):
     if latest:
         receipt = f'https://x.com/qofenoai/status/{latest["tweet_id"]} verified {timestamp(latest["verified_at"]).isoformat()}'
         events.append((timestamp(latest['verified_at']),latest.get('slot',''), 'verified publication'))
+        incoming_at = (latest.get('source') or {}).get('created_at')
+        if latest.get('kind') == 'reply' and incoming_at and latest.get('posted_at'):
+            elapsed = timestamp(latest['posted_at']) - timestamp(incoming_at)
+            if elapsed.total_seconds() >= 0:
+                receipt += f' ({int(elapsed.total_seconds())}s from incoming post to published reply)'
     for slot, row in state.get('decision_slots', {}).items():
         if row.get('action') == 'silent':
             events.append((timestamp(row['at']), slot, 'silence'))

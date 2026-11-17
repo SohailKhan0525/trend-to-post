@@ -5,6 +5,12 @@ from scripts.azure_status import report
 
 
 class AzureStatusTests(unittest.TestCase):
+    def test_observed_reply_time_uses_source_and_publication_times(self):
+        now = datetime(2026, 11, 17, 12, 10, tzinfo=timezone.utc)
+        row = {'tweet_id': '456', 'kind': 'reply', 'posted_at': '2026-11-17T12:09:23Z',
+               'verified_at': '2026-11-17T12:09:45Z', 'source': {'created_at': '2026-11-17T12:09:02Z'}}
+        self.assertIn('21s from incoming post to published reply', report({'history': [row]}, now)[0])
+
     def test_latest_decision_is_sanitized_and_distinct_from_last_send(self):
         now = datetime(2026, 11, 17, 12, 10, tzinfo=timezone.utc)
         state = {'history': [{'tweet_id': '456', 'slot': '2026-11-17:reply-v1:20',
