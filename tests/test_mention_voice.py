@@ -156,7 +156,7 @@ class MentionVoiceTests(unittest.TestCase):
         verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': 'hi'}
         for response in (draft, {k: v for k, v in draft.items() if k != 'event_key'}):
             with patch.object(reply_writer, 'complete', side_effect=[response, verdict]) as writer:
-                result = reply_writer.generate(source, {}, NOW, angle='Acknowledge zaheer2505.')
+                result = reply_writer.generate(source, {}, NOW, angle='Acknowledge zaheer2505 in post 456.')
                 self.assertEqual(result['event_key'], 'mention 456')
                 self.assertEqual(result['premise'], 'the author greets Qofeno.')
                 self.assertNotIn('event_key', writer.call_args_list[0].kwargs['schema']['properties'])

@@ -1,4 +1,5 @@
 """An editorial decision, followed by independent review before an original can publish."""
+import hashlib
 import json
 import re
 import unicodedata
@@ -144,11 +145,22 @@ def choose(sources, memory, state, now, allowed_actions):
     if choices == {'silent'}:
         return {'action': 'silent', 'source_id': '', 'angle': ''}
     candidates = shortlist(sources, state, now)
-    allowed_reply_ids = [row['id'] for row in candidates if row.get('origin') == 'mention']
-    if allowed_reply_ids and 'reply' in choices:
-        choices.discard('original')
-    else:
+    offered = {}
+    if 'reply' in choices:
+        for row in candidates:
+            if row.get('origin') == 'mention':
+                # Views change between reads. Only an edit to what the planner
+                # actually reads should renew a previously considered invitation.
+                prose = json.dumps([row['text'], row.get('parent_context')], ensure_ascii=False, sort_keys=True)
+                offered[row['id']] = hashlib.sha256(prose.encode()).hexdigest()
+    allowed_reply_ids = list(offered)
+    already_offered = {(ident, version) for decision in state.get('decision_slots', {}).values()
+                       if isinstance(decision, dict) and decision.get('action') == 'silent'
+                       for ident, version in decision.get('offered_invitations', {}).items()}
+    if not offered:
         choices.discard('reply')
+    elif set(offered.items()) - already_offered:
+        choices.discard('original')
     if choices == {'silent'}:
         return {'action': 'silent', 'source_id': '', 'angle': ''}
     data = {'allowed_actions': sorted(choices), 'allowed_reply_ids': allowed_reply_ids if 'reply' in choices else [],
@@ -166,7 +178,10 @@ def choose(sources, memory, state, now, allowed_actions):
     elif raw['source_id'] != '':
         raise DraftError('Only a reply can select a source')
     if action == 'silent':
-        return {'action': 'silent', 'source_id': '', 'angle': ''}
+        result = {'action': 'silent', 'source_id': '', 'angle': ''}
+        if offered:
+            result['offered_invitations'] = offered
+        return result
     if not safe_line(raw['angle'], 8, 180):
         raise DraftError('Selected angle was invalid')
     return raw

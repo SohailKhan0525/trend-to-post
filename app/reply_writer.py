@@ -588,7 +588,13 @@ def generate(source, state, now, *, memory=None, angle=''):
                 role = 'the author'
             evidence['parent_context'] = {'author': role, 'text': parent['text']}
         if 'editorial_angle' in context:
-            context['editorial_angle'] = replace_author_reference(context['editorial_angle'], source['author'])
+            angle = replace_author_reference(context['editorial_angle'], source['author'])
+            routing_ids = {str(source[key]) for key in ('id', 'author_id', 'parent_id', 'parent_user_id', 'conversation_id')
+                           if source.get(key)}
+            if '@' in angle or routing_ids.intersection(re.findall(r'\b\d+\b', angle)):
+                context.pop('editorial_angle')
+            else:
+                context['editorial_angle'] = angle
     data = {'source': evidence, **context}
     repair_used = False
     try:

@@ -599,9 +599,11 @@ async def decide(state, slot, connection, user):
         plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'])
     action = plan['action']
     if action == 'silent':
-        today = now.date().isoformat()
-        decisions = {k: v for k, v in state.get('decision_slots', {}).items() if k.startswith(today)}
+        days = {now.date().isoformat(), (now.date() - timedelta(days=1)).isoformat()}
+        decisions = {k: v for k, v in state.get('decision_slots', {}).items() if k[:10] in days}
         decisions[slot['slot']] = {'action': 'silent', 'at': utcnow().isoformat()}
+        if plan.get('offered_invitations'):
+            decisions[slot['slot']]['offered_invitations'] = plan['offered_invitations']
         state['decision_slots'] = decisions
         save_and_push(state)
         summary('Qofeno chose silence for this opportunity.')

@@ -248,6 +248,28 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.saved['history'], [])
         connection.create_tweet.assert_not_awaited()
 
+    async def test_previously_declined_invitation_leaves_room_for_an_original_and_remains_replyable(self):
+        state, connection = empty(), self.connection()
+        slot = {**self.slot, 'allowed_actions': ['reply', 'original']}
+        silent = {'action': 'silent', 'source_id': '', 'angle': ''}
+        with patch.object(editorial.Memory, 'connect'), \
+                patch.object(editorial, 'read_inbox', AsyncMock(return_value=[SOURCE])), \
+                patch.object(editorial.sources, 'discover', AsyncMock(return_value=[])), \
+                patch.object(editorial.personality, 'complete', return_value=silent) as model:
+            await editorial.decide(state, slot, connection, self.user)
+        self.assertEqual(model.call_args.args[1]['allowed_actions'], ['reply', 'silent'])
+        self.assertEqual(list(state['decision_slots'][slot['slot']]['offered_invitations']), [SOURCE['id']])
+        self.assertEqual(state['used_source_ids'], [])
+        with patch.object(editorial.personality, 'complete', return_value=PLAN) as model:
+            editorial.personality.choose([{**SOURCE, 'views': 20000}], {}, state, self.now, slot['allowed_actions'])
+            self.assertEqual(model.call_args.args[1]['allowed_actions'], ['original', 'reply', 'silent'])
+            self.assertEqual(model.call_args.args[1]['allowed_reply_ids'], [SOURCE['id']])
+        edited = {**SOURCE, 'text': '@qofenoai how would you debug the stuck worker instead?'}
+        with patch.object(editorial.personality, 'complete', return_value=silent) as model:
+            editorial.personality.choose([edited], {}, state, self.now, slot['allowed_actions'])
+            self.assertEqual(model.call_args.args[1]['allowed_actions'], ['reply', 'silent'])
+        connection.create_tweet.assert_not_awaited()
+
     async def test_planned_reply_reaches_verified_send_before_d1_remembers_it(self):
         state, connection = empty(), self.connection()
         opportunity = {**self.slot, 'kind': 'decision', 'allowed_actions': ['reply', 'original']}
