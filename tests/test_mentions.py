@@ -391,18 +391,27 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
         wrong_user = own('152', '130')
         wrong_user.user.id = '999'
         unknown = own('153', '450')
+        other_parent = tweet('145', author='other', in_reply_to_status_id_str='105')
+        other_parent.user.id = '555'
+        other_parent.replies = [own('155', '145', in_reply_to_user_id_str='555')]
+        contradictory = own('157', '130', in_reply_to_user_id_str='555')
         child.reply_to = [root, first]
         first.replies = [child]
-        child.replies = [second, wrong_root, wrong_user, unknown, own('160')]
+        child.replies = [second, wrong_root, wrong_user, unknown, own('160'), other_parent, contradictory]
         child.related_tweets = [own('161', '130', conversation_id_str='100')]
-        self.assertEqual(mentions.native_reply_ids(child, '91', '100'), {'110', '150'})
-        self.assertEqual(mentions.native_reply_ids(child, None, '100'), set())
+        self.assertEqual(mentions.native_reply_ids(child, '91', '100', '2001'), {'110', '150'})
+        self.assertEqual(mentions.native_reply_ids(child, '91', '100', '555'), {'155'})
+        self.assertEqual(mentions.native_reply_ids(child, None, '100', '2001'), set())
+        numeric = own('170', conversation_id_str='100')
+        numeric._data.update(in_reply_to_status_id=105, in_reply_to_user_id=2001)
+        self.assertEqual(mentions.native_reply_ids(numeric, '91', '100', '2001'), {'170'})
 
     async def test_targeted_search_verifies_sibling_replies_and_propagates_denials(self):
         root = tweet('100')
         root.replies = [mention('@qofenoai hi', '150', in_reply_to_status_id_str='100')]
         def account_post(ident, parent=None, conversation=None):
-            item = tweet(ident, author='QofenoAI', in_reply_to_status_id_str=parent, conversation_id_str=conversation)
+            item = tweet(ident, author='QofenoAI', in_reply_to_status_id_str=parent, conversation_id_str=conversation,
+                        in_reply_to_user_id_str='2001')
             item.user.id = '91'
             return item
         manual = account_post('200', '199', '100')
@@ -411,29 +420,57 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
         imposter.user.id = '999'
         other_handle = account_post('211', '100', '100')
         other_handle.user.screen_name = 'other'
+        other_recipient = [account_post(ident, '190', '100') for ident in ('212', '213')]
+        for reply in other_recipient:
+            reply._data['legacy']['in_reply_to_user_id_str'] = '999'
         conn = SimpleNamespace(search_tweet=AsyncMock(return_value=[
-            None, account_post('205'), account_post('206', '88', '88'), imposter, other_handle,
+            None, account_post('205'), account_post('206', '88', '88'), imposter, other_handle, *other_recipient,
             manual, manual, second, account_post('202', '100')]))
-        self.assertEqual(mentions.native_reply_ids(root, '91', '100'), set())
-        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100'), {'200', '201'})
-        conn.search_tweet.assert_awaited_once_with('conversation_id:100 from:qofenoai filter:replies', 'Latest',
+        self.assertEqual(mentions.native_reply_ids(root, '91', '100', '2001'), set())
+        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100', '2001', 'reader'), {'200', '201'})
+        conn.search_tweet.assert_awaited_once_with('conversation_id:100 from:qofenoai to:reader filter:replies', 'Latest',
                                                    count=mentions.INBOX_COUNT)
-        self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', None))
+        self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', None, '2001', 'reader'))
         conn.search_tweet.assert_awaited_once()
         for malformed in (None, {}, [None, 'broken'], [account_post('207', '88', 'broken')]):
             conn.search_tweet.return_value = malformed
-            self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', '100'))
+            self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', '100', '2001', 'reader'))
         conn.search_tweet.return_value = []
-        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100'), set())
+        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100', '2001', 'reader'), set())
         conn.search_tweet.return_value = [imposter, other_handle, account_post('205')]
-        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100'), set())
+        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100', '2001', 'reader'), set())
         for exc in (NotFound('no search page'), RequestTimeout('search timed out')):
             conn.search_tweet.side_effect = exc
-            self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', '100'))
+            self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', '100', '2001', 'reader'))
         for exc in (Forbidden('forbidden'), TooManyRequests('rate')):
             conn.search_tweet.side_effect = exc
             with self.assertRaises(type(exc)):
-                await mentions.conversation_reply_ids(conn, '91', '100')
+                await mentions.conversation_reply_ids(conn, '91', '100', '2001', 'reader')
+
+    async def test_targeted_lookup_attributes_legacy_replies_using_actual_parent_not_handle(self):
+        original = tweet('100')
+        parent = tweet('170', author='reader', in_reply_to_status_id_str='100', conversation_id_str='100')
+        parent.user.id = '501'
+        old = tweet('180', author='QofenoAI', in_reply_to_status_id_str='170', conversation_id_str='100')
+        old.user.id = '91'
+        old._data['legacy']['in_reply_to_screen_name'] = 'a_different_old_handle'
+        peer = tweet('188', author='QofenoAI', in_reply_to_status_id_str='100', conversation_id_str='100')
+        peer.user.id = '91'
+        peer._data['legacy']['in_reply_to_user_id_str'] = original.user.id
+        get = AsyncMock(side_effect={'170': parent, '180': old, '188': peer}.__getitem__)
+        conn = SimpleNamespace(search_tweet=AsyncMock(return_value=[]), get_tweet_by_id=get)
+        scope = ('91', '100', '501', 'reader')
+        self.assertEqual(await mentions.conversation_reply_ids(conn, *scope, known_reply_ids=['180', '188']), {'180'})
+        self.assertEqual(get.await_count, 3)
+        conn.search_tweet.return_value = [old]
+        self.assertEqual(await mentions.conversation_reply_ids(conn, *scope), {'180'})
+        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100', '999', 'someone'), set())
+        conn.get_tweet_by_id.side_effect = TooManyRequests('limited')
+        with self.assertRaises(TooManyRequests):
+            await mentions.conversation_reply_ids(conn, *scope)
+        conn.search_tweet.return_value = []
+        conn.get_tweet_by_id.side_effect = RequestTimeout('known earlier reply lookup timed out')
+        self.assertIsNone(await mentions.conversation_reply_ids(conn, *scope, known_reply_ids=['180']))
 
     async def test_exact_parent_detail_contributes_verified_sibling_ids_without_another_read(self):
         root = tweet('100', author='owner')

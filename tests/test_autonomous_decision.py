@@ -15,6 +15,8 @@ from test_sources import tweet
 
 class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
+        # These historical fixtures exercise scheduling and delivery with abbreviated X IDs.
+        self.enterContext(patch.object(editorial, 'fresh_invitation', return_value=True))
         self.now = START.replace(hour=1, minute=15)
         self.slot = next_decision(empty(), self.now)[0]
         self.user = SimpleNamespace(screen_name=editorial.ACCOUNT, id='999')
@@ -121,7 +123,7 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
         again = await editorial.read_inbox(state, connection, self.now, self.user.id)
         self.assertEqual(again, [])
 
-    def test_thread_limit_follows_legacy_nested_parents_for_all_people_across_days(self):
+    def test_personal_thread_limit_follows_legacy_nested_parents_across_days(self):
         state = empty()
         earlier = (self.now - timedelta(hours=2)).isoformat()
         parent_id = '880'
@@ -136,7 +138,7 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
                                        'text': 'Retries still produce two receipts.'}}
         self.assertEqual(editorial.thread_root(incoming, state['history']), '880')
         self.assertFalse(editorial.eligible_author(incoming, state, self.now, self.user.id))
-        self.assertFalse(editorial.eligible_author({**incoming, 'author_id': '776'}, state, self.now, self.user.id))
+        self.assertTrue(editorial.eligible_author({**incoming, 'author_id': '776'}, state, self.now, self.user.id))
         self.assertFalse(editorial.eligible_author(incoming, state, self.now + timedelta(days=1), self.user.id))
 
     async def test_reply_only_window_keeps_a_direct_mention_beside_two_newer_thread_replies(self):

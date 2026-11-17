@@ -9,6 +9,8 @@ from test_editorial import DRAFT, SOURCE, START, empty
 
 class ConversationCeilingTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
+        # These historical fixtures exercise scheduling and delivery with abbreviated X IDs.
+        self.enterContext(patch.object(editorial, 'fresh_invitation', return_value=True))
         self.state = empty()
         self.now = START + timedelta(minutes=1)
         self.user = SimpleNamespace(id='999', screen_name=editorial.ACCOUNT)
@@ -19,22 +21,29 @@ class ConversationCeilingTests(unittest.IsolatedAsyncioTestCase):
         return {'kind': 'reply', 'tweet_id': ident, 'source': previous, 'thread_root': root,
                 'posted_at': (START - timedelta(days=5)).isoformat(), 'verified_at': START.isoformat()}
 
-    def test_lifetime_siblings_share_two_across_authors_but_distinct_original_remains_open(self):
+    def test_two_per_recipient_across_days_and_siblings_with_an_independent_allowance_per_original(self):
+        alice = self.source['author_id']
+        bob = {**self.source, 'author_id': '32', 'author': 'Bob'}
         self.state['history'] = [
-            self.record('81', {'id': '65', 'author_id': '31', 'parent_id': '50'}, '50'),
-            self.record('82', {'id': '66', 'author_id': '32', 'parent_id': '81'}, '81'),
+            self.record('81', {'id': '65', 'author_id': alice, 'parent_id': '50'}, '50'),
+            self.record('82', {'id': '66', 'author_id': alice, 'parent_id': '81'}, '81'),
             {'kind': 'original', 'tweet_id': '50', 'verified_at': START.isoformat()},
         ]
         self.assertEqual(editorial.thread_reply_count(self.source, self.state['history']), 2)
         self.assertFalse(editorial.eligible_author(self.source, self.state, self.now, self.user.id))
+        self.assertTrue(editorial.eligible_author(bob, self.state, self.now, self.user.id))
+        self.state['history'].append(self.record('83', {'id': '68', 'author_id': '32', 'parent_id': '55'}, '50'))
+        self.assertEqual(editorial.thread_reply_count(bob, self.state['history']), 1)
+        self.state['history'].append(self.record('84', {'id': '69', 'author_id': '32', 'parent_id': '55'}, '50'))
+        self.assertFalse(editorial.eligible_author(bob, self.state, self.now, self.user.id))
         other = {**self.source, 'id': '120', 'source_ids': ['120'], 'parent_id': '115', 'conversation_id': '113'}
         self.assertTrue(editorial.eligible_author(other, self.state, self.now, self.user.id))
 
-    def test_confirmed_legacy_self_reply_counts_once_on_the_authored_post_and_never_on_the_quoted_post(self):
+    def test_legacy_self_reply_and_other_recipients_dont_consume_personal_allowance(self):
         self.state['history'] = [{'tweet_id': '50', 'source_id': '48', 'reply_id': '85', 'reply_status': 'verified'},
                                  {'tweet_id': '55', 'reply_id': '86', 'reply_status': 'unconfirmed'}]
-        observed = {'50': ['85', '87']}
-        self.assertEqual(editorial.thread_reply_count(self.source, self.state['history'], observed), 2)
+        observed = {'50': {'999': ['85'], self.source['author_id']: ['87']}}
+        self.assertEqual(editorial.thread_reply_count(self.source, self.state['history'], observed), 1)
         quoted = {**self.source, 'id': '129', 'source_ids': ['129'], 'parent_id': '48', 'conversation_id': '48'}
         self.assertEqual(editorial.thread_reply_count(quoted, self.state['history'], observed), 0)
 
@@ -49,9 +58,9 @@ class ConversationCeilingTests(unittest.IsolatedAsyncioTestCase):
                         patch.object(mentions, 'native_reply_ids', side_effect=[set(), last_check]), \
                         patch.object(editorial.reply_writer, 'generate', return_value=DRAFT) as writer:
                     await editorial.publish_reply(state, slot, self.connection, self.user, selected=self.source)
-                search.assert_awaited_once_with(self.connection, self.user.id, '50')
+                search.assert_awaited_once_with(self.connection, self.user.id, '50', self.source['author_id'], self.source['author'])
                 self.assertEqual(writer.call_count, drafts)
-                self.assertEqual(state['observed_thread_replies']['50'], ['85', '86'])
+                self.assertEqual(state['observed_recipient_replies']['50'][self.source['author_id']], ['85', '86'])
                 self.assertFalse(editorial.eligible_author(self.source, state, self.now, self.user.id))
                 self.connection.create_tweet.assert_not_awaited()
 

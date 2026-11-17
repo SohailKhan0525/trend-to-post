@@ -13,6 +13,8 @@ from test_editorial import SOURCE, START, empty
 
 class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
+        # These historical fixtures exercise scheduling and delivery with abbreviated X IDs.
+        self.enterContext(patch.object(editorial, 'fresh_invitation', return_value=True))
         self.now = START + timedelta(minutes=1)
         self.state = empty()
         self.user = SimpleNamespace(id='999', screen_name=editorial.ACCOUNT)

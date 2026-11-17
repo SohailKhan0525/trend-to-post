@@ -1,5 +1,5 @@
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, Mock, patch
 
@@ -17,11 +17,19 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
         self.client.create_tweet.assert_not_called()
 
     def setUp(self):
-        self.now = datetime(2026, 11, 17, 12, tzinfo=timezone.utc)
+        self.now = datetime(2026, 11, 17, 16, tzinfo=timezone.utc)
         self.state = {'history': [], 'used_source_ids': [], 'used_urls': [], 'mention_preferences': {}}
         self.user = SimpleNamespace(id='99', screen_name='qofenoai')
         self.client = SimpleNamespace(get_user_by_screen_name=AsyncMock(return_value=self.user),
                                       get_tweet_by_id=AsyncMock(), create_tweet=Mock())
+
+    def invite(self, number=1, author_id='81', root='500', at=None):
+        created = at or self.now
+        snowflake = str(((int(created.timestamp() * 1000) - 1288834974657) << 22) + number)
+        return {'id': snowflake, 'author_id': author_id, 'author': 'reader' + author_id,
+                'text': '@qofenoai hello', 'origin': 'mention', 'intent': 'invite',
+                'conversation_id': root, 'created_at': created.isoformat(),
+                'source_ids': [snowflake], 'urls': []}
 
     def test_ledger_distinguishes_verified_edited_sources_pending_and_rejected(self):
         source = {'id': '444', 'source_ids': ['443', '444']}
@@ -35,11 +43,8 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(status.previously_handled('777', self.state))
 
     async def test_live_sample_sanitizes_text_and_honors_optouts_only_in_local_copy(self):
-        stamp = self.now.isoformat()
-        row = {'id':'81234567','author_id':'91234567','author':'NeverOutputThis','intent':'invite',
-               'text':'Never output this text','origin':'mention','source_ids':['81234567'],'urls':[],
-               'created_at':stamp}
-        command = {**row, 'id':'81234568','source_ids':['81234568'],'intent':'stop'}
+        row = {**self.invite(1, '91234567'), 'author': 'NeverOutputThis', 'text': 'Never output this text'}
+        command = {**self.invite(2, '91234567'), 'author': row['author'], 'intent':'stop'}
         with patch.object(status.mentions, 'discover', AsyncMock(return_value=[row,command])), \
                 patch.object(status.store, 'summary') as log:
             await status.inspect_inbox(self.client, self.state, self.now, row['id'])
@@ -62,35 +67,39 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn('PRIVATE', log.call_args.args[0])
         self.client.create_tweet.assert_not_called()
 
-    async def test_report_identifies_capped_thread_and_keeps_new_conversation_eligible(self):
-        def invite(ident, author_id, root):
-            return {'id': ident, 'author_id': author_id, 'author': 'reader' + author_id,
-                    'text': '@qofenoai hello', 'origin': 'mention', 'intent': 'invite',
-                    'conversation_id': root, 'created_at': self.now.isoformat(),
-                    'source_ids': [ident], 'urls': []}
-
-        for sent, source in [('504', invite('501', '81', '500')), ('505', invite('502', '82', '500'))]:
+    async def test_cap_applies_independently_per_person_and_per_original(self):
+        for sent, source in [('504', self.invite(1)), ('505', self.invite(2))]:
             self.state['history'].append({'kind': 'reply', 'thread_root': '500', 'tweet_id': sent,
                                          'source': source, 'verified_at': self.now.isoformat(),
                                          'posted_at': self.now.isoformat()})
-        rows = [invite('506', '83', '500'), invite('607', '83', '600')]
+        rows = [self.invite(3), self.invite(4, author_id='82'), self.invite(5, root='600')]
         with patch.object(status.mentions, 'discover', AsyncMock(return_value=rows)), \
                 patch.object(status.store, 'summary') as log:
-            await status.inspect_inbox(self.client, self.state, self.now, '506')
+            await status.inspect_inbox(self.client, self.state, self.now, rows[0]['id'])
         output = '\n'.join(call.args[0] for call in log.call_args_list)
-        self.assertIn('1 eligible for review', output)
-        self.assertIn('present in inbox sample; reply limit reached for this conversation', output)
+        self.assertIn('2 eligible for review', output)
+        self.assertIn('present in inbox sample; this person reached 2 replies in this conversation', output)
         self.client.create_tweet.assert_not_called()
         # One reply may have been published directly on X and observed later.
         self.state['history'].pop()
-        self.state['observed_thread_replies'] = {'500': ['504', '505']}
+        self.state['observed_recipient_replies'] = {'500': {'81': ['504', '505']}}
         self.assertEqual(status.eligibility(rows[0], self.state, self.now, '99'),
-                         'reply limit reached for this conversation')
+                         'this person reached 2 replies in this conversation')
+        self.assertEqual(status.eligibility(rows[1], self.state, self.now, '99'), 'eligible for review')
+
+    def test_queued_mention_and_edits_to_old_invites_are_identified_before_cutoff(self):
+        older = self.invite(at=datetime(2026, 11, 17, 14, 5, 10, tzinfo=timezone.utc))
+        at_start = datetime(2026, 11, 17, 14, 5, 11, tzinfo=timezone.utc)
+        new = self.invite(at=at_start)
+        edited = {**new, 'source_ids': [older['id'], new['id']]}
+        self.assertEqual(status.eligibility(older, self.state, self.now, '99'), 'before reply cutoff')
+        self.assertEqual(status.eligibility(edited, self.state, self.now, '99'), 'before reply cutoff')
+        self.assertEqual(status.eligibility(new, self.state, at_start, '99'), 'eligible for review')
+        self.assertEqual(status.eligibility(new, self.state, at_start + timedelta(minutes=5, seconds=1), '99'),
+                         'source is over five minutes old')
 
     def test_direct_review_is_per_version_and_legacy_silence_can_be_revisited(self):
-        row = {'id': '71234567', 'author_id': '81234567', 'author': 'reader',
-               'text': '@qofenoai hello', 'origin': 'mention', 'intent': 'invite',
-               'created_at': self.now.isoformat(), 'source_ids': ['71234567'], 'urls': []}
+        row = self.invite()
         slot = status.editorial.inbox_opportunity(row)['slot']
         self.state['decision_slots'] = {slot: {'action': 'silent', 'at': self.now.isoformat()}}
         self.assertEqual(status.eligibility(row, self.state, self.now, '99'), 'eligible for review')
@@ -102,10 +111,8 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(status.eligibility(edited, self.state, self.now, '99'), 'previously reserved source')
 
     async def test_retry_allowed_by_publisher_is_counted_as_eligible(self):
-        row = {'id':'71234567', 'author_id':'81234567', 'author':'reader', 'text':'@qofenoai hello',
-               'origin':'mention', 'intent':'invite', 'created_at':self.now.isoformat(),
-               'source_ids':['71234567'], 'urls':[]}
-        entry = {'until':'2026-11-17T13:00:00Z'}
+        row = self.invite()
+        entry = {'until':'2026-11-17T17:00:00Z'}
         self.state['reply_rejections'] = {status.editorial.rejection_key(row): entry}
         with patch.object(status.mentions, 'discover', AsyncMock(return_value=[row])), \
                 patch.object(status.editorial, 'reply_rejection_active', return_value=False) as policy, \

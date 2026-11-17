@@ -12,6 +12,8 @@ from app.reply_schedule import daily_plan, timestamp
 
 class NativePostingRefusalTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
+        # These simulated X refusals exercise delivery after intake has accepted the post.
+        self.enterContext(patch.object(editorial, 'fresh_invitation', return_value=True))
         self.slot = next(row for row in daily_plan('2026-11-16') if row['kind'] == 'reply')
         self.now = timestamp(self.slot['due_at']) + timedelta(seconds=5)
         self.user = SimpleNamespace(screen_name=editorial.ACCOUNT, id='123')

@@ -210,16 +210,34 @@ def tweet_ids(tweet):
     raw = tweet._data
     source_id = _identifier(tweet.id)
     # edit_tweet_ids on the pinned client raises KeyError when edit_control is absent.
-    aliases = (raw.get("edit_control") or {}).get("edit_tweet_ids") or []
-    if not isinstance(aliases, list):
+    control = raw.get("edit_control", {})
+    if not isinstance(control, dict):
         raise SourceError("invalid edit identities")
-    return list(dict.fromkeys([source_id, *(_identifier(alias) for alias in aliases)]))
+    initial = control.get("edit_control_initial", {})
+    if not isinstance(initial, dict):
+        raise SourceError("invalid edit identities")
+    aliases = [source_id]
+    if control.get("initial_tweet_id") is not None:
+        aliases.append(_identifier(control["initial_tweet_id"]))
+    for versions in (control.get("edit_tweet_ids", []), initial.get("edit_tweet_ids", []),
+                     raw.get("edit_history_tweet_ids", [])):
+        if not isinstance(versions, list):
+            raise SourceError("invalid edit identities")
+        aliases.extend(_identifier(ident) for ident in versions)
+    return list(dict.fromkeys(aliases))
 
 
 def conversation_id(raw):
     legacy = raw.get("legacy") or {}
     value = (legacy.get("conversation_id_str") or raw.get("conversation_id_str") or
              legacy.get("conversation_id") or raw.get("conversation_id"))
+    return _identifier(value) if value is not None else None
+
+
+def reply_parent_id(raw):
+    legacy = raw.get("legacy") or {}
+    value = (legacy.get("in_reply_to_status_id_str") or raw.get("in_reply_to_status_id_str") or
+             legacy.get("in_reply_to_status_id") or raw.get("in_reply_to_status_id"))
     return _identifier(value) if value is not None else None
 
 
@@ -230,7 +248,7 @@ def _snapshot(tweet, now, include_parent, validator):
     legacy = raw.get("legacy") or {}
     if not isinstance(legacy, dict):
         raise SourceError("invalid source metadata")
-    parent = legacy.get("in_reply_to_status_id_str") or raw.get("in_reply_to_status_id_str") or getattr(tweet, "in_reply_to", None)
+    parent = reply_parent_id(raw) or getattr(tweet, "in_reply_to", None)
     if not include_parent and (parent or legacy.get("in_reply_to_user_id_str")):
         raise SourceError("source is a reply")
     if legacy.get("retweeted_status_result") or legacy.get("retweeted_status") or getattr(tweet, "retweeted_tweet", None):

@@ -38,7 +38,7 @@ def opportunity_label(slot):
 def inbox_schedule(state, now):
     eligibility = 'open' if reply_ready(schedule_state(state), now) else 'on hold'
     return (f'Inbox schedule: {INBOX_INTERVAL}s between idle checks. Reply eligibility in D1: {eligibility}. '
-            f'Qofeno can reply up to {THREAD_REPLY_LIMIT} times per original conversation, across all participants and days.')
+            f'Each person can receive up to {THREAD_REPLY_LIMIT} replies per original conversation across all days.')
 
 
 def report(state, now):

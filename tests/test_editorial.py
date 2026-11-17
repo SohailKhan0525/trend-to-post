@@ -35,6 +35,8 @@ def empty():
 
 class EditorialTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
+        # These historical fixtures exercise scheduling and delivery with abbreviated X IDs.
+        self.enterContext(patch.object(editorial, 'fresh_invitation', return_value=True))
         self.plan = daily_plan(START.date().isoformat())
         self.slot = [slot for slot in self.plan if slot['kind'] == 'reply'][2]
         self.now = timestamp(self.slot['due_at']) + timedelta(minutes=3)

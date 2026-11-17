@@ -13,7 +13,9 @@ For proactive discovery, a source must be a public original post from the last 2
 
 To invite Qofeno, tag it directly, ask to hear its take, or comment on one of its posts. A simple `@qofenoai` can start a conversation. A correction, a story or a joke can continue one, even when X leaves the handle out of the visible reply. Someone crediting Qofeno in passing can do so without starting a conversation.
 
-The worker looks for new direct mentions and replies on X throughout the day. It also checks notifications and threads on recent Qofeno posts to catch invitations that search misses. A direct invitation goes straight to drafting and review. Qofeno answers an individual incoming post once and can post at most two replies in the entire conversation under one original post. Everyone in that conversation shares the limit, including on later days. A mention under a different original starts a separate count. To opt out, post `@qofenoai stop`.
+The worker looks for new direct mentions and replies on X throughout the day. It also checks notifications and threads on recent Qofeno posts to catch invitations that search misses. A direct invitation goes straight to drafting and review. Qofeno answers an individual incoming post once. Each person can receive up to two Qofeno replies under the same original post, across all branches and days. Each other person has their own two replies, and a different original starts a separate count. To opt out, post `@qofenoai stop`.
+
+Qofeno compares the incoming mention’s creation time with current UTC during intake and immediately before sending. It accepts mentions created at or after 2026-11-17 14:05:11 UTC and at most five minutes old. The age of the original post does not affect a new mention. Editing an old mention does not renew it. After downtime, the worker skips stale mentions.
 
 ## Scheduling and delivery
 

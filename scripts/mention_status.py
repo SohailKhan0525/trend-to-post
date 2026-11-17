@@ -9,6 +9,7 @@ import unicodedata
 from twikit.errors import NotFound, TweetNotAvailable
 
 from app import editorial, mentions, sources, store
+from app.reply_freshness import invitation_hold
 from app.reply_schedule import DAILY_REPLY_CAP, timestamp
 from scripts.azure_status import read_snapshot, report
 
@@ -18,13 +19,17 @@ def eligibility(row, state, now, own_id):
         return 'preference command'
     if set(row['source_ids']).intersection(state['used_source_ids']):
         return 'previously reserved source'
+    hold = invitation_hold(row, now)
+    if hold:
+        return 'before reply cutoff' if hold == 'source predates reply activation' else hold
     if set(row['urls']).intersection(state['used_urls']):
         return 'previously used link'
     if mentions.opted_out(state, row['author_id']):
         return 'author opted out'
     if not editorial.eligible_author(row, state, now, own_id):
-        if editorial.thread_reply_count(row, state['history'], state.get('observed_thread_replies')) >= editorial.THREAD_REPLY_LIMIT:
-            return 'reply limit reached for this conversation'
+        count = editorial.thread_reply_count(row, state['history'], state.get('observed_recipient_replies'))
+        if count >= editorial.THREAD_REPLY_LIMIT:
+            return f'this person reached {editorial.THREAD_REPLY_LIMIT} replies in this conversation'
         return 'conversation ineligible'
     if editorial.inbox_reviewed(state, row):
         return 'already reviewed'

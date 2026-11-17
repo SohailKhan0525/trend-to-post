@@ -14,6 +14,7 @@ from twikit.errors import CouldNotTweet, Forbidden, NotFound, TooManyRequests, T
 from . import mentions, personality, reply_writer, sources
 from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .metrics import post_id
+from .reply_freshness import INBOX_START_AT, fresh_invitation
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError, selected_model
 from .reply_schedule import RECHECK_GAP, next_decision, next_original, next_slot, reply_ready, timestamp
@@ -55,7 +56,8 @@ def thread_evidence(source, history, observed=None):
     """Join only native conversation, reply-parent and verified edit identities."""
     links = {}
     native_roots, originals, stored_roots = set(), set(), set()
-    own_replies, parents, children = set(), set(), set()
+    own_replies, recipient_replies, parents, children = set(), set(), set(), set()
+    recipient = post_id(source.get('author_id'))
 
     def join(ident, others):
         if not ident:
@@ -107,9 +109,15 @@ def thread_evidence(source, history, observed=None):
         if native:
             native_roots.add(native)
         own_replies.add(ident)
-    for root, ids in (observed or {}).items():
-        join(root, ids)
-        own_replies.update(ids)
+        addressed = (previous.get('author_id') if kind == 'reply' else None) or row.get('recipient_id')
+        if recipient and post_id(addressed) == recipient:
+            recipient_replies.add(ident)
+    for root, people in (observed or {}).items():
+        for person, ids in people.items():
+            join(root, ids)
+            own_replies.update(ids)
+            if recipient and person == recipient:
+                recipient_replies.update(ids)
 
     connected = set()
     pending = [source['id']]
@@ -121,7 +129,7 @@ def thread_evidence(source, history, observed=None):
     proven = (native_roots & connected) or (originals & connected)
     roots = proven or (stored_roots & connected) or ((parents - children - own_replies) & connected)
     root = min(roots, key=int) if roots else source.get('parent_id') or source['id']
-    return root, len(own_replies & connected), bool(proven)
+    return root, len(recipient_replies & connected), bool(proven)
 
 
 def thread_root(source, history):
@@ -133,26 +141,32 @@ def thread_reply_count(source, history, observed=None):
 
 
 async def live_thread_open(state, source, post, own_id, connection, visible, *, search=False):
-    observed = state.get('observed_thread_replies', {})
+    observed = state.get('observed_recipient_replies', {})
     root, count, proven = thread_evidence(source, state['history'], observed)
-    if not proven:
+    if not proven or not fresh_invitation(source, utcnow(), INBOX_START_AT):
         return False
     native_root = source.get('conversation_id') or root
-    visible.update(mentions.native_reply_ids(post, own_id, native_root))
-    recorded = set(observed.get(root, ()))
+    recipient = source['author_id']
+    visible.update(mentions.native_reply_ids(post, own_id, native_root, recipient))
+    people = observed.get(root, {})
+    recorded = set(people.get(recipient, ()))
     found = recorded | visible
     if found != recorded:
-        count = thread_reply_count(source, state['history'], {**observed, root: found})
+        count = thread_reply_count(source, state['history'], {**observed, root: {**people, recipient: found}})
     complete = True
     if search and count < THREAD_REPLY_LIMIT:
-        matches = await mentions.conversation_reply_ids(connection, own_id, native_root)
+        unattributed = set(state.get('observed_thread_replies', {}).get(root, ()))
+        for known in people.values():
+            unattributed.difference_update(known)
+        evidence = {'known_reply_ids': sorted(unattributed)[:2]} if unattributed else {}
+        matches = await mentions.conversation_reply_ids(connection, own_id, native_root, recipient, source['author'], **evidence)
         complete = matches is not None
         if matches:
             found.update(matches)
     if found != recorded:
-        state.setdefault('observed_thread_replies', {})[root] = sorted(found)
+        state.setdefault('observed_recipient_replies', {}).setdefault(root, {})[recipient] = sorted(found)
         save_and_push(state)
-        count = thread_reply_count(source, state['history'], state['observed_thread_replies'])
+        count = thread_reply_count(source, state['history'], state['observed_recipient_replies'])
     return complete and count < THREAD_REPLY_LIMIT
 
 
@@ -162,13 +176,13 @@ def eligible_author(source, state, now, own_user_id):
             or mentions.opted_out(state, author_id)):
         return False
     if source.get('origin') == 'mention':
-        if not mentions.invited(state, source):
+        if not fresh_invitation(source, now, INBOX_START_AT) or not mentions.invited(state, source):
             return False
         own_parent = (source.get('parent_author') == ACCOUNT or (own_user_id and source.get('parent_user_id') == own_user_id)
                       or (source.get('parent_context') or {}).get('author', '').casefold() == ACCOUNT)
         if own_parent and not mentions.is_own_reply(source, own_user_id):
             return False
-        return thread_reply_count(source, state['history'], state.get('observed_thread_replies')) < THREAD_REPLY_LIMIT
+        return thread_reply_count(source, state['history'], state.get('observed_recipient_replies')) < THREAD_REPLY_LIMIT
     return not any(row.get('kind') == 'reply'
                    and row.get('source', {}).get('author_id') == source['author_id']
                    and timestamp(row['posted_at']) > now - timedelta(hours=24)
@@ -423,7 +437,7 @@ async def send_once(state, slot, draft, connection, user, source=None):
             reject(state, slot, 'The source did not invite Qofeno to reply.')
             return
         mentions.validate(source, utcnow())
-        if (not thread_evidence(source, state['history'], state.get('observed_thread_replies'))[2]
+        if (not thread_evidence(source, state['history'], state.get('observed_recipient_replies'))[2]
                 or not eligible_author(source, state, utcnow(), str(user.id))
                 or set(source['source_ids']) & set(state['used_source_ids'])
                 or set(source['urls']) & set(state['used_urls'])):
@@ -442,11 +456,16 @@ async def send_once(state, slot, draft, connection, user, source=None):
     state['outbox'] = reserved
     state['used_texts'] = sorted(set(state['used_texts'] + [reply_writer.fingerprint(draft['text'])]))
     save_and_push(state)  # Remote reservation must succeed before the public side effect.
-    if utcnow() >= timestamp(slot['expires_at']):
+    send_time = utcnow()
+    if source and not fresh_invitation(source, send_time, INBOX_START_AT):
+        state['outbox'] = None
+        reject(state, slot, 'The incoming post is outside the live reply window; no reply sent.')
+        return
+    if send_time >= timestamp(slot['expires_at']):
         state['outbox'] = None
         reject(state, slot, 'Reservation completed after the opportunity expired; no send.')
         return
-    sent_at = utcnow().isoformat()
+    sent_at = send_time.isoformat()
     stage('send ' + slot['kind'], source['id'] if source else None)
     try:
         if source:
@@ -533,6 +552,8 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
                 # wake cannot grant a second attempt under the same policy.
                 rejections[key] = draft_format_hold(fresh, utcnow(), reply_writer.EDITORIAL_POLICY_VERSION)
                 save_and_push(state)
+            if not fresh_invitation(fresh, utcnow(), INBOX_START_AT):
+                continue
             with budget_scope(state, save_and_push, utcnow):
                 draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
