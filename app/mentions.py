@@ -24,6 +24,8 @@ HYPOTHETICAL = re.compile(r"\b(?:if|imagine|suppose|hypothetically)\b[^.!?]*$", 
 THIRD_PERSON = re.compile(r"^(?:['’]s\b|(?:just\s+)?(?:said|says|wrote|writes|posted|posts|published|"
                           r"retweeted|likes|works|has|was)\b|is\s+(?!(?:this|that|there|it|anyone|someone)\b))", re.I)
 ACCOUNT_TAG = re.compile(r"(?<![\w@])@([A-Za-z0-9_]{1,15})(?![A-Za-z0-9_])", re.I)
+ADDRESS_PREFIX = re.compile(r"(?:@[A-Za-z0-9_]{1,15}(?:[ \t]+|$))+")
+DUPLICATE_ADDRESS = re.compile(r"^" + TOKEN + r"[ \t]+(?=" + TOKEN + r"[ \t]+[^@\s])", re.I)
 INVITE_NAMED = re.compile(r"(?:^|[.!?]\s+)(?:(?:let['’]?s hear from|(?:i|we) (?:want|would like) to hear from)"
                           r"\s+" + TOKEN + r"(?=\s|[.!?,]|$)|(?:i|we) (?:want|would like) to (?:see|hear) what "
                           + TOKEN + r"\s+(?:thinks?|says?|has to say)\b)", re.I)
@@ -62,7 +64,7 @@ def _intent(text, parent_author=None, parent_id=None):
     # credit, somebody else's quoted invitation, or a pronoun with multiple
     # tagged accounts is insufficient to establish whom the author invited.
     tags = [tag.casefold() for tag in ACCOUNT_TAG.findall(prose)]
-    if len(tags) > 2:
+    if len(tags) > 2 or re.match(r'^@[A-Za-z0-9_]+\s+@', prose):
         return None
     introduced = INTRODUCED_AI.search(prose)
     author_introduced = introduced and not HYPOTHETICAL.search(prose[:introduced.start()])
@@ -142,10 +144,45 @@ def validate(candidate, now):
             'conversation_id': conversation_id, 'intent': intent}
 
 
+def _reply_text(text, native):
+    """Remove only Twifork's hidden reply addressees, preserving the authored suffix."""
+    if not isinstance(text, str):
+        return text
+    bounds = native.get('display_text_range')
+    if bounds is None:
+        # Some endpoints omit display_text_range. A repeated identical address
+        # followed by a message has one unambiguous recipient. Leave other
+        # combinations and purely tagged messages untouched.
+        if [tag.casefold() for tag in ACCOUNT_TAG.findall(text)] == [ACCOUNT, ACCOUNT]:
+            return DUPLICATE_ADDRESS.sub('', text, count=1)
+        return text
+    if (native.get('full_text') != text or not isinstance(bounds, (tuple, list)) or len(bounds) != 2
+            or any(type(offset) is not int for offset in bounds)):
+        return text
+    start, end = bounds
+    encoded = text.encode('utf-16-le')
+    if not 0 < start <= end <= len(encoded) // 2:
+        return text
+    try:
+        prefix = encoded[:start * 2].decode('utf-16-le')
+        encoded[start * 2:end * 2].decode('utf-16-le')
+    except UnicodeDecodeError:
+        return text
+    suffix = text[len(prefix):]
+    if (ADDRESS_PREFIX.fullmatch(prefix)
+            and (not suffix or prefix[-1].isspace() or suffix[0].isspace())):
+        # The end may exclude a link/card. Retain everything after the hidden
+        # addresses including URLs, hashtags and any mention the author typed.
+        return suffix.lstrip(' \t')
+    return text
+
+
 def snapshot(tweet, now):
     def child_fields(fields, at):
         raw = tweet._data
         native = raw.get('legacy') or {}
+        if fields.get('parent_id'):
+            fields['text'] = _reply_text(fields['text'], native or raw)
         fields['parent_user_id'] = native.get('in_reply_to_user_id_str') or raw.get('in_reply_to_user_id_str')
         fields['conversation_id'] = native.get('conversation_id_str') or raw.get('conversation_id_str')
         return validate(fields, at)

@@ -145,6 +145,49 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
                 await mentions.discover(conn, NOW)
         conn.get_tweet_by_id.assert_awaited_once()
 
+    async def test_hidden_reply_recipient_and_duplicate_address_preserve_authored_invitation(self):
+        parent = tweet('501', author='reader', text='I gave an AI called @qofenoai its own account.')
+        raw = '@qofenoai @qofenoai reply?'
+        for metadata in ({'display_text_range': [10, len(raw)]}, {}):
+            with self.subTest(metadata=metadata):
+                item = mention(raw, '502', in_reply_to_status_id_str='501', in_reply_to_screen_name='reader',
+                               **metadata)
+                child = mentions.snapshot(item, NOW)
+                self.assertEqual(child['text'], '@qofenoai reply?')
+                self.assertTrue(mentions.invited({}, child))
+                conn = SimpleNamespace(get_tweet_by_id=AsyncMock(return_value=parent))
+                row = await mentions.thread_context(conn, child, NOW)
+                self.assertEqual(row['parent_context']['text'], parent.full_text)
+                self.assertEqual(row['text'], '@qofenoai reply?')
+        for text in (raw, '@other @qofenoai reply?', '@qofenoai @other reply?'):
+            with self.subTest(standalone=text), self.assertRaises(sources.SourceError):
+                mentions.snapshot(mention(text), NOW)
+        for text in ('@other @qofenoai reply?', '@qofenoai @other reply?', '@qofenoai @qofenoai'):
+            with self.subTest(ambiguous=text), self.assertRaises(sources.SourceError):
+                mentions.snapshot(mention(text, in_reply_to_status_id_str='501', in_reply_to_screen_name='reader'), NOW)
+
+    def test_display_range_strips_only_hidden_handles_and_preserves_all_authored_content(self):
+        prefix = '@reader @test '
+        body = '@qofenoai try this 🧪 #trace https://example.org/test'
+        text = prefix + body
+        visible_end = len((prefix + '@qofenoai try this 🧪').encode('utf-16-le')) // 2
+        row = mentions.snapshot(mention(text, in_reply_to_status_id_str='501', in_reply_to_screen_name='reader',
+                                       display_text_range=[len(prefix), visible_end]), NOW)
+        self.assertEqual(row['text'], body)
+        self.assertTrue(row['urls'])
+        self.assertEqual(mentions.snapshot(mention('@qofenoai'), NOW)['text'], '@qofenoai')
+        invalid = ([3, visible_end], [len(prefix), visible_end - 1], [len(prefix), 1000], ['5', 60])
+        for bounds in invalid:
+            self.assertEqual(mentions._reply_text(text, {'full_text': text, 'display_text_range': bounds}), text)
+        for hidden in ('#trace ', 'https://example.org/ ', 'quoted words '):
+            raw = hidden + body
+            self.assertEqual(mentions._reply_text(raw, {'full_text': raw,
+                             'display_text_range': [len(hidden), len(raw)]}), raw)
+        # Every handle came from the hidden envelope. Nobody authored a ping.
+        with self.assertRaises(sources.SourceError):
+            mentions.snapshot(mention('@qofenoai ', in_reply_to_status_id_str='501', in_reply_to_screen_name='reader',
+                                      display_text_range=[10, 10]), NOW)
+
     def test_stop_and_resume_are_ordered_idempotent_and_do_not_reopen_old_invites(self):
         rows = [mentions.snapshot(mention(t, str(i)), NOW) for i, t in enumerate(
             ['@qofenoai hello', '@qofenoai STOP', '@qofenoai can you help?', 'Opt in, @qofenoai',
