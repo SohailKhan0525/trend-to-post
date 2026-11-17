@@ -4,7 +4,7 @@ from datetime import timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, patch
 
-from twikit.errors import TooManyRequests
+from twikit.errors import RequestTimeout, TooManyRequests
 
 from app import editorial, mentions, personality
 from app.reply_schedule import DAILY_REPLY_CAP
@@ -39,6 +39,42 @@ class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
             mocked = patch.object(target, name, **kwargs)
             mocked.start()
             self.addCleanup(mocked.stop)
+
+    async def test_transient_pre_send_timeouts_retry_while_the_invitation_is_fresh(self):
+        self.rows = [self.first]
+        draft = {'text': 'One failing test tells us more.', 'event_key': 'test scope'}
+        delivered = SimpleNamespace(id='505', user=self.user, full_text=draft['text'], in_reply_to=self.first['id'])
+        self.connection.get_tweet_by_id.side_effect = [
+            RequestTimeout('source read temporarily timed out'), self.first,
+            self.first, self.first, delivered,
+        ]
+        self.connection.create_tweet.return_value = delivered
+        with patch.object(mentions, 'snapshot', side_effect=lambda row, _now: copy.deepcopy(row)), \
+                patch.object(editorial.reply_writer, 'generate', side_effect=[editorial.AIRequestTimeout(), draft]) as write:
+            await editorial.run('inbox')
+            self.state = copy.deepcopy(self.state)  # New process, same durable ledger.
+            await editorial.run('inbox')
+            write.assert_not_called()
+            self.now += editorial.INBOX_RETRY_DELAY
+            await editorial.run('inbox')
+            write.assert_called_once()
+            self.connection.create_tweet.assert_not_awaited()
+            self.now += editorial.INBOX_RETRY_DELAY
+            await editorial.run('inbox')
+            await editorial.run('inbox')
+        self.connection.create_tweet.assert_awaited_once_with(text=draft['text'], reply_to=self.first['id'])
+        self.assertEqual([row['tweet_id'] for row in self.state['history']], ['505'])
+
+    async def test_transient_failures_stop_after_a_bounded_number_of_attempts(self):
+        self.rows = [self.first]
+        self.connection.get_tweet_by_id.side_effect = RequestTimeout('unavailable')
+        with patch.object(editorial.reply_writer, 'generate') as write:
+            for _ in range(editorial.MAX_INBOX_ATTEMPTS + 2):
+                await editorial.run('inbox')
+                self.now += editorial.INBOX_RETRY_DELAY
+        self.assertEqual(self.connection.get_tweet_by_id.await_count, editorial.MAX_INBOX_ATTEMPTS)
+        write.assert_not_called()
+        self.connection.create_tweet.assert_not_awaited()
 
     async def test_two_fresh_invitations_after_original_send_without_any_clock_advance(self):
         at = self.now.isoformat()

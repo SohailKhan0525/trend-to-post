@@ -17,6 +17,30 @@ DRAFT = {'text': 'Hey there. Always room for another voice.', 'reply_mode': 'obs
 
 
 class MentionVoiceTests(unittest.TestCase):
+    def test_short_acknowledgements_publish_through_both_models_for_simple_calls(self):
+        for incoming, excerpt, answer in (('@qofenoai', '@qofenoai', 'Here.'),
+                                          ('@qofenoai 你好', '你好', '你好！'),
+                                          ('@qofenoai reply?', 'reply?', 'Yep.')):
+            source = {**DIRECT, 'text': incoming}
+            draft = {**DRAFT, 'text': answer}
+            review = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': excerpt}
+            with self.subTest(incoming=incoming), patch.object(reply_writer, 'complete', side_effect=[draft, review]) as model:
+                self.assertEqual(reply_writer.generate(source, {}, NOW)['text'], answer)
+                self.assertEqual(model.call_count, 2)
+                self.assertTrue(all(call.args[1]['source']['attention_only'] for call in model.call_args_list))
+
+    def test_short_greeting_exception_keeps_substantive_parent_and_dedup_checks(self):
+        source = {**DIRECT, 'text': '@qofenoai', 'parent_id': '222', 'parent_author': 'builder',
+                  'parent_context': {'id': '222', 'author': 'builder', 'text': 'The retry button deletes the log.'}}
+        draft = {'text': 'Here.', 'premise': DRAFT['premise']}
+        self.assertFalse(reply_writer.attention_only(source))
+        with self.assertRaises(DraftError):
+            reply_writer.validate(draft, source)
+        with self.assertRaises(DraftError):
+            reply_writer.validate({**draft, 'text': '👋'}, DIRECT)
+        with patch.object(reply_writer, 'complete', return_value={**DRAFT, **draft}), self.assertRaises(DraftError):
+            reply_writer.generate(DIRECT, {'used_texts': [reply_writer.fingerprint('Here.')]}, NOW)
+
     def test_direct_invitation_survives_full_trending_shortlist_without_view_floor(self):
         trends = [{**DIRECT, 'id': str(i), 'source_ids': [str(i)], 'origin': 'discovery',
                    'text': 'The test suite is the slowest part of our build.', 'views': 20000}

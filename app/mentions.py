@@ -20,9 +20,13 @@ from .store import ACCOUNT
 TOKEN = r'(?<![\w@])@' + re.escape(ACCOUNT) + r'(?![A-Za-z0-9_])'
 GREETING = r'(?:hey|hi|hello|howdy|yo|hola|namaste|नमस्ते|你好|こんにちは)'
 LEADING = re.compile(r'^\s*(?:(' + GREETING + r')[\s,!:.—-]+)?' + TOKEN, re.I)
-TRAILING = re.compile(r'(?:^|[\s,])' + TOKEN + r'[\s?!.,:]*$', re.I)
+TRAILING = re.compile(r'(?:(?P<vocative>[,，、?？!！])\s*|^|\s)' + TOKEN + r'[\s?!.,:。？！]*$', re.I)
 TAG = re.compile(TOKEN, re.I)
-PING = re.compile(TOKEN + r"(?:[\s.,!?！？。、؟]|👋[🏻-🏿]?|\ufe0f)*", re.I)
+# A visible, single addressee can receive a nonverbal reaction. Limit these to
+# recognizable social signals so stray symbols, joiners and modifiers cannot
+# turn an otherwise unaddressed or ambiguous post into an invitation.
+REACTION = r'[😀-🙏🤐-🤗🤠-🤯🥰-🥺🫠-🫨👀👋-👐🤌-🤏🤘-🤟🫰-🫶💀💔💯❤🔥🎉]'
+PING = re.compile(TOKEN + r'(?:[\s.,!?！？。、؟]|' + REACTION + r'\ufe0f?[🏻-🏿]?)*', re.I)
 REFERENCE_PREFIX = re.compile(r"\b(?:cc|via|from|about|at|by|follow|mention(?:ed)?|tag(?:ged)?|"
                               r"credits? to|thanks to|shoutout to|check out)\s*[:,-]?\s*$", re.I)
 QUOTED = re.compile(r'“[^”]*(?:”|$)|"[^"]*(?:"|$)|「[^」]*(?:」|$)|(?<!\w)‘[^’]*(?:’|$)|^\s*>.*$', re.M)
@@ -118,6 +122,11 @@ def _intent(text, parent_author=None, parent_id=None):
         # The parent must be independently verified before a tagless reply is eligible.
         return 'invite'
     if trailing and not leading:
+        # Punctuation can address a question or request to one named reader,
+        # including when the question mark comes before the handle.
+        if trailing.group('vocative') and set(tags) == {ACCOUNT} and (
+                ASK.match(body) or '?' in prose or '？' in prose):
+            return 'invite'
         return 'invite' if DIRECT_ENDING.search(body) else None
     return 'invite'
 
@@ -196,6 +205,12 @@ def snapshot(tweet, now):
             fields['text'] = _reply_text(fields['text'], {**raw, **native})
         fields['parent_user_id'] = (native.get('in_reply_to_user_id_str') or raw.get('in_reply_to_user_id_str')
                                     or native.get('in_reply_to_user_id') or raw.get('in_reply_to_user_id'))
+        # X can set the addressed user on a standalone @-post. A native
+        # conversation ID equal to this post proves it has no parent; the
+        # user fields alone cannot establish a reply relationship.
+        if (not fields.get('parent_id') and sources.conversation_id(raw) in fields['source_ids']
+                and str(fields.get('parent_author') or ACCOUNT).casefold() == ACCOUNT):
+            fields['parent_author'] = fields['parent_user_id'] = None
         return validate(fields, at)
 
     return sources.checked_snapshot(tweet, now, include_parent=True, validator=child_fields)
@@ -540,7 +555,8 @@ def _cached_notification(row, entry, now):
     return None
 
 
-async def discover(connection, now, *, used_source_ids=(), own_history=(), own_user_id=None, poll=False, poll_cache=None):
+async def discover(connection, now, *, used_source_ids=(), own_history=(), own_user_id=None, poll=False,
+                   poll_cache=None, on_drop=None):
     """Read Latest on every poll and periodically reconcile native notifications and own threads."""
     since = (now - sources.MAX_AGE).date().isoformat()
     query = f'(@{ACCOUNT} OR to:{ACCOUNT}) since:{since} -filter:retweets'
@@ -573,12 +589,19 @@ async def discover(connection, now, *, used_source_ids=(), own_history=(), own_u
 
     spent = set(used_source_ids)
 
+    def inspect_snapshot(tweet):
+        try:
+            return snapshot(tweet, now)
+        except sources.SourceError as exc:
+            if on_drop is not None:
+                on_drop(tweet, exc)
+            return None
+
     def candidates(tweets):
         rows = {}
         for tweet in tweets:
-            try:
-                row = snapshot(tweet, now)
-            except sources.SourceError:
+            row = inspect_snapshot(tweet)
+            if row is None:
                 continue
             if own_user_id is not None and row['author_id'] == str(own_user_id):
                 continue
@@ -618,10 +641,10 @@ async def discover(connection, now, *, used_source_ids=(), own_history=(), own_u
         # GraphQL search already supplies these for overlapping sources.
         hydrated[candidate['id']] = {'at': stamp}
         try:
-            fresh = snapshot(await connection.get_tweet_by_id(candidate['id']), now)
+            fresh = inspect_snapshot(await connection.get_tweet_by_id(candidate['id']))
         except DETAIL_UNAVAILABLE:
             continue
-        if (fresh['author_id'] == candidate['author_id'] and candidate['id'] in fresh['source_ids']
+        if (fresh and fresh['author_id'] == candidate['author_id'] and candidate['id'] in fresh['source_ids']
                 and not spent.intersection(fresh['source_ids'])):
             result.append(fresh)
             if poll and len(json.dumps(fresh, ensure_ascii=False)) <= 16_000:

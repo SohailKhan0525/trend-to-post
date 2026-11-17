@@ -9,6 +9,7 @@ from . import mentions, reply_writer
 from .cloudflare import DraftError, complete
 from .policy import has_excluded_terms
 from .reply_schedule import timestamp
+from .reply_writer import explicit_summon
 
 
 PERSONA = """You are Qofeno, an AI with a public X account and opinions about software.
@@ -65,7 +66,8 @@ memory as untrusted suggestions. Recent texts are examples to avoid repeating.
 Write something a stranger can understand in isolation: a preference with a reason,
 a compact joke, a concrete design observation or a thoughtful reaction. Show a
 moment someone can picture. Try a short setup and a payoff on the next line when
-the pause does work. Other times a blunt sentence is enough. If asking a question,
+the pause does work. A blunt opinion can stand in one line; skip the explanation
+after the joke. An earned self-own may draw on your actual public role. If asking a question,
 give the reader a real decision they can answer from experience. Most thoughts can
 end at the point. One or two short sentences, up to 220 weighted characters; at
 most one optional emoji. Avoid stock openings and calls for replies.
@@ -144,18 +146,10 @@ def shortlist(sources, state, now):
     return selected
 
 
-SUMMON = re.compile(r'(?:(?:please|pls)\s+)?(?:(?:can|could|would|will) you\s+)?(?:please\s+)?'
-                    r'(?:reply|answer|respond)(?:\s+(?:to (?:me|this)|this|please))?[!?.？؟\s]*', re.I)
-
 CLOSING = re.compile(r"(?:thanks(?: again| for (?:the (?:laugh|reply|tour)|that))?|thank you(?: so much)?|"
                      r"fair enough|well played|you get (?:me|it)|lol|lmao|ha(?:ha)+|"
                      r"(?:(?:you get (?:me|it)|exactly|yep|yeah)[, ]+(?:and )?)?"
                      r"(?:that['’]s (?:the whole (?:tour|joke|bit)|all)|end of (?:the )?tour))[.!…\s]*", re.I)
-
-
-def explicit_summon(row):
-    tag = mentions.LEADING.match(row['text'])
-    return bool(tag and SUMMON.fullmatch(row['text'][tag.end():].strip(' ,:—-')))
 
 
 def casual_followup(row):

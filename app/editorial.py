@@ -10,19 +10,22 @@ import re
 import unicodedata
 from datetime import datetime, timedelta, timezone
 
-from twikit.errors import CouldNotTweet, Forbidden, NotFound, TooManyRequests, TweetNotAvailable
+from httpx import NetworkError, TimeoutException
+from twikit.errors import CouldNotTweet, Forbidden, NotFound, RequestTimeout, ServerError, TooManyRequests, TweetNotAvailable
 from . import mentions, personality, reply_writer, sources
 from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .metrics import post_id
 from .reply_freshness import INBOX_START_AT, fresh_invitation
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError, selected_model
-from .reply_schedule import RECHECK_GAP, next_decision, next_original, next_slot, reply_ready, timestamp
+from .reply_schedule import next_decision, next_original, next_slot, reply_ready, timestamp
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
 
 STAGE = {'name': 'startup', 'source_id': None}
 THREAD_REPLY_LIMIT = 2
 INBOX_BATCH_SIZE = 4
+INBOX_RETRY_DELAY = timedelta(seconds=30)
+MAX_INBOX_ATTEMPTS = 3
 
 
 class DeliveryUnresolved(RuntimeError):
@@ -47,7 +50,11 @@ def reject(state, slot, reason):
     now = utcnow()
     state['last_attempts'] = {key: val for key, val in state.get('last_attempts', {}).items()
                               if val.get('at') and timestamp(val['at']) > now - timedelta(days=1)}
-    state['last_attempts'][slot['slot']] = {'at': now.isoformat(), 'reason': reason}
+    attempt = {'at': now.isoformat(), 'reason': reason}
+    if slot.get('inbox_id'):
+        previous = state['last_attempts'].get(slot['slot'])
+        attempt['count'] = previous.get('count', 1) + 1 if previous else 1
+    state['last_attempts'][slot['slot']] = attempt
     save_and_push(state)
     summary(reason)
 
@@ -219,9 +226,9 @@ def reply_rejection_active(candidate, entry, now):
     return True
 
 
-def draft_format_hold(candidate, now, retried_version=None):
+def draft_format_hold(candidate, now, retried_version=None, *, retry_delay=timedelta(minutes=10)):
     return {'kind': 'draft_format', 'policy_version': reply_writer.EDITORIAL_POLICY_VERSION,
-            'retried_version': retried_version, 'retry_at': (now + timedelta(minutes=10)).isoformat(),
+            'retried_version': retried_version, 'retry_at': (now + retry_delay).isoformat(),
             'until': (timestamp(candidate['created_at']) + sources.MAX_AGE + timedelta(seconds=1)).isoformat()}
 
 
@@ -571,7 +578,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
                 # complete source among the remaining eligible candidates.
                 candidates.sort(key=lambda item: len(item['text'].encode('utf-8')))
             else:
-                until = utcnow() + timedelta(minutes=30)
+                until = utcnow() + (INBOX_RETRY_DELAY if slot.get('inbox_id') else timedelta(minutes=30))
                 reason = 'Cloudflare timed out before publication'
             if key in rejections:
                 rejections[key]['not_before'] = until.isoformat()
@@ -585,8 +592,17 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
             rejections[key] = {'kind': 'unavailable', 'until': (utcnow() + timedelta(hours=2)).isoformat()}
             summary(f'Skipped unavailable or changed source {candidate["id"]}.')
             continue
+        except (NetworkError, TimeoutException, RequestTimeout, ServerError) as exc:
+            if not slot.get('inbox_id'):
+                raise
+            # Only source checks and generation run inside this try block.
+            # The actual send runs below it and retains its durable reservation on errors.
+            summary(f'Temporary X read failure for invitation {candidate["id"]} ({type(exc).__name__}).')
+            continue
         except reply_writer.RecoverableDraftError as exc:
-            rejections[key] = draft_format_hold(candidate, utcnow(), rejections.get(key, {}).get('retried_version'))
+            delay = INBOX_RETRY_DELAY if slot.get('inbox_id') else timedelta(minutes=10)
+            rejections[key] = draft_format_hold(candidate, utcnow(), rejections.get(key, {}).get('retried_version'),
+                                                retry_delay=delay)
             summary(f'Draft format rejected for {candidate["id"]}: {str(exc)[:240]}')
             continue
         except DraftError as exc:
@@ -811,7 +827,8 @@ async def process_inbox(state, connection):
         if now >= timestamp(slot['expires_at']) or inbox_reviewed(state, row):
             continue
         attempt = state.get('last_attempts', {}).get(slot['slot'])
-        if attempt and timestamp(attempt['at']) + RECHECK_GAP > now:
+        if attempt and (attempt.get('count', 1) >= MAX_INBOX_ATTEMPTS
+                        or timestamp(attempt['at']) + INBOX_RETRY_DELAY > now):
             continue
         if user is None:
             user = await posting_account(connection)

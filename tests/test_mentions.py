@@ -94,6 +94,21 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
         conn.get_notifications.side_effect = KeyError('missing aggregated user')
         self.assertEqual([r['id'] for r in await mentions.discover(conn, NOW)], ['302'])
 
+    async def test_drop_observer_receives_each_failed_native_validation_without_extra_reads(self):
+        search = mention('credit to @qofenoai', '101')
+        notice = mention('@qofenoai @other reply?', '102')
+        wrapper = mention('@qofenoai hello', '103')
+        detail = mention('credit to @qofenoai', '103')
+        conn = SimpleNamespace(search_tweet=AsyncMock(return_value=[search]),
+                               get_notifications=AsyncMock(return_value=[SimpleNamespace(tweet=notice),
+                                                                        SimpleNamespace(tweet=wrapper)]),
+                               get_tweet_by_id=AsyncMock(return_value=detail))
+        drops = []
+        self.assertEqual(await mentions.discover(conn, NOW, on_drop=lambda t, e: drops.append((t, e))), [])
+        self.assertEqual([t for t, _ in drops], [search, notice, detail])
+        self.assertTrue(all(isinstance(reason, sources.SourceError) for _, reason in drops))
+        conn.get_tweet_by_id.assert_awaited_once_with('103')
+
     async def test_fast_polls_find_new_mentions_without_repeated_parent_and_thread_reads(self):
         parent = tweet('100', author='QofenoAI')
         parent.user.id = '91'
@@ -276,6 +291,37 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(sources.SourceError):
             mentions.snapshot(mention('@qofenoai ', in_reply_to_status_id_str='501', in_reply_to_screen_name='reader',
                                       display_text_range=[10, 10]), NOW)
+
+    def test_nonverbal_reaction_requires_a_visible_unambiguous_tag(self):
+        full = '@qofenoai @qofenoai 🙄🤔'
+        row = mentions.snapshot(mention(full, in_reply_to_status_id_str='501', in_reply_to_screen_name='reader',
+                                        display_text_range=[10, 22]), NOW)
+        self.assertEqual((row['text'], row['intent']), ('@qofenoai 🙄🤔', 'invite'))
+        self.assertTrue(mentions.is_direct_ping(row['text']))
+        self.assertTrue(mentions.is_direct_ping('@QofenoAI ❤️ 👋🏿'))
+        for text in ('🙄🤔', 'via @qofenoai 🙄', '@other @qofenoai 🙄', '@qofenoai @other 🤔',
+                     '@qofenoai 🏾', '@qofenoai ∑', '@qofenoai \ufe0f'):
+            with self.subTest(text=text), self.assertRaises(sources.SourceError):
+                mentions.snapshot(mention(text), NOW)
+        hidden_only = '@qofenoai 🙄🤔'
+        with self.assertRaises(sources.SourceError):
+            mentions.snapshot(mention(hidden_only, in_reply_to_status_id_str='501', in_reply_to_screen_name='reader',
+                                      display_text_range=[10, len(hidden_only)]), NOW)
+
+    def test_native_root_with_addressed_user_has_no_reply_parent(self):
+        text = "@qofenoai look who's here"
+        metadata = dict(in_reply_to_screen_name='QoFeNoAI', in_reply_to_user_id_str='999',
+                        display_text_range=[0, len(text)], conversation_id_str='501')
+        row = mentions.snapshot(mention(text, '501', **metadata), NOW)
+        self.assertEqual((row['intent'], row['parent_id'], row['parent_author'], row['parent_user_id'],
+                          row['conversation_id']), ('invite', None, None, None, '501'))
+        self.assertTrue(mentions.invited({}, row))
+        for changes in ({'conversation_id_str': None}, {'conversation_id_str': '450'},
+                        {'in_reply_to_screen_name': 'another'}):
+            with self.subTest(changes=changes), self.assertRaises(sources.SourceError):
+                mentions.snapshot(mention(text, '501', **{**metadata, **changes}), NOW)
+        with self.assertRaises(sources.SourceError):
+            mentions.snapshot(mention('I saw their presentation yesterday', '501', **metadata), NOW)
 
     def test_full_codepoint_or_utf16_range_keeps_last_astral_emoji(self):
         prefix = '@reader @participant '
