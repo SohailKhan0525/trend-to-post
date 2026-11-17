@@ -73,6 +73,21 @@ async def inspect_reserved_reply(connection, pending):
                   f'full text matches={identity(body) == wanted}, visible text matches={identity(visible) == wanted}, '
                   f'native text range present={"display_text_range" in native}, '
                   f'reservation verified={editorial.matches_publication(pending, post)}.')
+    if identity(visible) != wanted and wanted:
+        raw = identity(body)
+        raw_prefix = raw[:-len(wanted)] if raw.endswith(wanted) else ''
+        bounds = native.get('display_text_range')
+        safe_bounds = bounds if isinstance(bounds, (tuple, list)) and len(bounds) == 2 and all(type(n) is int for n in bounds) else None
+        start = safe_bounds[0] if safe_bounds else 0
+        after_start = body[start:].lstrip(' \t') if 0 <= start <= len(body) else ''
+        store.summary(f'Reply text comparison: exact suffix={raw.endswith(wanted)}, '
+                      f'address-only prefix={bool(mentions.ADDRESS_PREFIX.fullmatch(raw_prefix))}, '
+                      f'legacy body identical={body == native.get("full_text")}, range={safe_bounds}, '
+                      f'body chars={len(body)}, UTF-16 units={len(body.encode("utf-16-le")) // 2}, '
+                      f'visible chars={len(visible)}, expected chars={len(wanted)}, '
+                      f'codepoint suffix matches={identity(after_start) == wanted}, '
+                      f'body contains expected={wanted in raw}, '
+                      f'whitespace-only difference={visible.split() == wanted.split()}.')
 
 
 async def inspect_inbox(connection, state, now, post_id):
