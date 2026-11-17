@@ -3844,10 +3844,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 516,
-    "requests": 36,
+    "neurons_reserved": 523,
+    "requests": 37,
     "hour": "2026-11-17T08",
-    "hour_neurons_reserved": 83,
+    "hour_neurons_reserved": 90,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
