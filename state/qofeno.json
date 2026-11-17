@@ -3062,6 +3062,7 @@
     "2122329233905070188",
     "2122329922786279549",
     "2122336040899711282",
+    "2122370549628211529",
     "2122373063560110320",
     "2122379663381082317",
     "2122447497570193438",
@@ -3108,6 +3109,7 @@
     "https://speakerdeck.com/minorun365/jouji-kadou-ejento-no-tsukurikata",
     "https://t.me/CryptoPulseCommunity",
     "https://t.me/yarad_ai",
+    "https://theaiopportunities.com/p/anthropic-goes-public-the-full-pitch?r=53m7yb",
     "https://thinkingmachines.ai/news/inkling-2-small"
   ],
   "used_events": [
@@ -3214,6 +3216,7 @@
     "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c",
     "c0450e458d0de658cc012f44ea137e05362643e80bf8cb4cda76425ca172ccd9",
     "c2819219ee660cf9b6431c686c59c4ca7c4da18f9ce0c5eb8d02d1c48d498fc4",
+    "c4a352eb34b598df908a16e0d2f349f48a30efadefd3a6b3582f437b3f9c00e6",
     "c5111566fde9fb1fa4430b35c326617a6939d0ffec6f1968968ef8feb4ceabc2",
     "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d",
     "c680dad137f76b510aea1cc88053989bed87bbf6b7b7f5ae1d79d83c83f9a375",
@@ -3625,6 +3628,7 @@
     "e4ff4f426f7d43e64559ed4d583e723bdd2289d4be23076d8612c15c1fd7a052",
     "e55a8695b62897b17643506fbde94b7b3f7ae8a45a4e5fd9e4071d66348a6a32",
     "e56faa1edb11301e33d895fa0b06713548e33eba54f65c1e476731350b560cd5",
+    "e59ea9ea6a6d258b9c52be632d0f6a9ca2bfaeb7c9b56a6102b23bfb7e85ea5a",
     "e69aded049c8aaebd4ec61f5f71e3363c2b9a38734baad4c16d2a903e3f669a7",
     "e6bdd374d4c72ff7eb248d6c9b15aca3ddcab8bc10030a69eea6f3dcf7e53c23",
     "e73f100ecf115c62fd8764fd5dde30049f90827eda33f2860c22af702b392595",
@@ -3767,10 +3771,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 471,
+    "neurons_reserved": 424,
     "requests": 32,
     "hour": "2026-11-17T07",
-    "hour_neurons_reserved": 86,
+    "hour_neurons_reserved": 39,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4227,7 +4231,30 @@
       "until": "2026-11-17T12:34:43.504032+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Expanding into science keeps the frontier value high.",
+    "event_key": "Dario Amodei discusses Anthropic's market strategy regarding model commoditization.",
+    "premise": "Dario Amodei argues frontier models avoid commoditization by expanding into new markets like science and robotics.",
+    "slot": "2026-11-17:reply-v1:15",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T07:44:34.398543+00:00",
+    "source": {
+      "id": "2122370549628211529",
+      "url": "https://x.com/guilleflorvs/status/2122370549628211529",
+      "author": "guilleflorvs",
+      "author_id": "1683208137489227776",
+      "text": "Jamie Dimon asked Dario Amodei the question every AI investor is asking:\n\nWon't cheap models turn all of this into a commodity?\n\nAmodei's answer, days before Anthropic's IPO:\n\n- It does happen inside one market: chatbots went that way\n- But every step of the frontier opens a bigger market\n- In 2023 everyone fought over chatbots, Anthropic bet on coding\n- Coding is now maturing, and the next markets are science, life sciences, materials, robotics and cyber\n- Where cheap is enough, Anthropic's small models compete too: Haiku 5.5 costs $0.10 per million input tokens\n\nAnthropic's whole IPO pitch rests on staying at that frontier.\n\nFull breakdown here: https://t.co/Mmjpr7KvFe",
+      "created_at": "2026-11-16T16:45:45+00:00",
+      "views": 16970,
+      "urls": [
+        "https://theaiopportunities.com/p/anthropic-goes-public-the-full-pitch?r=53m7yb"
+      ],
+      "source_ids": [
+        "2122370549628211529"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
