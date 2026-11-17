@@ -4,10 +4,13 @@ from datetime import timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, call, patch
 
+from twikit.errors import NotFound
+
 from app import editorial
 from app.memory import MemoryAccessDenied, MemoryUnavailable
 from app.reply_schedule import next_decision
 from test_editorial import DRAFT, ORIGINAL, PLAN, SOURCE, START, empty
+from test_sources import tweet
 
 
 class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
@@ -31,7 +34,110 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
         post = SimpleNamespace(id='333', user=self.user, full_text=draft['text'],
                                in_reply_to=source['id'] if source else None)
         return SimpleNamespace(create_tweet=AsyncMock(return_value=post),
-                               get_tweet_by_id=AsyncMock(return_value=post))
+                               get_tweet_by_id=AsyncMock(return_value=post),
+                               get_notifications=AsyncMock(return_value=[]),
+                               search_tweet=AsyncMock(return_value=[]))
+
+    def inbox_post(self, ident, body, age_minutes=2):
+        created = (self.now - timedelta(minutes=age_minutes)).strftime('%a %b %d %H:%M:%S %z %Y')
+        return tweet(ident, text=body, author='CuriousDev', views='3', created_at=created,
+                     entities={'urls': [], 'user_mentions': [{'screen_name': editorial.ACCOUNT, 'id_str': self.user.id}]},
+                     in_reply_to_status_id_str='890', in_reply_to_user_id_str=self.user.id,
+                     in_reply_to_screen_name=editorial.ACCOUNT)
+
+    def thread_parent(self, body):
+        created = (self.now - timedelta(minutes=10)).strftime('%a %b %d %H:%M:%S %z %Y')
+        parent = tweet('890', text=body, author=editorial.ACCOUNT, views='120', created_at=created)
+        parent.user.id = self.user.id
+        return parent
+
+    async def test_native_low_view_invitation_reaches_its_exact_parent_when_trend_search_is_unavailable(self):
+        state = empty()
+        invite = self.inbox_post('920', '@qofenoai how should I test retries in my job queue?')
+        answer = {'text': 'Fail the first attempt. Count the side effects on retry.', 'event_key': 'queue retry side effects'}
+        connection = self.connection({'id': invite.id}, answer)
+        published = connection.create_tweet.return_value
+        published.full_text = '@CuriousDev ' + answer['text']
+        connection.get_notifications.return_value = [SimpleNamespace(tweet=invite, user=invite.user)]
+        parent = self.thread_parent('A quiet job queue can be processing retries twice.')
+        connection.get_tweet_by_id.side_effect = {invite.id: invite, parent.id: parent, published.id: published}.__getitem__
+        # A previous conversation with this person is context, not a second
+        # reply to their new invitation. The 30-minute send gap has elapsed.
+        earlier = (self.now - timedelta(hours=2)).isoformat()
+        state['history'] = [{'kind': 'reply', 'tweet_id': '889', 'posted_at': earlier, 'verified_at': earlier,
+                             'text': 'Keep the build output.', 'source': {'id': '879', 'author_id': invite.user.id}}]
+        plan = {'action': 'reply', 'source_id': invite.id, 'angle': 'Test the retry after one real failure.'}
+        with patch.object(editorial.Memory, 'connect') as connect, \
+                patch.object(editorial.sources, 'discover', AsyncMock(side_effect=NotFound('topic search unavailable'))), \
+                patch.object(editorial.personality, 'choose', return_value=plan) as choose, \
+                patch.object(editorial.reply_writer, 'generate', return_value=answer) as generate:
+            await editorial.decide(state, self.slot, connection, self.user)
+        connection.get_notifications.assert_awaited_once()
+        self.assertEqual([s['id'] for s in choose.call_args.args[0]], [invite.id])
+        self.assertEqual(generate.call_args.args[0]['origin'], 'mention')
+        self.assertEqual(generate.call_args.args[0]['parent_context']['text'], parent.full_text)
+        connection.create_tweet.assert_awaited_once_with(text=answer['text'], reply_to=invite.id)
+        self.assertEqual(connection.get_tweet_by_id.await_args_list,
+                         [call(invite.id), call(parent.id), call(invite.id), call(parent.id),
+                          call(invite.id), call(parent.id), call(published.id)])
+        row = state['history'][-1]
+        self.assertEqual((row['source']['id'], row['source']['views']), (invite.id, 3))
+        self.assertIn('verified_at', row)
+        self.assertIn(invite.id, state['used_source_ids'])
+        self.assertEqual(connect.return_value.sync.call_args.args[0][-1], row)
+
+    async def test_parent_edit_after_writing_prevents_publication(self):
+        state, connection = empty(), self.connection()
+        invite = self.inbox_post('927', '@qofenoai how would you test that?')
+        connection.get_notifications.return_value = [SimpleNamespace(tweet=invite, user=invite.user)]
+        parent = self.thread_parent('Queue retries can charge for the same order twice.')
+        edited = self.thread_parent('Queue retries can send an extra email after delivery.')
+        parents = iter([parent, parent, edited])
+        connection.get_tweet_by_id.side_effect = lambda ident: next(parents) if ident == parent.id else invite
+        plan = {'action': 'reply', 'source_id': invite.id, 'angle': 'Check for a duplicate charge.'}
+        with patch.object(editorial.Memory, 'connect'), \
+                patch.object(editorial.sources, 'discover', AsyncMock(return_value=[])), \
+                patch.object(editorial.personality, 'choose', return_value=plan), \
+                patch.object(editorial.reply_writer, 'generate', return_value=DRAFT) as generate:
+            await editorial.decide(state, self.slot, connection, self.user)
+        self.assertEqual(generate.call_args.args[0]['parent_context']['text'], parent.full_text)
+        connection.create_tweet.assert_not_awaited()
+        self.assertEqual(state['history'], [])
+        self.assertFalse(state.get('outbox'))
+
+    async def test_stop_supersedes_older_mention_and_excludes_the_same_author_from_topic_search(self):
+        state, connection = empty(), self.connection()
+        invite = self.inbox_post('945', '@qofenoai how should I test retries in my job queue?', age_minutes=12)
+        stop = self.inbox_post('946', '@qofenoai stop')
+        connection.get_notifications.return_value = [SimpleNamespace(tweet=t, user=t.user) for t in (stop, invite)]
+        connection.get_tweet_by_id.side_effect = {invite.id: invite, stop.id: stop}.__getitem__
+        topic = {**SOURCE, 'author_id': stop.user.id, 'author': stop.user.screen_name,
+                 'url': f'https://x.com/{stop.user.screen_name}/status/{SOURCE["id"]}'}
+        def choose(candidates, *args):
+            self.assertEqual(candidates, [])
+            self.assertTrue(editorial.mentions.opted_out(self.saved, stop.user.id))
+            return {'action': 'silent', 'source_id': '', 'angle': ''}
+        with patch.object(editorial.Memory, 'connect'), \
+                patch.object(editorial.sources, 'discover', AsyncMock(return_value=[topic])), \
+                patch.object(editorial.personality, 'choose', side_effect=choose):
+            await editorial.decide(state, self.slot, connection, self.user)
+        connection.create_tweet.assert_not_awaited()
+        self.assertEqual(state['history'], [])
+
+    async def test_bare_tag_and_used_invitation_alias_never_enter_the_shortlist(self):
+        state, connection = empty(), self.connection()
+        invite = self.inbox_post('948', '@qofenoai what should I log on a retry?')
+        invite._data['edit_control'] = {'edit_tweet_ids': ['940', invite.id]}
+        tag = self.inbox_post('949', '@qofenoai')
+        state['used_source_ids'] = ['940']
+        connection.get_notifications.return_value = [SimpleNamespace(tweet=t, user=t.user) for t in (tag, invite)]
+        connection.get_tweet_by_id.side_effect = {invite.id: invite, tag.id: tag}.__getitem__
+        with patch.object(editorial.Memory, 'connect'), \
+                patch.object(editorial.sources, 'discover', AsyncMock(return_value=[])), \
+                patch.object(editorial.personality, 'choose', return_value={'action': 'silent', 'source_id': '', 'angle': ''}) as choose:
+            await editorial.decide(state, self.slot, connection, self.user)
+        self.assertEqual(choose.call_args.args[0], [])
+        connection.create_tweet.assert_not_awaited()
 
     async def test_silence_consumes_one_opportunity_without_sending(self):
         state, connection = empty(), self.connection()

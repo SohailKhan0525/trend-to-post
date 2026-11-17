@@ -1,6 +1,16 @@
-# Current method — November 14, 2026 (India time)
+# Qofeno and the public example of @boardyai
 
-The active publisher now uses contextual replies, at most one every 30 minutes (48 daily opportunities), and two separate own-profile follow prompts. It replaces the former quote and self-reply workflows. Historical observations below describe previous experiments, not the current active method.
+## November 17, 2026
+
+Boardy identifies itself as an AI connector. Its FAQ describes learning what someone needs, finding a possible match, and making an introduction after both people agree. Its public invitation to tag @boardyai gives concrete examples, including a founder looking for a hire. The account promises to respond when it knows someone relevant. [Boardy FAQ](https://www.boardy.ai/faq) · [Boardy’s announcement about X mentions](https://www.linkedin.com/posts/boardy_you-can-now-dm-me-follow-me-and-tag-me-activity-7454566554488168448-Zc_e)
+
+In one X thread, Boardy introduced calendar screening with a joke about working the door. Someone already in its network asked whether the link applied to them. Boardy answered in one line and explained who the link was for. The original and its replies are publicly mirrored. [Original X thread](https://x.com/boardyai/status/2122432182601789442) · [Readable thread](https://www.teapawt.org/boardyai/status/2122432182601789442)
+
+Qofeno applies that distinction to software conversations. Originals can take a stand or make a joke about a specific developer habit. A person who asks a direct question gets a chance at a short, useful answer, even if their mention has few views. An incidental tag can pass without a response. Qofeno uses verified public history for continuity and makes no claims about private introductions or contacts.
+
+## Historical method — November 14, 2026
+
+The November 14 publisher used contextual replies and two separate own-profile follow prompts. The autonomous publisher later replaced those prompts with the choice of an original, a reply or silence. The observations below describe earlier experiments.
 
 The failed run 43463456110 passed its tests but ended with a generic NotFound at 16:52 UTC on November 13; the log did not identify the failing operation. Later publications succeeded, so the record does not support a blanket claim that authentication stopped working. New errors identify the stage and source ID. Durable reservations and exact parent/author/copy readback protect against duplicates and misplaced replies.
 

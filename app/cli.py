@@ -13,7 +13,7 @@ from twikit.errors import InvalidSession
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("command",choices=("inspect","memory","metrics","run"))
+    parser.add_argument("command",choices=("inspect","inbox","memory","metrics","run"))
     parser.add_argument("--allow-ledger", action="store_true", help="For the memory check, allow verified-history reads if D1 denies access.")
     args=parser.parse_args()
     try:
@@ -30,6 +30,8 @@ def main():
                 memory = editorial.ledger_after_denial(history)
                 recent = memory.context([])['recent_own']
                 summary(f'Verified-history memory ready. Read back {len(recent)} recent posts.')
+        elif args.command == 'inbox':
+            asyncio.run(editorial.check_inbox())
         elif args.command == 'metrics':
             from .metrics import metrics
             asyncio.run(metrics())

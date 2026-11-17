@@ -11,7 +11,7 @@ import unicodedata
 from datetime import datetime, timedelta, timezone
 
 from twikit.errors import CouldNotTweet, Forbidden, NotFound, TooManyRequests, TweetNotAvailable
-from . import personality, reply_writer, sources
+from . import mentions, personality, reply_writer, sources
 from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError, selected_model
@@ -49,8 +49,10 @@ def reject(state, slot, reason):
 
 
 def eligible_author(source, state, now):
-    if source['author'].casefold() == ACCOUNT:
+    if source['author'].casefold() == ACCOUNT or mentions.opted_out(state, source['author_id']):
         return False
+    if source.get('origin') == 'mention':
+        return mentions.invited(state, source)
     return not any(row.get('kind') == 'reply'
                    and row.get('source', {}).get('author_id') == source['author_id']
                    and timestamp(row['posted_at']) > now - timedelta(hours=24)
@@ -59,7 +61,8 @@ def eligible_author(source, state, now):
 
 def unchanged(before, after):
     return all(before.get(key) == after.get(key) for key in
-               ('id', 'author_id', 'author', 'text', 'created_at', 'urls', 'source_ids'))
+               ('id', 'author_id', 'author', 'text', 'created_at', 'urls', 'source_ids',
+                'origin', 'intent', 'parent_id', 'parent_author', 'parent_context'))
 
 
 def rejection_key(candidate):
@@ -262,7 +265,7 @@ async def send_once(state, slot, draft, connection, user, source=None):
     if slot['kind'] == 'reply':
         if source is None:
             raise ValueError('A reply requires a verified source')
-        sources.validate(source, utcnow())
+        (mentions if source.get('origin') == 'mention' else sources).validate(source, utcnow())
         if (not eligible_author(source, state, utcnow())
                 or source['author_id'] == str(user.id)
                 or set(source['source_ids']) & set(state['used_source_ids'])
@@ -346,14 +349,19 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
             return
         try:
             stage('refresh source before writing', candidate['id'])
-            fresh = sources.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
+            intake = mentions if candidate.get('origin') == 'mention' else sources
+            fresh = intake.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
+            if candidate.get('parent_context'):
+                fresh = await mentions.thread_context(connection, fresh, utcnow())
             if not unchanged(candidate, fresh):
                 continue
             stage('write contextual reply', candidate['id'])
             with budget_scope(state, save_and_push, utcnow):
                 draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
-            final = sources.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
+            final = intake.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
+            if fresh.get('parent_context'):
+                final = await mentions.thread_context(connection, final, utcnow())
             if not unchanged(fresh, final):
                 continue
         except (AIRequestTimeout, AIRequestTooLarge) as exc:
@@ -383,7 +391,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
     if deferred:
         reject(state, slot, f'No reply sent in this check. Deferred {deferred} source(s) for AI availability or budget.')
     else:
-        reject(state, slot, 'No fresh, distinct 10,000+ view source passed this check. No reply sent.')
+        reject(state, slot, 'No fresh eligible conversation passed this check. No reply sent.')
 
 
 async def publish_original(state, slot, connection, user, plan, memory_context):
@@ -409,6 +417,24 @@ def ledger_after_denial(history):
     return memory
 
 
+async def read_inbox(state, connection, now):
+    stage('read mentions and reply preferences')
+    incoming = await mentions.discover(connection, now, used_source_ids=state['used_source_ids'])
+    if mentions.apply_controls(incoming, state):
+        save_and_push(state)
+    return incoming
+
+
+async def check_inbox():
+    """Deployment check. Reads X and honors preference commands, never sends."""
+    state, now = load(), utcnow()
+    if state.get('x_pause_until') and timestamp(state['x_pause_until']) > now:
+        summary(f'Mention inbox check deferred until {state["x_pause_until"]} for the X cooldown.')
+        return
+    rows = await read_inbox(state, client(), now)
+    summary(f'Mention inbox check completed. {sum(mentions.invited(state, row) for row in rows)} current invitations.')
+
+
 async def decide(state, slot, connection, user):
     stage('sync verified publications to D1')
     try:
@@ -416,13 +442,37 @@ async def decide(state, slot, connection, user):
         memory.sync(state['history'])
     except MemoryAccessDenied:
         memory = ledger_after_denial(state['history'])
-    stage('discover public conversations')
     now = utcnow()
-    candidates = await sources.discover(connection, state, now)
+    incoming = await read_inbox(state, connection, now)
     cached = state.get('reply_rejections', {})
-    candidates = [c for c in candidates if c['author_id'] != str(user.id) and eligible_author(c, state, now)
-                  and (rejection_key(c) not in cached or timestamp(cached[rejection_key(c)]['until']) <= now)]
-    shortlist = sources.shortlist(candidates, now)
+    used_ids, used_urls = set(state['used_source_ids']), set(state['used_urls'])
+
+    def eligible(candidate):
+        rejection = cached.get(rejection_key(candidate))
+        return (candidate['author_id'] != str(user.id) and eligible_author(candidate, state, now)
+                and not used_ids.intersection(candidate['source_ids']) and not used_urls.intersection(candidate['urls'])
+                and (not rejection or timestamp(rejection['until']) <= now))
+
+    invited = []
+    invited_authors = set()
+    for row in sorted(incoming, key=lambda c: timestamp(c['created_at']), reverse=True):
+        if row['intent'] == 'invite' and row['author_id'] not in invited_authors and eligible(row):
+            invited.append(await mentions.thread_context(connection, row, now))
+            invited_authors.add(row['author_id'])
+        if len(invited) == 2:
+            break
+    stage('discover public conversations')
+    try:
+        candidates = await sources.discover(connection, state, now)
+    except (NotFound, TweetNotAvailable):
+        if not invited:
+            raise
+        candidates = []
+    # Never feed an incidental tag or opted-out request back as a trending post.
+    passive = [c for c in candidates if c['author_id'] not in invited_authors and eligible(c)
+               and not re.search(r'(?<![\w@])@' + re.escape(ACCOUNT) + r'\b', c['text'], re.I)]
+    shortlist = invited + sources.shortlist(passive, now, limit=4 - len(invited))
+    summary(f'Considering {len(invited)} direct invitations and {len(shortlist) - len(invited)} discovered conversations.')
     try:
         context = memory.context(shortlist)
     except MemoryAccessDenied:

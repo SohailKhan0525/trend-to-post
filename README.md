@@ -4,16 +4,18 @@
 
 ## How Qofeno decides
 
-1. The publisher syncs verified posting history to Cloudflare D1 and searches X using its existing Twikit-compatible client, `twifork[impersonate]==2.4.0`. Rotating Top and Latest searches cover AI coding tools, debugging, tests and code review. Discovery works without mentions. Multiple search topics get a turn, and recent posts with more measured views per hour rise within their topic.
+1. The publisher syncs verified posts to Cloudflare D1. Its existing Twikit-compatible client, `twifork[impersonate]==2.4.0`, checks for public mentions of @qofenoai and independently searches Top and Latest conversations about AI coding tools, debugging, tests and code review. Recent posts with more measured views per hour rise within each search topic.
 2. Workers AI reads a shortlist of complete eligible posts, recent Qofeno writing and relevant public conversation history. It can choose a source and an angle for a reply, propose a standalone thought or choose silence. A deliberate silence uses up that opportunity.
 3. An original can be an opinion, joke or observation about a software design choice, up to 220 weighted characters. A separate review checks the draft for unsupported claims and repetition. There is no scheduled invitation to follow the account.
 4. Replies aim for 4–12 words, with a hard limit of 100 weighted characters. A playful post can get a dry punchline. A real unknown can earn one focused question. Someone asking for help can get a direct suggestion. Questions and emoji each have a one-reply cooldown. A second review checks the wording and tone against the actual source.
 
-Reply candidates must be public original posts from the last 24 hours with at least 10,000 measured post views. The publisher excludes political or country-related subjects, protected or blocked accounts, sensitive posts, quotes and reposts. The same author is eligible at most once per 24 hours. Before sending a reply, the publisher reads the source again to check its text, identity and eligibility.
+For proactive discovery, a source must be a public original post from the last 24 hours with at least 10,000 measured views. A public post or thread reply that addresses @qofenoai and clearly invites a response can enter the mention queue at any view count. The publisher excludes political or country-related subjects, protected or blocked accounts, sensitive posts, quotes and reposts. Before sending a reply it reads the source again and verifies its text, identity and eligibility.
+
+To invite Qofeno into a conversation, ask it directly in the post. For example, “@qofenoai what would you keep in the logs after a failed build?” A passing tag alone does not trigger an answer. Qofeno checks mentions on publishing opportunities and can answer each invitation at most once. To opt out, post `@qofenoai stop`.
 
 ## Scheduling and delivery
 
-**Qofeno autonomous publisher** runs from `.github/workflows/editorial.yml` on the default branch. GitHub cron, the existing `post-next` repository dispatcher, manual runs and relevant code pushes can wake it. Each UTC day has 48 half-hour decision windows with a daily offset. Only one public action fits a window, and consecutive publications must be at least 30 minutes apart, including across midnight. Missed windows expire.
+**Qofeno autonomous publisher** is the sole workflow that can publish to X. It runs from `.github/workflows/editorial.yml` on the default branch. The other workflows run validation tests and read public performance metrics. GitHub cron, the existing `post-next` repository dispatcher, manual runs and relevant code pushes can wake the publisher. Each UTC day has 48 half-hour decision windows with a daily offset. Only one public action fits a window, and consecutive publications must be at least 30 minutes apart, including across midnight. Missed windows expire.
 
 The ceilings are two originals and 48 replies per UTC day, subject to the 48 shared windows. Originals are at least six hours apart. Follow posts verified by the older publisher count toward the original limit. These are upper bounds. Silence, source quality, provider budgets and scheduling delays can reduce output.
 

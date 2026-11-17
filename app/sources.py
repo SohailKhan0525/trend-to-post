@@ -128,7 +128,7 @@ def _utc(value, reason):
         raise SourceError(reason) from exc
 
 
-def _text(value):
+def _text(value, minimum_letters=20):
     if not isinstance(value, str) or not value.strip():
         raise SourceError("missing full source text")
     value = value.strip()
@@ -137,7 +137,7 @@ def _text(value):
     # A bare URL, media-only post, or teaser is not enough evidence for a news
     # claim. Do not promote an attached Article's preview into its full body.
     prose = _URL.sub("", value)
-    if sum(char.isalpha() for char in prose) < 20:
+    if sum(char.isalpha() for char in prose) < minimum_letters:
         raise SourceError("source has insufficient factual text")
     if re.match(r"^RT\s+@", value, flags=re.I):
         raise SourceError("source is a repost")
@@ -148,6 +148,10 @@ def _text(value):
 
 def validate(candidate, now):
     """Validate and normalize a serialized snapshot; raise SourceError on fail."""
+    return validate_fields(candidate, now, require_reach=True, minimum_letters=20)
+
+
+def validate_fields(candidate, now, *, require_reach, minimum_letters):
     if not isinstance(candidate, dict):
         raise SourceError("invalid source snapshot")
     source_id = _identifier(candidate.get("id"))
@@ -162,10 +166,12 @@ def validate(candidate, now):
     age = _utc(now, "invalid current timestamp") - created
     if age < timedelta(0) or age > MAX_AGE:
         raise SourceError("source is outside the 24-hour freshness window")
-    views = _number(candidate.get("views"), "missing or invalid measured views")
-    if views < MIN_SOURCE_VIEWS:
+    views = candidate.get("views")
+    if require_reach or views is not None:
+        views = _number(views, "missing or invalid measured views")
+    if require_reach and views < MIN_SOURCE_VIEWS:
         raise SourceError(f"source has fewer than {MIN_SOURCE_VIEWS} measured views")
-    text = _text(candidate.get("text"))
+    text = _text(candidate.get("text"), minimum_letters)
     aliases = candidate.get("source_ids")
     if not isinstance(aliases, list) or not aliases:
         raise SourceError("missing edit identities")
@@ -185,8 +191,12 @@ def validate(candidate, now):
 
 def snapshot(tweet, now):
     """Read an original Twikit post without fetching article bodies or media."""
+    return checked_snapshot(tweet, now, include_parent=False, validator=validate)
+
+
+def checked_snapshot(tweet, now, *, include_parent, validator):
     try:
-        return _snapshot(tweet, now)
+        return _snapshot(tweet, now, include_parent, validator)
     except SourceError:
         raise
     except (AttributeError, KeyError, TypeError, ValueError, IndexError, OverflowError) as exc:
@@ -196,15 +206,15 @@ def snapshot(tweet, now):
         raise SourceError("malformed source metadata") from exc
 
 
-def _snapshot(tweet, now):
+def _snapshot(tweet, now, include_parent, validator):
     raw = getattr(tweet, "_data", {})
     if not isinstance(raw, dict):
         raise SourceError("invalid source metadata")
     legacy = raw.get("legacy") or {}
     if not isinstance(legacy, dict):
         raise SourceError("invalid source metadata")
-    if (legacy.get("in_reply_to_status_id_str") or legacy.get("in_reply_to_user_id_str")
-            or getattr(tweet, "in_reply_to", None)):
+    parent = legacy.get("in_reply_to_status_id_str") or raw.get("in_reply_to_status_id_str") or getattr(tweet, "in_reply_to", None)
+    if not include_parent and (parent or legacy.get("in_reply_to_user_id_str")):
         raise SourceError("source is a reply")
     if legacy.get("retweeted_status_result") or legacy.get("retweeted_status") or getattr(tweet, "retweeted_tweet", None):
         raise SourceError("source is a repost")
@@ -262,7 +272,7 @@ def _snapshot(tweet, now):
         raise SourceError("invalid edit identities")
     source_id = _identifier(getattr(tweet, "id", None))
     handle = getattr(author, "screen_name", None)
-    return validate({
+    fields = {
         "id": source_id,
         "url": f"https://x.com/{handle}/status/{source_id}",
         "author": handle,
@@ -272,7 +282,11 @@ def _snapshot(tweet, now):
         "views": getattr(tweet, "view_count", None),
         "urls": list(dict.fromkeys(urls)),
         "source_ids": [source_id, *aliases],
-    }, now)
+    }
+    if include_parent:
+        fields.update(origin="mention", parent_id=parent,
+                      parent_author=legacy.get("in_reply_to_screen_name") or raw.get("in_reply_to_screen_name"))
+    return validator(fields, now)
 
 
 def search_plan(now):
