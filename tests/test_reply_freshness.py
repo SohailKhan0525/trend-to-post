@@ -5,7 +5,7 @@ from unittest.mock import AsyncMock, patch
 
 from app import editorial, mentions, sources
 from app.reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, X_EPOCH, fresh_invitation, invitation_hold
-from test_editorial import DRAFT, SOURCE, empty
+from test_editorial import DRAFT, ORIGINAL, SOURCE, empty
 
 
 def snowflake(at):
@@ -77,6 +77,40 @@ class ReplySendClockTests(unittest.IsolatedAsyncioTestCase):
         self.enterContext(patch.object(editorial, 'utcnow', side_effect=lambda: self.now))
         self.enterContext(patch.object(editorial, 'summary'))
         self.enterContext(patch.object(editorial, 'stage'))
+
+    async def test_original_without_a_reply_target_still_publishes_in_its_own_window(self):
+        self.now = INBOX_START_AT - timedelta(days=1)
+        slot, _ = editorial.next_original(editorial.schedule_state(self.state), self.now)
+        post = SimpleNamespace(id=snowflake(self.now), user=self.user, full_text=ORIGINAL['text'])
+        self.connection.create_tweet.return_value = post
+        self.connection.get_tweet_by_id.return_value = post
+        with patch.object(editorial, 'save_and_push'):
+            await editorial.send_once(self.state, {**slot, 'kind': 'original'}, ORIGINAL,
+                                      self.connection, self.user)
+        self.connection.create_tweet.assert_awaited_once_with(text=ORIGINAL['text'])
+        self.assertEqual(self.state['history'][0]['tweet_id'], post.id)
+
+    async def test_older_mixed_decision_cannot_send_to_pre_activation_mention(self):
+        self.now = INBOX_START_AT + timedelta(seconds=15)
+        slot, _ = editorial.next_decision(editorial.schedule_state(self.state), self.now)
+        source = invitation(INBOX_START_AT - timedelta(seconds=1))
+        with patch.object(editorial, 'save_and_push'):
+            await editorial.send_once(self.state, {**slot, 'kind': 'reply'}, DRAFT,
+                                      self.connection, self.user, source)
+        self.connection.create_tweet.assert_not_awaited()
+        self.assertFalse(self.state.get('outbox'))
+
+    async def test_delayed_x_thread_read_expires_before_model_call(self):
+        async def slow_read(*_args, **_kwargs):
+            self.now += timedelta(seconds=2)
+            return True
+        with patch.object(mentions, 'snapshot', return_value=self.source), \
+                patch.object(editorial, 'live_thread_open', side_effect=slow_read), \
+                patch.object(editorial, 'save_and_push'), patch.object(editorial.reply_writer, 'generate') as writer:
+            await editorial.publish_reply(self.state, self.slot, self.connection, self.user, selected=self.source)
+        writer.assert_not_called()
+        self.connection.create_tweet.assert_not_awaited()
+        self.assertFalse(self.state.get('outbox'))
 
     async def test_model_finishes_after_five_minutes_without_sending_or_reserving(self):
         def slow_draft(*_args, **_kwargs):

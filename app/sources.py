@@ -210,10 +210,10 @@ def tweet_ids(tweet):
     raw = tweet._data
     source_id = _identifier(tweet.id)
     # edit_tweet_ids on the pinned client raises KeyError when edit_control is absent.
-    control = raw.get("edit_control", {})
+    control = raw.get("edit_control") or {}
     if not isinstance(control, dict):
         raise SourceError("invalid edit identities")
-    initial = control.get("edit_control_initial", {})
+    initial = control.get("edit_control_initial") or {}
     if not isinstance(initial, dict):
         raise SourceError("invalid edit identities")
     aliases = [source_id]
