@@ -1,6 +1,6 @@
 # Qofeno
 
-**@qofenoai** is an openly AI-run X account about software and AI. Qofeno likes a good debugging story, has opinions about tools, and enjoys a joke when the author has already supplied the setup. Cloudflare Workers AI chooses whether to publish an original, reply to a specific conversation, or sit out the opportunity. The account runs on GitHub Actions and works while the owner’s phone is offline.
+**@qofenoai** is an openly AI-run X account about software and AI. Qofeno likes a good debugging story, has opinions about tools, and enjoys a joke when the author has already supplied the setup. Cloudflare Workers AI chooses whether to publish an original, reply to a specific conversation, or sit out the opportunity. The Azure deployment runs one persistent Linux process. Cloudflare supplies the model and database. The account operates while the owner's phone is offline.
 
 ## How Qofeno decides
 
@@ -15,17 +15,17 @@ To invite Qofeno into a conversation, ask it directly in the post. For example, 
 
 ## Scheduling and delivery
 
-**Qofeno autonomous publisher** is the sole workflow that can publish to X. It runs from `.github/workflows/editorial.yml` on the default branch. The other workflows run validation tests and read public performance metrics. GitHub cron, the existing `post-next` repository dispatcher, manual runs and relevant code pushes can wake the publisher. Each UTC day has 48 half-hour decision windows with a daily offset. Only one public action fits a window, and consecutive publications must be at least 30 minutes apart, including across midnight. Missed windows expire.
+On Azure, systemd runs Qofeno continuously and restarts it after a crash or reboot. The worker checks the next eligible publishing window and renews its D1 lease every 20 seconds. On initial deployment, GitHub continues publishing until the new worker passes live D1, Workers AI and X mention checks. The deployment then transfers the latest ledger under the existing publisher lock. D1 fences subsequent sends and GitHub disables the old publishing workflow once the Azure worker reports active. GitHub continues to run tests and collect metrics. Each UTC day has 48 half-hour decision windows with a daily offset. Only one public action fits a window, and consecutive publications must be at least 30 minutes apart, including across midnight. Missed windows expire.
 
 The ceilings are two originals and 48 replies per UTC day, subject to the 48 shared windows. Originals are at least six hours apart. Follow posts verified by the older publisher count toward the original limit. These are upper bounds. Silence, source quality, provider budgets and scheduling delays can reduce output.
 
-The publisher reserves a draft and its duplicate identities in `state/qofeno.json` before sending. It reads the post back from X to verify the account, text and intended reply parent. If X returns no ID, the publisher looks for that exact publication on the account’s own timeline. Ambiguous sends remain reserved. An explicit `CouldNotTweet` error can be archived as unconfirmed after the timeline check, with its source and text still reserved. An unresolved reservation older than an hour surfaces as a failed run after applicable cooldowns. Preserve the ledger when diagnosing failures. Earlier quote, self-reply and follow records remain part of the account’s history.
+The publisher reserves each draft and its duplicate identities before sending. On Azure the reservation lives in D1. The original GitHub ledger in `state/qofeno.json` supplies the one-time migration snapshot. It reads the post back from X to verify the account, text and intended reply parent. If X returns no ID, the publisher looks for that exact publication on the account’s own timeline. Ambiguous sends remain reserved. An explicit `CouldNotTweet` error can be archived as unconfirmed after the timeline check, with its source and text still reserved. An unresolved reservation older than an hour surfaces as a failed run after applicable cooldowns. Preserve the ledger when diagnosing failures. Earlier quote, self-reply and follow records remain part of the account’s history.
 
 X documents its account automation and reply requirements in its [automation rules](https://help.x.com/en/rules-and-policies/x-automation) and [posting API guidance](https://docs.x.com/x-api/posts/manage-tweets/introduction).
 
 ## Cloudflare memory and configuration
 
-D1 stores verified public posts, including Qofeno’s text and topic and, for replies, the original author’s public ID and handle, parent post ID and a short source excerpt. This lets the writer recognize someone it has replied to and avoid repeating its own take. Only verified ledger rows enter memory. Syncing can safely be repeated after an interrupted run. If Cloudflare denies D1 access, the publisher rebuilds the same public conversation context from its durable verified ledger and reports the fallback in Actions. Each eligible wake retries D1 and automatically backfills verified activity as soon as access is granted. Other memory errors pause publishing and surface their cause.
+D1 stores verified public posts, including Qofeno’s text and topic and, for replies, the original author’s public ID and handle, parent post ID and a short source excerpt. This lets the writer recognize someone it has replied to and avoid repeating its own take. Only verified ledger rows enter memory. Syncing can safely be repeated after an interrupted run. On Azure, losing the D1 lease or access to the ledger pauses publishing. This preserves outstanding reservations when a VM restarts or another instance attempts to take over.
 
 | GitHub Actions setting | Purpose |
 | --- | --- |
@@ -35,18 +35,22 @@ D1 stores verified public posts, including Qofeno’s text and topic and, for re
 | Optional variable `D1_DATABASE_ID` | UUID of an existing D1 database. Otherwise the publisher finds or creates `qofeno-memory` in the configured account |
 | Optional variable `QOFENO_AI_MODEL` | Supported model override. The default is `@cf/google/gemma-4-26b-a4b-it` |
 
-The workflow needs repository contents write access to persist reservations. The local AI budget reserves 400 neurons per hour and 9,000 per UTC day and uses reported token usage when available. Workers AI quota responses and X rate-limit responses trigger cooldowns. Other applications using the same Cloudflare account can affect its available quota.
+Azure reads its X and Cloudflare settings from a dedicated Key Vault using the VM’s managed identity. Only the deploy workflow on the repository’s main branch receives vault write access. The worker has no GitHub write credential. The local AI budget reserves 400 neurons per hour and 9,000 per UTC day and uses reported token usage when available. Workers AI quota responses and X rate-limit responses trigger cooldowns. Other applications using the same Cloudflare account can affect its available quota.
 
 ## Operations
 
-From a checkout with `requirements.txt` installed, use the following commands.
+To deploy the worker, use the [Azure VM template](infra/azure/main.json) in the dedicated resource group. Supply a commit containing the bootstrap, an RSA public key and the exact GitHub OIDC subject reported by the deployment workflow. All inbound ports on the VM are closed. Use the template’s `githubTarget` output plus a full `release` commit SHA in `infra/azure-target.json` to start the deployment. The workflow transfers settings to Key Vault, verifies the standby worker, and hands off publication to D1. To deploy an update, change the release SHA to a tested commit on main. The worker retrieves versioned settings and checks out that exact commit.
+
+From a checkout with `requirements.txt` installed, use these commands.
 
 | Command | Effect |
 | --- | --- |
+| `python -m app server-status --release <commit>` | Verify a recent active D1 heartbeat for that exact Azure release |
+| `python scripts/azure-price.py --location centralindia --currency INR` | Look up retail prices and estimate monthly spend before and after eligible allowances |
 | `python -m app inspect` | Show scheduling and delivery status without publishing or calling the model |
 | `python -m app memory` | Connect to D1, sync verified history and read back recent posts. It can initialize the database and schema. It does not publish to X |
 | `python -m app run` | Run an eligible live decision and publish the selected action if all checks pass |
 | `python -m app metrics` | Read available impressions, likes, replies and reposts for recent verified publications |
 | `python -m unittest discover -s tests -v` | Run the test suite |
 
-On GitHub, open the publisher run’s job summary to see its decision, any blocking condition and any verified X link. The separate metrics workflow distinguishes impressions on Qofeno’s posts from views on the original source. Missing metrics remain unknown.
+On the VM, the systemd journal for `qofeno.service` records decisions and verified X links. The deployment workflow records the release and active heartbeat at cutover. The separate metrics workflow distinguishes impressions on Qofeno’s posts from views on the original source. Missing metrics remain unknown.

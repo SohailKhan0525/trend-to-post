@@ -7,17 +7,44 @@ from . import editorial
 from .store import SessionUnavailable, summary
 from .ai_budget import AIPaused
 from .memory import Memory, MemoryAccessDenied, MemoryUnavailable
-from .store import load
+from .store import ledger_mode, load, read_state
 from twikit.errors import InvalidSession
 
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("command",choices=("inspect","inbox","memory","metrics","run"))
+    parser.add_argument("command",choices=("inspect","inbox","memory","metrics","run","serve","server-check","server-status","seed-server"))
     parser.add_argument("--allow-ledger", action="store_true", help="For the memory check, allow verified-history reads if D1 denies access.")
+    parser.add_argument("--release", help="Expected 40-character worker release for server-status.")
+    parser.add_argument("--ready", action="store_true", help="Allow a preflight-verified server waiting for handover.")
     args=parser.parse_args()
     try:
-        if args.command == 'memory':
+        if args.command in ('run', 'inbox'):
+            from .server_ledger import connect
+            ledger = connect()
+            if ledger_mode() == 'd1':
+                ledger.check_lease(os.environ.get('QOFENO_INSTANCE'))
+            elif ledger.active():
+                summary('Azure owns the publication ledger. GitHub skipped this wake.')
+                return
+        if args.command in ('serve', 'server-check'):
+            from . import server
+            asyncio.run(server.serve() if args.command == 'serve' else server.check())
+        elif args.command in ('seed-server', 'server-status'):
+            from .server_ledger import connect
+            ledger = connect()
+            if args.command == 'seed-server':
+                if not ledger.active() and ledger.seed(read_state(), args.release or os.environ.get('QOFENO_RELEASE')):
+                    summary('Transferred the complete GitHub publication ledger and outbox to D1.')
+                else:
+                    summary('Azure already owns the publication ledger.')
+            else:
+                phase = ledger.status(args.release, args.ready)
+                if not phase:
+                    print('No recent healthy heartbeat for the requested release and phase.', file=sys.stderr)
+                    raise SystemExit(1)
+                summary(f'Azure worker release {args.release}: {phase}.')
+        elif args.command == 'memory':
             history = load()['history']
             try:
                 memory = Memory.connect()
@@ -39,6 +66,8 @@ def main():
             asyncio.run(editorial.inspect() if args.command=="inspect" else editorial.run(os.environ.get("GITHUB_EVENT_NAME","manual")))
     except AIPaused as exc:
         summary(f"AI paused until {exc.until.isoformat()}: {exc.reason}")
+        if args.command in ('serve','server-check'):
+            raise SystemExit(1) from None
     except (editorial.DeliveryUnresolved, MemoryUnavailable) as exc:
         print(f"::error::{exc}", file=sys.stderr)
         raise SystemExit(1) from None

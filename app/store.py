@@ -77,8 +77,22 @@ def read_state():
     return validate(json.loads(STATE.read_text(encoding='utf-8')))
 
 
+def ledger_mode():
+    mode = os.environ.get('QOFENO_LEDGER', 'git')
+    if mode not in ('git', 'auto', 'd1'):
+        raise ValueError('Unknown Qofeno publication ledger mode')
+    return mode
+
+
 def load():
-    state = read_state()
+    mode = ledger_mode()
+    if mode != 'git':
+        from .server_ledger import connect
+        ledger = connect()
+        use_server = mode == 'd1' or ledger.active()
+    else:
+        use_server = False
+    state = ledger.load() if use_server else read_state()
     state.setdefault('editorial_history', [])
     state.setdefault('last_attempts', {})
     return state
@@ -95,6 +109,13 @@ def preserve_history(previous, state):
 
 
 def save_and_push(state):
+    mode = ledger_mode()
+    if mode == 'auto':
+        raise ValueError('The automatic ledger view is read-only')
+    if mode == 'd1':
+        from .server_ledger import connect
+        connect().save(state, os.environ.get('QOFENO_INSTANCE'))
+        return
     validate(state)
     preserve_history(read_state(), state)
     # Serialize before touching disk: invalid values cannot damage the last ledger.

@@ -6,6 +6,7 @@ on:
     paths:
       - 'infra/azure-target.json'
       - '.github/workflows/azure-runtime.yml'
+      - 'scripts/azure-price.py'
 permissions: {}
 concurrency:
   group: qofeno-azure-deploy
