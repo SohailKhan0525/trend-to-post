@@ -370,9 +370,13 @@ def ai_feat_and_chore(text):
     mundane = (r'\b(?:argu(?:e|ing)|copy.past\w*|retyp\w*|click\w*|spreadsheets?|semicolons?|'
                r'checkbox(?:es)?|error logs?|passwords?|print(?:er|ing)|wi.fi|bluetooth|save button|'
                r'log[ -]?in|plug in|calendar invite|autocorrect|file name)\b')
+    achievement = (r'\b(?:capable|reason through|simulat\w*|map(?:ped|ping)?|sequenc\w*|'
+                   r'land(?:ed|ing)?|put|sent|send|predict\w*|solv\w*|discover\w*|'
+                   r'built|build|invent\w*|won|win|split|cure|reach\w*)\b')
     # The feat or the annoyance can come first, and two sentences need no "but".
     split = re.split(r'\b(?:yet|but|meanwhile|only to|still|somehow)\b|[.!?;\n]|[—–]', text)
-    return any(re.search(marvel, clause) and any(re.search(mundane, part) for j, part in enumerate(split) if j != i)
+    return any(re.search(marvel, clause) and re.search(achievement, clause)
+               and any(re.search(mundane, part) for j, part in enumerate(split) if j != i)
                for i, clause in enumerate(split))
 
 

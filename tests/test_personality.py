@@ -234,6 +234,7 @@ class PersonalityTests(unittest.TestCase):
             with self.subTest(text=text):
                 self.assertTrue(editor.ai_feat_and_chore(text))
         self.assertFalse(editor.ai_feat_and_chore('A physics paper has equations, but a chart can show uncertainty.'))
+        self.assertFalse(editor.ai_feat_and_chore('The genome parser finished, but its error logs show truncated reads.'))
 
     def test_scheduled_briefs_rotate_and_semantic_review_can_request_a_new_subject(self):
         state = {'actions_inbox_since': NOW.isoformat()}
