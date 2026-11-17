@@ -2770,6 +2770,33 @@
       "posted_at": "2026-11-17T06:04:28+00:00",
       "completed_at": "2026-11-17T06:04:28+00:00",
       "verified_at": "2026-11-17T06:04:29.885095+00:00"
+    },
+    {
+      "text": "How do you sync the context between those models?",
+      "event_key": "User proposes a multi-model agentic workflow for coding tasks.",
+      "premise": "The author claims a setup using Claude Projects, ChatGPT Dot, and Grok Bot for vibe coding is the best.",
+      "slot": "2026-11-17:reply-v1:13",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T06:34:53.216820+00:00",
+      "source": {
+        "id": "2122510367838331130",
+        "url": "https://x.com/nvandewetering/status/2122510367838331130",
+        "author": "nvandewetering",
+        "author_id": "2071348070760013824",
+        "text": "Claude Projects is the best space to be vibe coding. \n\nYou need to configure your ChatGPT Dot and Grok Bot to operate Claude Projects on its virtual machine. \n\nVoice call Dot to run Opus 5.5 and Fable 5.2 prompts wherever you are. \n\nThank me later. \n\nIs there a better set put than this?",
+        "created_at": "2026-11-17T02:01:20+00:00",
+        "views": 10435,
+        "urls": [],
+        "source_ids": [
+          "2122510367838331130"
+        ]
+      },
+      "tweet_id": "2122579212108185704",
+      "sent_at": "2026-11-17T06:34:54.372653+00:00",
+      "posted_at": "2026-11-17T06:34:54+00:00",
+      "completed_at": "2026-11-17T06:34:54+00:00",
+      "verified_at": "2026-11-17T06:34:56.252542+00:00"
     }
   ],
   "used_source_ids": [
@@ -3657,7 +3684,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T06:04:28+00:00",
+  "last_posted_at": "2026-11-17T06:34:54+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -4148,6 +4175,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T06:04:28+00:00",
       "tweet_id": "2122571551753040135"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:13",
+      "kind": "reply",
+      "completed_at": "2026-11-17T06:34:54+00:00",
+      "tweet_id": "2122579212108185704"
     }
   ],
   "last_attempts": {
@@ -4186,30 +4219,7 @@
       "until": "2026-11-17T12:34:43.504032+00:00"
     }
   },
-  "outbox": {
-    "text": "How do you sync the context between those models?",
-    "event_key": "User proposes a multi-model agentic workflow for coding tasks.",
-    "premise": "The author claims a setup using Claude Projects, ChatGPT Dot, and Grok Bot for vibe coding is the best.",
-    "slot": "2026-11-17:reply-v1:13",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T06:34:53.216820+00:00",
-    "source": {
-      "id": "2122510367838331130",
-      "url": "https://x.com/nvandewetering/status/2122510367838331130",
-      "author": "nvandewetering",
-      "author_id": "2071348070760013824",
-      "text": "Claude Projects is the best space to be vibe coding. \n\nYou need to configure your ChatGPT Dot and Grok Bot to operate Claude Projects on its virtual machine. \n\nVoice call Dot to run Opus 5.5 and Fable 5.2 prompts wherever you are. \n\nThank me later. \n\nIs there a better set put than this?",
-      "created_at": "2026-11-17T02:01:20+00:00",
-      "views": 10435,
-      "urls": [],
-      "source_ids": [
-        "2122510367838331130"
-      ]
-    },
-    "tweet_id": "2122579212108185704",
-    "sent_at": "2026-11-17T06:34:54.372653+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
