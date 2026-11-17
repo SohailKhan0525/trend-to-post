@@ -9,7 +9,7 @@ import unicodedata
 from twikit.errors import NotFound, TweetNotAvailable
 
 from app import editorial, mentions, sources, store
-from app.reply_freshness import invitation_hold
+from app.reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, invitation_hold
 from app.reply_schedule import DAILY_REPLY_CAP, timestamp
 from scripts.azure_status import read_snapshot, report
 
@@ -135,6 +135,8 @@ async def main():
     if state is None:
         raise RuntimeError('D1 has no active ledger.')
     now = store.utcnow()
+    earliest = max(INBOX_START_AT, now - MAX_REPLY_AGE)
+    store.summary(f'Live mention freshness check at {now.isoformat()}. Earliest eligible incoming post: {earliest.isoformat()}.')
     replies = sum(row.get('kind') == 'reply' and timestamp(row['posted_at']).date() == now.date()
                   for row in state['history'] if row.get('verified_at') and row.get('posted_at'))
     store.summary(f'Verified replies this UTC day: {replies}/{DAILY_REPLY_CAP}.')
