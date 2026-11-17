@@ -2974,6 +2974,7 @@
     "2122308975182094644",
     "2122315074081857903",
     "2122317669139722405",
+    "2122329233905070188",
     "2122329922786279549",
     "2122336040899711282",
     "2122373063560110320",
@@ -2986,6 +2987,8 @@
     "https://aiforui.dev/skills",
     "https://anthropic.com/research/components-of-agent-memory",
     "https://anthropic.com/research/teaching-ai-to-build-scientific-models",
+    "https://antithesis.com/blog/2026/plugin-launch",
+    "https://antithesis.com/product/signup/teams",
     "https://apps.apple.com/gb/app/gist-it/id6775965170",
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash",
     "https://blog.primeradiant.com/external-sandboxes-for-coding-agents",
@@ -2999,6 +3002,7 @@
     "https://github.com/Alishahryar1/free-claude-code",
     "https://github.com/Einsia/Frontier3D",
     "https://github.com/OnlyTerp/turnpack",
+    "https://github.com/antithesishq/antithesis-plugin",
     "https://github.com/cloudflare/security-audit-skill",
     "https://github.com/garrytan/g-harness-evals/blob/cc8619d977f126ddb6d8f03a4b6cd02c5634c1bc/docs/benchmarks/2026-11-12-fable-5-2-coding-cc322/report.md",
     "https://github.com/t3dotgg/tstack",
@@ -3136,6 +3140,7 @@
     "e958b8976a7fef12420b0057b6b08eadb6f0981a8709cdc4421806959782d996",
     "e9c9ad1ee2183d62ea44864b95aa0d37d60f54a0db8c560d8702659db85f2982",
     "eb961e7522377bc9872e9ea7d7c24047c5d9da9221158c9eeb5f8b784491f343",
+    "ec4e9a554e38d23e0ea019b7969378033afe7914033bfb9f34a70e9eabeb4d32",
     "f0affb88a5465d28dd777a32cb2e844362475121f27a93c77154c15964ad782c",
     "f0f3be5202aa1058e61ef2f8fab622a9f4e3f97a6f1379d3272540d79f8e0bde",
     "f207415db31f3e3c87edc0c3678b1c0e51a6c7ab0edf7d492287bee478917c1a",
@@ -3401,6 +3406,7 @@
     "9bbad97548a7e0413ebb88dbd5691467020611b1fc0d33b28333126a90389a52",
     "9bef9a77ed0198ff62c8ebb509a1685965560f04cb47f44f0b1c913db78454a4",
     "9cc977079f50b58aa9338e77e7f455dd7a4b817b804bf8d61ef846dbcd35343e",
+    "9dd694de4f9b3b896965d2d32bdeea6b42dc81903ea501e77526a3d37f71da2c",
     "9e89b3766db3f15b0ef8d9adc8432c326c328beaafff5596fa049f822588eba4",
     "9eb9c8afbeb49894bcaad2177c25e76cdeff96882627e5125b7f0a8978cd0935",
     "9f4aa8b4d7819936ae0e1a9f50a46ec87c8ee5ae69818ee894593cc21e4139eb",
@@ -3670,10 +3676,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 345,
+    "neurons_reserved": 298,
     "requests": 22,
     "hour": "2026-11-17T05",
-    "hour_neurons_reserved": 74,
+    "hour_neurons_reserved": 27,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4094,7 +4100,32 @@
       "until": "2026-11-17T08:34:57.100237+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Does the agent handle the system setup automatically?",
+    "event_key": "Antithesis releases coding agent plugin and Teams plan.",
+    "premise": "Antithesis launched a plugin for coding agents to automate the end-to-end testing and debugging workflow.",
+    "slot": "2026-11-17:reply-v1:10",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T05:15:02.049992+00:00",
+    "source": {
+      "id": "2122329233905070188",
+      "url": "https://x.com/AntithesisHQ/status/2122329233905070188",
+      "author": "AntithesisHQ",
+      "author_id": "1559998615908671490",
+      "text": "Today we're making it radically easier for developers everywhere to deliver bug-free software. \n\nFirst, we’re launching an Antithesis plugin that gives you native access to Antithesis right from your coding agent. It handles the Antithesis workflow end-to-end, from system setup to test creation to debugging and validating fixes.\n\nHere's the plugin at work. Check out the prompt: \"/antithesis test HashiCorp Raft for bugs.\" Our announcement has more on the results. \n\nAnd now that your coding agent is an expert in Antithesis, our new Teams plan offers low-cost, self-serve access to Antithesis for just $2,999 a month, with an early-access offer of 25% off your first month. \n\nSign up for Teams: https://t.co/aF5CdNFFCz \nAnnouncement: https://t.co/00NbRLFjSW \nPlugin repo: https://t.co/yMnVCdz66Y",
+      "created_at": "2026-11-16T14:01:34+00:00",
+      "views": 10760,
+      "urls": [
+        "https://antithesis.com/product/signup/teams",
+        "https://antithesis.com/blog/2026/plugin-launch",
+        "https://github.com/antithesishq/antithesis-plugin"
+      ],
+      "source_ids": [
+        "2122329233905070188"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
