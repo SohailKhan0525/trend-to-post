@@ -23,8 +23,10 @@ def eligibility(row, state, now, own_id):
     if not editorial.eligible_author(row, state, now, own_id):
         return 'conversation ineligible'
     deferred = state.get('reply_rejections', {}).get(editorial.rejection_key(row))
-    if deferred and timestamp(deferred['until']) > now:
+    if editorial.reply_rejection_active(row, deferred, now):
         return 'source temporarily deferred'
+    if deferred and timestamp(deferred['until']) > now:
+        return 'eligible for review (bounded retry)'
     return 'eligible for review'
 
 
@@ -54,7 +56,8 @@ async def inspect_inbox(connection, state, now, post_id):
     state = {**state, 'mention_preferences': dict(state.get('mention_preferences', {}))}
     mentions.apply_controls(rows, state)
     counts = Counter(eligibility(row, state, now, own_id) for row in rows)
-    store.summary(f'Current inbox sample: {len(rows)} matched, {counts["eligible for review"]} eligible for review, '
+    eligible = counts['eligible for review'] + counts['eligible for review (bounded retry)']
+    store.summary(f'Current inbox sample: {len(rows)} matched, {eligible} eligible for review, '
                   f'{counts["previously reserved source"]} previously reserved.')
     for category, count in sorted(counts.items()):
         store.summary(f'Inbox classification: {category} = {count}')

@@ -52,3 +52,18 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn('absent from inbox sample; post failed', log.call_args.args[0])
         self.assertNotIn('PRIVATE', log.call_args.args[0])
         self.client.create_tweet.assert_not_called()
+
+    async def test_retry_allowed_by_publisher_is_counted_as_eligible(self):
+        row = {'id':'71234567', 'author_id':'81234567', 'author':'reader', 'text':'@qofenoai hello',
+               'origin':'mention', 'intent':'invite', 'created_at':self.now.isoformat(),
+               'source_ids':['71234567'], 'urls':[]}
+        entry = {'until':'2026-11-17T13:00:00Z'}
+        self.state['reply_rejections'] = {status.editorial.rejection_key(row): entry}
+        with patch.object(status.mentions, 'discover', AsyncMock(return_value=[row])), \
+                patch.object(status.editorial, 'reply_rejection_active', return_value=False) as policy, \
+                patch.object(status.store, 'summary') as log:
+            await status.inspect_inbox(self.client, self.state, self.now, '')
+        policy.assert_called_once_with(row, entry, self.now)
+        result = '\n'.join(call.args[0] for call in log.call_args_list)
+        self.assertIn('1 eligible for review', result)
+        self.assertIn('eligible for review (bounded retry) = 1', result)

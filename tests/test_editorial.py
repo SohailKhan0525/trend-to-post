@@ -71,6 +71,42 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
             row['tweet_id'] = tweet_id
         return row
 
+    async def test_legacy_numeric_rejection_retries_once_per_writer_version(self):
+        source = {**SOURCE, 'text': '@qofenoai three hours on one character. What can you do with that?'}
+        state, connection = empty(), self.connection()
+        key = editorial.rejection_key(source)
+        state['reply_rejections'] = {key: {'until': (self.now + timedelta(hours=5)).isoformat()}}
+        with patch.object(editorial.mentions, 'snapshot', return_value=source), \
+                patch.object(editorial.reply_writer, 'generate', side_effect=editorial.reply_writer.RecoverableDraftError('bad count')) as write:
+            await editorial.publish_reply(state, self.slot, connection, self.user, selected=source)
+            self.assertEqual(self.saves[0]['reply_rejections'][key]['retried_version'],
+                             editorial.reply_writer.EDITORIAL_POLICY_VERSION)
+            await editorial.publish_reply(state, self.slot, connection, self.user, selected=source)
+            self.assertEqual(write.call_count, 1)
+            with patch.object(editorial.reply_writer, 'EDITORIAL_POLICY_VERSION', 'newer-policy'):
+                await editorial.publish_reply(state, self.slot, connection, self.user, selected=source)
+                await editorial.publish_reply(state, self.slot, connection, self.user, selected=source)
+                self.assertEqual(write.call_count, 2)
+        connection.create_tweet.assert_not_awaited()
+        self.assertFalse(state.get('outbox'))
+
+    def test_recoverable_retry_delay_preserves_hard_holds_and_unrelated_legacy_entries(self):
+        source = {**SOURCE, 'text': '@qofenoai explain the five hours in that chart?'}
+        five_hours = (self.now + timedelta(hours=5)).isoformat()
+        hold = editorial.draft_format_hold(source, self.now)
+        self.assertTrue(editorial.reply_rejection_active(source, hold, self.now))
+        self.assertFalse(editorial.reply_rejection_active(source, hold, self.now + timedelta(minutes=10)))
+        for candidate, entry in (
+            (source, {'kind': 'review', 'until': five_hours}),
+            (source, {'reason': 'Cloudflare budget', 'until': five_hours}),
+            (source, {'until': (self.now + timedelta(minutes=90)).isoformat()}),
+            (SOURCE, {'until': five_hours}),
+            ({**source, 'origin': 'discovery'}, {'until': five_hours}),
+            (source, {**hold, 'policy_version': 'old', 'not_before': five_hours}),
+        ):
+            with self.subTest(entry=entry):
+                self.assertTrue(editorial.reply_rejection_active(candidate, entry, self.now))
+
     async def test_reply_refreshes_source_twice_and_uses_native_reply_transport(self):
         state, connection = empty(), self.connection()
 

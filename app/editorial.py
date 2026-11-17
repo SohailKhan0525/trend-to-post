@@ -111,6 +111,31 @@ def rejection_key(candidate):
     return reply_writer.fingerprint(candidate['text'] + candidate['id'])
 
 
+def reply_rejection_active(candidate, entry, now):
+    if not entry or timestamp(entry['until']) <= now:
+        return False
+    if candidate.get('origin') != 'mention' or candidate.get('intent') != 'invite':
+        return True
+    if entry.get('not_before') and timestamp(entry['not_before']) > now:
+        return True
+    version = reply_writer.EDITORIAL_POLICY_VERSION
+    if entry.get('kind') == 'draft_format':
+        return (entry.get('retried_version') == version
+                or (entry.get('policy_version') == version and timestamp(entry['retry_at']) > now))
+    # Old ledgers stored both two-hour missing-source and six-hour writer
+    # decisions as just an expiry. Only the unambiguous six-hour window,
+    # with the specific source feature addressed by v10, gets reconsidered.
+    if set(entry) == {'until'} and timestamp(entry['until']) > now + timedelta(hours=2):
+        return not reply_writer.has_spelled_quantity(candidate['text'])
+    return True
+
+
+def draft_format_hold(candidate, now, retried_version=None):
+    return {'kind': 'draft_format', 'policy_version': reply_writer.EDITORIAL_POLICY_VERSION,
+            'retried_version': retried_version, 'retry_at': (now + timedelta(minutes=10)).isoformat(),
+            'until': (timestamp(candidate['created_at']) + sources.MAX_AGE + timedelta(seconds=1)).isoformat()}
+
+
 def delivery_open(state):
     return not any(state.get(key) for key in ('pending', 'pending_reply', 'verification_pending',
                                                'pause_reason', 'follow_pending', 'outbox'))
@@ -390,10 +415,13 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
         if timestamp(value['until']) > now}
     candidates = [candidate for candidate in candidates if candidate.get('origin') == 'mention'
                   and eligible_author(candidate, state, now, own_id)
-                  and rejection_key(candidate) not in rejections]
+                  and not reply_rejection_active(candidate, rejections.get(rejection_key(candidate)), now)
+                  and not set(candidate['source_ids']).intersection(state['used_source_ids'])
+                  and not set(candidate['urls']).intersection(state['used_urls'])]
     deferred = 0
     for _ in range(min(4, len(candidates))):
         candidate = candidates.pop(0)
+        key = rejection_key(candidate)
         if utcnow() >= timestamp(slot['expires_at']):
             reject(state, slot, 'Reply opportunity ended during research.')
             return
@@ -405,6 +433,11 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
             if not unchanged(candidate, fresh):
                 continue
             stage('write contextual reply', candidate['id'])
+            if key in rejections:
+                # Persist consumption before the model call. A crash or a repeated
+                # wake cannot grant a second attempt under the same policy.
+                rejections[key] = draft_format_hold(fresh, utcnow(), reply_writer.EDITORIAL_POLICY_VERSION)
+                save_and_push(state)
             with budget_scope(state, save_and_push, utcnow):
                 draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
@@ -423,17 +456,25 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
             else:
                 until = utcnow() + timedelta(minutes=30)
                 reason = 'Cloudflare timed out before publication'
-            rejections[rejection_key(candidate)] = {'until': until.isoformat(), 'reason': reason}
+            if key in rejections:
+                rejections[key]['not_before'] = until.isoformat()
+            else:
+                rejections[key] = {'until': until.isoformat(), 'reason': reason}
             save_and_push(state)
             summary(f'Deferred source {candidate["id"]} until {until.isoformat()}: {reason}.')
             deferred += 1
             continue
         except (sources.SourceError, NotFound, TweetNotAvailable):
-            rejections[rejection_key(candidate)] = {'until': (utcnow() + timedelta(hours=2)).isoformat()}
+            rejections[key] = {'kind': 'unavailable', 'until': (utcnow() + timedelta(hours=2)).isoformat()}
             summary(f'Skipped unavailable or changed source {candidate["id"]}.')
             continue
+        except reply_writer.RecoverableDraftError as exc:
+            rejections[key] = draft_format_hold(candidate, utcnow(), rejections.get(key, {}).get('retried_version'))
+            summary(f'Draft format rejected for {candidate["id"]}: {str(exc)[:240]}')
+            continue
         except DraftError as exc:
-            rejections[rejection_key(candidate)] = {'until': (utcnow() + timedelta(hours=6)).isoformat()}
+            rejections[key] = {'kind': 'review', 'policy_version': reply_writer.EDITORIAL_POLICY_VERSION,
+                               'until': (utcnow() + timedelta(hours=6)).isoformat()}
             summary(f'Source {candidate["id"]} did not pass reply review: {str(exc)[:240]}')
             continue
         return await send_once(state, slot, draft, connection, user, final)
@@ -529,7 +570,7 @@ async def decide(state, slot, connection, user):
         rejection = cached.get(rejection_key(candidate))
         return (eligible_author(candidate, state, now, own_id)
                 and not used_ids.intersection(candidate['source_ids']) and not used_urls.intersection(candidate['urls'])
-                and (not rejection or timestamp(rejection['until']) <= now))
+                and not reply_rejection_active(candidate, rejection, now))
 
     selected = inbox_shortlist([row for row in incoming if row['intent'] == 'invite' and eligible(row)], own_id)
     invited = [row if row.get('parent_context') else await mentions.thread_context(connection, row, now)

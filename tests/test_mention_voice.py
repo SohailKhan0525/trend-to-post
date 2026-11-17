@@ -107,7 +107,7 @@ class MentionVoiceTests(unittest.TestCase):
                  ('I gave an AI called @qofenoai its own X account. It has opinions about code, remembers '
                   'conversations, and occasionally gets a joke off before I do. If you’ve got a bug that '
                   'took three hours and one character to fix, tell it the story. I want to see what it says.',
-                  'three hours and one character to fix', "My money's on the innocent-looking character.",
+                  'three hours and one character to fix', '3 hours for 1 character. My money is on punctuation.',
                   'The author invites bug stories about a single-character fix.'))
         for incoming, excerpt, output, premise in cases:
             source = {**DIRECT, 'text': incoming}
@@ -121,6 +121,33 @@ class MentionVoiceTests(unittest.TestCase):
                 self.assertEqual(writer.call_args.args[1]['source']['text'], incoming)
             with self.assertRaises(reply_writer.ReviewFormatError):
                 reply_writer.validate_review({**verdict, 'source_evidence': '@qofenoai'}, source)
+
+    def test_spelled_counts_cannot_ground_a_new_unit_version_or_identifier(self):
+        source = {**DIRECT, 'text': '@qofenoai three hours and one character to fix'}
+        draft = {'text': 'A 3-hour hunt for 1 character.', 'event_key': 'A single-character fix',
+                 'premise': 'The author mentions 3 hours and 1 character.'}
+        self.assertEqual(reply_writer.validate(draft, source), draft)
+        for key, value in (('text', 'Wait, 3 characters in 1 hour?'), ('event_key', 'Unrelated case ID 1'),
+                           ('premise', 'Version v3 changed the fix.'), ('text', 'It took 3% less time.'),
+                           ('text', 'One hour for three characters.'), ('text', 'It took 3.0 hours.'),
+                           ('text', 'A negative 3 hours feels odd.'), ('text', 'It costs $3 hours.')):
+            with self.subTest(value=value), self.assertRaisesRegex(reply_writer.RecoverableDraftError, key):
+                reply_writer.validate({**draft, key: value}, source)
+        for phrase in ('twenty-one hours', 'one hundred and one hours', 'minus one hour',
+                       'zero to one hour', 'zero–one hour', 'up to one hour', 'one hour to two hours'):
+            with self.subTest(phrase=phrase), self.assertRaises(reply_writer.RecoverableDraftError):
+                reply_writer.validate({**draft, 'text': 'That costs 1 hour.', 'premise': 'A discussion about time.'},
+                                      {**source, 'text': '@qofenoai it took ' + phrase})
+
+    def test_number_repair_names_the_field_and_rewrites_before_review(self):
+        source = {**DIRECT, 'text': '@qofenoai three hours and one character to fix'}
+        good = {**DRAFT, 'text': 'The innocent character always gets the best lawyer.',
+                'premise': 'The author describes three hours looking for one character.'}
+        verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': 'three hours and one character'}
+        with patch.object(reply_writer, 'complete', side_effect=[{**good, 'event_key': 'Source id 456'},
+                                                                   good, verdict]) as writer:
+            self.assertEqual(reply_writer.generate(source, {}, NOW)['text'], good['text'])
+        self.assertIn('event_key contains an unsupported number (456)', writer.call_args_list[1].args[1]['correction'])
 
     def test_parent_supplies_the_subject_and_is_attributed_in_all_three_calls(self):
         parent = {'id': '222', 'author': 'launch_notes', 'text': 'Our uploader retries a failed chunk 3 times.'}

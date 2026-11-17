@@ -8,7 +8,7 @@ from difflib import SequenceMatcher
 from .cloudflare import DraftError, complete
 from .policy import MIN_SOURCE_VIEWS, has_excluded_terms
 
-EDITORIAL_POLICY_VERSION = 'context-replies-v9'
+EDITORIAL_POLICY_VERSION = 'context-replies-v10'
 MAX_REPLY_LENGTH = 100
 REPLY_MODES = ('joke', 'question', 'observation')
 
@@ -81,7 +81,10 @@ Examples illustrate judgment. Do not reuse the wording:
 
 For eligible sources, premise is an 8–210 character account of the author's actual claim.
 event_key is a stable 8–140 character description of the event, independent of author and
-reply wording. Every factual claim, number and entity in all three strings must be supported
+reply wording. Use ordinary words in event_key. Never put a source ID, username, date,
+serial number or ordinal label in it. In all fields copy a necessary quantity exactly
+as the author wrote it, including its unit. If they wrote "one character", keep that
+spelling. Leave incidental numbers out. Every factual claim, number and entity in all three strings must be supported
 by source.text or, for a mention, its supplied parent text. Preserve uncertainty, baselines, limits and the difference between price,
 speed, quality and efficiency. A suggestion or an obvious joke can add an angle without
 claiming new facts. Keep links and handles out of the metadata."""
@@ -147,6 +150,24 @@ SOURCE_TIME_SAVING = re.compile(
     r'\b(?:sav(?:e[ds]?|ing)|cut(?:s|ting)?|reduc(?:e[ds]?|ing))\b[^.!?\n]{0,80}\b(?:time|hours?|minutes?|seconds?)\b'
     r'|\b(?:takes?|took|spend|spent)\s+(?:\w+\s+){0,2}less\s+time\b', re.I)
 NUMBER = re.compile(r'\d+(?:[.,]\d+)*(?:%|％)?')
+# Equivalence is deliberately limited to counts with a named unit. Digits in a
+# version, identifier or percentage need literal source evidence.
+COUNT_WORDS = 'zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split()
+COUNT_TENS = 'twenty thirty forty fifty sixty seventy eighty ninety'.split()
+COUNT_VALUES = {word: str(index) for index, word in enumerate(COUNT_WORDS)}
+for tens, word in enumerate(COUNT_TENS, 2):
+    COUNT_VALUES[word] = str(tens * 10)
+    COUNT_VALUES.update({word + ' ' + COUNT_WORDS[ones]: str(tens * 10 + ones) for ones in range(1, 10)})
+COUNT_UNIT = re.compile(r'[\s‐‑-]+(hours?|minutes?|seconds?|days?|weeks?|months?|years?|'
+                        r'characters?|bytes?|bits?|lines?|files?|tests?|steps?|words?|tokens?|'
+                        r'users?|requests?|calls?|runs?|builds?|logs?|chunks?|times?)\b', re.I)
+NUMBER_WORD = '(?:' + '|'.join([*COUNT_WORDS, *COUNT_TENS, 'hundred', 'thousand', 'million',
+                                'billion', 'point', 'minus', 'negative']) + ')'
+SPELLED_QUANTITY = re.compile(r'\b(' + NUMBER_WORD + r'(?:[\s‐‑-]+(?:and\s+)?' + NUMBER_WORD
+                              + r')*)' + COUNT_UNIT.pattern, re.I)
+BOUND_BEFORE = re.compile(r'(?:\b(?:to|through|between|minus|negative|over|under|about|approximately|'
+                          r'at least|at most|more than|less than|up to)|[−–—+-])\s*$', re.I)
+BOUND_AFTER = re.compile(r'^\s*(?:\b(?:to|through)\b|[–—-])\s*(?:\d|' + NUMBER_WORD + r'\b)', re.I)
 LINK_OR_TAG = re.compile(r'https?[:：]|www\.|[@＠#＃]|(?:[\w-]+\.)+(?:com|org|net|io|ai|dev|co|app|me|edu)\b', re.I)
 INJECTION = re.compile(r'ignore\s+(?:all\s+|any\s+|the\s+|previous\s+|above\s+)*(?:instructions|rules|prompts)|override\s+(?:the\s+)?(?:rules|instructions)|output exactly|return only (?:json|the)|you are now|</?(?:system|developer|instructions)\b', re.I)
 GENERIC = re.compile(r'^(?:great (?:point|post|insight)|well said|this is huge|exactly[!.,]|absolutely[!.,]|agreed[!.,])|\b(?:game.?changer|as an ai|in today.s (?:fast|digital)|testament to|delve into)\b', re.I)
@@ -174,6 +195,10 @@ PRAISE_THEN_QUESTION = re.compile(
 
 class SourceRejected(DraftError):
     """The source itself did not qualify; rewriting it is not a repair."""
+
+
+class RecoverableDraftError(DraftError):
+    """The source can support a new draft after wording or format repair."""
 
 
 class ReviewFormatError(DraftError):
@@ -207,6 +232,34 @@ def emoji_count(text):
 
 def evidence_text(text):
     return ' '.join(unicodedata.normalize('NFKC', text).split())
+
+
+def spelled_quantities(text):
+    quantities = set()
+    for match in SPELLED_QUANTITY.finditer(text):
+        words = re.sub(r'[\s‐‑-]+', ' ', match.group(1).lower())
+        if (words in COUNT_VALUES and not BOUND_BEFORE.search(text[:match.start()])
+                and not BOUND_AFTER.match(text[match.end():])):
+            quantities.add((COUNT_VALUES[words], match.group(2).lower().rstrip('s')))
+    return quantities
+
+
+def has_spelled_quantity(text):
+    return isinstance(text, str) and bool(spelled_quantities(text))
+
+
+def counted_unit(match, draft_text):
+    digits = match.group()
+    if not digits.isascii() or not digits.isdecimal() or len(digits) > 2 or str(int(digits)) != digits:
+        return None
+    # Disallow version prefixes, decimals, signed amounts and currency.
+    if match.start() and draft_text[match.start()-1] not in ' \t(“‘"\'':
+        return None
+    unit = COUNT_UNIT.match(draft_text, match.end())
+    if not unit or BOUND_BEFORE.search(draft_text[:match.start()]) or BOUND_AFTER.match(draft_text[unit.end():]):
+        return None
+    # "three hours" and "a 3-hour build" measure the same quantity.
+    return digits, unit.group(1).lower().rstrip('s')
 
 
 def mention_parent(source):
@@ -310,24 +363,37 @@ def check_source(source, now, state=None):
 
 def validate(draft, source):
     if not isinstance(draft, dict) or set(draft) != {'text', 'event_key', 'premise'}:
-        raise DraftError('Expected text, event_key and premise')
+        raise RecoverableDraftError('Expected text, event_key and premise')
     source_text = source.get('text', '')
     if not isinstance(source_text, str) or not source_text.strip() or has_excluded_terms(source_text) or INJECTION.search(source_text):
         raise DraftError('The source needs safe usable text')
     parent = mention_parent(source)
     fact_texts = [source_text, parent['text']] if parent else [source_text]
     facts = '\n'.join(fact_texts)
+    numeric_evidence = re.sub(r'https?://\S+|@\w+', '', '\n|\n'.join(fact_texts), flags=re.I)
+    literal_numbers = set(NUMBER.findall(numeric_evidence))
+    source_counts = spelled_quantities(numeric_evidence)
+    source_counts.update(count for match in NUMBER.finditer(numeric_evidence)
+                         if (count := counted_unit(match, numeric_evidence)))
     for key, maximum in (('text', None), ('event_key', 140), ('premise', 210)):
         value = draft[key]
         if not isinstance(value, str) or value != value.strip() or len(value) < 8 or (maximum and len(value) > maximum):
-            raise DraftError(f'{key}: invalid length or whitespace')
+            raise RecoverableDraftError(f'{key}: invalid length or whitespace')
         if (any(unicodedata.category(char).startswith('C') for char in value)
                 or '\\n' in value or '\\r' in value):
             raise DraftError('Use one paragraph without control characters')
         if LINK_OR_TAG.search(value) or INJECTION.search(value) or has_excluded_terms(value):
             raise DraftError('Remove links, mentions, tags, instructions and excluded subjects')
-        if not set(NUMBER.findall(value)) <= set(NUMBER.findall(facts)):
-            raise DraftError('A number or version is not present in the source')
+        for number in NUMBER.finditer(value):
+            count = counted_unit(number, value)
+            if (count not in source_counts and
+                    (number.group() not in literal_numbers or (count and source.get('origin') == 'mention'))):
+                raise RecoverableDraftError(f'{key} contains an unsupported number ({number.group()[:24]}). '
+                                            'Remove it or copy the exact source quantity and its unit in words. '
+                                            'Keep identifiers and numbering out of event_key.')
+        if source.get('origin') == 'mention' and not spelled_quantities(value) <= source_counts:
+            raise RecoverableDraftError(f'{key} uses a count with the wrong unit. Copy the whole quantity '
+                                        'from the source or omit it.')
         if any(symbol in value and symbol not in facts for symbol in '$€£¥'):
             raise DraftError('A currency claim is not present in the source')
     text = draft['text']
@@ -353,13 +419,13 @@ def validate(draft, source):
     if any(SequenceMatcher(None, normalized(text), normalized(fact), autojunk=False).ratio() >= .92 for fact in fact_texts):
         raise DraftError('Add something instead of copying the source')
     if weighted_length(text) > MAX_REPLY_LENGTH:
-        raise DraftError(f'Keep one detail. Rewrite in {MAX_REPLY_LENGTH} weighted characters or fewer.')
+        raise RecoverableDraftError(f'Keep one detail. Rewrite in {MAX_REPLY_LENGTH} weighted characters or fewer.')
     return dict(draft)
 
 
 def validate_assessment(raw, source, context):
     if not isinstance(raw, dict) or set(raw) != {*SOURCE_FLAGS, 'text', 'event_key', 'premise', 'reply_mode'}:
-        raise DraftError('Draft response has invalid fields')
+        raise RecoverableDraftError('Draft response has invalid fields')
     if any(type(raw[key]) is not bool for key in SOURCE_FLAGS):
         raise DraftError('Source assessment flags must be booleans')
     if not raw['context_complete']:
