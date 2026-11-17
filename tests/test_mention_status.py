@@ -146,7 +146,7 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
                               'hour_neurons_reserved': 175, 'neurons_reserved': 345},
                  'ai_pause': {'until': (self.now + timedelta(minutes=1)).isoformat(), 'reason': 'PRIVATE'}}
         line = status.ai_availability(state, self.now)
-        self.assertIn('0/', line)
+        self.assertIn('0 this UTC hour (background pacing threshold 400)', line)
         self.assertIn('345/', line)
         self.assertIn('paused until', line)
         self.assertNotIn('PRIVATE', line)

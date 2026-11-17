@@ -212,6 +212,12 @@ def reply_rejection_active(candidate, entry, now):
         return False
     if candidate.get('origin') != 'mention' or candidate.get('intent') != 'invite':
         return True
+    # Older releases deferred these direct invitations to the next UTC hour.
+    # The hourly research allowance no longer applies to their writer/reviewer.
+    reason = entry.get('reason', '')
+    if (reason == 'AI decision exceeds hourly headroom'
+            or re.fullmatch(r'request needs \d+ estimated neurons, \d+ available this hour', reason)):
+        return False
     if entry.get('not_before') and timestamp(entry['not_before']) > now:
         return True
     version = reply_writer.EDITORIAL_POLICY_VERSION
@@ -561,7 +567,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
                 save_and_push(state)
             if not fresh_invitation(fresh, utcnow(), INBOX_START_AT):
                 continue
-            with budget_scope(state, save_and_push, utcnow):
+            with budget_scope(state, save_and_push, utcnow, direct_mention=bool(slot.get('inbox_id'))):
                 draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
             post = await connection.get_tweet_by_id(candidate['id'])

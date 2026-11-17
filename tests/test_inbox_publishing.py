@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock, patch
 
 from twikit.errors import RequestTimeout, TooManyRequests
 
-from app import editorial, mentions, personality
+from app import ai_budget, editorial, mentions, personality, server
 from app.reply_schedule import DAILY_REPLY_CAP
 from test_editorial import SOURCE, START, empty
 
@@ -134,6 +134,36 @@ class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
         editorial.save_and_push.assert_not_called()
         editorial.Memory.connect.assert_not_called()
         self.connection.get_user_by_screen_name.assert_not_awaited()
+
+    async def test_fresh_mention_can_fund_writer_and_reviewer_after_research_uses_the_hour(self):
+        self.rows = [self.first]
+        until = ai_budget.next_hour(self.now)
+        self.state['ai_usage'] = {'day': self.now.date().isoformat(), 'hour': self.now.strftime('%Y-%m-%dT%H'),
+                                  'neurons_reserved': 900, 'hour_neurons_reserved': 349, 'requests': 14}
+        self.state['reply_rejections'] = {editorial.rejection_key(self.first): {
+            'until': until.isoformat(), 'reason': 'request needs 81 estimated neurons, 51 available this hour'}}
+        delivery = SimpleNamespace(id='505', user=self.user, full_text='Cache miss confirmed.', in_reply_to=self.first['id'])
+        self.connection.get_tweet_by_id.side_effect = [self.first, self.first, delivery]
+        self.connection.create_tweet.return_value = delivery
+
+        def compose(*args, **kwargs):
+            budget = ai_budget.ACTIVE.get()
+            for _ in ('writer', 'reviewer'):
+                budget.reserve('fixture', {})
+            return {'text': delivery.full_text, 'event_key': 'cache miss'}
+
+        with patch.object(mentions, 'snapshot', side_effect=lambda row, now: copy.deepcopy(row)), \
+                patch.object(ai_budget, 'estimate_reservation', return_value=81), \
+                patch.object(editorial.reply_writer, 'generate', side_effect=compose):
+            await editorial.run('inbox')
+        self.connection.create_tweet.assert_awaited_once()
+        self.assertEqual(self.state['ai_usage']['neurons_reserved'], 1062)
+        self.assertEqual(self.state['ai_usage']['hour_neurons_reserved'], 511)
+        self.assertEqual(self.state['history'][-1]['tweet_id'], '505')
+
+        self.state['ai_pause'] = {'reason': ai_budget.LOCAL_HOURLY_PAUSE, 'until': until.isoformat()}
+        self.assertEqual(server.next_work(self.state, self.now), ('inbox', 0))
+        self.assertIsNone(editorial.next_original(editorial.schedule_state(self.state), self.now))
 
     async def test_provider_reset_controls_next_read_and_survives_restart(self):
         reset = self.now + timedelta(minutes=3)

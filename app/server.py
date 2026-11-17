@@ -27,7 +27,7 @@ async def check():
     now = store.utcnow()
     if state.get('x_pause_until') and timestamp(state['x_pause_until']) > now:
         raise RuntimeError('Server preflight deferred for the recorded X cooldown.')
-    if active_pause(state, now):
+    if active_pause(state, now, direct_mention=True):
         raise RuntimeError('Server preflight deferred for the recorded AI cooldown.')
 
     connection = store.client()
@@ -58,7 +58,7 @@ def next_work(state, now, inbox_in=0, original_in=0, last_mode=None):
         return 'inbox', 0
     if not editorial.delivery_open(state):
         return None, None
-    pause = active_pause(state, now)
+    pause = active_pause(state, now, direct_mention=True)
     if pause:
         return None, (pause.until - now).total_seconds()
     midnight = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)

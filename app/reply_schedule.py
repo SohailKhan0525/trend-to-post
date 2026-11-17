@@ -54,7 +54,7 @@ def _retry_ready(state, slot_id, ready):
     return ready
 
 
-def _publication_start(state, now):
+def _publication_start(state, now, *, direct_mention=False):
     if now.tzinfo is None:
         raise ValueError('The scheduling clock must include a timezone')
     if any(state.get(key) for key in ('pending', 'pending_reply', 'follow_pending', 'outbox',
@@ -63,7 +63,7 @@ def _publication_start(state, now):
     earliest = now
     if state.get('x_pause_until'):
         earliest = max(earliest, timestamp(state['x_pause_until']))
-    pause = active_pause(state, now)
+    pause = active_pause(state, now, direct_mention=direct_mention)
     if pause:
         earliest = max(earliest, pause.until)
     return earliest
@@ -78,7 +78,7 @@ def _publications(state):
 
 def reply_ready(state, now):
     """Check actual UTC-day volume and provider holds when an invitation arrives."""
-    if _publication_start(state, now) != now:
+    if _publication_start(state, now, direct_mention=True) != now:
         return False
     day = now.astimezone(timezone.utc).date()
     count = sum(row.get('kind') == 'reply' and at.date() == day

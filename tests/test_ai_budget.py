@@ -54,6 +54,28 @@ class BudgetTests(unittest.TestCase):
     def scope(self):
         return ai_budget.budget_scope(self.state, self.persist, lambda: self.now)
 
+    def test_mentions_respect_provider_and_daily_limits_and_keep_research_paced(self):
+        hour = NOW.strftime('%Y-%m-%dT%H')
+        self.state['ai_usage'] = {'day': NOW.date().isoformat(), 'hour': hour, 'neurons_reserved': 1200,
+                                  'hour_neurons_reserved': ai_budget.HOURLY_LIMIT, 'requests': 10}
+        local_hold = {'reason': ai_budget.LOCAL_HOURLY_PAUSE, 'until': ai_budget.next_hour(NOW).isoformat()}
+        self.state['ai_pause'] = dict(local_hold)
+        with ai_budget.budget_scope(self.state, self.persist, lambda: NOW, direct_mention=True):
+            budget = ai_budget.ACTIVE.get()
+            charged = budget.reserve(MODEL, PAYLOAD)
+            self.assertGreater(charged[0], 0)
+            self.assertEqual(self.saved()['ai_pause'], local_hold)
+            with self.assertRaises(ai_budget.AIPaused):
+                self.budget.reserve(MODEL, PAYLOAD)
+            self.state['ai_pause'] = {**local_hold, 'reason': 'Cloudflare provider quota'}
+            with self.assertRaisesRegex(ai_budget.AIPaused, 'provider quota'):
+                budget.reserve(MODEL, PAYLOAD)
+            self.state['ai_pause'] = dict(local_hold)
+            self.state['ai_usage']['neurons_reserved'] = ai_budget.DAILY_LIMIT
+            with self.assertRaisesRegex(ai_budget.AIPaused, 'daily AI budget'):
+                budget.reserve(MODEL, PAYLOAD)
+            self.assertEqual(self.saved()['ai_pause']['until'], ai_budget.midnight(NOW).isoformat())
+
     def test_reservation_is_on_disk_before_network_request(self):
         def provider(*args, **kwargs):
             saved = self.saved()['ai_usage']

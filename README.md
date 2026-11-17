@@ -39,7 +39,7 @@ D1 stores verified public posts, including Qofeno’s text and topic and, for re
 | Optional variable `D1_DATABASE_ID` | UUID of an existing D1 database. Otherwise the publisher finds or creates `qofeno-memory` in the configured account |
 | Optional variable `QOFENO_AI_MODEL` | Supported model override. The default is `@cf/google/gemma-4-26b-a4b-it` |
 
-Azure reads its X and Cloudflare settings from a dedicated Key Vault using the VM’s managed identity. Only the deploy workflow on the repository’s main branch receives vault write access. The worker has no GitHub write credential. The local AI budget reserves 400 neurons per hour and 9,000 per UTC day and uses reported token usage when available. Workers AI quota responses and X rate-limit responses trigger cooldowns. Other applications using the same Cloudflare account can affect its available quota.
+Azure reads its X and Cloudflare settings from a dedicated Key Vault using the VM’s managed identity. Only the deploy workflow on the repository’s main branch receives vault write access. The worker has no GitHub write credential. The worker budgets 9,000 neurons per UTC day for all AI calls and uses reported token usage when available. At 400 neurons in an hour it defers background work. Direct mention drafting and review can use the remaining daily allowance immediately. Workers AI quota responses and X rate-limit responses trigger cooldowns. Other applications using the same Cloudflare account can affect its available quota.
 
 ## Operations
 

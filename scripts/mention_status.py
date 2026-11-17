@@ -121,9 +121,10 @@ def ai_availability(state, now):
     usage = state.get('ai_usage') or {}
     hourly = usage.get('hour_neurons_reserved', 0) if usage.get('hour') == now.strftime('%Y-%m-%dT%H') else 0
     daily = usage.get('neurons_reserved', 0) if usage.get('day') == now.date().isoformat() else 0
-    pause = active_pause(state, now)
+    pause = active_pause(state, now, direct_mention=True)
     hold = f'paused until {pause.until.isoformat()}' if pause else 'no recorded model cooldown'
-    return f'Workers AI reserved neurons: {hourly}/{HOURLY_LIMIT} this UTC hour, {daily}/{DAILY_LIMIT} today; {hold}.'
+    return (f'Workers AI reserved neurons: {hourly} this UTC hour (background pacing threshold {HOURLY_LIMIT}), '
+            f'{daily}/{DAILY_LIMIT} today. Direct mention drafting: {hold}.')
 
 
 async def inspect_reserved_reply(connection, pending):

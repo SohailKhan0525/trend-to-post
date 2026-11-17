@@ -67,21 +67,22 @@ def _legacy_hourly_headroom(state, now, until):
             and type(daily) is int and hourly <= daily < DAILY_LIMIT)
 
 
-def active_pause(state, now):
+def active_pause(state, now, *, direct_mention=False):
     pause = state.get('ai_pause')
     if not pause:
         return None
     until = datetime.fromisoformat(pause['until'])
     if now < until:
-        if pause['reason'] == LOCAL_HOURLY_PAUSE and _legacy_hourly_headroom(state, now.astimezone(timezone.utc), until):
+        if pause['reason'] == LOCAL_HOURLY_PAUSE and (direct_mention or _legacy_hourly_headroom(state, now.astimezone(timezone.utc), until)):
             return None
         return AIPaused(pause['reason'], until)
     return None
 
 
 class Budget:
-    def __init__(self, state, persist, clock):
+    def __init__(self, state, persist, clock, *, direct_mention=False):
         self.state, self.persist, self.clock = state, persist, clock
+        self.direct_mention = direct_mention
 
     def pause(self, reason, until):
         self.state['ai_pause'] = {'reason': reason, 'until': until.isoformat()}
@@ -90,7 +91,7 @@ class Budget:
 
     def reserve(self, model, payload):
         now = self.clock().astimezone(timezone.utc)
-        pause = active_pause(self.state, now)
+        pause = active_pause(self.state, now, direct_mention=self.direct_mention)
         if pause:
             raise pause
         amount = estimate_reservation(model, payload)
@@ -107,18 +108,22 @@ class Budget:
             raise ValueError('Invalid AI usage counters')
         if usage['neurons_reserved'] + amount > DAILY_LIMIT:
             self.pause('Local daily AI budget reserved; waiting for the next UTC day.', midnight(now))
-        remaining = HOURLY_LIMIT - usage['hour_neurons_reserved']
-        if remaining <= 0:
-            self.pause(LOCAL_HOURLY_PAUSE, next_hour(now))
-        if amount > remaining:
-            reason = f'This AI request needs {amount} reserved neurons; {remaining} remain this UTC hour.'
-            raise AIRequestTooLarge(reason, next_hour(now), amount, remaining)
+        # Fresh direct invitations expire within minutes. Charge every call to
+        # the same daily ledger; use the hourly pacing limit only for research.
+        if not self.direct_mention:
+            remaining = HOURLY_LIMIT - usage['hour_neurons_reserved']
+            if remaining <= 0:
+                self.pause(LOCAL_HOURLY_PAUSE, next_hour(now))
+            if amount > remaining:
+                reason = f'This AI request needs {amount} reserved neurons; {remaining} remain this UTC hour.'
+                raise AIRequestTooLarge(reason, next_hour(now), amount, remaining)
         usage['neurons_reserved'] += amount
         usage['hour_neurons_reserved'] += amount
         usage['requests'] += 1
         usage['model'] = model
         self.state['ai_usage'] = usage
-        self.state.pop('ai_pause', None)
+        if not active_pause(self.state, now):
+            self.state.pop('ai_pause', None)
         # Reserve durably before the request. A crash must not erase spending.
         self.persist(self.state)
         return (amount, model, usage['day'], hour)
@@ -142,8 +147,8 @@ class Budget:
 
 
 @contextmanager
-def budget_scope(state, persist, clock):
-    token = ACTIVE.set(Budget(state, persist, clock))
+def budget_scope(state, persist, clock, *, direct_mention=False):
+    token = ACTIVE.set(Budget(state, persist, clock, direct_mention=direct_mention))
     try:
         yield
     finally:
