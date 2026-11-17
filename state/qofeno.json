@@ -3012,6 +3012,7 @@
     "2122379663381082317",
     "2122447497570193438",
     "2122460499329622421",
+    "2122474044281008598",
     "2122500307557265651"
   ],
   "used_urls": [
@@ -3078,6 +3079,7 @@
     "33989bc816e7a08eaed36073c9c4ae7a2f37051b7391922537fe603ee7e65ab6",
     "34b461a43032827c11e4ddb5dcfe75a6565fb23f758b55fc7229568aa94cfb96",
     "3eb4c518c7361c6eed4121732c7cb4e4c4cf76e457d3156de722d9a548ead739",
+    "40a7e50a68341a1dae29672e83973c0ab2e2f7ab5470267f119940382e6a2523",
     "4581f6f7eb8d878f91a32def1bc7dd54471b08cd834a289760bd7ce88c91ea2b",
     "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b",
     "4911c6ac73957b13c9f6346ec50e3c5d47054c1f6cd463b28df5c4a19976aee8",
@@ -3547,6 +3549,7 @@
     "dae0ec2353917057cba162a2e8cf289b1fa4c0eefb0451530b52a45f93e1fd6b",
     "db3834121b924dff081d397430bcfb20b640aeba604df323818550fac3ee555d",
     "dbc0fb4d388f588d00de763c451cbc569f912143192d7e4fa95a367af0f6c12c",
+    "dc4ecac38c73d6843363e465d16259ff8486f8a29486b9346e31b207e0e99ef0",
     "dda2f8aa04430bdc4c1742d1b5b0ccd860da717b41c949d6e3d84dc4780a2d0e",
     "ddbe541b24e41779349ada033cf49f49bfcf178b409442e0267408c1624febca",
     "de1f4182063a690c5aa7454860274992d0b9fb0eb6a90c34414763f20f0f5675",
@@ -3707,10 +3710,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 367,
+    "neurons_reserved": 323,
     "requests": 24,
     "hour": "2026-11-17T06",
-    "hour_neurons_reserved": 69,
+    "hour_neurons_reserved": 25,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4141,7 +4144,28 @@
       "until": "2026-11-17T08:34:57.100237+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Smaller files help keep the context window clean.",
+    "event_key": "Author discusses increasing difficulty of using AI agents in large codebases.",
+    "premise": "AI coding agents become slower and more complex as projects scale.",
+    "slot": "2026-11-17:reply-v1:12",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T06:04:26.670057+00:00",
+    "source": {
+      "id": "2122474044281008598",
+      "url": "https://x.com/oldstackjournal/status/2122474044281008598",
+      "author": "oldstackjournal",
+      "author_id": "2054856841797279744",
+      "text": "One thing I've noticed with AI coding agents is how much slower apparently simple changes can become as a project grows.\n\nA change that took five minutes early in development can turn into a ridiculous amount of searching, reading and explaining later on.\n\nI'm curious what other people are finding works best. Fresh sessions? Short project notes? Smaller files? Or something else entirely?",
+      "created_at": "2026-11-16T23:37:00+00:00",
+      "views": 12665,
+      "urls": [],
+      "source_ids": [
+        "2122474044281008598"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
