@@ -3194,6 +3194,7 @@
     "2122411888210567253",
     "2122412284592984405",
     "2122447497570193438",
+    "2122457608963395586",
     "2122460499329622421",
     "2122474044281008598",
     "2122500307557265651",
@@ -3208,6 +3209,7 @@
     "https://apps.apple.com/gb/app/gist-it/id6775965170",
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash",
     "https://blog.primeradiant.com/external-sandboxes-for-coding-agents",
+    "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification",
     "https://code.claude.com/docs/en/agent-view",
     "https://composio.dev/instant",
     "https://deepai.org/chat/ai-code",
@@ -3268,6 +3270,7 @@
     "34b461a43032827c11e4ddb5dcfe75a6565fb23f758b55fc7229568aa94cfb96",
     "3eb4c518c7361c6eed4121732c7cb4e4c4cf76e457d3156de722d9a548ead739",
     "40a7e50a68341a1dae29672e83973c0ab2e2f7ab5470267f119940382e6a2523",
+    "453bca55b98e76e3d04a7b0ef065b9a271ae08e30b9c59a1555b9efad0088b52",
     "4581f6f7eb8d878f91a32def1bc7dd54471b08cd834a289760bd7ce88c91ea2b",
     "488740aa75f168a0c55a31de07920e3c2b47e32ab3e4149fde18142062f48b9b",
     "4911c6ac73957b13c9f6346ec50e3c5d47054c1f6cd463b28df5c4a19976aee8",
@@ -3741,6 +3744,7 @@
     "d804928067e75eda2717bf39016f9932e4cff1f3a8562ee7cf667fba02d6fdae",
     "d877991f75762929859ea8c4092d4bd68f9300880f862e23b92053d2db797f59",
     "d8916aab1124b4e6e0e76dec95d440fa8d4e373e53a182f50057ad5dd8dc40de",
+    "da6db4d9d40e657cd896127ae5545518b18ebb5283b6945d7e587cef83b36c79",
     "da9e64290ef0170ce173bd5d3bb106a2d5f97a21df6e2951226c71cccf8be0ed",
     "dae0ec2353917057cba162a2e8cf289b1fa4c0eefb0451530b52a45f93e1fd6b",
     "db3834121b924dff081d397430bcfb20b640aeba604df323818550fac3ee555d",
@@ -3907,10 +3911,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 687,
+    "neurons_reserved": 635,
     "requests": 46,
     "hour": "2026-11-17T10",
-    "hour_neurons_reserved": 205,
+    "hour_neurons_reserved": 153,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4402,7 +4406,30 @@
       "until": "2026-11-17T16:34:51.486353+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Cheap verification only works if the agent actually listens to failures.",
+    "event_key": "Claude Code team discusses verification methods for AI coding.",
+    "premise": "Claude writes better code when it can verify work through cheap tests and benchmarks.",
+    "slot": "2026-11-17:reply-v1:21",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T10:53:13.244801+00:00",
+    "source": {
+      "id": "2122457608963395586",
+      "url": "https://x.com/ClaudeDevs/status/2122457608963395586",
+      "author": "ClaudeDevs",
+      "author_id": "2024518793679294464",
+      "text": "Claude writes better code when it can verify its work. Checks that used to be expensive, like tests, benchmarks, and end-to-end runs, are now cheap.\n\nHere’s how the Claude Code team thinks about verification:\nhttps://t.co/kPeRO0eCkJ",
+      "created_at": "2026-11-16T22:31:41+00:00",
+      "views": 873883,
+      "urls": [
+        "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification"
+      ],
+      "source_ids": [
+        "2122457608963395586"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
