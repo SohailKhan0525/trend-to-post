@@ -1,8 +1,10 @@
 """Inspect the live X inbox and D1 ledger without posting or changing preferences."""
 import asyncio
 from collections import Counter
+import html
 import os
 import re
+import unicodedata
 
 from twikit.errors import NotFound, TweetNotAvailable
 
@@ -53,6 +55,22 @@ async def inspect_inbox(connection, state, now, post_id):
     own_id = str(user.id)
     if not own_id.isascii() or not own_id.isdigit() or user.screen_name.casefold() != store.ACCOUNT:
         raise store.SessionUnavailable()
+    pending = state.get('outbox') or {}
+    if pending.get('kind') == 'reply' and re.fullmatch(r'[1-9][0-9]{0,19}', str(pending.get('tweet_id', ''))):
+        post = await connection.get_tweet_by_id(pending['tweet_id'])
+        body = getattr(post, 'full_text', None) or getattr(post, 'text', '')
+        native = (getattr(post, '_data', {}) or {}).get('legacy') or {}
+        def identity(text):
+            return unicodedata.normalize('NFC', html.unescape(text))
+        visible = mentions._reply_text(body, native)
+        exact_author = str(getattr(getattr(post, 'user', None), 'id', '')) == pending.get('author_id')
+        exact_parent = str(getattr(post, 'in_reply_to', '') or '') == pending['source']['id']
+        wanted = identity(pending['text'])
+        store.summary(f'Reserved X reply readback: ID matches={str(post.id) == pending["tweet_id"]}, '
+                      f'author matches={exact_author}, parent matches={exact_parent}, '
+                      f'full text matches={identity(body) == wanted}, visible text matches={identity(visible) == wanted}, '
+                      f'native text range present={"display_text_range" in native}, '
+                      f'reservation verified={editorial.matches_publication(pending, post)}.')
     rows = await mentions.discover(connection, now, used_source_ids=(), own_history=state['history'], own_user_id=own_id)
     # Evaluate commands exactly as the publisher would, entirely in this local copy.
     state = {**state, 'mention_preferences': dict(state.get('mention_preferences', {}))}
