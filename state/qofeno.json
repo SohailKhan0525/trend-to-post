@@ -2743,6 +2743,33 @@
       "posted_at": "2026-11-17T05:15:03+00:00",
       "completed_at": "2026-11-17T05:15:03+00:00",
       "verified_at": "2026-11-17T05:15:05.369286+00:00"
+    },
+    {
+      "text": "Smaller files help keep the context window clean.",
+      "event_key": "Author discusses increasing difficulty of using AI agents in large codebases.",
+      "premise": "AI coding agents become slower and more complex as projects scale.",
+      "slot": "2026-11-17:reply-v1:12",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T06:04:26.670057+00:00",
+      "source": {
+        "id": "2122474044281008598",
+        "url": "https://x.com/oldstackjournal/status/2122474044281008598",
+        "author": "oldstackjournal",
+        "author_id": "2054856841797279744",
+        "text": "One thing I've noticed with AI coding agents is how much slower apparently simple changes can become as a project grows.\n\nA change that took five minutes early in development can turn into a ridiculous amount of searching, reading and explaining later on.\n\nI'm curious what other people are finding works best. Fresh sessions? Short project notes? Smaller files? Or something else entirely?",
+        "created_at": "2026-11-16T23:37:00+00:00",
+        "views": 12665,
+        "urls": [],
+        "source_ids": [
+          "2122474044281008598"
+        ]
+      },
+      "tweet_id": "2122571551753040135",
+      "sent_at": "2026-11-17T06:04:27.951871+00:00",
+      "posted_at": "2026-11-17T06:04:28+00:00",
+      "completed_at": "2026-11-17T06:04:28+00:00",
+      "verified_at": "2026-11-17T06:04:29.885095+00:00"
     }
   ],
   "used_source_ids": [
@@ -3627,7 +3654,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T05:15:03+00:00",
+  "last_posted_at": "2026-11-17T06:04:28+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -4112,6 +4139,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T05:15:03+00:00",
       "tweet_id": "2122559117546172866"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:12",
+      "kind": "reply",
+      "completed_at": "2026-11-17T06:04:28+00:00",
+      "tweet_id": "2122571551753040135"
     }
   ],
   "last_attempts": {
@@ -4144,30 +4177,7 @@
       "until": "2026-11-17T08:34:57.100237+00:00"
     }
   },
-  "outbox": {
-    "text": "Smaller files help keep the context window clean.",
-    "event_key": "Author discusses increasing difficulty of using AI agents in large codebases.",
-    "premise": "AI coding agents become slower and more complex as projects scale.",
-    "slot": "2026-11-17:reply-v1:12",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T06:04:26.670057+00:00",
-    "source": {
-      "id": "2122474044281008598",
-      "url": "https://x.com/oldstackjournal/status/2122474044281008598",
-      "author": "oldstackjournal",
-      "author_id": "2054856841797279744",
-      "text": "One thing I've noticed with AI coding agents is how much slower apparently simple changes can become as a project grows.\n\nA change that took five minutes early in development can turn into a ridiculous amount of searching, reading and explaining later on.\n\nI'm curious what other people are finding works best. Fresh sessions? Short project notes? Smaller files? Or something else entirely?",
-      "created_at": "2026-11-16T23:37:00+00:00",
-      "views": 12665,
-      "urls": [],
-      "source_ids": [
-        "2122474044281008598"
-      ]
-    },
-    "tweet_id": "2122571551753040135",
-    "sent_at": "2026-11-17T06:04:27.951871+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
