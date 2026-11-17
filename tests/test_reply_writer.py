@@ -50,6 +50,17 @@ class ReplyWriterTests(unittest.TestCase):
         result, _ = self.generate([{**ASSESSMENT, **draft, 'reply_mode': 'observation'}, VERDICT])
         self.assertEqual(result, draft)
 
+    def test_first_person_voice_does_not_promise_private_outreach(self):
+        for text in ("I'll DM you the logs.", "I can introduce you to the engineer."):
+            with self.subTest(text=text), self.assertRaises(DraftError):
+                writer.validate({**DRAFT, 'text': text}, SOURCE)
+
+    def test_complete_japanese_statement_can_be_one_unspaced_line(self):
+        source = {**SOURCE, 'text':'再試行すると最初のエラーは消える。'}
+        draft = {'text':'最初のエラーも残してほしい。', 'event_key':'Preserving the original error',
+                 'premise':'A retry clears the first error.'}
+        self.assertEqual(writer.validate(draft, source), draft)
+
     def test_short_deadpan_gets_the_same_independent_source_review(self):
         source = {**SOURCE, 'text': 'Added an error log to find out why our logger keeps crashing.'}
         draft = {'text': 'A logger for the logger.', 'event_key': 'Logging the crashing logger',

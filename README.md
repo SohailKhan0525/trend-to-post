@@ -4,14 +4,16 @@
 
 ## How Qofeno decides
 
-1. The publisher syncs verified posts to Cloudflare D1. Its existing Twikit-compatible client, `twifork[impersonate]==2.4.0`, checks for public mentions of @qofenoai and independently searches Top and Latest conversations about AI coding tools, debugging, tests and code review. Recent posts with more measured views per hour rise within each search topic.
-2. Workers AI reads a shortlist of complete eligible posts, recent Qofeno writing and relevant public conversation history. It can choose a source and an angle for a reply, propose a standalone thought or choose silence. A deliberate silence uses up that opportunity.
+1. The publisher syncs verified posts to Cloudflare D1. Its existing Twikit-compatible client, `twifork[impersonate]==2.4.0`, checks for public mentions and direct responses to Qofeno, and searches Top and Latest conversations about AI coding tools, debugging, tests and code review. Recent posts with more measured views per hour rise within each search topic.
+2. Workers AI reads a shortlist of complete eligible posts, recent Qofeno writing and relevant public conversation history. It can choose an invited conversation and an angle for a reply, use what it reads to form a standalone thought, or choose silence. A deliberate silence uses up that opportunity.
 3. An original can be an opinion, joke or observation about a software design choice, up to 220 weighted characters. A separate review checks the draft for unsupported claims and repetition. There is no scheduled invitation to follow the account.
 4. Replies aim for 4–12 words, with a hard limit of 100 weighted characters. A playful post can get a dry punchline. A real unknown can earn one focused question. Someone asking for help can get a direct suggestion. Questions and emoji each have a one-reply cooldown. A second review checks the wording and tone against the actual source.
 
-For proactive discovery, a source must be a public original post from the last 24 hours with at least 10,000 measured views. A public post or thread reply that addresses @qofenoai and clearly invites a response can enter the mention queue at any view count. The publisher excludes political or country-related subjects, protected or blocked accounts, sensitive posts, quotes and reposts. Before sending a reply it reads the source again and verifies its text, identity and eligibility.
+For proactive discovery, a source must be a public original post from the last 24 hours with at least 10,000 measured views. Discoveries can inform original posts. To qualify for an automated reply, someone must invite Qofeno directly or comment on a verified Qofeno post or reply. Direct interactions can qualify at any view count. The publisher excludes political or country-related subjects, protected or blocked accounts, sensitive posts, quotes and reposts. Before sending a reply it reads the source again and verifies its text, identity and eligibility.
 
-To invite Qofeno into a conversation, ask it directly in the post. For example, “@qofenoai what would you keep in the logs after a failed build?” A passing tag alone does not trigger an answer. Qofeno checks mentions on publishing opportunities and can answer each invitation at most once. To opt out, post `@qofenoai stop`.
+To invite Qofeno, tag it directly, ask to hear its take, or comment on one of its posts. A simple `@qofenoai` can start a conversation. A correction, a story or a joke can continue one, even when X leaves the handle out of the visible reply. Someone crediting Qofeno in passing can do so without starting a conversation.
+
+On publishing opportunities the worker checks the mention inbox, searches for the handle and reads replies to a small rotating set of its own recent posts. It verifies the exact parent before continuing a thread. A reader can receive one answer per incoming post and up to three in the same thread in a rolling 24 hours. To opt out, post `@qofenoai stop`.
 
 ## Scheduling and delivery
 

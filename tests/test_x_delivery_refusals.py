@@ -17,7 +17,8 @@ class NativePostingRefusalTests(unittest.IsolatedAsyncioTestCase):
         self.user = SimpleNamespace(screen_name=editorial.ACCOUNT, id='123')
         self.source = {'id': '456', 'source_ids': ['456'], 'author_id': '789', 'author': 'Dev',
                        'url': 'https://x.com/Dev/status/456', 'urls': ['https://example.com/runner'],
-                       'views': 14000, 'text': 'The test runner retries the failing step in isolation.',
+                       'views': 14, 'text': '@qofenoai how should my test runner retry failed steps?',
+                       'origin': 'mention', 'intent': 'invite', 'parent_id': None, 'parent_author': None,
                        'created_at': self.now.isoformat()}
         self.draft = {'event_key': 'isolated retries for failing tests', 'text': 'Keep the first log beside the retry.'}
 

@@ -6,11 +6,19 @@ on:
         description: Read the Azure worker heartbeat and publication ledger from D1 only
         type: boolean
         default: false
+      check_mentions:
+        description: With status_only, also inspect the live X inbox without sending
+        type: boolean
+        default: false
+      mention_post_id:
+        description: Optional numeric X post ID to trace during a mention check
+        type: string
+        required: false
   schedule:
     - cron: '17 6 * * *'
   push:
     branches: [main]
-    paths: ['app/metrics.py', 'scripts/azure_status.py', '.github/workflows/metrics.yml']
+    paths: ['app/metrics.py', 'scripts/azure_status.py', 'scripts/mention_status.py', '.github/workflows/metrics.yml']
 permissions:
   contents: read
 concurrency:
@@ -25,19 +33,45 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           ref: main
+          fetch-depth: 2
+      - name: Identify a changed mention diagnostic on push
+        if: github.event_name == 'push'
+        id: changes
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.event.after }}
+        run: |
+          for revision in "$BEFORE" "$AFTER"; do
+            if ! git cat-file -e "$revision^{commit}" 2>/dev/null; then
+              git fetch --depth=1 origin "$revision"
+            fi
+          done
+          if git diff --name-only "$BEFORE" "$AFTER" -- scripts/mention_status.py | grep -Fxq scripts/mention_status.py; then
+            echo "mentions=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.12'
       - run: python -m pip install -r requirements.txt
+      - name: Check the live mention inbox and ledger without sending
+        if: (inputs.status_only && inputs.check_mentions) || steps.changes.outputs.mentions == 'true'
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID }}
+          X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
+          X_CT0: ${{ secrets.X_CT0 }}
+          MENTION_POST_ID: ${{ inputs.mention_post_id }}
+        run: python -m scripts.mention_status
       - name: Read the Azure worker heartbeat and latest decision from D1
-        if: inputs.status_only || (github.event_name == 'push' && hashFiles('infra/azure-target.json') != '')
+        if: (inputs.status_only && !inputs.check_mentions) || (github.event_name == 'push' && steps.changes.outputs.mentions != 'true' && hashFiles('infra/azure-target.json') != '')
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
           D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID }}
         run: python -m scripts.azure_status
       - name: Read actual own-post performance
-        if: ${{ !inputs.status_only }}
+        if: ${{ !inputs.status_only && steps.changes.outputs.mentions != 'true' }}
         env:
           QOFENO_LEDGER: auto
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,5 +1,5 @@
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from unittest.mock import patch
 
 from app import personality, reply_writer
@@ -61,6 +61,67 @@ class MentionVoiceTests(unittest.TestCase):
         with self.assertRaises(reply_writer.ReviewFormatError):
             reply_writer.validate_review(verdict, {**direct, 'origin': 'discovery'})
 
+    def test_standalone_tag_and_short_greeting_receive_grounded_acknowledgements(self):
+        for incoming, excerpt, ping in (('@qofenoai', '@qofenoai', True), ('@QofenoAI 👋', '@QofenoAI 👋', True),
+                                        ('@qofenoai hi', 'hi', False), ('hi @qofenoai', 'hi', False)):
+            source = {**DIRECT, 'text': incoming}
+            choice = {'action': 'reply', 'source_id': source['id'], 'angle': 'Acknowledge the person who called.'}
+            draft = {**DRAFT, 'text': "Yep, I'm here.", 'premise': 'Someone called for Qofeno.'}
+            verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': excerpt}
+            with self.subTest(incoming=incoming), patch.object(personality, 'complete', return_value=choice) as planner, \
+                    patch.object(reply_writer, 'complete', side_effect=[draft, verdict]) as writer:
+                plan = personality.choose([source], {}, {}, NOW, ['original', 'reply'])
+                self.assertEqual(plan, choice)
+                self.assertEqual(reply_writer.generate(source, {}, NOW, angle=plan['angle'])['text'], draft['text'])
+                self.assertEqual(planner.call_args.args[1]['allowed_actions'], ['reply', 'silent'])
+                self.assertEqual(writer.call_count, 2)
+                self.assertEqual(writer.call_args.args[1]['source'].get('direct_ping', False), ping)
+            for wrong in ('@another', 'hey', 'i'):
+                with self.subTest(wrong=wrong), self.assertRaises(reply_writer.ReviewFormatError):
+                    reply_writer.validate_review({**verdict, 'source_evidence': wrong}, source)
+
+    def test_tag_to_parent_cites_parent_and_repeat_standalone_ping_waits(self):
+        source = {**DIRECT, 'text': '@qofenoai'}
+        parent = {'id': '222', 'author': 'uploader', 'text': 'My progress bar runs backwards when a chunk retries.'}
+        on_parent = {**source, 'parent_id': '222', 'parent_author': 'uploader', 'parent_context': parent}
+        verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': 'runs backwards when a chunk retries'}
+        reply_writer.validate_review(verdict, on_parent)
+        with self.assertRaises(reply_writer.ReviewFormatError):
+            reply_writer.validate_review({**verdict, 'source_evidence': source['text']}, on_parent)
+        with self.assertRaises(reply_writer.SourceRejected):
+            reply_writer.check_source({**on_parent, 'parent_context': None}, NOW)
+        with self.assertRaises(reply_writer.ReviewFormatError):
+            reply_writer.validate_review({**verdict, 'source_evidence': source['text']},
+                                         {**on_parent, 'parent_context': None})
+        state = {'history': [{'kind': 'reply', 'source': {**source, 'id': '400'}, 'verified_at': NOW.isoformat(),
+                              'posted_at': (NOW-timedelta(hours=1)).isoformat()}]}
+        with patch.object(personality, 'complete') as model:
+            self.assertEqual(personality.choose([source], {}, state, NOW, ['reply'])['action'], 'silent')
+            model.assert_not_called()
+        reply_writer.check_source(on_parent, NOW, state)
+        reply_writer.check_source(source, NOW, {'history': [{**state['history'][0], 'verified_at': None}]})
+
+    def test_declarative_address_and_launch_invitation_do_not_invent_an_anecdote(self):
+        cases = (('@qofenoai my tests pass only when the clock is frozen.', 'the clock is frozen',
+                  'The clock sounds like a test dependency.', 'The reader describes clock-sensitive tests.'),
+                 ('I gave an AI called @qofenoai its own X account. It has opinions about code, remembers '
+                  'conversations, and occasionally gets a joke off before I do. If you’ve got a bug that '
+                  'took three hours and one character to fix, tell it the story. I want to see what it says.',
+                  'three hours and one character to fix', "My money's on the innocent-looking character.",
+                  'The author invites bug stories about a single-character fix.'))
+        for incoming, excerpt, output, premise in cases:
+            source = {**DIRECT, 'text': incoming}
+            choice = {'action': 'reply', 'source_id': source['id'], 'angle': premise}
+            draft = {**DRAFT, 'text': output, 'premise': premise, 'event_key': premise}
+            verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': excerpt}
+            with self.subTest(incoming=incoming), patch.object(personality, 'complete', return_value=choice), \
+                    patch.object(reply_writer, 'complete', side_effect=[draft, verdict]) as writer:
+                self.assertEqual(personality.choose([source], {}, {}, NOW, ['original', 'reply']), choice)
+                self.assertEqual(reply_writer.generate(source, {}, NOW, angle=choice['angle'])['text'], output)
+                self.assertEqual(writer.call_args.args[1]['source']['text'], incoming)
+            with self.assertRaises(reply_writer.ReviewFormatError):
+                reply_writer.validate_review({**verdict, 'source_evidence': '@qofenoai'}, source)
+
     def test_parent_supplies_the_subject_and_is_attributed_in_all_three_calls(self):
         parent = {'id': '222', 'author': 'launch_notes', 'text': 'Our uploader retries a failed chunk 3 times.'}
         direct = {**DIRECT, 'text': '@qofenoai Can you explain this?', 'parent_author': 'launch_notes',
@@ -101,3 +162,27 @@ class MentionVoiceTests(unittest.TestCase):
         with self.assertRaises(reply_writer.ReviewFormatError):
             reply_writer.validate_review({**dict.fromkeys(reply_writer.FLAGS, True),
                                           'source_evidence': 'build retains 8 logs'}, source)
+
+    def test_verified_own_parent_and_incoming_correction_are_separate_speakers(self):
+        parent = {'id': '222', 'author': 'qofenoai', 'author_id': '999',
+                  'text': 'I would keep the first crash log.'}
+        source = {**DIRECT, 'parent_id': '222', 'parent_author': 'qofenoai',
+                  'text': 'The retry already keeps the first log. It loses the second.', 'parent_context': parent}
+        choice = {'action':'reply', 'source_id':source['id'], 'angle':'Accept the correction about the second crash.'}
+        draft = {**DRAFT, 'text':'Then the second crash deserves a log too.',
+                 'premise':'The reader says the retry loses its second log.'}
+        verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence':'It loses the second.'}
+        with patch.object(personality, 'complete', return_value=choice) as planner, \
+             patch.object(reply_writer, 'complete', side_effect=[draft, verdict]) as writer:
+            self.assertEqual(personality.choose([source], {}, {}, NOW, ['reply']), choice)
+            self.assertEqual(reply_writer.generate(source, {}, NOW)['text'], draft['text'])
+        payloads = [planner.call_args.args[1]['conversations'][0], *(c.args[1]['source'] for c in writer.call_args_list)]
+        for message in payloads:
+            self.assertEqual(message['conversation_role'], 'reply_to_qofeno')
+            self.assertEqual((message['author'], message['text']), (source['author'], source['text']))
+            self.assertEqual((message['parent_context']['author'], message['parent_context']['text']),
+                             ('qofenoai', parent['text']))
+        for altered in ({**source, 'parent_context': None}, {**source, 'parent_context': {**parent, 'author_id': None}}):
+            with self.subTest(parent=altered['parent_context']), patch.object(personality, 'complete') as model:
+                self.assertEqual(personality.choose([altered], {}, {}, NOW, ['reply'])['action'], 'silent')
+                model.assert_not_called()

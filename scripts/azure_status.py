@@ -49,7 +49,7 @@ def report(state, now):
             f'Pending delivery: {bool(pending)}', upcoming_opportunity(state, now)]
 
 
-def main():
+def read_snapshot():
     release = json.loads(Path('infra/azure-target.json').read_text())['release']
     account = os.environ['CLOUDFLARE_ACCOUNT_ID'].strip()
     if not re.fullmatch('[a-f0-9]{40}', release) or not re.fullmatch('[a-fA-F0-9]{32}', account):
@@ -67,8 +67,12 @@ def main():
     seen = datetime.fromtimestamp(lease[0]['seen'],timezone.utc).isoformat() if lease else 'none'
     active = bool(head and lease and lease[0]['fresh'] and phase == 'active')
     summary(f'Azure worker {release}: {phase}; fresh active receipt={active}; heartbeat={seen}')
-    if head:
-        state = unpack({row['page']: row['body'] for row in pages})
+    return active, unpack({row['page']: row['body'] for row in pages}) if head else None
+
+
+def main():
+    active, state = read_snapshot()
+    if state is not None:
         for line in report(state, datetime.now(timezone.utc)):
             summary(line)
     return 0 if active else 1

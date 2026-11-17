@@ -12,7 +12,8 @@ from app.reply_schedule import daily_plan, timestamp
 START = datetime(2026, 11, 13, tzinfo=timezone.utc)
 SOURCE = {
     'id': '111', 'author': 'Acme', 'author_id': '222',
-    'text': 'Our code editor can now explain changes across a repository.',
+    'text': '@qofenoai how would you test our editor across a whole repository?',
+    'origin': 'mention', 'intent': 'invite', 'parent_id': None, 'parent_author': None,
     'created_at': START.isoformat(), 'views': 12345,
     'url': 'https://x.com/Acme/status/111',
     'urls': ['https://acme.example/blog/editor'], 'source_ids': ['111', '110'],
@@ -81,8 +82,8 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
             return SimpleNamespace(id='333')
 
         connection.create_tweet.side_effect = send
-        with patch.object(editorial.sources, 'discover', AsyncMock(return_value=[SOURCE])), \
-             patch.object(editorial.sources, 'snapshot', return_value=SOURCE) as snapshot, \
+        with patch.object(editorial, 'read_inbox', AsyncMock(return_value=[SOURCE])), \
+             patch.object(editorial.mentions, 'snapshot', return_value=SOURCE) as snapshot, \
              patch.object(editorial.reply_writer, 'generate', return_value=DRAFT):
             await editorial.publish_reply(state, self.slot, connection, self.user)
         self.assertEqual(snapshot.call_count, 2)
@@ -96,15 +97,15 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn(editorial.reply_writer.fingerprint(DRAFT['text']), self.saved['used_texts'])
 
     async def test_source_changed_or_rejected_during_refresh_is_not_sent(self):
-        for changed_at in ('first', 'second', 'under_views'):
+        for changed_at in ('first', 'second', 'unavailable'):
             with self.subTest(changed_at=changed_at):
                 state, connection = empty(), self.connection()
                 changed = {**SOURCE, 'text': 'Edited source text'}
                 results = ([changed] if changed_at == 'first' else [SOURCE, changed])
-                if changed_at == 'under_views':
-                    results = [editorial.sources.SourceError('below_min_views')]
-                with patch.object(editorial.sources, 'discover', AsyncMock(return_value=[SOURCE])), \
-                     patch.object(editorial.sources, 'snapshot', side_effect=results), \
+                if changed_at == 'unavailable':
+                    results = [editorial.sources.SourceError('public source unavailable')]
+                with patch.object(editorial, 'read_inbox', AsyncMock(return_value=[SOURCE])), \
+                     patch.object(editorial.mentions, 'snapshot', side_effect=results), \
                      patch.object(editorial.reply_writer, 'generate', return_value=DRAFT) as generate:
                     await editorial.publish_reply(state, self.slot, connection, self.user)
                 connection.create_tweet.assert_not_awaited()
@@ -127,8 +128,8 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
             with self.subTest(error=type(error).__name__):
                 state, connection = empty(), self.connection()
                 connection.get_tweet_by_id.side_effect = by_id.__getitem__
-                with patch.object(editorial.sources, 'discover', AsyncMock(return_value=candidates)), \
-                     patch.object(editorial.sources, 'snapshot', side_effect=lambda row, now: row), \
+                with patch.object(editorial, 'read_inbox', AsyncMock(return_value=candidates)), \
+                     patch.object(editorial.mentions, 'snapshot', side_effect=lambda row, now: row), \
                      patch.object(editorial.reply_writer, 'generate', side_effect=[error, DRAFT]) as generate, \
                      patch.object(editorial, 'send_once', new_callable=AsyncMock) as send:
                     await editorial.publish_reply(state, self.slot, connection, self.user)
@@ -140,7 +141,7 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
                     self.assertFalse(self.saved.get('ai_pause'))
                     self.assertFalse(self.saved.get('outbox'))
                     self.assertEqual(self.saved['used_source_ids'], [])
-                with patch.object(editorial.sources, 'discover', AsyncMock(return_value=[SOURCE])), \
+                with patch.object(editorial, 'read_inbox', AsyncMock(return_value=[SOURCE])), \
                      patch.object(editorial.reply_writer, 'generate') as generate:
                     await editorial.publish_reply(copy.deepcopy(self.saved), self.slot, connection, self.user)
                     generate.assert_not_called()
@@ -162,11 +163,11 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
             connection.create_tweet.assert_not_awaited()
             self.assertEqual(self.saved['history'], [])
 
-    async def test_own_account_and_recently_replied_author_are_excluded(self):
+    async def test_own_account_and_opted_out_author_are_excluded(self):
         state, connection = empty(), self.connection()
-        state['history'] = [{'kind': 'reply', 'source': SOURCE, 'posted_at': self.now.isoformat()}]
+        state['mention_preferences'] = {SOURCE['author_id']: {'intent': 'stop'}}
         own = {**SOURCE, 'id': '444', 'author': editorial.ACCOUNT.upper(), 'author_id': '999'}
-        with patch.object(editorial.sources, 'discover', AsyncMock(return_value=[own, SOURCE])), \
+        with patch.object(editorial, 'read_inbox', AsyncMock(return_value=[own, SOURCE])), \
              patch.object(editorial.reply_writer, 'generate') as generate:
             await editorial.publish_reply(state, self.slot, connection, self.user)
         generate.assert_not_called()

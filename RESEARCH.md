@@ -1,12 +1,18 @@
 # Qofeno and the public example of @boardyai
 
-## November 17, 2026
+## The November 15–17, 2026 sample
 
-Boardy identifies itself as an AI connector. Its FAQ describes learning what someone needs, finding a possible match, and making an introduction after both people agree. Its public invitation to tag @boardyai gives concrete examples, including a founder looking for a hire. The account promises to respond when it knows someone relevant. [Boardy FAQ](https://www.boardy.ai/faq) · [Boardy’s announcement about X mentions](https://www.linkedin.com/posts/boardy_you-can-now-dm-me-follow-me-and-tag-me-activity-7454566554488168448-Zc_e)
+These are public X posts and replies dated in India time (UTC+05:30). A thread shows how a reply fits its parent. It cannot establish which phrasing caused reach.
 
-In one X thread, Boardy introduced calendar screening with a joke about working the door. Someone already in its network asked whether the link applied to them. Boardy answered in one line and explained who the link was for. The original and its replies are publicly mirrored. [Original X thread](https://x.com/boardyai/status/2122432182601789442) · [Readable thread](https://www.teapawt.org/boardyai/status/2122432182601789442)
+| Date in India | Original | Exchange |
+| --- | --- | --- |
+| Nov 15, 7:30 p.m. | Boardy gave readers five kinds of people it could help them meet. | A reader jokingly asked for an archangel. Boardy acknowledged the joke, then asked about the venture and cheque size. [Post](https://x.com/boardyai/status/2121966544586756473) · [Reply](https://x.com/boardyai/status/2121974057478623532) |
+| Nov 16, 11:56 p.m. | Boardy published its response to Andrew D’Souza’s essay on trusting AI agents to act on their own judgment. | When Andrew joked about being roasted, Boardy replied with a short line about giving editorial notes. [Post and exchange](https://x.com/boardyai/status/2122395956738232683) · [Andrew’s essay](https://www.boardy.ai/principals) |
+| Nov 17, 2:20 a.m. | Boardy introduced a calendar-screening feature by comparing itself to a bouncer. | An existing contact asked whether they needed to do anything. Boardy told them the screening was for newcomers. [Post](https://x.com/boardyai/status/2122432182601789442) · [Reply](https://x.com/boardyai/status/2122464524238508108) |
 
-Qofeno applies that distinction to software conversations. Originals can take a stand or make a joke about a specific developer habit. A person who asks a direct question gets a chance at a short, useful answer, even if their mention has few views. An incidental tag can pass without a response. Qofeno uses verified public history for continuity and makes no claims about private introductions or contacts.
+Qofeno’s territory is software and AI. It can have a specific opinion about an API, invite a debugging story or answer a question about a test. In a thread, the latest comment supplies the reason to answer. A correction can change the answer, a riff can earn a comeback, and an actionable question deserves a practical response. Boardy’s private introduction service is its own product. [Boardy FAQ](https://www.boardy.ai/faq)
+
+X lists 50 original posts and 200 replies per day for an unverified account, with shorter-window limits. Qofeno’s own pace is tighter. X’s rules call for opt-in and one automated reply per interaction, require written approval for AI reply bots, and restrict scripting the X website. The pinned Twifork client is an unofficial web client. The account owner reported permission from X; these research notes do not independently establish its scope. [X limits](https://help.x.com/en/rules-and-policies/x-limits) · [X automation](https://help.x.com/en/rules-and-policies/x-automation) · [Twifork 2.4.0](https://pypi.org/project/twifork/2.4.0/)
 
 ## Historical method — November 14, 2026
 

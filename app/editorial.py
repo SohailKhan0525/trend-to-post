@@ -19,6 +19,7 @@ from .reply_schedule import next_decision, next_slot, timestamp
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
 
 STAGE = {'name': 'startup', 'source_id': None}
+THREAD_TURNS_PER_PERSON = 3
 
 
 class DeliveryUnresolved(RuntimeError):
@@ -48,11 +49,51 @@ def reject(state, slot, reason):
     summary(reason)
 
 
-def eligible_author(source, state, now):
-    if source['author'].casefold() == ACCOUNT or mentions.opted_out(state, source['author_id']):
+def thread_root(source, history):
+    """Keep a stable thread ID across nested replies, including older ledger entries."""
+    if source.get('conversation_id'):
+        return source['conversation_id']
+    parent_id = source.get('parent_id')
+    if not parent_id:
+        return source['id']
+    # New sends persist the root. Walk parents for old records whose native
+    # conversation ID wasn't saved until this version of the inbox.
+    own_posts = {row['tweet_id']: row for row in history if row.get('verified_at') and row.get('tweet_id')}
+    seen = set()
+    while parent_id in own_posts and parent_id not in seen:
+        seen.add(parent_id)
+        parent = own_posts[parent_id]
+        previous = parent.get('source') or {}
+        explicit = parent.get('thread_root') or previous.get('conversation_id')
+        if explicit:
+            return explicit
+        older = previous.get('parent_id') or previous.get('id')
+        if not older:
+            break
+        parent_id = older
+    return parent_id
+
+
+def eligible_author(source, state, now, own_user_id):
+    author_id = source['author_id']
+    if (source['author'].casefold() == ACCOUNT or author_id == own_user_id
+            or mentions.opted_out(state, author_id)):
         return False
     if source.get('origin') == 'mention':
-        return mentions.invited(state, source)
+        if not mentions.invited(state, source):
+            return False
+        own_parent = (source.get('parent_author') == ACCOUNT or source.get('parent_user_id') == own_user_id
+                      or (source.get('parent_context') or {}).get('author', '').casefold() == ACCOUNT)
+        if own_parent and not mentions.is_own_reply(source, own_user_id):
+            return False
+        history = state['history']
+        root = thread_root(source, history)
+        cutoff = now - timedelta(days=1)
+        turns = sum(1 for row in history if row.get('kind') == 'reply' and row.get('verified_at')
+                    and row.get('source', {}).get('author_id') == author_id
+                    and timestamp(row['posted_at']) > cutoff
+                    and (row.get('thread_root') or thread_root(row['source'], history)) == root)
+        return turns < THREAD_TURNS_PER_PERSON
     return not any(row.get('kind') == 'reply'
                    and row.get('source', {}).get('author_id') == source['author_id']
                    and timestamp(row['posted_at']) > now - timedelta(hours=24)
@@ -62,7 +103,8 @@ def eligible_author(source, state, now):
 def unchanged(before, after):
     return all(before.get(key) == after.get(key) for key in
                ('id', 'author_id', 'author', 'text', 'created_at', 'urls', 'source_ids',
-                'origin', 'intent', 'parent_id', 'parent_author', 'parent_context'))
+                'origin', 'intent', 'parent_id', 'parent_author', 'parent_user_id', 'conversation_id',
+                'parent_context'))
 
 
 def rejection_key(candidate):
@@ -121,6 +163,9 @@ def matches_publication(pending, post):
         prose = re.sub(r'https?://\S+', '', source['text'], flags=re.I)
         mentions = re.findall(r'(?<![\w/@])@[A-Za-z0-9_]{1,15}(?![A-Za-z0-9_])', prose)
         allowed = {parent, *(mention.casefold() for mention in mentions)}
+        context = source.get('parent_context') or {}
+        if context.get('author_id') == pending['author_id'] and context.get('author', '').casefold() == ACCOUNT:
+            allowed.add('@' + ACCOUNT)
         prefix = body[:-(len(expected_body) + 1)]
         recipients = prefix.lower().split(' ')
         if (prefix.isascii() and recipients[0] == parent and len(recipients) == len(set(recipients))
@@ -265,9 +310,11 @@ async def send_once(state, slot, draft, connection, user, source=None):
     if slot['kind'] == 'reply':
         if source is None:
             raise ValueError('A reply requires a verified source')
-        (mentions if source.get('origin') == 'mention' else sources).validate(source, utcnow())
-        if (not eligible_author(source, state, utcnow())
-                or source['author_id'] == str(user.id)
+        if source.get('origin') != 'mention':
+            reject(state, slot, 'The source did not invite Qofeno to reply.')
+            return
+        mentions.validate(source, utcnow())
+        if (not eligible_author(source, state, utcnow(), str(user.id))
                 or set(source['source_ids']) & set(state['used_source_ids'])
                 or set(source['urls']) & set(state['used_urls'])):
             reject(state, slot, 'Source or author was already used; no send.')
@@ -278,6 +325,7 @@ async def send_once(state, slot, draft, connection, user, source=None):
                 'reserved_at': utcnow().isoformat()}
     if source:
         reserved['source'] = source
+        reserved['thread_root'] = thread_root(source, state['history'])
         state['used_source_ids'] = sorted(set(state['used_source_ids'] + source['source_ids']))
         state['used_urls'] = sorted(set(state['used_urls'] + source['urls']))
     state['used_events'] = sorted(set(state['used_events'] + [reply_writer.fingerprint(draft['event_key'])]))
@@ -334,12 +382,14 @@ async def send_once(state, slot, draft, connection, user, source=None):
 
 
 async def publish_reply(state, slot, connection, user, *, selected=None, memory=None, angle=''):
-    candidates = [selected] if selected is not None else await sources.discover(connection, state, utcnow())
+    own_id = str(user.id)
     now = utcnow()
+    candidates = [selected] if selected is not None else await read_inbox(state, connection, now, own_id)
     rejections = state['reply_rejections'] = {
         key: value for key, value in state.get('reply_rejections', {}).items()
         if timestamp(value['until']) > now}
-    candidates = [candidate for candidate in candidates if eligible_author(candidate, state, now)
+    candidates = [candidate for candidate in candidates if candidate.get('origin') == 'mention'
+                  and eligible_author(candidate, state, now, own_id)
                   and rejection_key(candidate) not in rejections]
     deferred = 0
     for _ in range(min(4, len(candidates))):
@@ -349,8 +399,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
             return
         try:
             stage('refresh source before writing', candidate['id'])
-            intake = mentions if candidate.get('origin') == 'mention' else sources
-            fresh = intake.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
+            fresh = mentions.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
             if candidate.get('parent_context'):
                 fresh = await mentions.thread_context(connection, fresh, utcnow())
             if not unchanged(candidate, fresh):
@@ -359,7 +408,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
             with budget_scope(state, save_and_push, utcnow):
                 draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
-            final = intake.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
+            final = mentions.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
             if fresh.get('parent_context'):
                 final = await mentions.thread_context(connection, final, utcnow())
             if not unchanged(fresh, final):
@@ -417,9 +466,10 @@ def ledger_after_denial(history):
     return memory
 
 
-async def read_inbox(state, connection, now):
+async def read_inbox(state, connection, now, own_user_id=None):
     stage('read mentions and reply preferences')
-    incoming = await mentions.discover(connection, now, used_source_ids=state['used_source_ids'])
+    incoming = await mentions.discover(connection, now, used_source_ids=state['used_source_ids'],
+                                       own_history=state['history'], own_user_id=own_user_id)
     if mentions.apply_controls(incoming, state):
         save_and_push(state)
     return incoming
@@ -435,6 +485,29 @@ async def check_inbox():
     summary(f'Mention inbox check completed. {sum(mentions.invited(state, row) for row in rows)} current invitations.')
 
 
+def inbox_shortlist(rows, own_id):
+    """Give new callers and ongoing threads a seat each when distinct people are waiting."""
+    def priority(row):
+        text = row['text']
+        tag = mentions.TAG.search(text)
+        body = text[tag.end():].lstrip(' ,:—-') if tag else text
+        asked = bool(mentions.ASK.match(body) or re.search('[?？؟]', text))
+        return asked, timestamp(row['created_at']), int(row['id'])
+
+    ordered = sorted(rows, key=priority, reverse=True)
+    followups = [row for row in ordered if mentions.is_own_reply(row, own_id)]
+    new_mentions = [row for row in ordered if not mentions.is_own_reply(row, own_id)]
+    for mention in new_mentions:
+        followup = next((row for row in followups if row['author_id'] != mention['author_id']), None)
+        if followup:
+            return [mention, followup]
+    if not ordered:
+        return []
+    first = ordered[0]
+    second = next((row for row in ordered if row['author_id'] != first['author_id']), None)
+    return [first, second] if second else [first]
+
+
 async def decide(state, slot, connection, user):
     stage('sync verified publications to D1')
     try:
@@ -443,31 +516,33 @@ async def decide(state, slot, connection, user):
     except MemoryAccessDenied:
         memory = ledger_after_denial(state['history'])
     now = utcnow()
-    incoming = await read_inbox(state, connection, now)
+    own_id = str(user.id)
+    try:
+        incoming = await read_inbox(state, connection, now, own_id)
+    except (NotFound, TweetNotAvailable):
+        summary('Mention inbox unavailable for this opportunity.')
+        incoming = []
     cached = state.get('reply_rejections', {})
     used_ids, used_urls = set(state['used_source_ids']), set(state['used_urls'])
 
     def eligible(candidate):
         rejection = cached.get(rejection_key(candidate))
-        return (candidate['author_id'] != str(user.id) and eligible_author(candidate, state, now)
+        return (eligible_author(candidate, state, now, own_id)
                 and not used_ids.intersection(candidate['source_ids']) and not used_urls.intersection(candidate['urls'])
                 and (not rejection or timestamp(rejection['until']) <= now))
 
-    invited = []
-    invited_authors = set()
-    for row in sorted(incoming, key=lambda c: timestamp(c['created_at']), reverse=True):
-        if row['intent'] == 'invite' and row['author_id'] not in invited_authors and eligible(row):
-            invited.append(await mentions.thread_context(connection, row, now))
-            invited_authors.add(row['author_id'])
-        if len(invited) == 2:
-            break
-    stage('discover public conversations')
-    try:
-        candidates = await sources.discover(connection, state, now)
-    except (NotFound, TweetNotAvailable):
-        if not invited:
-            raise
-        candidates = []
+    selected = inbox_shortlist([row for row in incoming if row['intent'] == 'invite' and eligible(row)], own_id)
+    invited = [row if row.get('parent_context') else await mentions.thread_context(connection, row, now)
+               for row in selected]
+    invited_authors = {row['author_id'] for row in invited}
+    candidates = []
+    # A topic search can inform an original. It can never supply a reply target.
+    if 'original' in slot['allowed_actions']:
+        stage('discover public conversations')
+        try:
+            candidates = await sources.discover(connection, state, now)
+        except (NotFound, TweetNotAvailable):
+            summary('Topic discovery unavailable for this opportunity.')
     # Never feed an incidental tag or opted-out request back as a trending post.
     passive = [c for c in candidates if c['author_id'] not in invited_authors and eligible(c)
                and not re.search(r'(?<![\w@])@' + re.escape(ACCOUNT) + r'\b', c['text'], re.I)]
@@ -495,9 +570,11 @@ async def decide(state, slot, connection, user):
     before = len(state['history'])
     chosen_slot = {**slot, 'kind': action}
     if action == 'reply':
-        source = next((row for row in shortlist if row['id'] == plan['source_id']), None)
+        # Search results may inform a standalone thought. Only incoming invitations
+        # can be a reply destination, even if the planner returns a discovered ID.
+        source = next((row for row in invited if row['id'] == plan['source_id']), None)
         if source is None:
-            raise DraftError('Decision names a source outside the checked shortlist')
+            raise DraftError('Reply decision must name an eligible invitation')
         await publish_reply(state, chosen_slot, connection, user, selected=source, memory=context, angle=plan['angle'])
     else:
         await publish_original(state, chosen_slot, connection, user, plan, context)
