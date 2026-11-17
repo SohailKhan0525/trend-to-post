@@ -79,6 +79,8 @@ different construction when the last posts used the same one. If asking a questi
 give the reader a real decision they can answer from experience. Most thoughts can
 end at the point. One or two short sentences, up to 220 weighted characters; at
 most one optional emoji. Avoid stock openings and calls for replies.
+Skip the familiar contrast between superhuman AI feats and tedious human chores.
+Swapping the scientific feat or the chore leaves the same punchline.
 Opinions and visibly hypothetical scenarios are welcome. Do not report news, claim
 a release or product capability, invent a quote, or assert performance numbers.
 Avoid politics, countries, personal attacks, hashtags, handles, links, promotions,
@@ -92,6 +94,8 @@ if the text stands alone, has one fresh concrete point relevant to software or A
 a natural expression of the proposed angle, and is distinct from recent and
 related originals. Compare the underlying premise and punchline even if the
 wording changed. A recurring topic is fine when the point genuinely changes.
+Treat extravagant model capabilities contrasted with a tedious manual task as
+one premise across posts. A joke still needs evidence for any product claims.
 Check text, event_key and premise. Reject unsupported news, measurements, quotes or
 product claims, fabricated experiences, false intimacy, politics, countries, insults,
 personal data, demands for engagement, recycled jokes and generic inspirational filler.
@@ -299,13 +303,38 @@ def related_originals(history, angle):
     return [row for _, _, row in nlargest(3, matches)]
 
 
+def ai_feat_and_chore(text):
+    """Recognize the published grand AI feat / mundane human chore setup from its public words."""
+    if not isinstance(text, str):
+        return False
+    parts = re.split(r'\b(?:yet|but|meanwhile|only to|and still|still)\b', text.casefold(), maxsplit=1)
+    if len(parts) != 2:
+        return False
+    feat, chore = parts
+    return bool(re.search(r'\b(?:ai|models?|llms?|chatgpt|claude)\b', feat)
+                and re.search(r'\b(?:physics|galax(?:y|ies)|universe|quantum|genomes?|proteins?|theorems?|'
+                              r'rocket science|nobel|black holes?)\b', feat)
+                and re.search(r'\b(?:argu(?:e|ing)|cop(?:y|ying)|past(?:e|ing)|retyp(?:e|ing)|click(?:ing)?|'
+                              r'spreadsheets?|semicolons?|checkbox(?:es)?|error logs?|passwords?)\b', chore))
+
+
 def original(plan, memory, state, now):
     if plan.get('action') != 'original' or plan.get('source_id') != '' or not safe_line(plan.get('angle'), 8, 180):
         raise DraftError('An original requires a standalone editorial angle')
     history = state.get('history', [])
     context = {'angle': plan['angle'], 'recent_own': memory.get('recent_own', []),
                'related_originals': [r['text'][:220] for r in related_originals(history, plan['angle'])]}
-    raw = complete(WRITE, context, temperature=.83, max_tokens=285, schema=ORIGINAL_SCHEMA)
+    for attempt in range(2):
+        raw = complete(WRITE, context, temperature=.83, max_tokens=285, schema=ORIGINAL_SCHEMA)
+        if not (isinstance(raw, dict) and raw.get('worthwhile') is True and ai_feat_and_chore(raw.get('text'))):
+            break
+        if not any(row.get('kind') == 'original' and row.get('verified_at') and ai_feat_and_chore(row.get('text'))
+                   for row in history):
+            break
+        if attempt:
+            raise DraftError('This AI feat and manual chore joke has already been published')
+        context = {**context, 'angle': 'Choose a different software subject and a different joke. Give a concrete '
+                                       'feature a small, surprising design wish. Leave AI capabilities and chores out.'}
     if not isinstance(raw, dict) or set(raw) != {'worthwhile', 'text', 'event_key', 'premise'} or raw['worthwhile'] is not True:
         raise DraftError('No approved original draft')
     draft = {key: raw[key] for key in ('text', 'event_key', 'premise')}

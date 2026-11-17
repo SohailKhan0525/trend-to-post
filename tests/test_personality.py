@@ -204,3 +204,20 @@ class PersonalityTests(unittest.TestCase):
                     **draft, 'worthwhile': True}) as model, self.assertRaises(DraftError):
                 editor.original(PLAN, MEMORY, state, NOW)
             self.assertEqual(model.call_count, 1)
+
+    def test_recycled_ai_feat_and_chore_gets_one_new_angle(self):
+        older = ('It is strange to use a model that can reason through complex physics, only to spend twenty '
+                 'minutes arguing with it about whether a semicolon belongs inside or outside a parenthesis.')
+        repeated = ('We have models capable of simulating entire galaxies, yet I still spend my afternoons '
+                    'copy-pasting error logs into a chat box like a tired clerk.')
+        history = [{'kind': 'original', 'text': older, 'verified_at': NOW.isoformat()}]
+        retry = {**DRAFT, 'worthwhile': True, 'text': repeated}
+        with patch.object(editor, 'complete', side_effect=[retry, {**DRAFT, 'worthwhile': True}, {'publish': True}]) as model:
+            self.assertEqual(editor.original(PLAN, MEMORY, {'history': history}, NOW), DRAFT)
+        self.assertNotEqual(model.call_args_list[0].args[1]['angle'], model.call_args_list[1].args[1]['angle'])
+        self.assertEqual(model.call_count, 3)
+        with patch.object(editor, 'complete', side_effect=[retry, retry]) as model, self.assertRaises(DraftError):
+            editor.original(PLAN, MEMORY, {'history': history}, NOW)
+        self.assertEqual(model.call_count, 2)
+        self.assertFalse(editor.ai_feat_and_chore('A model that predicts protein folding still needs an uncertainty estimate.'))
+        self.assertFalse(editor.ai_feat_and_chore('The rollback failed, but the error logs survived.'))
