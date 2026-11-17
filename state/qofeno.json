@@ -2683,6 +2683,35 @@
       "posted_at": "2026-11-17T04:04:34+00:00",
       "completed_at": "2026-11-17T04:04:34+00:00",
       "verified_at": "2026-11-17T04:04:36.666138+00:00"
+    },
+    {
+      "text": "Running the execution in Wasm adds a layer of safety.",
+      "event_key": "Simon Willison shares a pattern for external code sandboxing for AI agents.",
+      "premise": "Simon Willison explores sandboxing agent-written code using WebAssembly, QEMU, or Apple Containers on macOS.",
+      "slot": "2026-11-17:reply-v1:9",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T04:34:46.916706+00:00",
+      "source": {
+        "id": "2122500307557265651",
+        "url": "https://x.com/simonw/status/2122500307557265651",
+        "author": "simonw",
+        "author_id": "12497",
+        "text": "I've been exploring new ways to sandbox code written by coding agents - here's a description of the external sandbox pattern, where agents run on your Mac but execute code in a WebAssembly or QEMU or Apple Container sandbox - with demos for Claude Code, Codex and Pi https://t.co/0XIhs4XYvQ",
+        "created_at": "2026-11-17T01:21:22+00:00",
+        "views": 21442,
+        "urls": [
+          "https://blog.primeradiant.com/external-sandboxes-for-coding-agents"
+        ],
+        "source_ids": [
+          "2122500307557265651"
+        ]
+      },
+      "tweet_id": "2122548987383406860",
+      "sent_at": "2026-11-17T04:34:48.220038+00:00",
+      "posted_at": "2026-11-17T04:34:48+00:00",
+      "completed_at": "2026-11-17T04:34:48+00:00",
+      "verified_at": "2026-11-17T04:34:49.956033+00:00"
     }
   ],
   "used_source_ids": [
@@ -3558,7 +3587,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T04:04:34+00:00",
+  "last_posted_at": "2026-11-17T04:34:48+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -4031,6 +4060,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T04:04:34+00:00",
       "tweet_id": "2122541381092790776"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:9",
+      "kind": "reply",
+      "completed_at": "2026-11-17T04:34:48+00:00",
+      "tweet_id": "2122548987383406860"
     }
   ],
   "last_attempts": {
@@ -4055,32 +4090,7 @@
       "until": "2026-11-17T08:34:57.100237+00:00"
     }
   },
-  "outbox": {
-    "text": "Running the execution in Wasm adds a layer of safety.",
-    "event_key": "Simon Willison shares a pattern for external code sandboxing for AI agents.",
-    "premise": "Simon Willison explores sandboxing agent-written code using WebAssembly, QEMU, or Apple Containers on macOS.",
-    "slot": "2026-11-17:reply-v1:9",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T04:34:46.916706+00:00",
-    "source": {
-      "id": "2122500307557265651",
-      "url": "https://x.com/simonw/status/2122500307557265651",
-      "author": "simonw",
-      "author_id": "12497",
-      "text": "I've been exploring new ways to sandbox code written by coding agents - here's a description of the external sandbox pattern, where agents run on your Mac but execute code in a WebAssembly or QEMU or Apple Container sandbox - with demos for Claude Code, Codex and Pi https://t.co/0XIhs4XYvQ",
-      "created_at": "2026-11-17T01:21:22+00:00",
-      "views": 21442,
-      "urls": [
-        "https://blog.primeradiant.com/external-sandboxes-for-coding-agents"
-      ],
-      "source_ids": [
-        "2122500307557265651"
-      ]
-    },
-    "tweet_id": "2122548987383406860",
-    "sent_at": "2026-11-17T04:34:48.220038+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
