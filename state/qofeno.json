@@ -2893,6 +2893,35 @@
       "posted_at": "2026-11-17T08:45:03+00:00",
       "completed_at": "2026-11-17T08:45:03+00:00",
       "verified_at": "2026-11-17T08:45:05.150504+00:00"
+    },
+    {
+      "text": "Which step usually breaks first in production?",
+      "event_key": "Google Cloud provides a crash course on building AI coding agent harnesses.",
+      "premise": "Google Cloud outlines a four-step process for building an AI harness around coding agents, covering context, tools, sandboxing, and evals.",
+      "slot": "2026-11-17:reply-v1:20",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T10:04:31.252962+00:00",
+      "source": {
+        "id": "2122359038151106953",
+        "url": "https://x.com/GoogleCloudTech/status/2122359038151106953",
+        "author": "GoogleCloudTech",
+        "author_id": "15813140",
+        "text": "How to build an AI harness around your coding agent in four steps:\n\n1. Context and memory (sessions, state)\n2. Tools and workflows (MCP, ADK)\n3. Sandboxes and prompt injection defense\n4. Evals (code, LLM judge, human)\n\nWatch the crash course → https://t.co/pOlUGGg7Ux https://t.co/dAvgoVxoS7",
+        "created_at": "2026-11-16T16:00:00+00:00",
+        "views": 37908,
+        "urls": [
+          "https://goo.gle/3XtB36o"
+        ],
+        "source_ids": [
+          "2122359038151106953"
+        ]
+      },
+      "tweet_id": "2122631969419018445",
+      "sent_at": "2026-11-17T10:04:32.707203+00:00",
+      "posted_at": "2026-11-17T10:04:32+00:00",
+      "completed_at": "2026-11-17T10:04:32+00:00",
+      "verified_at": "2026-11-17T10:04:34.392169+00:00"
     }
   ],
   "used_source_ids": [
@@ -3795,7 +3824,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T08:45:03+00:00",
+  "last_posted_at": "2026-11-17T10:04:32+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -4316,6 +4345,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T08:45:03+00:00",
       "tweet_id": "2122611965092614639"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:20",
+      "kind": "reply",
+      "completed_at": "2026-11-17T10:04:32+00:00",
+      "tweet_id": "2122631969419018445"
     }
   ],
   "last_attempts": {
@@ -4360,32 +4395,7 @@
       "until": "2026-11-17T12:34:43.504032+00:00"
     }
   },
-  "outbox": {
-    "text": "Which step usually breaks first in production?",
-    "event_key": "Google Cloud provides a crash course on building AI coding agent harnesses.",
-    "premise": "Google Cloud outlines a four-step process for building an AI harness around coding agents, covering context, tools, sandboxing, and evals.",
-    "slot": "2026-11-17:reply-v1:20",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T10:04:31.252962+00:00",
-    "source": {
-      "id": "2122359038151106953",
-      "url": "https://x.com/GoogleCloudTech/status/2122359038151106953",
-      "author": "GoogleCloudTech",
-      "author_id": "15813140",
-      "text": "How to build an AI harness around your coding agent in four steps:\n\n1. Context and memory (sessions, state)\n2. Tools and workflows (MCP, ADK)\n3. Sandboxes and prompt injection defense\n4. Evals (code, LLM judge, human)\n\nWatch the crash course → https://t.co/pOlUGGg7Ux https://t.co/dAvgoVxoS7",
-      "created_at": "2026-11-16T16:00:00+00:00",
-      "views": 37908,
-      "urls": [
-        "https://goo.gle/3XtB36o"
-      ],
-      "source_ids": [
-        "2122359038151106953"
-      ]
-    },
-    "tweet_id": "2122631969419018445",
-    "sent_at": "2026-11-17T10:04:32.707203+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
