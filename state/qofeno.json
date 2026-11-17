@@ -2921,6 +2921,7 @@
     "2122329922786279549",
     "2122336040899711282",
     "2122373063560110320",
+    "2122379663381082317",
     "2122447497570193438",
     "2122460499329622421"
   ],
@@ -2977,6 +2978,7 @@
     "242b0770444069ac8ff64730834a878fc112485b0ea6ba0f2f18f57a1a4fd3fb",
     "28d116a946692352da13819ca098b11c72017aefe9e35254ea0979323a75e839",
     "2a23f565daf11dd6473e4be914e5a4d5abe672f085b502a47ad8049030454e18",
+    "2b6ea075af13cf94d054375848164830781ab3f833e053adf728165d6383e1f9",
     "2f05437fd6e8034cfb087166b0597e3b7b67fd2378836ec5c926fc27bacaddc2",
     "32bdc0b3cb47e03a90537e35d15ec94eecfb9960b3996194f4c359f67e5d3fa9",
     "32ed124f514d1d80315822cd8103542fec2f4ad138e2be5d20cff105e7f0fc73",
@@ -3155,6 +3157,7 @@
     "2f45a6000cb16390d6cb3a7ca18937a8cb387e20874ced3cb29894b5e62e08c5",
     "2f9798d25edcb64b2a0a819bf95143bfd66a50503c06096866f7ee96e5a5e4b0",
     "2fd77f6c75dc4fab9b8fbd570e50ef325d71618b42d774856a6c0f080f13795b",
+    "3026020ae00fa0b8ac2866c479338b0f250eff0fd281ecac8c0940ead6e79a65",
     "30606eb7e3eb9e55c53f1b9a60e5ce3455d87b9414c24a77c1e50d02909dd655",
     "310c8c2d30e895736d48dba91bcb41261064d94bc0307c7bfb456c9e688c4f0b",
     "311618e60631c47862936125729318eaab50783ee4ab76745213cee352fd21bf",
@@ -3607,10 +3610,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 303,
+    "neurons_reserved": 247,
     "requests": 18,
     "hour": "2026-11-17T04",
-    "hour_neurons_reserved": 90,
+    "hour_neurons_reserved": 34,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4015,7 +4018,28 @@
       "until": "2026-11-17T08:34:57.100237+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Does the context transfer between models lose any nuance? 🤖",
+    "event_key": "User describes an agentic workflow using T3 Code to manage multi-model coding tasks.",
+    "premise": "T3 Code allows multiple AI agents like Codex and Claude to collaborate seamlessly within a single thread using existing subscriptions.",
+    "slot": "2026-11-17:reply-v1:8",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T04:04:33.187635+00:00",
+    "source": {
+      "id": "2122379663381082317",
+      "url": "https://x.com/optimikee/status/2122379663381082317",
+      "author": "optimikee",
+      "author_id": "128201512",
+      "text": "Cette nuit, Codex et Claude ont bossé ensemble, et sans moi.\n36 conversations entre 1 h et 7 h, pas une coupure. J'en ai ouvert qu'une seule. \n\nCodex corrigeait deux de mes PR, Claude relisait, et ils se sont renvoyé le code jusqu'à la v5. Le tout dans T3 Code, une app gratuite et open source qui fait tourner les deux avec mes abonnements.\n\nComme Hannibal Smith, j'adore quand un plan se déroule sans accroc.\nLe truc avec T3, c'est que ça marche. Chez Codex, ils aiment bien sortir leur « it just works ». Ben désolé les gars, c'est T3 qui le ship.\n\nPas de bug, un fil ouvert depuis 3 jours sans ralentissement. Pourtant ça bouge tout le temps : je suis sur la nightly, 3 à 8 versions par jour la semaine dernière, et rien n'a cassé chez moi depuis début octobre.\n\nEt surtout, T3, c'est l'outil agentique qui dit oui :\n\n- Ta limite Claude tombe en pleine tâche, tu veux finir avec Codex dans le même fil ? Oui. Il reprend avec un résumé du fil.\n- Tu veux que Codex relise ce que Claude vient d'écrire ? Oui. Claude la lui confie, et le fil de départ se réveille avec le résultat.\n- Ton PC est en PLS, tu veux envoyer la moitié de tes agents sur ton Mac ? Oui. Ou sur un VPS.\n- Tu veux un worktree par fil, et la PR en un bouton ? Oui.\n- Tu veux valider une commande depuis le canapé ? Oui, depuis l'app iOS ou Android.\n- Tu passes tes journées dedans et tu veux te créer ta propre interface ? Oui. Ton agent la modifie en direct, le mien m'a fait mon thème.\n\nT3 pilote tes Claude Code, Codex, Cursor, Grok ou OpenCode, sans clé API ni facturation à l'usage. Depuis la v0.1.7, il consomme ta limite Claude au même rythme que Claude Code.\n\nMême avec un seul abonnement, je ne reviendrais pas à Codex App : T3 va plus vite, délègue mieux, et je retrouve mes vieux fils.\nL'étape d'après ? Faire bosser mon T3 avec celui de l'oncle @iamsupersocks, sur WattsMonde,  L’atlas mondial de l'énergie.\n\nLicence MIT, 62k étoiles sur GitHub en 9 mois, s'il vous plaît. Mais attention, c'est comme l'anneau pour les gouverner tous, il devient vite ton précieux. Pour moi, c'est déjà fait.",
+      "created_at": "2026-11-16T17:21:58+00:00",
+      "views": 10268,
+      "urls": [],
+      "source_ids": [
+        "2122379663381082317"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
