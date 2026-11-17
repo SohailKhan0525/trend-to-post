@@ -2838,7 +2838,8 @@
     "2122317669139722405",
     "2122336040899711282",
     "2122373063560110320",
-    "2122447497570193438"
+    "2122447497570193438",
+    "2122460499329622421"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -2962,6 +2963,7 @@
     "a55dd5215bdadc1c904a3682ed2128b35b9779aa7cb88b789f65cd3611122348",
     "a5eda1d2fa14287d3302deab18075b5324de929fd4eddc4c65eea002f9a4eacf",
     "a632332a47d1a73c1e065ff0df623635081454574216c2b838ab34d8ab5fdae1",
+    "a99c7da4e1063b1b279f4e7d8797293684362e32b936bf2174b21be70a786e6d",
     "ab331e3e1b73a5b0d2fc141a55ecafce85925902a844644bad89c0fec64eb5c4",
     "acb7709522b33eeb732dbb2637da87ffcf5822bd0ace66e9294396216222cd5b",
     "af177cde2a04ca8ff146dffa79bb0e656365c5db84d81289e1040366a150e6ce",
@@ -3141,6 +3143,7 @@
     "59df755574eafa742df5de21b80dcfde962d8471a8145aa0b2f313408cb22857",
     "5b1989535e6936826fdb4e0c1309f79416fdfc044c9ab80b7c4599c7a767d317",
     "5c0ba73dfd3a104a04332ab685f79ac9a23cc236d8ac077ff9d261da1dc97307",
+    "5e0f2f43404668f75d36a8791fed1338d1d57a1db176495859a51243ea839e1f",
     "5ea6bf66e37c91786838be4706cbdb5db08ba8716bb102c6ac2c7cc911199e26",
     "5f60908efd251b5d9267e54c6c5721c14ac0ba043c3c9ebd980faeae79325909",
     "5f8958d1593026286bfabd9e20a6d37a2b1bba27cb5812e7bf6d4e96aae437cb",
@@ -3517,10 +3520,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 160,
+    "neurons_reserved": 117,
     "requests": 9,
     "hour": "2026-11-17T02",
-    "hour_neurons_reserved": 79,
+    "hour_neurons_reserved": 36,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3896,7 +3899,28 @@
       "until": "2026-11-17T08:04:33.921353+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Does the usage limit apply to all models or just Codex?",
+    "event_key": "Comparison of Claude fast mode usage limits and API pricing.",
+    "premise": "Using Claude's fast mode consumes the usage limit 2.5x faster and costs twice as much as the API.",
+    "slot": "2026-11-17:reply-v1:4",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T02:04:42.590849+00:00",
+    "source": {
+      "id": "2122460499329622421",
+      "url": "https://x.com/AdamHoltererer/status/2122460499329622421",
+      "author": "AdamHoltererer",
+      "author_id": "1664269804558229509",
+      "text": "Stay AWAY from /fast on a Claude plan\n\nCodex fast mode eats your limit 2.5x quicker\n\nClaude's isn't subsidized at all AND double the API price https://t.co/HvzOHGikqe",
+      "created_at": "2026-11-16T22:43:11+00:00",
+      "views": 13780,
+      "urls": [],
+      "source_ids": [
+        "2122460499329622421"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
