@@ -10,7 +10,7 @@ from twikit.errors import NotFound, TweetNotAvailable
 
 from app import editorial, mentions, sources, store
 from app.reply_schedule import DAILY_REPLY_CAP, timestamp
-from scripts.azure_status import inbox_schedule, read_snapshot
+from scripts.azure_status import read_snapshot, report
 
 
 def eligibility(row, state, now, own_id):
@@ -50,27 +50,37 @@ def previously_handled(post_id, state):
     return None
 
 
+async def inspect_reserved_reply(connection, pending):
+    if pending.get('kind') != 'reply' or not re.fullmatch(r'[1-9][0-9]{0,19}', str(pending.get('tweet_id', ''))):
+        return
+    try:
+        post = await connection.get_tweet_by_id(pending['tweet_id'])
+    except (NotFound, TweetNotAvailable):
+        store.summary('Reserved X reply is unavailable for readback.')
+        return
+    body = getattr(post, 'full_text', None) or getattr(post, 'text', '')
+    native = (getattr(post, '_data', {}) or {}).get('legacy') or {}
+
+    def identity(text):
+        return unicodedata.normalize('NFC', html.unescape(text))
+
+    visible = mentions._reply_text(body, native)
+    exact_author = str(getattr(getattr(post, 'user', None), 'id', '')) == pending.get('author_id')
+    exact_parent = str(getattr(post, 'in_reply_to', '') or '') == pending['source']['id']
+    wanted = identity(pending['text'])
+    store.summary(f'Reserved X reply readback: ID matches={str(post.id) == pending["tweet_id"]}, '
+                  f'author matches={exact_author}, parent matches={exact_parent}, '
+                  f'full text matches={identity(body) == wanted}, visible text matches={identity(visible) == wanted}, '
+                  f'native text range present={"display_text_range" in native}, '
+                  f'reservation verified={editorial.matches_publication(pending, post)}.')
+
+
 async def inspect_inbox(connection, state, now, post_id):
     user = await connection.get_user_by_screen_name(store.ACCOUNT)
     own_id = str(user.id)
     if not own_id.isascii() or not own_id.isdigit() or user.screen_name.casefold() != store.ACCOUNT:
         raise store.SessionUnavailable()
-    pending = state.get('outbox') or {}
-    if pending.get('kind') == 'reply' and re.fullmatch(r'[1-9][0-9]{0,19}', str(pending.get('tweet_id', ''))):
-        post = await connection.get_tweet_by_id(pending['tweet_id'])
-        body = getattr(post, 'full_text', None) or getattr(post, 'text', '')
-        native = (getattr(post, '_data', {}) or {}).get('legacy') or {}
-        def identity(text):
-            return unicodedata.normalize('NFC', html.unescape(text))
-        visible = mentions._reply_text(body, native)
-        exact_author = str(getattr(getattr(post, 'user', None), 'id', '')) == pending.get('author_id')
-        exact_parent = str(getattr(post, 'in_reply_to', '') or '') == pending['source']['id']
-        wanted = identity(pending['text'])
-        store.summary(f'Reserved X reply readback: ID matches={str(post.id) == pending["tweet_id"]}, '
-                      f'author matches={exact_author}, parent matches={exact_parent}, '
-                      f'full text matches={identity(body) == wanted}, visible text matches={identity(visible) == wanted}, '
-                      f'native text range present={"display_text_range" in native}, '
-                      f'reservation verified={editorial.matches_publication(pending, post)}.')
+    await inspect_reserved_reply(connection, state.get('outbox') or {})
     rows = await mentions.discover(connection, now, used_source_ids=(), own_history=state['history'], own_user_id=own_id)
     # Evaluate commands exactly as the publisher would, entirely in this local copy.
     state = {**state, 'mention_preferences': dict(state.get('mention_preferences', {}))}
@@ -121,8 +131,8 @@ async def main():
     replies = sum(row.get('kind') == 'reply' and timestamp(row['posted_at']).date() == now.date()
                   for row in state['history'] if row.get('verified_at') and row.get('posted_at'))
     store.summary(f'Verified replies this UTC day: {replies}/{DAILY_REPLY_CAP}.')
-    store.summary(inbox_schedule(state, now))
-    store.summary(editorial.upcoming_opportunity(state, now))
+    for line in report(state, now):
+        store.summary(line)
     if state.get('x_pause_until') and timestamp(state['x_pause_until']) > now:
         store.summary('Inbox read deferred for the recorded X cooldown.')
         if post_id:

@@ -7,6 +7,15 @@ from scripts import mention_status as status
 
 
 class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
+    async def test_unavailable_reserved_reply_does_not_stop_read_only_inbox_report(self):
+        self.state['outbox'] = {'kind': 'reply', 'tweet_id': '123'}
+        self.client.get_tweet_by_id.side_effect = status.NotFound('gone')
+        with patch.object(status.mentions, 'discover', AsyncMock(return_value=[])) as discover, patch.object(status.store, 'summary') as log:
+            await status.inspect_inbox(self.client, self.state, self.now, '')
+        discover.assert_awaited_once()
+        self.assertIn('unavailable for readback', log.call_args_list[0].args[0])
+        self.client.create_tweet.assert_not_called()
+
     def setUp(self):
         self.now = datetime(2026, 11, 17, 12, tzinfo=timezone.utc)
         self.state = {'history': [], 'used_source_ids': [], 'used_urls': [], 'mention_preferences': {}}
