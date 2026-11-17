@@ -9,9 +9,10 @@ import unicodedata
 from twikit.errors import NotFound, TweetNotAvailable
 
 from app import editorial, mentions, sources, store
+from app.ai_budget import DAILY_LIMIT, HOURLY_LIMIT, active_pause
 from app.reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, invitation_hold
 from app.reply_schedule import DAILY_REPLY_CAP, timestamp
-from scripts.azure_status import read_snapshot, report
+from scripts.azure_status import category, read_snapshot, report
 
 
 def eligibility(row, state, now, own_id):
@@ -57,6 +58,47 @@ def previously_handled(post_id, state):
     return None
 
 
+def mention_disposition(row, state):
+    handled = previously_handled(row['id'], state)
+    if handled:
+        return handled
+    rejection = state.get('reply_rejections', {}).get(editorial.rejection_key(row), {})
+    if rejection:
+        reason = rejection.get('reason', '')
+        if rejection.get('kind') == 'draft_format':
+            return 'draft rejected during review'
+        if 'neurons' in reason or reason == 'AI decision exceeds hourly headroom':
+            return 'model request exceeded hourly headroom'
+        if reason.startswith('Cloudflare timed out'):
+            return 'Cloudflare request timed out'
+        return 'source deferred'
+    # The writer can hydrate a parent after discovery, changing the version part
+    # of the slot. Match earlier attempts on this exact public source identity.
+    suffix = re.compile(r'\d{4}-\d\d-\d\d-inbox-([0-9]+)-[a-f0-9]{16}')
+    versions = set(row['source_ids'])
+    outcomes = []
+    for key, fallback in [('last_attempts', 'attempt'), ('decision_slots', 'decision')]:
+        for slot, entry in state.get(key, {}).items():
+            match = suffix.fullmatch(slot)
+            if not match or match[1] not in versions or not entry.get('at'):
+                continue
+            if key == 'last_attempts':
+                result = category(str(entry.get('reason', '')))
+            else:
+                result = 'reviewed and stayed silent' if entry.get('action') == 'silent' else fallback
+            outcomes.append((timestamp(entry['at']), result))
+    return max(outcomes)[1] if outcomes else 'no recorded decision'
+
+
+def ai_availability(state, now):
+    usage = state.get('ai_usage') or {}
+    hourly = usage.get('hour_neurons_reserved', 0) if usage.get('hour') == now.strftime('%Y-%m-%dT%H') else 0
+    daily = usage.get('neurons_reserved', 0) if usage.get('day') == now.date().isoformat() else 0
+    pause = active_pause(state, now)
+    hold = f'paused until {pause.until.isoformat()}' if pause else 'no recorded model cooldown'
+    return f'Workers AI reserved neurons: {hourly}/{HOURLY_LIMIT} this UTC hour, {daily}/{DAILY_LIMIT} today; {hold}.'
+
+
 async def inspect_reserved_reply(connection, pending):
     if pending.get('kind') != 'reply' or not re.fullmatch(r'[1-9][0-9]{0,19}', str(pending.get('tweet_id', ''))):
         return
@@ -92,12 +134,18 @@ async def inspect_inbox(connection, state, now, post_id):
     # Evaluate commands exactly as the publisher would, entirely in this local copy.
     state = {**state, 'mention_preferences': dict(state.get('mention_preferences', {}))}
     mentions.apply_controls(rows, state)
-    counts = Counter(eligibility(row, state, now, own_id) for row in rows)
+    classifications = [(row, eligibility(row, state, now, own_id)) for row in rows]
+    counts = Counter(label for _, label in classifications)
     eligible = counts['eligible for review'] + counts['eligible for review (bounded retry)']
     store.summary(f'Current inbox sample: {len(rows)} matched, {eligible} eligible for review, '
                   f'{counts["previously reserved source"]} previously reserved.')
     for category, count in sorted(counts.items()):
         store.summary(f'Inbox classification: {category} = {count}')
+    invitations = [(row, label) for row, label in classifications if row['intent'] == 'invite'
+                   and re.fullmatch(r'[1-9][0-9]{0,19}', row['id'])]
+    for row, label in sorted(invitations, key=lambda item: (timestamp(item[0]['created_at']), int(item[0]['id'])), reverse=True)[:5]:
+        store.summary(f'Recent mention https://x.com/i/status/{row["id"]} at {timestamp(row["created_at"]).isoformat()}: '
+                      f'{label}; {mention_disposition(row, state)}.')
     if post_id:
         result = previously_handled(post_id, state)
         if not result:
@@ -140,6 +188,7 @@ async def main():
     replies = sum(row.get('kind') == 'reply' and timestamp(row['posted_at']).date() == now.date()
                   for row in state['history'] if row.get('verified_at') and row.get('posted_at'))
     store.summary(f'Verified replies this UTC day: {replies}/{DAILY_REPLY_CAP}.')
+    store.summary(ai_availability(state, now))
     for line in report(state, now):
         store.summary(line)
     if state.get('x_pause_until') and timestamp(state['x_pause_until']) > now:

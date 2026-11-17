@@ -122,3 +122,31 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
         result = '\n'.join(call.args[0] for call in log.call_args_list)
         self.assertIn('1 eligible for review', result)
         self.assertIn('eligible for review (bounded retry) = 1', result)
+
+    async def test_recent_public_mention_trace_reports_newest_five_without_raw_text(self):
+        rows = [self.invite(index, at=self.now - timedelta(seconds=index)) for index in range(6)]
+        newest = rows[0]
+        slot = status.editorial.inbox_opportunity(newest)['slot']
+        self.state['last_attempts'] = {slot: {'at': self.now.isoformat(), 'reason': 'No reply sent: PRIVATE'}}
+        self.state['decision_slots'] = {status.editorial.inbox_opportunity(rows[1])['slot']: {
+            'at': self.now.isoformat(), 'action': 'silent', 'direct_reviewed': True}}
+        with patch.object(status.mentions, 'discover', AsyncMock(return_value=list(reversed(rows)))), \
+                patch.object(status.store, 'summary') as log:
+            await status.inspect_inbox(self.client, self.state, self.now, '')
+        lines = [call.args[0] for call in log.call_args_list if call.args[0].startswith('Recent mention')]
+        self.assertEqual(len(lines), 5)
+        self.assertIn(newest['id'], lines[0])
+        self.assertIn('AI unavailable or budget', lines[0])
+        self.assertIn('reviewed and stayed silent', lines[1])
+        self.assertFalse(any('PRIVATE' in line or '@qofenoai hello' in line for line in lines))
+        self.client.create_tweet.assert_not_called()
+
+    def test_budget_report_resets_hour_and_redacts_provider_details(self):
+        state = {'ai_usage': {'hour': '2026-11-17T15', 'day': '2026-11-17',
+                              'hour_neurons_reserved': 175, 'neurons_reserved': 345},
+                 'ai_pause': {'until': (self.now + timedelta(minutes=1)).isoformat(), 'reason': 'PRIVATE'}}
+        line = status.ai_availability(state, self.now)
+        self.assertIn('0/', line)
+        self.assertIn('345/', line)
+        self.assertIn('paused until', line)
+        self.assertNotIn('PRIVATE', line)
