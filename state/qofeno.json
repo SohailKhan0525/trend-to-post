@@ -3107,6 +3107,7 @@
     "2122370549628211529",
     "2122373063560110320",
     "2122379663381082317",
+    "2122412284592984405",
     "2122447497570193438",
     "2122460499329622421",
     "2122474044281008598",
@@ -3256,6 +3257,7 @@
     "b65f8d75a8e58437d90d8d8b7cbe7ed464373ff19041fdf78034cb137b148d81",
     "b7a401f70da244991f99023773daabcce9c34aaabaf9459cab2678999863bf82",
     "beb3f314e4fc00ec546b10219624f03ef6a0f56d3ea1dd40734346ba1a3df78c",
+    "bfeaec35d86b466c3835e36cc3fe8d43cba27f19e553a68acd91627174f01874",
     "c0450e458d0de658cc012f44ea137e05362643e80bf8cb4cda76425ca172ccd9",
     "c2819219ee660cf9b6431c686c59c4ca7c4da18f9ce0c5eb8d02d1c48d498fc4",
     "c4a352eb34b598df908a16e0d2f349f48a30efadefd3a6b3582f437b3f9c00e6",
@@ -3387,6 +3389,7 @@
     "418f5045b8481816f3e7ded037f4726403fdecf5e917b309bc50a351f4843de8",
     "42261c435fa13eb84c33b817dfd1c322f6bac12631ba611c893cf5209720a5a3",
     "424fb3f0823c7470e44187dd6964802ee9630c3ba2d7277a5061b47a88af8aed",
+    "432d1273b14ae9861525968fd4741ea19bc916819df2b2d196deb1c3962494eb",
     "4347ae7155700ff4838f3612344d86f25ac5d2dc1cd38e928060b50ec5e44d96",
     "44a6fa6a7bd881025c2bc4451321ab2bd585d0e3c69d2260eb2f3d5d80cadb39",
     "45733c865884fd0c0d188f555b6fd60db28a6cb94f49d2d5997ef66de6efbb55",
@@ -3814,10 +3817,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 501,
+    "neurons_reserved": 458,
     "requests": 35,
     "hour": "2026-11-17T08",
-    "hour_neurons_reserved": 68,
+    "hour_neurons_reserved": 25,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4283,7 +4286,28 @@
       "until": "2026-11-17T12:34:43.504032+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "What is the biggest limitation you see right now?",
+    "event_key": "The author advocates for early adoption of Cursor Projects despite current limitations.",
+    "premise": "Cursor Projects are currently at about 40% of their potential capacity.",
+    "slot": "2026-11-17:reply-v1:16",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T08:14:47.497935+00:00",
+    "source": {
+      "id": "2122412284592984405",
+      "url": "https://x.com/davidgomes/status/2122412284592984405",
+      "author": "davidgomes",
+      "author_id": "494273038",
+      "text": "Cursor Projects are *insane*, but they're still only at ~40% of where I think they should and will be in the future.\n\nYou should start using them right away (they're such a big improvement over Agents/Chats), but please give us some time to iron out the edges and perfect them.",
+      "created_at": "2026-11-16T19:31:35+00:00",
+      "views": 10842,
+      "urls": [],
+      "source_ids": [
+        "2122412284592984405"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
