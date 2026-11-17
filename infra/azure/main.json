@@ -24,7 +24,7 @@
         "description": "Azure region allowed by the subscription, with quota for the selected VM."
       }
     },
-    "vmSize": {
+    "workerSku": {
       "type": "string",
       "defaultValue": "Standard_B2ats_v2",
       "allowedValues": [
@@ -303,7 +303,7 @@
       },
       "properties": {
         "hardwareProfile": {
-          "vmSize": "[parameters('vmSize')]"
+          "vmSize": "[parameters('workerSku')]"
         },
         "storageProfile": {
           "imageReference": {
