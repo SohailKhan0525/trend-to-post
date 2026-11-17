@@ -124,10 +124,10 @@ class MentionVoiceTests(unittest.TestCase):
 
     def test_spelled_counts_cannot_ground_a_new_unit_version_or_identifier(self):
         source = {**DIRECT, 'text': '@qofenoai three hours and one character to fix'}
-        draft = {'text': 'A 3-hour hunt for 1 character.', 'event_key': 'A single-character fix',
+        draft = {'text': 'A 3-hour hunt for 1 character.',
                  'premise': 'The author mentions 3 hours and 1 character.'}
         self.assertEqual(reply_writer.validate(draft, source), draft)
-        for key, value in (('text', 'Wait, 3 characters in 1 hour?'), ('event_key', 'Unrelated case ID 1'),
+        for key, value in (('text', 'Wait, 3 characters in 1 hour?'),
                            ('premise', 'Version v3 changed the fix.'), ('text', 'It took 3% less time.'),
                            ('text', 'One hour for three characters.'), ('text', 'It took 3.0 hours.'),
                            ('text', 'A negative 3 hours feels odd.'), ('text', 'It costs $3 hours.')):
@@ -144,10 +144,32 @@ class MentionVoiceTests(unittest.TestCase):
         good = {**DRAFT, 'text': 'The innocent character always gets the best lawyer.',
                 'premise': 'The author describes three hours looking for one character.'}
         verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': 'three hours and one character'}
-        with patch.object(reply_writer, 'complete', side_effect=[{**good, 'event_key': 'Source id 456'},
+        with patch.object(reply_writer, 'complete', side_effect=[{**good, 'premise': 'Source id 456'},
                                                                    good, verdict]) as writer:
             self.assertEqual(reply_writer.generate(source, {}, NOW)['text'], good['text'])
-        self.assertIn('event_key contains an unsupported number (456)', writer.call_args_list[1].args[1]['correction'])
+        self.assertIn('premise contains an unsupported number (456)', writer.call_args_list[1].args[1]['correction'])
+
+    def test_private_interaction_identity_cannot_halt_review_or_leak_into_copy(self):
+        source = {**DIRECT, 'author': 'zaheer2505', 'url': 'https://x.com/zaheer2505/status/456'}
+        draft = {**DRAFT, 'event_key': 'Intro posted by @zaheer2505',
+                 'premise': '@zaheer2505 greets Qofeno.'}
+        verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': 'hi'}
+        for response in (draft, {k: v for k, v in draft.items() if k != 'event_key'}):
+            with patch.object(reply_writer, 'complete', side_effect=[response, verdict]) as writer:
+                result = reply_writer.generate(source, {}, NOW, angle='Acknowledge zaheer2505.')
+                self.assertEqual(result['event_key'], 'mention 456')
+                self.assertEqual(result['premise'], 'the author greets Qofeno.')
+                self.assertNotIn('event_key', writer.call_args_list[0].kwargs['schema']['properties'])
+                self.assertEqual(set(writer.call_args.args[1]['draft']), {'text', 'premise'})
+                for call in writer.call_args_list:
+                    self.assertNotIn('2505', str(call.args[1]))
+                    self.assertNotIn('456', str(call.args[1]))
+        for unsafe in ('Hey there @zaheer2505!', 'You found 2505 bugs.'):
+            with patch.object(reply_writer, 'complete', return_value={**draft, 'text': unsafe}), self.assertRaises(DraftError):
+                reply_writer.generate(source, {}, NOW)
+        with patch.object(reply_writer, 'complete') as writer, self.assertRaises(reply_writer.SourceRejected):
+            reply_writer.generate(source, {'used_source_ids': ['456']}, NOW)
+        writer.assert_not_called()
 
     def test_parent_supplies_the_subject_and_is_attributed_in_all_three_calls(self):
         parent = {'id': '222', 'author': 'launch_notes', 'text': 'Our uploader retries a failed chunk 3 times.'}
@@ -162,10 +184,13 @@ class MentionVoiceTests(unittest.TestCase):
             self.assertEqual(personality.choose([direct], {}, {}, NOW, ['reply']), choice)
             self.assertEqual(reply_writer.generate(direct, {}, NOW)['text'], draft['text'])
         candidate = planner.call_args.args[1]['conversations'][0]
-        for message in [candidate, *(call.args[1]['source'] for call in writer.call_args_list)]:
-            self.assertEqual(message['author'], DIRECT['author'])
+        self.assertEqual(candidate['author'], DIRECT['author'])
+        self.assertEqual(candidate['parent_context'], parent)
+        for call in writer.call_args_list:
+            message = call.args[1]['source']
+            self.assertEqual(message['author'], 'the author')
             self.assertEqual(message['text'], direct['text'])
-            self.assertEqual(message['parent_context'], parent)
+            self.assertEqual(message['parent_context'], {'author': 'the parent author', 'text': parent['text']})
         for excerpt in ('@qofenoai', 'Can you explain this?', 'retries the failed chunk', '42 retries'):
             with self.subTest(excerpt=excerpt), self.assertRaises(reply_writer.ReviewFormatError):
                 reply_writer.validate_review({**verdict, 'source_evidence': excerpt}, direct)
@@ -203,12 +228,14 @@ class MentionVoiceTests(unittest.TestCase):
              patch.object(reply_writer, 'complete', side_effect=[draft, verdict]) as writer:
             self.assertEqual(personality.choose([source], {}, {}, NOW, ['reply']), choice)
             self.assertEqual(reply_writer.generate(source, {}, NOW)['text'], draft['text'])
-        payloads = [planner.call_args.args[1]['conversations'][0], *(c.args[1]['source'] for c in writer.call_args_list)]
-        for message in payloads:
+        candidate = planner.call_args.args[1]['conversations'][0]
+        self.assertEqual(candidate['parent_context']['author'], 'qofenoai')
+        for call in writer.call_args_list:
+            message = call.args[1]['source']
             self.assertEqual(message['conversation_role'], 'reply_to_qofeno')
-            self.assertEqual((message['author'], message['text']), (source['author'], source['text']))
+            self.assertEqual((message['author'], message['text']), ('the author', source['text']))
             self.assertEqual((message['parent_context']['author'], message['parent_context']['text']),
-                             ('qofenoai', parent['text']))
+                             ('Qofeno', parent['text']))
         for altered in ({**source, 'parent_context': None}, {**source, 'parent_context': {**parent, 'author_id': None}}):
             with self.subTest(parent=altered['parent_context']), patch.object(personality, 'complete') as model:
                 self.assertEqual(personality.choose([altered], {}, {}, NOW, ['reply'])['action'], 'silent')
