@@ -1,9 +1,11 @@
 import copy
 import unittest
+from datetime import timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, call, patch
 
 from app import editorial
+from app.memory import MemoryAccessDenied, MemoryUnavailable
 from app.reply_schedule import next_decision
 from test_editorial import DRAFT, ORIGINAL, PLAN, SOURCE, START, empty
 
@@ -109,12 +111,57 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
     async def test_d1_unavailable_prevents_a_public_send(self):
         state, connection = empty(), self.connection()
         opportunity = {**self.slot, 'kind': 'decision', 'allowed_actions': ['reply', 'original']}
-        with patch.object(editorial.Memory, 'connect', side_effect=RuntimeError('D1 unavailable')), \
+        with patch.object(editorial.Memory, 'connect', side_effect=MemoryUnavailable('D1 unavailable')), \
              patch.object(editorial.sources, 'discover', new_callable=AsyncMock) as discover, \
              patch.object(editorial.personality, 'choose') as choose:
-            with self.assertRaisesRegex(RuntimeError, 'D1 unavailable'):
+            with self.assertRaisesRegex(MemoryUnavailable, 'D1 unavailable'):
                 await editorial.decide(state, opportunity, connection, self.user)
         discover.assert_not_awaited()
         choose.assert_not_called()
         connection.create_tweet.assert_not_awaited()
+
+    async def test_denied_d1_uses_verified_public_history_for_the_actual_reply(self):
+        previous = (self.now - timedelta(days=3)).isoformat()
+        older = {**DRAFT, 'tweet_id': '332', 'kind': 'reply', 'posted_at': previous,
+                 'verified_at': previous, 'text': 'Show the failure before the retry.',
+                 'source': {**SOURCE, 'id': '108', 'text': 'Retrying our build hides its previous output.'}}
+        plan = {'action': 'reply', 'source_id': SOURCE['id'], 'angle': 'Focus on the diff.'}
+        for where in ('connect', 'sync', 'context'):
+            with self.subTest(where=where):
+                state, connection = empty(), self.connection()
+                state['history'] = [older, {'kind': 'quote', 'text': 'unverified draft'}]
+                state['used_source_ids'] = ['108']
+                with patch.object(editorial.Memory, 'connect') as connect, \
+                     patch.object(editorial.sources, 'discover', AsyncMock(return_value=[SOURCE])), \
+                     patch.object(editorial.sources, 'snapshot', return_value=SOURCE), \
+                     patch.object(editorial.personality, 'choose', return_value=plan) as choose, \
+                     patch.object(editorial.reply_writer, 'generate', return_value=DRAFT) as write:
+                    blocked = connect if where == 'connect' else getattr(connect.return_value, where)
+                    blocked.side_effect = MemoryAccessDenied('D1 permission denied')
+                    await editorial.decide(state, self.slot, connection, self.user)
+                stored = choose.call_args.args[1]
+                self.assertEqual([r['text'] for r in stored['conversations']], [older['text']])
+                self.assertEqual(stored['people'][0]['author_id'], SOURCE['author_id'])
+                self.assertNotIn('unverified draft', str(stored))
+                self.assertEqual(write.call_args.kwargs['memory'], stored)
+                connection.create_tweet.assert_awaited_once_with(text=DRAFT['text'], reply_to=SOURCE['id'])
+                self.assertIn(SOURCE['id'], state['used_source_ids'])
+                self.assertIn('108', state['used_source_ids'])
+                self.assertEqual(state['history'][-1]['tweet_id'], '333')
+
+    async def test_denied_post_send_sync_never_resends_the_verified_original(self):
+        state, connection = empty(), self.connection(None, ORIGINAL)
+        with patch.object(editorial.Memory, 'connect') as connect, \
+             patch.object(editorial.sources, 'discover', AsyncMock(return_value=[])), \
+             patch.object(editorial.personality, 'choose', return_value=PLAN), \
+             patch.object(editorial.personality, 'original', return_value=ORIGINAL):
+            connect.return_value.sync.side_effect = [None, MemoryAccessDenied('D1 permission denied')]
+            await editorial.decide(state, self.slot, connection, self.user)
+        self.assertEqual(connect.return_value.sync.call_count, 2)
+        self.assertEqual(state['history'][0]['tweet_id'], '333')
+        self.assertIn('verified_at', state['history'][0])
+        self.assertIsNone(state['outbox'])
+        self.assertIn(editorial.reply_writer.fingerprint(ORIGINAL['text']), state['used_texts'])
+        self.assertIsNone(next_decision(editorial.schedule_state(state), self.now))
+        connection.create_tweet.assert_awaited_once_with(text=ORIGINAL['text'])
 

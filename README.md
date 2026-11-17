@@ -23,7 +23,7 @@ X documents its account automation and reply requirements in its [automation rul
 
 ## Cloudflare memory and configuration
 
-D1 stores verified public posts, including Qofeno’s text and topic and, for replies, the original author’s public ID and handle, parent post ID and a short source excerpt. This lets the writer recognize someone it has replied to and avoid repeating its own take. Only verified ledger rows enter memory. Syncing can safely be repeated after an interrupted run. If D1 is unavailable, live decisions pause until memory is accessible.
+D1 stores verified public posts, including Qofeno’s text and topic and, for replies, the original author’s public ID and handle, parent post ID and a short source excerpt. This lets the writer recognize someone it has replied to and avoid repeating its own take. Only verified ledger rows enter memory. Syncing can safely be repeated after an interrupted run. If Cloudflare denies D1 access, the publisher rebuilds the same public conversation context from its durable verified ledger and reports the fallback in Actions. Each eligible wake retries D1 and automatically backfills verified activity as soon as access is granted. Other memory errors pause publishing and surface their cause.
 
 | GitHub Actions setting | Purpose |
 | --- | --- |

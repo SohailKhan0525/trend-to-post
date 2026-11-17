@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import sqlite3
 from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -23,6 +24,10 @@ SCHEMA = (
 
 class MemoryUnavailable(RuntimeError):
     """Public-safe diagnostic. Never include a token, request, or raw API error."""
+
+
+class MemoryAccessDenied(MemoryUnavailable):
+    """Cloudflare explicitly rejected the D1 credentials or their permissions."""
 
 
 def database_uuid(value):
@@ -47,8 +52,8 @@ class Memory:
                 body = json.load(response)
         except HTTPError as exc:
             if exc.code in (401, 403):
-                raise MemoryUnavailable('D1 access denied. Grant the token Account D1 Write (Edit) '
-                                        'for the configured Cloudflare account.') from None
+                raise MemoryAccessDenied('D1 access denied. Grant the token Account D1 Write (Edit) '
+                                         'for the configured Cloudflare account.') from None
             if exc.code == 404:
                 raise MemoryUnavailable('D1 resource missing. Check D1_DATABASE_ID and the Cloudflare account.') from None
             raise MemoryUnavailable(f'D1 returned HTTP {exc.code}. Check the database and account limits.') from None
@@ -159,3 +164,20 @@ class Memory:
         result = self._batch(queries)
         return {'recent_own': sorted(result[0] + result[1], key=lambda row: row['posted_at'], reverse=True),
                 'people': result[2] if authors else [], 'conversations': result[3] if authors else []}
+
+
+class LedgerMemory(Memory):
+    """Project the durable verified Git ledger in RAM, using the same SQL as D1."""
+
+    def __init__(self):
+        self.db = sqlite3.connect(':memory:')
+        self.db.row_factory = sqlite3.Row
+        self._batch([{'sql': sql} for sql in SCHEMA])
+
+    def _batch(self, statements):
+        results = []
+        with self.db:
+            for statement in statements:
+                cursor = self.db.execute(statement['sql'], statement.get('params', []))
+                results.append([dict(row) for row in cursor])
+        return results

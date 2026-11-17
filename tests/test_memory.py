@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import patch
 from urllib.error import HTTPError
 
-from app.memory import DATABASE_NAME, SCHEMA, Memory, MemoryUnavailable
+from app.memory import DATABASE_NAME, SCHEMA, LedgerMemory, Memory, MemoryAccessDenied, MemoryUnavailable
 
 
 UUID = 'a51711e0-20ee-49de-94ed-5e6ee96683d1'
@@ -48,6 +48,24 @@ def reply(i, author='876'):
 
 
 class MemoryTests(unittest.TestCase):
+    def test_ledger_projection_matches_d1_for_history_and_new_verified_posts(self):
+        ledger, d1 = LedgerMemory(), LocalMemory()
+        self.addCleanup(ledger.db.close)
+        self.addCleanup(d1.db.close)
+        history = [reply(i, str(100+i%13)) for i in range(80)]
+        history.insert(0, {'kind': 'quote', 'tweet_id': '99', 'text': 'unverified'})
+        history.extend([{**reply(80), 'kind': 'original', 'source': None},
+                        {**reply(81), 'kind': 'follow', 'source': None}])
+        candidates = [{'author_id': str(100+i)} for i in range(15)]
+        self.assertEqual(ledger.sync(history), d1.sync(history))
+        self.assertEqual(ledger.context(candidates), d1.context(candidates))
+        self.assertEqual(ledger.context([]), d1.context([]))
+        history.append(reply(82, '102'))
+        self.assertEqual(ledger.sync(history), 1)
+        self.assertEqual(d1.sync(history), 1)
+        self.assertEqual(ledger.context(candidates), d1.context(candidates))
+        self.assertEqual(ledger.sync(history), 0)
+
     def test_partial_backfill_retries_and_does_not_duplicate_or_profile_people(self):
         mem = LocalMemory()
         history = [{'kind': 'quote', 'text': 'unverified legacy'}]
@@ -103,12 +121,17 @@ class MemoryTests(unittest.TestCase):
         mem = Memory('a'*32, 'private-token')
         mem.database_id = UUID
         error = HTTPError('https://api.cloudflare.com/', 403, 'private-token', {}, io.BytesIO(b'private-token'))
-        with patch('app.memory.urlopen', side_effect=error), self.assertRaisesRegex(MemoryUnavailable, 'D1 Write') as failed:
+        with patch('app.memory.urlopen', side_effect=error), self.assertRaisesRegex(MemoryAccessDenied, 'D1 Write') as failed:
             mem.context([])
         self.assertNotIn('private-token', str(failed.exception))
         bad_batch = io.BytesIO(json.dumps({'success': True, 'result': [{'success': False}]}).encode())
-        with patch('app.memory.urlopen', return_value=bad_batch), self.assertRaisesRegex(MemoryUnavailable, 'SQL statement'):
+        with patch('app.memory.urlopen', return_value=bad_batch), self.assertRaisesRegex(MemoryUnavailable, 'SQL statement') as bad:
             mem.sync([])
+        self.assertNotIsInstance(bad.exception, MemoryAccessDenied)
+        other = HTTPError('https://api.cloudflare.com/', 503, 'unavailable', {}, None)
+        with patch('app.memory.urlopen', side_effect=other), self.assertRaises(MemoryUnavailable) as down:
+            mem.context([])
+        self.assertNotIsInstance(down.exception, MemoryAccessDenied)
 
 
 if __name__ == '__main__':

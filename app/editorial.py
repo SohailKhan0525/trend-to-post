@@ -12,7 +12,7 @@ from datetime import datetime, timedelta, timezone
 
 from twikit.errors import CouldNotTweet, Forbidden, NotFound, TooManyRequests, TweetNotAvailable
 from . import personality, reply_writer, sources
-from .memory import Memory
+from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError, selected_model
 from .reply_schedule import next_decision, next_slot, timestamp
@@ -400,10 +400,22 @@ async def publish_original(state, slot, connection, user, plan, memory_context):
     await send_once(state, slot, draft, connection, user)
 
 
+def ledger_after_denial(history):
+    # The git ledger already holds the verified publications used to rebuild D1.
+    # This projection has no independent writes and cannot confirm a publication.
+    summary('::warning::Cloudflare denied D1 access. Using verified publication history for this wake. D1 will be retried.')
+    memory = LedgerMemory()
+    memory.sync(history)
+    return memory
+
+
 async def decide(state, slot, connection, user):
     stage('sync verified publications to D1')
-    memory = Memory.connect()
-    memory.sync(state['history'])
+    try:
+        memory = Memory.connect()
+        memory.sync(state['history'])
+    except MemoryAccessDenied:
+        memory = ledger_after_denial(state['history'])
     stage('discover public conversations')
     now = utcnow()
     candidates = await sources.discover(connection, state, now)
@@ -411,7 +423,11 @@ async def decide(state, slot, connection, user):
     candidates = [c for c in candidates if c['author_id'] != str(user.id) and eligible_author(c, state, now)
                   and (rejection_key(c) not in cached or timestamp(cached[rejection_key(c)]['until']) <= now)]
     shortlist = sources.shortlist(candidates, now)
-    context = memory.context(shortlist)
+    try:
+        context = memory.context(shortlist)
+    except MemoryAccessDenied:
+        memory = ledger_after_denial(state['history'])
+        context = memory.context(shortlist)
     stage('choose original, reply or silence')
     with budget_scope(state, save_and_push, utcnow):
         plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'])
@@ -437,7 +453,10 @@ async def decide(state, slot, connection, user):
         await publish_original(state, chosen_slot, connection, user, plan, context)
     if len(state['history']) > before:
         stage('remember verified publication')
-        memory.sync(state['history'])
+        try:
+            memory.sync(state['history'])
+        except MemoryAccessDenied:
+            ledger_after_denial(state['history'])
 
 
 async def run(event):
