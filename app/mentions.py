@@ -207,6 +207,14 @@ def _loaded_page(page):
         return []
 
 
+def _native_links(item):
+    aliases = sources.tweet_ids(item)
+    raw = item._data
+    parent = (raw.get('legacy') or {}).get('in_reply_to_status_id_str') or raw.get('in_reply_to_status_id_str')
+    parent = sources._identifier(parent) if parent is not None else None
+    return aliases, parent, sources.conversation_id(raw)
+
+
 def native_reply_ids(tweet, own_user_id, conversation_id):
     """Read only already-loaded TweetDetail objects, proving membership by native IDs."""
     if not str(own_user_id).isdigit() or not str(conversation_id).isdigit():
@@ -223,11 +231,7 @@ def native_reply_ids(tweet, own_user_id, conversation_id):
         try:
             # Twifork's Result is an already-loaded page; iterating calls no API.
             items.extend(_loaded_page(getattr(item, 'replies', None)))
-            aliases = sources.tweet_ids(item)
-            raw = item._data
-            parent = (raw.get('legacy') or {}).get('in_reply_to_status_id_str') or raw.get('in_reply_to_status_id_str')
-            parent = sources._identifier(parent) if parent is not None else None
-            native_root = sources.conversation_id(raw)
+            aliases, parent, native_root = _native_links(item)
         except (sources.SourceError, AttributeError, IndexError, KeyError, TypeError, ValueError):
             continue
         canonical = min(aliases, key=int)
@@ -277,7 +281,7 @@ async def conversation_reply_ids(connection, own_user_id, conversation_id):
     read_item = False
     for item in items:
         try:
-            sources.tweet_ids(item)
+            _native_links(item)
             sources._identifier(getattr(getattr(item, 'user', None), 'id', None))
         except (sources.SourceError, AttributeError, KeyError, TypeError):
             continue

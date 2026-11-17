@@ -420,7 +420,7 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
                                                    count=mentions.INBOX_COUNT)
         self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', None))
         conn.search_tweet.assert_awaited_once()
-        for malformed in (None, {}, [None, 'broken']):
+        for malformed in (None, {}, [None, 'broken'], [account_post('207', '88', 'broken')]):
             conn.search_tweet.return_value = malformed
             self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', '100'))
         conn.search_tweet.return_value = []
