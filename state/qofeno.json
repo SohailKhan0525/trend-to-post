@@ -2797,6 +2797,7 @@
     "2122120463627522475",
     "2122169537592430882",
     "2122185393143738493",
+    "2122204154391314928",
     "2122208795048964531",
     "2122215113897955666",
     "2122231173720224224",
@@ -2925,6 +2926,7 @@
     "969353d7054536833563b5ba92a27b6ea34653d51476500e2cbe9f6ef26db218",
     "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2",
     "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0",
+    "9cbb171dec952d18057466e690592533b0fd693c0ca2164ec63c3fc400d0e072",
     "9d1a88851d00586b7a4f6ca3c55f16a789c3af22498e0e2d8d49069eea645ca9",
     "9e7c158d63f2f33648fcf5ea2b1a5951fd91f96cb4da96517dfadee7e92fbf79",
     "9e90fa724f3e446f669d4d7e5b1c040e5d5a12f6513bd8638789853da7aab278",
@@ -3321,6 +3323,7 @@
     "d719aff69907105afef997e8d07489426dda4f33d36d97401175416c41099370",
     "d7686821c170e1cd1c700aafe204797cb062f1ebdd7b8ce54a15cad29b7e5ac2",
     "d7a20aedaae5344703e402664bb6509578103d0dcdc02f4856e43ccc28656ad2",
+    "d804928067e75eda2717bf39016f9932e4cff1f3a8562ee7cf667fba02d6fdae",
     "d877991f75762929859ea8c4092d4bd68f9300880f862e23b92053d2db797f59",
     "d8916aab1124b4e6e0e76dec95d440fa8d4e373e53a182f50057ad5dd8dc40de",
     "da9e64290ef0170ce173bd5d3bb106a2d5f97a21df6e2951226c71cccf8be0ed",
@@ -3487,10 +3490,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 140,
+    "neurons_reserved": 81,
     "requests": 6,
     "hour": "2026-11-17T01",
-    "hour_neurons_reserved": 92,
+    "hour_neurons_reserved": 33,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3856,7 +3859,28 @@
     }
   },
   "reply_rejections": {},
-  "outbox": null,
+  "outbox": {
+    "text": "Verification methods vary significantly between these providers.",
+    "event_key": "A user sharing a comprehensive list of student software benefits.",
+    "premise": "A list of various software, cloud, and educational services available for free or at a discount with a student email ID.",
+    "slot": "2026-11-17:reply-v1:3",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T01:34:24.782090+00:00",
+    "source": {
+      "id": "2122204154391314928",
+      "url": "https://x.com/AbhinavXJ/status/2122204154391314928",
+      "author": "AbhinavXJ",
+      "author_id": "1663994484529717249",
+      "text": "if you have a student mail id, you should not miss out on getting these for free\n\n> Google Gemini Pro\n> Student ID flight booking\n> GitHub Student Pack\n> GitHub Copilot\n> DigitalOcean credits\n> AWS Educate\n> Google Cloud credits\n> Microsoft Azure $100 credits\n> MongoDB Atlas credits\n> Heroku credits\n> Vercel Pro features\n> Netlify enhanced limits\n> Railway student discount\n> Namecheap free domain + SSL\n> Cloudflare Pro\n> Postman Student Expert\n> Replit Pro\n> Cursor Pro\n> JetBrains IDEs\n> Autodesk\n> Figma\n> Canva for Education\n> Notion\n> Grammarly EDU\n> Microsoft 365 Education\n> LinkedIn Learning\n> Coursera financial aid\n> edX free course audits\n> Udemy free courses\n> Pluralsight student plan\n> Educative free courses\n> Free certification courses\n> Spotify Student\n> Apple Music Student\n> YouTube Premium Student\n> Amazon Prime Student\n> UNiDAYS discounts\n> Student Beans discounts\n> Apple Education pricing\n> Samsung Student Store\n> EarPods free with MacBook (education offer)\n> IBM SkillsBuild\n> Meta Blueprint certifications\n> OpenAI API credits (via student programs)\n> Blender (fully free)\n> Unity Student license\n> Miro Education plan\n> Sketch student pricing\n> Todoist Pro for students\n> Evernote student discount\n> Zoom Education benefits\n> Slack Education plan\n> Perplexity Pro Student\n> Free .me domain (GitHub pack)\n> Free SSL certificates\n> Linear student plan\n> ClickUp Education plan\n> Asana student access\n> Airtable free education workspace\n> Obsidian free for students\n> Arc Browser student perks\n> Raycast Pro student discount\n> Loom Education plan\n> GitKraken Student pack\n> JetBrains Space Education\n> DigitalOcean App Platform credits\n> Stripe fee-free test credits\n> PayPal sandbox credits\n> Oracle Cloud Free Tier (Student)\n> SAP Learning Hub Student\n> Red Hat Developer Subscription\n> Intel Developer Zone access\n> Nvidia student resources & credits\n> Kali Linux training discounts\n> Hack The Box student labs\n> TryHackMe student plan\n> LeetCode student discounts\n> InterviewBit free practice\n> HackerRank student certifications\n> Kaggle free compute & datasets\n> Google Developer Student Clubs perks\n> Microsoft Learn student challenges\n> Free conference tickets (student passes)\n> Free hackathon swag & cloud credits",
+      "created_at": "2026-11-16T05:44:33+00:00",
+      "views": 15830,
+      "urls": [],
+      "source_ids": [
+        "2122204154391314928"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
