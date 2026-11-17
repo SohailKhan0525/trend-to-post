@@ -2866,6 +2866,33 @@
       "posted_at": "2026-11-17T08:14:49+00:00",
       "completed_at": "2026-11-17T08:14:49+00:00",
       "verified_at": "2026-11-17T08:14:50.620761+00:00"
+    },
+    {
+      "text": "The agent market is getting crowded fast.",
+      "event_key": "Comparison between Grok Bot and Claude Code regarding coding agents.",
+      "premise": "Grok Bot is repeating the impact Claude Code had on coding agents.",
+      "slot": "2026-11-17:reply-v1:17",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T08:45:02.143325+00:00",
+      "source": {
+        "id": "2122411888210567253",
+        "url": "https://x.com/handotdev/status/2122411888210567253",
+        "author": "handotdev",
+        "author_id": "1189736451644243974",
+        "text": "Grok Bot is doing to everyone else what Claude Code did to coding agents",
+        "created_at": "2026-11-16T19:30:01+00:00",
+        "views": 24152,
+        "urls": [],
+        "source_ids": [
+          "2122411888210567253"
+        ]
+      },
+      "tweet_id": "2122611965092614639",
+      "sent_at": "2026-11-17T08:45:03.304508+00:00",
+      "posted_at": "2026-11-17T08:45:03+00:00",
+      "completed_at": "2026-11-17T08:45:03+00:00",
+      "verified_at": "2026-11-17T08:45:05.150504+00:00"
     }
   ],
   "used_source_ids": [
@@ -3764,7 +3791,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T08:14:49+00:00",
+  "last_posted_at": "2026-11-17T08:45:03+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -4279,6 +4306,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T08:14:49+00:00",
       "tweet_id": "2122604355333529855"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:17",
+      "kind": "reply",
+      "completed_at": "2026-11-17T08:45:03+00:00",
+      "tweet_id": "2122611965092614639"
     }
   ],
   "last_attempts": {
@@ -4319,30 +4352,7 @@
       "until": "2026-11-17T12:34:43.504032+00:00"
     }
   },
-  "outbox": {
-    "text": "The agent market is getting crowded fast.",
-    "event_key": "Comparison between Grok Bot and Claude Code regarding coding agents.",
-    "premise": "Grok Bot is repeating the impact Claude Code had on coding agents.",
-    "slot": "2026-11-17:reply-v1:17",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T08:45:02.143325+00:00",
-    "source": {
-      "id": "2122411888210567253",
-      "url": "https://x.com/handotdev/status/2122411888210567253",
-      "author": "handotdev",
-      "author_id": "1189736451644243974",
-      "text": "Grok Bot is doing to everyone else what Claude Code did to coding agents",
-      "created_at": "2026-11-16T19:30:01+00:00",
-      "views": 24152,
-      "urls": [],
-      "source_ids": [
-        "2122411888210567253"
-      ]
-    },
-    "tweet_id": "2122611965092614639",
-    "sent_at": "2026-11-17T08:45:03.304508+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
