@@ -150,3 +150,25 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn('345/', line)
         self.assertIn('paused until', line)
         self.assertNotIn('PRIVATE', line)
+
+    async def test_snapshot_trace_shows_only_public_failed_ids_without_another_x_read(self):
+        public = SimpleNamespace(protected=False, screen_name='PRIVATE')
+        protected = SimpleNamespace(protected=True)
+        accepted = self.invite()
+
+        async def sample(_connection, _now, *, on_drop, **kwargs):
+            for ident, author, reason in [
+                ('1002', public, 'missing native reply parent'), ('1002', public, 'PRIVATE PROVIDER PAYLOAD'),
+                ('1003', protected, 'invalid mention parent'), ('1004', public, 'source author is unavailable or protected'),
+                (accepted['id'], public, 'no matching invitation or preference command')]:
+                on_drop(SimpleNamespace(id=ident, user=author), status.sources.SourceError(reason))
+            return [accepted]
+
+        with patch.object(status.mentions, 'discover', side_effect=sample) as discover, patch.object(status.store, 'summary') as log:
+            await status.inspect_inbox(self.client, self.state, self.now, '')
+        discover.assert_awaited_once()
+        self.client.get_tweet_by_id.assert_not_awaited()
+        lines = [call.args[0] for call in log.call_args_list]
+        self.assertEqual([line for line in lines if line.startswith('Skipped public inbox')], [
+            'Skipped public inbox result https://x.com/i/status/1002: missing native reply parent, other source validation failure.'])
+        self.assertFalse(any('PRIVATE' in line or '/status/1003' in line or '/status/1004' in line for line in lines))

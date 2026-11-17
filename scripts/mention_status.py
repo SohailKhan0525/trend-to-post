@@ -15,6 +15,33 @@ from app.reply_schedule import DAILY_REPLY_CAP, timestamp
 from scripts.azure_status import category, read_snapshot, report
 
 
+SNAPSHOT_REASONS = {
+    'no matching invitation or preference command', 'own mention or unsafe instruction',
+    'invalid mention parent', 'missing native reply parent', 'source author is unavailable or protected',
+    'source is a repost', 'source is a quote', 'source contains excluded topics',
+    'linked metadata contains excluded topics', 'source is outside the 24-hour freshness window',
+    'source text is truncated or ambiguous', 'source has insufficient factual text', 'missing full source text',
+    'missing or invalid source timestamp', 'missing or invalid source author handle',
+    'missing edit identities', 'invalid edit identities', 'invalid source metadata', 'malformed source metadata',
+    'invalid source snapshot', 'invalid article identities', 'missing or invalid measured views',
+    'source URL does not match its identity',
+}
+
+
+def public_drop_id(tweet, reason):
+    if reason == 'source author is unavailable or protected':
+        return None
+    try:
+        author = getattr(tweet, 'user', None)
+        if (getattr(author, 'protected', None) is not False or getattr(author, 'blocking', False)
+                or getattr(author, 'blocked_by', False) or getattr(tweet, 'possibly_sensitive', False)):
+            return None
+        ident = str(tweet.id)
+        return ident if re.fullmatch(r'[1-9][0-9]{0,19}', ident) else None
+    except (AttributeError, TypeError, KeyError, ValueError):
+        return None
+
+
 def eligibility(row, state, now, own_id):
     if row['intent'] != 'invite':
         return 'preference command'
@@ -130,7 +157,19 @@ async def inspect_inbox(connection, state, now, post_id):
     if not own_id.isascii() or not own_id.isdigit() or user.screen_name.casefold() != store.ACCOUNT:
         raise store.SessionUnavailable()
     await inspect_reserved_reply(connection, state.get('outbox') or {})
-    rows = await mentions.discover(connection, now, used_source_ids=(), own_history=state['history'], own_user_id=own_id)
+    drops = Counter()
+    dropped_ids = {}
+
+    def trace_drop(tweet, exc):
+        reason = str(exc)
+        reason = reason if reason in SNAPSHOT_REASONS else 'other source validation failure'
+        drops[reason] += 1
+        ident = public_drop_id(tweet, reason)
+        if ident:
+            dropped_ids.setdefault(ident, set()).add(reason)
+
+    rows = await mentions.discover(connection, now, used_source_ids=(), own_history=state['history'],
+                                   own_user_id=own_id, on_drop=trace_drop)
     # Evaluate commands exactly as the publisher would, entirely in this local copy.
     state = {**state, 'mention_preferences': dict(state.get('mention_preferences', {}))}
     mentions.apply_controls(rows, state)
@@ -141,6 +180,11 @@ async def inspect_inbox(connection, state, now, post_id):
                   f'{counts["previously reserved source"]} previously reserved.')
     for category, count in sorted(counts.items()):
         store.summary(f'Inbox classification: {category} = {count}')
+    for reason, count in sorted(drops.items()):
+        store.summary(f'Inbox snapshot rejections: {reason} = {count}')
+    accepted_ids = {ident for row in rows for ident in row['source_ids']}
+    for ident in sorted(dropped_ids.keys() - accepted_ids, key=int, reverse=True)[:5]:
+        store.summary(f'Skipped public inbox result https://x.com/i/status/{ident}: {", ".join(sorted(dropped_ids[ident]))}.')
     invitations = [(row, label) for row, label in classifications if row['intent'] == 'invite'
                    and re.fullmatch(r'[1-9][0-9]{0,19}', row['id'])]
     for row, label in sorted(invitations, key=lambda item: (timestamp(item[0]['created_at']), int(item[0]['id'])), reverse=True)[:5]:
