@@ -3907,10 +3907,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 644,
+    "neurons_reserved": 586,
     "requests": 43,
     "hour": "2026-11-17T10",
-    "hour_neurons_reserved": 162,
+    "hour_neurons_reserved": 104,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4385,6 +4385,10 @@
     "2026-11-17:reply-v1:18": {
       "at": "2026-11-17T09:25:08.627692+00:00",
       "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
+    },
+    "2026-11-17:reply-v1:21": {
+      "at": "2026-11-17T10:34:51.486576+00:00",
+      "reason": "No fresh eligible conversation passed this check. No reply sent."
     }
   },
   "reply_rejections": {
@@ -4393,6 +4397,9 @@
     },
     "a307b932b2647d8614fe24bd2054167443ab253017e484d38895d0a6358180a7": {
       "until": "2026-11-17T12:34:43.504032+00:00"
+    },
+    "c7f856b95f97d9c6032ffe2995a85a69f5d5f404251363e38f77c14d463f4922": {
+      "until": "2026-11-17T16:34:51.486353+00:00"
     }
   },
   "outbox": null,
