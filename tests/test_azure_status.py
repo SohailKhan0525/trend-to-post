@@ -43,5 +43,6 @@ class AzureStatusTests(unittest.TestCase):
         result = '\n'.join(report(state, now))
         self.assertIn('(silence)', result)
         self.assertIn('Pending delivery: True', result)
+        self.assertIn('no X ID', result)
         self.assertIn('Reply eligibility in D1: on hold', result)
         self.assertNotIn('PRIVATE', result)

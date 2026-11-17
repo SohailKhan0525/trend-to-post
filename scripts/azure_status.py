@@ -65,8 +65,21 @@ def report(state, now):
         at, slot, outcome = max(valid_slots)
         decision = f'{slot} at {at.isoformat()} ({outcome})'
     pending = any(state.get(k) for k in ('outbox','pending','pending_reply','follow_pending','verification_pending'))
-    return [f'Latest verified X post: {receipt}', f'Latest recorded decision: {decision}',
-            f'Pending delivery: {bool(pending)}', inbox_schedule(state, now), upcoming_opportunity(state, now)]
+    lines = [f'Latest verified X post: {receipt}', f'Latest recorded decision: {decision}',
+             f'Pending delivery: {bool(pending)}', inbox_schedule(state, now), upcoming_opportunity(state, now)]
+    outbox = state.get('outbox')
+    if outbox:
+        post_id = str(outbox.get('tweet_id') or '')
+        link = f'https://x.com/qofenoai/status/{post_id}' if re.fullmatch(r'[1-9][0-9]{0,19}', post_id) else 'no X ID'
+        reserved = outbox.get('reserved_at')
+        since = timestamp(reserved).isoformat() if reserved else 'unknown time'
+        outcome = 'X reported CouldNotTweet' if outbox.get('send_error') == 'CouldNotTweet' else 'awaiting verification'
+        if state.get('pause_reason') == 'Published post does not match the reserved author, text or reply parent':
+            outcome = 'readback did not match the reservation'
+        lines.append(f'Reserved at {since}; {link}; {outcome}.')
+    if state.get('x_pause_until') and timestamp(state['x_pause_until']) > now:
+        lines.append(f'X cooldown until {timestamp(state["x_pause_until"]).isoformat()}.')
+    return lines
 
 
 def read_snapshot():
