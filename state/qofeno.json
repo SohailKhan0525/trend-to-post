@@ -3427,10 +3427,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 59,
-    "requests": 1,
+    "neurons_reserved": 67,
+    "requests": 2,
     "hour": "2026-11-17T00",
-    "hour_neurons_reserved": 59,
+    "hour_neurons_reserved": 67,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
