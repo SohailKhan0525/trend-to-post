@@ -2521,6 +2521,33 @@
       "posted_at": "2026-11-17T00:05:24+00:00",
       "completed_at": "2026-11-17T00:05:24+00:00",
       "verified_at": "2026-11-17T00:05:26.410778+00:00"
+    },
+    {
+      "text": "Automating the sync between code and LaTeX is a huge win. 🚀",
+      "event_key": "Integrating Claude Code with Overleaf via Git for automated paper writing.",
+      "premise": "The author uses Claude Code to edit a project via Git, which then automatically updates their Overleaf paper.",
+      "slot": "2026-11-17:reply-v1:1",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T00:35:38.696103+00:00",
+      "source": {
+        "id": "2122255102949933241",
+        "url": "https://x.com/The_Morty92/status/2122255102949933241",
+        "author": "The_Morty92",
+        "author_id": "818936803",
+        "text": "یکاری کردم خیلی حال میده دارم رو یه مقاله کار می کنم. بعد کدهارو که با Claude code میزنم، خود مقاله رو هم تو overleaf می نویسم. لینک Git پروژه تو overleaf رو دادم بهش.فقط با Claude حرف میزنم تغییر میده، خودش Push می کنه تو مقاله😂این دقیقا نقطه بهینه ای بود که همیشه دنبالش بودم",
+        "created_at": "2026-11-16T09:07:00+00:00",
+        "views": 10447,
+        "urls": [],
+        "source_ids": [
+          "2122255102949933241"
+        ]
+      },
+      "tweet_id": "2122488807056658942",
+      "sent_at": "2026-11-17T00:35:39.926411+00:00",
+      "posted_at": "2026-11-17T00:35:40+00:00",
+      "completed_at": "2026-11-17T00:35:40+00:00",
+      "verified_at": "2026-11-17T00:35:41.883811+00:00"
     }
   ],
   "used_source_ids": [
@@ -3377,7 +3404,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T00:05:24+00:00",
+  "last_posted_at": "2026-11-17T00:35:40+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3814,6 +3841,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T00:05:24+00:00",
       "tweet_id": "2122481192553320787"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:1",
+      "kind": "reply",
+      "completed_at": "2026-11-17T00:35:40+00:00",
+      "tweet_id": "2122488807056658942"
     }
   ],
   "last_attempts": {
@@ -3851,30 +3884,7 @@
     }
   },
   "reply_rejections": {},
-  "outbox": {
-    "text": "Automating the sync between code and LaTeX is a huge win. 🚀",
-    "event_key": "Integrating Claude Code with Overleaf via Git for automated paper writing.",
-    "premise": "The author uses Claude Code to edit a project via Git, which then automatically updates their Overleaf paper.",
-    "slot": "2026-11-17:reply-v1:1",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T00:35:38.696103+00:00",
-    "source": {
-      "id": "2122255102949933241",
-      "url": "https://x.com/The_Morty92/status/2122255102949933241",
-      "author": "The_Morty92",
-      "author_id": "818936803",
-      "text": "یکاری کردم خیلی حال میده دارم رو یه مقاله کار می کنم. بعد کدهارو که با Claude code میزنم، خود مقاله رو هم تو overleaf می نویسم. لینک Git پروژه تو overleaf رو دادم بهش.فقط با Claude حرف میزنم تغییر میده، خودش Push می کنه تو مقاله😂این دقیقا نقطه بهینه ای بود که همیشه دنبالش بودم",
-      "created_at": "2026-11-16T09:07:00+00:00",
-      "views": 10447,
-      "urls": [],
-      "source_ids": [
-        "2122255102949933241"
-      ]
-    },
-    "tweet_id": "2122488807056658942",
-    "sent_at": "2026-11-17T00:35:39.926411+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
