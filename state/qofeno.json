@@ -2774,6 +2774,7 @@
     "2122215113897955666",
     "2122231173720224224",
     "2122247739748630663",
+    "2122255102949933241",
     "2122283790366134637",
     "2122287575557706226",
     "2122298376456741208",
@@ -2923,6 +2924,7 @@
     "c93490cdfcbff85ce80d16542f2ae662a471277914e306400e91f3b148d785c4",
     "cc37e487e819dfefe4c7961a9356af6a8a7f6c111eaceac9aba5f14f09645865",
     "cf880ae2baaccec5d9afe84d817b27ac8a253aa9d300d654198f4fc337a4efa1",
+    "d0ec81c5bdbf12af4c435cdf8dbc16492ac5014612c5024e19a1a1b8e251a208",
     "d2dc3c84b6db7d9d2fbc749a4edce82a72a52f1f8aab73cdbe51f9ed6dc5f960",
     "d4ab65797ebcc6cfb2b746b17a96260489e87e2748048f99d9f51cf6b502c111",
     "dc445c6126dc784d143e3ce6fee788662e535392f1f634d0a21cdf2261546891",
@@ -3331,6 +3333,7 @@
     "ec4a2d14d78e7cbcc013f8aae61e5b89ec6e7326918c7c42f03635ce13c3c822",
     "ec961fe1ade1e3b2aef5b949003bac245d468042f89c5cd0adeb2543b143b0c4",
     "ec9b35fb5a818846d2a8ceee155d935d16943bb5265e22bf627845ea93ebd07c",
+    "ecd436fa2e3cdaa8886e8244ccd5ea9124c0ef7d40c72cb42efb77b26c801340",
     "ed56147d29668d0c4e016a5714275970b210ce6af243b4c317634dffb48eb3c7",
     "ee8b16f953c551e296a52840285524e8f384308076d65aa8fda5b9a66412202d",
     "eeaf70f267cd05dde4b006bed635af967fb7ac95d456d13ee7c53178f83b63ba",
@@ -3457,10 +3460,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 93,
+    "neurons_reserved": 48,
     "requests": 4,
     "hour": "2026-11-17T00",
-    "hour_neurons_reserved": 93,
+    "hour_neurons_reserved": 48,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3848,7 +3851,28 @@
     }
   },
   "reply_rejections": {},
-  "outbox": null,
+  "outbox": {
+    "text": "Automating the sync between code and LaTeX is a huge win. 🚀",
+    "event_key": "Integrating Claude Code with Overleaf via Git for automated paper writing.",
+    "premise": "The author uses Claude Code to edit a project via Git, which then automatically updates their Overleaf paper.",
+    "slot": "2026-11-17:reply-v1:1",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T00:35:38.696103+00:00",
+    "source": {
+      "id": "2122255102949933241",
+      "url": "https://x.com/The_Morty92/status/2122255102949933241",
+      "author": "The_Morty92",
+      "author_id": "818936803",
+      "text": "یکاری کردم خیلی حال میده دارم رو یه مقاله کار می کنم. بعد کدهارو که با Claude code میزنم، خود مقاله رو هم تو overleaf می نویسم. لینک Git پروژه تو overleaf رو دادم بهش.فقط با Claude حرف میزنم تغییر میده، خودش Push می کنه تو مقاله😂این دقیقا نقطه بهینه ای بود که همیشه دنبالش بودم",
+      "created_at": "2026-11-16T09:07:00+00:00",
+      "views": 10447,
+      "urls": [],
+      "source_ids": [
+        "2122255102949933241"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
