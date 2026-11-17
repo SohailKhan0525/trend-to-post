@@ -53,6 +53,14 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn('PRIVATE', log.call_args.args[0])
         self.client.create_tweet.assert_not_called()
 
+    def test_silence_on_current_source_counts_as_reviewed(self):
+        row = {'id': '71234567', 'author_id': '81234567', 'author': 'reader',
+               'text': '@qofenoai hello', 'origin': 'mention', 'intent': 'invite',
+               'created_at': self.now.isoformat(), 'source_ids': ['71234567'], 'urls': []}
+        slot = status.editorial.inbox_opportunity(row)['slot']
+        self.state['decision_slots'] = {slot: {'action': 'silent', 'at': self.now.isoformat()}}
+        self.assertEqual(status.eligibility(row, self.state, self.now, '99'), 'already reviewed')
+
     async def test_retry_allowed_by_publisher_is_counted_as_eligible(self):
         row = {'id':'71234567', 'author_id':'81234567', 'author':'reader', 'text':'@qofenoai hello',
                'origin':'mention', 'intent':'invite', 'created_at':self.now.isoformat(),

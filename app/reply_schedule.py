@@ -1,8 +1,4 @@
-"""At most one contextual reply per 30 minutes and two daily follow prompts.
-
-Times vary by UTC date. Opportunities are not a promise of published posts:
-source eligibility, actual-send spacing and independent daily caps always apply.
-"""
+"""Schedule standalone posts and check inbound reply capacity against the ledger."""
 import random
 from datetime import date, datetime, timedelta, timezone
 from .ai_budget import active_pause
@@ -31,7 +27,7 @@ def daily_plan(day):
     rng = random.Random('qofeno-replies-v1/' + day)
     offset = rng.randint(120, 360)
     reply_times = [start + timedelta(seconds=1800 * index + offset)
-                   for index in range(DAILY_REPLY_CAP)]
+                   for index in range(24 * 2)]
     plan = [{'slot': f'{day}:reply-v1:{index}', 'kind': 'reply',
              'due_at': due.isoformat(),
              'expires_at': (reply_times[index + 1] if index + 1 < len(reply_times) else end).isoformat()}
@@ -58,33 +54,68 @@ def _retry_ready(state, slot_id, ready):
     return ready
 
 
-def next_decision(state, now, window_end=None):
-    """Return one live half-hour opportunity and the types of publication it permits.
-
-    The model may always stay silent. A recorded decision consumes that opportunity.
-    Limits use actual publication times and include posts made by earlier publishers.
-    """
+def _publication_start(state, now):
+    if now.tzinfo is None:
+        raise ValueError('The scheduling clock must include a timezone')
     if any(state.get(key) for key in ('pending', 'pending_reply', 'follow_pending', 'outbox',
                                       'verification_pending', 'pause_reason')):
         return None
-    if now.tzinfo is None or (window_end is not None and window_end.tzinfo is None):
-        raise ValueError('The scheduling clock and window must include a timezone')
-    now = now.astimezone(timezone.utc)
     earliest = now
     if state.get('x_pause_until'):
         earliest = max(earliest, timestamp(state['x_pause_until']))
     pause = active_pause(state, now)
     if pause:
         earliest = max(earliest, pause.until)
+    return earliest
+
+
+def _publications(state):
+    for row in state.get('history', []):
+        when = row.get('posted_at') or row.get('completed_at')
+        if when:
+            yield row, timestamp(when)
+
+
+def reply_ready(state, now):
+    """Check actual UTC-day volume and provider holds when an invitation arrives."""
+    if _publication_start(state, now) != now:
+        return False
+    day = now.astimezone(timezone.utc).date()
+    count = sum(row.get('kind') == 'reply' and at.date() == day
+                for row, at in _publications(state))
+    return count < DAILY_REPLY_CAP
+
+
+def next_original(state, now, window_end=None):
+    """Return the next standalone decision, independent of new replies."""
+    earliest = _publication_start(state, now)
+    if earliest is None:
+        return None
+    now = now.astimezone(timezone.utc)
+    originals = []
+    used = set(state.get('decision_slots', {}))
+    for row, at in _publications(state):
+        used.add(row.get('slot'))
+        if row.get('kind') in ('follow', 'original'):
+            originals.append(at)
+    if sum(at.date() == now.date() for at in originals) >= DAILY_FOLLOW_CAP:
+        return None
+    if originals:
+        earliest = max(earliest, max(originals) + MIN_FOLLOW_GAP)
+    return _decision_window(state, now, window_end, used, {'original': earliest}, original_only=True)
+
+
+def next_decision(state, now, window_end=None):
+    """Return an opportunity for the legacy mixed discovery planner."""
+    earliest = _publication_start(state, now)
+    if earliest is None:
+        return None
+    now = now.astimezone(timezone.utc)
     day = now.date()
     counts = {'reply': 0, 'original': 0}
     last_original = None
     used = set(state.get('decision_slots', {}))
-    for row in state.get('history', []):
-        when = row.get('posted_at') or row.get('completed_at')
-        if not when:
-            continue
-        at = timestamp(when)
+    for row, at in _publications(state):
         used.add(row.get('slot'))
         earliest = max(earliest, at + MIN_REPLY_GAP)
         kind = row.get('kind')
@@ -106,7 +137,13 @@ def next_decision(state, now, window_end=None):
         available_at['original'] = max(earliest, last_original + MIN_FOLLOW_GAP) if last_original else earliest
     if not available_at:
         return None
-    for slot in daily_plan(day.isoformat()):
+    return _decision_window(state, now, window_end, used, available_at)
+
+
+def _decision_window(state, now, window_end, used, available_at, *, original_only=False):
+    if window_end is not None and window_end.tzinfo is None:
+        raise ValueError('The scheduling window must include a timezone')
+    for slot in daily_plan(now.date().isoformat()):
         if slot['kind'] != 'reply' or slot['slot'] in used:
             continue
         ready = max(timestamp(slot['due_at']), min(available_at.values()))
@@ -116,7 +153,10 @@ def next_decision(state, now, window_end=None):
         if (window_end is None and ready > now) or (window_end is not None and ready >= window_end):
             continue
         actions = [action for action, at in available_at.items() if at <= ready]
-        return {**slot, 'kind': 'decision', 'allowed_actions': actions}, ready
+        opportunity = {**slot, 'kind': 'decision', 'allowed_actions': actions}
+        if original_only:
+            opportunity['original_only'] = True
+        return opportunity, ready
     return None
 
 

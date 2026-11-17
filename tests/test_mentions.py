@@ -1,7 +1,10 @@
 from datetime import timedelta
+import os
+from pathlib import Path
+import tempfile
 from types import SimpleNamespace
 import unittest
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, patch
 
 from twikit.errors import Forbidden, NotFound, RequestTimeout, ServerError, TooManyRequests, TweetNotAvailable
 
@@ -90,6 +93,92 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(conn.search_tweet.await_args.kwargs, {'count': mentions.INBOX_COUNT})
         conn.get_notifications.side_effect = KeyError('missing aggregated user')
         self.assertEqual([r['id'] for r in await mentions.discover(conn, NOW)], ['302'])
+
+    async def test_fast_polls_find_new_mentions_without_repeated_parent_and_thread_reads(self):
+        parent = tweet('100', author='QofenoAI')
+        parent.user.id = '91'
+        parent.replies = []
+        own = tweet('101', author='qofenoai')
+        own.user.id = '91'
+        own.replies = []
+        child = mention('The log shows a timeout.', '200', in_reply_to_status_id_str='100')
+        new_ping = mention('@qofenoai hello', '201')
+        history = [{'tweet_id': '101', 'kind': 'original', 'verified_at': NOW.isoformat(), 'posted_at': NOW.isoformat()}]
+        conn = SimpleNamespace(get_notifications=AsyncMock(return_value=[]), search_tweet=AsyncMock(return_value=[child]),
+                               get_tweet_by_id=AsyncMock(side_effect={'100': parent, '101': own}.__getitem__))
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'poll.json'
+            path.write_text('incomplete state')
+            with patch.dict(os.environ, {'QOFENO_INBOX_CACHE': str(path)}):
+                args = dict(own_history=history, own_user_id='91', poll=True)
+                first = await mentions.discover(conn, NOW, **args)
+                conn.search_tweet.return_value = [new_ping, child]
+                second = await mentions.discover(conn, NOW + timedelta(seconds=15), **args)
+                self.assertEqual([r['id'] for r in second], ['201', '200'])
+                self.assertEqual(first[0]['parent_context'], second[1]['parent_context'])
+                self.assertEqual(conn.get_tweet_by_id.await_count, 2)
+                conn.get_notifications.assert_awaited_once()
+                self.assertEqual(conn.search_tweet.await_count, 2)
+                # A pre-send read always discards cached proof if the parent is no longer accessible.
+                parent.user.protected = True
+                refreshed = await mentions.thread_context(conn, second[1], NOW + timedelta(seconds=16))
+                self.assertFalse(mentions.is_own_reply(refreshed, '91'))
+                third = await mentions.discover(conn, NOW + timedelta(seconds=mentions.SWEEP_SECONDS), **args)
+                self.assertEqual([r['id'] for r in third], ['201'])
+                self.assertEqual(conn.get_notifications.await_count, 2)
+
+    async def test_fast_search_fallback_preserves_native_only_events_and_propagates_rate_limits(self):
+        ping = mention('@qofenoai')
+        conn = SimpleNamespace(get_notifications=AsyncMock(return_value=[SimpleNamespace(tweet=ping)]),
+                               search_tweet=AsyncMock(return_value=[]), get_tweet_by_id=AsyncMock(return_value=ping))
+        cache = {'last_sweep': int(NOW.timestamp())}
+        for failure in (None, RequestTimeout('search timeout')):
+            conn.search_tweet.side_effect = failure
+            rows = await mentions.discover(conn, NOW, poll=True, poll_cache=cache)
+            self.assertEqual([r['id'] for r in rows], ['201'])
+        conn.search_tweet.side_effect = TooManyRequests('limited')
+        with self.assertRaises(TooManyRequests):
+            await mentions.discover(conn, NOW, poll=True, poll_cache=cache)
+        self.assertEqual(conn.get_notifications.await_count, 2)
+        conn.get_tweet_by_id.assert_awaited_once_with('201')
+
+    async def test_fast_native_detail_budget_rotates_while_latest_is_empty(self):
+        native = [mention('@qofenoai hello', str(i)) for i in range(300, 310)]
+        conn = SimpleNamespace(get_notifications=AsyncMock(return_value=[SimpleNamespace(tweet=t) for t in native]),
+                               search_tweet=AsyncMock(return_value=[]),
+                               get_tweet_by_id=AsyncMock(side_effect={t.id: t for t in native}.__getitem__))
+        cache = {}
+        first = await mentions.discover(conn, NOW, poll=True, poll_cache=cache)
+        second = await mentions.discover(conn, NOW + timedelta(seconds=30), poll=True, poll_cache=cache)
+        self.assertEqual({row['id'] for row in first + second}, {t.id for t in native})
+        self.assertEqual(conn.get_tweet_by_id.await_count, 10)
+        edited = mention('@qofenoai your take on this change', '309')
+        conn.get_notifications.return_value = [SimpleNamespace(tweet=edited)]
+        conn.get_tweet_by_id.side_effect = {'309': edited}.__getitem__
+        third = await mentions.discover(conn, NOW + timedelta(seconds=45), poll=True, poll_cache=cache)
+        self.assertEqual(third[0]['text'], edited.full_text)
+        self.assertEqual(conn.get_tweet_by_id.await_count, 11)
+
+    async def test_fast_poll_preserves_explicit_tag_on_unrelated_thread_and_refreshes_controls(self):
+        parent = tweet('88', author='reader', text='Checking the parser again.')
+        parent.user.id = '91'
+        native = '@reader @qofenoai please take a look'
+        child = mention(native, '201', in_reply_to_status_id_str='88', in_reply_to_screen_name='reader',
+                        display_text_range=[8, len(native)])
+        conn = SimpleNamespace(get_notifications=AsyncMock(return_value=[]), search_tweet=AsyncMock(return_value=[child]),
+                               get_tweet_by_id=AsyncMock(return_value=parent))
+        cache = {}
+        for offset in (0, 15):
+            rows = await mentions.discover(conn, NOW + timedelta(seconds=offset), poll=True, poll_cache=cache)
+            self.assertEqual(rows[0]['parent_context']['text'], parent.full_text)
+            self.assertEqual(rows[0]['text'], '@qofenoai please take a look')
+        conn.get_tweet_by_id.assert_awaited_once_with('88')
+        # Implicit opt-in/opt-out requires an independently verified owned parent even if the cache says otherwise.
+        command = mention('stop', '202', in_reply_to_status_id_str='88')
+        conn.search_tweet.return_value = [command]
+        conn.get_tweet_by_id.side_effect = TooManyRequests('limited')
+        with self.assertRaises(TooManyRequests):
+            await mentions.discover(conn, NOW + timedelta(seconds=30), poll=True, poll_cache=cache)
 
     async def test_independent_ping_survives_unavailable_detail_parent_and_thread_page(self):
         ping = mention('@qofenoai', '201')

@@ -1,7 +1,12 @@
 """Public invitations and opt-outs directed to Qofeno, read through Twikit."""
 from datetime import timedelta
+from hashlib import sha256
 from itertools import islice
+import json
+import os
+from pathlib import Path
 import re
+import tempfile
 
 from httpx import NetworkError, TimeoutException
 from twikit.errors import NotFound, RequestTimeout, ServerError, TweetNotAvailable
@@ -44,6 +49,7 @@ DIRECT_ENDING = re.compile(r"^(?:thoughts(?: on\b.*)?|any thoughts|opinions)[?!.
                            r"your thoughts|can you|could you|would you|please (?:answer|reply)|tell me|help me)\b", re.I)
 INBOX_COUNT = 40
 INBOX_REFRESH_LIMIT = 6
+SWEEP_SECONDS = 120
 # These failures can be isolated to a single optional read. Authentication,
 # authorization and rate-limit exceptions must reach the account-level governor.
 READ_UNAVAILABLE = (NotFound, TweetNotAvailable, RequestTimeout, ServerError, NetworkError,
@@ -230,21 +236,42 @@ def _attach_parent(child, parent):
     return child
 
 
-async def thread_context(connection, candidate, now):
+async def thread_context(connection, candidate, now, *, poll_parents=None):
     """Refresh the exact native parent. Discard previous proof if the parent disappears."""
     row = validate(candidate, now)
     row.pop('parent_context', None)
     if not row['parent_id'] or (row['intent'] != 'invite' and not _requires_own_parent(row)):
         return row
+    # Only intake reuses short-lived public parent context. Preference commands,
+    # pre-draft checks and the final pre-send check always read the exact parent.
+    parent_id = row['parent_id']
+    cached = poll_parents.get(parent_id) if poll_parents is not None and row['intent'] == 'invite' else None
+    if (isinstance(cached, dict) and isinstance(cached.get('at'), int)
+            and 0 <= now.timestamp() - cached['at'] < SWEEP_SECONDS):
+        parent = cached.get('parent')
+        if parent is None:
+            return row
+        if (isinstance(parent, dict) and parent.get('id') == parent_id
+                and isinstance(parent.get('author'), str) and sources._HANDLE.fullmatch(parent['author'])
+                and isinstance(parent.get('author_id'), str) and parent['author_id'].isdigit()
+                and isinstance(parent.get('text'), str) and 0 < len(parent['text']) <= 3000):
+            return _attach_parent(row, parent)
     try:
-        tweet = await connection.get_tweet_by_id(row['parent_id'])
+        tweet = await connection.get_tweet_by_id(parent_id)
         parent = sources.checked_snapshot(tweet, now, include_parent=True, validator=_parent_fields)
-    except DETAIL_UNAVAILABLE:
+    except (NotFound, TweetNotAvailable, sources.SourceError):
+        if poll_parents is not None and row['intent'] == 'invite':
+            poll_parents[parent_id] = {'at': int(now.timestamp()), 'parent': None}
         return row
+    except READ_UNAVAILABLE:
+        return row
+    if poll_parents is not None and row['intent'] == 'invite' and parent['id'] == parent_id:
+        context = {key: parent[key] for key in ('id', 'author', 'author_id', 'text')}
+        poll_parents[parent_id] = {'at': int(now.timestamp()), 'parent': context}
     return _attach_parent(row, parent)
 
 
-def _recent_parents(history, now):
+def _recent_parents(history, now, rotation=None):
     # Keep one recent original and one recent reply in view, even on a day with
     # far more outgoing replies. Rotate through a small pool of recent parents.
     groups = [[], []]
@@ -261,7 +288,7 @@ def _recent_parents(history, now):
             group.append(ident)
         if all(len(part) == 4 for part in groups):
             break
-    tick = int(now.timestamp()) // 1800
+    tick = int(now.timestamp()) // 1800 if rotation is None else rotation
     selected = [g[tick % len(g)] for g in groups if g]
     if len(selected) == 1:
         group = next(g for g in groups if g)
@@ -270,9 +297,9 @@ def _recent_parents(history, now):
     return selected
 
 
-async def _own_children(connection, history, now, own_user_id, spent):
+async def _own_children(connection, parents, now, own_user_id, spent):
     children = []
-    for ident in _recent_parents(history, now):
+    for ident in parents:
         try:
             tweet = await connection.get_tweet_by_id(ident)
             parent = sources.checked_snapshot(tweet, now, include_parent=True, validator=_parent_fields)
@@ -296,26 +323,91 @@ async def _own_children(connection, history, now, own_user_id, spent):
     return children
 
 
-async def discover(connection, now, *, used_source_ids=(), own_history=(), own_user_id=None):
-    """Merge one native page and one Latest search; either can omit a direct invitation."""
-    since = (now - sources.MAX_AGE).date().isoformat()
-    query = f'(@{ACCOUNT} OR to:{ACCOUNT}) since:{since} -filter:retweets'
-    # Endpoint unavailability and partial Twifork response maps are local to
-    # each read. Authentication, account locks and rate limits still propagate.
+def _read_poll_cache(path):
+    if path:
+        try:
+            with open(path, encoding='utf-8') as handle:
+                cache = json.loads(handle.read(2_000_000))
+                if isinstance(cache, dict):
+                    return cache
+        except (OSError, ValueError):
+            pass
+    return {}
+
+
+def _save_poll_cache(path, cache):
+    temp = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w', dir=Path(path).parent, delete=False, encoding='utf-8') as handle:
+            temp = Path(handle.name)
+            json.dump(cache, handle, ensure_ascii=False)
+        os.replace(temp, path)
+    except OSError as exc:
+        print(f'Inbox cache unavailable ({type(exc).__name__}).', flush=True)
+    finally:
+        if temp:
+            temp.unlink(missing_ok=True)
+
+
+async def _notifications(connection):
     try:
         notices = await connection.get_notifications('Mentions', count=INBOX_COUNT)
-        native = [n.tweet for n in islice(notices, INBOX_COUNT) if getattr(n, 'tweet', None) is not None]
-        native_failed = False
+        return [n.tweet for n in islice(notices, INBOX_COUNT) if getattr(n, 'tweet', None) is not None], False
     except READ_UNAVAILABLE as exc:
         print(f'Mention notifications unavailable ({type(exc).__name__}).', flush=True)
-        native, native_failed = [], True
+        return [], True
+
+
+def _native_signature(row):
+    # View-count changes do not invalidate previously checked public text or reply routing.
+    fields = (row['id'], row['author'], row['author_id'], row['source_ids'], row['text'], row['urls'],
+              row['created_at'], row['parent_id'], row['parent_author'], row['parent_user_id'], row['conversation_id'])
+    return sha256(json.dumps(fields, ensure_ascii=False).encode()).hexdigest()
+
+
+def _cached_notification(row, entry, now):
+    if (not 0 <= now.timestamp() - entry['at'] < SWEEP_SECONDS
+            or entry.get('signature') != _native_signature(row)):
+        return None
+    try:
+        fresh = validate(entry.get('row'), now)
+    except sources.SourceError:
+        return None
+    if fresh['author_id'] == row['author_id'] and row['id'] in fresh['source_ids']:
+        return fresh
+    return None
+
+
+async def discover(connection, now, *, used_source_ids=(), own_history=(), own_user_id=None, poll=False, poll_cache=None):
+    """Read Latest on every poll and periodically reconcile native notifications and own threads."""
+    since = (now - sources.MAX_AGE).date().isoformat()
+    query = f'(@{ACCOUNT} OR to:{ACCOUNT}) since:{since} -filter:retweets'
+    path = os.environ.get('QOFENO_INBOX_CACHE') if poll and poll_cache is None else None
+    cache = poll_cache if poll and poll_cache is not None else _read_poll_cache(path)
+    stamp = int(now.timestamp())
+    last_sweep = cache.get('last_sweep')
+    full = not poll or type(last_sweep) is not int or not 0 <= stamp - last_sweep < SWEEP_SECONDS
+    rotation = cache.get('rotation', 0) if poll else None
+    if poll and type(rotation) is not int:
+        rotation = 0
+    parents = _recent_parents(own_history, now, rotation)
+    # Endpoint unavailability and partial Twifork response maps are local to
+    # each read. Authentication, account locks and rate limits still propagate.
+    native, native_failed = await _notifications(connection) if full else ([], False)
     try:
         found = list(islice(await connection.search_tweet(query, 'Latest', count=INBOX_COUNT), INBOX_COUNT))
     except READ_UNAVAILABLE as exc:
-        if native_failed and not _recent_parents(own_history, now):
+        if not full:
+            native, native_failed = await _notifications(connection)
+        if native_failed and not parents:
             raise
         print(f'Mention search unavailable ({type(exc).__name__}).', flush=True)
         found = []
+        if native_failed:
+            full = True
+    else:
+        if poll and not found and not full:
+            native, native_failed = await _notifications(connection)
 
     spent = set(used_source_ids)
 
@@ -337,6 +429,21 @@ async def discover(connection, now, *, used_source_ids=(), own_history=(), own_u
     native_only = [row for row in candidates(native) if not search_ids.intersection(row['source_ids'])]
     result.extend(row for row in native_only if row['intent'] != 'invite')
     invitations = [row for row in native_only if row['intent'] == 'invite']
+    previous = cache.get('hydrated')
+    hydrated = {}
+    if poll:
+        unchecked = []
+        for row in invitations:
+            entry = previous.get(row['id']) if isinstance(previous, dict) else None
+            if isinstance(entry, dict) and type(entry.get('at')) is int:
+                hydrated[row['id']] = entry
+                fresh = _cached_notification(row, entry, now)
+                if fresh:
+                    if not spent.intersection(fresh['source_ids']):
+                        result.append(fresh)
+                    continue
+            unchecked.append(row)
+        invitations = sorted(unchecked, key=lambda row: hydrated.get(row['id'], {}).get('at', 0))
     # Reserve a hydration slot for each route. A busy thread should not hide
     # a standalone ping, and a busy mention page should not hide a response.
     first_mention = next((row for row in invitations if not row['parent_id']), None)
@@ -347,6 +454,7 @@ async def discover(connection, now, *, used_source_ids=(), own_history=(), own_u
     for candidate in priority[:INBOX_REFRESH_LIMIT]:
         # v1.1 notification wrappers omit some edit and user privacy fields.
         # GraphQL search already supplies these for overlapping sources.
+        hydrated[candidate['id']] = {'at': stamp}
         try:
             fresh = snapshot(await connection.get_tweet_by_id(candidate['id']), now)
         except DETAIL_UNAVAILABLE:
@@ -354,15 +462,33 @@ async def discover(connection, now, *, used_source_ids=(), own_history=(), own_u
         if (fresh['author_id'] == candidate['author_id'] and candidate['id'] in fresh['source_ids']
                 and not spent.intersection(fresh['source_ids'])):
             result.append(fresh)
+            if poll and len(json.dumps(fresh, ensure_ascii=False)) <= 16_000:
+                hydrated[candidate['id']].update(signature=_native_signature(candidate), row=fresh)
+    stored_parents = cache.get('parents')
+    poll_parents = {} if poll else None
+    if poll and isinstance(stored_parents, dict):
+        poll_parents.update({ident: entry for ident, entry in stored_parents.items()
+                             if isinstance(entry, dict) and type(entry.get('at')) is int
+                             and 0 <= stamp - entry['at'] < SWEEP_SECONDS})
     verified = {}
     for row in result:
-        if _requires_own_parent(row):
-            row = await thread_context(connection, row, now)
-            if not is_own_reply(row, own_user_id):
+        requires_parent = _requires_own_parent(row)
+        if requires_parent or (poll and row['intent'] == 'invite' and row.get('parent_id')):
+            row = await thread_context(connection, row, now, poll_parents=poll_parents)
+            if requires_parent and not is_own_reply(row, own_user_id):
                 continue
         verified[row['id']] = row
-    for row in await _own_children(connection, own_history, now, own_user_id, spent):
-        verified[row['id']] = row
+    if full:
+        for row in await _own_children(connection, parents, now, own_user_id, spent):
+            verified[row['id']] = row
+    if poll:
+        if full:
+            cache.update(last_sweep=stamp, rotation=rotation + 1)
+        if full or native:
+            cache['hydrated'] = hydrated
+        cache['parents'] = dict(sorted(poll_parents.items(), key=lambda item: item[1]['at'])[-INBOX_COUNT * 2:])
+        if path:
+            _save_poll_cache(path, cache)
     result = []
     seen = set()
     for row in sorted(verified.values(), key=_order, reverse=True):

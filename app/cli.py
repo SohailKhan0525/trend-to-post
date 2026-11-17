@@ -17,7 +17,10 @@ def main():
     parser.add_argument("--allow-ledger", action="store_true", help="For the memory check, allow verified-history reads if D1 denies access.")
     parser.add_argument("--release", help="Expected 40-character worker release for server-status.")
     parser.add_argument("--ready", action="store_true", help="Allow a preflight-verified server waiting for handover.")
+    parser.add_argument("--mode", choices=("inbox", "original"), help="Decision type for a supervised run.")
     args=parser.parse_args()
+    if args.mode and args.command != 'run':
+        parser.error('--mode requires run')
     try:
         if args.command in ('run', 'inbox'):
             from .server_ledger import connect
@@ -63,7 +66,8 @@ def main():
             from .metrics import metrics
             asyncio.run(metrics())
         else:
-            asyncio.run(editorial.inspect() if args.command=="inspect" else editorial.run(os.environ.get("GITHUB_EVENT_NAME","manual")))
+            event = args.mode or "original"
+            asyncio.run(editorial.inspect() if args.command == "inspect" else editorial.run(event))
     except AIPaused as exc:
         summary(f"AI paused until {exc.until.isoformat()}: {exc.reason}")
         if args.command in ('serve','server-check'):

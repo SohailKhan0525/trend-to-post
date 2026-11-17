@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime, timedelta, timezone
 
-from app.reply_schedule import daily_plan, next_decision, timestamp
+from app.reply_schedule import daily_plan, next_decision, next_original, reply_ready, timestamp
 
 
 DAY = datetime(2026, 11, 17, tzinfo=timezone.utc)
@@ -14,6 +14,59 @@ def sent(kind, at, slot='previous'):
 
 
 class AutonomousScheduleTests(unittest.TestCase):
+    def test_inbox_is_immediately_eligible_after_any_publication(self):
+        # Before the first standalone opportunity of the UTC day.
+        now = DAY + timedelta(seconds=10)
+        slot = PLAN[0]['slot']
+        for kind in ('reply', 'original', 'follow'):
+            with self.subTest(kind=kind):
+                state = {'history': [sent(kind, now - timedelta(seconds=1), slot)],
+                         'decision_slots': {slot: {'action': 'silent'}},
+                         'last_attempts': {slot: {'at': now.isoformat()}},
+                         'last_posted_at': now.isoformat(), 'last_completed_at': now.isoformat()}
+                self.assertTrue(reply_ready(state, now))
+
+    def test_inbox_cap_resets_at_utc_midnight_using_actual_publication_time(self):
+        before = DAY - timedelta(seconds=1)
+        rows = [{**sent('reply', before, str(i)), 'completed_at': DAY.isoformat()} for i in range(48)]
+        local = timezone(timedelta(hours=5, minutes=30))
+        self.assertFalse(reply_ready({'history': rows}, before.astimezone(local)))
+        self.assertTrue(reply_ready({'history': rows}, DAY.astimezone(local)))
+        self.assertTrue(reply_ready({'history': rows[:-1] + [sent('original', before)]}, before))
+
+    def test_original_cadence_is_independent_of_inbox_activity(self):
+        recent = NOW - timedelta(seconds=1)
+        state = {'history': [sent('reply', recent, 'mention:123')], 'last_posted_at': recent.isoformat()}
+        slot, ready = next_original(state, NOW)
+        self.assertEqual((slot['slot'], slot['allowed_actions'], ready), (PLAN[24]['slot'], ['original'], NOW))
+        self.assertTrue(slot['original_only'])
+        state['decision_slots'] = {slot['slot']: {'action': 'silent'}}
+        self.assertIsNone(next_original(state, NOW))
+        self.assertTrue(reply_ready(state, NOW))
+
+    def test_original_send_spacing_and_cap_survive_inbox_traffic_and_midnight(self):
+        first = DAY - timedelta(seconds=1)
+        second = first + timedelta(hours=6)
+        state = {'history': [sent('follow', first), sent('reply', second - timedelta(seconds=1), 'mention:2')]}
+        self.assertIsNone(next_original(state, second - timedelta(seconds=1)))
+        self.assertEqual(next_original(state, second)[1], second)
+        state['history'] += [sent('original', second, 'second'), sent('original', second + timedelta(hours=6), 'third')]
+        self.assertIsNone(next_original(state, DAY + timedelta(hours=22)))
+        self.assertTrue(reply_ready(state, DAY + timedelta(hours=22)))
+
+    def test_pending_publication_and_provider_holds_apply_to_both_paths(self):
+        for key in ('outbox', 'pending', 'pending_reply', 'verification_pending', 'follow_pending', 'pause_reason'):
+            with self.subTest(key=key):
+                self.assertFalse(reply_ready({key: 'pending'}, NOW))
+                self.assertIsNone(next_original({key: 'pending'}, NOW))
+        until = NOW + timedelta(seconds=12)
+        for state in ({'x_pause_until': until.isoformat()},
+                      {'ai_pause': {'until': until.isoformat(), 'reason': 'provider'}}):
+            self.assertFalse(reply_ready(state, NOW))
+            self.assertTrue(reply_ready(state, until))
+            self.assertIsNone(next_original(state, NOW))
+            self.assertEqual(next_original(state, NOW, until + timedelta(seconds=1))[1], until)
+
     def test_same_legacy_slot_supports_both_actions_and_can_be_consumed_by_silence(self):
         slot, ready = next_decision({}, NOW)
         self.assertEqual((ready, slot['slot'], slot['kind']), (NOW, PLAN[24]['slot'], 'decision'))

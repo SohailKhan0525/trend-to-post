@@ -50,17 +50,28 @@ class ServerCheckTests(unittest.IsolatedAsyncioTestCase):
 
 
 class SchedulingTests(unittest.TestCase):
-    def test_only_call_x_for_an_eligible_decision_or_outbox_reconciliation(self):
-        self.assertGreater(server.delay_until_work(STATE, NOW), 0)
-        self.assertEqual(server.delay_until_work({'history': []}, NOW), 0)
-        self.assertEqual(server.delay_until_work({**STATE, 'outbox': {'pending': True}}, NOW), 0)
-        self.assertIsNone(server.delay_until_work({**STATE, 'pause_reason': 'manual review'}, NOW))
-        self.assertEqual(server.delay_until_work({**STATE, 'outbox': {'pending': True},
-                         'x_pause_until': (NOW + timedelta(minutes=8)).isoformat()}, NOW), 480)
+    def test_mention_poll_is_due_even_after_a_recent_publication(self):
+        self.assertEqual(server.next_work(STATE, NOW), ('inbox', 0))
+        with patch.object(server, 'next_original', return_value=None):
+            self.assertEqual(server.next_work(STATE, NOW, inbox_in=30), ('inbox', 30))
+
+    def test_next_original_and_next_inbox_have_independent_clocks(self):
+        with patch.object(server, 'next_original', return_value=({}, NOW)):
+            self.assertEqual(server.next_work(STATE, NOW), ('inbox', 0))
+            self.assertEqual(server.next_work(STATE, NOW, inbox_in=30), ('original', 0))
+            self.assertEqual(server.next_work(STATE, NOW, original_in=60), ('inbox', 0))
+
+    def test_holds_and_reconciliation_precede_polling(self):
+        self.assertEqual(server.next_work({**STATE, 'outbox': {'pending': True}}, NOW), ('inbox', 0))
+        self.assertEqual(server.next_work({**STATE, 'pause_reason': 'manual review'}, NOW), (None, None))
+        self.assertEqual(server.next_work({**STATE, 'outbox': {'pending': True},
+                         'x_pause_until': (NOW + timedelta(minutes=8)).isoformat()}, NOW), (None, 480))
+        self.assertEqual(server.next_work({**STATE, 'ai_pause': {'reason': 'quota',
+                         'until': (NOW + timedelta(hours=1)).isoformat()}}, NOW), (None, 3600))
 
 
 class SupervisorTests(unittest.IsolatedAsyncioTestCase):
-    async def test_standby_waits_for_handover_then_reports_active_on_a_healthy_idle_tick(self):
+    async def test_standby_waits_for_handover_then_checks_mentions_immediately(self):
         stop, ledger = asyncio.Event(), Mock()
         ledger.active.side_effect = [False, True]
         ledger.load.return_value = STATE
@@ -74,7 +85,42 @@ class SupervisorTests(unittest.IsolatedAsyncioTestCase):
             await asyncio.wait_for(server.supervise(ledger, 'one', RELEASE, stop), 2)
         self.assertEqual([call.args[2] for call in ledger.heartbeat.call_args_list],
                          ['standby', 'standby', 'active'])
-        run.assert_not_awaited()
+        self.assertEqual([call.args[-1] for call in run.await_args_list], ['inbox'])
+
+    async def test_serializes_due_original_between_frequent_inbox_checks(self):
+        stop, ledger = asyncio.Event(), Mock()
+        ledger.load.return_value = STATE
+        modes = []
+        async def record(*args):
+            modes.append(args[-1])
+            if len(modes) == 3:
+                stop.set()
+            return True
+        with patch.object(server, 'PULSE', 0.001), patch.object(server, 'INBOX_INTERVAL', 0.01), \
+                patch.object(server.store, 'utcnow', return_value=NOW), \
+                patch.object(server, 'next_original', return_value=({}, NOW)), \
+                patch.object(server, 'run_decision', side_effect=record):
+            await asyncio.wait_for(server.supervise(ledger, 'one', RELEASE, stop), 2)
+        self.assertEqual(modes, ['inbox', 'original', 'inbox'])
+
+    async def test_full_verified_batch_immediately_drains_again_with_a_turn_for_originals(self):
+        stop, ledger = asyncio.Event(), Mock()
+        state = {**STATE, 'history': []}
+        ledger.load.side_effect = lambda: {**state, 'history': list(state['history'])}
+        modes = []
+        async def record(*args):
+            modes.append(args[-1])
+            if len(modes) == 1:
+                state['history'].extend({'kind': 'reply', 'verified_at': NOW.isoformat()}
+                                        for _ in range(server.editorial.INBOX_BATCH_SIZE))
+            elif len(modes) == 3:
+                stop.set()
+            return True
+        with patch.object(server.store, 'utcnow', return_value=NOW), \
+                patch.object(server, 'next_original', return_value=({}, NOW)), \
+                patch.object(server, 'run_decision', side_effect=record):
+            await asyncio.wait_for(server.supervise(ledger, 'one', RELEASE, stop), 2)
+        self.assertEqual(modes, ['inbox', 'original', 'inbox'])
 
     async def test_another_instance_prevents_publication(self):
         stop, ledger = asyncio.Event(), Mock()
@@ -116,6 +162,6 @@ class SupervisorTests(unittest.IsolatedAsyncioTestCase):
         with patch.object(server, 'PULSE', 0.001), \
                 patch.object(asyncio, 'create_subprocess_exec', new=AsyncMock(return_value=process)), \
                 self.assertRaisesRegex(RuntimeError, 'lost'):
-            await asyncio.wait_for(server.run_decision(ledger, 'one', RELEASE, 'active', stop), 2)
+            await asyncio.wait_for(server.run_decision(ledger, 'one', RELEASE, 'active', stop, 'inbox'), 2)
         process.terminate.assert_called_once()
         process.kill.assert_not_called()

@@ -8,7 +8,7 @@ from twikit.errors import NotFound, TweetNotAvailable
 
 from app import editorial, mentions, sources, store
 from app.reply_schedule import DAILY_REPLY_CAP, timestamp
-from scripts.azure_status import read_snapshot
+from scripts.azure_status import inbox_schedule, read_snapshot
 
 
 def eligibility(row, state, now, own_id):
@@ -22,6 +22,8 @@ def eligibility(row, state, now, own_id):
         return 'author opted out'
     if not editorial.eligible_author(row, state, now, own_id):
         return 'conversation ineligible'
+    if editorial.inbox_reviewed(state, row):
+        return 'already reviewed'
     deferred = state.get('reply_rejections', {}).get(editorial.rejection_key(row))
     if editorial.reply_rejection_active(row, deferred, now):
         return 'source temporarily deferred'
@@ -101,6 +103,7 @@ async def main():
     replies = sum(row.get('kind') == 'reply' and timestamp(row['posted_at']).date() == now.date()
                   for row in state['history'] if row.get('verified_at') and row.get('posted_at'))
     store.summary(f'Verified replies this UTC day: {replies}/{DAILY_REPLY_CAP}.')
+    store.summary(inbox_schedule(state, now))
     store.summary(editorial.upcoming_opportunity(state, now))
     if state.get('x_pause_until') and timestamp(state['x_pause_until']) > now:
         store.summary('Inbox read deferred for the recorded X cooldown.')

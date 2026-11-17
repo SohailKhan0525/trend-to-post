@@ -5,9 +5,10 @@ from pathlib import Path
 import re
 from datetime import datetime, timezone
 
-from app.editorial import upcoming_opportunity
+from app.editorial import schedule_state, upcoming_opportunity
 from app.memory import Memory, MemoryUnavailable, database_uuid
-from app.reply_schedule import timestamp
+from app.reply_schedule import reply_ready, timestamp
+from app.server import INBOX_INTERVAL
 from app.server_ledger import FRESH_SECONDS, HEAD, LEASE, PAGES, unpack
 from app.store import summary
 
@@ -26,6 +27,19 @@ def category(reason):
     return 'rejected'
 
 
+def opportunity_label(slot):
+    if re.fullmatch(r'\d{4}-\d\d-\d\d-inbox-[1-9][0-9]{0,19}-[a-f0-9]{16}', str(slot)):
+        return 'inbound reply'
+    if re.fullmatch(r'\d{4}-\d\d-\d\d:(reply|follow)-v1:\d{1,2}', str(slot)):
+        return slot
+    return None
+
+
+def inbox_schedule(state, now):
+    eligibility = 'open' if reply_ready(schedule_state(state), now) else 'on hold'
+    return f'Inbox schedule: {INBOX_INTERVAL}s between idle checks. Reply eligibility in D1: {eligibility}.'
+
+
 def report(state, now):
     latest = max((r for r in state['history'] if r.get('verified_at') and re.fullmatch(r'[0-9]{1,20}', str(r.get('tweet_id')))),
                  key=lambda r: timestamp(r['verified_at']), default=None)
@@ -39,14 +53,15 @@ def report(state, now):
             events.append((timestamp(row['at']), slot, 'silence'))
     for slot, row in state.get('last_attempts', {}).items():
         events.append((timestamp(row['at']), slot, category(str(row.get('reason', '')))))
-    valid_slots = [event for event in events if re.fullmatch(r'\d{4}-\d\d-\d\d:(reply|follow)-v1:\d{1,2}', str(event[1]))]
+    valid_slots = [(at, label, outcome) for at, slot, outcome in events
+                   if (label := opportunity_label(slot))]
     decision = 'none recorded'
     if valid_slots:
         at, slot, outcome = max(valid_slots)
         decision = f'{slot} at {at.isoformat()} ({outcome})'
     pending = any(state.get(k) for k in ('outbox','pending','pending_reply','follow_pending','verification_pending'))
     return [f'Latest verified X post: {receipt}', f'Latest recorded decision: {decision}',
-            f'Pending delivery: {bool(pending)}', upcoming_opportunity(state, now)]
+            f'Pending delivery: {bool(pending)}', inbox_schedule(state, now), upcoming_opportunity(state, now)]
 
 
 def read_snapshot():

@@ -13,13 +13,13 @@ For proactive discovery, a source must be a public original post from the last 2
 
 To invite Qofeno, tag it directly, ask to hear its take, or comment on one of its posts. A simple `@qofenoai` can start a conversation. A correction, a story or a joke can continue one, even when X leaves the handle out of the visible reply. Someone crediting Qofeno in passing can do so without starting a conversation.
 
-On publishing opportunities the worker checks the mention inbox, searches for the handle and reads replies to a small rotating set of its own recent posts. It verifies the exact parent before continuing a thread. A reader can receive one answer per incoming post and up to three in the same thread in a rolling 24 hours. To opt out, post `@qofenoai stop`.
+The worker looks for new direct mentions and replies on X throughout the day. It also checks notifications and threads on recent Qofeno posts to catch invitations that search misses. It verifies the exact parent before continuing a thread. A reader can receive one answer per incoming post and up to three in the same thread in a rolling 24 hours. To opt out, post `@qofenoai stop`.
 
 ## Scheduling and delivery
 
-On Azure, systemd runs Qofeno continuously and restarts it after a crash or reboot. The worker checks the next eligible publishing window and renews its D1 lease every 20 seconds. During migration, the Azure worker passed live D1, Workers AI and X mention checks before the complete GitHub ledger moved to D1. D1 now grants publishing authority to one worker instance. The old GitHub publishing workflow is retired. GitHub continues to run tests and collect metrics. Each UTC day has 48 half-hour decision windows with a daily offset. Only one public action fits a window, and consecutive publications must be at least 30 minutes apart, including across midnight. Missed windows expire.
+On Azure, systemd runs Qofeno continuously and restarts it after a crash or reboot. One worker holds the D1 publishing lease. While idle it checks for incoming conversations about every 30 seconds. Once it finds an eligible mention or reply, it can draft, verify and send a response in the same check, even if it just published. X indexing, active work, rate limits and model response time can delay delivery. GitHub runs tests and collects metrics.
 
-The ceilings are two originals and 48 replies per UTC day, subject to the 48 shared windows. Originals are at least six hours apart. Follow posts verified by the older publisher count toward the original limit. These are upper bounds. Silence, source quality, provider budgets and scheduling delays can reduce output.
+Originals have 48 half-hour decision windows per UTC day with a daily offset. Missed windows expire. The worker can publish up to two originals per UTC day, at least six hours apart. Follow posts verified by the older publisher count toward that limit. Replies have a separate ceiling of 48 per UTC day. A reply leaves the next original opportunity available.
 
 The publisher reserves each draft and its duplicate identities before sending. On Azure the reservation lives in D1. The original GitHub ledger in `state/qofeno.json` supplies the one-time migration snapshot. It reads the post back from X to verify the account, text and intended reply parent. If X returns no ID, the publisher looks for that exact publication on the account’s own timeline. Ambiguous sends remain reserved. An explicit `CouldNotTweet` error can be archived as unconfirmed after the timeline check, with its source and text still reserved. An unresolved reservation older than an hour surfaces as a failed run after applicable cooldowns. Preserve the ledger when diagnosing failures. Earlier quote, self-reply and follow records remain part of the account’s history.
 
@@ -51,7 +51,8 @@ From a checkout with `requirements.txt` installed, use these commands.
 | `python scripts/azure-price.py --location centralindia --currency INR` | Look up retail prices and estimate monthly spend before and after eligible allowances |
 | `python -m app inspect` | Show scheduling and delivery status without publishing or calling the model |
 | `python -m app memory` | Connect to D1, sync verified history and read back recent posts. It can initialize the database and schema. It does not publish to X |
-| `python -m app run` | Run an eligible live decision and publish the selected action if all checks pass |
+| `python -m app run --mode inbox` | Check incoming invitations now and answer eligible posts that Qofeno chooses to reply to |
+| `python -m app run --mode original` | Run a standalone publishing decision using the original-post schedule (the default for `run`) |
 | `python -m app metrics` | Read available impressions, likes, replies and reposts for recent verified publications |
 | `python -m unittest discover -s tests -v` | Run the test suite |
 

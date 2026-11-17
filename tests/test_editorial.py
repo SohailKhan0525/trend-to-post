@@ -518,37 +518,38 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(set(opportunity['allowed_actions']), {'reply', 'original'})
         sleep.assert_not_awaited()
 
-    async def test_inspect_and_idle_wake_report_spacing_from_verified_publication(self):
+    async def test_inspect_and_idle_original_wake_report_spacing_from_verified_publication(self):
         connection = self.connection()
         published = self.now
-        self.saved['history'] = [{'kind': 'reply', 'tweet_id': '333', 'posted_at': published.isoformat(),
+        self.saved['history'] = [{'kind': 'original', 'tweet_id': '333', 'posted_at': published.isoformat(),
                                   'verified_at': (published + timedelta(minutes=5)).isoformat()}]
-        self.saved['editorial_history'] = [{**self.slot, 'tweet_id': '333',
+        self.saved['editorial_history'] = [{**self.slot, 'kind': 'original', 'tweet_id': '333',
                                            'completed_at': (published + timedelta(minutes=5)).isoformat()}]
         self.now += timedelta(minutes=12)
-        expected = (published + timedelta(minutes=30)).isoformat()
+        expected = (published + timedelta(hours=6)).isoformat()
         with patch.object(editorial, 'client', return_value=connection) as client, \
                 patch.object(editorial, 'decide', new_callable=AsyncMock) as decision, \
                 patch.object(editorial.asyncio, 'sleep', new_callable=AsyncMock) as sleep:
             await editorial.inspect()
             self.assertIn(expected, editorial.summary.call_args.args[0])
             client.assert_not_called()
-            await editorial.run('push')
+            await editorial.run('original')
             self.assertIn(expected, editorial.summary.call_args.args[0])
             decision.assert_not_awaited()
             sleep.assert_not_awaited()
         connection.create_tweet.assert_not_awaited()
         self.assertEqual(self.saves, [])
 
-    async def test_inspect_reports_next_day_after_final_reply(self):
+    async def test_inspect_reports_next_original_after_daily_cap(self):
         last_reply = [row for row in self.plan if row['kind'] == 'reply'][-1]
         last_send = START + timedelta(hours=23, minutes=55)
         self.now = last_send + timedelta(minutes=1)
         self.saved['editorial_history'] = [{**last_reply, 'completed_at': last_send.isoformat()}]
-        self.saved['editorial_history'] += [{**row, 'completed_at': row['due_at']} for row in self.plan
-                                            if row['kind'] == 'follow']
+        follows = [row for row in self.plan if row['kind'] == 'follow']
+        self.saved['editorial_history'] += [{**row, 'completed_at': row['due_at']} for row in follows]
         await editorial.inspect()
-        self.assertIn((last_send + timedelta(minutes=30)).isoformat(), editorial.summary.call_args.args[0])
+        eligible_at = timestamp(follows[-1]['due_at']) + timedelta(hours=6)
+        self.assertIn(eligible_at.isoformat(), editorial.summary.call_args.args[0])
 
     async def test_dispatch_logs_its_research_time_once_before_sleep(self):
         due = timestamp(self.slot['due_at'])

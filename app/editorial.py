@@ -15,11 +15,12 @@ from . import mentions, personality, reply_writer, sources
 from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError, selected_model
-from .reply_schedule import next_decision, next_slot, timestamp
+from .reply_schedule import RECHECK_GAP, next_decision, next_original, next_slot, reply_ready, timestamp
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
 
 STAGE = {'name': 'startup', 'source_id': None}
 THREAD_TURNS_PER_PERSON = 3
+INBOX_BATCH_SIZE = 4
 
 
 class DeliveryUnresolved(RuntimeError):
@@ -43,7 +44,7 @@ def schedule_state(state):
 def reject(state, slot, reason):
     now = utcnow()
     state['last_attempts'] = {key: val for key, val in state.get('last_attempts', {}).items()
-                              if key.startswith(now.date().isoformat())}
+                              if val.get('at') and timestamp(val['at']) > now - timedelta(days=1)}
     state['last_attempts'][slot['slot']] = {'at': now.isoformat(), 'reason': reason}
     save_and_push(state)
     summary(reason)
@@ -82,7 +83,7 @@ def eligible_author(source, state, now, own_user_id):
     if source.get('origin') == 'mention':
         if not mentions.invited(state, source):
             return False
-        own_parent = (source.get('parent_author') == ACCOUNT or source.get('parent_user_id') == own_user_id
+        own_parent = (source.get('parent_author') == ACCOUNT or (own_user_id and source.get('parent_user_id') == own_user_id)
                       or (source.get('parent_context') or {}).get('author', '').casefold() == ACCOUNT)
         if own_parent and not mentions.is_own_reply(source, own_user_id):
             return False
@@ -155,16 +156,14 @@ def publication_hold(state, now):
     return ' '.join(holds)
 
 
-def upcoming_opportunity(state, now):
+def upcoming_opportunity(state, now, scheduler=next_original):
     scheduled = schedule_state(state)
     midnight = now.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
-    # next_slot evaluates one UTC calendar day, including the actual publication
-    # times and retry delays. The next day may be the first with an unused slot.
-    found = next_decision(scheduled, now, midnight) or next_decision(scheduled, midnight, midnight + timedelta(days=1))
+    found = scheduler(scheduled, now, midnight) or scheduler(scheduled, midnight, midnight + timedelta(days=1))
     if not found:
-        return 'No eligible research opportunity in the current or following UTC day.'
-    slot, ready = found
-    return f'Next eligible research opportunity for a {slot["kind"]} starts at {ready.isoformat()}.'
+        return 'No eligible original research opportunity in the current or following UTC day.'
+    _, ready = found
+    return f'Next eligible research opportunity for an original starts at {ready.isoformat()}.'
 
 
 def matches_publication(pending, post):
@@ -323,13 +322,20 @@ async def send_once(state, slot, draft, connection, user, source=None):
         summary('Publication paused for reconciliation; no send.')
         return
     # Recheck after generation/refresh, including daily caps and spacing.
-    if 'allowed_actions' in slot:
-        due = next_decision(schedule_state(state), utcnow())
+    now = utcnow()
+    if slot.get('inbox_id'):
+        valid = (slot['kind'] == 'reply' and source and source['id'] == slot['inbox_id']
+                 and reply_ready(schedule_state(state), now) and now < timestamp(slot['expires_at']))
+    elif 'allowed_actions' in slot:
+        scheduler = next_original if slot.get('original_only') else next_decision
+        due = scheduler(schedule_state(state), now)
         if due and slot['kind'] not in due[0]['allowed_actions']:
             due = None
+        valid = due and due[0]['slot'] == slot['slot']
     else:
-        due = next_slot(schedule_state(state), utcnow())
-    if not due or due[0]['slot'] != slot['slot']:
+        due = next_slot(schedule_state(state), now)
+        valid = due and due[0]['slot'] == slot['slot']
+    if not valid:
         reject(state, slot, 'Opportunity changed during research; no send.')
         return
     if slot['kind'] == 'reply':
@@ -507,10 +513,11 @@ def ledger_after_denial(history):
     return memory
 
 
-async def read_inbox(state, connection, now, own_user_id=None):
+async def read_inbox(state, connection, now, own_user_id=None, *, poll=False):
     stage('read mentions and reply preferences')
     incoming = await mentions.discover(connection, now, used_source_ids=state['used_source_ids'],
-                                       own_history=state['history'], own_user_id=own_user_id)
+                                       own_history=state['history'], own_user_id=own_user_id,
+                                       **({'poll': True} if poll else {}))
     if mentions.apply_controls(incoming, state):
         save_and_push(state)
     return incoming
@@ -549,7 +556,39 @@ def inbox_shortlist(rows, own_id):
     return [first, second] if second else [first]
 
 
-async def decide(state, slot, connection, user):
+def candidate_eligible(candidate, state, now, own_id):
+    rejection = state.get('reply_rejections', {}).get(rejection_key(candidate))
+    return (eligible_author(candidate, state, now, own_id)
+            and not set(candidate['source_ids']).intersection(state['used_source_ids'])
+            and not set(candidate['urls']).intersection(state['used_urls'])
+            and not reply_rejection_active(candidate, rejection, now))
+
+
+def inbox_opportunity(row):
+    created = timestamp(row['created_at'])
+    version = personality.invitation_version(row)
+    return {'slot': f'{created.date().isoformat()}-inbox-{row["id"]}-{version[:16]}',
+            'inbox_id': row['id'], 'kind': 'decision', 'allowed_actions': ['reply'],
+            'expires_at': (created + sources.MAX_AGE).isoformat()}
+
+
+def inbox_reviewed(state, row):
+    return (inbox_opportunity(row)['slot'] in state.get('decision_slots', {})
+            or (row['id'], personality.invitation_version(row)) in personality.declined_invitations(state))
+
+
+def record_silence(state, slot, now, plan):
+    days = {now.date().isoformat(), (now.date() - timedelta(days=1)).isoformat()}
+    decisions = {k: v for k, v in state.get('decision_slots', {}).items() if k[:10] in days}
+    decisions[slot['slot']] = {'action': 'silent', 'at': now.isoformat()}
+    for key in ('offered_invitations', 'summon_authors'):
+        if plan.get(key):
+            decisions[slot['slot']][key] = plan[key]
+    state['decision_slots'] = decisions
+    save_and_push(state)
+
+
+async def decide(state, slot, connection, user, *, incoming=None):
     stage('sync verified publications to D1')
     try:
         memory = Memory.connect()
@@ -558,21 +597,17 @@ async def decide(state, slot, connection, user):
         memory = ledger_after_denial(state['history'])
     now = utcnow()
     own_id = str(user.id)
-    try:
-        incoming = await read_inbox(state, connection, now, own_id)
-    except (NotFound, TweetNotAvailable):
-        summary('Mention inbox unavailable for this opportunity.')
-        incoming = []
-    cached = state.get('reply_rejections', {})
-    used_ids, used_urls = set(state['used_source_ids']), set(state['used_urls'])
-
-    def eligible(candidate):
-        rejection = cached.get(rejection_key(candidate))
-        return (eligible_author(candidate, state, now, own_id)
-                and not used_ids.intersection(candidate['source_ids']) and not used_urls.intersection(candidate['urls'])
-                and not reply_rejection_active(candidate, rejection, now))
-
-    selected = inbox_shortlist([row for row in incoming if row['intent'] == 'invite' and eligible(row)], own_id)
+    if incoming is None:
+        if 'reply' in slot['allowed_actions']:
+            try:
+                incoming = await read_inbox(state, connection, now, own_id)
+            except (NotFound, TweetNotAvailable):
+                summary('Mention inbox unavailable for this opportunity.')
+                incoming = []
+        else:
+            incoming = []
+    selected = inbox_shortlist([row for row in incoming if row['intent'] == 'invite'
+                                and candidate_eligible(row, state, now, own_id)], own_id)
     invited = [row if row.get('parent_context') else await mentions.thread_context(connection, row, now)
                for row in selected]
     invited_authors = {row['author_id'] for row in invited}
@@ -585,7 +620,7 @@ async def decide(state, slot, connection, user):
         except (NotFound, TweetNotAvailable):
             summary('Topic discovery unavailable for this opportunity.')
     # Never feed an incidental tag or opted-out request back as a trending post.
-    passive = [c for c in candidates if c['author_id'] not in invited_authors and eligible(c)
+    passive = [c for c in candidates if c['author_id'] not in invited_authors and candidate_eligible(c, state, now, own_id)
                and not re.search(r'(?<![\w@])@' + re.escape(ACCOUNT) + r'\b', c['text'], re.I)]
     shortlist = invited + sources.shortlist(passive, now, limit=4 - len(invited))
     summary(f'Considering {len(invited)} direct invitations and {len(shortlist) - len(invited)} discovered conversations.')
@@ -599,14 +634,7 @@ async def decide(state, slot, connection, user):
         plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'])
     action = plan['action']
     if action == 'silent':
-        days = {now.date().isoformat(), (now.date() - timedelta(days=1)).isoformat()}
-        decisions = {k: v for k, v in state.get('decision_slots', {}).items() if k[:10] in days}
-        decisions[slot['slot']] = {'action': 'silent', 'at': utcnow().isoformat()}
-        for key in ('offered_invitations', 'summon_authors'):
-            if plan.get(key):
-                decisions[slot['slot']][key] = plan[key]
-        state['decision_slots'] = decisions
-        save_and_push(state)
+        record_silence(state, slot, utcnow(), plan)
         summary('Qofeno chose silence for this opportunity.')
         return
     if action not in slot['allowed_actions']:
@@ -630,6 +658,63 @@ async def decide(state, slot, connection, user):
             ledger_after_denial(state['history'])
 
 
+async def posting_account(connection):
+    stage('resolve configured posting account')
+    # CreateTweet authenticates the supplied session. Readback verifies that
+    # the actual author matches this public account before any later send.
+    user = await connection.get_user_by_screen_name(ACCOUNT)
+    if str(getattr(user, 'screen_name', '')).casefold() != ACCOUNT or not str(getattr(user, 'id', '')).isdigit():
+        raise SessionUnavailable()
+    return user
+
+
+async def process_inbox(state, connection):
+    now = utcnow()
+    if not reply_ready(schedule_state(state), now):
+        return
+    own_id = next((row['author_id'] for row in reversed(state['history'])
+                   if row.get('verified_at') and row.get('author_id')), None)
+    rows = await read_inbox(state, connection, now, own_id, poll=True)
+    invitations = [row for row in rows if row['intent'] == 'invite' and candidate_eligible(row, state, now, own_id)]
+    first = inbox_shortlist(invitations, own_id)
+    user = None
+    considered = 0
+    for row in first + [row for row in invitations if row not in first]:
+        now = utcnow()
+        if considered >= INBOX_BATCH_SIZE or not reply_ready(schedule_state(state), now):
+            break
+        # Earlier decisions in this batch can use an alias, consume a thread
+        # turn or leave an unresolved send. Recheck on the updated ledger.
+        if not candidate_eligible(row, state, now, own_id):
+            continue
+        if row.get('parent_id') and not row.get('parent_context'):
+            row = await mentions.thread_context(connection, row, now)
+        slot = inbox_opportunity(row)
+        if now >= timestamp(slot['expires_at']) or inbox_reviewed(state, row):
+            continue
+        attempt = state.get('last_attempts', {}).get(slot['slot'])
+        if attempt and timestamp(attempt['at']) + RECHECK_GAP > now:
+            continue
+        if user is None:
+            user = await posting_account(connection)
+            own_id = str(user.id)
+        considered += 1
+        try:
+            await decide(state, slot, connection, user, incoming=[row])
+        except AIRequestTimeout:
+            reject(state, slot, 'Workers AI timed out considering this invitation. Deferred before sending.')
+        except AIRequestTooLarge as exc:
+            state.setdefault('reply_rejections', {})[rejection_key(row)] = {
+                'until': exc.until.isoformat(), 'reason': 'AI decision exceeds hourly headroom'}
+            reject(state, slot, f'Insufficient AI headroom for this invitation until {exc.until.isoformat()}.')
+        except AIPaused as exc:
+            summary(f'AI deferred until {exc.until.isoformat()}: {exc.reason}')
+            break
+        except DraftError as exc:
+            record_silence(state, slot, now, {})
+            summary(f'No approved decision for invitation {row["id"]}: {str(exc)[:240]}')
+
+
 async def run(event):
     start = utcnow()
     state = load()
@@ -645,14 +730,18 @@ async def run(event):
     if not delivery_open(state):
         summary('A previous publication requires reconciliation. No new send.')
         return
-    stage('resolve configured posting account')
-    # Public profile metadata identifies the configured target, not the logged-in
-    # session. Native CreateTweet authenticates the existing user-provided secrets;
-    # readback must confirm its actual author before any later publication.
-    # Do not make posting depend on the unsupported v1.1 settings endpoint.
-    user = await connection.get_user_by_screen_name(ACCOUNT)
-    if str(getattr(user, 'screen_name', '')).casefold() != ACCOUNT:
-        raise SessionUnavailable()
+    if event == 'inbox':
+        try:
+            await process_inbox(state, connection)
+        except TooManyRequests as exc:
+            now = utcnow()
+            reset = getattr(exc, 'rate_limit_reset', None)
+            until = datetime.fromtimestamp(reset, timezone.utc) if reset and reset > now.timestamp() else now + timedelta(minutes=15)
+            state['x_pause_until'] = until.isoformat()
+            save_and_push(state)
+            summary(f'X rate-limited inbox access. Next check after {until.isoformat()}.')
+        return
+    user = await posting_account(connection)
     window = None
     if event == 'repository_dispatch':
         window = start.replace(minute=start.minute // 30 * 30, second=0, microsecond=0) + timedelta(minutes=30)
@@ -663,9 +752,10 @@ async def run(event):
     if hold:
         summary(hold)
         return
-    found = next_decision(schedule_state(state), now, window)
+    scheduler = next_decision if event in ('push', 'repository_dispatch') else next_original
+    found = scheduler(schedule_state(state), now, window)
     if not found:
-        summary(upcoming_opportunity(state, now))
+        summary(upcoming_opportunity(state, now, scheduler))
         return
     slot, ready = found
     if ready > now:
@@ -688,6 +778,7 @@ async def inspect():
     state = load()
     now = utcnow()
     status = publication_hold(state, now) or upcoming_opportunity(state, now)
-    summary(f'{status} '
+    inbox = 'open' if reply_ready(schedule_state(state), now) else 'held'
+    summary(f'{status} Independent mention and thread-reply checks: {inbox}. '
             f'Confirmed publications: {len(state["history"])}. '
             f'Pending send: {bool(state.get("outbox"))}. No model or send calls.')

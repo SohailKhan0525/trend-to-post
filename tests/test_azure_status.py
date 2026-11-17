@@ -16,8 +16,19 @@ class AzureStatusTests(unittest.TestCase):
         self.assertIn('https://x.com/qofenoai/status/456', result)
         self.assertIn('23 at 2026-11-17T11:40:00+00:00 (wording or decision rejected)', result)
         self.assertIn('Pending delivery: False', result)
+        self.assertIn('30s between idle checks. Reply eligibility in D1: open', result)
         self.assertIn('Next eligible', result)
         self.assertNotIn('PRIVATE', result)
+
+    def test_inbound_decision_supersedes_legacy_slot_without_logging_source_id(self):
+        now = datetime(2026, 11, 17, 12, 10, tzinfo=timezone.utc)
+        state = {'history': [], 'decision_slots': {
+            '2026-11-17:reply-v1:23': {'at': '2026-11-17T12:00:00Z', 'action': 'silent'},
+            '2026-11-17-inbox-891234567-fedcba9876543210': {
+                'at': '2026-11-17T12:08:00Z', 'action': 'silent'}}}
+        result = '\n'.join(report(state, now))
+        self.assertIn('inbound reply at 2026-11-17T12:08:00+00:00 (silence)', result)
+        self.assertNotIn('891234567', result)
 
     def test_silence_and_pending_are_reported_without_exposing_draft(self):
         now = datetime(2026, 11, 17, 12, 10, tzinfo=timezone.utc)
@@ -26,4 +37,5 @@ class AzureStatusTests(unittest.TestCase):
         result = '\n'.join(report(state, now))
         self.assertIn('(silence)', result)
         self.assertIn('Pending delivery: True', result)
+        self.assertIn('Reply eligibility in D1: on hold', result)
         self.assertNotIn('PRIVATE', result)

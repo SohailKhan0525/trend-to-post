@@ -4,16 +4,18 @@ import os
 import re
 import signal
 import sys
+import tempfile
 from contextlib import suppress
 from datetime import timedelta
 from uuid import uuid4
 
 from . import cloudflare, editorial, server_ledger, store
 from .ai_budget import active_pause
-from .reply_schedule import next_decision, timestamp
+from .reply_schedule import next_original, reply_ready, timestamp
 
 
 PULSE = 20
+INBOX_INTERVAL = 30
 MAX_DECISION_SECONDS = 12 * 60
 
 
@@ -46,26 +48,36 @@ async def check():
     store.summary(f'Server preflight passed: D1, X mentions and Workers AI ({model}).')
 
 
-def delay_until_work(state, now):
-    """Return seconds until the next allowed decision or pending delivery check."""
+def next_work(state, now, inbox_in=0, original_in=0, last_mode=None):
+    """Give a fresh mention first priority; alternate if both jobs remain due."""
     if state.get('x_pause_until'):
         remaining = (timestamp(state['x_pause_until']) - now).total_seconds()
         if remaining > 0:
-            return remaining
+            return None, remaining
     if state.get('outbox'):
-        return 0
+        return 'inbox', 0
     if not editorial.delivery_open(state):
-        return None
+        return None, None
+    pause = active_pause(state, now)
+    if pause:
+        return None, (pause.until - now).total_seconds()
     midnight = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
-    opportunity = next_decision(editorial.schedule_state(state), now, midnight)
-    at = opportunity[1] if opportunity else midnight
-    return max(0, (at - now).total_seconds())
+    schedule = editorial.schedule_state(state)
+    jobs = []
+    if reply_ready(schedule, now):
+        jobs.append(('inbox', max(0, inbox_in)))
+    opportunity = next_original(schedule, now, midnight)
+    if opportunity:
+        jobs.append(('original', max(0, original_in, (opportunity[1] - now).total_seconds())))
+    if not jobs:
+        return None, (midnight - now).total_seconds()
+    return min(jobs, key=lambda job: (job[1], job[0] == last_mode))
 
 
-async def run_decision(ledger, instance, release, phase, stop):
+async def run_decision(ledger, instance, release, phase, stop, mode):
     # Model and ledger calls in the editor are synchronous. Keeping them in a
     # child lets the supervisor renew its lease or stop a stalled decision.
-    process = await asyncio.create_subprocess_exec(sys.executable, '-m', 'app', 'run')
+    process = await asyncio.create_subprocess_exec(sys.executable, '-m', 'app', 'run', '--mode', mode)
     finished = asyncio.create_task(process.wait())
     stopping = asyncio.create_task(stop.wait())
     loop = asyncio.get_running_loop()
@@ -99,42 +111,58 @@ async def run_decision(ledger, instance, release, phase, stop):
 
 async def supervise(ledger, instance, release, stop):
     loop = asyncio.get_running_loop()
-    retry_at = 0
+    retry_at = inbox_at = original_at = 0
     failures = 0
     phase = 'standby'
+    last_mode = None
     while not stop.is_set():
-        if ledger.heartbeat(instance, release, phase):
-            if not ledger.active():
-                phase, retry_at, failures = 'standby', 0, 0
-            elif loop.time() >= retry_at:
-                state = ledger.load()
-                delay = delay_until_work(state, store.utcnow())
-                if delay is None:
-                    phase, delay = 'degraded', 60
-                    store.summary('Publication requires reconciliation; waiting for a ledger correction.')
-                elif delay == 0:
-                    success = await run_decision(ledger, instance, release, phase, stop)
-                    if stop.is_set():
-                        break
-                    if success:
-                        # A zero exit can still mean an ambiguous send awaiting
-                        # readback. Report degraded until reconciliation finishes.
-                        success = editorial.delivery_open(ledger.load())
-                    failures = 0 if success else min(failures + 1, 5)
-                    # Unknown sends are re-read through the existing reconciler.
-                    # Repeated network or delivery failures back off to 15 minutes.
-                    delay = min(900, 60 * 2 ** failures)
-                    phase = 'degraded' if failures else 'active'
-                elif not failures:
-                    phase = 'active' if editorial.delivery_open(state) else 'degraded'
-                if not ledger.heartbeat(instance, release, phase):
-                    raise RuntimeError('Server lost its publishing lease.')
-                retry_at = loop.time() + min(delay, 900)
-        else:
-            # Another VM or a previous process still owns the lease.
-            phase, retry_at, failures = 'standby', 0, 0
+        lease_held = ledger.heartbeat(instance, release, phase)
+        if not lease_held or not ledger.active():
+            phase = 'standby'
+            last_mode = None
+            retry_at = inbox_at = original_at = failures = 0
+        elif loop.time() >= retry_at:
+            state = ledger.load()
+            clock = loop.time()
+            mode, delay = next_work(state, store.utcnow(), inbox_at - clock, original_at - clock, last_mode)
+            if delay is None:
+                phase, delay = 'degraded', 60
+                store.summary('Publication requires reconciliation; waiting for a ledger correction.')
+            elif delay == 0:
+                previous_count = len(state['history'])
+                success = await run_decision(ledger, instance, release, phase, stop, mode)
+                if stop.is_set():
+                    break
+                if success:
+                    # A zero exit can still leave an ambiguous send awaiting readback.
+                    state = ledger.load()
+                    success = editorial.delivery_open(state)
+                if success:
+                    failures, phase, last_mode = 0, 'active', mode
+                    clock = loop.time()
+                    if mode == 'inbox':
+                        answered = sum(row.get('kind') == 'reply' and bool(row.get('verified_at'))
+                                       for row in state['history'][previous_count:])
+                        inbox_at = clock if answered >= editorial.INBOX_BATCH_SIZE else clock + INBOX_INTERVAL
+                    else:
+                        original_at = clock + 60
+                    _, delay = next_work(state, store.utcnow(), inbox_at - clock, original_at - clock, last_mode)
+                else:
+                    failures = min(failures + 1, 5)
+                    phase, delay = 'degraded', min(900, 60 * 2 ** failures)
+            elif not failures:
+                phase = 'active' if editorial.delivery_open(state) else 'degraded'
+            if not ledger.heartbeat(instance, release, phase):
+                raise RuntimeError('Server lost its publishing lease.')
+            retry_at = loop.time() + min(delay, 900)
+
+        # A second, independently due lane can run immediately. Idle workers
+        # keep renewing the lease even when a cooldown lasts several minutes.
+        if phase != 'standby' and retry_at <= loop.time():
+            continue
+        sleep_for = min(PULSE, max(0, retry_at - loop.time())) if phase != 'standby' else PULSE
         try:
-            await asyncio.wait_for(stop.wait(), PULSE)
+            await asyncio.wait_for(stop.wait(), sleep_for)
         except TimeoutError:
             pass
 
@@ -154,7 +182,9 @@ async def serve():
         ledger = server_ledger.connect()
         store.summary(f'Server {release[:12]} ready. Waiting for D1 publication authority.')
         try:
-            await supervise(ledger, instance, release, stop)
+            with tempfile.TemporaryDirectory(prefix='qofeno-inbox-') as directory:
+                os.environ['QOFENO_INBOX_CACHE'] = os.path.join(directory, 'inbox.json')
+                await supervise(ledger, instance, release, stop)
         finally:
             ledger.release(instance)
     finally:

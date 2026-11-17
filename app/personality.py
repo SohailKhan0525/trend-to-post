@@ -163,6 +163,22 @@ def casual_followup(row):
     return row.get('conversation_role') == 'reply_to_qofeno' and bool(CLOSING.fullmatch(body))
 
 
+def invitation_version(row):
+    # Compare exactly the public prose seen by the planner. Views and native
+    # identity metadata can change between notification reads without an edit.
+    parent = row.get('parent_context')
+    if parent:
+        parent = {key: parent[key] for key in ('id', 'author', 'text')}
+    prose = json.dumps([row['text'], parent], ensure_ascii=False, sort_keys=True)
+    return hashlib.sha256(prose.encode()).hexdigest()
+
+
+def declined_invitations(state):
+    return {(ident, version) for decision in state.get('decision_slots', {}).values()
+            if isinstance(decision, dict) and decision.get('action') == 'silent'
+            for ident, version in decision.get('offered_invitations', {}).items()}
+
+
 def choose(sources, memory, state, now, allowed_actions):
     choices = {'silent'} | (set(allowed_actions) & {'reply', 'original'})
     if choices == {'silent'}:
@@ -172,14 +188,9 @@ def choose(sources, memory, state, now, allowed_actions):
     if 'reply' in choices:
         for row in candidates:
             if row.get('origin') == 'mention':
-                # Views change between reads. Only an edit to what the planner
-                # actually reads should renew a previously considered invitation.
-                prose = json.dumps([row['text'], row.get('parent_context')], ensure_ascii=False, sort_keys=True)
-                offered[row['id']] = hashlib.sha256(prose.encode()).hexdigest()
+                offered[row['id']] = invitation_version(row)
     allowed_reply_ids = list(offered)
-    already_offered = {(ident, version) for decision in state.get('decision_slots', {}).values()
-                       if isinstance(decision, dict) and decision.get('action') == 'silent'
-                       for ident, version in decision.get('offered_invitations', {}).items()}
+    already_offered = declined_invitations(state)
     cutoff = now - timedelta(days=1)
     paged = {author for row in state.get('decision_slots', {}).values()
              if isinstance(row, dict) and row.get('at') and timestamp(row['at']) > cutoff
