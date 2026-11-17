@@ -360,6 +360,95 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(TooManyRequests):
             await mentions.thread_context(conn, child, NOW)
 
+    async def test_root_uses_native_conversation_parent_and_original_edit_identity(self):
+        root = mention('@qofenoai please weigh in', '200', aliases=['100', '200'])
+        self.assertEqual(mentions.snapshot(root, NOW)['conversation_id'], '100')
+        child = mention('@qofenoai what about the cache?', '250', in_reply_to_status_id_str='200')
+        conn = SimpleNamespace(get_tweet_by_id=AsyncMock(return_value=root))
+        child_row = mentions.snapshot(child, NOW)
+        self.assertIsNone(child_row['conversation_id'])
+        self.assertEqual((await mentions.thread_context(conn, child_row, NOW))['conversation_id'], '100')
+        root._data['legacy']['in_reply_to_status_id_str'] = '80'
+        self.assertIsNone((await mentions.thread_context(conn, child_row, NOW))['conversation_id'])
+        root._data['conversation_id_str'] = '10'
+        self.assertEqual((await mentions.thread_context(conn, child_row, NOW))['conversation_id'], '10')
+        text = '@owner @qofenoai please look'
+        child = mention(text, '251', in_reply_to_status_id_str='200')
+        child._data.update(conversation_id_str='10', full_text=text, display_text_range=[7, len(text)])
+        self.assertEqual((mentions.snapshot(child, NOW)['text'], mentions.snapshot(child, NOW)['conversation_id']),
+                         ('@qofenoai please look', '10'))
+
+    def test_native_manual_replies_need_account_identity_and_provable_original_thread(self):
+        def own(ident, parent=None, **kwargs):
+            item = tweet(ident, author='QofenoAI', in_reply_to_status_id_str=parent, **kwargs)
+            item.user.id = '91'
+            return item
+        root = tweet('105', aliases=['100', '105'])
+        first = own('120', '105', conversation_id_str='100', aliases=['110', '120'])
+        child = tweet('130', in_reply_to_status_id_str='120')
+        second = own('150', '130')
+        wrong_root = own('151', '130', conversation_id_str='700')
+        wrong_user = own('152', '130')
+        wrong_user.user.id = '999'
+        unknown = own('153', '450')
+        child.reply_to = [root, first]
+        first.replies = [child]
+        child.replies = [second, wrong_root, wrong_user, unknown, own('160')]
+        child.related_tweets = [own('161', '130', conversation_id_str='100')]
+        self.assertEqual(mentions.native_reply_ids(child, '91', '100'), {'110', '150'})
+        self.assertEqual(mentions.native_reply_ids(child, None, '100'), set())
+
+    async def test_targeted_search_verifies_sibling_replies_and_propagates_denials(self):
+        root = tweet('100')
+        root.replies = [mention('@qofenoai hi', '150', in_reply_to_status_id_str='100')]
+        def account_post(ident, parent=None, conversation=None):
+            item = tweet(ident, author='QofenoAI', in_reply_to_status_id_str=parent, conversation_id_str=conversation)
+            item.user.id = '91'
+            return item
+        manual = account_post('200', '199', '100')
+        second = account_post('201', '100')
+        imposter = account_post('210', '100', '100')
+        imposter.user.id = '999'
+        other_handle = account_post('211', '100', '100')
+        other_handle.user.screen_name = 'other'
+        conn = SimpleNamespace(search_tweet=AsyncMock(return_value=[
+            None, account_post('205'), account_post('206', '88', '88'), imposter, other_handle,
+            manual, manual, second, account_post('202', '100')]))
+        self.assertEqual(mentions.native_reply_ids(root, '91', '100'), set())
+        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100'), {'200', '201'})
+        conn.search_tweet.assert_awaited_once_with('conversation_id:100 from:qofenoai filter:replies', 'Latest',
+                                                   count=mentions.INBOX_COUNT)
+        self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', None))
+        conn.search_tweet.assert_awaited_once()
+        for malformed in (None, {}, [None, 'broken']):
+            conn.search_tweet.return_value = malformed
+            self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', '100'))
+        conn.search_tweet.return_value = []
+        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100'), set())
+        conn.search_tweet.return_value = [imposter, other_handle, account_post('205')]
+        self.assertEqual(await mentions.conversation_reply_ids(conn, '91', '100'), set())
+        for exc in (NotFound('no search page'), RequestTimeout('search timed out')):
+            conn.search_tweet.side_effect = exc
+            self.assertIsNone(await mentions.conversation_reply_ids(conn, '91', '100'))
+        for exc in (Forbidden('forbidden'), TooManyRequests('rate')):
+            conn.search_tweet.side_effect = exc
+            with self.assertRaises(type(exc)):
+                await mentions.conversation_reply_ids(conn, '91', '100')
+
+    async def test_exact_parent_detail_contributes_verified_sibling_ids_without_another_read(self):
+        root = tweet('100', author='owner')
+        sibling = tweet('120', author='QofenoAI', in_reply_to_status_id_str='100')
+        sibling.user.id = '91'
+        root.replies = [sibling]
+        child = mentions.snapshot(mention('@qofenoai what do you think?', '125',
+                                          in_reply_to_status_id_str='100', in_reply_to_screen_name='owner'), NOW)
+        found = set()
+        conn = SimpleNamespace(get_tweet_by_id=AsyncMock(return_value=root))
+        row = await mentions.thread_context(conn, child, NOW, observed_replies=found, own_user_id='91')
+        self.assertEqual(row['conversation_id'], '100')
+        self.assertEqual(found, {'120'})
+        conn.get_tweet_by_id.assert_awaited_once_with('100')
+
     async def test_untagged_statement_needs_the_exact_verified_own_parent(self):
         parent = tweet('701', author='qofenoai', age=timedelta(days=3),
                        text='Which cache key actually changed?')

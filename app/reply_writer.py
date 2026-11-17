@@ -42,7 +42,8 @@ For conversation_role=reply_to_qofeno, you wrote the parent. The child is the
 other person's reply. Pick up the detail they added. If they answered your
 question, use that answer instead of asking again. Own a correction, explain a
 choice, or return the joke with a callback. One missing detail can earn one
-question. A closing thanks usually needs no answer. Never promise an introduction,
+question. If the author directly tags you with a greeting or thanks, a short personal
+acknowledgment is a complete response. Never promise an introduction,
 DM, download, private repo review or other work you cannot do in the public reply.
 
 Assess relevant, safe and context_complete. Exclude politics, countries, nationalities,
@@ -335,7 +336,6 @@ def check_source(source, now, state=None):
     direct = source.get('origin') == 'mention'
     if direct:
         from . import mentions
-        from .reply_schedule import timestamp
         from .sources import SourceError
         try:
             validated = mentions.validate(source, now)
@@ -350,14 +350,6 @@ def check_source(source, now, state=None):
             ping = mentions.is_direct_ping(source['text'])
             if needs_referent(source['text']) or (ping and source.get('parent_id')):
                 raise SourceRejected('The mention refers to unavailable context')
-            if ping:
-                for row in (state or {}).get('history', ()):
-                    previous = row.get('source') or {}
-                    if (row.get('kind') == 'reply' and row.get('verified_at') and row.get('posted_at')
-                            and previous.get('author_id') == source.get('author_id') and not previous.get('parent_id')
-                            and mentions.is_direct_ping(previous.get('text'))
-                            and timestamp(row['posted_at']) > now - timedelta(days=1)):
-                        raise SourceRejected('A recent standalone ping from this person already received a reply')
     elif type(source.get('views')) is not int or source['views'] < MIN_SOURCE_VIEWS:
         raise SourceRejected(f'The source needs at least {MIN_SOURCE_VIEWS} measured post views')
     try:

@@ -62,13 +62,44 @@ class MentionStatusTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn('PRIVATE', log.call_args.args[0])
         self.client.create_tweet.assert_not_called()
 
-    def test_silence_on_current_source_counts_as_reviewed(self):
+    async def test_report_identifies_capped_thread_and_keeps_new_conversation_eligible(self):
+        def invite(ident, author_id, root):
+            return {'id': ident, 'author_id': author_id, 'author': 'reader' + author_id,
+                    'text': '@qofenoai hello', 'origin': 'mention', 'intent': 'invite',
+                    'conversation_id': root, 'created_at': self.now.isoformat(),
+                    'source_ids': [ident], 'urls': []}
+
+        for sent, source in [('504', invite('501', '81', '500')), ('505', invite('502', '82', '500'))]:
+            self.state['history'].append({'kind': 'reply', 'thread_root': '500', 'tweet_id': sent,
+                                         'source': source, 'verified_at': self.now.isoformat(),
+                                         'posted_at': self.now.isoformat()})
+        rows = [invite('506', '83', '500'), invite('607', '83', '600')]
+        with patch.object(status.mentions, 'discover', AsyncMock(return_value=rows)), \
+                patch.object(status.store, 'summary') as log:
+            await status.inspect_inbox(self.client, self.state, self.now, '506')
+        output = '\n'.join(call.args[0] for call in log.call_args_list)
+        self.assertIn('1 eligible for review', output)
+        self.assertIn('present in inbox sample; reply limit reached for this conversation', output)
+        self.client.create_tweet.assert_not_called()
+        # One reply may have been published directly on X and observed later.
+        self.state['history'].pop()
+        self.state['observed_thread_replies'] = {'500': ['504', '505']}
+        self.assertEqual(status.eligibility(rows[0], self.state, self.now, '99'),
+                         'reply limit reached for this conversation')
+
+    def test_direct_review_is_per_version_and_legacy_silence_can_be_revisited(self):
         row = {'id': '71234567', 'author_id': '81234567', 'author': 'reader',
                'text': '@qofenoai hello', 'origin': 'mention', 'intent': 'invite',
                'created_at': self.now.isoformat(), 'source_ids': ['71234567'], 'urls': []}
         slot = status.editorial.inbox_opportunity(row)['slot']
         self.state['decision_slots'] = {slot: {'action': 'silent', 'at': self.now.isoformat()}}
+        self.assertEqual(status.eligibility(row, self.state, self.now, '99'), 'eligible for review')
+        self.state['decision_slots'][slot]['direct_reviewed'] = True
         self.assertEqual(status.eligibility(row, self.state, self.now, '99'), 'already reviewed')
+        edited = {**row, 'text': '@qofenoai hello again'}
+        self.assertEqual(status.eligibility(edited, self.state, self.now, '99'), 'eligible for review')
+        self.state['used_source_ids'] = row['source_ids']
+        self.assertEqual(status.eligibility(edited, self.state, self.now, '99'), 'previously reserved source')
 
     async def test_retry_allowed_by_publisher_is_counted_as_eligible(self):
         row = {'id':'71234567', 'author_id':'81234567', 'author':'reader', 'text':'@qofenoai hello',

@@ -60,6 +60,7 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         return SimpleNamespace(user=AsyncMock(return_value=self.user),
                                get_user_by_screen_name=AsyncMock(return_value=self.user),
                                get_user_tweets=AsyncMock(return_value=Result([])),
+                               search_tweet=AsyncMock(return_value=[]),
                                http=SimpleNamespace(cookies=SimpleNamespace(jar=[])),
                                create_tweet=AsyncMock(return_value=post),
                                get_tweet_by_id=AsyncMock(return_value=post))

@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 from datetime import datetime, timezone
 
-from app.editorial import schedule_state, upcoming_opportunity
+from app.editorial import THREAD_REPLY_LIMIT, schedule_state, upcoming_opportunity
 from app.memory import Memory, MemoryUnavailable, database_uuid
 from app.reply_schedule import reply_ready, timestamp
 from app.server import INBOX_INTERVAL
@@ -37,7 +37,8 @@ def opportunity_label(slot):
 
 def inbox_schedule(state, now):
     eligibility = 'open' if reply_ready(schedule_state(state), now) else 'on hold'
-    return f'Inbox schedule: {INBOX_INTERVAL}s between idle checks. Reply eligibility in D1: {eligibility}.'
+    return (f'Inbox schedule: {INBOX_INTERVAL}s between idle checks. Reply eligibility in D1: {eligibility}. '
+            f'Qofeno can reply up to {THREAD_REPLY_LIMIT} times per original conversation, across all participants and days.')
 
 
 def report(state, now):

@@ -24,6 +24,42 @@ DRAFT = {'text': 'I want the rollback button to lead a deeply uneventful life.',
 
 
 class PersonalityTests(unittest.TestCase):
+    def test_direct_greetings_questions_and_pings_skip_the_optional_planner(self):
+        with patch.object(editor, 'complete') as model:
+            for text in ('@qofenoai hello!', '@qofenoai', INVITE['text']):
+                with self.subTest(text=text):
+                    source = {**INVITE, 'text': text}
+                    self.assertEqual(editor.direct_reply(source, {}, NOW),
+                                     {'action': 'reply', 'source_id': source['id'], 'angle': ''})
+        model.assert_not_called()
+
+    def test_quick_reply_excludes_cold_incidental_opted_out_used_and_unsafe_sources(self):
+        for source, state in (
+                (SOURCE, {}), ({**INVITE, 'text': 'Credit to @qofenoai.'}, {}),
+                ({**INVITE, 'text': '@qofenoai stop'}, {}),
+                (INVITE, {'mention_preferences': {'22': {'intent': 'stop'}}}),
+                (INVITE, {'used_source_ids': INVITE['source_ids']}),
+                ({**INVITE, 'urls': ['https://example.com/build']}, {'used_urls': ['https://example.com/build']}),
+                ({**INVITE, 'text': '@qofenoai how should I vote in the election?'}, {}),
+                ({**INVITE, 'text': '@qofenoai', 'parent_id': '900'}, {})):
+            with self.subTest(text=source['text'], state=state):
+                self.assertEqual(editor.direct_reply(source, state, NOW)['action'], 'silent')
+
+    def test_new_child_and_new_standalone_mentions_by_the_same_reader_get_direct_review(self):
+        tag = {**INVITE, 'text': '@qofenoai reply?', 'parent_id': '900', 'parent_author': 'builder',
+               'parent_context': {'id': '900', 'author': 'builder', 'text': 'The cache keeps missing on every incremental build.'}}
+        previous = {**tag, 'id': '125', 'source_ids': ['125'], 'url': 'https://x.com/compiler_dev/status/125'}
+        state = {'used_source_ids': ['125'], 'history': [{'kind': 'reply', 'posted_at': NOW.isoformat(),
+                              'verified_at': NOW.isoformat(), 'source': previous}]}
+        with patch.object(editor, 'complete') as model:
+            self.assertEqual(editor.direct_reply(tag, state, NOW)['action'], 'reply')
+            standalone = {**INVITE, 'text': '@qofenoai'}
+            state['history'][0]['source'] = {**previous, 'text': '@qofenoai', 'parent_id': None,
+                                             'parent_context': None, 'parent_author': None}
+            self.assertEqual(editor.direct_reply(standalone, state, NOW)['action'], 'reply')
+            self.assertEqual(editor.direct_reply(state['history'][0]['source'], state, NOW)['action'], 'silent')
+            model.assert_not_called()
+
     def test_selected_reply_uses_whole_post_and_public_memory(self):
         choice = {'action': 'reply', 'source_id': '124', 'angle': 'Tell the builder which step is still running.'}
         memory = copy.deepcopy(MEMORY)

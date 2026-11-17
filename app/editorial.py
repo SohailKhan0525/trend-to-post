@@ -13,13 +13,14 @@ from datetime import datetime, timedelta, timezone
 from twikit.errors import CouldNotTweet, Forbidden, NotFound, TooManyRequests, TweetNotAvailable
 from . import mentions, personality, reply_writer, sources
 from .memory import LedgerMemory, Memory, MemoryAccessDenied
+from .metrics import post_id
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError, selected_model
 from .reply_schedule import RECHECK_GAP, next_decision, next_original, next_slot, reply_ready, timestamp
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
 
 STAGE = {'name': 'startup', 'source_id': None}
-THREAD_TURNS_PER_PERSON = 3
+THREAD_REPLY_LIMIT = 2
 INBOX_BATCH_SIZE = 4
 
 
@@ -50,29 +51,109 @@ def reject(state, slot, reason):
     summary(reason)
 
 
+def thread_evidence(source, history, observed=None):
+    """Join only native conversation, reply-parent and verified edit identities."""
+    links = {}
+    native_roots, originals, stored_roots = set(), set(), set()
+    own_replies, parents, children = set(), set(), set()
+
+    def join(ident, others):
+        if not ident:
+            return
+        links.setdefault(ident, set())
+        for other in others:
+            if other and other != ident:
+                links[ident].add(other)
+                links.setdefault(other, set()).add(ident)
+
+    def add_source(row):
+        ident = post_id(row.get('id'))
+        native = post_id(row.get('conversation_id'))
+        aliases = [alias for value in row.get('source_ids') or () if (alias := post_id(value))]
+        join(ident, [native, row.get('parent_id'), *aliases])
+        children.add(ident)
+        if row.get('parent_id'):
+            parents.add(row['parent_id'])
+        if native:
+            native_roots.add(native)
+        if ident and 'parent_id' in row and not row['parent_id']:
+            originals.add(min([ident, *aliases], key=int))
+
+    add_source(source)
+    for row in history:
+        ident = post_id(row.get('tweet_id'))
+        if not ident:
+            continue
+        # The retired quote publisher kept an acknowledged self-reply ID on
+        # its own post row. That reply belongs to our post, not the quoted post.
+        child = post_id(row.get('reply_id'))
+        if child and child != ident and (row.get('reply_verified_at') or row.get('reply_status') in ('verified', 'confirmed', 'published', 'sent')):
+            join(ident, [child])
+            own_replies.add(child)
+        if not row.get('verified_at'):
+            continue
+        kind = row.get('kind')
+        if kind in ('original', 'follow'):
+            originals.add(ident)
+        if kind not in ('reply', 'self_reply', 'self-reply'):
+            continue
+        previous = row.get('source') or {}
+        add_source(previous)
+        stored = row.get('thread_root')
+        native = row.get('conversation_id')
+        join(ident, [previous.get('id'), stored, native, row.get('parent_id'), row.get('reply_to')])
+        if stored:
+            stored_roots.add(stored)
+        if native:
+            native_roots.add(native)
+        own_replies.add(ident)
+    for root, ids in (observed or {}).items():
+        join(root, ids)
+        own_replies.update(ids)
+
+    connected = set()
+    pending = [source['id']]
+    while pending:
+        ident = pending.pop()
+        if ident not in connected:
+            connected.add(ident)
+            pending.extend(links.get(ident, set()) - connected)
+    proven = (native_roots & connected) or (originals & connected)
+    roots = proven or (stored_roots & connected) or ((parents - children - own_replies) & connected)
+    root = min(roots, key=int) if roots else source.get('parent_id') or source['id']
+    return root, len(own_replies & connected), bool(proven)
+
+
 def thread_root(source, history):
-    """Keep a stable thread ID across nested replies, including older ledger entries."""
-    if source.get('conversation_id'):
-        return source['conversation_id']
-    parent_id = source.get('parent_id')
-    if not parent_id:
-        return source['id']
-    # New sends persist the root. Walk parents for old records whose native
-    # conversation ID wasn't saved until this version of the inbox.
-    own_posts = {row['tweet_id']: row for row in history if row.get('verified_at') and row.get('tweet_id')}
-    seen = set()
-    while parent_id in own_posts and parent_id not in seen:
-        seen.add(parent_id)
-        parent = own_posts[parent_id]
-        previous = parent.get('source') or {}
-        explicit = parent.get('thread_root') or previous.get('conversation_id')
-        if explicit:
-            return explicit
-        older = previous.get('parent_id') or previous.get('id')
-        if not older:
-            break
-        parent_id = older
-    return parent_id
+    return thread_evidence(source, history)[0]
+
+
+def thread_reply_count(source, history, observed=None):
+    return thread_evidence(source, history, observed)[1]
+
+
+async def live_thread_open(state, source, post, own_id, connection, visible, *, search=False):
+    observed = state.get('observed_thread_replies', {})
+    root, count, proven = thread_evidence(source, state['history'], observed)
+    if not proven:
+        return False
+    native_root = source.get('conversation_id') or root
+    visible.update(mentions.native_reply_ids(post, own_id, native_root))
+    recorded = set(observed.get(root, ()))
+    found = recorded | visible
+    if found != recorded:
+        count = thread_reply_count(source, state['history'], {**observed, root: found})
+    complete = True
+    if search and count < THREAD_REPLY_LIMIT:
+        matches = await mentions.conversation_reply_ids(connection, own_id, native_root)
+        complete = matches is not None
+        if matches:
+            found.update(matches)
+    if found != recorded:
+        state.setdefault('observed_thread_replies', {})[root] = sorted(found)
+        save_and_push(state)
+        count = thread_reply_count(source, state['history'], state['observed_thread_replies'])
+    return complete and count < THREAD_REPLY_LIMIT
 
 
 def eligible_author(source, state, now, own_user_id):
@@ -87,14 +168,7 @@ def eligible_author(source, state, now, own_user_id):
                       or (source.get('parent_context') or {}).get('author', '').casefold() == ACCOUNT)
         if own_parent and not mentions.is_own_reply(source, own_user_id):
             return False
-        history = state['history']
-        root = thread_root(source, history)
-        cutoff = now - timedelta(days=1)
-        turns = sum(1 for row in history if row.get('kind') == 'reply' and row.get('verified_at')
-                    and row.get('source', {}).get('author_id') == author_id
-                    and timestamp(row['posted_at']) > cutoff
-                    and (row.get('thread_root') or thread_root(row['source'], history)) == root)
-        return turns < THREAD_TURNS_PER_PERSON
+        return thread_reply_count(source, state['history'], state.get('observed_thread_replies')) < THREAD_REPLY_LIMIT
     return not any(row.get('kind') == 'reply'
                    and row.get('source', {}).get('author_id') == source['author_id']
                    and timestamp(row['posted_at']) > now - timedelta(hours=24)
@@ -349,7 +423,8 @@ async def send_once(state, slot, draft, connection, user, source=None):
             reject(state, slot, 'The source did not invite Qofeno to reply.')
             return
         mentions.validate(source, utcnow())
-        if (not eligible_author(source, state, utcnow(), str(user.id))
+        if (not thread_evidence(source, state['history'], state.get('observed_thread_replies'))[2]
+                or not eligible_author(source, state, utcnow(), str(user.id))
                 or set(source['source_ids']) & set(state['used_source_ids'])
                 or set(source['urls']) & set(state['used_urls'])):
             reject(state, slot, 'Source or author was already used; no send.')
@@ -445,10 +520,12 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
             return
         try:
             stage('refresh source before writing', candidate['id'])
-            fresh = mentions.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
+            post = await connection.get_tweet_by_id(candidate['id'])
+            fresh = mentions.snapshot(post, utcnow())
+            visible = set()
             if candidate.get('parent_context'):
-                fresh = await mentions.thread_context(connection, fresh, utcnow())
-            if not unchanged(candidate, fresh):
+                fresh = await mentions.thread_context(connection, fresh, utcnow(), own_user_id=own_id, observed_replies=visible)
+            if not unchanged(candidate, fresh) or not await live_thread_open(state, fresh, post, own_id, connection, visible, search=True):
                 continue
             stage('write contextual reply', candidate['id'])
             if key in rejections:
@@ -459,10 +536,11 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
             with budget_scope(state, save_and_push, utcnow):
                 draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
-            final = mentions.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
+            post = await connection.get_tweet_by_id(candidate['id'])
+            final = mentions.snapshot(post, utcnow())
             if fresh.get('parent_context'):
-                final = await mentions.thread_context(connection, final, utcnow())
-            if not unchanged(fresh, final):
+                final = await mentions.thread_context(connection, final, utcnow(), own_user_id=own_id, observed_replies=visible)
+            if not unchanged(fresh, final) or not await live_thread_open(state, final, post, own_id, connection, visible):
                 continue
         except (AIRequestTimeout, AIRequestTooLarge) as exc:
             if isinstance(exc, AIRequestTooLarge):
@@ -585,14 +663,16 @@ def inbox_opportunity(row):
 
 
 def inbox_reviewed(state, row):
-    return (inbox_opportunity(row)['slot'] in state.get('decision_slots', {})
-            or (row['id'], personality.invitation_version(row)) in personality.declined_invitations(state))
+    decision = state.get('decision_slots', {}).get(inbox_opportunity(row)['slot'], {})
+    return bool(decision.get('direct_reviewed'))
 
 
 def record_silence(state, slot, now, plan):
     days = {now.date().isoformat(), (now.date() - timedelta(days=1)).isoformat()}
     decisions = {k: v for k, v in state.get('decision_slots', {}).items() if k[:10] in days}
     decisions[slot['slot']] = {'action': 'silent', 'at': now.isoformat()}
+    if slot.get('inbox_id'):
+        decisions[slot['slot']]['direct_reviewed'] = True
     for key in ('offered_invitations', 'summon_authors'):
         if plan.get(key):
             decisions[slot['slot']][key] = plan[key]
@@ -641,9 +721,14 @@ async def decide(state, slot, connection, user, *, incoming=None):
     except MemoryAccessDenied:
         memory = ledger_after_denial(state['history'])
         context = memory.context(shortlist)
-    stage('choose original, reply or silence')
-    with budget_scope(state, save_and_push, utcnow):
-        plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'])
+    if slot.get('inbox_id'):
+        stage('check direct invitation', slot['inbox_id'])
+        exact = next((row for row in invited if row['id'] == slot['inbox_id']), None)
+        plan = personality.direct_reply(exact, state, utcnow()) if exact else {'action': 'silent'}
+    else:
+        stage('choose original, reply or silence')
+        with budget_scope(state, save_and_push, utcnow):
+            plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'])
     action = plan['action']
     if action == 'silent':
         record_silence(state, slot, utcnow(), plan)

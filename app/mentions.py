@@ -10,6 +10,7 @@ import tempfile
 
 from httpx import NetworkError, TimeoutException
 from twikit.errors import NotFound, RequestTimeout, ServerError, TweetNotAvailable
+from twikit.utils import Result
 
 from . import sources
 from .reply_writer import INJECTION
@@ -192,12 +193,99 @@ def snapshot(tweet, now):
         raw = tweet._data
         native = raw.get('legacy') or {}
         if fields.get('parent_id'):
-            fields['text'] = _reply_text(fields['text'], native or raw)
+            fields['text'] = _reply_text(fields['text'], {**raw, **native})
         fields['parent_user_id'] = native.get('in_reply_to_user_id_str') or raw.get('in_reply_to_user_id_str')
-        fields['conversation_id'] = native.get('conversation_id_str') or raw.get('conversation_id_str')
         return validate(fields, at)
 
     return sources.checked_snapshot(tweet, now, include_parent=True, validator=child_fields)
+
+
+def _loaded_page(page):
+    try:
+        return list(islice(page or (), INBOX_COUNT))
+    except (IndexError, KeyError, TypeError):
+        return []
+
+
+def native_reply_ids(tweet, own_user_id, conversation_id):
+    """Read only already-loaded TweetDetail objects, proving membership by native IDs."""
+    if not str(own_user_id).isdigit() or not str(conversation_id).isdigit():
+        return set()
+    root = str(conversation_id)
+    items = [tweet, *_loaded_page(getattr(tweet, 'reply_to', None))]
+    seen_objects, own = set(), set()
+    nodes = {}
+    while items and len(seen_objects) < 16 * INBOX_COUNT:
+        item = items.pop()
+        if id(item) in seen_objects:
+            continue
+        seen_objects.add(id(item))
+        try:
+            # Twifork's Result is an already-loaded page; iterating calls no API.
+            items.extend(_loaded_page(getattr(item, 'replies', None)))
+            aliases = sources.tweet_ids(item)
+            raw = item._data
+            parent = (raw.get('legacy') or {}).get('in_reply_to_status_id_str') or raw.get('in_reply_to_status_id_str')
+            parent = sources._identifier(parent) if parent is not None else None
+            native_root = sources.conversation_id(raw)
+        except (sources.SourceError, AttributeError, IndexError, KeyError, TypeError, ValueError):
+            continue
+        canonical = min(aliases, key=int)
+        for alias in aliases:
+            nodes[alias] = (canonical, parent, native_root)
+        user = getattr(item, 'user', None)
+        if (parent and parent not in aliases and str(getattr(user, 'id', '')) == str(own_user_id)
+                and str(getattr(user, 'screen_name', '')).casefold() == ACCOUNT):
+            own.add(canonical)
+
+    def belongs(ident):
+        visited = set()
+        while ident and ident not in visited:
+            if ident == root:
+                return True
+            visited.add(ident)
+            if ident not in nodes:
+                return False
+            canonical, parent, native_root = nodes[ident]
+            if native_root:
+                return native_root == root or nodes.get(native_root, (None,))[0] == root
+            if canonical == root:
+                return True
+            ident = parent
+        return False
+
+    return {ident for ident in own if belongs(ident)}
+
+
+async def conversation_reply_ids(connection, own_user_id, conversation_id):
+    """Return earlier visible reply IDs, or None if this conversation could not be checked."""
+    try:
+        root = sources._identifier(conversation_id)
+        account_id = sources._identifier(own_user_id)
+    except sources.SourceError:
+        return None
+    query = f'conversation_id:{root} from:{ACCOUNT} filter:replies'
+    try:
+        page = await connection.search_tweet(query, 'Latest', count=INBOX_COUNT)
+        if not isinstance(page, (Result, list, tuple)):
+            return None
+        items = list(islice(page, INBOX_COUNT))
+    except (*READ_UNAVAILABLE, AttributeError, TypeError, ValueError) as exc:
+        print(f'Conversation reply search unavailable ({type(exc).__name__}).', flush=True)
+        return None
+    found = set()
+    read_item = False
+    for item in items:
+        try:
+            sources.tweet_ids(item)
+            sources._identifier(getattr(getattr(item, 'user', None), 'id', None))
+        except (sources.SourceError, AttributeError, KeyError, TypeError):
+            continue
+        read_item = True
+        found.update(native_reply_ids(item, account_id, root))
+        if len(found) >= 2:
+            break
+    return found if not items or read_item else None
 
 
 def _parent_fields(candidate, now):
@@ -237,10 +325,12 @@ def _attach_parent(child, parent):
         if parent['author'].casefold() == ACCOUNT:
             context['author_id'] = parent['author_id']
         child['parent_context'] = context
+        if not child.get('conversation_id') and parent.get('conversation_id'):
+            child['conversation_id'] = sources._identifier(parent['conversation_id'])
     return child
 
 
-async def thread_context(connection, candidate, now, *, poll_parents=None):
+async def thread_context(connection, candidate, now, *, poll_parents=None, own_user_id=None, observed_replies=None):
     """Refresh the exact native parent. Discard previous proof if the parent disappears."""
     row = validate(candidate, now)
     row.pop('parent_context', None)
@@ -270,9 +360,12 @@ async def thread_context(connection, candidate, now, *, poll_parents=None):
     except READ_UNAVAILABLE:
         return row
     if poll_parents is not None and row['intent'] == 'invite' and parent['id'] == parent_id:
-        context = {key: parent[key] for key in ('id', 'author', 'author_id', 'text')}
+        context = {key: parent[key] for key in ('id', 'author', 'author_id', 'text', 'conversation_id')}
         poll_parents[parent_id] = {'at': int(now.timestamp()), 'parent': context}
-    return _attach_parent(row, parent)
+    row = _attach_parent(row, parent)
+    if observed_replies is not None and row.get('parent_context') and row.get('conversation_id'):
+        observed_replies.update(native_reply_ids(tweet, own_user_id, row['conversation_id']))
+    return row
 
 
 def _recent_parents(history, now, rotation=None):

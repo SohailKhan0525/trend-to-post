@@ -23,6 +23,7 @@ class AzureStatusTests(unittest.TestCase):
         self.assertIn('23 at 2026-11-17T11:40:00+00:00 (wording or decision rejected)', result)
         self.assertIn('Pending delivery: False', result)
         self.assertIn('30s between idle checks. Reply eligibility in D1: open', result)
+        self.assertIn('2 times per original conversation, across all participants and days', result)
         self.assertIn('Next eligible', result)
         self.assertNotIn('PRIVATE', result)
 

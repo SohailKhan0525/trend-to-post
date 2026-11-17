@@ -17,6 +17,7 @@ class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
         self.state = empty()
         self.user = SimpleNamespace(id='999', screen_name=editorial.ACCOUNT)
         self.connection = SimpleNamespace(get_user_by_screen_name=AsyncMock(return_value=self.user),
+                                          search_tweet=AsyncMock(return_value=[]),
                                           get_tweet_by_id=AsyncMock(), create_tweet=AsyncMock())
         self.first = mentions.validate({**SOURCE, 'urls': []}, self.now)
         self.second = mentions.validate({**SOURCE, 'id': '112', 'source_ids': ['112'],
@@ -51,15 +52,11 @@ class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
 
         self.connection.create_tweet.side_effect = publish
 
-        def choose(rows, *_args):
-            self.assertEqual(len(rows), 1)
-            return {'action': 'reply', 'source_id': rows[0]['id'], 'angle': 'Examine this build closely.'}
-
         def write(row, *_args, **_kwargs):
             return {'text': 'A cache miss for ' + row['author'], 'event_key': 'caching ' + row['id']}
 
         with patch.object(mentions, 'snapshot', side_effect=lambda row, _now: copy.deepcopy(row)), \
-                patch.object(personality, 'choose', side_effect=choose) as planner, \
+                patch.object(personality, 'choose') as planner, \
                 patch.object(editorial.reply_writer, 'generate', side_effect=write):
             await editorial.run('inbox')
             self.assertEqual({row['source']['id'] for row in self.state['history']}, {'111', '112'})
@@ -67,15 +64,15 @@ class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
             self.rows.append({**self.first, 'id': '113', 'source_ids': ['113', '111'],
                               'text': '@qofenoai any follow-up on this edited post?'})
             await editorial.run('inbox')
-        self.assertEqual(planner.call_count, 2)
+        planner.assert_not_called()
         self.assertEqual(self.connection.create_tweet.await_count, 2)
         self.connection.get_user_by_screen_name.assert_awaited_once()
         editorial.sources.discover.assert_not_awaited()
         self.assertTrue(mentions.discover.await_args.kwargs['poll'])
 
-    async def test_silence_survives_poll_restarts_new_content_still_reaches_planner(self):
+    async def test_silence_survives_poll_restarts_new_content_still_reaches_direct_review(self):
         self.rows = [self.first]
-        with patch.object(personality, 'complete', return_value={'action': 'silent', 'source_id': '', 'angle': ''}) as model:
+        with patch.object(personality, 'direct_reply', return_value={'action': 'silent', 'source_id': '', 'angle': ''}) as review:
             await editorial.run('inbox')
             self.state = copy.deepcopy(self.state)
             self.rows = [{**self.first, 'views': self.first['views'] + 1000}, self.second]
@@ -83,7 +80,7 @@ class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
             await editorial.run('inbox')
             self.rows = [{**self.first, 'text': self.first['text'] + ' Especially with a shared cache.'}]
             await editorial.run('inbox')
-        self.assertEqual(model.call_count, 3)
+        self.assertEqual(review.call_count, 3)
         self.assertEqual(len(self.state['decision_slots']), 3)
         self.connection.create_tweet.assert_not_awaited()
 

@@ -80,7 +80,7 @@ class MentionVoiceTests(unittest.TestCase):
                 with self.subTest(wrong=wrong), self.assertRaises(reply_writer.ReviewFormatError):
                     reply_writer.validate_review({**verdict, 'source_evidence': wrong}, source)
 
-    def test_tag_to_parent_cites_parent_and_repeat_standalone_ping_waits(self):
+    def test_tag_to_parent_cites_parent_and_distinct_standalone_ping_can_be_answered(self):
         source = {**DIRECT, 'text': '@qofenoai'}
         parent = {'id': '222', 'author': 'uploader', 'text': 'My progress bar runs backwards when a chunk retries.'}
         on_parent = {**source, 'parent_id': '222', 'parent_author': 'uploader', 'parent_context': parent}
@@ -96,7 +96,7 @@ class MentionVoiceTests(unittest.TestCase):
         state = {'history': [{'kind': 'reply', 'source': {**source, 'id': '400'}, 'verified_at': NOW.isoformat(),
                               'posted_at': (NOW-timedelta(hours=1)).isoformat()}]}
         with patch.object(personality, 'complete') as model:
-            self.assertEqual(personality.choose([source], {}, state, NOW, ['reply'])['action'], 'silent')
+            self.assertEqual(personality.direct_reply(source, state, NOW)['action'], 'reply')
             model.assert_not_called()
         reply_writer.check_source(on_parent, NOW, state)
         reply_writer.check_source(source, NOW, {'history': [{**state['history'][0], 'verified_at': None}]})

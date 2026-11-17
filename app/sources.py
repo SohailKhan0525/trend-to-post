@@ -206,6 +206,23 @@ def checked_snapshot(tweet, now, *, include_parent, validator):
         raise SourceError("malformed source metadata") from exc
 
 
+def tweet_ids(tweet):
+    raw = tweet._data
+    source_id = _identifier(tweet.id)
+    # edit_tweet_ids on the pinned client raises KeyError when edit_control is absent.
+    aliases = (raw.get("edit_control") or {}).get("edit_tweet_ids") or []
+    if not isinstance(aliases, list):
+        raise SourceError("invalid edit identities")
+    return list(dict.fromkeys([source_id, *(_identifier(alias) for alias in aliases)]))
+
+
+def conversation_id(raw):
+    legacy = raw.get("legacy") or {}
+    value = (legacy.get("conversation_id_str") or raw.get("conversation_id_str") or
+             legacy.get("conversation_id") or raw.get("conversation_id"))
+    return _identifier(value) if value is not None else None
+
+
 def _snapshot(tweet, now, include_parent, validator):
     raw = getattr(tweet, "_data", {})
     if not isinstance(raw, dict):
@@ -264,13 +281,8 @@ def _snapshot(tweet, now, include_parent, validator):
         created_at = tweet.created_at_datetime
     except (AttributeError, KeyError, ValueError, TypeError) as exc:
         raise SourceError("missing or invalid source timestamp") from exc
-    # edit_tweet_ids raises KeyError in the pinned client if edit_control is
-    # absent; read the raw optional block to include all available aliases.
-    control = raw.get("edit_control") or {}
-    aliases = control.get("edit_tweet_ids") or []
-    if not isinstance(aliases, list):
-        raise SourceError("invalid edit identities")
-    source_id = _identifier(getattr(tweet, "id", None))
+    aliases = tweet_ids(tweet)
+    source_id = aliases[0]
     handle = getattr(author, "screen_name", None)
     fields = {
         "id": source_id,
@@ -281,10 +293,13 @@ def _snapshot(tweet, now, include_parent, validator):
         "created_at": created_at,
         "views": getattr(tweet, "view_count", None),
         "urls": list(dict.fromkeys(urls)),
-        "source_ids": [source_id, *aliases],
+        "source_ids": aliases,
     }
     if include_parent:
-        fields.update(origin="mention", parent_id=parent,
+        root = conversation_id(raw)
+        if not parent and (root is None or root in aliases):
+            root = min(aliases, key=int)
+        fields.update(origin="mention", parent_id=parent, conversation_id=root,
                       parent_author=legacy.get("in_reply_to_screen_name") or raw.get("in_reply_to_screen_name"))
     return validator(fields, now)
 

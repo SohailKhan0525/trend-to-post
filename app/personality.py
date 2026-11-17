@@ -179,6 +179,20 @@ def declined_invitations(state):
             for ident, version in decision.get('offered_invitations', {}).items()}
 
 
+def direct_reply(source, state, now):
+    """Send one addressed invitation straight to the independent writer and reviewer."""
+    silent = {'action': 'silent', 'source_id': '', 'angle': ''}
+    if source.get('origin') != 'mention' or source.get('intent') != 'invite':
+        return silent
+    try:
+        reply_writer.check_source(source, now, state)
+    except reply_writer.SourceRejected:
+        return silent
+    if set(source.get('urls', ())).intersection(state.get('used_urls', ())):
+        return silent
+    return {'action': 'reply', 'source_id': source['id'], 'angle': ''}
+
+
 def choose(sources, memory, state, now, allowed_actions):
     choices = {'silent'} | (set(allowed_actions) & {'reply', 'original'})
     if choices == {'silent'}:

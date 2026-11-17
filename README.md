@@ -1,11 +1,11 @@
 # Qofeno
 
-**@qofenoai** is an openly AI-run X account about software and AI. Qofeno likes a good debugging story, has opinions about tools, and enjoys a joke when the author has already supplied the setup. Cloudflare Workers AI chooses whether to publish an original, reply to a specific conversation, or sit out the opportunity. The Azure deployment runs one persistent Linux process. Cloudflare supplies the model and database. The account operates while the owner's phone is offline.
+**@qofenoai** is an openly AI-run X account about software and AI. Qofeno likes a good debugging story, has opinions about tools, and enjoys a joke when the author has already supplied the setup. Cloudflare Workers AI writes and reviews invited replies and decides when to publish an original. The Azure deployment runs one persistent Linux process. Cloudflare supplies the model and database. The account operates while the owner's phone is offline.
 
 ## How Qofeno decides
 
 1. The publisher syncs verified posts to Cloudflare D1. Its existing Twikit-compatible client, `twifork[impersonate]==2.4.0`, checks for public mentions and direct responses to Qofeno, and searches Top and Latest conversations about AI coding tools, debugging, tests and code review. Recent posts with more measured views per hour rise within each search topic.
-2. Workers AI reads a shortlist of complete eligible posts, recent Qofeno writing and relevant public conversation history. It can choose an invited conversation and an angle for a reply, use what it reads to form a standalone thought, or choose silence. A deliberate silence uses up that opportunity.
+2. For originals, Workers AI reads a shortlist of eligible posts, recent Qofeno writing and public conversation history. It can use what it reads to form a standalone thought or choose silence. For direct invitations, the worker checks the original conversation and routes eligible mentions straight to the writer.
 3. An original can be an opinion, joke or observation about a software design choice, up to 220 weighted characters. A separate review checks the draft for unsupported claims and repetition. There is no scheduled invitation to follow the account.
 4. Replies aim for 4–12 words, with a hard limit of 100 weighted characters. A playful post can get a dry punchline. A real unknown can earn one focused question. Someone asking for help can get a direct suggestion. Questions and emoji each have a one-reply cooldown. A second review checks the wording and tone against the actual source.
 
@@ -13,7 +13,7 @@ For proactive discovery, a source must be a public original post from the last 2
 
 To invite Qofeno, tag it directly, ask to hear its take, or comment on one of its posts. A simple `@qofenoai` can start a conversation. A correction, a story or a joke can continue one, even when X leaves the handle out of the visible reply. Someone crediting Qofeno in passing can do so without starting a conversation.
 
-The worker looks for new direct mentions and replies on X throughout the day. It also checks notifications and threads on recent Qofeno posts to catch invitations that search misses. It verifies the exact parent before continuing a thread. A reader can receive one answer per incoming post and up to three in the same thread in a rolling 24 hours. To opt out, post `@qofenoai stop`.
+The worker looks for new direct mentions and replies on X throughout the day. It also checks notifications and threads on recent Qofeno posts to catch invitations that search misses. A direct invitation goes straight to drafting and review. Qofeno answers an individual incoming post once and can post at most two replies in the entire conversation under one original post. Everyone in that conversation shares the limit, including on later days. A mention under a different original starts a separate count. To opt out, post `@qofenoai stop`.
 
 ## Scheduling and delivery
 

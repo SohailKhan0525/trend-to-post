@@ -121,11 +121,11 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
         again = await editorial.read_inbox(state, connection, self.now, self.user.id)
         self.assertEqual(again, [])
 
-    def test_thread_limit_follows_legacy_nested_parents_for_only_the_same_person_and_day(self):
+    def test_thread_limit_follows_legacy_nested_parents_for_all_people_across_days(self):
         state = empty()
         earlier = (self.now - timedelta(hours=2)).isoformat()
         parent_id = '880'
-        for i in range(editorial.THREAD_TURNS_PER_PERSON):
+        for i in range(editorial.THREAD_REPLY_LIMIT):
             posted_id = str(900 + i)
             state['history'].append({'kind': 'reply', 'tweet_id': posted_id, 'verified_at': earlier,
                                      'posted_at': earlier, 'source': {'id': str(800 + i), 'parent_id': parent_id,
@@ -136,8 +136,8 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
                                        'text': 'Retries still produce two receipts.'}}
         self.assertEqual(editorial.thread_root(incoming, state['history']), '880')
         self.assertFalse(editorial.eligible_author(incoming, state, self.now, self.user.id))
-        self.assertTrue(editorial.eligible_author({**incoming, 'author_id': '776'}, state, self.now, self.user.id))
-        self.assertTrue(editorial.eligible_author(incoming, state, self.now + timedelta(days=1), self.user.id))
+        self.assertFalse(editorial.eligible_author({**incoming, 'author_id': '776'}, state, self.now, self.user.id))
+        self.assertFalse(editorial.eligible_author(incoming, state, self.now + timedelta(days=1), self.user.id))
 
     async def test_reply_only_window_keeps_a_direct_mention_beside_two_newer_thread_replies(self):
         state, connection = empty(), self.connection()
