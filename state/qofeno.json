@@ -2950,7 +2950,8 @@
     "2122373063560110320",
     "2122379663381082317",
     "2122447497570193438",
-    "2122460499329622421"
+    "2122460499329622421",
+    "2122500307557265651"
   ],
   "used_urls": [
     "https://aiforui.dev/skills",
@@ -2958,6 +2959,7 @@
     "https://anthropic.com/research/teaching-ai-to-build-scientific-models",
     "https://apps.apple.com/gb/app/gist-it/id6775965170",
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash",
+    "https://blog.primeradiant.com/external-sandboxes-for-coding-agents",
     "https://code.claude.com/docs/en/agent-view",
     "https://composio.dev/instant",
     "https://deepai.org/chat/ai-code",
@@ -3107,6 +3109,7 @@
     "eb961e7522377bc9872e9ea7d7c24047c5d9da9221158c9eeb5f8b784491f343",
     "f0affb88a5465d28dd777a32cb2e844362475121f27a93c77154c15964ad782c",
     "f0f3be5202aa1058e61ef2f8fab622a9f4e3f97a6f1379d3272540d79f8e0bde",
+    "f207415db31f3e3c87edc0c3678b1c0e51a6c7ab0edf7d492287bee478917c1a",
     "f23096426f2504b486ba7a148b7ef9e4c9dac32e5ebb413feb45d3ba8c70f2ba",
     "f66304d0fc9c683a16683d3757e824ffc470e81371770e936a4836a55cd81a17",
     "fc1b56f2cc920dd78313723d80c4a9c668d8aa1eb1f0c3e584a0fa3c45eb50bd",
@@ -3350,6 +3353,7 @@
     "92ac72e585487e1cf5d8df6c7d72e7311b3fdebe7417dbe6d3a998488cb730c1",
     "92c3c4a1db6674e918a4bb72c0f75753e7ef751a5498d2a7efd72d147a3df4b0",
     "92ea92c74206b73e8441a5334a980854417f39bd5e3d44a255ee331f14afe106",
+    "93ec9bc286e3051d68799631a9fecc658a4229d801bdc9a2a57913056b88f2fa",
     "94001387a53936ec2429646eb63aa20584fd468d792fb862b8451db2effe45e6",
     "942690ebeadca7f05dfeda427c1861378a39a6bff3fbaa8f10b542d2a07d966d",
     "951cdb3779bd7dd86a62dfb93113719b25d833234ef8f967ba5c309e22f1b754",
@@ -3637,10 +3641,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 314,
+    "neurons_reserved": 271,
     "requests": 20,
     "hour": "2026-11-17T04",
-    "hour_neurons_reserved": 101,
+    "hour_neurons_reserved": 58,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4051,7 +4055,30 @@
       "until": "2026-11-17T08:34:57.100237+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Running the execution in Wasm adds a layer of safety.",
+    "event_key": "Simon Willison shares a pattern for external code sandboxing for AI agents.",
+    "premise": "Simon Willison explores sandboxing agent-written code using WebAssembly, QEMU, or Apple Containers on macOS.",
+    "slot": "2026-11-17:reply-v1:9",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T04:34:46.916706+00:00",
+    "source": {
+      "id": "2122500307557265651",
+      "url": "https://x.com/simonw/status/2122500307557265651",
+      "author": "simonw",
+      "author_id": "12497",
+      "text": "I've been exploring new ways to sandbox code written by coding agents - here's a description of the external sandbox pattern, where agents run on your Mac but execute code in a WebAssembly or QEMU or Apple Container sandbox - with demos for Claude Code, Codex and Pi https://t.co/0XIhs4XYvQ",
+      "created_at": "2026-11-17T01:21:22+00:00",
+      "views": 21442,
+      "urls": [
+        "https://blog.primeradiant.com/external-sandboxes-for-coding-agents"
+      ],
+      "source_ids": [
+        "2122500307557265651"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
