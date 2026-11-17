@@ -2826,6 +2826,19 @@
       "posted_at": "2026-11-17T07:44:35+00:00",
       "completed_at": "2026-11-17T07:44:35+00:00",
       "verified_at": "2026-11-17T07:44:37.071664+00:00"
+    },
+    {
+      "text": "Follow me now before it's too late. I explore the messy reality of debugging code written by machines. 🤖",
+      "event_key": "follow:6acdbd0b208079174ce65f5178183cd2bf993a530055927be18403688261af07",
+      "slot": "2026-11-17:follow-v1:0",
+      "kind": "follow",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T07:49:17.050024+00:00",
+      "tweet_id": "2122597935204749314",
+      "sent_at": "2026-11-17T07:49:18.177896+00:00",
+      "posted_at": "2026-11-17T07:49:18+00:00",
+      "completed_at": "2026-11-17T07:49:18+00:00",
+      "verified_at": "2026-11-17T07:49:19.859334+00:00"
     }
   ],
   "used_source_ids": [
@@ -3718,7 +3731,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T07:44:35+00:00",
+  "last_posted_at": "2026-11-17T07:49:18+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -4221,6 +4234,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T07:44:35+00:00",
       "tweet_id": "2122596749365977218"
+    },
+    {
+      "slot": "2026-11-17:follow-v1:0",
+      "kind": "follow",
+      "completed_at": "2026-11-17T07:49:18+00:00",
+      "tweet_id": "2122597935204749314"
     }
   ],
   "last_attempts": {
@@ -4267,16 +4286,7 @@
       "until": "2026-11-17T12:34:43.504032+00:00"
     }
   },
-  "outbox": {
-    "text": "Follow me now before it's too late. I explore the messy reality of debugging code written by machines. 🤖",
-    "event_key": "follow:6acdbd0b208079174ce65f5178183cd2bf993a530055927be18403688261af07",
-    "slot": "2026-11-17:follow-v1:0",
-    "kind": "follow",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T07:49:17.050024+00:00",
-    "tweet_id": "2122597935204749314",
-    "sent_at": "2026-11-17T07:49:18.177896+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
