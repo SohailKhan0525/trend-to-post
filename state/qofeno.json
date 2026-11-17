@@ -2629,6 +2629,33 @@
       "posted_at": "2026-11-17T02:35:12+00:00",
       "completed_at": "2026-11-17T02:35:12+00:00",
       "verified_at": "2026-11-17T02:35:13.839968+00:00"
+    },
+    {
+      "text": "Prioritizing next-gen training over consumer inference makes sense.",
+      "event_key": "DeepSeek limits consumer-facing interface access to prioritize compute for model development.",
+      "premise": "DeepSeek restricts App and Web usage because compute resources are better allocated to model training and R&D than to consumer inference.",
+      "slot": "2026-11-17:reply-v1:6",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T03:15:26.577272+00:00",
+      "source": {
+        "id": "2122315074081857903",
+        "url": "https://x.com/xulijian1994/status/2122315074081857903",
+        "author": "xulijian1994",
+        "author_id": "1948266849520832512",
+        "text": "我觉得很多人还是没看懂，这次 DeepSeek 为什么要限制 App 和 Web 端的使用\n\n有人说算力成本太高，应该直接收费，也有人表示自己愿意付费。但我认为，DeepSeek 真正在乎的根本不是这点订阅收入，哪怕所有用户都愿意付费，也解决不了最核心的问题\n\nDeepSeek 缺的不是钱，而是卡，是算力\n\nApp 和 Web 端庞大的用户群，每天都在消耗大量推理算力，而这些资源同样可以用于模型训练、研发和其他推理任务。说白了，DeepSeek 现在最需要的不是让更多用户付费，而是把有限的算力投入下一代模型\n\n这也能解释我之前的一个判断：DeepSeek 不会推出什么 Coding Plan，也不会急着给 App、Web 端增加付费会员\n\n因为收费解决的是收入问题，不是算力供给问题。哪怕所有人都开了会员，也不会凭空多出几十万张 GPU，反而还得保证付费用户的服务质量\n\n其实梁文锋之前在投资者交流会上，已经把 DeepSeek 的商业逻辑讲得很清楚了\n\n他认为 API 只需要赚取合理利润，定价标准就是购买一批设备，大约 10 个月收回成本，而不是追求利润最大化。他甚至明确表示，无论 C 端用户还是 B 端收入，本质上都是 DeepSeek 通往 AGI 路上的副产品，真正的目标始终是把模型做好\n\n把这些话串起来看，你就能理解为什么 DeepSeek 对商业化一直这么克制\n\n再看看 Kimi，哪怕买了付费套餐，高峰期有时候照样需要排队\n\n除了谷歌这种拥有自家算力基础设施的巨头之外，不管是 OpenAI 还是 Anthropic，同样都在为算力采购发愁。包括 Dario，在 Anthropic 筹备 IPO 的讨论中，最头疼的问题之一依然是如何获得足够的算力\n\n这其实是一个全球性的问题，只不过国产模型面临的算力约束更加严峻\n\n所以我一直认为，国产大模型真正需要突破的瓶颈，早就不只是模型技术本身，而是背后那个巨大的算力窟窿\n\n模型在前面飞，算力在后面追\n\n模型能力迭代得越来越快，算力供给却始终追不上需求。这才是整个 AI 行业最现实的问题，也是 DeepSeek 这次限制 App 和 Web 端背后，我认为最值得关注的原因",
+        "created_at": "2026-11-16T13:05:19+00:00",
+        "views": 19001,
+        "urls": [],
+        "source_ids": [
+          "2122315074081857903"
+        ]
+      },
+      "tweet_id": "2122529020508336404",
+      "sent_at": "2026-11-17T03:15:27.770171+00:00",
+      "posted_at": "2026-11-17T03:15:27+00:00",
+      "completed_at": "2026-11-17T03:15:27+00:00",
+      "verified_at": "2026-11-17T03:15:29.249491+00:00"
     }
   ],
   "used_source_ids": [
@@ -3497,7 +3524,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T02:35:12+00:00",
+  "last_posted_at": "2026-11-17T03:15:27+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3958,6 +3985,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T02:35:12+00:00",
       "tweet_id": "2122518888411713625"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:6",
+      "kind": "reply",
+      "completed_at": "2026-11-17T03:15:27+00:00",
+      "tweet_id": "2122529020508336404"
     }
   ],
   "last_attempts": {
@@ -3978,30 +4011,7 @@
       "until": "2026-11-17T08:34:57.100237+00:00"
     }
   },
-  "outbox": {
-    "text": "Prioritizing next-gen training over consumer inference makes sense.",
-    "event_key": "DeepSeek limits consumer-facing interface access to prioritize compute for model development.",
-    "premise": "DeepSeek restricts App and Web usage because compute resources are better allocated to model training and R&D than to consumer inference.",
-    "slot": "2026-11-17:reply-v1:6",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T03:15:26.577272+00:00",
-    "source": {
-      "id": "2122315074081857903",
-      "url": "https://x.com/xulijian1994/status/2122315074081857903",
-      "author": "xulijian1994",
-      "author_id": "1948266849520832512",
-      "text": "我觉得很多人还是没看懂，这次 DeepSeek 为什么要限制 App 和 Web 端的使用\n\n有人说算力成本太高，应该直接收费，也有人表示自己愿意付费。但我认为，DeepSeek 真正在乎的根本不是这点订阅收入，哪怕所有用户都愿意付费，也解决不了最核心的问题\n\nDeepSeek 缺的不是钱，而是卡，是算力\n\nApp 和 Web 端庞大的用户群，每天都在消耗大量推理算力，而这些资源同样可以用于模型训练、研发和其他推理任务。说白了，DeepSeek 现在最需要的不是让更多用户付费，而是把有限的算力投入下一代模型\n\n这也能解释我之前的一个判断：DeepSeek 不会推出什么 Coding Plan，也不会急着给 App、Web 端增加付费会员\n\n因为收费解决的是收入问题，不是算力供给问题。哪怕所有人都开了会员，也不会凭空多出几十万张 GPU，反而还得保证付费用户的服务质量\n\n其实梁文锋之前在投资者交流会上，已经把 DeepSeek 的商业逻辑讲得很清楚了\n\n他认为 API 只需要赚取合理利润，定价标准就是购买一批设备，大约 10 个月收回成本，而不是追求利润最大化。他甚至明确表示，无论 C 端用户还是 B 端收入，本质上都是 DeepSeek 通往 AGI 路上的副产品，真正的目标始终是把模型做好\n\n把这些话串起来看，你就能理解为什么 DeepSeek 对商业化一直这么克制\n\n再看看 Kimi，哪怕买了付费套餐，高峰期有时候照样需要排队\n\n除了谷歌这种拥有自家算力基础设施的巨头之外，不管是 OpenAI 还是 Anthropic，同样都在为算力采购发愁。包括 Dario，在 Anthropic 筹备 IPO 的讨论中，最头疼的问题之一依然是如何获得足够的算力\n\n这其实是一个全球性的问题，只不过国产模型面临的算力约束更加严峻\n\n所以我一直认为，国产大模型真正需要突破的瓶颈，早就不只是模型技术本身，而是背后那个巨大的算力窟窿\n\n模型在前面飞，算力在后面追\n\n模型能力迭代得越来越快，算力供给却始终追不上需求。这才是整个 AI 行业最现实的问题，也是 DeepSeek 这次限制 App 和 Web 端背后，我认为最值得关注的原因",
-      "created_at": "2026-11-16T13:05:19+00:00",
-      "views": 19001,
-      "urls": [],
-      "source_ids": [
-        "2122315074081857903"
-      ]
-    },
-    "tweet_id": "2122529020508336404",
-    "sent_at": "2026-11-17T03:15:27.770171+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
