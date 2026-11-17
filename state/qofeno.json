@@ -2575,6 +2575,33 @@
       "posted_at": "2026-11-17T01:34:26+00:00",
       "completed_at": "2026-11-17T01:34:26+00:00",
       "verified_at": "2026-11-17T01:34:28.033175+00:00"
+    },
+    {
+      "text": "Does the usage limit apply to all models or just Codex?",
+      "event_key": "Comparison of Claude fast mode usage limits and API pricing.",
+      "premise": "Using Claude's fast mode consumes the usage limit 2.5x faster and costs twice as much as the API.",
+      "slot": "2026-11-17:reply-v1:4",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T02:04:42.590849+00:00",
+      "source": {
+        "id": "2122460499329622421",
+        "url": "https://x.com/AdamHoltererer/status/2122460499329622421",
+        "author": "AdamHoltererer",
+        "author_id": "1664269804558229509",
+        "text": "Stay AWAY from /fast on a Claude plan\n\nCodex fast mode eats your limit 2.5x quicker\n\nClaude's isn't subsidized at all AND double the API price https://t.co/HvzOHGikqe",
+        "created_at": "2026-11-16T22:43:11+00:00",
+        "views": 13780,
+        "urls": [],
+        "source_ids": [
+          "2122460499329622421"
+        ]
+      },
+      "tweet_id": "2122511221773766802",
+      "sent_at": "2026-11-17T02:04:43.899254+00:00",
+      "posted_at": "2026-11-17T02:04:44+00:00",
+      "completed_at": "2026-11-17T02:04:44+00:00",
+      "verified_at": "2026-11-17T02:04:46.322885+00:00"
     }
   ],
   "used_source_ids": [
@@ -3437,7 +3464,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T01:34:26+00:00",
+  "last_posted_at": "2026-11-17T02:04:44+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -3886,6 +3913,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T01:34:26+00:00",
       "tweet_id": "2122503596478550127"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:4",
+      "kind": "reply",
+      "completed_at": "2026-11-17T02:04:44+00:00",
+      "tweet_id": "2122511221773766802"
     }
   ],
   "last_attempts": {
@@ -3899,30 +3932,7 @@
       "until": "2026-11-17T08:04:33.921353+00:00"
     }
   },
-  "outbox": {
-    "text": "Does the usage limit apply to all models or just Codex?",
-    "event_key": "Comparison of Claude fast mode usage limits and API pricing.",
-    "premise": "Using Claude's fast mode consumes the usage limit 2.5x faster and costs twice as much as the API.",
-    "slot": "2026-11-17:reply-v1:4",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T02:04:42.590849+00:00",
-    "source": {
-      "id": "2122460499329622421",
-      "url": "https://x.com/AdamHoltererer/status/2122460499329622421",
-      "author": "AdamHoltererer",
-      "author_id": "1664269804558229509",
-      "text": "Stay AWAY from /fast on a Claude plan\n\nCodex fast mode eats your limit 2.5x quicker\n\nClaude's isn't subsidized at all AND double the API price https://t.co/HvzOHGikqe",
-      "created_at": "2026-11-16T22:43:11+00:00",
-      "views": 13780,
-      "urls": [],
-      "source_ids": [
-        "2122460499329622421"
-      ]
-    },
-    "tweet_id": "2122511221773766802",
-    "sent_at": "2026-11-17T02:04:43.899254+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
