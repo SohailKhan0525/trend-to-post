@@ -277,6 +277,20 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
             mentions.snapshot(mention('@qofenoai ', in_reply_to_status_id_str='501', in_reply_to_screen_name='reader',
                                       display_text_range=[10, 10]), NOW)
 
+    def test_full_codepoint_or_utf16_range_keeps_last_astral_emoji(self):
+        prefix = '@reader @participant '
+        body = 'One last cache miss here 🫠'
+        full = prefix + body
+        # Same shape as the live readback: start 21, 47 code points, 48 UTF-16 units.
+        for end in (len(full), len(full.encode('utf-16-le')) // 2):
+            with self.subTest(end=end):
+                native = {'full_text': full, 'display_text_range': [len(prefix), end]}
+                self.assertEqual(mentions._reply_text(full, native), body)
+        for start in (0, len(prefix) - 2, len(prefix) + 1):
+            with self.subTest(invalid_start=start):
+                native = {'full_text': full, 'display_text_range': [start, len(full)]}
+                self.assertEqual(mentions._reply_text(full, native), full)
+
     def test_stop_and_resume_are_ordered_idempotent_and_do_not_reopen_old_invites(self):
         rows = [mentions.snapshot(mention(t, str(i)), NOW) for i, t in enumerate(
             ['@qofenoai hello', '@qofenoai STOP', '@qofenoai can you help?', 'Opt in, @qofenoai',

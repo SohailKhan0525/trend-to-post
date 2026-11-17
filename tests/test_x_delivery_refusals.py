@@ -4,7 +4,7 @@ from datetime import timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, patch
 
-from twikit.errors import CouldNotTweet, DuplicateTweet
+from twikit.errors import CouldNotTweet, DuplicateTweet, TooManyRequests
 
 from app import editorial
 from app.reply_schedule import daily_plan, timestamp
@@ -53,6 +53,21 @@ class NativePostingRefusalTests(unittest.IsolatedAsyncioTestCase):
                 self.assertIn(editorial.reply_writer.fingerprint(self.draft['event_key']), after['used_events'])
                 self.assertEqual(timestamp(after['x_pause_until']), self.now + delay)
                 self.assertNotIn(message, str(after))
+
+    async def test_reply_429_obeys_future_reset_and_preserves_other_holds(self):
+        for reset_delay, previous_delay, expected_delay in (
+                (55, None, 55), (None, None, 1800), (-1, None, 1800),
+                (7200, None, 7200), (55, 3600, 3600)):
+            with self.subTest(reset_delay=reset_delay, previous_delay=previous_delay):
+                headers = {} if reset_delay is None else {
+                    'x-rate-limit-reset': str(int(self.now.timestamp()) + reset_delay)}
+                prior = self.now + timedelta(seconds=previous_delay) if previous_delay else None
+                await self.attempt(TooManyRequests('rate limit', headers=headers), previous_pause=prior)
+                state = self.saves[-1]
+                self.assertEqual(timestamp(state['x_pause_until']), self.now + timedelta(seconds=expected_delay))
+                self.assertIsNone(state['outbox'])
+                self.assertEqual(state['delivery_rejections'][-1]['error'], 'TooManyRequests')
+                self.assertEqual(state['used_source_ids'], self.source['source_ids'])
 
     async def test_existing_longer_pause_survives_refusal(self):
         until = self.now + timedelta(hours=3)

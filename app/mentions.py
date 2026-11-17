@@ -166,21 +166,25 @@ def _reply_text(text, native):
             or any(type(offset) is not int for offset in bounds)):
         return text
     start, end = bounds
-    encoded = text.encode('utf-16-le')
-    if not 0 < start <= end <= len(encoded) // 2:
+    if not 0 < start <= end or start > len(text):
         return text
-    try:
-        prefix = encoded[:start * 2].decode('utf-16-le')
-        encoded[start * 2:end * 2].decode('utf-16-le')
-    except UnicodeDecodeError:
+    prefix, suffix = text[:start], text[start:]
+    # ASCII reply recipients occupy one unit in either native index system.
+    if not ADDRESS_PREFIX.fullmatch(prefix) or (suffix and not (prefix[-1].isspace() or suffix[0].isspace())):
         return text
-    suffix = text[len(prefix):]
-    if (ADDRESS_PREFIX.fullmatch(prefix)
-            and (not suffix or prefix[-1].isspace() or suffix[0].isspace())):
-        # The end may exclude a link/card. Retain everything after the hidden
-        # addresses including URLs, hashtags and any mention the author typed.
-        return suffix.lstrip(' \t')
-    return text
+    # A full code-point range can land inside the final emoji when mistakenly
+    # treated as UTF-16. For a partial range, require a valid UTF-16 boundary
+    # rather than guessing how to interpret an ambiguous clipped endpoint.
+    if end != len(text):
+        try:
+            encoded = text.encode('utf-16-le')
+            if end > len(encoded) // 2:
+                return text
+            encoded[:end * 2].decode('utf-16-le')
+        except UnicodeError:
+            return text
+    # Retain text beyond the display end, including any authored link/card.
+    return suffix.lstrip(' \t')
 
 
 def snapshot(tweet, now):

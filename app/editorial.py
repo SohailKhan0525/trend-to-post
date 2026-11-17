@@ -385,11 +385,19 @@ async def send_once(state, slot, draft, connection, user, source=None):
         state['outbox'] = None
         reject(state, slot, f'X rejected this {slot["kind"]} ({type(exc).__name__}); skipped, no bypass.')
         return
-    except TooManyRequests:
+    except TooManyRequests as exc:
         state.setdefault('delivery_rejections', []).append({**reserved, 'error': 'TooManyRequests'})
         state['outbox'] = None
-        state['x_pause_until'] = (utcnow() + timedelta(minutes=30)).isoformat()
-        reject(state, slot, 'X rate limit reached; publication paused for at least 30 minutes.')
+        now = utcnow()
+        until = now + timedelta(minutes=30)
+        if slot['kind'] == 'reply':
+            reset = exc.rate_limit_reset
+            if reset is not None and reset > now.timestamp():
+                until = datetime.fromtimestamp(reset, timezone.utc)
+            if state.get('x_pause_until'):
+                until = max(until, timestamp(state['x_pause_until']))
+        state['x_pause_until'] = until.isoformat()
+        reject(state, slot, f'X rate limit reached. Publication paused until {until.isoformat()}.')
         return
     except CouldNotTweet as exc:
         # The pinned client raises this exact type on a GraphQL error with
