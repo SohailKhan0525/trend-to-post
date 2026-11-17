@@ -63,6 +63,9 @@ the idea funny: a button, an error message, a dashboard somebody has to read.
 Other times the whole angle is a small admission about being a public AI. Read
 the recent original ideas before choosing; another metaphor for yesterday's
 complaint is still yesterday's complaint. Vary topics and forms.
+When a craft brief is present, build the original angle around that specific
+subject using the suggested treatment. A detail from discovery can narrow the
+subject; field names in the brief are prompts for ideas, never stock copy.
 Silence is a successful choice.
 Never invent an event, statistic, or authority. Avoid politics, countries and tragedies."""
 
@@ -79,8 +82,10 @@ different construction when the last posts used the same one. If asking a questi
 give the reader a real decision they can answer from experience. Most thoughts can
 end at the point. One or two short sentences, up to 220 weighted characters; at
 most one optional emoji. Avoid stock openings and calls for replies.
-Skip the familiar contrast between superhuman AI feats and tedious human chores.
-Swapping the scientific feat or the chore leaves the same punchline.
+Use the assigned craft subject and treatment when supplied. Ground the line in
+the actual object and the choices it presents. Skip the grand achievement versus
+small annoyance setup, whoever performs the achievement. Never invent a personal
+incident with your IDE, computer, car or colleagues to manufacture a punchline.
 Opinions and visibly hypothetical scenarios are welcome. Do not report news, claim
 a release or product capability, invent a quote, or assert performance numbers.
 Avoid politics, countries, personal attacks, hashtags, handles, links, promotions,
@@ -94,15 +99,19 @@ if the text stands alone, has one fresh concrete point relevant to software or A
 a natural expression of the proposed angle, and is distinct from recent and
 related originals. Compare the underlying premise and punchline even if the
 wording changed. A recurring topic is fine when the point genuinely changes.
-Treat extravagant model capabilities contrasted with a tedious manual task as
-one premise across posts. A joke still needs evidence for any product claims.
+Reject any version of "technology can achieve a marvel, yet this ordinary thing
+is broken". It can say "we", use no conjunction, or put the annoyance first.
+Check that the assigned craft subject is actually the point of the joke. Reject
+invented firsthand experiences or unsupported descriptions of a real tool's behavior.
 Check text, event_key and premise. Reject unsupported news, measurements, quotes or
 product claims, fabricated experiences, false intimacy, politics, countries, insults,
 personal data, demands for engagement, recycled jokes and generic inspirational filler.
 A first-person preference, a true description of Qofeno's public role, or an obvious
 hypothetical can stand on its own. Reject a borrowed persona, faux personal anecdote,
 unsupported promise of outside work, or a question tacked on merely to get comments. The angle and
-post history are not independent sources. Return only the publish boolean in JSON."""
+post history are not independent sources. Return the exact fields requested by
+the review schema. For a scheduled original, judge each craft and originality
+check independently before setting publish."""
 
 def string_field(limit):
     return {'type': 'string', 'maxLength': limit}
@@ -261,6 +270,8 @@ def choose(sources, memory, state, now, allowed_actions):
         ideas = (r.get('event_key') or r.get('text', '') for r in reversed(state.get('history', []))
                  if r.get('kind') == 'original' and r.get('verified_at'))
         data['recent_original_ideas'] = [idea[:100] for idea in islice(ideas, 8)]
+        if state.get('actions_inbox_since'):
+            data['craft_brief'] = craft_brief(int(now.timestamp() // 1800))
     properties = {**DECISION_SCHEMA['properties'], 'action': {'type': 'string', 'enum': sorted(choices)},
                   'source_id': {'type': 'string', 'enum': ['', *data['allowed_reply_ids']]}}
     raw = complete(DECIDE, data, temperature=.55, max_tokens=175, schema=reply_writer.schema(properties))
@@ -283,6 +294,8 @@ def choose(sources, memory, state, now, allowed_actions):
         return result
     if not safe_line(raw['angle'], 8, 180):
         raise DraftError('Selected angle was invalid')
+    if action == 'original' and 'craft_brief' in data:
+        return {**raw, 'craft_slot': int(now.timestamp() // 1800)}
     return raw
 
 
@@ -303,38 +316,97 @@ def related_originals(history, angle):
     return [row for _, _, row in nlargest(3, matches)]
 
 
+CRAFT_SUBJECTS = (
+    'the before-and-after screenshots in a changelog', 'the single icon visible on a crowded browser tab',
+    'the first empty screen of a new project', 'a car dashboard with a physical dial',
+    'the useful example in a command-line help page', 'choosing which keyboard shortcut deserves an easy key',
+    'the label on a subscription invoice', 'the last sentence in a code review',
+    'what belongs in a map legend', 'the name on a folder of bookmarks',
+    'a status light on a piece of hardware', 'what undo history should remember',
+    'the person reading captions with the sound off', 'the preview on a calendar invitation',
+    'the handoff note in an issue tracker', 'the quiet work of a readable chart axis',
+    'the menu item someone uses exactly once', 'what an AI model should do when its citations disagree',
+    'the second set of eyes on a pricing-page change', 'the first ten seconds of a diagnostic trace',
+    'how a steering-wheel control feels in the dark', 'a founder removing a question from onboarding',
+    'an evaluation example that reveals where two models disagree', 'the support reply that becomes a product change',
+    'the unit printed next to a car battery estimate', 'where an editor puts the cursor after a rename',
+    'a cancellation confirmation that explains the remaining service', 'an interface for correcting an AI transcription',
+    'which name gets printed on a tiny release team’s credits', 'what a tyre-pressure display tells a passenger',
+    'the smallest useful test fixture', 'the handoff from a free trial to a paid seat',
+    'who gets to correct a model-generated label', 'what a product team leaves out of a launch-day demo',
+    'the button that returns a car display to its map', 'the first line of a useful stack trace',
+    'the detail a renewal reminder should actually tell you', 'what a model abstaining should look like on screen',
+    'how a tiny company decides which bug interrupts lunch', 'the sound associated with a car parking sensor',
+    'the name of a command that previews changes', 'how a status-page incident is worded once it is over',
+    'the correction that belongs alongside an AI summary', 'where a first customer’s request goes after a demo',
+    'what a mechanic needs from a service reminder', 'the last useful line in a failed build log',
+    'the person who inherits an abandoned workspace', 'how a model selector describes uncertainty',
+    'what the founder can learn by writing the release email', 'how a charging screen shows a wait',
+    'the difference between a working tutorial and a copyable example', 'who gets an email when a team seat is empty',
+    'the smallest useful caption under a model evaluation chart',
+)
+CRAFT_TREATMENTS = (
+    'argue for an unpopular design choice', 'write a tiny character sketch of the object',
+    'defend an overlooked detail', 'give two familiar things a disagreement',
+    'offer a small design wish', 'turn a literal label into a dry observation',
+    'ask one question with a real choice',
+)
+
+
+def craft_brief(slot, attempt=0):
+    index = slot + attempt * 5
+    return {'subject': CRAFT_SUBJECTS[index % len(CRAFT_SUBJECTS)],
+            'treatment': CRAFT_TREATMENTS[(index + index // len(CRAFT_SUBJECTS)) % len(CRAFT_TREATMENTS)]}
+
+
 def ai_feat_and_chore(text):
-    """Recognize the published grand AI feat / mundane human chore setup from its public words."""
+    """Identify a sweeping scientific achievement paired with an ordinary software annoyance."""
     if not isinstance(text, str):
         return False
-    parts = re.split(r'\b(?:yet|but|meanwhile|only to|and still|still)\b', text.casefold(), maxsplit=1)
-    if len(parts) != 2:
-        return False
-    feat, chore = parts
-    return bool(re.search(r'\b(?:ai|models?|llms?|chatgpt|claude)\b', feat)
-                and re.search(r'\b(?:physics|galax(?:y|ies)|universe|quantum|genomes?|proteins?|theorems?|'
-                              r'rocket science|nobel|black holes?)\b', feat)
-                and re.search(r'\b(?:argu(?:e|ing)|cop(?:y|ying)|past(?:e|ing)|retyp(?:e|ing)|click(?:ing)?|'
-                              r'spreadsheets?|semicolons?|checkbox(?:es)?|error logs?|passwords?)\b', chore))
+    text = text.casefold()
+    marvel = (r'\b(?:physics|galax(?:y|ies)|(?:entire|observable) universe|quantum|genomes?|proteins?|'
+              r'theorems?|rocket science|nobel|black holes?|mars|the moon|spacecraft|split the atom|'
+              r'self.driving cars?|cure diseases?)\b')
+    mundane = (r'\b(?:argu(?:e|ing)|copy.past\w*|retyp\w*|click\w*|spreadsheets?|semicolons?|'
+               r'checkbox(?:es)?|error logs?|passwords?|print(?:er|ing)|wi.fi|bluetooth|save button|'
+               r'log[ -]?in|plug in|calendar invite|autocorrect|file name)\b')
+    # The feat or the annoyance can come first, and two sentences need no "but".
+    split = re.split(r'\b(?:yet|but|meanwhile|only to|still|somehow)\b|[.!?;\n]|[—–]', text)
+    return any(re.search(marvel, clause) and any(re.search(mundane, part) for j, part in enumerate(split) if j != i)
+               for i, clause in enumerate(split))
+
+
+class OriginalNeedsNewAngle(DraftError):
+    def __init__(self, text):
+        self.rejected_text = text
+        super().__init__('Choose a different premise grounded in the assigned subject')
 
 
 def original(plan, memory, state, now):
     if plan.get('action') != 'original' or plan.get('source_id') != '' or not safe_line(plan.get('angle'), 8, 180):
         raise DraftError('An original requires a standalone editorial angle')
     history = state.get('history', [])
-    context = {'angle': plan['angle'], 'recent_own': memory.get('recent_own', []),
-               'related_originals': [r['text'][:220] for r in related_originals(history, plan['angle'])]}
+    slot = plan.get('craft_slot')
+    if slot is None and state.get('actions_inbox_since'):
+        slot = int(now.timestamp() // 1800)
+    rejected_text = None
     for attempt in range(2):
-        raw = complete(WRITE, context, temperature=.83, max_tokens=285, schema=ORIGINAL_SCHEMA)
-        if not (isinstance(raw, dict) and raw.get('worthwhile') is True and ai_feat_and_chore(raw.get('text'))):
-            break
-        if not any(row.get('kind') == 'original' and row.get('verified_at') and ai_feat_and_chore(row.get('text'))
-                   for row in history):
-            break
-        if attempt:
-            raise DraftError('This AI feat and manual chore joke has already been published')
-        context = {**context, 'angle': 'Choose a different software subject and a different joke. Give a concrete '
-                                       'feature a small, surprising design wish. Leave AI capabilities and chores out.'}
+        angle = plan['angle'] if not attempt else 'Start a different joke on the replacement craft subject.'
+        context = {'angle': angle, 'recent_own': memory.get('recent_own', [])}
+        if slot is not None or attempt:
+            context['craft_brief'] = craft_brief(slot if slot is not None else int(now.timestamp() // 1800), attempt)
+        lookup = ' '.join([angle, context.get('craft_brief', {}).get('subject', '')])
+        context['related_originals'] = [r['text'][:220] for r in related_originals(history, lookup)]
+        try:
+            return draft_original(context, state, history, scoped=slot is not None, rejected_text=rejected_text)
+        except OriginalNeedsNewAngle as exc:
+            if attempt:
+                raise
+            rejected_text = exc.rejected_text
+
+
+def draft_original(context, state, history, *, scoped, rejected_text):
+    raw = complete(WRITE, context, temperature=.83, max_tokens=285, schema=ORIGINAL_SCHEMA)
     if not isinstance(raw, dict) or set(raw) != {'worthwhile', 'text', 'event_key', 'premise'} or raw['worthwhile'] is not True:
         raise DraftError('No approved original draft')
     draft = {key: raw[key] for key in ('text', 'event_key', 'premise')}
@@ -350,6 +422,11 @@ def original(plan, memory, state, now):
                 or reply_writer.EXPERIENCE.search(value) or NEWS.search(value) or MEASUREMENT.search(value)):
             raise DraftError('Original content or metadata failed the standalone post rules')
     text = draft['text']
+    if rejected_text and reply_writer.normalized(text) == reply_writer.normalized(rejected_text):
+        raise DraftError('The second draft repeated the rejected original')
+    if ai_feat_and_chore(text) or re.search(r'\bmy (?:ide|editor|browser|printer|laptop|phone|car) '
+                                            r'(?:still |always |keeps )?(?:thinks|insists|deleted|crashed|refuses)\b', text, re.I):
+        raise OriginalNeedsNewAngle(text)
     if (reply_writer.weighted_length(text) > 220 or reply_writer.emoji_count(text) > 1
             or reply_writer.PROMO.search(text) or reply_writer.GENERIC.search(text)
             or reply_writer.OUTSIDE_PROMISE.search(text)):
@@ -365,7 +442,17 @@ def original(plan, memory, state, now):
                            autojunk=False).ratio() >= .88:
             raise DraftError('This original repeats a published post')
     context['related_originals'] = [r['text'][:220] for r in related]
-    verdict = complete(REVIEW, {**context, 'draft': draft}, temperature=0, max_tokens=64, schema=REVIEW_SCHEMA)
+    if scoped:
+        checks = ('fits_assigned_subject', 'grand_feat_vs_annoyance', 'invented_firsthand_usage')
+        schema = reply_writer.schema({**REVIEW_SCHEMA['properties'], **{key: {'type': 'boolean'} for key in checks}})
+        verdict = complete(REVIEW, {**context, 'draft': draft}, temperature=0, max_tokens=96, schema=schema)
+        if not isinstance(verdict, dict) or set(verdict) != {'publish', *checks} or any(type(v) is not bool for v in verdict.values()):
+            raise DraftError('Independent review returned invalid originality checks')
+        if not verdict['fits_assigned_subject'] or verdict['grand_feat_vs_annoyance'] or verdict['invented_firsthand_usage']:
+            raise OriginalNeedsNewAngle(text)
+        verdict = {'publish': verdict['publish']}
+    else:
+        verdict = complete(REVIEW, {**context, 'draft': draft}, temperature=0, max_tokens=64, schema=REVIEW_SCHEMA)
     if not isinstance(verdict, dict) or set(verdict) != {'publish'} or verdict['publish'] is not True:
         raise DraftError('Independent review did not approve the original')
     return draft

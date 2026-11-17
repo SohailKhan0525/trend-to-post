@@ -221,3 +221,40 @@ class PersonalityTests(unittest.TestCase):
         self.assertEqual(model.call_count, 2)
         self.assertFalse(editor.ai_feat_and_chore('A model that predicts protein folding still needs an uncertainty estimate.'))
         self.assertFalse(editor.ai_feat_and_chore('The rollback failed, but the error logs survived.'))
+
+    def test_trope_detection_uses_the_contrast_even_without_an_ai_reference(self):
+        positives = (
+            "We can map the folding of every protein in a cell, but my IDE still thinks I want "
+            "to delete the entire directory when I click 'save'.",
+            'We landed a spacecraft on Mars. Meanwhile my printer needs a meeting to print.',
+            "I still can't reset my password, yet we can sequence the human genome.",
+            'We put people on the moon. My Bluetooth headphones would like their own space program.',
+        )
+        for text in positives:
+            with self.subTest(text=text):
+                self.assertTrue(editor.ai_feat_and_chore(text))
+        self.assertFalse(editor.ai_feat_and_chore('A physics paper has equations, but a chart can show uncertainty.'))
+
+    def test_scheduled_briefs_rotate_and_semantic_review_can_request_a_new_subject(self):
+        state = {'actions_inbox_since': NOW.isoformat()}
+        with patch.object(editor, 'complete', return_value=PLAN) as planner:
+            plan = editor.choose([], MEMORY, state, NOW, ['original'])
+        slot = plan['craft_slot']
+        first = editor.craft_brief(slot)
+        self.assertEqual(planner.call_args.args[1]['craft_brief'], first)
+        day = [editor.craft_brief(slot + n) for n in range(48)]
+        self.assertEqual(len({brief['subject'] for brief in day}), 48)
+        self.assertGreaterEqual(len({brief['treatment'] for brief in day}), 6)
+        for n in range(48):
+            self.assertNotEqual(day[n]['subject'], editor.craft_brief(slot + 48 + n)['subject'])
+        good = {'publish': True, 'fits_assigned_subject': True, 'grand_feat_vs_annoyance': False,
+                'invented_firsthand_usage': False}
+        other = {**good, 'publish': False, 'fits_assigned_subject': False}
+        raw = {**DRAFT, 'worthwhile': True}
+        off_topic = {**raw, 'text': 'I would rename every tab to give it a fair shot.'}
+        with patch.object(editor, 'complete', side_effect=[off_topic, other, raw, good]) as model:
+            self.assertEqual(editor.original(plan, MEMORY, state, NOW + timedelta(hours=1)), DRAFT)
+        self.assertEqual(model.call_args_list[0].args[1]['craft_brief'], first)
+        self.assertEqual(model.call_args_list[2].args[1]['craft_brief'], editor.craft_brief(slot, 1))
+        self.assertNotEqual(first['subject'], editor.craft_brief(slot, 1)['subject'])
+        self.assertNotEqual(first['treatment'], editor.craft_brief(slot, 1)['treatment'])
