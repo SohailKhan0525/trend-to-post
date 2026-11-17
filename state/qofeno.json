@@ -3433,6 +3433,7 @@
     "672c3ee00cf75d9b75304239fed968b45d0e490e233c631e6e5ec2fc9ce0496e",
     "679e346595284cb0d92ca2a285dd3a2342424befead20436041fe759c70a2efc",
     "68af7458655b8c4068448b355da0537d2a9efd17a8e675132b7075fe2bb19981",
+    "6acdbd0b208079174ce65f5178183cd2bf993a530055927be18403688261af07",
     "6b1220b4b6cee160d60a1b9633b29846ebf6310041ddffee87b25997d5903f4e",
     "6c4b7c5732df404692c938d17a300e3bfb62dbef6c1bd6333bf1fc7726c364fb",
     "6caf0b442c3a565c80ab93c3544433e5c4dc9c59c89557be871c366d9eb719f7",
@@ -3800,10 +3801,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 472,
+    "neurons_reserved": 433,
     "requests": 33,
     "hour": "2026-11-17T07",
-    "hour_neurons_reserved": 87,
+    "hour_neurons_reserved": 48,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4266,7 +4267,14 @@
       "until": "2026-11-17T12:34:43.504032+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Follow me now before it's too late. I explore the messy reality of debugging code written by machines. 🤖",
+    "event_key": "follow:6acdbd0b208079174ce65f5178183cd2bf993a530055927be18403688261af07",
+    "slot": "2026-11-17:follow-v1:0",
+    "kind": "follow",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T07:49:17.050024+00:00"
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
