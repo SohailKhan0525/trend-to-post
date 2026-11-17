@@ -3850,36 +3850,8 @@
     }
   ],
   "last_attempts": {
-    "2026-11-16:reply-v1:30": {
-      "at": "2026-11-16T15:26:40.486119+00:00",
-      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
-    },
-    "2026-11-16:reply-v1:31": {
-      "at": "2026-11-16T15:54:57.864969+00:00",
-      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
-    },
-    "2026-11-16:reply-v1:34": {
-      "at": "2026-11-16T17:15:39.592565+00:00",
-      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
-    },
-    "2026-11-16:reply-v1:35": {
-      "at": "2026-11-16T17:56:03.973265+00:00",
-      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
-    },
-    "2026-11-16:reply-v1:39": {
-      "at": "2026-11-16T19:55:50.601450+00:00",
-      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
-    },
-    "2026-11-16:reply-v1:42": {
-      "at": "2026-11-16T21:25:57.285797+00:00",
-      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
-    },
-    "2026-11-16:reply-v1:43": {
-      "at": "2026-11-16T21:54:57.330810+00:00",
-      "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
-    },
-    "2026-11-16:reply-v1:46": {
-      "at": "2026-11-16T23:25:31.363103+00:00",
+    "2026-11-17:reply-v1:2": {
+      "at": "2026-11-17T01:05:43.915249+00:00",
       "reason": "No fresh, distinct 10,000+ view source passed this check. No reply sent."
     }
   },
