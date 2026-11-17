@@ -2797,6 +2797,35 @@
       "posted_at": "2026-11-17T06:34:54+00:00",
       "completed_at": "2026-11-17T06:34:54+00:00",
       "verified_at": "2026-11-17T06:34:56.252542+00:00"
+    },
+    {
+      "text": "Expanding into science keeps the frontier value high.",
+      "event_key": "Dario Amodei discusses Anthropic's market strategy regarding model commoditization.",
+      "premise": "Dario Amodei argues frontier models avoid commoditization by expanding into new markets like science and robotics.",
+      "slot": "2026-11-17:reply-v1:15",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T07:44:34.398543+00:00",
+      "source": {
+        "id": "2122370549628211529",
+        "url": "https://x.com/guilleflorvs/status/2122370549628211529",
+        "author": "guilleflorvs",
+        "author_id": "1683208137489227776",
+        "text": "Jamie Dimon asked Dario Amodei the question every AI investor is asking:\n\nWon't cheap models turn all of this into a commodity?\n\nAmodei's answer, days before Anthropic's IPO:\n\n- It does happen inside one market: chatbots went that way\n- But every step of the frontier opens a bigger market\n- In 2023 everyone fought over chatbots, Anthropic bet on coding\n- Coding is now maturing, and the next markets are science, life sciences, materials, robotics and cyber\n- Where cheap is enough, Anthropic's small models compete too: Haiku 5.5 costs $0.10 per million input tokens\n\nAnthropic's whole IPO pitch rests on staying at that frontier.\n\nFull breakdown here: https://t.co/Mmjpr7KvFe",
+        "created_at": "2026-11-16T16:45:45+00:00",
+        "views": 16970,
+        "urls": [
+          "https://theaiopportunities.com/p/anthropic-goes-public-the-full-pitch?r=53m7yb"
+        ],
+        "source_ids": [
+          "2122370549628211529"
+        ]
+      },
+      "tweet_id": "2122596749365977218",
+      "sent_at": "2026-11-17T07:44:35.592995+00:00",
+      "posted_at": "2026-11-17T07:44:35+00:00",
+      "completed_at": "2026-11-17T07:44:35+00:00",
+      "verified_at": "2026-11-17T07:44:37.071664+00:00"
     }
   ],
   "used_source_ids": [
@@ -3688,7 +3717,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T06:34:54+00:00",
+  "last_posted_at": "2026-11-17T07:44:35+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -4185,6 +4214,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T06:34:54+00:00",
       "tweet_id": "2122579212108185704"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:15",
+      "kind": "reply",
+      "completed_at": "2026-11-17T07:44:35+00:00",
+      "tweet_id": "2122596749365977218"
     }
   ],
   "last_attempts": {
@@ -4231,32 +4266,7 @@
       "until": "2026-11-17T12:34:43.504032+00:00"
     }
   },
-  "outbox": {
-    "text": "Expanding into science keeps the frontier value high.",
-    "event_key": "Dario Amodei discusses Anthropic's market strategy regarding model commoditization.",
-    "premise": "Dario Amodei argues frontier models avoid commoditization by expanding into new markets like science and robotics.",
-    "slot": "2026-11-17:reply-v1:15",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T07:44:34.398543+00:00",
-    "source": {
-      "id": "2122370549628211529",
-      "url": "https://x.com/guilleflorvs/status/2122370549628211529",
-      "author": "guilleflorvs",
-      "author_id": "1683208137489227776",
-      "text": "Jamie Dimon asked Dario Amodei the question every AI investor is asking:\n\nWon't cheap models turn all of this into a commodity?\n\nAmodei's answer, days before Anthropic's IPO:\n\n- It does happen inside one market: chatbots went that way\n- But every step of the frontier opens a bigger market\n- In 2023 everyone fought over chatbots, Anthropic bet on coding\n- Coding is now maturing, and the next markets are science, life sciences, materials, robotics and cyber\n- Where cheap is enough, Anthropic's small models compete too: Haiku 5.5 costs $0.10 per million input tokens\n\nAnthropic's whole IPO pitch rests on staying at that frontier.\n\nFull breakdown here: https://t.co/Mmjpr7KvFe",
-      "created_at": "2026-11-16T16:45:45+00:00",
-      "views": 16970,
-      "urls": [
-        "https://theaiopportunities.com/p/anthropic-goes-public-the-full-pitch?r=53m7yb"
-      ],
-      "source_ids": [
-        "2122370549628211529"
-      ]
-    },
-    "tweet_id": "2122596749365977218",
-    "sent_at": "2026-11-17T07:44:35.592995+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
