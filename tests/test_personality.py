@@ -37,6 +37,37 @@ class PersonalityTests(unittest.TestCase):
         self.assertEqual(set(prompt['allowed_actions']), {'silent', 'reply'})
         self.assertEqual(model.call_args.kwargs['schema']['properties']['action']['enum'], ['reply', 'silent'])
 
+    def test_unmet_thread_request_gets_one_turn_ahead_of_a_closing_riff(self):
+        summon = {**INVITE, 'text': '@qofenoai reply?', 'parent_id': '120', 'parent_author': INVITE['author'],
+                  'parent_context': {'id': '120', 'author': INVITE['author'],
+                                     'text': 'I built an AI that trades debugging stories. Tell it about your worst typo.'}}
+        closing = {**INVITE, 'id': '127', 'source_ids': ['127'], 'author_id': '23', 'author': 'other_dev',
+                   'url': 'https://x.com/other_dev/status/127', 'text': 'you get me and that’s the whole tour',
+                   'parent_id': '121', 'parent_author': 'qofenoai', 'parent_user_id': '999',
+                   'parent_context': {'id': '121', 'author': 'qofenoai', 'author_id': '999',
+                                      'text': 'The build log does make a compelling tour guide.'}}
+        silent = {'action': 'silent', 'source_id': '', 'angle': ''}
+        with patch.object(editor, 'complete', return_value=silent) as model:
+            result = editor.choose([closing, summon], MEMORY, {}, NOW, ['reply', 'original'])
+            self.assertEqual(model.call_args.args[1]['allowed_reply_ids'], [summon['id']])
+            self.assertEqual(list(result['offered_invitations']), [summon['id']])
+            self.assertEqual(result['summon_authors'], [summon['author_id']])
+        correction = {**closing, 'text': 'The retry drops the original transaction ID before the second write.'}
+        with patch.object(editor, 'complete', return_value=silent) as model:
+            editor.choose([correction, summon], MEMORY, {}, NOW, ['reply', 'original'])
+            self.assertCountEqual(model.call_args.args[1]['allowed_reply_ids'], [summon['id'], correction['id']])
+        record = {**result, 'at': NOW.isoformat()}
+        repeated = {**summon, 'id': '130', 'url': 'https://x.com/compiler_dev/status/130', 'source_ids': ['130']}
+        state = {'decision_slots': {'prior': record}}
+        with patch.object(editor, 'complete', return_value=PLAN) as model:
+            editor.choose([repeated], MEMORY, state, NOW, ['reply', 'original'])
+            self.assertEqual(model.call_args.args[1]['allowed_actions'], ['original', 'reply', 'silent'])
+        # A declined summon or one with no usable parent cannot exclude the other person.
+        for source, memory in [(summon, state), ({**summon, 'parent_context': {**summon['parent_context'], 'text': 'Hi'}}, {})]:
+            with self.subTest(source=source), patch.object(editor, 'complete', return_value=silent) as model:
+                editor.choose([closing, source], MEMORY, memory, NOW, ['reply'])
+                self.assertIn(closing['id'], model.call_args.args[1]['allowed_reply_ids'])
+
     def test_silent_without_provider_when_no_action_is_eligible(self):
         for sources, state in (
             ([], {}), ([SOURCE], {}), ([SOURCE], {'used_source_ids': ['123']}),

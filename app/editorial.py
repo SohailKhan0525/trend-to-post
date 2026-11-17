@@ -602,8 +602,9 @@ async def decide(state, slot, connection, user):
         days = {now.date().isoformat(), (now.date() - timedelta(days=1)).isoformat()}
         decisions = {k: v for k, v in state.get('decision_slots', {}).items() if k[:10] in days}
         decisions[slot['slot']] = {'action': 'silent', 'at': utcnow().isoformat()}
-        if plan.get('offered_invitations'):
-            decisions[slot['slot']]['offered_invitations'] = plan['offered_invitations']
+        for key in ('offered_invitations', 'summon_authors'):
+            if plan.get(key):
+                decisions[slot['slot']][key] = plan[key]
         state['decision_slots'] = decisions
         save_and_push(state)
         summary('Qofeno chose silence for this opportunity.')
