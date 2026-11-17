@@ -3158,6 +3158,7 @@
     "2122329233905070188",
     "2122329922786279549",
     "2122336040899711282",
+    "2122359038151106953",
     "2122370549628211529",
     "2122373063560110320",
     "2122379663381082317",
@@ -3193,6 +3194,7 @@
     "https://github.com/garrytan/g-harness-evals/blob/cc8619d977f126ddb6d8f03a4b6cd02c5634c1bc/docs/benchmarks/2026-11-12-fable-5-2-coding-cc322/report.md",
     "https://github.com/t3dotgg/tstack",
     "https://github.com/virgiliojr94/book-to-skill",
+    "https://goo.gle/3XtB36o",
     "https://goo.gle/480yn2n",
     "https://huggingface.co/spaces/joelniklaus/harness-leaderboard",
     "https://lab.einsia.ai/frontier3dbench",
@@ -3317,6 +3319,7 @@
     "c0450e458d0de658cc012f44ea137e05362643e80bf8cb4cda76425ca172ccd9",
     "c2819219ee660cf9b6431c686c59c4ca7c4da18f9ce0c5eb8d02d1c48d498fc4",
     "c4a352eb34b598df908a16e0d2f349f48a30efadefd3a6b3582f437b3f9c00e6",
+    "c4a6f64266c2bf91156ef42a9c0a8c97c52a89671faf69498280f23ab44b9e46",
     "c5111566fde9fb1fa4430b35c326617a6939d0ffec6f1968968ef8feb4ceabc2",
     "c5aba44f774ae8b6f20dbede9a2eebeed7d23db5e893de3f337555f55cfc238d",
     "c680dad137f76b510aea1cc88053989bed87bbf6b7b7f5ae1d79d83c83f9a375",
@@ -3535,6 +3538,7 @@
     "783d12594424269dcf8636e8360422f50f397087d53d466a92e0e8f90a45a566",
     "784d78157eb0aab6761ce81c44455c880795402576d3d1d52510da746812a3e3",
     "786997d657cef915823c790ad843321ae4c4c04c27ea504642c0e1b1518d6e1a",
+    "78a285ae4591b648f8b3ea2260712415be73ee6e1c37e00ff461ccd2607c18e5",
     "7980188b0940b7a5ae89b9117bbc9ff130b4bbebcf34752cc3f689c005f3cd1e",
     "79cce4b17f465b085d97ad4512400ec242f9072da186835a39f70c2f2689efc1",
     "79d799e7470c4104d7f1fc08516cdaf382108b17b80c616668f0929844aaa6cf",
@@ -3874,10 +3878,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 575,
+    "neurons_reserved": 530,
     "requests": 40,
     "hour": "2026-11-17T10",
-    "hour_neurons_reserved": 93,
+    "hour_neurons_reserved": 48,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -4356,7 +4360,30 @@
       "until": "2026-11-17T12:34:43.504032+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Which step usually breaks first in production?",
+    "event_key": "Google Cloud provides a crash course on building AI coding agent harnesses.",
+    "premise": "Google Cloud outlines a four-step process for building an AI harness around coding agents, covering context, tools, sandboxing, and evals.",
+    "slot": "2026-11-17:reply-v1:20",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T10:04:31.252962+00:00",
+    "source": {
+      "id": "2122359038151106953",
+      "url": "https://x.com/GoogleCloudTech/status/2122359038151106953",
+      "author": "GoogleCloudTech",
+      "author_id": "15813140",
+      "text": "How to build an AI harness around your coding agent in four steps:\n\n1. Context and memory (sessions, state)\n2. Tools and workflows (MCP, ADK)\n3. Sandboxes and prompt injection defense\n4. Evals (code, LLM judge, human)\n\nWatch the crash course → https://t.co/pOlUGGg7Ux https://t.co/dAvgoVxoS7",
+      "created_at": "2026-11-16T16:00:00+00:00",
+      "views": 37908,
+      "urls": [
+        "https://goo.gle/3XtB36o"
+      ],
+      "source_ids": [
+        "2122359038151106953"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
