@@ -179,14 +179,18 @@ def matches_publication(pending, post):
         return unicodedata.normalize('NFC', html.unescape(value))
     body = copy_identity(text)
     expected_body = copy_identity(pending['text'])
-    # X may prepend the source author and other accounts tagged in the source.
-    # Only remove a complete recipient prefix immediately before our exact text.
-    if pending['kind'] == 'reply' and body != expected_body and body.endswith(' ' + expected_body):
+    # The native display range distinguishes X's automatic thread recipients
+    # from handles typed by the author. It must refer to this exact full_text.
+    if pending['kind'] == 'reply' and legacy.get('display_text_range') is not None:
+        body = copy_identity(mentions._reply_text(text, legacy))
+    elif pending['kind'] == 'reply' and body != expected_body and body.endswith(' ' + expected_body):
+        # Without native bounds, accept only the source author followed by
+        # known participants, immediately before the complete reserved text.
         source = pending['source']
         parent = '@' + source['author'].casefold()
         prose = re.sub(r'https?://\S+', '', source['text'], flags=re.I)
-        mentions = re.findall(r'(?<![\w/@])@[A-Za-z0-9_]{1,15}(?![A-Za-z0-9_])', prose)
-        allowed = {parent, *(mention.casefold() for mention in mentions)}
+        tagged = re.findall(r'(?<![\w/@])@[A-Za-z0-9_]{1,15}(?![A-Za-z0-9_])', prose)
+        allowed = {parent, *(mention.casefold() for mention in tagged)}
         context = source.get('parent_context') or {}
         if context.get('author_id') == pending['author_id'] and context.get('author', '').casefold() == ACCOUNT:
             allowed.add('@' + ACCOUNT)
