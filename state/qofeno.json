@@ -2889,6 +2889,7 @@
     "2122298376456741208",
     "2122306857759015050",
     "2122308975182094644",
+    "2122315074081857903",
     "2122317669139722405",
     "2122329922786279549",
     "2122336040899711282",
@@ -3008,6 +3009,7 @@
     "962237cd7326d4281207a2bf044a990ef5a6da344c5a01ea155b5f9c6783a3f2",
     "969353d7054536833563b5ba92a27b6ea34653d51476500e2cbe9f6ef26db218",
     "98c52ab8a12211f6e0df4beb9ba4614a6b94260444092edca2f98a5076794dc2",
+    "9913f31bd34947e1fa407ebc552f5edb37d530266c73f16918b31b8c69c28122",
     "9c10d6bee77bd4f5508bff5ccb46ca32b117be139ca64717d4d6e5ba39d78cc0",
     "9cbb171dec952d18057466e690592533b0fd693c0ca2164ec63c3fc400d0e072",
     "9d1a88851d00586b7a4f6ca3c55f16a789c3af22498e0e2d8d49069eea645ca9",
@@ -3393,6 +3395,7 @@
     "cc6f81e8f743390caeb213e0e04377fd8c10d55c9bf58c416e7db58628467d1d",
     "cc83817304f39805e984ca29ecdc3ffe541a42fcbf7b9039fe4f3676909b4214",
     "cd525d9375df192fd5ded975c9291c3049ea3195eb8f19f4d88b326dd19d1365",
+    "cf262beb3f1eb4fc1022151601a41f913f09dd6234b147a73f1eb0eebd8b2ebf",
     "cffbf7168d7dde3b01173641520a59be698dbbeca23099504b714631bd4f8352",
     "d0cbf62b091eeced3f2d1fe0c5998cb23a46f8d1081939afb20ae90826c14523",
     "d10b237328c1fd211bef11097296e21a7334e0425b171405fd78ee4303fcf1d9",
@@ -3577,10 +3580,10 @@
   },
   "ai_usage": {
     "day": "2026-11-17",
-    "neurons_reserved": 270,
+    "neurons_reserved": 213,
     "requests": 16,
     "hour": "2026-11-17T03",
-    "hour_neurons_reserved": 91,
+    "hour_neurons_reserved": 34,
     "model": "@cf/google/gemma-4-26b-a4b-it"
   },
   "last_attempt": {
@@ -3975,7 +3978,28 @@
       "until": "2026-11-17T08:34:57.100237+00:00"
     }
   },
-  "outbox": null,
+  "outbox": {
+    "text": "Prioritizing next-gen training over consumer inference makes sense.",
+    "event_key": "DeepSeek limits consumer-facing interface access to prioritize compute for model development.",
+    "premise": "DeepSeek restricts App and Web usage because compute resources are better allocated to model training and R&D than to consumer inference.",
+    "slot": "2026-11-17:reply-v1:6",
+    "kind": "reply",
+    "author_id": "2066783200215699456",
+    "reserved_at": "2026-11-17T03:15:26.577272+00:00",
+    "source": {
+      "id": "2122315074081857903",
+      "url": "https://x.com/xulijian1994/status/2122315074081857903",
+      "author": "xulijian1994",
+      "author_id": "1948266849520832512",
+      "text": "我觉得很多人还是没看懂，这次 DeepSeek 为什么要限制 App 和 Web 端的使用\n\n有人说算力成本太高，应该直接收费，也有人表示自己愿意付费。但我认为，DeepSeek 真正在乎的根本不是这点订阅收入，哪怕所有用户都愿意付费，也解决不了最核心的问题\n\nDeepSeek 缺的不是钱，而是卡，是算力\n\nApp 和 Web 端庞大的用户群，每天都在消耗大量推理算力，而这些资源同样可以用于模型训练、研发和其他推理任务。说白了，DeepSeek 现在最需要的不是让更多用户付费，而是把有限的算力投入下一代模型\n\n这也能解释我之前的一个判断：DeepSeek 不会推出什么 Coding Plan，也不会急着给 App、Web 端增加付费会员\n\n因为收费解决的是收入问题，不是算力供给问题。哪怕所有人都开了会员，也不会凭空多出几十万张 GPU，反而还得保证付费用户的服务质量\n\n其实梁文锋之前在投资者交流会上，已经把 DeepSeek 的商业逻辑讲得很清楚了\n\n他认为 API 只需要赚取合理利润，定价标准就是购买一批设备，大约 10 个月收回成本，而不是追求利润最大化。他甚至明确表示，无论 C 端用户还是 B 端收入，本质上都是 DeepSeek 通往 AGI 路上的副产品，真正的目标始终是把模型做好\n\n把这些话串起来看，你就能理解为什么 DeepSeek 对商业化一直这么克制\n\n再看看 Kimi，哪怕买了付费套餐，高峰期有时候照样需要排队\n\n除了谷歌这种拥有自家算力基础设施的巨头之外，不管是 OpenAI 还是 Anthropic，同样都在为算力采购发愁。包括 Dario，在 Anthropic 筹备 IPO 的讨论中，最头疼的问题之一依然是如何获得足够的算力\n\n这其实是一个全球性的问题，只不过国产模型面临的算力约束更加严峻\n\n所以我一直认为，国产大模型真正需要突破的瓶颈，早就不只是模型技术本身，而是背后那个巨大的算力窟窿\n\n模型在前面飞，算力在后面追\n\n模型能力迭代得越来越快，算力供给却始终追不上需求。这才是整个 AI 行业最现实的问题，也是 DeepSeek 这次限制 App 和 Web 端背后，我认为最值得关注的原因",
+      "created_at": "2026-11-16T13:05:19+00:00",
+      "views": 19001,
+      "urls": [],
+      "source_ids": [
+        "2122315074081857903"
+      ]
+    }
+  },
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
