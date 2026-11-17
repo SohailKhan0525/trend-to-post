@@ -565,9 +565,11 @@ async def discover(connection, now, *, used_source_ids=(), own_history=(), own_u
     stamp = int(now.timestamp())
     last_sweep = cache.get('last_sweep')
     full = not poll or type(last_sweep) is not int or not 0 <= stamp - last_sweep < SWEEP_SECONDS
-    rotation = cache.get('rotation', 0) if poll else None
+    # A new GitHub runner has no prior poll cache. Seed its thread sweep from
+    # the half-hour slot so successive jobs also inspect different own posts.
+    rotation = cache.get('rotation', stamp // 1800) if poll else None
     if poll and type(rotation) is not int:
-        rotation = 0
+        rotation = stamp // 1800
     parents = _recent_parents(own_history, now, rotation)
     # Endpoint unavailability and partial Twifork response maps are local to
     # each read. Authentication, account locks and rate limits still propagate.

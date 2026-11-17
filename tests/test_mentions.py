@@ -157,6 +157,21 @@ class MentionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(conn.get_notifications.await_count, 2)
         conn.get_tweet_by_id.assert_awaited_once_with('201')
 
+    async def test_isolated_half_hour_jobs_rotate_the_own_threads_they_check(self):
+        conn = SimpleNamespace(search_tweet=AsyncMock(return_value=[]),
+                               get_notifications=AsyncMock(return_value=[]))
+        history = [{'kind': kind, 'tweet_id': str(base + i), 'posted_at': NOW.isoformat(),
+                    'verified_at': NOW.isoformat()}
+                   for kind, base in [('original', 100), ('reply', 200)] for i in range(4)]
+        with patch.object(mentions, '_own_children', new=AsyncMock(return_value=[])) as sweep:
+            for half_hour in range(4):
+                await mentions.discover(conn, NOW + timedelta(minutes=30 * half_hour),
+                                        poll=True, poll_cache={}, own_history=history)
+        parents = [call.args[1] for call in sweep.await_args_list]
+        self.assertEqual(len(parents), 4)
+        self.assertTrue(all(len(pair) == 2 for pair in parents))
+        self.assertEqual({pid for pair in parents for pid in pair}, {r['tweet_id'] for r in history})
+
     async def test_fast_native_detail_budget_rotates_while_latest_is_empty(self):
         native = [mention('@qofenoai hello', str(i)) for i in range(300, 310)]
         conn = SimpleNamespace(get_notifications=AsyncMock(return_value=[SimpleNamespace(tweet=t) for t in native]),

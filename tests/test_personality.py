@@ -165,6 +165,21 @@ class PersonalityTests(unittest.TestCase):
         with patch.object(editor, 'complete', side_effect=TimeoutError()), self.assertRaises(TimeoutError):
             editor.original(PLAN, MEMORY, {}, NOW)
 
+    def test_old_verified_originals_still_inform_the_writer_and_reviewer(self):
+        old = {'kind': 'original', 'verified_at': NOW.isoformat(), 'text': 'A rollback button deserves its own seatbelt.',
+               'premise': 'The undo control needs stronger safeguards.'}
+        recent = [{'kind': 'reply', 'text': 'Separate conversation.', 'premise': 'Other topic'}] * 165
+        state = {'history': [old, *recent]}
+        with patch.object(editor, 'complete', side_effect=[{**DRAFT, 'worthwhile': True}, {'publish': True}]) as model:
+            self.assertEqual(editor.original(PLAN, MEMORY, state, NOW), DRAFT)
+        for call in model.call_args_list:
+            self.assertEqual(call.args[1]['related_originals'], [old['text']])
+        for previous in ({**old, 'premise': DRAFT['premise']}, {**old, 'text': DRAFT['text'][:-1] + '!'}):
+            with self.subTest(previous=previous), patch.object(editor, 'complete', return_value={**DRAFT, 'worthwhile': True}) as model:
+                with self.assertRaises(DraftError):
+                    editor.original(PLAN, MEMORY, {'history': [previous, *recent]}, NOW)
+                self.assertEqual(model.call_count, 1)
+
     def test_original_can_use_a_deliberate_break_between_setup_and_payoff(self):
         for separator in ('\n', '\n\n'):
             draft = {**DRAFT, 'text': 'My favorite rollback button?' + separator + 'The boring one.'}

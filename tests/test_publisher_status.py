@@ -1,10 +1,10 @@
 import unittest
 from datetime import datetime, timezone
 
-from scripts.azure_status import report
+from scripts.publisher_status import report
 
 
-class AzureStatusTests(unittest.TestCase):
+class PublisherStatusTests(unittest.TestCase):
     def test_observed_reply_time_uses_source_and_publication_times(self):
         now = datetime(2026, 11, 17, 12, 10, tzinfo=timezone.utc)
         row = {'tweet_id': '456', 'kind': 'reply', 'posted_at': '2026-11-17T12:09:23Z',
@@ -22,9 +22,9 @@ class AzureStatusTests(unittest.TestCase):
         self.assertIn('https://x.com/qofenoai/status/456', result)
         self.assertIn('23 at 2026-11-17T11:40:00+00:00 (wording or decision rejected)', result)
         self.assertIn('Pending delivery: False', result)
-        self.assertIn('30s between idle checks. Reply eligibility in D1: open', result)
+        self.assertIn('every 30 minutes. Reply eligibility in D1: open', result)
         self.assertIn('Each person can receive up to 2 replies per original conversation', result)
-        self.assertIn('Next eligible', result)
+        self.assertIn('Next scheduled GitHub wake: 2026-11-17T12:37:00+00:00', result)
         self.assertNotIn('PRIVATE', result)
 
     def test_inbound_decision_supersedes_legacy_slot_without_logging_source_id(self):

@@ -1,15 +1,12 @@
 """Report the active worker and latest decisions using SELECT-only D1 queries."""
-import json
 import os
-from pathlib import Path
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
-from app.editorial import THREAD_REPLY_LIMIT, schedule_state, upcoming_opportunity
+from app.editorial import THREAD_REPLY_LIMIT, schedule_state
 from app.memory import Memory, MemoryUnavailable, database_uuid
-from app.reply_schedule import reply_ready, timestamp
-from app.server import INBOX_INTERVAL
-from app.server_ledger import FRESH_SECONDS, HEAD, LEASE, PAGES, unpack
+from app.reply_schedule import HALF_HOUR, half_hour_start, reply_ready, timestamp
+from app.server_ledger import AUTHORITY, FRESH_SECONDS, HEAD, LEASE, PAGES, unpack
 from app.store import summary
 
 
@@ -30,6 +27,8 @@ def category(reason):
 def opportunity_label(slot):
     if re.fullmatch(r'\d{4}-\d\d-\d\d-inbox-[1-9][0-9]{0,19}-[a-f0-9]{16}', str(slot)):
         return 'inbound reply'
+    if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-original:\d{1,2}', str(slot)):
+        return 'scheduled original'
     if re.fullmatch(r'\d{4}-\d\d-\d\d:(reply|follow)-v1:\d{1,2}', str(slot)):
         return slot
     return None
@@ -37,7 +36,7 @@ def opportunity_label(slot):
 
 def inbox_schedule(state, now):
     eligibility = 'open' if reply_ready(schedule_state(state), now) else 'on hold'
-    return (f'Inbox schedule: {INBOX_INTERVAL}s between idle checks. Reply eligibility in D1: {eligibility}. '
+    return (f'GitHub schedule: every 30 minutes. Reply eligibility in D1: {eligibility}. '
             f'Each person can receive up to {THREAD_REPLY_LIMIT} replies per original conversation across all days.')
 
 
@@ -66,8 +65,12 @@ def report(state, now):
         at, slot, outcome = max(valid_slots)
         decision = f'{slot} at {at.isoformat()} ({outcome})'
     pending = any(state.get(k) for k in ('outbox','pending','pending_reply','follow_pending','verification_pending'))
+    next_wake = half_hour_start(now) + timedelta(minutes=7)
+    if next_wake <= now:
+        next_wake += HALF_HOUR
     lines = [f'Latest verified X post: {receipt}', f'Latest recorded decision: {decision}',
-             f'Pending delivery: {bool(pending)}', inbox_schedule(state, now), upcoming_opportunity(state, now)]
+             f'Pending delivery: {bool(pending)}', inbox_schedule(state, now),
+             f'Next scheduled GitHub wake: {next_wake.isoformat()}.']
     outbox = state.get('outbox')
     if outbox:
         post_id = str(outbox.get('tweet_id') or '')
@@ -84,23 +87,24 @@ def report(state, now):
 
 
 def read_snapshot():
-    release = json.loads(Path('infra/azure-target.json').read_text())['release']
     account = os.environ['CLOUDFLARE_ACCOUNT_ID'].strip()
-    if not re.fullmatch('[a-f0-9]{40}', release) or not re.fullmatch('[a-fA-F0-9]{32}', account):
-        raise ValueError('Invalid release or account configuration.')
+    if not re.fullmatch('[a-fA-F0-9]{32}', account):
+        raise ValueError('Invalid Cloudflare account configuration.')
     db = Memory(account, os.environ['CLOUDFLARE_D1_API_TOKEN'])
     configured = os.environ.get('D1_DATABASE_ID', '').strip()
     db.database_id = database_uuid(configured) if configured else db._find()
     if not db.database_id:
         raise MemoryUnavailable('The existing D1 database was not found.')
-    head, lease, pages = db._batch([
+    head, owner, lease, pages = db._batch([
         {'sql': f'SELECT revision FROM {HEAD} WHERE id=1'},
-        {'sql': f'SELECT phase, seen, seen > unixepoch()-{FRESH_SECONDS} AS fresh FROM {LEASE} WHERE id=1 AND release=?', 'params': [release]},
+        {'sql': f"SELECT last_success, last_success > unixepoch()-5400 AS recent FROM {AUTHORITY} WHERE id=1 AND owner='github'"},
+        {'sql': f"SELECT 1 FROM {LEASE} WHERE id=1 AND instance GLOB 'github-*' AND seen > unixepoch()-{FRESH_SECONDS}"},
         {'sql': f'SELECT page, body FROM {PAGES}'}])
-    phase = lease[0]['phase'] if lease and lease[0]['phase'] in ('active','standby','degraded') else 'unknown'
-    seen = datetime.fromtimestamp(lease[0]['seen'],timezone.utc).isoformat() if lease else 'none'
-    active = bool(head and lease and lease[0]['fresh'] and phase == 'active')
-    summary(f'Azure worker {release}: {phase}; fresh active receipt={active}; heartbeat={seen}')
+    active = bool(head and owner and (lease or owner[0]['recent']))
+    completed = owner[0]['last_success'] if owner else None
+    when = datetime.fromtimestamp(completed, timezone.utc).isoformat() if completed else 'none'
+    summary(f'GitHub publishing authority: {bool(owner)}. Active workflow lease: {bool(lease)}. '
+            f'Last successful publishing cycle: {when}.')
     return active, unpack({row['page']: row['body'] for row in pages}) if head else None
 
 
@@ -116,5 +120,5 @@ if __name__ == '__main__':
     try:
         raise SystemExit(main())
     except Exception as exc:
-        print(f'Azure D1 status unavailable ({type(exc).__name__}).')
+        print(f'D1 publisher status unavailable ({type(exc).__name__}).')
         raise SystemExit(1) from None

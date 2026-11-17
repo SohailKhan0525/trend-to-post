@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock, patch
 
 from twikit.errors import RequestTimeout, TooManyRequests
 
-from app import ai_budget, editorial, mentions, personality, server
+from app import ai_budget, editorial, mentions, personality
 from app.reply_schedule import DAILY_REPLY_CAP
 from test_editorial import SOURCE, START, empty
 
@@ -162,7 +162,6 @@ class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.state['history'][-1]['tweet_id'], '505')
 
         self.state['ai_pause'] = {'reason': ai_budget.LOCAL_HOURLY_PAUSE, 'until': until.isoformat()}
-        self.assertEqual(server.next_work(self.state, self.now), ('inbox', 0))
         self.assertIsNone(editorial.next_original(editorial.schedule_state(self.state), self.now))
 
     async def test_provider_reset_controls_next_read_and_survives_restart(self):

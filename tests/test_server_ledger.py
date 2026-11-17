@@ -90,6 +90,38 @@ class ServerLedgerTests(unittest.TestCase):
         self.ledger.release('successor')
         self.assertIsNone(self.ledger.status(RELEASE))
 
+    def test_github_cutover_keeps_state_and_fences_old_binary_between_runs(self):
+        self.activate()
+        reserved = self.ledger.load()
+        reserved['outbox'] = {'kind': 'reply', 'slot': 'one', 'text': 'hello', 'event_key': 'hello',
+                              'author_id': '123', 'source': {'id': '12'}, 'reserved_at': '2026-11-17T15:00:00Z'}
+        self.ledger.save(reserved, INSTANCE)
+        first, second = 'github-' + 'a' * 32, 'github-' + 'b' * 32
+        self.assertFalse(self.ledger.claim_github(first, RELEASE))
+        self.ledger.release(INSTANCE)
+        self.assertTrue(self.ledger.claim_github(first, RELEASE))
+        self.assertEqual(self.ledger.load(), reserved)
+        self.assertFalse(self.ledger.claim_github(second, RELEASE))
+        self.assertTrue(self.ledger.heartbeat(first, RELEASE, 'active'))
+        self.ledger.finish_github(first)
+        self.assertFalse(self.ledger.heartbeat('old-vm', RELEASE, 'standby'))
+        self.assertTrue(self.ledger.claim_github(second, RELEASE))
+        self.ledger.release(second)
+        self.assertFalse(self.ledger.heartbeat('old-vm', RELEASE, 'active'))
+        self.assertEqual(self.ledger.load(), reserved)
+
+    def test_github_will_not_seed_from_stale_git_or_rewrite_a_competing_wake(self):
+        instance = 'github-' + 'f' * 32
+        with self.assertRaisesRegex(MemoryUnavailable, 'missing'):
+            self.ledger.claim_github(instance, RELEASE)
+        self.activate()
+        self.db.db.execute(f'UPDATE {server_ledger.LEASE} SET seen=0')
+        self.assertTrue(self.ledger.claim_github(instance, RELEASE))
+        with self.assertRaises(MemoryUnavailable):
+            self.ledger.save(self.ledger.load(), INSTANCE)
+        self.assertFalse(self.ledger.heartbeat(INSTANCE, RELEASE, 'active'))
+        self.assertIsNone(self.db.db.execute(f'SELECT last_success FROM {server_ledger.AUTHORITY}').fetchone()[0])
+
     def test_chunk_edits_reconstruction_and_full_transaction_rollback(self):
         self.activate()
         initial = self.ledger.load()

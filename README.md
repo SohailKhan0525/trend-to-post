@@ -1,61 +1,39 @@
 # Qofeno
 
-**@qofenoai** is an openly AI-run X account about software and AI. Qofeno likes a good debugging story, has opinions about tools, and enjoys a joke when the author has already supplied the setup. Cloudflare Workers AI writes and reviews invited replies and decides when to publish an original. The Azure deployment runs one persistent Linux process. Cloudflare supplies the model and database. The account operates while the owner's phone is offline.
+[@qofenoai](https://x.com/qofenoai) is an openly AI-run X account about software, coding tools and the people who use them. GitHub Actions runs the publisher every half hour. Cloudflare Workers AI drafts posts and replies. Cloudflare D1 preserves publication history between runs.
 
-## How Qofeno decides
+## What it publishes
 
-1. The publisher syncs verified posts to Cloudflare D1. Its existing Twikit-compatible client, `twifork[impersonate]==2.4.0`, checks for public mentions and direct responses to Qofeno, and searches Top and Latest conversations about AI coding tools, debugging, tests and code review. Recent posts with more measured views per hour rise within each search topic.
-2. For originals, Workers AI reads a shortlist of eligible posts, recent Qofeno writing and public conversation history. It can use what it reads to form a standalone thought or choose silence. For direct invitations, the worker checks the original conversation and routes eligible mentions straight to the writer.
-3. An original can be an opinion, joke or observation about a software design choice, up to 220 weighted characters. A separate review checks the draft for unsupported claims and repetition. There is no scheduled invitation to follow the account.
-4. Replies aim for 4–12 words, with a hard limit of 100 weighted characters. A playful post can get a dry punchline. A real unknown can earn one focused question. Someone asking for help can get a direct suggestion. Questions and emoji each have a one-reply cooldown. A second review checks the wording and tone against the actual source.
+| Per UTC day | Target | What qualifies |
+| --- | ---: | --- |
+| Original posts | 40 | A distinct opinion, observation or joke that makes sense on its own and passes editorial review |
+| Replies | 70 | A response to a person who invited Qofeno into a conversation, grounded in the post or its verified parent |
 
-For proactive discovery, a source must be a public original post from the last 24 hours with at least 10,000 measured views. Discoveries can inform original posts. To qualify for an automated reply, someone must invite Qofeno directly or comment on a verified Qofeno post or reply. Direct interactions can qualify at any view count. The publisher excludes political or country-related subjects, protected or blocked accounts, sensitive posts, quotes and reposts. Before sending a reply it reads the source again and verifies its text, identity and eligibility.
+The publisher spreads opportunities across the day. Actual counts depend on eligible conversations, fresh ideas, the model budget and X accepting each publication. During a scheduled run Qofeno can answer multiple people. Each person can receive up to two replies in the same original conversation, and Qofeno answers any individual post once. To opt out, post `@qofenoai stop`.
 
-To invite Qofeno, tag it directly, ask to hear its take, or comment on one of its posts. A simple `@qofenoai` can start a conversation. A correction, a story or a joke can continue one, even when X leaves the handle out of the visible reply. Someone crediting Qofeno in passing can do so without starting a conversation.
+The existing Twifork client reads public mentions, direct responses and recent threads. Public conversations about software and AI can inspire standalone originals. A joke can earn a one-line comeback. A real question can get a concrete answer. Qofeno skips political or country-related subjects, protected accounts and sensitive posts.
 
-The worker looks for new direct mentions and replies on X throughout the day. It also checks notifications and threads on recent Qofeno posts to catch invitations that search misses. A direct invitation goes straight to drafting and review. Qofeno answers an individual incoming post once. Each person can receive up to two Qofeno replies under the same original post, across all branches and days. Each other person has their own two replies, and a different original starts a separate count. To opt out, post `@qofenoai stop`.
+## Memory and delivery
 
-Qofeno compares the incoming mention’s creation time with current UTC during intake and immediately before sending. It accepts mentions created at or after 2026-11-17 14:05:11 UTC and at most five minutes old. The age of the original post does not affect a new mention. Editing an old mention does not renew it. After downtime, the worker skips stale mentions.
+D1 holds the account’s publication ledger, pending sends, source identities, text fingerprints and public conversation history. The writer can see recent topics and earlier exchanges. Before posting, the publisher checks content and sources for reuse and reserves the draft in D1. It reads the result back from X to verify the actual account, text and reply parent. An ambiguous send stays reserved for reconciliation on a later run.
 
-## Scheduling and delivery
+The scheduled and manually dispatched GitHub jobs share a publishing lock. During migration, stop the former publisher and let its D1 lease expire. The first GitHub run claims the existing ledger and reconciles outstanding deliveries. Keep the existing D1 database when changing runners or rotating credentials.
 
-On Azure, systemd runs Qofeno continuously and restarts it after a crash or reboot. One worker holds the D1 publishing lease. While idle it checks for incoming conversations about every 30 seconds. Once it finds an eligible mention or reply, it can draft, verify and send a response in the same check, even if it just published. X indexing, active work, rate limits and model response time can delay delivery. GitHub runs tests and collects metrics.
+## Configuration
 
-Originals have 48 half-hour decision windows per UTC day with a daily offset. Missed windows expire. The worker can publish up to two originals per UTC day, at least six hours apart. Follow posts verified by the older publisher count toward that limit. Replies have a separate ceiling of 48 per UTC day. A reply leaves the next original opportunity available.
-
-The publisher reserves each draft and its duplicate identities before sending. On Azure the reservation lives in D1. The original GitHub ledger in `state/qofeno.json` supplies the one-time migration snapshot. It reads the post back from X to verify the account, text and intended reply parent. If X returns no ID, the publisher looks for that exact publication on the account’s own timeline. Ambiguous sends remain reserved. An explicit `CouldNotTweet` error can be archived as unconfirmed after the timeline check, with its source and text still reserved. An unresolved reservation older than an hour surfaces as a failed run after applicable cooldowns. Preserve the ledger when diagnosing failures. Earlier quote, self-reply and follow records remain part of the account’s history.
-
-X documents its account automation and reply requirements in its [automation rules](https://help.x.com/en/rules-and-policies/x-automation) and [posting API guidance](https://docs.x.com/x-api/posts/manage-tweets/introduction).
-
-## Cloudflare memory and configuration
-
-D1 stores verified public posts, including Qofeno’s text and topic and, for replies, the original author’s public ID and handle, parent post ID and a short source excerpt. This lets the writer recognize someone it has replied to and avoid repeating its own take. Only verified ledger rows enter memory. Syncing can safely be repeated after an interrupted run. On Azure, losing the D1 lease or access to the ledger pauses publishing. This preserves outstanding reservations when a VM restarts or another instance attempts to take over.
-
-| GitHub Actions setting | Purpose |
+| Repository Actions setting | Purpose |
 | --- | --- |
-| Secrets `X_AUTH_TOKEN` and `X_CT0` | Existing X session for discovery, publication and readback |
-| Secrets `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` | Workers AI access and default D1 credentials |
-| Optional secret `CLOUDFLARE_D1_API_TOKEN` | Separate token with account D1 Write (Edit) permission if the Workers AI token lacks it |
-| Optional variable `D1_DATABASE_ID` | UUID of an existing D1 database. Otherwise the publisher finds or creates `qofeno-memory` in the configured account |
-| Optional variable `QOFENO_AI_MODEL` | Supported model override. The default is `@cf/google/gemma-4-26b-a4b-it` |
+| Secrets `X_AUTH_TOKEN`, `X_CT0` | Existing X session for discovery, publication and readback |
+| Secrets `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` | Workers AI and D1 access |
+| Optional secret `CLOUDFLARE_D1_API_TOKEN` | Separate account D1 Edit token |
+| Optional variable `D1_DATABASE_ID` | UUID of the existing D1 database |
+| Optional variable `QOFENO_AI_MODEL` | Model override. The default is `@cf/google/gemma-4-26b-a4b-it` |
 
-Azure reads its X and Cloudflare settings from a dedicated Key Vault using the VM’s managed identity. Only the deploy workflow on the repository’s main branch receives vault write access. The worker has no GitHub write credential. The worker budgets 9,000 neurons per UTC day for all AI calls and uses reported token usage when available. At 400 neurons in an hour it defers background work. Direct mention drafting and review can use the remaining daily allowance immediately. Workers AI quota responses and X rate-limit responses trigger cooldowns. Other applications using the same Cloudflare account can affect its available quota.
+The publisher accounts for model calls against its daily allowance and honors model and X cooldowns. The publisher runs on the repository’s default branch. Its GitHub Actions log records decisions, skipped opportunities and verified X links. The separate metrics workflow reads engagement on verified publications.
 
-## Operations
+To run the tests locally, install the project dependencies and use Python 3.12.
 
-To deploy the worker, use the [Azure VM template](infra/azure/main.json) in the dedicated resource group. Supply a commit containing the bootstrap, an RSA public key and the exact GitHub OIDC subject reported by the deployment workflow. All inbound ports on the VM are closed. Use the template’s `githubTarget` output plus a full `release` commit SHA in `infra/azure-target.json` to start the deployment. The workflow transfers settings to Key Vault, verifies the standby worker, and hands off publication to D1. To deploy an update, change the release SHA to a tested commit on main. The worker retrieves versioned settings and checks out that exact commit.
-
-From a checkout with `requirements.txt` installed, use these commands.
-
-| Command | Effect |
-| --- | --- |
-| `python -m app server-status --release <commit>` | Verify a recent active D1 heartbeat for that exact Azure release |
-| `python scripts/azure-price.py --location centralindia --currency INR` | Look up retail prices and estimate monthly spend before and after eligible allowances |
-| `python -m app inspect` | Show scheduling and delivery status without publishing or calling the model |
-| `python -m app memory` | Connect to D1, sync verified history and read back recent posts. It can initialize the database and schema. It does not publish to X |
-| `python -m app run --mode inbox` | Check incoming invitations now and answer eligible posts that Qofeno chooses to reply to |
-| `python -m app run --mode original` | Run a standalone publishing decision using the original-post schedule (the default for `run`) |
-| `python -m app metrics` | Read available impressions, likes, replies and reposts for recent verified publications |
-| `python -m unittest discover -s tests -v` | Run the test suite |
-
-On the VM, the systemd journal for `qofeno.service` records decisions and verified X links. The deployment workflow records the release and active heartbeat at cutover. The separate metrics workflow distinguishes impressions on Qofeno’s posts from views on the original source. Missing metrics remain unknown.
+```sh
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -q
+```

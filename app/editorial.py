@@ -15,10 +15,11 @@ from twikit.errors import CouldNotTweet, Forbidden, NotFound, RequestTimeout, Se
 from . import mentions, personality, reply_writer, sources
 from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .metrics import post_id
-from .reply_freshness import INBOX_START_AT, fresh_invitation
+from .reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, fresh_invitation
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError, selected_model
-from .reply_schedule import next_decision, next_original, next_slot, reply_ready, timestamp
+from .reply_schedule import (HALF_HOUR, half_hour_start, next_decision, next_original, next_slot,
+                             reply_ready, scheduled_remaining, timestamp)
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
 
 STAGE = {'name': 'startup', 'source_id': None}
@@ -42,6 +43,9 @@ def schedule_state(state):
                  if row.get('tweet_id') and row.get('verified_at') and row.get('posted_at')}
     history = [{**row, 'completed_at': published.get(row.get('tweet_id'), row['completed_at'])}
                for row in state.get('editorial_history', [])]
+    known = {row.get('tweet_id') for row in history}
+    history.extend(row for row in state['history'] if row.get('tweet_id') in published
+                   and row['tweet_id'] not in known)
     return {**state, 'history': history,
             'pending': state.get('pending') or state.get('pending_reply') or state.get('follow_pending') or state.get('outbox')}
 
@@ -150,7 +154,7 @@ def thread_reply_count(source, history, observed=None):
 async def live_thread_open(state, source, post, own_id, connection, visible, *, search=False):
     observed = state.get('observed_recipient_replies', {})
     root, count, proven = thread_evidence(source, state['history'], observed)
-    if not proven or not fresh_invitation(source, utcnow(), INBOX_START_AT):
+    if not proven or not fresh_invitation(source, utcnow(), INBOX_START_AT, state=state):
         return False
     native_root = source.get('conversation_id') or root
     recipient = source['author_id']
@@ -183,7 +187,7 @@ def eligible_author(source, state, now, own_user_id):
             or mentions.opted_out(state, author_id)):
         return False
     if source.get('origin') == 'mention':
-        if not fresh_invitation(source, now, INBOX_START_AT) or not mentions.invited(state, source):
+        if not fresh_invitation(source, now, INBOX_START_AT, state=state) or not mentions.invited(state, source):
             return False
         own_parent = (source.get('parent_author') == ACCOUNT or (own_user_id and source.get('parent_user_id') == own_user_id)
                       or (source.get('parent_context') or {}).get('author', '').casefold() == ACCOUNT)
@@ -428,7 +432,11 @@ async def send_once(state, slot, draft, connection, user, source=None):
         return
     # Recheck after generation/refresh, including daily caps and spacing.
     now = utcnow()
-    if slot.get('inbox_id'):
+    if slot.get('scheduled_at'):
+        start = timestamp(slot['scheduled_at'])
+        valid = (scheduled_remaining(schedule_state(state), slot['kind'], now, start) > 0
+                 and (slot['kind'] == 'original' or (source and source['id'] == slot.get('inbox_id'))))
+    elif slot.get('inbox_id'):
         valid = (slot['kind'] == 'reply' and source and source['id'] == slot['inbox_id']
                  and reply_ready(schedule_state(state), now) and now < timestamp(slot['expires_at']))
     elif 'allowed_actions' in slot:
@@ -470,7 +478,7 @@ async def send_once(state, slot, draft, connection, user, source=None):
     state['used_texts'] = sorted(set(state['used_texts'] + [reply_writer.fingerprint(draft['text'])]))
     save_and_push(state)  # Remote reservation must succeed before the public side effect.
     send_time = utcnow()
-    if source and not fresh_invitation(source, send_time, INBOX_START_AT):
+    if source and not fresh_invitation(source, send_time, INBOX_START_AT, state=state):
         state['outbox'] = None
         reject(state, slot, 'The incoming post is outside the live reply window; no reply sent.')
         return
@@ -565,7 +573,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
                 # wake cannot grant a second attempt under the same policy.
                 rejections[key] = draft_format_hold(fresh, utcnow(), reply_writer.EDITORIAL_POLICY_VERSION)
                 save_and_push(state)
-            if not fresh_invitation(fresh, utcnow(), INBOX_START_AT):
+            if not fresh_invitation(fresh, utcnow(), INBOX_START_AT, state=state):
                 continue
             with budget_scope(state, save_and_push, utcnow, direct_mention=bool(slot.get('inbox_id'))):
                 draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
@@ -808,7 +816,7 @@ async def posting_account(connection):
     return user
 
 
-async def process_inbox(state, connection):
+async def process_inbox(state, connection, *, scheduled_at=None):
     now = utcnow()
     if not reply_ready(schedule_state(state), now):
         return
@@ -823,6 +831,8 @@ async def process_inbox(state, connection):
         now = utcnow()
         if considered >= INBOX_BATCH_SIZE or not reply_ready(schedule_state(state), now):
             break
+        if scheduled_at and not scheduled_remaining(schedule_state(state), 'reply', now, scheduled_at):
+            break
         # Earlier decisions in this batch can use an alias, consume a thread
         # turn or leave an unresolved send. Recheck on the updated ledger.
         if not candidate_eligible(row, state, now, own_id):
@@ -830,6 +840,8 @@ async def process_inbox(state, connection):
         if row.get('parent_id') and not row.get('parent_context'):
             row = await mentions.thread_context(connection, row, now)
         slot = inbox_opportunity(row)
+        if scheduled_at:
+            slot.update(scheduled_at=scheduled_at.isoformat(), expires_at=(scheduled_at + HALF_HOUR).isoformat())
         if now >= timestamp(slot['expires_at']) or inbox_reviewed(state, row):
             continue
         attempt = state.get('last_attempts', {}).get(slot['slot'])
@@ -856,6 +868,37 @@ async def process_inbox(state, connection):
             summary(f'No approved decision for invitation {row["id"]}: {str(exc)[:240]}')
 
 
+async def scheduled_wake(state, connection, now):
+    start = half_hour_start(now)
+    if not state.get('actions_inbox_since'):
+        # Switching to a half-hour cron must not reopen a backlog that already
+        # expired under the previous publisher's five-minute policy.
+        state['actions_inbox_since'] = (now - MAX_REPLY_AGE).isoformat()
+        save_and_push(state)
+    if scheduled_remaining(schedule_state(state), 'reply', now, start):
+        try:
+            await process_inbox(state, connection, scheduled_at=start)
+        except (NetworkError, TimeoutException, RequestTimeout, ServerError) as exc:
+            # An uncertain X write has a persistent outbox. Reconcile it on
+            # the next wake before publishing anything else.
+            if not delivery_open(state):
+                raise
+            summary(f'The reply inbox was unavailable ({type(exc).__name__}).')
+    now = utcnow()
+    if not scheduled_remaining(schedule_state(state), 'original', now, start):
+        return
+    slot_id = f'{start.date()}:actions-original:{2 * start.hour + start.minute // 30}'
+    if slot_id in state.get('decision_slots', {}):
+        return
+    slot = {'slot': slot_id, 'kind': 'decision', 'allowed_actions': ['original'],
+            'scheduled_at': start.isoformat(), 'expires_at': (start + HALF_HOUR).isoformat()}
+    user = await posting_account(connection)
+    try:
+        await decide(state, slot, connection, user, incoming=[])
+    except (AIRequestTimeout, AIPaused, DraftError) as exc:
+        reject(state, slot, f'Original deferred: {type(exc).__name__}.')
+
+
 async def run(event):
     start = utcnow()
     state = load()
@@ -871,9 +914,12 @@ async def run(event):
     if not delivery_open(state):
         summary('A previous publication requires reconciliation. No new send.')
         return
-    if event == 'inbox':
+    if event in ('inbox', 'scheduled'):
         try:
-            await process_inbox(state, connection)
+            if event == 'scheduled':
+                await scheduled_wake(state, connection, start)
+            else:
+                await process_inbox(state, connection)
         except TooManyRequests as exc:
             now = utcnow()
             reset = getattr(exc, 'rate_limit_reset', None)

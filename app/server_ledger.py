@@ -17,6 +17,7 @@ from .store import preserve_history, validate
 HEAD = 'qofeno_ledger_head_v1'
 PAGES = 'qofeno_ledger_pages_v1'
 LEASE = 'qofeno_server_lease_v1'
+AUTHORITY = 'qofeno_publisher_authority_v1'
 LEASE_SECONDS = 300
 FRESH_SECONDS = 120
 SCHEMA = (
@@ -24,6 +25,13 @@ SCHEMA = (
     f'CREATE TABLE IF NOT EXISTS {PAGES} (page TEXT PRIMARY KEY NOT NULL, body TEXT NOT NULL)',
     f'''CREATE TABLE IF NOT EXISTS {LEASE} (id INTEGER PRIMARY KEY CHECK (id = 1), instance TEXT NOT NULL,
         release TEXT NOT NULL, phase TEXT NOT NULL, seen INTEGER NOT NULL)''',
+    f'''CREATE TABLE IF NOT EXISTS {AUTHORITY} (id INTEGER PRIMARY KEY CHECK (id = 1),
+        owner TEXT NOT NULL, last_start INTEGER NOT NULL, last_success INTEGER)''',
+    # The old VM runs a release which knows only the original lease table.
+    # Enforce the handoff at that table so even its unmodified heartbeat is fenced.
+    f'''CREATE TRIGGER IF NOT EXISTS qofeno_github_lease_v1 BEFORE INSERT ON {LEASE}
+        WHEN NEW.instance NOT GLOB 'github-*' AND EXISTS (SELECT 1 FROM {AUTHORITY} WHERE id=1 AND owner='github')
+        BEGIN SELECT RAISE(IGNORE); END''',
 )
 LIVE_LEASE = f'EXISTS (SELECT 1 FROM {LEASE} WHERE id=1 AND instance=? AND seen > unixepoch()-{LEASE_SECONDS})'
 WINNING_WRITE = f'EXISTS (SELECT 1 FROM {HEAD} WHERE id=1 AND write_id=?)'
@@ -184,6 +192,37 @@ class ServerLedger:
             WHERE {LEASE}.instance=excluded.instance OR {LEASE}.seen <= unixepoch()-{LEASE_SECONDS}
             RETURNING id''', 'params': [instance, release, phase]}])
         return bool(result)
+
+    def claim_github(self, instance, release):
+        """Acquire the existing ledger without displacing an unexpired writer."""
+        if not re.fullmatch(r'github-[0-9a-f]{32}', instance) or not re.fullmatch(r'[0-9a-f]{40}', release):
+            raise ValueError('Invalid GitHub publishing identity.')
+        if not self.active():
+            raise MemoryUnavailable('The existing D1 publication ledger is missing. Refusing a fresh start.')
+        rows = self.query([
+            {'sql': f'''INSERT INTO {AUTHORITY}(id,owner,last_start)
+                SELECT 1,'github',unixepoch() WHERE NOT EXISTS (
+                    SELECT 1 FROM {LEASE} WHERE id=1 AND seen > unixepoch()-{LEASE_SECONDS})
+                ON CONFLICT(id) DO NOTHING'''},
+            {'sql': f'''INSERT INTO {LEASE}(id,instance,release,phase,seen)
+                SELECT 1,?,?,'active',unixepoch() WHERE EXISTS (
+                    SELECT 1 FROM {AUTHORITY} WHERE id=1 AND owner='github')
+                ON CONFLICT(id) DO UPDATE SET instance=excluded.instance, release=excluded.release,
+                    phase=excluded.phase, seen=excluded.seen
+                WHERE {LEASE}.seen <= unixepoch()-{LEASE_SECONDS} RETURNING id''', 'params': [instance, release]},
+            {'sql': f'''UPDATE {AUTHORITY} SET last_start=unixepoch()
+                WHERE id=1 AND {LIVE_LEASE}''', 'params': [instance]},
+        ])
+        return bool(rows[1])
+
+    def finish_github(self, instance):
+        done, _ = self.query([
+            {'sql': f'''UPDATE {AUTHORITY} SET last_success=unixepoch()
+                WHERE id=1 AND owner='github' AND {LIVE_LEASE} RETURNING id''', 'params': [instance]},
+            {'sql': f'DELETE FROM {LEASE} WHERE id=1 AND instance=?', 'params': [instance]},
+        ])
+        if not done:
+            raise MemoryUnavailable('GitHub lost its publishing lease before recording completion.')
 
     def release(self, instance):
         self.query([{'sql': f'DELETE FROM {LEASE} WHERE id=1 AND instance=?', 'params': [instance]}])

@@ -10,9 +10,9 @@ from twikit.errors import NotFound, TweetNotAvailable
 
 from app import editorial, mentions, sources, store
 from app.ai_budget import DAILY_LIMIT, HOURLY_LIMIT, active_pause
-from app.reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, invitation_hold
+from app.reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, SCHEDULED_REPLY_AGE, invitation_hold
 from app.reply_schedule import DAILY_REPLY_CAP, timestamp
-from scripts.azure_status import category, read_snapshot, report
+from scripts.publisher_status import category, read_snapshot, report
 
 
 SNAPSHOT_REASONS = {
@@ -47,7 +47,7 @@ def eligibility(row, state, now, own_id):
         return 'preference command'
     if set(row['source_ids']).intersection(state['used_source_ids']):
         return 'previously reserved source'
-    hold = invitation_hold(row, now)
+    hold = invitation_hold(row, now, state=state)
     if hold:
         return 'before reply cutoff' if hold == 'source predates reply activation' else hold
     if set(row['urls']).intersection(state['used_urls']):
@@ -228,7 +228,8 @@ async def main():
     if state is None:
         raise RuntimeError('D1 has no active ledger.')
     now = store.utcnow()
-    earliest = max(INBOX_START_AT, now - MAX_REPLY_AGE)
+    since = state.get('actions_inbox_since')
+    earliest = max(INBOX_START_AT, timestamp(since), now - SCHEDULED_REPLY_AGE) if since else max(INBOX_START_AT, now - MAX_REPLY_AGE)
     store.summary(f'Live mention freshness check at {now.isoformat()}. Earliest eligible incoming post: {earliest.isoformat()}.')
     replies = sum(row.get('kind') == 'reply' and timestamp(row['posted_at']).date() == now.date()
                   for row in state['history'] if row.get('verified_at') and row.get('posted_at'))

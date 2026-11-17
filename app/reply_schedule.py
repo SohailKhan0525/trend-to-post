@@ -10,6 +10,8 @@ MIN_FOLLOW_GAP = timedelta(hours=6)
 MIN_ACTIVITY_GAP = timedelta(minutes=2)
 RECHECK_GAP = timedelta(minutes=10)
 CAPS = {'reply': DAILY_REPLY_CAP, 'follow': DAILY_FOLLOW_CAP}
+SCHEDULED_TARGETS = {'reply': 70, 'original': 40}
+HALF_HOUR = timedelta(minutes=30)
 
 
 def timestamp(value):
@@ -76,6 +78,26 @@ def _publications(state):
             yield row, timestamp(when)
 
 
+def half_hour_start(now):
+    if now.tzinfo is None:
+        raise ValueError('The scheduling clock must include a timezone')
+    now = now.astimezone(timezone.utc)
+    return now.replace(minute=now.minute // 30 * 30, second=0, microsecond=0)
+
+
+def scheduled_remaining(state, kind, now, start):
+    """Bound this half hour and UTC day using actual sends, including previous publishers."""
+    if half_hour_start(now) != start or _publication_start(state, now, direct_mention=kind == 'reply') != now:
+        return 0
+    target = SCHEDULED_TARGETS[kind]
+    tick = 2 * start.hour + start.minute // 30 + 1
+    due = (tick * target + 47) // 48
+    actual = [at for row, at in _publications(state)
+              if at.date() == start.date() and ('original' if row.get('kind') == 'follow' else row.get('kind')) == kind]
+    per_wake = (target + 47) // 48
+    return max(0, min(due - len(actual), per_wake - sum(at >= start for at in actual)))
+
+
 def reply_ready(state, now):
     """Check actual UTC-day volume and provider holds when an invitation arrives."""
     if _publication_start(state, now, direct_mention=True) != now:
@@ -83,7 +105,8 @@ def reply_ready(state, now):
     day = now.astimezone(timezone.utc).date()
     count = sum(row.get('kind') == 'reply' and at.date() == day
                 for row, at in _publications(state))
-    return count < DAILY_REPLY_CAP
+    cap = SCHEDULED_TARGETS['reply'] if state.get('actions_inbox_since') else DAILY_REPLY_CAP
+    return count < cap
 
 
 def next_original(state, now, window_end=None):
