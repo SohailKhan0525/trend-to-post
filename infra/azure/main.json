@@ -1,0 +1,391 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "bootstrapCommit": {
+      "type": "string",
+      "minLength": 40,
+      "maxLength": 40,
+      "metadata": {
+        "description": "Immutable Git commit (40 lowercase hex characters) containing infra/azure/worker.py and qofeno.service. Reuse this value if redeploying the same VM."
+      }
+    },
+    "sshPublicKey": {
+      "type": "string",
+      "minLength": 64,
+      "metadata": {
+        "description": "A newly generated public SSH RSA key for OS provisioning. All inbound ports are denied. No private key or password is required here."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "centralindia",
+      "metadata": {
+        "description": "Azure region allowed by the subscription, with quota for the selected VM."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_B2ats_v2",
+      "allowedValues": [
+        "Standard_B2ats_v2",
+        "Standard_B1s"
+      ],
+      "metadata": {
+        "description": "One x64 burstable VM. Verify the matching Linux free-service meter and available quota for this subscription."
+      }
+    },
+    "githubSubject": {
+      "type": "string",
+      "defaultValue": "repo:SohailKhan0525/trend-to-post:ref:refs/heads/main",
+      "allowedValues": [
+        "repo:SohailKhan0525/trend-to-post:ref:refs/heads/main",
+        "repo:SohailKhan0525@169585715/trend-to-post@1375966045:ref:refs/heads/main"
+      ],
+      "metadata": {
+        "description": "Exact verified GitHub Actions main-branch OIDC subject."
+      }
+    }
+  },
+  "variables": {
+    "vaultName": "[concat('qofeno-', uniqueString(subscription().subscriptionId, resourceGroup().id))]",
+    "writerRole": "[guid(resourceGroup().id, 'qofeno-secret-setter')]",
+    "bootstrapLines": [
+      "#!/bin/bash",
+      "set -euo pipefail",
+      "umask 022",
+      "mkdir -p /usr/local/lib",
+      "cat >/usr/local/lib/qofeno-install <<'INSTALL'",
+      "#!/bin/bash",
+      "set -euo pipefail",
+      "umask 022",
+      "export DEBIAN_FRONTEND=noninteractive",
+      "export GIT_TERMINAL_PROMPT=0",
+      "[format('revision=$(printf %s {0} | base64 -d)', base64(parameters('bootstrapCommit')))]",
+      "[[[ \"$revision\" =~ ^[0-9a-f]{40}$ ]]",
+      "apt-get -o Acquire::Retries=3 -o DPkg::Lock::Timeout=180 update -q",
+      "apt-get -o Acquire::Retries=3 -o DPkg::Lock::Timeout=180 install -qy --no-install-recommends ca-certificates git python3-venv",
+      "getent passwd qofeno >/dev/null || useradd --system --user-group --home-dir /var/lib/qofeno --shell /usr/sbin/nologin qofeno",
+      "checkout=$(mktemp -d)",
+      "trap 'rm -rf -- \"$checkout\"' EXIT",
+      "git -C \"$checkout\" init --quiet",
+      "git -C \"$checkout\" fetch --quiet --no-tags --depth=1 https://github.com/SohailKhan0525/trend-to-post.git \"$revision\"",
+      "test \"$(git -C \"$checkout\" rev-parse FETCH_HEAD)\" = \"$revision\"",
+      "git -C \"$checkout\" show FETCH_HEAD:infra/azure/worker.py > /usr/local/lib/qofeno-worker.py",
+      "git -C \"$checkout\" show FETCH_HEAD:infra/azure/qofeno.service > /etc/systemd/system/qofeno.service",
+      "systemctl daemon-reload",
+      "systemctl enable --now qofeno.service",
+      "touch /var/lib/qofeno-installed",
+      "INSTALL",
+      "chmod 0755 /usr/local/lib/qofeno-install",
+      "[format('echo QOFENO_VAULT={0} > /etc/qofeno-vault', variables('vaultName'))]",
+      "cat >/etc/systemd/system/qofeno-install.service <<'UNIT'",
+      "[[Unit]",
+      "Description=Install pinned Qofeno service",
+      "Wants=network-online.target",
+      "After=network-online.target",
+      "ConditionPathExists=!/var/lib/qofeno-installed",
+      "StartLimitIntervalSec=0",
+      "[[Service]",
+      "Type=oneshot",
+      "ExecStart=/usr/local/lib/qofeno-install",
+      "Restart=on-failure",
+      "RestartSec=60",
+      "[[Install]",
+      "WantedBy=multi-user.target",
+      "UNIT",
+      "systemctl daemon-reload",
+      "systemctl enable --now --no-block qofeno-install.service",
+      ""
+    ]
+  },
+  "resources": [
+    {
+      "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+      "apiVersion": "2023-01-31",
+      "name": "qofeno-deploy",
+      "location": "[parameters('location')]",
+      "tags": {
+        "application": "qofeno"
+      },
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials",
+      "apiVersion": "2023-01-31",
+      "name": "qofeno-deploy/github-main",
+      "dependsOn": [
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'qofeno-deploy')]"
+      ],
+      "properties": {
+        "issuer": "https://token.actions.githubusercontent.com",
+        "subject": "[parameters('githubSubject')]",
+        "audiences": [
+          "api://AzureADTokenExchange"
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults",
+      "apiVersion": "2023-07-01",
+      "name": "[variables('vaultName')]",
+      "location": "[parameters('location')]",
+      "tags": {
+        "application": "qofeno"
+      },
+      "properties": {
+        "tenantId": "[subscription().tenantId]",
+        "sku": {
+          "family": "A",
+          "name": "standard"
+        },
+        "accessPolicies": [],
+        "enableRbacAuthorization": true,
+        "softDeleteRetentionInDays": 7,
+        "publicNetworkAccess": "Enabled",
+        "enableSoftDelete": true
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleDefinitions",
+      "apiVersion": "2022-04-01",
+      "name": "[variables('writerRole')]",
+      "properties": {
+        "roleName": "[concat('Qofeno secret publisher ', uniqueString(resourceGroup().id))]",
+        "description": "Set secret values in the dedicated Qofeno runtime vault.",
+        "type": "CustomRole",
+        "permissions": [
+          {
+            "actions": [],
+            "notActions": [],
+            "dataActions": [
+              "Microsoft.KeyVault/vaults/secrets/setSecret/action"
+            ],
+            "notDataActions": []
+          }
+        ],
+        "assignableScopes": [
+          "[resourceGroup().id]"
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[guid(resourceGroup().id, variables('vaultName'), 'qofeno-github-writer')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.KeyVault/vaults', variables('vaultName'))]",
+        "[resourceId('Microsoft.Authorization/roleDefinitions', variables('writerRole'))]",
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'qofeno-deploy')]"
+      ],
+      "scope": "[format('Microsoft.KeyVault/vaults/{0}', variables('vaultName'))]",
+      "properties": {
+        "principalType": "ServicePrincipal",
+        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities','qofeno-deploy'),'2023-01-31').principalId]",
+        "roleDefinitionId": "[reference(resourceId('Microsoft.Authorization/roleDefinitions', variables('writerRole')), '2022-04-01', 'Full').id]"
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "apiVersion": "2024-05-01",
+      "name": "qofeno-nsg",
+      "location": "[parameters('location')]",
+      "tags": {
+        "application": "qofeno"
+      },
+      "properties": {
+        "securityRules": [
+          {
+            "name": "DenyAllInbound",
+            "properties": {
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Deny",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2024-05-01",
+      "name": "qofeno-vnet",
+      "location": "[parameters('location')]",
+      "tags": {
+        "application": "qofeno"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', 'qofeno-nsg')]"
+      ],
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.84.0.0/24"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "worker",
+            "properties": {
+              "addressPrefix": "10.84.0.0/27",
+              "defaultOutboundAccess": false,
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'qofeno-nsg')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2024-05-01",
+      "name": "qofeno-egress",
+      "location": "[parameters('location')]",
+      "tags": {
+        "application": "qofeno"
+      },
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static",
+        "publicIPAddressVersion": "IPv4"
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2024-05-01",
+      "name": "qofeno-nic",
+      "location": "[parameters('location')]",
+      "tags": {
+        "application": "qofeno"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'qofeno-vnet')]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', 'qofeno-egress')]"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "primary",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'qofeno-vnet', 'worker')]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'qofeno-egress')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2024-07-01",
+      "name": "qofeno-worker",
+      "location": "[parameters('location')]",
+      "tags": {
+        "application": "qofeno"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', 'qofeno-nic')]"
+      ],
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('vmSize')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "Canonical",
+            "offer": "ubuntu-24_04-lts",
+            "sku": "server",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "qofeno-os",
+            "createOption": "FromImage",
+            "deleteOption": "Delete",
+            "caching": "ReadWrite",
+            "diskSizeGB": 64,
+            "managedDisk": {
+              "storageAccountType": "Premium_LRS"
+            }
+          }
+        },
+        "osProfile": {
+          "computerName": "qofeno-worker",
+          "adminUsername": "qofenoadmin",
+          "customData": "[base64(join(variables('bootstrapLines'), uriComponentToString('%0A')))]",
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": true,
+            "provisionVMAgent": true,
+            "ssh": {
+              "publicKeys": [
+                {
+                  "path": "/home/qofenoadmin/.ssh/authorized_keys",
+                  "keyData": "[parameters('sshPublicKey')]"
+                }
+              ]
+            }
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'qofeno-nic')]",
+              "properties": {
+                "primary": true,
+                "deleteOption": "Delete"
+              }
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[guid(resourceGroup().id, variables('vaultName'), 'qofeno-vm-reader')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.KeyVault/vaults', variables('vaultName'))]",
+        "[resourceId('Microsoft.Compute/virtualMachines', 'qofeno-worker')]"
+      ],
+      "scope": "[format('Microsoft.KeyVault/vaults/{0}', variables('vaultName'))]",
+      "properties": {
+        "principalType": "ServicePrincipal",
+        "principalId": "[reference(resourceId('Microsoft.Compute/virtualMachines','qofeno-worker'),'2024-07-01','Full').identity.principalId]",
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '4633458b-17de-408a-b874-0445c86b69e6')]"
+      }
+    }
+  ],
+  "outputs": {
+    "githubTarget": {
+      "type": "object",
+      "value": {
+        "tenant_id": "[subscription().tenantId]",
+        "client_id": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities','qofeno-deploy'),'2023-01-31').clientId]",
+        "vault_name": "[variables('vaultName')]"
+      }
+    },
+    "outboundIPv4": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses','qofeno-egress'),'2024-05-01').ipAddress]"
+    }
+  }
+}
