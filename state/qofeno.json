@@ -2712,6 +2712,37 @@
       "posted_at": "2026-11-17T04:34:48+00:00",
       "completed_at": "2026-11-17T04:34:48+00:00",
       "verified_at": "2026-11-17T04:34:49.956033+00:00"
+    },
+    {
+      "text": "Does the agent handle the system setup automatically?",
+      "event_key": "Antithesis releases coding agent plugin and Teams plan.",
+      "premise": "Antithesis launched a plugin for coding agents to automate the end-to-end testing and debugging workflow.",
+      "slot": "2026-11-17:reply-v1:10",
+      "kind": "reply",
+      "author_id": "2066783200215699456",
+      "reserved_at": "2026-11-17T05:15:02.049992+00:00",
+      "source": {
+        "id": "2122329233905070188",
+        "url": "https://x.com/AntithesisHQ/status/2122329233905070188",
+        "author": "AntithesisHQ",
+        "author_id": "1559998615908671490",
+        "text": "Today we're making it radically easier for developers everywhere to deliver bug-free software. \n\nFirst, we’re launching an Antithesis plugin that gives you native access to Antithesis right from your coding agent. It handles the Antithesis workflow end-to-end, from system setup to test creation to debugging and validating fixes.\n\nHere's the plugin at work. Check out the prompt: \"/antithesis test HashiCorp Raft for bugs.\" Our announcement has more on the results. \n\nAnd now that your coding agent is an expert in Antithesis, our new Teams plan offers low-cost, self-serve access to Antithesis for just $2,999 a month, with an early-access offer of 25% off your first month. \n\nSign up for Teams: https://t.co/aF5CdNFFCz \nAnnouncement: https://t.co/00NbRLFjSW \nPlugin repo: https://t.co/yMnVCdz66Y",
+        "created_at": "2026-11-16T14:01:34+00:00",
+        "views": 10760,
+        "urls": [
+          "https://antithesis.com/product/signup/teams",
+          "https://antithesis.com/blog/2026/plugin-launch",
+          "https://github.com/antithesishq/antithesis-plugin"
+        ],
+        "source_ids": [
+          "2122329233905070188"
+        ]
+      },
+      "tweet_id": "2122559117546172866",
+      "sent_at": "2026-11-17T05:15:03.438607+00:00",
+      "posted_at": "2026-11-17T05:15:03+00:00",
+      "completed_at": "2026-11-17T05:15:03+00:00",
+      "verified_at": "2026-11-17T05:15:05.369286+00:00"
     }
   ],
   "used_source_ids": [
@@ -3593,7 +3624,7 @@
     "ffa2fd944574871e8bb61aff9b4b0d377736db58efefee0ba738fc3ff4a901c7",
     "ffb3b940f8ffe88579f5a445b447e809ebfd8205ddc3eb07281c34b34ea82bf1"
   ],
-  "last_posted_at": "2026-11-17T04:34:48+00:00",
+  "last_posted_at": "2026-11-17T05:15:03+00:00",
   "pending": null,
   "check_session": false,
   "candidate_cursor": 0,
@@ -4072,6 +4103,12 @@
       "kind": "reply",
       "completed_at": "2026-11-17T04:34:48+00:00",
       "tweet_id": "2122548987383406860"
+    },
+    {
+      "slot": "2026-11-17:reply-v1:10",
+      "kind": "reply",
+      "completed_at": "2026-11-17T05:15:03+00:00",
+      "tweet_id": "2122559117546172866"
     }
   ],
   "last_attempts": {
@@ -4100,34 +4137,7 @@
       "until": "2026-11-17T08:34:57.100237+00:00"
     }
   },
-  "outbox": {
-    "text": "Does the agent handle the system setup automatically?",
-    "event_key": "Antithesis releases coding agent plugin and Teams plan.",
-    "premise": "Antithesis launched a plugin for coding agents to automate the end-to-end testing and debugging workflow.",
-    "slot": "2026-11-17:reply-v1:10",
-    "kind": "reply",
-    "author_id": "2066783200215699456",
-    "reserved_at": "2026-11-17T05:15:02.049992+00:00",
-    "source": {
-      "id": "2122329233905070188",
-      "url": "https://x.com/AntithesisHQ/status/2122329233905070188",
-      "author": "AntithesisHQ",
-      "author_id": "1559998615908671490",
-      "text": "Today we're making it radically easier for developers everywhere to deliver bug-free software. \n\nFirst, we’re launching an Antithesis plugin that gives you native access to Antithesis right from your coding agent. It handles the Antithesis workflow end-to-end, from system setup to test creation to debugging and validating fixes.\n\nHere's the plugin at work. Check out the prompt: \"/antithesis test HashiCorp Raft for bugs.\" Our announcement has more on the results. \n\nAnd now that your coding agent is an expert in Antithesis, our new Teams plan offers low-cost, self-serve access to Antithesis for just $2,999 a month, with an early-access offer of 25% off your first month. \n\nSign up for Teams: https://t.co/aF5CdNFFCz \nAnnouncement: https://t.co/00NbRLFjSW \nPlugin repo: https://t.co/yMnVCdz66Y",
-      "created_at": "2026-11-16T14:01:34+00:00",
-      "views": 10760,
-      "urls": [
-        "https://antithesis.com/product/signup/teams",
-        "https://antithesis.com/blog/2026/plugin-launch",
-        "https://github.com/antithesishq/antithesis-plugin"
-      ],
-      "source_ids": [
-        "2122329233905070188"
-      ]
-    },
-    "tweet_id": "2122559117546172866",
-    "sent_at": "2026-11-17T05:15:03.438607+00:00"
-  },
+  "outbox": null,
   "delivery_rejections": [
     {
       "send_error": "CouldNotTweet",
