@@ -1,4 +1,4 @@
-"""One source-grounded reply per 30 minutes, plus two own-profile prompts.
+"""Autonomous public conversations and original posts for Qofeno.
 
 Every send is durably reserved first. Unknown outcomes block publication rather
 than retrying. Native X permission and rate-limit failures are never bypassed.
@@ -11,10 +11,11 @@ import unicodedata
 from datetime import datetime, timedelta, timezone
 
 from twikit.errors import CouldNotTweet, Forbidden, NotFound, TooManyRequests, TweetNotAvailable
-from . import follow_writer, reply_writer, sources
+from . import personality, reply_writer, sources
+from .memory import Memory
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError, selected_model
-from .reply_schedule import next_slot, timestamp
+from .reply_schedule import next_decision, next_slot, timestamp
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
 
 STAGE = {'name': 'startup', 'source_id': None}
@@ -89,7 +90,7 @@ def upcoming_opportunity(state, now):
     midnight = now.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
     # next_slot evaluates one UTC calendar day, including the actual publication
     # times and retry delays. The next day may be the first with an unused slot.
-    found = next_slot(scheduled, now, midnight) or next_slot(scheduled, midnight, midnight + timedelta(days=1))
+    found = next_decision(scheduled, now, midnight) or next_decision(scheduled, midnight, midnight + timedelta(days=1))
     if not found:
         return 'No eligible research opportunity in the current or following UTC day.'
     slot, ready = found
@@ -141,7 +142,7 @@ async def recover_missing_id(state, connection):
     # incident from an empty or truncated response. Pinned rows can be old.
     anchor = next((row['tweet_id'] for row in reversed(state['history'])
                    if row.get('verified_at') and row.get('tweet_id') and row.get('posted_at')
-                   and (feed == 'Replies' or row.get('kind') == 'follow')
+                   and (feed == 'Replies' or row.get('kind') in ('follow', 'original'))
                    and timestamp(row['posted_at']) < reserved), None)
     matches = set()
     covered = False
@@ -249,7 +250,12 @@ async def send_once(state, slot, draft, connection, user, source=None):
         summary('Publication paused for reconciliation; no send.')
         return
     # Recheck after generation/refresh, including daily caps and spacing.
-    due = next_slot(schedule_state(state), utcnow())
+    if 'allowed_actions' in slot:
+        due = next_decision(schedule_state(state), utcnow())
+        if due and slot['kind'] not in due[0]['allowed_actions']:
+            due = None
+    else:
+        due = next_slot(schedule_state(state), utcnow())
     if not due or due[0]['slot'] != slot['slot']:
         reject(state, slot, 'Opportunity changed during research; no send.')
         return
@@ -264,14 +270,14 @@ async def send_once(state, slot, draft, connection, user, source=None):
             reject(state, slot, 'Source or author was already used; no send.')
             return
     elif source is not None:
-        raise ValueError('An own follow post must not have a reply source')
+        raise ValueError('A standalone post cannot have a reply source')
     reserved = {**draft, 'slot': slot['slot'], 'kind': slot['kind'], 'author_id': str(user.id),
                 'reserved_at': utcnow().isoformat()}
     if source:
         reserved['source'] = source
         state['used_source_ids'] = sorted(set(state['used_source_ids'] + source['source_ids']))
         state['used_urls'] = sorted(set(state['used_urls'] + source['urls']))
-        state['used_events'] = sorted(set(state['used_events'] + [reply_writer.fingerprint(draft['event_key'])]))
+    state['used_events'] = sorted(set(state['used_events'] + [reply_writer.fingerprint(draft['event_key'])]))
     state['outbox'] = reserved
     state['used_texts'] = sorted(set(state['used_texts'] + [reply_writer.fingerprint(draft['text'])]))
     save_and_push(state)  # Remote reservation must succeed before the public side effect.
@@ -324,9 +330,8 @@ async def send_once(state, slot, draft, connection, user, source=None):
     await verify_delivery(state, connection)
 
 
-async def publish_reply(state, slot, connection, user):
-    stage('discover reply sources')
-    candidates = await sources.discover(connection, state, utcnow())
+async def publish_reply(state, slot, connection, user, *, selected=None, memory=None, angle=''):
+    candidates = [selected] if selected is not None else await sources.discover(connection, state, utcnow())
     now = utcnow()
     rejections = state['reply_rejections'] = {
         key: value for key, value in state.get('reply_rejections', {}).items()
@@ -346,7 +351,7 @@ async def publish_reply(state, slot, connection, user):
                 continue
             stage('write contextual reply', candidate['id'])
             with budget_scope(state, save_and_push, utcnow):
-                draft = reply_writer.generate(fresh, state, utcnow())
+                draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
             final = sources.snapshot(await connection.get_tweet_by_id(candidate['id']), utcnow())
             if not unchanged(fresh, final):
@@ -381,18 +386,58 @@ async def publish_reply(state, slot, connection, user):
         reject(state, slot, 'No fresh, distinct 10,000+ view source passed this check. No reply sent.')
 
 
-async def publish_follow(state, slot, connection, user):
-    stage('write own follow post')
+async def publish_original(state, slot, connection, user, plan, memory_context):
+    stage('write original post')
     try:
         with budget_scope(state, save_and_push, utcnow):
-            draft = follow_writer.generate(state, utcnow())
+            draft = personality.original(plan, memory_context, state, utcnow())
     except AIRequestTimeout:
-        reject(state, slot, 'Cloudflare timed out preparing the follow post. Deferred before sending.')
+        reject(state, slot, 'Cloudflare timed out preparing the original post. Deferred before sending.')
         return
     except AIRequestTooLarge as exc:
-        reject(state, slot, f'Deferred follow post: request needs {exc.needed} estimated neurons, {exc.remaining} available this hour.')
+        reject(state, slot, f'Deferred original: request needs {exc.needed} estimated neurons, {exc.remaining} available this hour.')
         return
     await send_once(state, slot, draft, connection, user)
+
+
+async def decide(state, slot, connection, user):
+    stage('sync verified publications to D1')
+    memory = Memory.connect()
+    memory.sync(state['history'])
+    stage('discover public conversations')
+    now = utcnow()
+    candidates = await sources.discover(connection, state, now)
+    cached = state.get('reply_rejections', {})
+    candidates = [c for c in candidates if c['author_id'] != str(user.id) and eligible_author(c, state, now)
+                  and (rejection_key(c) not in cached or timestamp(cached[rejection_key(c)]['until']) <= now)]
+    shortlist = sources.shortlist(candidates, now)
+    context = memory.context(shortlist)
+    stage('choose original, reply or silence')
+    with budget_scope(state, save_and_push, utcnow):
+        plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'])
+    action = plan['action']
+    if action == 'silent':
+        today = now.date().isoformat()
+        decisions = {k: v for k, v in state.get('decision_slots', {}).items() if k.startswith(today)}
+        decisions[slot['slot']] = {'action': 'silent', 'at': utcnow().isoformat()}
+        state['decision_slots'] = decisions
+        save_and_push(state)
+        summary('Qofeno chose silence for this opportunity.')
+        return
+    if action not in slot['allowed_actions']:
+        raise DraftError('Decision exceeds the current publishing limits')
+    before = len(state['history'])
+    chosen_slot = {**slot, 'kind': action}
+    if action == 'reply':
+        source = next((row for row in shortlist if row['id'] == plan['source_id']), None)
+        if source is None:
+            raise DraftError('Decision names a source outside the checked shortlist')
+        await publish_reply(state, chosen_slot, connection, user, selected=source, memory=context, angle=plan['angle'])
+    else:
+        await publish_original(state, chosen_slot, connection, user, plan, context)
+    if len(state['history']) > before:
+        stage('remember verified publication')
+        memory.sync(state['history'])
 
 
 async def run(event):
@@ -421,35 +466,32 @@ async def run(event):
     window = None
     if event == 'repository_dispatch':
         window = start.replace(minute=start.minute // 30 * 30, second=0, microsecond=0) + timedelta(minutes=30)
-    summary('Mode: at most one contextual reply per 30 minutes + two own follow posts/day. Workers AI: ' + selected_model())
-    for _ in range(3 if window else 1):
-        state = load()
-        now = utcnow()
-        hold = publication_hold(state, now)
-        if hold:
-            summary(hold)
-            return
-        found = next_slot(schedule_state(state), now, window)
-        if not found:
-            summary(upcoming_opportunity(state, now))
-            return
-        slot, ready = found
-        if ready > now:
-            summary(f'Waiting until {ready.isoformat()} to begin research for a {slot["kind"]}.')
-        while (wait := (ready - utcnow()).total_seconds()) > 0:
-            await asyncio.sleep(min(wait, 30))
-        if utcnow() >= timestamp(slot['expires_at']):
-            continue
-        try:
-            if slot['kind'] == 'reply':
-                await publish_reply(state, slot, connection, user)
-            else:
-                await publish_follow(state, slot, connection, user)
-        except AIPaused as exc:
-            reject(state, slot, f'AI paused until {exc.until.isoformat()}: {exc.reason}')
-            return
-        except DraftError as exc:
-            reject(state, slot, f'No approved wording: {str(exc)[:240]}')
+    summary('Autonomous Qofeno decision. Workers AI model ' + selected_model())
+    state = load()
+    now = utcnow()
+    hold = publication_hold(state, now)
+    if hold:
+        summary(hold)
+        return
+    found = next_decision(schedule_state(state), now, window)
+    if not found:
+        summary(upcoming_opportunity(state, now))
+        return
+    slot, ready = found
+    if ready > now:
+        summary(f'Waiting until {ready.isoformat()} to begin research for a decision.')
+    while (wait := (ready - utcnow()).total_seconds()) > 0:
+        await asyncio.sleep(min(wait, 30))
+    if utcnow() >= timestamp(slot['expires_at']):
+        return
+    try:
+        await decide(state, slot, connection, user)
+    except AIRequestTimeout:
+        reject(state, slot, 'Workers AI timed out while preparing the decision. No new send.')
+    except AIPaused as exc:
+        reject(state, slot, f'AI deferred until {exc.until.isoformat()}: {exc.reason}')
+    except DraftError as exc:
+        reject(state, slot, f'No approved decision or wording: {str(exc)[:240]}')
 
 
 async def inspect():

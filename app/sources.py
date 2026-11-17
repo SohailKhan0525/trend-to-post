@@ -287,6 +287,43 @@ def search_plan(now):
     return plan
 
 
+def shortlist(candidates, now, limit=4):
+    """Select distinct authors across search topics, favoring recent measured reach.
+
+    The views-per-hour estimate is a lifetime average from one public snapshot.
+    A one-hour age floor prevents a post only seconds old from dominating.
+    The first turn follows the search order that discover rotates each half hour.
+    """
+    current = _utc(now, "invalid current timestamp")
+    groups = {}
+    for candidate in candidates:
+        try:
+            candidate = validate(candidate, current)
+        except SourceError:
+            continue
+        age_hours = (current - _utc(candidate["created_at"], "invalid source timestamp")).total_seconds() / 3600
+        reach_per_hour = candidate["views"] / max(1, age_hours)
+        groups.setdefault(candidate.get("discovery_query"), []).append((reach_per_hour, candidate))
+
+    ranked_groups = [iter(sorted(group, key=lambda pair: pair[0], reverse=True))
+                     for group in groups.values()]
+    selected = []
+    authors = set()
+    while len(selected) < limit:
+        previous = len(selected)
+        for group in ranked_groups:
+            for _, candidate in group:
+                if candidate["author_id"] not in authors:
+                    selected.append(candidate)
+                    authors.add(candidate["author_id"])
+                    break
+            if len(selected) == limit:
+                return selected
+        if len(selected) == previous:
+            break
+    return selected
+
+
 async def discover(connection, state, now):
     """Run four sequential topic searches; return unseen eligible snapshots.
 
@@ -328,6 +365,7 @@ async def discover(connection, state, now):
                 continue
             used_ids.update(candidate["source_ids"])
             used_urls.update(candidate["urls"])
+            candidate["discovery_query"] = index
             batch.append(candidate)
         batch.sort(key=lambda candidate: candidate["created_at"], reverse=True)
         print(f"Source query {index} ({product}): "
@@ -337,14 +375,13 @@ async def discover(connection, state, now):
               f"duplicates={counts['duplicates'] - before.get('duplicates', 0)}")
     if len(unavailable) == len(queries):
         raise unavailable[-1]
-    # The writer reviews at most four candidates. Give each nonempty search a
-    # turn before its second result, and rotate the first turn each half hour.
+    # Rotate which topic gets the first turn each half hour. Keep every eligible
+    # result here so the planner can shortlist after accounting for recent contacts.
     first = int(current.timestamp() // 1800) % len(batches)
     batches = batches[first:] + batches[:first]
     candidates = [item for round_ in zip_longest(*batches) for item in round_ if item is not None]
     print(f"Source discovery: examined={counts['examined']} eligible={len(candidates)} "
-          f"ineligible={counts['ineligible']} duplicates={counts['duplicates']}; "
-          "One contextual reply per 30 minutes is subject to source availability and native X access.")
+          f"ineligible={counts['ineligible']} duplicates={counts['duplicates']}.")
     if rejections:
         print("Source exclusions: " + " ".join(f"{reason}={count}" for reason, count in sorted(rejections.items())))
     return candidates

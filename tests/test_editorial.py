@@ -19,6 +19,9 @@ SOURCE = {
 }
 DRAFT = {'text': 'Does it keep the explanation useful when the diff touches several packages?',
          'event_key': 'acme-editor-explanations'}
+ORIGINAL = {'text': 'A silent build feels longest just before the first error.',
+            'event_key': 'silent builds before first errors'}
+PLAN = {'action': 'original', 'source_id': '', 'angle': 'The silence before a failed build.'}
 FOLLOW = {'text': 'Follow for coding-tool questions that survive a second look.',
           'event_key': 'follow-coding-tool-questions'}
 
@@ -51,7 +54,7 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
 
     def connection(self, kind='reply'):
         post = SimpleNamespace(id='333', user=self.user,
-                               full_text=(DRAFT if kind == 'reply' else FOLLOW)['text'],
+                               full_text={'reply': DRAFT, 'original': ORIGINAL, 'follow': FOLLOW}[kind]['text'],
                                in_reply_to='111' if kind == 'reply' else None)
         return SimpleNamespace(user=AsyncMock(return_value=self.user),
                                get_user_by_screen_name=AsyncMock(return_value=self.user),
@@ -142,11 +145,11 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
                     await editorial.publish_reply(copy.deepcopy(self.saved), self.slot, connection, self.user)
                     generate.assert_not_called()
 
-    async def test_follow_generation_timeout_precedes_x_reservation(self):
-        state, connection = empty(), self.connection('follow')
-        slot = next(row for row in self.plan if row['kind'] == 'follow')
-        with patch.object(editorial.follow_writer, 'generate', side_effect=editorial.AIRequestTimeout()):
-            await editorial.publish_follow(state, slot, connection, self.user)
+    async def test_original_generation_timeout_precedes_x_reservation(self):
+        state, connection = empty(), self.connection('original')
+        slot = {**self.slot, 'kind': 'original', 'allowed_actions': ['original', 'reply']}
+        with patch.object(editorial.personality, 'original', side_effect=editorial.AIRequestTimeout()):
+            await editorial.publish_original(state, slot, connection, self.user, PLAN, {})
         connection.create_tweet.assert_not_awaited()
         self.assertFalse(self.saved.get('outbox'))
         self.assertIn('timed out', self.saved['last_attempts'][slot['slot']]['reason'])
@@ -170,17 +173,15 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         connection.get_tweet_by_id.assert_not_awaited()
         connection.create_tweet.assert_not_awaited()
 
-    async def test_follow_has_no_reply_parent_or_quote_attachment(self):
-        state, connection = empty(), self.connection('follow')
-        slot = next(row for row in self.plan if row['kind'] == 'follow')
-        self.now = timestamp(slot['due_at']) + timedelta(seconds=1)
-        previous = [row for row in self.plan if row['kind'] == 'reply'
-                    and timestamp(row['due_at']) < self.now][-1]
-        state['editorial_history'] = [{**previous, 'completed_at': previous['due_at']}]
-        with patch.object(editorial.follow_writer, 'generate', return_value=FOLLOW):
-            await editorial.publish_follow(state, slot, connection, self.user)
-        connection.create_tweet.assert_awaited_once_with(text=FOLLOW['text'])
-        self.assertEqual(self.saved['history'][0]['kind'], 'follow')
+    async def test_original_has_no_reply_parent_or_quote_attachment(self):
+        state, connection = empty(), self.connection('original')
+        slot = {**self.slot, 'kind': 'original', 'allowed_actions': ['original', 'reply']}
+        memory = {'recent_own': []}
+        with patch.object(editorial.personality, 'original', return_value=ORIGINAL) as write:
+            await editorial.publish_original(state, slot, connection, self.user, PLAN, memory)
+        write.assert_called_once_with(PLAN, memory, state, self.now)
+        connection.create_tweet.assert_awaited_once_with(text=ORIGINAL['text'])
+        self.assertEqual(self.saved['history'][0]['kind'], 'original')
         self.assertNotIn('source', self.saved['history'][0])
 
     async def test_failed_reservation_persistence_prevents_send(self):
@@ -229,7 +230,7 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(self.saved['outbox'])
         self.assertEqual(timestamp(self.saved['x_pause_until']), self.now+timedelta(minutes=30))
         with patch.object(editorial, 'client', return_value=connection), \
-             patch.object(editorial, 'publish_reply', AsyncMock()) as publish:
+             patch.object(editorial, 'decide', AsyncMock()) as publish:
             await editorial.run('push')
         publish.assert_not_awaited()
         connection.create_tweet.assert_awaited_once()
@@ -241,11 +242,9 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
                 state[key] = self.pending() if key == 'outbox' else {'status': 'unresolved'}
                 self.persist(state)
                 with patch.object(editorial, 'client', return_value=connection), \
-                     patch.object(editorial, 'publish_reply', AsyncMock()) as reply, \
-                     patch.object(editorial, 'publish_follow', AsyncMock()) as follow:
+                     patch.object(editorial, 'decide', AsyncMock()) as decision:
                     await editorial.run('push')
-                reply.assert_not_awaited()
-                follow.assert_not_awaited()
+                decision.assert_not_awaited()
                 connection.user.assert_not_awaited()
                 connection.create_tweet.assert_not_awaited()
 
@@ -253,12 +252,10 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         connection = self.connection()
         connection.get_user_by_screen_name.return_value = SimpleNamespace(id='666', screen_name='someone_else')
         with patch.object(editorial, 'client', return_value=connection), \
-             patch.object(editorial, 'publish_reply', AsyncMock()) as reply, \
-             patch.object(editorial, 'publish_follow', AsyncMock()) as follow:
+             patch.object(editorial, 'decide', AsyncMock()) as decision:
             with self.assertRaises(editorial.SessionUnavailable):
                 await editorial.run('push')
-        reply.assert_not_awaited()
-        follow.assert_not_awaited()
+        decision.assert_not_awaited()
         connection.create_tweet.assert_not_awaited()
 
     async def test_expired_slot_never_reserves_or_sends(self):
@@ -306,12 +303,12 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
                 connection.get_tweet_by_id.assert_not_awaited()
 
     async def test_missing_id_found_on_second_page_is_persisted_before_exact_readback(self):
-        for kind, feed in (('reply', 'Replies'), ('follow', 'Tweets')):
+        for kind, feed in (('reply', 'Replies'), ('follow', 'Tweets'), ('original', 'Tweets')):
             with self.subTest(kind=kind):
                 state, connection = empty(), self.connection(kind)
                 pending = self.pending()
-                if kind == 'follow':
-                    pending.update(FOLLOW, kind=kind)
+                if kind != 'reply':
+                    pending.update(FOLLOW if kind == 'follow' else ORIGINAL, kind=kind)
                     del pending['source']
                 state['outbox'] = pending
                 post = connection.create_tweet.return_value
@@ -474,13 +471,14 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
     async def test_push_wake_uses_current_slot_without_forcing_future_send(self):
         connection = self.connection()
         with patch.object(editorial, 'client', return_value=connection), \
-             patch.object(editorial, 'publish_reply', AsyncMock()) as reply, \
-             patch.object(editorial, 'publish_follow', AsyncMock()) as follow, \
+             patch.object(editorial, 'decide', AsyncMock()) as decision, \
              patch.object(editorial.asyncio, 'sleep', AsyncMock()) as sleep:
             await editorial.run('push')
-        reply.assert_awaited_once()
-        self.assertEqual(reply.await_args.args[1]['slot'], self.slot['slot'])
-        follow.assert_not_awaited()
+        decision.assert_awaited_once()
+        opportunity = decision.await_args.args[1]
+        self.assertEqual(opportunity['slot'], self.slot['slot'])
+        self.assertEqual(opportunity['kind'], 'decision')
+        self.assertEqual(set(opportunity['allowed_actions']), {'reply', 'original'})
         sleep.assert_not_awaited()
 
     async def test_inspect_and_idle_wake_report_spacing_from_verified_publication(self):
@@ -493,14 +491,14 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         self.now += timedelta(minutes=12)
         expected = (published + timedelta(minutes=30)).isoformat()
         with patch.object(editorial, 'client', return_value=connection) as client, \
-                patch.object(editorial, 'publish_reply', new_callable=AsyncMock) as reply, \
+                patch.object(editorial, 'decide', new_callable=AsyncMock) as decision, \
                 patch.object(editorial.asyncio, 'sleep', new_callable=AsyncMock) as sleep:
             await editorial.inspect()
             self.assertIn(expected, editorial.summary.call_args.args[0])
             client.assert_not_called()
             await editorial.run('push')
             self.assertIn(expected, editorial.summary.call_args.args[0])
-            reply.assert_not_awaited()
+            decision.assert_not_awaited()
             sleep.assert_not_awaited()
         connection.create_tweet.assert_not_awaited()
         self.assertEqual(self.saves, [])
@@ -520,22 +518,21 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         self.now = due - timedelta(seconds=65)
         previous = [row for row in self.plan if row['kind'] == 'reply'][1]
         self.saved['editorial_history'] = [{**previous, 'completed_at': previous['due_at']}]
-        waiting = f'Waiting until {due.isoformat()} to begin research for a reply.'
+        def wait_messages():
+            return [call.args[0] for call in editorial.summary.call_args_list
+                    if due.isoformat() in call.args[0]]
 
         async def sleep(seconds):
-            editorial.summary.assert_any_call(waiting)
+            self.assertEqual(len(wait_messages()), 1)
             self.now += timedelta(seconds=seconds)
 
-        async def finish_slot(state, slot, connection, user):
-            self.saved['editorial_history'] = [{**slot, 'completed_at': self.now.isoformat()}]
-
         with patch.object(editorial, 'client', return_value=self.connection()), \
-                patch.object(editorial, 'publish_reply', side_effect=finish_slot) as publish, \
+                patch.object(editorial, 'decide', new_callable=AsyncMock) as decision, \
                 patch.object(editorial.asyncio, 'sleep', side_effect=sleep) as sleeper:
             await editorial.run('repository_dispatch')
-        publish.assert_awaited_once()
+        decision.assert_awaited_once()
         self.assertGreater(sleeper.await_count, 1)
-        self.assertEqual([call.args[0] for call in editorial.summary.call_args_list].count(waiting), 1)
+        self.assertEqual(len(wait_messages()), 1)
 
     async def test_inspect_identifies_holds_before_reporting_a_slot(self):
         self.saved['x_pause_until'] = (self.now + timedelta(minutes=5)).isoformat()
@@ -555,11 +552,9 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         state['ai_pause'] = {'until': (self.now+timedelta(hours=1)).isoformat(), 'reason': 'quota'}
         self.persist(state)
         with patch.object(editorial, 'client', return_value=connection), \
-             patch.object(editorial, 'publish_reply', AsyncMock()) as reply, \
-             patch.object(editorial, 'publish_follow', AsyncMock()) as follow:
+             patch.object(editorial, 'decide', AsyncMock()) as decision:
             await editorial.run('push')
-        reply.assert_not_awaited()
-        follow.assert_not_awaited()
+        decision.assert_not_awaited()
         connection.create_tweet.assert_not_awaited()
 
 

@@ -5,6 +5,7 @@ source eligibility, actual-send spacing and independent daily caps always apply.
 """
 import random
 from datetime import date, datetime, timedelta, timezone
+from .ai_budget import active_pause
 
 DAILY_REPLY_CAP = 48
 DAILY_FOLLOW_CAP = 2
@@ -46,6 +47,79 @@ def daily_plan(day):
     return sorted(plan, key=lambda item: item['due_at'])
 
 
+def _retry_ready(state, slot_id, ready):
+    attempts = [state.get('last_attempts', {}).get(slot_id)]
+    legacy = state.get('last_attempt') or {}
+    if legacy.get('slot') == slot_id:
+        attempts.append(legacy)
+    for attempt in attempts:
+        if attempt and attempt.get('at'):
+            ready = max(ready, timestamp(attempt['at']) + RECHECK_GAP)
+    return ready
+
+
+def next_decision(state, now, window_end=None):
+    """Return one live half-hour opportunity and the types of publication it permits.
+
+    The model may always stay silent. A recorded decision consumes that opportunity.
+    Limits use actual publication times and include posts made by earlier publishers.
+    """
+    if any(state.get(key) for key in ('pending', 'pending_reply', 'follow_pending', 'outbox',
+                                      'verification_pending', 'pause_reason')):
+        return None
+    if now.tzinfo is None or (window_end is not None and window_end.tzinfo is None):
+        raise ValueError('The scheduling clock and window must include a timezone')
+    now = now.astimezone(timezone.utc)
+    earliest = now
+    if state.get('x_pause_until'):
+        earliest = max(earliest, timestamp(state['x_pause_until']))
+    pause = active_pause(state, now)
+    if pause:
+        earliest = max(earliest, pause.until)
+    day = now.date()
+    counts = {'reply': 0, 'original': 0}
+    last_original = None
+    used = set(state.get('decision_slots', {}))
+    for row in state.get('history', []):
+        when = row.get('posted_at') or row.get('completed_at')
+        if not when:
+            continue
+        at = timestamp(when)
+        used.add(row.get('slot'))
+        earliest = max(earliest, at + MIN_REPLY_GAP)
+        kind = row.get('kind')
+        if kind in ('follow', 'original'):
+            kind = 'original'
+            last_original = max(last_original, at) if last_original else at
+        if kind in counts and at.date() == day:
+            counts[kind] += 1
+    for key in ('last_posted_at', 'last_completed_at'):
+        if state.get(key):
+            earliest = max(earliest, timestamp(state[key]) + MIN_REPLY_GAP)
+
+    # An original may become eligible partway through a window. A ready reply
+    # need not wait for it. If replies are capped, the dispatcher can wait for it.
+    available_at = {}
+    if counts['reply'] < DAILY_REPLY_CAP:
+        available_at['reply'] = earliest
+    if counts['original'] < DAILY_FOLLOW_CAP:
+        available_at['original'] = max(earliest, last_original + MIN_FOLLOW_GAP) if last_original else earliest
+    if not available_at:
+        return None
+    for slot in daily_plan(day.isoformat()):
+        if slot['kind'] != 'reply' or slot['slot'] in used:
+            continue
+        ready = max(timestamp(slot['due_at']), min(available_at.values()))
+        ready = _retry_ready(state, slot['slot'], ready)
+        if ready >= timestamp(slot['expires_at']):
+            continue
+        if (window_end is None and ready > now) or (window_end is not None and ready >= window_end):
+            continue
+        actions = [action for action, at in available_at.items() if at <= ready]
+        return {**slot, 'kind': 'decision', 'allowed_actions': actions}, ready
+    return None
+
+
 def next_slot(state, now, window_end=None):
     """Return (opportunity, earliest start time), never a burst of missed slots.
 
@@ -81,8 +155,6 @@ def next_slot(state, now, window_end=None):
         last_any = max(last_any, carry_over) if last_any else carry_over
     last_kind = {kind: max((at for row, at in sent if row.get('kind') == kind), default=None)
                  for kind in CAPS}
-    attempts = state.get('last_attempts', {})
-    latest_attempt = state.get('last_attempt') or {}
     available = []
     for slot in daily_plan(day):
         kind = slot['kind']
@@ -95,12 +167,7 @@ def next_slot(state, now, window_end=None):
         if last_kind[kind]:
             gap = MIN_REPLY_GAP if kind == 'reply' else MIN_FOLLOW_GAP
             ready = max(ready, last_kind[kind] + gap)
-        retry_records = [attempts.get(slot['slot'])]
-        if latest_attempt.get('slot') == slot['slot']:
-            retry_records.append(latest_attempt)
-        for attempt in retry_records:
-            if attempt and attempt.get('at'):
-                ready = max(ready, timestamp(attempt['at']) + RECHECK_GAP)
+        ready = _retry_ready(state, slot['slot'], ready)
         if ready >= expires:
             continue
         if window_end is None and ready > now:

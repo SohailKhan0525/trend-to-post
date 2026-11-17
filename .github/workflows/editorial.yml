@@ -1,4 +1,4 @@
-name: Publish contextual replies and own follow posts
+name: Qofeno autonomous publisher
 on:
   workflow_dispatch:
     inputs:
@@ -33,10 +33,20 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
-      - name: Publish a contextual reply or scheduled own-profile follow post
+      - name: Verify D1 memory after deployment
+        if: github.event_name == 'push'
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
+          D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID }}
+        run: python -m app memory
+      - name: Choose an original, reply or silence
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
+          D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID }}
           QOFENO_AI_MODEL: ${{ vars.QOFENO_AI_MODEL }}
           DASH_RATTLE_MODEL: ${{ vars.DASH_RATTLE_MODEL }}
           X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}

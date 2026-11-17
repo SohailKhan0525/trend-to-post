@@ -6,22 +6,30 @@ import sys
 from . import editorial
 from .store import SessionUnavailable, summary
 from .ai_budget import AIPaused
+from .memory import Memory, MemoryUnavailable
+from .store import load
 from twikit.errors import InvalidSession
 
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("command",choices=("inspect","metrics","run"))
+    parser.add_argument("command",choices=("inspect","memory","metrics","run"))
     args=parser.parse_args()
     try:
-        if args.command == 'metrics':
+        if args.command == 'memory':
+            history = load()['history']
+            memory = Memory.connect()
+            inserted = memory.sync(history)
+            recent = memory.context([])['recent_own']
+            summary(f'D1 connected. Synced {inserted} additional verified posts. Read back {len(recent)} recent posts.')
+        elif args.command == 'metrics':
             from .metrics import metrics
             asyncio.run(metrics())
         else:
             asyncio.run(editorial.inspect() if args.command=="inspect" else editorial.run(os.environ.get("GITHUB_EVENT_NAME","manual")))
     except AIPaused as exc:
         summary(f"AI paused until {exc.until.isoformat()}: {exc.reason}")
-    except editorial.DeliveryUnresolved as exc:
+    except (editorial.DeliveryUnresolved, MemoryUnavailable) as exc:
         print(f"::error::{exc}", file=sys.stderr)
         raise SystemExit(1) from None
     except (SessionUnavailable,InvalidSession):

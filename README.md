@@ -1,39 +1,50 @@
 # Qofeno
 
-An openly AI-run X account, **@qofenoai**, about AI coding and practical software tools. This repository publishes contextual replies to original posts and two separate invitations to follow the account. The former quote/repost and self-reply workflows have been removed. Existing posts, publication history and session secrets are preserved.
+**@qofenoai** is an openly AI-run X account about software and AI. Qofeno likes a good debugging story, has opinions about tools, and enjoys a joke when the author has already supplied the setup. Cloudflare Workers AI chooses whether to publish an original, reply to a specific conversation, or sit out the opportunity. The account runs on GitHub Actions and works while the owner’s phone is offline.
 
-## Current publishing rules
+## How Qofeno decides
 
-- At most **one contextual reply every 30 minutes**, with **48 reply opportunities per UTC day**, plus **two own-profile follow posts** at least six hours apart. One every half hour means 48 replies, not 50.
-- A source must be a public original post from the last 24 hours with **at least 10,000 measured post views**. Followers, video plays and missing counts do not qualify. No protected/blocked authors, sensitive posts, replies, reposts or quotes.
-- Search covers AI coding tools and firsthand developer posts about debugging, shipping fixes, tests and code review. Each search gets a turn among the first candidates reviewed. Any public account can qualify through its post views, regardless of follower count or verification. Politics, countries and national flags are excluded. Each author is eligible once per 24 hours.
-- Cloudflare Workers AI reads the original before choosing a reply. A funny post can get a dry punchline or playful jab. A real open detail can get a focused question. A serious problem or request for advice gets a concrete observation or answer. Replies aim for 4–12 words and have a hard limit of 100 weighted characters. An optional emoji must add to the line. A second review checks the tone and supporting evidence before publication.
-- Source text is fetched again before sending. Changed, deleted or newly ineligible sources are skipped. Source IDs and edit aliases, specific article URLs, event fingerprints and text fingerprints are kept permanently to prevent reuse; recent similar wording is also rejected.
-- Follow posts open with “Follow me now before it’s too late.” as a playful invitation, followed by a different coding/AI sentence each time. Full posts must remain distinct; actual deadlines, fake achievements and guaranteed outcomes are rejected.
+1. The publisher syncs verified posting history to Cloudflare D1 and searches X using its existing Twikit-compatible client, `twifork[impersonate]==2.4.0`. Rotating Top and Latest searches cover AI coding tools, debugging, tests and code review. Discovery works without mentions. Multiple search topics get a turn, and recent posts with more measured views per hour rise within their topic.
+2. Workers AI reads a shortlist of complete eligible posts, recent Qofeno writing and relevant public conversation history. It can choose a source and an angle for a reply, propose a standalone thought or choose silence. A deliberate silence uses up that opportunity.
+3. An original can be an opinion, joke or observation about a software design choice, up to 220 weighted characters. A separate review checks the draft for unsupported claims and repetition. There is no scheduled invitation to follow the account.
+4. Replies aim for 4–12 words, with a hard limit of 100 weighted characters. A playful post can get a dry punchline. A real unknown can earn one focused question. Someone asking for help can get a direct suggestion. Questions and emoji each have a one-reply cooldown. A second review checks the wording and tone against the actual source.
 
-## Delivery and scheduling
+Reply candidates must be public original posts from the last 24 hours with at least 10,000 measured post views. The publisher excludes political or country-related subjects, protected or blocked accounts, sensitive posts, quotes and reposts. The same author is eligible at most once per 24 hours. Before sending a reply, the publisher reads the source again to check its text, identity and eligibility.
 
-The active workflow is **Publish contextual replies and own follow posts**, in `.github/workflows/editorial.yml`. It accepts the existing `post-next` repository dispatcher, GitHub cron, manual runs and code pushes. A day-seeded offset varies scheduled times. Actual confirmed completion timestamps enforce the minimum 30-minute reply spacing, including across midnight. Missed opportunities are skipped; there are no catch-up bursts. Research time, GitHub scheduling delays, source quality, AI quota and X access can reduce the number actually sent.
+## Scheduling and delivery
 
-The existing `X_AUTH_TOKEN` and `X_CT0` secrets authenticate the expected account. Each approved post and its duplicate identities are committed **before** the send. X readback checks the account, exact normalized text and reply parent. If the send returned no ID, the publisher looks for the reserved post on the account’s own timeline. A matching post goes through normal verification. When X explicitly returned `CouldNotTweet`, the publisher keeps the source and text reserved permanently and records an unconfirmed outcome if the read-only check finds no match. An ambiguous network failure keeps publication paused. After an hour, a run that still cannot reconcile the reservation reports a failure in Actions. X cooldowns take precedence.
+**Qofeno autonomous publisher** runs from `.github/workflows/editorial.yml` on the default branch. GitHub cron, the existing `post-next` repository dispatcher, manual runs and relevant code pushes can wake it. Each UTC day has 48 half-hour decision windows with a daily offset. Only one public action fits a window, and consecutive publications must be at least 30 minutes apart, including across midnight. Missed windows expire.
 
-This repository uses the existing cookie-based client. Working credentials do not establish platform approval: X’s automation rules restrict unsolicited automated replies and require approval for AI reply bots, and its self-service API limits reply eligibility. The code cannot promise successful delivery or continued account access. See the current [automation rules](https://help.x.com/en/rules-and-policies/x-automation) and [API reply guidance](https://docs.x.com/x-api/posts/manage-tweets/introduction).
+The ceilings are two originals and 48 replies per UTC day, subject to the 48 shared windows. Originals are at least six hours apart. Follow posts verified by the older publisher count toward the original limit. These are upper bounds. Silence, source quality, provider budgets and scheduling delays can reduce output.
 
-## Workers AI
+The publisher reserves a draft and its duplicate identities in `state/qofeno.json` before sending. It reads the post back from X to verify the account, text and intended reply parent. If X returns no ID, the publisher looks for that exact publication on the account’s own timeline. Ambiguous sends remain reserved. An explicit `CouldNotTweet` error can be archived as unconfirmed after the timeline check, with its source and text still reserved. An unresolved reservation older than an hour surfaces as a failed run after applicable cooldowns. Preserve the ledger when diagnosing failures. Earlier quote, self-reply and follow records remain part of the account’s history.
 
-Default model: `@cf/google/gemma-4-26b-a4b-it`. Credentials remain in `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`. A retiring Qwen override maps to the current default; other explicitly supported priced model overrides are retained.
+X documents its account automation and reply requirements in its [automation rules](https://help.x.com/en/rules-and-policies/x-automation) and [posting API guidance](https://docs.x.com/x-api/posts/manage-tweets/introduction).
 
-A local budget reserves estimated usage before requests: 9,000 neurons/day and 400/hour, adjusted when token usage is available. Other apps sharing the Cloudflare allowance are not visible to this ledger. Confirmed daily-quota errors pause until the next UTC day; other AI rate-limit errors pause for 15 minutes. Source review normally uses two model calls, with at most one format repair. Rejected sources are cached so the same unsuitable material is not repeatedly reviewed.
+## Cloudflare memory and configuration
 
-A Workers AI timeout defers that source for 30 minutes and keeps its estimated charge. If a request exceeds what remains in the hourly budget, the publisher defers that source until the next UTC hour and tries a shorter eligible post. Each opportunity considers at most four sources. If X times out during a send, the publisher keeps the pending send for reconciliation to prevent duplicate replies.
+D1 stores verified public posts, including Qofeno’s text and topic and, for replies, the original author’s public ID and handle, parent post ID and a short source excerpt. This lets the writer recognize someone it has replied to and avoid repeating its own take. Only verified ledger rows enter memory. Syncing can safely be repeated after an interrupted run. If D1 is unavailable, live decisions pause until memory is accessible.
+
+| GitHub Actions setting | Purpose |
+| --- | --- |
+| Secrets `X_AUTH_TOKEN` and `X_CT0` | Existing X session for discovery, publication and readback |
+| Secrets `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` | Workers AI access and default D1 credentials |
+| Optional secret `CLOUDFLARE_D1_API_TOKEN` | Separate token with account D1 Write (Edit) permission if the Workers AI token lacks it |
+| Optional variable `D1_DATABASE_ID` | UUID of an existing D1 database. Otherwise the publisher finds or creates `qofeno-memory` in the configured account |
+| Optional variable `QOFENO_AI_MODEL` | Supported model override. The default is `@cf/google/gemma-4-26b-a4b-it` |
+
+The workflow needs repository contents write access to persist reservations. The local AI budget reserves 400 neurons per hour and 9,000 per UTC day and uses reported token usage when available. Workers AI quota responses and X rate-limit responses trigger cooldowns. Other applications using the same Cloudflare account can affect its available quota.
 
 ## Operations
 
-- `python -m app run`: research and publish an eligible scheduled reply or own follow post.
-- `python -m app inspect`: report ledger/schedule status without model calls or sends.
-- `python -m app metrics`: read actual own-post views, likes, replies, reposts and quotes. Never publishes or writes the ledger.
-- `python -m unittest discover -s tests -v`: validate scheduling, content rules, durable delivery and provider behavior.
+From a checkout with `requirements.txt` installed, use the following commands.
 
-Metrics distinguish Qofeno’s impressions from source-post views. Missing values remain unknown. Historic self-replies are shown separately from estimated audience replies. Publication success does not guarantee impressions, likes or replies.
+| Command | Effect |
+| --- | --- |
+| `python -m app inspect` | Show scheduling and delivery status without publishing or calling the model |
+| `python -m app memory` | Connect to D1, sync verified history and read back recent posts. It can initialize the database and schema. It does not publish to X |
+| `python -m app run` | Run an eligible live decision and publish the selected action if all checks pass |
+| `python -m app metrics` | Read available impressions, likes, replies and reposts for recent verified publications |
+| `python -m unittest discover -s tests -v` | Run the test suite |
 
-Failures include the operation and source ID without exposing credentials. The ledger in `state/qofeno.json` must not be deleted or reset to force publication. Old ledger files are retained as historical records, not active publishers.
+On GitHub, open the publisher run’s job summary to see its decision, any blocking condition and any verified X link. The separate metrics workflow distinguishes impressions on Qofeno’s posts from views on the original source. Missing metrics remain unknown.

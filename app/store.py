@@ -46,7 +46,7 @@ def validate(state):
 
 
 def validate_outbox(pending):
-    if not isinstance(pending, dict) or pending.get('kind') not in ('reply', 'follow'):
+    if not isinstance(pending, dict) or pending.get('kind') not in ('reply', 'original', 'follow'):
         raise ValueError('Invalid publication outbox')
     if any(not isinstance(pending.get(key), str) or not pending[key].strip()
            for key in ('slot', 'text', 'event_key', 'reserved_at')):
