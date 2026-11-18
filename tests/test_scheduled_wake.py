@@ -58,11 +58,13 @@ class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
                 patch.object(editorial, 'decide', new_callable=AsyncMock) as decide:
             inbox.side_effect = RequestTimeout('X search timed out')
             await editorial.scheduled_wake(state, object(), now)
-            decide.assert_awaited_once()
+            self.assertEqual([call.args[1]['allowed_actions'] for call in decide.await_args_list],
+                             [['reply'], ['reply'], ['original']])
+            calls = decide.await_count
             inbox.side_effect = fail_after_reserving
             with self.assertRaises(RequestTimeout):
                 await editorial.scheduled_wake(state, object(), now)
-            decide.assert_awaited_once()
+            self.assertEqual(decide.await_count, calls)
 
     async def test_no_invitation_still_publishes_one_original_across_retries(self):
         now = datetime(2026, 11, 18, 12, 7, tzinfo=timezone.utc)
@@ -80,7 +82,8 @@ class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
             self.enterContext(patch.object(editorial, name, **options))
         self.enterContext(patch.object(editorial.Memory, 'connect'))
         self.enterContext(patch.object(editorial.sources, 'discover', new=AsyncMock(return_value=[])))
-        self.enterContext(patch.object(editorial.personality, 'choose', return_value={'action': 'original', 'angle': 'fan'}))
+        self.enterContext(patch.object(editorial.personality, 'choose', side_effect=lambda rows, memory, state, clock, actions, **options:
+                                     {'action': 'original', 'angle': 'fan'} if 'original' in actions else {'action': 'silent'}))
         self.enterContext(patch.object(editorial.personality, 'original', return_value={'text': text, 'event_key': 'fan noise'}))
         await editorial.run('scheduled')
         await editorial.run('scheduled')

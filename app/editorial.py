@@ -143,6 +143,29 @@ def thread_evidence(source, history, observed=None):
     return root, len(recipient_replies & connected), bool(proven)
 
 
+def discovery_source(candidate, now):
+    """Normalize a public original already selected by the native discovery reader."""
+    if candidate.get('origin') == 'mention' or candidate.get('parent_id'):
+        raise sources.SourceError('Discovery replies require a public original')
+    row = sources.validate(candidate, now)
+    if re.search(r'(?<![\w@])@' + re.escape(ACCOUNT) + r'\b', row['text'], re.I):
+        raise sources.SourceError('An account tag must use the mention path')
+    row.update(origin='discovery', parent_id=None, parent_author=None,
+               conversation_id=min(row['source_ids'], key=int))
+    return row
+
+
+def reply_source_current(source, state, now):
+    if source.get('origin') == 'mention':
+        return fresh_invitation(source, now, INBOX_START_AT, state=state)
+    try:
+        discovery_source(source, now)
+        reply_writer.check_source(source, now, state)
+    except (sources.SourceError, reply_writer.SourceRejected):
+        return False
+    return True
+
+
 def thread_root(source, history):
     return thread_evidence(source, history)[0]
 
@@ -154,7 +177,7 @@ def thread_reply_count(source, history, observed=None):
 async def live_thread_open(state, source, post, own_id, connection, visible, *, search=False):
     observed = state.get('observed_recipient_replies', {})
     root, count, proven = thread_evidence(source, state['history'], observed)
-    if not proven or not fresh_invitation(source, utcnow(), INBOX_START_AT, state=state):
+    if not proven or not reply_source_current(source, state, utcnow()):
         return False
     native_root = source.get('conversation_id') or root
     recipient = source['author_id']
@@ -435,7 +458,8 @@ async def send_once(state, slot, draft, connection, user, source=None):
     if slot.get('scheduled_at'):
         start = timestamp(slot['scheduled_at'])
         valid = (scheduled_remaining(schedule_state(state), slot['kind'], now, start) > 0
-                 and (slot['kind'] == 'original' or (source and source['id'] == slot.get('inbox_id'))))
+                 and (slot['kind'] == 'original' or (source and source['id'] == slot.get('inbox_id'))
+                      or (slot.get('discovery_reply') and source and source['id'] == slot.get('discovery_id'))))
     elif slot.get('inbox_id'):
         valid = (slot['kind'] == 'reply' and source and source['id'] == slot['inbox_id']
                  and reply_ready(schedule_state(state), now) and now < timestamp(slot['expires_at']))
@@ -454,11 +478,16 @@ async def send_once(state, slot, draft, connection, user, source=None):
     if slot['kind'] == 'reply':
         if source is None:
             raise ValueError('A reply requires a verified source')
-        if source.get('origin') != 'mention':
-            reject(state, slot, 'The source did not invite Qofeno to reply.')
+        if source.get('origin') == 'mention':
+            mentions.validate(source, utcnow())
+        elif slot.get('discovery_reply') and slot.get('scheduled_at'):
+            discovery_source(source, utcnow())
+            reply_writer.check_source(source, utcnow(), state)
+        else:
+            reject(state, slot, 'The source is not eligible for this reply opportunity.')
             return
-        mentions.validate(source, utcnow())
         if (not thread_evidence(source, state['history'], state.get('observed_recipient_replies'))[2]
+                or thread_reply_count(source, state['history'], state.get('observed_recipient_replies')) >= THREAD_REPLY_LIMIT
                 or not eligible_author(source, state, utcnow(), str(user.id))
                 or set(source['source_ids']) & set(state['used_source_ids'])
                 or set(source['urls']) & set(state['used_urls'])):
@@ -478,7 +507,7 @@ async def send_once(state, slot, draft, connection, user, source=None):
     state['used_texts'] = sorted(set(state['used_texts'] + [reply_writer.fingerprint(draft['text'])]))
     save_and_push(state)  # Remote reservation must succeed before the public side effect.
     send_time = utcnow()
-    if source and not fresh_invitation(source, send_time, INBOX_START_AT, state=state):
+    if source and not reply_source_current(source, state, send_time):
         state['outbox'] = None
         reject(state, slot, 'The incoming post is outside the live reply window; no reply sent.')
         return
@@ -546,7 +575,8 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
     rejections = state['reply_rejections'] = {
         key: value for key, value in state.get('reply_rejections', {}).items()
         if timestamp(value['until']) > now}
-    candidates = [candidate for candidate in candidates if candidate.get('origin') == 'mention'
+    candidates = [candidate for candidate in candidates
+                  if (candidate.get('origin') == 'mention' or (slot.get('discovery_reply') and slot.get('scheduled_at')))
                   and eligible_author(candidate, state, now, own_id)
                   and not reply_rejection_active(candidate, rejections.get(rejection_key(candidate)), now)
                   and not set(candidate['source_ids']).intersection(state['used_source_ids'])
@@ -561,7 +591,8 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
         try:
             stage('refresh source before writing', candidate['id'])
             post = await connection.get_tweet_by_id(candidate['id'])
-            fresh = mentions.snapshot(post, utcnow())
+            direct = candidate.get('origin') == 'mention'
+            fresh = mentions.snapshot(post, utcnow()) if direct else discovery_source(sources.snapshot(post, utcnow()), utcnow())
             visible = set()
             if candidate.get('parent_context'):
                 fresh = await mentions.thread_context(connection, fresh, utcnow(), own_user_id=own_id, observed_replies=visible)
@@ -573,13 +604,13 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
                 # wake cannot grant a second attempt under the same policy.
                 rejections[key] = draft_format_hold(fresh, utcnow(), reply_writer.EDITORIAL_POLICY_VERSION)
                 save_and_push(state)
-            if not fresh_invitation(fresh, utcnow(), INBOX_START_AT, state=state):
+            if not reply_source_current(fresh, state, utcnow()):
                 continue
             with budget_scope(state, save_and_push, utcnow, direct_mention=bool(slot.get('inbox_id'))):
                 draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
             post = await connection.get_tweet_by_id(candidate['id'])
-            final = mentions.snapshot(post, utcnow())
+            final = mentions.snapshot(post, utcnow()) if direct else discovery_source(sources.snapshot(post, utcnow()), utcnow())
             if fresh.get('parent_context'):
                 final = await mentions.thread_context(connection, final, utcnow(), own_user_id=own_id, observed_replies=visible)
             if not unchanged(fresh, final) or not await live_thread_open(state, final, post, own_id, connection, visible):
@@ -755,8 +786,9 @@ async def decide(state, slot, connection, user, *, incoming=None):
                for row in selected]
     invited_authors = {row['author_id'] for row in invited}
     candidates = []
-    # A topic search can inform an original. It can never supply a reply target.
-    if 'original' in slot['allowed_actions']:
+    # Scheduled discovery can join a public conversation; inbox-only checks remain focused.
+    discovery_replies = bool(slot.get('discovery_reply') and slot.get('scheduled_at'))
+    if 'original' in slot['allowed_actions'] or discovery_replies:
         stage('discover public conversations')
         try:
             candidates = await sources.discover(connection, state, now)
@@ -765,7 +797,10 @@ async def decide(state, slot, connection, user, *, incoming=None):
     # Never feed an incidental tag or opted-out request back as a trending post.
     passive = [c for c in candidates if c['author_id'] not in invited_authors and candidate_eligible(c, state, now, own_id)
                and not re.search(r'(?<![\w@])@' + re.escape(ACCOUNT) + r'\b', c['text'], re.I)]
-    shortlist = invited + sources.shortlist(passive, now, limit=4 - len(invited))
+    discovered = sources.shortlist(passive, now, limit=4 - len(invited))
+    if discovery_replies:
+        discovered = [discovery_source(row, now) for row in discovered]
+    shortlist = invited + discovered
     summary(f'Considering {len(invited)} direct invitations and {len(shortlist) - len(invited)} discovered conversations.')
     try:
         context = memory.context(shortlist)
@@ -779,7 +814,8 @@ async def decide(state, slot, connection, user, *, incoming=None):
     else:
         stage('choose original, reply or silence')
         with budget_scope(state, save_and_push, utcnow):
-            plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'])
+            options = {'allow_discovery_replies': True} if discovery_replies else {}
+            plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'], **options)
     action = plan['action']
     if action == 'silent':
         record_silence(state, slot, utcnow(), plan)
@@ -790,11 +826,12 @@ async def decide(state, slot, connection, user, *, incoming=None):
     before = len(state['history'])
     chosen_slot = {**slot, 'kind': action}
     if action == 'reply':
-        # Search results may inform a standalone thought. Only incoming invitations
-        # can be a reply destination, even if the planner returns a discovered ID.
-        source = next((row for row in invited if row['id'] == plan['source_id']), None)
+        permitted = invited + discovered if discovery_replies else invited
+        source = next((row for row in permitted if row['id'] == plan['source_id']), None)
         if source is None:
             raise DraftError('Reply decision must name an eligible invitation')
+        if source.get('origin') == 'discovery':
+            chosen_slot['discovery_id'] = source['id']
         await publish_reply(state, chosen_slot, connection, user, selected=source, memory=context, angle=plan['angle'])
     else:
         await publish_original(state, chosen_slot, connection, user, plan, context)
@@ -884,6 +921,26 @@ async def scheduled_wake(state, connection, now):
             if not delivery_open(state):
                 raise
             summary(f'The reply inbox was unavailable ({type(exc).__name__}).')
+    # Give unanswered invitations first access, then consider public conversations.
+    # Silence closes this discovery slot, and each verified send consumes the shared cap.
+    for index in range(2):
+        now = utcnow()
+        if not scheduled_remaining(schedule_state(state), 'reply', now, start):
+            break
+        slot_id = f'{start.date()}:actions-discovery:{2 * start.hour + start.minute // 30}:{index}'
+        if slot_id in state.get('decision_slots', {}):
+            break
+        slot = {'slot': slot_id, 'kind': 'decision', 'allowed_actions': ['reply'],
+                'discovery_reply': True, 'scheduled_at': start.isoformat(),
+                'expires_at': (start + HALF_HOUR).isoformat()}
+        user = await posting_account(connection)
+        try:
+            await decide(state, slot, connection, user, incoming=[])
+        except (AIRequestTimeout, AIPaused, DraftError) as exc:
+            reject(state, slot, f'Discovery reply deferred: {type(exc).__name__}.')
+            break
+        if slot_id in state.get('decision_slots', {}):
+            break
     now = utcnow()
     if not scheduled_remaining(schedule_state(state), 'original', now, start):
         return

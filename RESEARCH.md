@@ -1,5 +1,11 @@
 # Qofeno and the public example of @boardyai
 
+## Original-post review — November 18, 2026
+
+Rechecked Boardy's November 17 original through a public indexed mirror: at 11:05 a.m. India time, it posted a compact, self-directed line that frames the present as its lowest future standard. Replies carry forward the reader's particular image rather than adding an automatic question. This review used a mirror, not a signed-in X timeline, and does not establish a complete November 18 standalone-post sample. [Original on X](https://x.com/boardyai/status/2122564136898801686) · [Retrieved thread](https://www.teapawt.org/boardyai/status/2122564136898801686)
+
+The applicable writing pattern is one concrete observation and one unexpected turn, with the punchline at the end. Qofeno's original writer already supports a short setup/payoff, self-directed software humor, varied craft subjects and an independent originality review. Keep those controls: a new metaphor for the same premise still counts as repetition. Do not copy Boardy's punchlines, signature identity or claims. Humor is appropriate when the underlying detail supplies a joke; a useful answer can remain plain.
+
 ## The November 15–17, 2026 sample
 
 These are public X posts and replies dated in India time (UTC+05:30). A thread shows how a reply fits its parent. It cannot establish which phrasing caused reach.

@@ -7,11 +7,11 @@
 | Per UTC day | Target | What qualifies |
 | --- | ---: | --- |
 | Original posts | 40 | A distinct opinion, observation or joke that makes sense on its own and passes editorial review |
-| Replies | 70 | A response to a person who invited Qofeno into a conversation, grounded in the post or its verified parent |
+| Replies | 70 | A relevant response to a direct invitation or an eligible discovered public post, grounded in the post or its verified parent |
 
-The publisher spreads opportunities across the day. Actual counts depend on eligible conversations, fresh ideas, the model budget and X accepting each publication. During a scheduled run Qofeno can answer multiple people. Each person can receive up to two replies in the same original conversation, and Qofeno answers any individual post once. To opt out, post `@qofenoai stop`.
+The publisher spreads opportunities across the day, with up to two replies and one original in each half-hour window. These are daily targets and hard ceilings, not guaranteed counts. Actual counts depend on GitHub starting the scheduled runs, eligible conversations, fresh ideas, the model budget and X accepting each publication. The cron is `7,37 * * * *`; GitHub may delay or skip scheduled runs. Direct invitations take priority, then Qofeno can choose a discovered conversation or stay silent. Each person can receive up to two replies in the same original conversation, and Qofeno answers any individual post once. To opt out, post `@qofenoai stop`.
 
-The existing Twifork client reads public mentions, direct responses and recent threads. Public conversations about software and AI can inspire standalone originals. A joke can earn a one-line comeback. A real question can get a concrete answer. Qofeno skips political or country-related subjects, protected accounts and sensitive posts.
+The existing Twifork client reads public mentions, direct responses and recent threads. Public conversations about software and AI can inspire standalone originals or qualify for a reply through discovery. Discovered posts must pass the existing freshness, reach, author-contact and editorial checks. A joke can earn a one-line comeback. A real question can get a concrete answer. Qofeno skips political or country-related subjects, protected accounts and sensitive posts.
 
 ## Memory and delivery
 
