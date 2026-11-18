@@ -11,8 +11,9 @@ import unicodedata
 from datetime import datetime, timedelta, timezone
 
 from httpx import NetworkError, TimeoutException
-from twikit.errors import CouldNotTweet, Forbidden, NotFound, RequestTimeout, ServerError, TooManyRequests, TweetNotAvailable
-from . import mentions, personality, reply_writer, sources
+from twikit.errors import (CouldNotTweet, Forbidden, NotFound, RequestTimeout, ServerError,
+                           TooManyRequests, TweetNotAvailable, UserNotFound, UserUnavailable)
+from . import mentions, personality, priority, reply_writer, sources
 from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .metrics import post_id
 from .reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, fresh_invitation
@@ -159,8 +160,13 @@ def reply_source_current(source, state, now):
     if source.get('origin') == 'mention':
         return fresh_invitation(source, now, INBOX_START_AT, state=state)
     try:
-        discovery_source(source, now)
-        reply_writer.check_source(source, now, state)
+        if source.get('origin') == 'priority':
+            priority.validate(source, now, state)
+            # The final check also runs after the durable source reservation.
+            reply_writer.check_source(source, now)
+        else:
+            discovery_source(source, now)
+            reply_writer.check_source(source, now, state)
     except (sources.SourceError, reply_writer.SourceRejected):
         return False
     return True
@@ -209,6 +215,12 @@ def eligible_author(source, state, now, own_user_id):
     if (source['author'].casefold() == ACCOUNT or author_id == own_user_id
             or mentions.opted_out(state, author_id)):
         return False
+    if source.get('origin') == 'priority':
+        try:
+            priority.validate(source, now, state)
+        except sources.SourceError:
+            return False
+        return thread_reply_count(source, state['history'], state.get('observed_recipient_replies')) < THREAD_REPLY_LIMIT
     if source.get('origin') == 'mention':
         if not fresh_invitation(source, now, INBOX_START_AT, state=state) or not mentions.invited(state, source):
             return False
@@ -459,7 +471,8 @@ async def send_once(state, slot, draft, connection, user, source=None):
         start = timestamp(slot['scheduled_at'])
         valid = (scheduled_remaining(schedule_state(state), slot['kind'], now, start) > 0
                  and (slot['kind'] == 'original' or (source and source['id'] == slot.get('inbox_id'))
-                      or (slot.get('discovery_reply') and source and source['id'] == slot.get('discovery_id'))))
+                      or (slot.get('discovery_reply') and source and source['id'] == slot.get('discovery_id'))
+                      or (slot.get('priority_reply') and source and source['id'] == slot.get('priority_id'))))
     elif slot.get('inbox_id'):
         valid = (slot['kind'] == 'reply' and source and source['id'] == slot['inbox_id']
                  and reply_ready(schedule_state(state), now) and now < timestamp(slot['expires_at']))
@@ -480,6 +493,9 @@ async def send_once(state, slot, draft, connection, user, source=None):
             raise ValueError('A reply requires a verified source')
         if source.get('origin') == 'mention':
             mentions.validate(source, utcnow())
+        elif source.get('origin') == 'priority' and slot.get('priority_reply') and slot.get('scheduled_at'):
+            priority.validate(source, utcnow(), state)
+            reply_writer.check_source(source, utcnow(), state)
         elif slot.get('discovery_reply') and slot.get('scheduled_at'):
             discovery_source(source, utcnow())
             reply_writer.check_source(source, utcnow(), state)
@@ -568,6 +584,14 @@ async def send_once(state, slot, draft, connection, user, source=None):
     await verify_delivery(state, connection)
 
 
+def refreshed_reply_source(post, candidate, state, now):
+    if candidate.get('origin') == 'mention':
+        return mentions.snapshot(post, now)
+    if candidate.get('origin') == 'priority':
+        return priority.validate(priority.snapshot(post, now), now, state)
+    return discovery_source(sources.snapshot(post, now), now)
+
+
 async def publish_reply(state, slot, connection, user, *, selected=None, memory=None, angle=''):
     own_id = str(user.id)
     now = utcnow()
@@ -576,7 +600,8 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
         key: value for key, value in state.get('reply_rejections', {}).items()
         if timestamp(value['until']) > now}
     candidates = [candidate for candidate in candidates
-                  if (candidate.get('origin') == 'mention' or (slot.get('discovery_reply') and slot.get('scheduled_at')))
+                  if (candidate.get('origin') == 'mention' or (slot.get('discovery_reply') and slot.get('scheduled_at'))
+                      or (candidate.get('origin') == 'priority' and slot.get('priority_reply') and slot.get('scheduled_at')))
                   and eligible_author(candidate, state, now, own_id)
                   and not reply_rejection_active(candidate, rejections.get(rejection_key(candidate)), now)
                   and not set(candidate['source_ids']).intersection(state['used_source_ids'])
@@ -591,8 +616,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
         try:
             stage('refresh source before writing', candidate['id'])
             post = await connection.get_tweet_by_id(candidate['id'])
-            direct = candidate.get('origin') == 'mention'
-            fresh = mentions.snapshot(post, utcnow()) if direct else discovery_source(sources.snapshot(post, utcnow()), utcnow())
+            fresh = refreshed_reply_source(post, candidate, state, utcnow())
             visible = set()
             if candidate.get('parent_context'):
                 fresh = await mentions.thread_context(connection, fresh, utcnow(), own_user_id=own_id, observed_replies=visible)
@@ -606,11 +630,11 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
                 save_and_push(state)
             if not reply_source_current(fresh, state, utcnow()):
                 continue
-            with budget_scope(state, save_and_push, utcnow, direct_mention=bool(slot.get('inbox_id'))):
+            with budget_scope(state, save_and_push, utcnow, direct_mention=bool(slot.get('inbox_id') or slot.get('priority_id'))):
                 draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
             post = await connection.get_tweet_by_id(candidate['id'])
-            final = mentions.snapshot(post, utcnow()) if direct else discovery_source(sources.snapshot(post, utcnow()), utcnow())
+            final = refreshed_reply_source(post, candidate, state, utcnow())
             if fresh.get('parent_context'):
                 final = await mentions.thread_context(connection, final, utcnow(), own_user_id=own_id, observed_replies=visible)
             if not unchanged(fresh, final) or not await live_thread_open(state, final, post, own_id, connection, visible):
@@ -905,6 +929,60 @@ async def process_inbox(state, connection, *, scheduled_at=None):
             summary(f'No approved decision for invitation {row["id"]}: {str(exc)[:240]}')
 
 
+async def process_priority(state, connection, *, scheduled_at):
+    stage('read priority account originals')
+    rows = await priority.discover(connection, state, utcnow())
+    save_and_push(state)  # Bind activation and keep the queue before generation or sends.
+    if not rows or not scheduled_remaining(schedule_state(state), 'reply', utcnow(), scheduled_at):
+        return
+    user = await posting_account(connection)
+    # Apply newly received stop/start preferences before any priority reply.
+    await read_inbox(state, connection, utcnow(), str(user.id), poll=True)
+    eligible = [row for row in rows if candidate_eligible(row, state, utcnow(), str(user.id))]
+    summary(f'Priority @{priority.HANDLE}: eligible after preferences/dedupe={len(eligible)}; shared reply allowance={scheduled_remaining(schedule_state(state), "reply", utcnow(), scheduled_at)}.')
+    if not eligible:
+        return
+    try:
+        memory = Memory.connect()
+        memory.sync(state['history'])
+        context = memory.context(eligible[:INBOX_BATCH_SIZE])
+    except MemoryAccessDenied:
+        memory = ledger_after_denial(state['history'])
+        context = memory.context(eligible[:INBOX_BATCH_SIZE])
+    for row in eligible[:INBOX_BATCH_SIZE]:
+        now = utcnow()
+        if not scheduled_remaining(schedule_state(state), 'reply', now, scheduled_at):
+            break
+        slot = {'slot': f'{scheduled_at.date()}:priority:{row["id"]}', 'kind': 'reply',
+                'priority_reply': True, 'priority_id': row['id'],
+                'scheduled_at': scheduled_at.isoformat(),
+                'expires_at': (scheduled_at + HALF_HOUR).isoformat()}
+        before = len(state['history'])
+        try:
+            await publish_reply(state, slot, connection, user, selected=row, memory=context)
+        except AIPaused as exc:
+            # This is a global budget/provider hold. Keep all queued originals.
+            reject(state, slot, f'Priority reply deferred: {type(exc).__name__}.')
+            break
+        except (AIRequestTimeout, DraftError) as exc:
+            # Most source failures are handled by publish_reply itself. If a
+            # final validation escapes, hold only this source and let later
+            # queued originals use the remaining shared allowance.
+            until = utcnow() + (timedelta(minutes=30) if isinstance(exc, AIRequestTimeout) else timedelta(hours=6))
+            state.setdefault('reply_rejections', {})[rejection_key(row)] = {
+                'kind': 'timeout' if isinstance(exc, AIRequestTimeout) else 'review',
+                'policy_version': reply_writer.EDITORIAL_POLICY_VERSION, 'until': until.isoformat()}
+            reject(state, slot, f'Priority source {row["id"]} deferred until {until.isoformat()}: {type(exc).__name__}.')
+            continue
+        if len(state['history']) > before:
+            try:
+                memory.sync(state['history'])
+                context = memory.context(eligible[:INBOX_BATCH_SIZE])
+            except MemoryAccessDenied:
+                memory = ledger_after_denial(state['history'])
+                context = memory.context(eligible[:INBOX_BATCH_SIZE])
+
+
 async def scheduled_wake(state, connection, now):
     start = half_hour_start(now)
     if not state.get('actions_inbox_since'):
@@ -912,6 +990,14 @@ async def scheduled_wake(state, connection, now):
         # expired under the previous publisher's five-minute policy.
         state['actions_inbox_since'] = (now - MAX_REPLY_AGE).isoformat()
         save_and_push(state)
+    try:
+        await process_priority(state, connection, scheduled_at=start)
+    except (sources.SourceError, Forbidden, NotFound, TweetNotAvailable, UserNotFound, UserUnavailable,
+            NetworkError, TimeoutException, RequestTimeout, ServerError) as exc:
+        if not delivery_open(state):
+            raise
+        # Print only the error class; native payloads can contain session details.
+        summary(f'Priority @{priority.HANDLE} lookup/timeline unavailable ({type(exc).__name__}); saved account and queue preserved.')
     if scheduled_remaining(schedule_state(state), 'reply', now, start):
         try:
             await process_inbox(state, connection, scheduled_at=start)
@@ -921,7 +1007,7 @@ async def scheduled_wake(state, connection, now):
             if not delivery_open(state):
                 raise
             summary(f'The reply inbox was unavailable ({type(exc).__name__}).')
-    # Give unanswered invitations first access, then consider public conversations.
+    # Priority originals and direct invitations precede discovered conversations.
     # Silence closes this discovery slot, and each verified send consumes the shared cap.
     for index in range(2):
         now = utcnow()

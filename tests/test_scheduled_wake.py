@@ -46,6 +46,9 @@ class CadenceTests(unittest.TestCase):
 
 
 class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
+    def setUp(self):
+        self.enterContext(patch.object(editorial, 'process_priority', new_callable=AsyncMock))
+
     async def test_temporary_inbox_failure_does_not_drop_due_original_or_bypass_outbox(self):
         now = datetime(2026, 11, 18, 12, 7, tzinfo=timezone.utc)
         state = {'history': [], 'actions_inbox_since': now.isoformat()}
