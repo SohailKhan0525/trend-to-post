@@ -173,7 +173,9 @@ class PersonalityTests(unittest.TestCase):
         with patch.object(editor, 'complete', side_effect=[{**DRAFT, 'worthwhile': True}, {'publish': True}]) as model:
             self.assertEqual(editor.original(PLAN, MEMORY, state, NOW), DRAFT)
         for call in model.call_args_list:
-            self.assertEqual(call.args[1]['related_originals'], [old['text']])
+            self.assertEqual(call.args[1]['related_originals'], [])
+            self.assertEqual(call.args[1]['original_memory']['recent_originals'][0]['text'], old['text'])
+            self.assertNotIn('recent_own', call.args[1])
         for previous in ({**old, 'premise': DRAFT['premise']}, {**old, 'text': DRAFT['text'][:-1] + '!'}):
             with self.subTest(previous=previous), patch.object(editor, 'complete', return_value={**DRAFT, 'worthwhile': True}) as model:
                 with self.assertRaises(DraftError):
@@ -236,26 +238,32 @@ class PersonalityTests(unittest.TestCase):
         self.assertFalse(editor.ai_feat_and_chore('A physics paper has equations, but a chart can show uncertainty.'))
         self.assertFalse(editor.ai_feat_and_chore('The genome parser finished, but its error logs show truncated reads.'))
 
-    def test_scheduled_briefs_rotate_and_semantic_review_can_request_a_new_subject(self):
+    def test_scheduled_planner_uses_published_memory_without_a_calendar_assignment(self):
+        previous = {'kind': 'original', 'verified_at': NOW.isoformat(), **DRAFT}
+        state = {'actions_inbox_since': NOW.isoformat(), 'history': [previous]}
+        for when in (NOW, NOW + timedelta(minutes=30), NOW + timedelta(days=2)):
+            with self.subTest(when=when), patch.object(editor, 'complete', return_value=PLAN) as planner:
+                self.assertEqual(editor.choose([], MEMORY, state, when, ['original']), PLAN)
+            context = planner.call_args.args[1]
+            self.assertEqual(context['original_memory']['recent_originals'], [
+                {key: DRAFT[key] for key in ('text', 'premise')}])
+            self.assertNotIn('craft_brief', context)
+            self.assertNotIn('memory', context)
+            self.assertEqual(context['conversations'], [])
+
+    def test_scheduled_semantic_review_reconsiders_the_point_without_a_forced_joke(self):
         state = {'actions_inbox_since': NOW.isoformat()}
-        with patch.object(editor, 'complete', return_value=PLAN) as planner:
-            plan = editor.choose([], MEMORY, state, NOW, ['original'])
-        slot = plan['craft_slot']
-        first = editor.craft_brief(slot)
-        self.assertEqual(planner.call_args.args[1]['craft_brief'], first)
-        day = [editor.craft_brief(slot + n) for n in range(48)]
-        self.assertEqual(len({brief['subject'] for brief in day}), 48)
-        self.assertGreaterEqual(len({brief['treatment'] for brief in day}), 6)
-        for n in range(48):
-            self.assertNotEqual(day[n]['subject'], editor.craft_brief(slot + 48 + n)['subject'])
-        good = {'publish': True, 'fits_assigned_subject': True, 'grand_feat_vs_annoyance': False,
-                'invented_firsthand_usage': False}
-        other = {**good, 'publish': False, 'fits_assigned_subject': False}
+        good = {'publish': True, 'fresh_premise': True, 'natural_voice': True,
+                'distinct_expression': True, 'grounded': True,
+                'grand_feat_vs_annoyance': False, 'invented_firsthand_usage': False}
+        weak = {**good, 'publish': False, 'natural_voice': False}
         raw = {**DRAFT, 'worthwhile': True}
-        off_topic = {**raw, 'text': 'I would rename every tab to give it a fair shot.'}
-        with patch.object(editor, 'complete', side_effect=[off_topic, other, raw, good]) as model:
-            self.assertEqual(editor.original(plan, MEMORY, state, NOW + timedelta(hours=1)), DRAFT)
-        self.assertEqual(model.call_args_list[0].args[1]['craft_brief'], first)
-        self.assertEqual(model.call_args_list[2].args[1]['craft_brief'], editor.craft_brief(slot, 1))
-        self.assertNotEqual(first['subject'], editor.craft_brief(slot, 1)['subject'])
-        self.assertNotEqual(first['treatment'], editor.craft_brief(slot, 1)['treatment'])
+        forced = {**raw, 'text': 'The save button has hired a deputy to file its paperwork.'}
+        with patch.object(editor, 'complete', side_effect=[forced, weak, raw, good]) as model:
+            self.assertEqual(editor.original(PLAN, MEMORY, state, NOW), DRAFT)
+        first, second = model.call_args_list[0].args[1], model.call_args_list[2].args[1]
+        self.assertNotIn('craft_brief', first)
+        self.assertNotIn('craft_brief', second)
+        self.assertEqual(second['rejected_original'], forced['text'])
+        self.assertIn('humor is optional', second['angle'])
+        self.assertNotEqual(first['angle'], second['angle'])

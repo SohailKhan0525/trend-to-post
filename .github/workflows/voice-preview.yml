@@ -1,0 +1,36 @@
+name: Preview Qofeno voice without publishing
+on:
+  workflow_dispatch:
+  push:
+    branches: [qofeno-voice-preview]
+permissions:
+  contents: read
+concurrency:
+  group: qofeno-voice-preview
+  cancel-in-progress: false
+jobs:
+  preview:
+    if: >-
+      github.repository == 'SohailKhan0525/trend-to-post' &&
+      (github.ref == 'refs/heads/qofeno-voice-preview' ||
+       (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Generate and review fixed unpublished samples
+        env:
+          PYTHONUNBUFFERED: '1'
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          QOFENO_AI_MODEL: ${{ vars.QOFENO_AI_MODEL }}
+          DASH_RATTLE_MODEL: ${{ vars.DASH_RATTLE_MODEL }}
+        run: python -m scripts.voice_preview

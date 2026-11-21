@@ -512,7 +512,7 @@ async def send_once(state, slot, draft, connection, user, source=None):
     elif source is not None:
         raise ValueError('A standalone post cannot have a reply source')
     reserved = {**draft, 'slot': slot['slot'], 'kind': slot['kind'], 'author_id': str(user.id),
-                'reserved_at': utcnow().isoformat()}
+                'reserved_at': utcnow().isoformat(), 'editorial_version': 'qofeno-voice-2026-11-21'}
     if source:
         reserved['source'] = source
         reserved['thread_root'] = thread_root(source, state['history'])
@@ -815,7 +815,7 @@ async def decide(state, slot, connection, user, *, incoming=None):
     if 'original' in slot['allowed_actions'] or discovery_replies:
         stage('discover public conversations')
         try:
-            candidates = await sources.discover(connection, state, now)
+            candidates = await sources.discover(connection, state, now, originals=not discovery_replies)
         except (NotFound, TweetNotAvailable):
             summary('Topic discovery unavailable for this opportunity.')
     # Never feed an incidental tag or opted-out request back as a trending post.

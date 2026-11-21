@@ -6,14 +6,19 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/publish.yml']
+    paths:
+      - '.github/workflows/publish.yml'
+      - 'app/personality.py'
+      - 'app/reply_writer.py'
 permissions:
   contents: read
   # A job-scoped token hands off to the next run when cron events are missed.
   actions: write
 concurrency:
   group: x-text-original-queue
-  cancel-in-progress: false
+  # Deploy the new editor on a release push. The next runner reconciles D1
+  # before sending. Ordinary scheduled and handoff runs wait their turn.
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 jobs:
   publish:
     if: github.ref == 'refs/heads/main' && github.repository == 'SohailKhan0525/trend-to-post'

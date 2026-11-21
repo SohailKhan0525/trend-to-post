@@ -311,6 +311,14 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
             self.assertFalse(any(term in query for query,_ in plan
                                  for term in ('battery','startup','Tesla','Porsche','BMW','cars','automotive')))
 
+    def test_original_research_covers_startups_and_culture_in_each_window(self):
+        for offset in range(6):
+            plan = search_plan(NOW + timedelta(hours=offset), originals=True)
+            self.assertEqual([product for _, product in plan], ['Top', 'Top', 'Top', 'Latest'])
+            self.assertIn('startup', plan[1][0])
+            self.assertRegex(plan[2][0], r'meme|group chat')
+            self.assertTrue(all('since:' in query and len(query) < 220 for query, _ in plan))
+
     async def test_latest_practitioner_can_be_first_among_eligible_posts_from_four_searches(self):
         older_hits = [tweet(str(i), views=1_000_000, age=timedelta(hours=2)) for i in range(101, 106)]
         practitioner = tweet('401', views=10_000, author='dev_notes',

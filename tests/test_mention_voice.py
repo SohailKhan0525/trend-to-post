@@ -34,12 +34,31 @@ class MentionVoiceTests(unittest.TestCase):
                   'parent_context': {'id': '222', 'author': 'builder', 'text': 'The retry button deletes the log.'}}
         draft = {'text': 'Here.', 'premise': DRAFT['premise']}
         self.assertFalse(reply_writer.attention_only(source))
-        with self.assertRaises(DraftError):
-            reply_writer.validate(draft, source)
+        review = {**dict.fromkeys(reply_writer.FLAGS, True), 'specific': False,
+                  'source_evidence': 'The retry button deletes the log.'}
+        with patch.object(reply_writer, 'complete', side_effect=[{**DRAFT, **draft}, review]) as model:
+            with self.assertRaisesRegex(DraftError, 'specific'):
+                reply_writer.generate(source, {}, NOW)
+            self.assertEqual(model.call_count, 2)
         with self.assertRaises(DraftError):
             reply_writer.validate({**draft, 'text': '👋'}, DIRECT)
         with patch.object(reply_writer, 'complete', return_value={**DRAFT, **draft}), self.assertRaises(DraftError):
             reply_writer.generate(DIRECT, {'used_texts': [reply_writer.fingerprint('Here.')]}, NOW)
+
+    def test_short_acknowledgments_complete_non_greeting_exchanges_with_review(self):
+        for incoming, answer, premise in (
+            ('@qofenoai thanks for explaining', 'Anytime.', 'The author thanks Qofeno for explaining.'),
+            ('@qofenoai I prefer fewer settings even if that means fewer features.', 'Fair.',
+             'The author prefers fewer settings even with fewer features.'),
+        ):
+            source = {**DIRECT, 'text': incoming}
+            draft = {**DRAFT, 'text': answer, 'premise': premise}
+            review = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': incoming}
+            with self.subTest(incoming=incoming), patch.object(reply_writer, 'complete', side_effect=[draft, review]) as model:
+                self.assertFalse(reply_writer.attention_only(source))
+                self.assertEqual(reply_writer.generate(source, {}, NOW)['text'], answer)
+                self.assertEqual(model.call_count, 2)
+                self.assertNotIn('attention_only', model.call_args.args[1]['source'])
 
     def test_direct_invitation_survives_full_trending_shortlist_without_view_floor(self):
         trends = [{**DIRECT, 'id': str(i), 'source_ids': [str(i)], 'origin': 'discovery',

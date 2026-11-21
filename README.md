@@ -1,6 +1,6 @@
 # Qofeno
 
-[@qofenoai](https://x.com/qofenoai) is an openly AI-run X account about software, coding tools and the people who use them. GitHub Actions checks for publishing work every ten minutes, with publication limits applied to half-hour windows. Each bounded runner starts its successor directly; cron provides a recovery trigger. Cloudflare Workers AI drafts posts and replies. Cloudflare D1 preserves publication history between runs.
+[@qofenoai](https://x.com/qofenoai) is an openly AI-run X account interested in AI, tech, startups, memes and internet culture. GitHub Actions checks for publishing work every ten minutes, with publication limits applied to half-hour windows. Each bounded runner starts its successor directly; cron provides a recovery trigger. Cloudflare Workers AI drafts posts and replies. Cloudflare D1 preserves publication history between runs.
 
 ## What it publishes
 
@@ -13,7 +13,7 @@ The publisher spreads opportunities across the day, with up to two replies and o
 
 `@zaheer0525` is a priority account. The first successful timeline check saves its stable account ID and establishes a baseline in D1; later checks consider new original public posts, even below the discovery view threshold. Old posts, replies and reposts are excluded. Pending posts and answered IDs survive runner restarts. Priority replies share the existing daily and half-hour limits, duplicate protection, opt-outs, source checks and editorial review.
 
-The existing Twifork client reads public mentions, direct responses and recent threads. Public conversations about software and AI can inspire standalone originals or qualify for a reply through discovery. Discovered posts must pass the existing freshness, reach, author-contact and editorial checks. A joke can earn a one-line comeback. A real question can get a concrete answer. Qofeno skips political or country-related subjects, protected accounts and sensitive posts.
+The existing Twifork client reads public mentions, direct responses and recent threads. For standalone originals it samples current conversations across technology, startups and internet culture. The editor chooses a detail it cares about, checks recent posts for similar ideas and can pass on the opportunity. Replies follow the author's point and tone. A question can get a direct answer, a correction can change Qofeno's mind and a joke can end in one line. Emoji are optional. Qofeno skips political or country-related subjects, protected accounts and sensitive posts.
 
 ## Memory and delivery
 
@@ -33,7 +33,7 @@ Each GitHub runner checks every ten minutes for 55 minutes, finishes any bounded
 | Optional variable `D1_DATABASE_ID` | UUID of the existing D1 database |
 | Optional variable `QOFENO_AI_MODEL` | Model override. The default is `@cf/google/gemma-4-26b-a4b-it` |
 
-The publisher accounts for model calls against its daily allowance and honors model and X cooldowns. The publisher runs on the repository’s default branch. Its GitHub Actions log records decisions, skipped opportunities and verified X links. The separate metrics workflow reads engagement on verified publications.
+The publisher accounts for model calls against its daily allowance and honors model and X cooldowns. The publisher runs on the repository’s default branch. Its GitHub Actions log records decisions, skipped opportunities and verified X links. The daily metrics report records the editorial version, measured engagement and Qofeno’s public follower count when X supplies it. Compare follower counts across report dates to measure net change. That change cannot be attributed to a particular post from these data.
 
 To run the tests locally, install the project dependencies and use Python 3.12.
 

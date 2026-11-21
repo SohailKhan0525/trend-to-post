@@ -32,6 +32,21 @@ PRACTITIONER_QUERIES = (
     '("I built" OR "I tried" OR "my project") (debugging OR "code review" OR "coding agent")',
     '("I shipped" OR "I fixed" OR "I wrote") (compiler OR debugger OR "unit tests")',
 )
+# Read these conversations for standalone writing. Each lane gets one search,
+# so a busy AI launch cannot fill every place in the research shortlist.
+ORIGINAL_QUERIES = (
+    ('("AI model" OR "coding agent") (benchmark OR prompt OR demo)',
+     '(debugging OR "open source") (maintainer OR changelog OR bug)'),
+    ('(startup OR founder) ("first customer" OR pricing OR waitlist)',
+     '(startup OR bootstrapped) (prototype OR onboarding OR "support email")'),
+    ('(meme OR fandom) (caption OR remix OR screenshot)',
+     '("group chat" OR "reply guy" OR shitpost) (joke OR screenshot OR thread)'),
+)
+ORIGINAL_LATEST = (
+    '("I built" OR "we shipped") (browser OR model OR prototype)',
+    '("group chat" OR meme) (sticker OR caption OR template)',
+    '("first customer" OR "first sale") (demo OR invoice OR email)',
+)
 _HANDLE = re.compile(r"[A-Za-z0-9_]{1,15}\Z")
 _NUMBER = re.compile(r"[0-9]+\Z")
 _URL = re.compile(r"https?://\S+", re.I)
@@ -322,15 +337,16 @@ def _snapshot(tweet, now, include_parent, validator):
     return validator(fields, now)
 
 
-def search_plan(now):
-    """Search tools and development practice in Top, and firsthand posts in Latest."""
+def search_plan(now, *, originals=False):
+    """Use three Top searches and one Latest search for the current opportunity."""
     current = _utc(now, "invalid current timestamp")
     hour = int(current.timestamp() // 3600)
     since = (current - MAX_AGE).date().isoformat()
     suffix = f" since:{since} -filter:replies -filter:retweets"
-    plan = [(variants[hour % len(variants)] + suffix, "Top")
-            for variants in TOPIC_QUERIES]
-    plan.append((PRACTITIONER_QUERIES[hour % len(PRACTITIONER_QUERIES)] + suffix, "Latest"))
+    topics = ORIGINAL_QUERIES if originals else TOPIC_QUERIES
+    latest = ORIGINAL_LATEST if originals else PRACTITIONER_QUERIES
+    plan = [(variants[hour % len(variants)] + suffix, "Top") for variants in topics]
+    plan.append((latest[hour % len(latest)] + suffix, "Latest"))
     return plan
 
 
@@ -371,7 +387,7 @@ def shortlist(candidates, now, limit=4):
     return selected
 
 
-async def discover(connection, state, now):
+async def discover(connection, state, now, *, originals=False):
     """Run four sequential topic searches; return unseen eligible snapshots.
 
     No pagination, endpoint retries, badge requirement, or volume fallback.
@@ -386,7 +402,7 @@ async def discover(connection, state, now):
     batches = []
     counts = Counter()
     rejections = Counter()
-    queries = search_plan(current)
+    queries = search_plan(current, originals=originals)
     unavailable = []
     for index, (query, product) in enumerate(queries, start=1):
         before = dict(counts)

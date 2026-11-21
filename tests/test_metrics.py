@@ -201,6 +201,19 @@ class MetricsTests(unittest.IsolatedAsyncioTestCase):
             with self.subTest(value=value):
                 self.assertIsNone(metrics.post_id(value))
 
+    def test_audience_snapshot_requires_own_author_and_an_explicit_count(self):
+        user = SimpleNamespace(screen_name=store.ACCOUNT)
+        raw = {'legacy': {'followers_count': '78'}}
+        post = tweet(101, user=user, _data={'core': {'user_results': {'result': raw}}})
+        self.assertEqual(metrics.own_followers(post), 78)
+        raw['relationship_counts'] = {'followers': 0}
+        self.assertEqual(metrics.own_followers(post), 0)
+        user.screen_name = 'someone_else'
+        self.assertIsNone(metrics.own_followers(post))
+        user.screen_name = store.ACCOUNT
+        raw.clear()
+        self.assertIsNone(metrics.own_followers(post))
+
     def test_unknown_or_invalid_counts_never_become_zero(self):
         for value in (None, True, -1, "1.5", "7K", "unknown", "１２３", 4.2):
             with self.subTest(value=value):

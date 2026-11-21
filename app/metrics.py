@@ -67,12 +67,34 @@ def public_count(post, field):
         value = getattr(post, field, None)
     except (AttributeError, KeyError, TypeError):
         return None
+    return count_value(value)
+
+
+def count_value(value):
     if isinstance(value, bool):
         return None
     if isinstance(value, int):
         return value if value >= 0 else None
     if isinstance(value, str) and value.isascii() and value.isdigit():
         return int(value)
+    return None
+
+
+def own_followers(post):
+    """Use the explicit public count in an own-post response, including a real zero."""
+    if str(getattr(getattr(post, 'user', None), 'screen_name', '')).casefold() != store.ACCOUNT:
+        return None
+    data = getattr(post, '_data', None)
+    for key in ('core', 'user_results', 'result'):
+        if not isinstance(data, dict):
+            return None
+        data = data.get(key)
+    if isinstance(data, dict):
+        for section, key in (('relationship_counts', 'followers'), ('legacy', 'followers_count')):
+            fields = data.get(section)
+            value = count_value(fields.get(key)) if isinstance(fields, dict) else None
+            if value is not None:
+                return value
     return None
 
 
@@ -89,7 +111,7 @@ async def metrics():
     selected = metric_candidates(state.get("history", []), now)
     report = {"captured_at": now.isoformat(), "minimum_age_hours": 6,
               "maximum_reads": METRICS_LIMIT, "selected_posts": len(selected),
-              "posts": [], "errors": []}
+              "account_followers": None, "posts": [], "errors": []}
     if selected:
         connection = store.client()
         for posted, ident, row in selected:
@@ -108,6 +130,8 @@ async def metrics():
                 report["errors"].append({"tweet_id": ident, "error": type(exc).__name__})
                 continue
             counts = {name: public_count(post, field) for name, field in METRIC_FIELDS.items()}
+            if report["account_followers"] is None:
+                report["account_followers"] = own_followers(post)
             known_self = int(post_id(row.get("reply_id")) is not None)
             self_uncertain = row.get("reply_status") == "unconfirmed" and not known_self
             text = str(row.get("text") or "")

@@ -1,5 +1,6 @@
 """Run one GitHub Actions publishing cycle with an exclusive D1 lease."""
 import asyncio
+import json
 import os
 import re
 import signal
@@ -81,6 +82,8 @@ async def publish():
             for row in state['history'][before:]:
                 if row.get('verified_at') and str(row.get('tweet_id', '')).isdigit():
                     store.summary(f"Verified {row.get('kind')}: https://x.com/{store.ACCOUNT}/status/{row['tweet_id']}")
+                    # Inspect the public wording alongside its receipt. Keep multiline posts on one log line.
+                    print('Published copy: ' + json.dumps(row.get('text', ''), ensure_ascii=False), flush=True)
             if state.get('outbox') or state.get('pause_reason'):
                 raise MemoryUnavailable('A publication awaits reconciliation. The reservation is preserved.')
             ledger.finish_github(instance)

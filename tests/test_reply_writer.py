@@ -72,10 +72,43 @@ class ReplyWriterTests(unittest.TestCase):
         self.assertEqual(calls.call_args_list[1].args[1]['draft']['text'], 'A logger for the logger.')
         self.assertEqual(calls.call_args_list[1].args[1]['reply_mode'], 'joke')
 
-    def test_short_copy_still_rejects_canned_reactions_and_emoji_only(self):
-        for reply in ('Big if true.', 'You love to see it.', 'Skill issue.', '👏👏👏👏'):
-            with self.subTest(reply=reply), self.assertRaises(DraftError):
-                writer.validate({**DRAFT, 'text': reply}, SOURCE)
+    def test_contextless_reactions_still_fail_review_and_emoji_only_fails_locally(self):
+        for reply in ('Big if true.', 'You love to see it.', 'Skill issue.', 'Fair.'):
+            assessment = {**ASSESSMENT, 'text': reply, 'reply_mode': 'observation'}
+            with self.subTest(reply=reply), patch.object(writer, 'complete',
+                    side_effect=[assessment, {**VERDICT, 'specific': False}]) as model:
+                with self.assertRaisesRegex(DraftError, 'specific'):
+                    writer.generate(SOURCE, {}, NOW)
+                self.assertEqual(model.call_count, 2)
+        with self.assertRaises(DraftError):
+            writer.validate({**DRAFT, 'text': '👏'}, SOURCE)
+
+    def test_clear_agreement_and_civil_disagreement_reach_evidence_review(self):
+        source = {**SOURCE, 'text': 'Our startup will launch every planned feature before asking for user feedback.'}
+        for text in ('Agreed. Ask users before adding more.', 'I disagree. Feedback should shape the feature list.'):
+            draft = {'text': text, 'event_key': 'Startup feature scope before feedback',
+                     'premise': 'The startup plans to launch all features before asking for user feedback.'}
+            assessment = {**dict.fromkeys(writer.SOURCE_FLAGS, True), **draft, 'reply_mode': 'observation'}
+            # Agreement here is with a different, explicitly stated source claim.
+            selected = {**source, 'text': 'Our startup will ask for user feedback before adding more features.'} if text.startswith('Agreed') else source
+            if text.startswith('Agreed'):
+                draft['premise'] = assessment['premise'] = 'The startup will ask for feedback before adding more features.'
+            result, calls = self.generate([assessment, {**VERDICT, 'source_evidence': selected['text']}], selected)
+            self.assertEqual(result, draft)
+            self.assertEqual(calls.call_count, 2)
+            self.assertEqual(calls.call_args_list[-1].args[1]['reply_mode'], 'observation')
+
+    def test_contextual_meme_wording_is_not_mistaken_for_engagement_solicitation(self):
+        source = {**SOURCE, 'text': 'My AI agent got stuck retrying the same failed command all afternoon.'}
+        draft = {'text': 'No thoughts, only retries. 🔁', 'event_key': 'Agent repeats its failed command',
+                 'premise': 'The author says the agent repeated a failed command all afternoon.'}
+        assessment = {**dict.fromkeys(writer.SOURCE_FLAGS, True), **draft, 'reply_mode': 'joke'}
+        result, calls = self.generate([assessment, {**VERDICT, 'source_evidence': source['text']}], source)
+        self.assertEqual(result, draft)
+        self.assertEqual(calls.call_count, 2)
+        for text in ('Thoughts?', 'Your thoughts?', 'The agent kept retrying. Thoughts?'):
+            with self.subTest(text=text), self.assertRaises(DraftError):
+                writer.validate({**draft, 'text': text}, source)
 
     def test_live_cost_summary_is_repaired_to_a_source_specific_deadpan_take(self):
         source = {**SOURCE, 'text': 'Our coding eval put two agents at similar scores, but one cost 30x more per task.'}
