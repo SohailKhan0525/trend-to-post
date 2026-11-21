@@ -216,7 +216,8 @@ class PersonalityTests(unittest.TestCase):
         retry = {**DRAFT, 'worthwhile': True, 'text': repeated}
         with patch.object(editor, 'complete', side_effect=[retry, {**DRAFT, 'worthwhile': True}, {'publish': True}]) as model:
             self.assertEqual(editor.original(PLAN, MEMORY, {'history': history}, NOW), DRAFT)
-        self.assertNotEqual(model.call_args_list[0].args[1]['angle'], model.call_args_list[1].args[1]['angle'])
+        self.assertEqual(model.call_args_list[0].args[1]['angle'], model.call_args_list[1].args[1]['angle'])
+        self.assertIn('reconsideration_instruction', model.call_args_list[1].args[1])
         self.assertEqual(model.call_count, 3)
         with patch.object(editor, 'complete', side_effect=[retry, retry]) as model, self.assertRaises(DraftError):
             editor.original(PLAN, MEMORY, {'history': history}, NOW)
@@ -254,7 +255,7 @@ class PersonalityTests(unittest.TestCase):
     def test_scheduled_semantic_review_reconsiders_the_point_without_a_forced_joke(self):
         state = {'actions_inbox_since': NOW.isoformat()}
         good = {'publish': True, 'fresh_premise': True, 'natural_voice': True,
-                'distinct_expression': True, 'grounded': True,
+                'distinct_expression': True, 'grounded': True, 'added_point': True,
                 'grand_feat_vs_annoyance': False, 'invented_firsthand_usage': False}
         weak = {**good, 'publish': False, 'distinct_expression': False}
         raw = {**DRAFT, 'worthwhile': True}
@@ -265,5 +266,5 @@ class PersonalityTests(unittest.TestCase):
         self.assertNotIn('craft_brief', first)
         self.assertNotIn('craft_brief', second)
         self.assertEqual(second['rejected_original'], forced['text'])
-        self.assertIn('humor is optional', second['angle'])
-        self.assertNotEqual(first['angle'], second['angle'])
+        self.assertIn('Humor is optional', second['reconsideration_instruction'])
+        self.assertEqual(first['angle'], second['angle'])

@@ -118,6 +118,12 @@ class ReplyWriterTests(unittest.TestCase):
             ('Older hardware still breaks. Maintenance is just more predictable.',
              'Predictable maintenance is a solid argument for older hardware.',
              'Predictable repairs still leave repairs to do.'),
+            ('There is no need to read the patch if tests pass.',
+             'That is a dangerous way to manage technical debt.',
+             'Passing tests do not show whether the tests cover the change.'),
+            ('The reminder only appears when the meeting starts, so nobody can be late.',
+             'That is a risky strategy for handling attendance.',
+             'A reminder at the start leaves no time to join.'),
         )
         for source_text, rejected, accepted in cases:
             source = {**SOURCE, 'text': source_text}
@@ -131,7 +137,9 @@ class ReplyWriterTests(unittest.TestCase):
                 self.assertEqual(result['text'], accepted)
                 self.assertEqual(calls.call_count, 3)
                 self.assertIn('Do not add facts', calls.call_args_list[1].args[1]['correction'])
+                self.assertEqual(calls.call_args_list[1].args[1]['rejected_reply'], rejected)
                 self.assertEqual(calls.call_args_list[2].args[1]['draft']['text'], accepted)
+                self.assertNotIn('rejected_reply', calls.call_args_list[2].args[1])
                 with patch.object(writer, 'complete', side_effect=[assessment, assessment]) as retry:
                     with self.assertRaises(writer.RecoverableDraftError):
                         writer.generate(source, {}, NOW)
@@ -141,6 +149,9 @@ class ReplyWriterTests(unittest.TestCase):
         source = {**SOURCE, 'text': 'Tests cover success but skip failed payments. Maintenance is predictable.'}
         for text in ('Fair.', 'That is a dangerous level of trust in tests without failure cases.',
                      'That is a dangerous level of trust: failed payments are not tested.',
+                     "That's a quick way to delete the only backup.",
+                     'That is a risky way to overwrite the only backup.',
+                     'That is a risky approach to backups because the only copy is overwritten.',
                      'Predictable maintenance is a solid argument for old hardware because repairs stay routine.'):
             with self.subTest(text=text):
                 draft = {'text': text, 'event_key': 'Source-specific reason or acknowledgment',

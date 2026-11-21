@@ -11,7 +11,7 @@ NOW = datetime(2026, 11, 21, 12, tzinfo=timezone.utc)
 PLAN = {'action': 'original', 'source_id': '',
         'angle': 'A startup can choose a smaller promise so its users can judge whether it kept it.'}
 GOOD = {'publish': True, 'fresh_premise': True, 'natural_voice': True,
-        'distinct_expression': True, 'grounded': True,
+        'distinct_expression': True, 'grounded': True, 'added_point': True,
         'grand_feat_vs_annoyance': False, 'invented_firsthand_usage': False}
 DRAFT = {'worthwhile': True,
          'text': 'I trust a small promise I can check more than a grand vision I cannot.',
@@ -56,7 +56,8 @@ class OriginalVoiceTests(unittest.TestCase):
             selected = personality.choose([source], memory, state, NOW, ['original'])
         self.assertEqual(selected['public_inspiration'], [{'id': '123', 'text': source['text']}])
         self.assertNotIn('memory', model.call_args.args[1])
-        with patch.object(personality, 'complete', side_effect=[DRAFT, GOOD]) as model:
+        draft = {**DRAFT, 'text': 'I want progress to name the unfinished step.'}
+        with patch.object(personality, 'complete', side_effect=[draft, GOOD]) as model:
             personality.original(selected, memory, state, NOW)
         for call in model.call_args_list:
             self.assertEqual(call.args[1]['public_inspiration'], selected['public_inspiration'])
@@ -99,9 +100,10 @@ class OriginalVoiceTests(unittest.TestCase):
     def test_review_cannot_publish_unsupported_capability_even_if_publish_is_true(self):
         state = {'actions_inbox_since': NOW.isoformat()}
         unsupported = {**DRAFT, 'text': 'The latest coding assistant can fix every migration without human review.'}
+        plan = {**PLAN, 'angle': 'An assistant needs verifiable migration results before people can trust its fix.'}
         with patch.object(personality, 'complete', side_effect=[unsupported, {**GOOD, 'grounded': False}]) as model:
             with self.assertRaisesRegex(DraftError, 'unsupported original claims'):
-                personality.original(PLAN, {}, state, NOW)
+                personality.original(plan, {}, state, NOW)
         self.assertEqual(model.call_count, 2)
 
     def test_no_sources_or_new_idea_can_end_in_silence_without_a_template_fallback(self):
@@ -159,6 +161,49 @@ class OriginalVoiceTests(unittest.TestCase):
             with self.assertRaises(personality.OriginalNeedsRewrite):
                 personality.original(PLAN, {}, state, NOW)
         self.assertEqual(model.call_count, 2)
+
+    def test_plural_source_match_keeps_inspiration_and_distinctive_anchor(self):
+        source = {'id': '321', 'text': 'An export should include the original formatting.'}
+        plan = {**PLAN, 'angle': 'Exports need to keep formatting so someone can continue editing elsewhere.'}
+        inspiration = personality.conversation_inspiration([source], plan['angle'])
+        self.assertEqual(inspiration, [source])
+        anchors = personality.original_anchors({**plan, 'public_inspiration': inspiration})
+        self.assertIn('export', anchors)
+        self.assertIn('formatting', anchors)
+
+    def test_new_premise_retry_cannot_drift_to_an_unrelated_topic(self):
+        state = {'actions_inbox_since': NOW.isoformat()}
+        unrelated = {**DRAFT, 'text': 'I prefer a portable keyboard with quiet keys.'}
+        with patch.object(personality, 'complete', side_effect=[DRAFT, {**GOOD, 'fresh_premise': False}, unrelated]) as model:
+            with self.assertRaises(personality.OriginalNeedsRewrite):
+                personality.original(PLAN, {}, state, NOW)
+        self.assertEqual(model.call_count, 3)
+        self.assertEqual(model.call_args_list[2].args[1]['angle'], PLAN['angle'])
+        self.assertIn('reconsideration_instruction', model.call_args_list[2].args[1])
+
+    def test_bare_generic_consequence_gets_a_point_edit_but_specific_reason_survives(self):
+        plan = {**PLAN, 'angle': 'A build status should keep waiting and running states distinct.'}
+        generic = {**DRAFT, 'text': 'Ambiguous build statuses make queues harder to understand.'}
+        concrete = {**DRAFT, 'text': "Build status: queued isn't running."}
+        state = {'actions_inbox_since': NOW.isoformat()}
+        with patch.object(personality, 'complete', side_effect=[generic, concrete, GOOD]) as model:
+            result = personality.original(plan, {}, state, NOW)
+        self.assertEqual(result['text'], concrete['text'])
+        self.assertIn('specific criterion', model.call_args_list[1].args[1]['rewrite_instruction'])
+        self.assertFalse(personality.needs_point_rewrite(
+            'That font makes receipts harder to read because 0 and O look identical.'))
+
+    def test_independent_point_check_cannot_be_overridden_by_publish_true(self):
+        plan = {**PLAN, 'angle': 'A build status should keep waiting and running states distinct.'}
+        generic = {**DRAFT, 'text': 'A build status is useful for understanding builds.'}
+        concrete = {**DRAFT, 'text': "Build status: queued isn't running."}
+        state = {'actions_inbox_since': NOW.isoformat()}
+        with patch.object(personality, 'complete', side_effect=[generic, {**GOOD, 'added_point': False},
+                                                               concrete, GOOD]) as model:
+            result = personality.original(plan, {}, state, NOW)
+        self.assertEqual(result['text'], concrete['text'])
+        self.assertEqual(model.call_count, 4)
+        self.assertIn('merely restates', model.call_args_list[2].args[1]['rewrite_instruction'])
 
     def test_semantic_repetition_is_rejected_even_when_surface_wording_changes(self):
         state = {'actions_inbox_since': NOW.isoformat(), 'history': [published(
