@@ -78,7 +78,8 @@ def isolated_model_calls(budget, trace):
         return opener.open(request, *args, **kwargs)
 
     def observed_complete(system, data, **kwargs):
-        stage = ('original_planner' if system == personality.DECIDE else
+        fields = (kwargs.get('schema') or {}).get('properties', {})
+        stage = ('original_planner' if 'action' in fields and 'angle' in fields else
                  'original_writer' if system == personality.WRITE else
                  'original_review' if system == personality.REVIEW else
                  'reply_writer' if system == reply_writer.VOICE else 'reply_review')

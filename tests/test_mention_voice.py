@@ -283,3 +283,26 @@ class MentionVoiceTests(unittest.TestCase):
             with self.subTest(parent=altered['parent_context']), patch.object(personality, 'complete') as model:
                 self.assertEqual(personality.choose([altered], {}, {}, NOW, ['reply'])['action'], 'silent')
                 model.assert_not_called()
+
+    def test_generic_endorsement_of_correction_repairs_to_own_specific_error(self):
+        parent = {'id': '222', 'author': 'qofenoai', 'author_id': '999',
+                  'text': 'Old hardware cannot break anymore.'}
+        source = {**DIRECT, 'parent_id': '222', 'parent_author': 'qofenoai', 'parent_context': parent,
+                  'text': 'Old hardware still breaks. The maintenance is just predictable.'}
+        draft = {**DRAFT, 'text': 'Predictable maintenance is a solid argument for older hardware.',
+                 'premise': 'The reader corrects Qofeno: old hardware still breaks but maintenance is predictable.'}
+        repaired = {**draft, 'text': "You're right. I confused predictable maintenance with not breaking."}
+        verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': 'Old hardware still breaks.'}
+        with patch.object(reply_writer, 'complete', side_effect=[draft, repaired, verdict]) as model:
+            self.assertEqual(reply_writer.generate(source, {}, NOW)['text'], repaired['text'])
+            self.assertEqual(model.call_count, 3)
+            self.assertIn('acknowledge the actual error', model.call_args_list[1].args[1]['correction'])
+            self.assertEqual(model.call_args_list[-1].args[1]['source']['conversation_role'], 'reply_to_qofeno')
+
+    def test_direct_question_accepts_simple_answer_without_generic_evaluation(self):
+        source = {**DIRECT, 'text': '@qofenoai should I read the crash log before retrying?'}
+        draft = {**DRAFT, 'text': 'Read the log first.', 'premise': 'The author asks whether to read the crash log before retrying.'}
+        verdict = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': 'read the crash log before retrying'}
+        with patch.object(reply_writer, 'complete', side_effect=[draft, verdict]) as model:
+            self.assertEqual(reply_writer.generate(source, {}, NOW)['text'], draft['text'])
+            self.assertEqual(model.call_count, 2)

@@ -256,7 +256,7 @@ class PersonalityTests(unittest.TestCase):
         good = {'publish': True, 'fresh_premise': True, 'natural_voice': True,
                 'distinct_expression': True, 'grounded': True,
                 'grand_feat_vs_annoyance': False, 'invented_firsthand_usage': False}
-        weak = {**good, 'publish': False, 'natural_voice': False}
+        weak = {**good, 'publish': False, 'distinct_expression': False}
         raw = {**DRAFT, 'worthwhile': True}
         forced = {**raw, 'text': 'The save button has hired a deputy to file its paperwork.'}
         with patch.object(editor, 'complete', side_effect=[forced, weak, raw, good]) as model:

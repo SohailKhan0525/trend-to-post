@@ -113,6 +113,53 @@ class OriginalVoiceTests(unittest.TestCase):
         self.assertEqual(model.call_args.args[1]['conversations'], [])
         self.assertEqual(model.call_args.args[1]['original_memory']['recent_originals'], [])
 
+    def test_original_only_planning_has_no_reply_routing_prompt(self):
+        state = {'actions_inbox_since': NOW.isoformat()}
+        with patch.object(personality, 'complete', return_value=PLAN) as model:
+            self.assertEqual(personality.choose([], {}, state, NOW, ['original']), PLAN)
+        self.assertEqual(model.call_args.args[0], personality.ORIGINAL_DECIDE)
+        self.assertNotIn('allowed_reply_ids', model.call_args.args[0])
+        self.assertNotIn('conversation_role', model.call_args.args[0])
+        self.assertEqual(model.call_args.kwargs['schema']['properties']['action']['enum'], ['original', 'silent'])
+
+    def test_long_formal_draft_gets_one_edit_of_the_same_point_before_review(self):
+        formal = {**DRAFT, 'text': (
+            'I believe that making a narrow promise constitutes a more dependable basis for earning '
+            'customer trust because people can compare the specific commitment with what they receive '
+            'and reach a meaningful judgment about whether the company has delivered.')}
+        state = {'actions_inbox_since': NOW.isoformat()}
+        with patch.object(personality, 'complete', side_effect=[formal, DRAFT, GOOD]) as model:
+            result = personality.original(PLAN, {}, state, NOW)
+        self.assertEqual(result['text'], DRAFT['text'])
+        self.assertEqual(model.call_count, 3)
+        rewrite = model.call_args_list[1].args[1]
+        self.assertEqual(rewrite['angle'], PLAN['angle'])
+        self.assertEqual(rewrite['rejected_original'], formal['text'])
+        self.assertIn('Keep the same point', rewrite['rewrite_instruction'])
+
+    def test_review_wordiness_failure_rewrites_same_point_and_preserves_inspiration(self):
+        plan = {**PLAN, 'public_inspiration': [{'id': '123', 'text': 'A small promise is easier to check.'}]}
+        wordy = {**DRAFT, 'text': 'A smaller product promise gives people a clearer basis on which to decide whether a company has actually delivered what it said it would.'}
+        state = {'actions_inbox_since': NOW.isoformat()}
+        with patch.object(personality, 'complete', side_effect=[wordy, {**GOOD, 'publish': False, 'natural_voice': False},
+                                                               DRAFT, GOOD]) as model:
+            personality.original(plan, {}, state, NOW)
+        revised = model.call_args_list[2].args[1]
+        self.assertEqual(revised['angle'], PLAN['angle'])
+        self.assertEqual(revised['public_inspiration'], plan['public_inspiration'])
+        self.assertIn('rewrite_instruction', revised)
+
+    def test_repeat_wordy_revision_stops_after_one_edit(self):
+        draft = {**DRAFT, 'text': ('Everyone should remember that the ability to export information '
+                                 'is important because it gives people flexibility when their '
+                                 'requirements change and demonstrates that the company respects that choice.')}
+        revised = {**draft, 'text': draft['text'].replace('Everyone should remember', 'You need to remember')}
+        state = {'actions_inbox_since': NOW.isoformat()}
+        with patch.object(personality, 'complete', side_effect=[draft, revised]) as model:
+            with self.assertRaises(personality.OriginalNeedsRewrite):
+                personality.original(PLAN, {}, state, NOW)
+        self.assertEqual(model.call_count, 2)
+
     def test_semantic_repetition_is_rejected_even_when_surface_wording_changes(self):
         state = {'actions_inbox_since': NOW.isoformat(), 'history': [published(
             'A narrow product promise gives customers something they can actually test.',

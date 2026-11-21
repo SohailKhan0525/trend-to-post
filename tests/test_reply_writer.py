@@ -110,6 +110,58 @@ class ReplyWriterTests(unittest.TestCase):
             with self.subTest(text=text), self.assertRaises(DraftError):
                 writer.validate({**draft, 'text': text}, source)
 
+    def test_evaluation_only_preview_failures_get_one_concrete_draft_repair(self):
+        cases = (
+            ('Our test suite covers the happy path. That means we can stop reviewing changes.',
+             'That is a dangerous level of trust in the test suite.',
+             'Happy-path tests still leave the failure paths unexamined.'),
+            ('Older hardware still breaks. Maintenance is just more predictable.',
+             'Predictable maintenance is a solid argument for older hardware.',
+             'Predictable repairs still leave repairs to do.'),
+        )
+        for source_text, rejected, accepted in cases:
+            source = {**SOURCE, 'text': source_text}
+            draft = {'text': rejected, 'event_key': 'Reaction to the source claim', 'premise': source_text}
+            assessment = {**dict.fromkeys(writer.SOURCE_FLAGS, True), **draft, 'reply_mode': 'observation'}
+            verdict = {**VERDICT, 'source_evidence': source_text}
+            with self.subTest(rejected=rejected):
+                with self.assertRaisesRegex(writer.RecoverableDraftError, 'concrete consequence or reason'):
+                    writer.validate(draft, source)
+                result, calls = self.generate([assessment, {**assessment, 'text': accepted}, verdict], source)
+                self.assertEqual(result['text'], accepted)
+                self.assertEqual(calls.call_count, 3)
+                self.assertIn('Do not add facts', calls.call_args_list[1].args[1]['correction'])
+                self.assertEqual(calls.call_args_list[2].args[1]['draft']['text'], accepted)
+                with patch.object(writer, 'complete', side_effect=[assessment, assessment]) as retry:
+                    with self.assertRaises(writer.RecoverableDraftError):
+                        writer.generate(source, {}, NOW)
+                    self.assertEqual(retry.call_count, 2)
+
+    def test_evaluation_guard_preserves_reasons_and_short_acknowledgments(self):
+        source = {**SOURCE, 'text': 'Tests cover success but skip failed payments. Maintenance is predictable.'}
+        for text in ('Fair.', 'That is a dangerous level of trust in tests without failure cases.',
+                     'That is a dangerous level of trust: failed payments are not tested.',
+                     'Predictable maintenance is a solid argument for old hardware because repairs stay routine.'):
+            with self.subTest(text=text):
+                draft = {'text': text, 'event_key': 'Source-specific reason or acknowledgment',
+                         'premise': source['text']}
+                self.assertEqual(writer.validate(draft, source), draft)
+
+    def test_unsupported_metaphor_is_reviewed_and_cannot_bypass_rejection(self):
+        source = {**SOURCE, 'text': 'My parents want me to find a job. I founded a company that does not pay me.'}
+        draft = {'text': 'The ultimate survival training is just a startup runway.',
+                 'event_key': 'Unpaid founder and parents asking about work',
+                 'premise': 'The founder is unpaid while their parents want them to find a job.'}
+        assessment = {**dict.fromkeys(writer.SOURCE_FLAGS, True), **draft, 'reply_mode': 'joke'}
+        verdict = {**VERDICT, 'source_evidence': source['text'], 'grounded': False, 'added_angle': False}
+        with patch.object(writer, 'complete', side_effect=[assessment, verdict]) as calls:
+            with self.assertRaisesRegex(DraftError, 'grounded.*added_angle'):
+                writer.generate(source, {}, NOW)
+            self.assertEqual(calls.call_count, 2)
+        concrete = {**assessment, 'text': 'You found a job. Payroll is still looking.'}
+        result, calls = self.generate([concrete, {**verdict, 'grounded': True, 'added_angle': True}], source)
+        self.assertEqual(result['text'], concrete['text'])
+
     def test_live_cost_summary_is_repaired_to_a_source_specific_deadpan_take(self):
         source = {**SOURCE, 'text': 'Our coding eval put two agents at similar scores, but one cost 30x more per task.'}
         published = 'A 30x cost difference for similar scores is a massive gap for anyone trying to scale agentic workflows.'

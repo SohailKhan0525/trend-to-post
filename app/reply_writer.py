@@ -8,7 +8,7 @@ from difflib import SequenceMatcher
 from .cloudflare import DraftError, complete
 from .policy import MIN_SOURCE_VIEWS, has_excluded_terms
 
-EDITORIAL_POLICY_VERSION = 'context-replies-v14'
+EDITORIAL_POLICY_VERSION = 'context-replies-v15'
 MAX_REPLY_LENGTH = 100
 REPLY_MODES = ('joke', 'question', 'observation')
 
@@ -53,7 +53,9 @@ setup. Never turn an invitation to share a story into a claim that it happened.
 For conversation_role=reply_to_qofeno, you wrote the parent. The child is the
 other person's reply. Pick up the detail they added. If they answered your
 question, use that answer instead of asking again. Own a correction, explain a
-choice, or return the joke with a callback. One missing detail can earn one
+choice, or return the joke with a callback. When corrected, name the specific mistake in your earlier reasoning;
+do not merely praise or restate their correction. A joke needs a new concrete turn,
+not a translation into another abstract metaphor or an unsupported new concept. One missing detail can earn one
 question. If the author directly tags you with a greeting or thanks, a short personal
 acknowledgment is a complete response. Never promise an introduction,
 DM, download, private repo review or other work you cannot do in the public reply.
@@ -155,6 +157,8 @@ booleans and source_evidence. Every boolean must be true to publish.
   For conversation_role=reply_to_qofeno, the parent is Qofeno speaking. The draft
   must respond to the child's new detail. Reject repeating the parent's question,
   greeting the speaker as a newcomer, or promising work outside the thread.
+  When the child corrects Qofeno, require acknowledgment of the specific earlier
+  error; simply endorsing the child's position misses the exchange.
 - specific and added_angle: the reply makes sense as a response to this particular post.
   An answer, clear opinion, civil disagreement, fitting joke or natural acknowledgment
   can complete the exchange. A short thank-you, greeting or agreement does not need a
@@ -166,6 +170,8 @@ booleans and source_evidence. Every boolean must be true to publish.
   specificity. If removing the praise or swapping the nouns leaves the same empty
   reaction, fail it unless a simple acknowledgment is what this conversation calls for.
   Reject automatic skepticism about difficulty or failure unsupported by this post.
+  A second abstract metaphor that just renames a joke is not a payoff. Reject an
+  introduced financial, technical or personal premise the post does not support.
 - natural: one compact thought, at most 100 weighted characters. Fail interview language,
   filler before a question, a question appended to a joke and generic engagement bait.
 - non_repetitive and honest: compare recent replies and events. Fail repeated wording or
@@ -177,6 +183,21 @@ supporting the reply's premise. For a standalone source.direct_ping, return its 
 full text including the handle and any punctuation. This exception only supports an
 acknowledgement. For a joke cite its setup; for a question cite the
 detail that leaves it open. Never stitch excerpts together, quote the draft or summarize."""
+
+# These are judgments to transfer, never a menu of replies to reuse.
+JUDGMENT_EXAMPLES = """Examples on unrelated subjects; learn the distinction, never reuse the lines:
+- Qofeno: "This map works anywhere offline." Reader: "Only the saved region."
+  Weak: "Saved maps are a sensible compromise."
+  Better: "Right, I confused a saved region with full offline coverage."
+- Post: "The reminder fires when the meeting starts, so nobody will be late."
+  Weak: "That is risky trust in notifications."
+  Better: "A reminder at the start leaves no time to join."
+- Question: "This exports Markdown or PDF. Which would you pick for editing?"
+  Weak: "Flexible exports make editing easier."
+  Better: "Markdown for editing."
+"""
+VOICE += '\n\n' + JUDGMENT_EXAMPLES
+REVIEW += '\n\n' + JUDGMENT_EXAMPLES
 
 FLAGS = ('grounded', 'relevant', 'safe', 'specific', 'added_angle', 'non_repetitive', 'honest', 'natural', 'context_complete', 'tone_fits')
 SOURCE_FLAGS = ('relevant', 'safe', 'context_complete')
@@ -226,6 +247,9 @@ VAGUE_IMPACT = re.compile(
 PRAISE_THEN_QUESTION = re.compile(
     r'^[^.!?]+\b(?:is|are) a (?:massive|huge|major) (?:leap|step|jump) '
     r'(?:forward|(?:over|from) (?:just|simply|merely))\b[^.!?]*[.!]\s+[^.!?]+\?$', re.I)
+EVALUATION_ONLY = re.compile(
+    r"(?:(?:that|this|it)(?: is|['’]s) (?:an? )?(?:\w+ ){0,2}(?:level|amount) of trust (?:in|for) [^.!?;:—–]+|"
+    r'[^.!?;:—–]+ is (?:an? )?(?:solid|strong|good|compelling|convincing) argument (?:for|against) [^.!?;:—–]+)[.!]?', re.I)
 
 
 class SourceRejected(DraftError):
@@ -479,6 +503,11 @@ def validate(draft, source):
     words = normalized(text)
     if LARGE_TIME_SAVING.search(text) and not SOURCE_TIME_SAVING.search(facts):
         raise DraftError('The source does not report a time saving. Pick one concrete step or decision instead.')
+    if EVALUATION_ONLY.fullmatch(text) and not re.search(r'\b(?:because|since|when|unless|without|even though|but|so)\b', text, re.I):
+        correction = ('Replace the evaluation label with a concrete consequence or reason supported by the source; '
+                      'answer the question directly, or acknowledge the actual error if you were corrected. '
+                      'Do not add facts absent from the source.')
+        raise RecoverableDraftError(correction)
     # Length and word count cannot tell whether a conversational answer is complete.
     # The independent source/tone review judges short copy; emoji-only copy still fails.
     if (not any(char.isalpha() for char in words)
