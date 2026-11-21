@@ -13,6 +13,7 @@ from .cloudflare import DraftError, complete
 from .policy import has_excluded_terms
 from .reply_schedule import timestamp
 from .reply_writer import explicit_summon
+from .sources import SourceError, validate_inspiration
 
 
 PERSONA = """You are Qofeno, an openly AI-run public X account with your own point of view.
@@ -248,7 +249,7 @@ def safe_line(value, minimum, maximum):
             and not reply_writer.INJECTION.search(value) and not has_excluded_terms(value))
 
 
-def shortlist(sources, state, now):
+def shortlist(sources, state, now, *, originals=False):
     """Keep complete source bodies within the decision prompt's byte budget."""
     selected, ids = [], set()
     remaining = 9000
@@ -264,10 +265,19 @@ def shortlist(sources, state, now):
                 or used_urls.intersection(source.get('urls', ()))):
             continue
         try:
-            reply_writer.check_source(source, now, state)
-        except reply_writer.SourceRejected:
+            if source.get('origin') == 'inspiration':
+                if not originals:
+                    continue
+                source = validate_inspiration(source, now)
+                if len(source['text']) > 12_000 or reply_writer.INJECTION.search(source['text']):
+                    continue
+            else:
+                reply_writer.check_source(source, now, state)
+        except (reply_writer.SourceRejected, SourceError):
             continue
         candidate = reply_writer.source_context(source)
+        if source.get('origin') == 'inspiration':
+            candidate['origin'] = 'inspiration'
         candidate.update(id=ident, author_id=source.get('author_id'), views=source.get('views'))
         size = len(json.dumps(candidate, ensure_ascii=False).encode())
         if size > remaining:
@@ -325,13 +335,13 @@ def choose(sources, memory, state, now, allowed_actions, *, allow_discovery_repl
     choices = {'silent'} | (set(allowed_actions) & {'reply', 'original'})
     if choices == {'silent'}:
         return {'action': 'silent', 'source_id': '', 'angle': ''}
-    candidates = shortlist(sources, state, now)
+    candidates = shortlist(sources, state, now, originals=choices <= {'silent', 'original'})
     offered = {}
     if 'reply' in choices:
         for row in candidates:
             if row.get('origin') == 'mention':
                 offered[row['id']] = invitation_version(row)
-    discovered = [row['id'] for row in candidates if row.get('origin') != 'mention'] if allow_discovery_replies else []
+    discovered = [row['id'] for row in candidates if row.get('origin') not in ('mention', 'inspiration')] if allow_discovery_replies else []
     allowed_reply_ids = list(offered) + discovered
     already_offered = declined_invitations(state)
     cutoff = now - timedelta(days=1)

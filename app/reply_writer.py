@@ -428,6 +428,8 @@ REVIEW_SCHEMA = schema({**{key: {'type': 'boolean'} for key in FLAGS},
 
 
 def check_source(source, now, state=None):
+    if source.get('origin') == 'inspiration':
+        raise SourceRejected('Read-only original inspiration cannot be a reply source')
     direct = source.get('origin') == 'mention'
     prioritized = source.get('origin') == 'priority'
     if prioritized:

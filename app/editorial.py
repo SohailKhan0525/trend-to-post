@@ -784,6 +784,8 @@ def record_silence(state, slot, now, plan):
     days = {now.date().isoformat(), (now.date() - timedelta(days=1)).isoformat()}
     decisions = {k: v for k, v in state.get('decision_slots', {}).items() if k[:10] in days}
     decisions[slot['slot']] = {'action': 'silent', 'at': now.isoformat()}
+    if slot.get('allowed_actions') == ['original']:
+        decisions[slot['slot']]['original_source_policy'] = sources.ORIGINAL_SOURCE_POLICY_VERSION
     if slot.get('inbox_id'):
         decisions[slot['slot']]['direct_reviewed'] = True
     for key in ('offered_invitations', 'summon_authors'):
@@ -822,13 +824,13 @@ async def decide(state, slot, connection, user, *, incoming=None):
     if 'original' in slot['allowed_actions'] or discovery_replies:
         stage('discover public conversations')
         try:
-            candidates = await sources.discover(connection, state, now, originals=not discovery_replies)
+            candidates = await sources.discover(connection, state, now, originals=set(slot['allowed_actions']) == {'original'})
         except (NotFound, TweetNotAvailable):
             summary('Topic discovery unavailable for this opportunity.')
     # Never feed an incidental tag or opted-out request back as a trending post.
     passive = [c for c in candidates if c['author_id'] not in invited_authors and candidate_eligible(c, state, now, own_id)
                and not re.search(r'(?<![\w@])@' + re.escape(ACCOUNT) + r'\b', c['text'], re.I)]
-    discovered = sources.shortlist(passive, now, limit=4 - len(invited))
+    discovered = sources.shortlist(passive, now, limit=4 - len(invited), originals=set(slot['allowed_actions']) == {'original'})
     if discovery_replies:
         discovered = [discovery_source(row, now) for row in discovered]
     shortlist = invited + discovered
@@ -1002,7 +1004,30 @@ async def scheduled_original(state, connection, start):
         return
     slot_id = f'{start.date()}:actions-original:{2 * start.hour + start.minute // 30}'
     if slot_id in state.get('decision_slots', {}):
-        return
+        previous = state['decision_slots'][slot_id]
+        # A changed source policy can reconsider one explicit original silence.
+        # Unknown outcomes, reply decisions and malformed legacy records stay
+        # closed. This never changes publication history or send allowances.
+        if (not isinstance(previous, dict) or previous.get('action') != 'silent'
+                or any(key in previous for key in ('direct_reviewed', 'offered_invitations', 'summon_authors'))):
+            return
+        try:
+            at = timestamp(previous['at'])
+        except (KeyError, TypeError, ValueError, AttributeError):
+            return
+        if not start <= at <= now:
+            return
+        current_policy = sources.ORIGINAL_SOURCE_POLICY_VERSION
+        # Only the original measured-reach policy predates this change.
+        legacy_policy = 'original-inspiration-v1'
+        if (previous.get('original_source_policy', legacy_policy) != legacy_policy
+                or 'original_source_policy_attempted' in previous):
+            return
+        # Reserve this policy's decision before any network/model work. A crash
+        # or rejected draft must not turn repeated wakes into repeated retries.
+        previous['original_source_policy_attempted'] = current_policy
+        previous['original_source_policy_attempted_at'] = now.isoformat()
+        save_and_push(state)
     slot = {'slot': slot_id, 'kind': 'decision', 'allowed_actions': ['original'],
             'scheduled_at': start.isoformat(), 'expires_at': (start + HALF_HOUR).isoformat()}
     user = await posting_account(connection)

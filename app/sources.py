@@ -1,4 +1,4 @@
-"""Bounded discovery of recent, public posts with measured reach.
+"""Bounded discovery of recent public posts for replies or read-only inspiration.
 
 Source text and card metadata are evidence, never instructions. This module does
 not fetch links, infer views from screenshots, or turn missing evidence into a
@@ -18,6 +18,7 @@ from .policy import MIN_SOURCE_VIEWS, has_excluded_terms
 
 MAX_AGE = timedelta(hours=24)
 SEARCH_COUNT = 20
+ORIGINAL_SOURCE_POLICY_VERSION = 'original-inspiration-v2'
 # The first two searches cover named tools. The others look for work people
 # describe regardless of which account posted it or which tools they used.
 TOPIC_QUERIES = (
@@ -163,7 +164,19 @@ def _text(value, minimum_letters=20):
 
 def validate(candidate, now):
     """Validate and normalize a serialized snapshot; raise SourceError on fail."""
+    if isinstance(candidate, dict) and candidate.get('origin') == 'inspiration':
+        raise SourceError('Read-only original inspiration cannot be a reply source')
     return validate_fields(candidate, now, require_reach=True, minimum_letters=20)
+
+
+def validate_inspiration(candidate, now):
+    """Keep all source checks except reach, without granting reply eligibility."""
+    if (not isinstance(candidate, dict) or candidate.get('parent_id')
+            or candidate.get('origin') not in (None, 'inspiration')):
+        raise SourceError('Original inspiration requires a public original')
+    result = validate_fields(candidate, now, require_reach=False, minimum_letters=20)
+    result['origin'] = 'inspiration'
+    return result
 
 
 def validate_fields(candidate, now, *, require_reach, minimum_letters):
@@ -207,6 +220,11 @@ def validate_fields(candidate, now, *, require_reach, minimum_letters):
 def snapshot(tweet, now):
     """Read an original Twikit post without fetching article bodies or media."""
     return checked_snapshot(tweet, now, include_parent=False, validator=validate)
+
+
+def inspiration_snapshot(tweet, now):
+    """Read the same complete native metadata, without requiring popularity."""
+    return checked_snapshot(tweet, now, include_parent=False, validator=validate_inspiration)
 
 
 def checked_snapshot(tweet, now, *, include_parent, validator):
@@ -350,7 +368,7 @@ def search_plan(now, *, originals=False):
     return plan
 
 
-def shortlist(candidates, now, limit=4):
+def shortlist(candidates, now, limit=4, *, originals=False):
     """Select distinct authors across search topics, favoring recent measured reach.
 
     The views-per-hour estimate is a lifetime average from one public snapshot.
@@ -361,11 +379,13 @@ def shortlist(candidates, now, limit=4):
     groups = {}
     for candidate in candidates:
         try:
-            candidate = validate(candidate, current)
+            candidate = (validate_inspiration if originals else validate)(candidate, current)
         except SourceError:
             continue
         age_hours = (current - _utc(candidate["created_at"], "invalid source timestamp")).total_seconds() / 3600
-        reach_per_hour = candidate["views"] / max(1, age_hours)
+        # Unknown views stay unknown in the snapshot. A zero ranking contribution
+        # is not a measured count and cannot qualify this source for a reply.
+        reach_per_hour = (candidate["views"] or 0) / max(1, age_hours)
         groups.setdefault(candidate.get("discovery_query"), []).append((reach_per_hour, candidate))
 
     ranked_groups = [iter(sorted(group, key=lambda pair: pair[0], reverse=True))
@@ -418,7 +438,7 @@ async def discover(connection, state, now, *, originals=False):
         for tweet in results:
             counts["examined"] += 1
             try:
-                candidate = snapshot(tweet, current)
+                candidate = (inspiration_snapshot if originals else snapshot)(tweet, current)
             except SourceError as exc:
                 counts["ineligible"] += 1
                 rejections[_REJECTION_REASONS.get(str(exc), "invalid_metadata")] += 1

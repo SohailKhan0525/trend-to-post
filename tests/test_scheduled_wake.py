@@ -1,4 +1,5 @@
 from collections import Counter
+import copy
 from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 import unittest
@@ -168,3 +169,92 @@ class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
         connection.create_tweet.assert_awaited_once_with(text=text)
         self.assertEqual([item['tweet_id'] for item in state['history']], ['601'])
         self.assertEqual(state['actions_inbox_since'], (now - timedelta(minutes=5)).isoformat())
+
+
+class OriginalSourcePolicyTests(unittest.IsolatedAsyncioTestCase):
+    def setUp(self):
+        self.now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
+        self.start = half_hour_start(self.now)
+        self.slot_id = '2026-11-21:actions-original:18'
+        self.legacy = {'action': 'silent', 'at': (self.start + timedelta(minutes=1)).isoformat()}
+        self.state = {**empty(), 'actions_inbox_since': self.start.isoformat(),
+                      'decision_slots': {self.slot_id: dict(self.legacy)}}
+        self.enterContext(patch.object(editorial, 'utcnow', return_value=self.now))
+        self.enterContext(patch.object(editorial, 'posting_account', new_callable=AsyncMock))
+        self.persist = self.enterContext(patch.object(editorial, 'save_and_push'))
+        self.enterContext(patch.object(editorial, 'summary'))
+
+    async def test_legacy_explicit_silence_gets_one_persisted_attempt_under_new_policy(self):
+        before = copy.deepcopy(self.state)
+        async def decide(*args, **kwargs):
+            self.persist.assert_called()
+            self.assertEqual(self.state['decision_slots'][self.slot_id]['original_source_policy_attempted'],
+                             editorial.sources.ORIGINAL_SOURCE_POLICY_VERSION)
+        with patch.object(editorial, 'decide', new=AsyncMock(side_effect=decide)) as decision:
+            await editorial.scheduled_original(self.state, object(), self.start)
+            await editorial.scheduled_original(self.state, object(), self.start)
+        decision.assert_awaited_once()
+        self.assertEqual(self.state['history'], before['history'])
+        self.assertEqual(self.state['used_source_ids'], before['used_source_ids'])
+        self.assertEqual(self.state['used_texts'], before['used_texts'])
+        self.assertEqual(self.state['decision_slots'][self.slot_id]['at'], self.legacy['at'])
+
+    async def test_current_policy_silence_is_recorded_and_stays_closed(self):
+        async def decide(state, slot, *args, **kwargs):
+            editorial.record_silence(state, slot, self.now, {'action': 'silent'})
+        with patch.object(editorial, 'decide', new=AsyncMock(side_effect=decide)) as decision:
+            await editorial.scheduled_original(self.state, object(), self.start)
+            await editorial.scheduled_original(self.state, object(), self.start)
+        decision.assert_awaited_once()
+        self.assertEqual(self.state['decision_slots'][self.slot_id], {
+            'action': 'silent', 'at': self.now.isoformat(),
+            'original_source_policy': editorial.sources.ORIGINAL_SOURCE_POLICY_VERSION})
+
+    async def test_rejected_new_decision_cannot_consume_another_policy_attempt(self):
+        with patch.object(editorial, 'decide', new=AsyncMock(side_effect=editorial.DraftError('rejected'))) as decision:
+            await editorial.scheduled_original(self.state, object(), self.start)
+            await editorial.scheduled_original(self.state, object(), self.start)
+        decision.assert_awaited_once()
+        self.assertEqual(len(self.state['last_attempts']), 1)
+        self.assertEqual(self.state['decision_slots'][self.slot_id]['original_source_policy_attempted'],
+                         editorial.sources.ORIGINAL_SOURCE_POLICY_VERSION)
+
+    async def test_unknown_non_silent_current_and_unverifiable_records_remain_closed(self):
+        records = (
+            None, {}, {'action': 'silent'}, {'action': 'original', 'at': self.legacy['at']},
+            {**self.legacy, 'at': 'invalid'}, {**self.legacy, 'at': (self.start - timedelta(seconds=1)).isoformat()},
+            {**self.legacy, 'at': (self.now + timedelta(seconds=1)).isoformat()},
+            {**self.legacy, 'original_source_policy': editorial.sources.ORIGINAL_SOURCE_POLICY_VERSION},
+            {**self.legacy, 'original_source_policy': 'original-inspiration-v99'},
+            {**self.legacy, 'original_source_policy': 'unknown'},
+            {**self.legacy, 'original_source_policy': None},
+            {**self.legacy, 'original_source_policy_attempted': 'unknown'},
+            {**self.legacy, 'direct_reviewed': True},
+        )
+        for record in records:
+            self.state['decision_slots'][self.slot_id] = copy.deepcopy(record)
+            with self.subTest(record=record), patch.object(editorial, 'decide', new_callable=AsyncMock) as decision:
+                await editorial.scheduled_original(self.state, object(), self.start)
+                decision.assert_not_awaited()
+                self.assertEqual(self.state['decision_slots'][self.slot_id], record)
+        self.persist.assert_not_called()
+
+    async def test_reconsideration_cannot_bypass_a_send_cap_or_unresolved_publication(self):
+        for changes in (
+            {'history': [{'kind': 'original', 'tweet_id': '701', 'posted_at': self.now.isoformat(),
+                          'verified_at': self.now.isoformat()}]},
+            {'outbox': {'kind': 'original'}}, {'pause_reason': 'publication unresolved'},
+            {'verification_pending': {'tweet_id': '701'}},
+        ):
+            state = {**self.state, **changes}
+            with self.subTest(changes=changes), patch.object(editorial, 'decide', new_callable=AsyncMock) as decision:
+                await editorial.scheduled_original(state, object(), self.start)
+                decision.assert_not_awaited()
+                self.assertEqual(state['decision_slots'][self.slot_id], self.legacy)
+        self.persist.assert_not_called()
+
+    def test_reply_and_mixed_silence_records_do_not_get_original_policy_versions(self):
+        for actions in (['reply'], ['reply', 'original']):
+            slot = {'slot': '2026-11-21:actions-discovery:18:0', 'allowed_actions': actions}
+            editorial.record_silence(self.state, slot, self.now, {'action': 'silent'})
+            self.assertNotIn('original_source_policy', self.state['decision_slots'][slot['slot']])
