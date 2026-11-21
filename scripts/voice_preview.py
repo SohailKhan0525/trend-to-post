@@ -1,4 +1,4 @@
-"""Unpublished production-model voice samples; never import the publishing runtime.
+"""Unpublished production-model voice samples; never invoke the publishing runtime.
 
 Run with ``python -m scripts.voice_preview``. Fixed fixtures exercise the actual
 planner, writer and independent reviewers. Silence is a valid editorial result.
@@ -28,16 +28,26 @@ class PreviewIsolationError(RuntimeError):
 
 class PreviewBudget(ai_budget.Budget):
     """Use the production cost accounting in memory, without a production ledger."""
-    def __init__(self, started):
-        super().__init__({}, lambda state: None, lambda: started)
+    def __init__(self, *, clock=None):
+        super().__init__({}, lambda state: None, clock or (lambda: datetime.now(timezone.utc)))
         self.calls = 0
+        self.run_neurons_reserved = 0
 
     def reserve(self, model, payload):
         if self.calls >= MAX_REQUESTS:
             raise ai_budget.AIPaused('Preview request ceiling reached.', ai_budget.next_hour(self.clock()))
+        amount = ai_budget.estimate_reservation(model, payload)
+        if self.run_neurons_reserved + amount > ai_budget.HOURLY_LIMIT:
+            raise ai_budget.AIPaused('Preview run neuron ceiling reached.', ai_budget.next_hour(self.clock()))
         reservation = super().reserve(model, payload)
         self.calls += 1
+        self.run_neurons_reserved += reservation[0]
         return reservation
+
+    def settle(self, reservation, output):
+        before = self.state['ai_usage']['neurons_reserved']
+        super().settle(reservation, output)
+        self.run_neurons_reserved += self.state['ai_usage']['neurons_reserved'] - before
 
 
 def emit(event, **fields):
@@ -146,7 +156,8 @@ def scenarios(now):
     return [rows[4], rows[2], rows[1], rows[5], rows[3], rows[0]]
 
 
-def evaluate(case):
+def evaluate(case, *, progress=None):
+    progress = progress if progress is not None else {}
     now = case['clock']
     state = {'history': [], 'used_source_ids': [], 'used_urls': [],
              'actions_inbox_since': now.isoformat()}
@@ -154,38 +165,56 @@ def evaluate(case):
     if case['kind'] == 'reply':
         return {'status': 'approved_unpublished', 'draft': reply_writer.generate(case['source'], state, now, memory=memory)}
     plan = personality.choose([case['source']], memory, state, now, ['original'])
+    progress['plan'] = plan
     if plan['action'] == 'silent':
-        return {'status': 'silent', 'plan': plan}
+        if case['id'] == 'original_internet_culture':
+            editor_plan = {'action': 'original', 'source_id': '',
+                           'angle': 'I trust the message before a group-chat sticker more than a dictionary of what the sticker means.'}
+            sample = {'status': 'in_progress', 'plan': editor_plan, 'plan_source': 'preview_editor',
+                      'note': 'Separate writer/reviewer sample. The real production planner chose silence; this is not its chosen post.'}
+            progress['editor_supplied_sample'] = sample
+            try:
+                sample['draft'] = personality.original(editor_plan, memory, state, now)
+                sample['status'] = 'approved_unpublished'
+            except cloudflare.DraftError as exc:
+                sample.update(status='rejected_unpublished', reason=str(exc)[:300])
+            except Exception:
+                sample['status'] = 'interrupted'
+                raise
+        return {'status': 'silent', **progress}
     return {'status': 'approved_unpublished', 'plan': plan,
             'draft': personality.original(plan, memory, state, now)}
 
 
 def main():
     started = datetime.now(timezone.utc)
-    budget, trace, results = PreviewBudget(started), [], []
+    budget, trace, results = PreviewBudget(), [], []
+    cases = scenarios(started)
     emit('start', timestamp=started.isoformat(), release=os.environ.get('GITHUB_SHA', 'local'),
          model=cloudflare.selected_model(), request_ceiling=MAX_REQUESTS,
          local_hour_neuron_limit=ai_budget.HOURLY_LIMIT,
          note='Historical and synthetic fixtures only. No X or D1 requests; no account history loaded.')
-    failed = False
+    failed, pause = False, None
     try:
         with isolated_model_calls(budget, trace):
-            for case in scenarios(started):
+            for case in cases:
                 trace.clear()
                 metadata = {key: value for key, value in case.items() if key != 'clock'}
                 metadata['evaluation_time'] = case['clock'].isoformat()
+                progress = {}
                 try:
-                    outcome = evaluate(case)
+                    outcome = evaluate(case, progress=progress)
                 except cloudflare.DraftError as exc:
-                    outcome = {'status': 'rejected_unpublished', 'reason': str(exc)[:300]}
+                    outcome = {**progress, 'status': 'rejected_unpublished', 'reason': str(exc)[:300]}
                 except ai_budget.AIPaused as exc:
-                    outcome = {'status': 'paused', 'reason': exc.reason, 'until': exc.until.isoformat()}
+                    pause = {'reason': exc.reason, 'until': exc.until.isoformat(), 'case_id': case['id']}
+                    outcome = {**progress, 'status': 'paused', **pause}
                     results.append({**metadata, **outcome, 'model_steps': list(trace)})
                     emit('scenario', **results[-1])
                     break  # Never retry a provider quota or local spending pause.
                 except Exception as exc:
                     failed = True
-                    outcome = {'status': 'error', 'error_type': type(exc).__name__}
+                    outcome = {**progress, 'status': 'error', 'error_type': type(exc).__name__}
                     results.append({**metadata, **outcome, 'model_steps': list(trace)})
                     emit('scenario', **results[-1])
                     break  # Auth/network failures do not justify burning more calls.
@@ -194,9 +223,18 @@ def main():
     except PreviewIsolationError as exc:
         emit('isolation_error', reason=str(exc))
         failed = True
-    report = {'preview': True, 'published': False, 'started_at': started.isoformat(),
+    completed = {row['id'] for row in results if row['status'] in ('approved_unpublished', 'rejected_unpublished', 'silent')}
+    status = 'incomplete_paused' if pause else 'incomplete_error' if failed else 'completed'
+    approved_editor_samples = sum(row.get('editor_supplied_sample', {}).get('status') == 'approved_unpublished' for row in results)
+    report = {'preview': True, 'published': False, 'status': status, 'pause': pause,
+              'total_cases': len(cases), 'completed_cases': len(completed),
+              'remaining_case_ids': [case['id'] for case in cases if case['id'] not in completed],
+              'approved_samples': sum(row['status'] == 'approved_unpublished' for row in results) + approved_editor_samples,
+              'editor_supplied_approved_samples': approved_editor_samples,
+              'started_at': started.isoformat(),
               'finished_at': datetime.now(timezone.utc).isoformat(), 'model': cloudflare.selected_model(),
-              'requests': budget.calls, 'usage': budget.state.get('ai_usage', {}), 'results': results}
+              'requests': budget.calls, 'run_neurons_reserved': budget.run_neurons_reserved,
+              'usage': budget.state.get('ai_usage', {}), 'results': results}
     emit('complete', **{key: value for key, value in report.items() if key not in ('preview', 'published', 'results')},
          approved=sum(row['status'] == 'approved_unpublished' for row in results),
          rejected=sum(row['status'] == 'rejected_unpublished' for row in results),
@@ -205,9 +243,13 @@ def main():
     if summary:
         # Escaped preformatted JSON is reviewable without interpreting model text
         # as links, images or GitHub Actions commands.
-        Path(summary).write_text('## Unpublished voice preview\n\n<pre>' +
+        Path(summary).write_text(f'## Unpublished voice preview: {status}\n\n'
+                                 f'Completed {len(completed)} of {len(cases)} cases; '
+                                 f'{report["approved_samples"]} approved unpublished samples.\n\n<pre>' +
                                  html.escape(json.dumps(report, indent=2, ensure_ascii=False)) + '</pre>\n', encoding='utf-8')
-    return int(failed)
+    if status != 'completed':
+        print('::error::Voice preview incomplete. See the reported pause/error and remaining cases; the publishing workflow is independent.', flush=True)
+    return 2 if pause else int(failed)
 
 
 if __name__ == '__main__':
