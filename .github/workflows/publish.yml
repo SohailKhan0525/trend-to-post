@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/publish.yml'
+      - 'app/editorial.py'
       - 'app/personality.py'
       - 'app/reply_writer.py'
 permissions:

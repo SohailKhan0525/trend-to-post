@@ -6,6 +6,7 @@ from unittest.mock import AsyncMock, patch
 from twikit.errors import RequestTimeout
 
 from app import editorial
+from app.ai_budget import AIRequestTooLarge
 from app.reply_freshness import invitation_hold
 from app.reply_schedule import HALF_HOUR, SCHEDULED_TARGETS, half_hour_start, scheduled_remaining
 from test_editorial import empty
@@ -44,6 +45,18 @@ class CadenceTests(unittest.TestCase):
                                      'verified_at': now.isoformat()})
         self.assertEqual(scheduled_remaining(editorial.schedule_state(state), 'original', now, half_hour_start(now)), 0)
 
+    def test_only_a_verified_recent_original_or_follow_ends_original_starvation(self):
+        now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
+        for kind, minutes, verified, expected in (
+                ('original', 59, True, False), ('follow', 59, True, False),
+                ('original', 60, True, True), ('original', 1, False, True),
+                ('reply', 1, True, True)):
+            row = {'kind': kind, 'posted_at': (now - timedelta(minutes=minutes)).isoformat()}
+            if verified:
+                row['verified_at'] = row['posted_at']
+            with self.subTest(kind=kind, minutes=minutes, verified=verified):
+                self.assertEqual(editorial.original_needs_turn({'history': [row]}, now), expected)
+
 
 class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
@@ -62,12 +75,74 @@ class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
             inbox.side_effect = RequestTimeout('X search timed out')
             await editorial.scheduled_wake(state, object(), now)
             self.assertEqual([call.args[1]['allowed_actions'] for call in decide.await_args_list],
-                             [['reply'], ['reply'], ['original']])
+                             [['original'], ['reply'], ['reply']])
             calls = decide.await_count
             inbox.side_effect = fail_after_reserving
             with self.assertRaises(RequestTimeout):
                 await editorial.scheduled_wake(state, object(), now)
             self.assertEqual(decide.await_count, calls)
+
+    async def test_starved_original_follows_priority_and_inbox_before_discovery(self):
+        now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
+        state = {**empty(), 'actions_inbox_since': now.isoformat()}
+        order = []
+        async def decide(state, slot, *args, **kwargs):
+            order.append(slot['allowed_actions'][0])
+        with patch.object(editorial, 'utcnow', return_value=now), \
+                patch.object(editorial, 'process_priority', new=AsyncMock(side_effect=lambda *a, **k: order.append('priority'))), \
+                patch.object(editorial, 'process_inbox', new=AsyncMock(side_effect=lambda *a, **k: order.append('inbox'))), \
+                patch.object(editorial, 'posting_account', new_callable=AsyncMock), \
+                patch.object(editorial, 'decide', side_effect=decide):
+            await editorial.scheduled_wake(state, object(), now)
+        self.assertEqual(order, ['priority', 'inbox', 'original', 'reply', 'reply'])
+
+    async def test_recent_original_or_legacy_follow_preserves_normal_discovery_order(self):
+        now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
+        recent = (now - timedelta(minutes=40)).isoformat()
+        for kind in ('original', 'follow'):
+            state = {**empty(), 'actions_inbox_since': now.isoformat(), 'history': [
+                {'kind': kind, 'tweet_id': '700', 'posted_at': recent, 'verified_at': recent}]}
+            with self.subTest(kind=kind), patch.object(editorial, 'utcnow', return_value=now), \
+                    patch.object(editorial, 'process_inbox', new_callable=AsyncMock), \
+                    patch.object(editorial, 'posting_account', new_callable=AsyncMock), \
+                    patch.object(editorial, 'decide', new_callable=AsyncMock) as decide:
+                await editorial.scheduled_wake(state, object(), now)
+                self.assertEqual([call.args[1]['allowed_actions'] for call in decide.await_args_list],
+                                 [['reply'], ['reply'], ['original']])
+
+    async def test_starved_original_still_obeys_daily_cap_and_closed_slot(self):
+        now = datetime(2026, 11, 21, 23, 37, tzinfo=timezone.utc)
+        prior = (now - timedelta(hours=2)).isoformat()
+        for changes in (
+                {'history': [{'kind': 'original', 'tweet_id': str(i), 'posted_at': prior,
+                              'verified_at': prior} for i in range(40)]},
+                {'decision_slots': {'2026-11-21:actions-original:47': {'action': 'silent'}}},
+                {'outbox': {'kind': 'original'}},
+        ):
+            state = {**empty(), 'actions_inbox_since': now.isoformat(), **changes}
+            with self.subTest(changes=changes), patch.object(editorial, 'utcnow', return_value=now), \
+                    patch.object(editorial, 'process_inbox', new_callable=AsyncMock), \
+                    patch.object(editorial, 'posting_account', new_callable=AsyncMock), \
+                    patch.object(editorial, 'decide', new_callable=AsyncMock) as decide:
+                await editorial.scheduled_wake(state, object(), now)
+                self.assertFalse(any(call.args[1]['allowed_actions'] == ['original'] for call in decide.await_args_list))
+
+    async def test_budget_deferral_reports_headroom_and_does_not_retry_original_same_wake(self):
+        now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
+        state = {**empty(), 'actions_inbox_since': now.isoformat()}
+        failure = AIRequestTooLarge('Do not log provider or secret text', now + timedelta(hours=1), 123, 42)
+        with patch.object(editorial, 'utcnow', return_value=now), \
+                patch.object(editorial, 'process_inbox', new_callable=AsyncMock), \
+                patch.object(editorial, 'posting_account', new_callable=AsyncMock), \
+                patch.object(editorial, 'save_and_push'), patch.object(editorial, 'summary') as summary, \
+                patch.object(editorial, 'decide', new=AsyncMock(side_effect=failure)) as decide:
+            await editorial.scheduled_wake(state, object(), now)
+        self.assertEqual([call.args[1]['allowed_actions'] for call in decide.await_args_list], [['original'], ['reply']])
+        messages = [call.args[0] for call in summary.call_args_list]
+        self.assertEqual(len(messages), 2)
+        self.assertTrue(all('123 estimated neurons, 42 available this UTC hour' in message for message in messages))
+        self.assertTrue(all('secret' not in message for message in messages))
+        self.assertEqual(len(state['last_attempts']), 2)
 
     async def test_no_invitation_still_publishes_one_original_across_retries(self):
         now = datetime(2026, 11, 18, 12, 7, tzinfo=timezone.utc)

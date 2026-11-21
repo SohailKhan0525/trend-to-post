@@ -130,8 +130,8 @@ class ScheduledDiscoveryTests(unittest.IsolatedAsyncioTestCase):
                                                                    'event_key': 'quiet status light'}):
             await editorial.scheduled_wake(self.state, self.connection, NOW)
             await editorial.scheduled_wake(self.state, self.connection, NOW)
-        self.assertEqual([row['kind'] for row in self.state['history']], ['reply', 'reply', 'original'])
-        self.assertEqual([row['source']['id'] for row in self.state['history'][:2]], ['101', '102'])
+        self.assertEqual([row['kind'] for row in self.state['history']], ['original', 'reply', 'reply'])
+        self.assertEqual([row['source']['id'] for row in self.state['history'][1:]], ['101', '102'])
         self.assertEqual(self.connection.create_tweet.await_count, 3)
 
     async def test_final_refresh_preserves_native_thread_reply_ceiling(self):

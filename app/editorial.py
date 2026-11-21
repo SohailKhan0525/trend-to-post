@@ -64,6 +64,13 @@ def reject(state, slot, reason):
     summary(reason)
 
 
+def ai_deferral_detail(exc):
+    if isinstance(exc, AIRequestTooLarge):
+        return (f'AIRequestTooLarge: request needs {exc.needed} estimated neurons, '
+                f'{exc.remaining} available this UTC hour')
+    return type(exc).__name__
+
+
 def thread_evidence(source, history, observed=None):
     """Join only native conversation, reply-parent and verified edit identities."""
     links = {}
@@ -920,7 +927,7 @@ async def process_inbox(state, connection, *, scheduled_at=None):
         except AIRequestTooLarge as exc:
             state.setdefault('reply_rejections', {})[rejection_key(row)] = {
                 'until': exc.until.isoformat(), 'reason': 'AI decision exceeds hourly headroom'}
-            reject(state, slot, f'Insufficient AI headroom for this invitation until {exc.until.isoformat()}.')
+            reject(state, slot, f'Invitation deferred until {exc.until.isoformat()}: {ai_deferral_detail(exc)}.')
         except AIPaused as exc:
             summary(f'AI deferred until {exc.until.isoformat()}: {exc.reason}')
             break
@@ -962,7 +969,7 @@ async def process_priority(state, connection, *, scheduled_at):
             await publish_reply(state, slot, connection, user, selected=row, memory=context)
         except AIPaused as exc:
             # This is a global budget/provider hold. Keep all queued originals.
-            reject(state, slot, f'Priority reply deferred: {type(exc).__name__}.')
+            reject(state, slot, f'Priority reply deferred: {ai_deferral_detail(exc)}.')
             break
         except (AIRequestTimeout, DraftError) as exc:
             # Most source failures are handled by publish_reply itself. If a
@@ -981,6 +988,28 @@ async def process_priority(state, connection, *, scheduled_at):
             except MemoryAccessDenied:
                 memory = ledger_after_denial(state['history'])
                 context = memory.context(eligible[:INBOX_BATCH_SIZE])
+
+
+def original_needs_turn(state, now):
+    return not any(row.get('kind') in ('original', 'follow') and row.get('verified_at')
+                   and row.get('posted_at') and now - timedelta(hours=1) < timestamp(row['posted_at']) <= now
+                   for row in state['history'])
+
+
+async def scheduled_original(state, connection, start):
+    now = utcnow()
+    if not scheduled_remaining(schedule_state(state), 'original', now, start):
+        return
+    slot_id = f'{start.date()}:actions-original:{2 * start.hour + start.minute // 30}'
+    if slot_id in state.get('decision_slots', {}):
+        return
+    slot = {'slot': slot_id, 'kind': 'decision', 'allowed_actions': ['original'],
+            'scheduled_at': start.isoformat(), 'expires_at': (start + HALF_HOUR).isoformat()}
+    user = await posting_account(connection)
+    try:
+        await decide(state, slot, connection, user, incoming=[])
+    except (AIRequestTimeout, AIPaused, DraftError) as exc:
+        reject(state, slot, f'Original deferred: {ai_deferral_detail(exc)}.')
 
 
 async def scheduled_wake(state, connection, now):
@@ -1007,7 +1036,11 @@ async def scheduled_wake(state, connection, now):
             if not delivery_open(state):
                 raise
             summary(f'The reply inbox was unavailable ({type(exc).__name__}).')
-    # Priority originals and direct invitations precede discovered conversations.
+    # Priority accounts and direct invitations retain first use of the shared
+    # budget. An original behind by an hour gets a turn before optional research.
+    original_first = original_needs_turn(state, utcnow())
+    if original_first:
+        await scheduled_original(state, connection, start)
     # Silence closes this discovery slot, and each verified send consumes the shared cap.
     for index in range(2):
         now = utcnow()
@@ -1023,23 +1056,12 @@ async def scheduled_wake(state, connection, now):
         try:
             await decide(state, slot, connection, user, incoming=[])
         except (AIRequestTimeout, AIPaused, DraftError) as exc:
-            reject(state, slot, f'Discovery reply deferred: {type(exc).__name__}.')
+            reject(state, slot, f'Discovery reply deferred: {ai_deferral_detail(exc)}.')
             break
         if slot_id in state.get('decision_slots', {}):
             break
-    now = utcnow()
-    if not scheduled_remaining(schedule_state(state), 'original', now, start):
-        return
-    slot_id = f'{start.date()}:actions-original:{2 * start.hour + start.minute // 30}'
-    if slot_id in state.get('decision_slots', {}):
-        return
-    slot = {'slot': slot_id, 'kind': 'decision', 'allowed_actions': ['original'],
-            'scheduled_at': start.isoformat(), 'expires_at': (start + HALF_HOUR).isoformat()}
-    user = await posting_account(connection)
-    try:
-        await decide(state, slot, connection, user, incoming=[])
-    except (AIRequestTimeout, AIPaused, DraftError) as exc:
-        reject(state, slot, f'Original deferred: {type(exc).__name__}.')
+    if not original_first:
+        await scheduled_original(state, connection, start)
 
 
 async def run(event):
