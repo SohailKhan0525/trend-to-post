@@ -1,4 +1,4 @@
-"""Autonomous public conversations and original posts for Qofeno.
+"""Autonomous replies for Qofeno.
 
 Every send is durably reserved first. Unknown outcomes block publication rather
 than retrying. Native X permission and rate-limit failures are never bypassed.
@@ -18,7 +18,7 @@ from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .metrics import post_id
 from .reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, fresh_invitation
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
-from .cloudflare import AIRequestTimeout, DraftError, selected_model
+from .cloudflare import AIRequestTimeout, DraftError
 from .reply_schedule import (HALF_HOUR, half_hour_start, next_decision, next_original, next_slot,
                              reply_ready, scheduled_remaining, timestamp)
 from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
@@ -303,16 +303,6 @@ def publication_hold(state, now):
     return ' '.join(holds)
 
 
-def upcoming_opportunity(state, now, scheduler=next_original):
-    scheduled = schedule_state(state)
-    midnight = now.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
-    found = scheduler(scheduled, now, midnight) or scheduler(scheduled, midnight, midnight + timedelta(days=1))
-    if not found:
-        return 'No eligible original research opportunity in the current or following UTC day.'
-    _, ready = found
-    return f'Next eligible research opportunity for an original starts at {ready.isoformat()}.'
-
-
 def matches_publication(pending, post):
     user = getattr(post, 'user', None)
     text = getattr(post, 'full_text', None) or getattr(post, 'text', '')
@@ -467,6 +457,9 @@ async def verify_delivery(state, connection):
 
 
 async def send_once(state, slot, draft, connection, user, source=None):
+    if slot.get('kind') != 'reply' or not isinstance(source, dict) or not post_id(source.get('id')):
+        summary('Replies only: a verified parent post is required. No send.')
+        return
     if str(getattr(user, 'screen_name', '')).casefold() != ACCOUNT or not str(getattr(user, 'id', '')).isdigit():
         raise SessionUnavailable()
     if not delivery_open(state):
@@ -477,15 +470,14 @@ async def send_once(state, slot, draft, connection, user, source=None):
     if slot.get('scheduled_at'):
         start = timestamp(slot['scheduled_at'])
         valid = (scheduled_remaining(schedule_state(state), slot['kind'], now, start) > 0
-                 and (slot['kind'] == 'original' or (source and source['id'] == slot.get('inbox_id'))
-                      or (slot.get('discovery_reply') and source and source['id'] == slot.get('discovery_id'))
-                      or (slot.get('priority_reply') and source and source['id'] == slot.get('priority_id'))))
+                 and (source['id'] == slot.get('inbox_id')
+                      or (slot.get('discovery_reply') and source['id'] == slot.get('discovery_id'))
+                      or (slot.get('priority_reply') and source['id'] == slot.get('priority_id'))))
     elif slot.get('inbox_id'):
-        valid = (slot['kind'] == 'reply' and source and source['id'] == slot['inbox_id']
+        valid = (source['id'] == slot['inbox_id']
                  and reply_ready(schedule_state(state), now) and now < timestamp(slot['expires_at']))
     elif 'allowed_actions' in slot:
-        scheduler = next_original if slot.get('original_only') else next_decision
-        due = scheduler(schedule_state(state), now)
+        due = next_decision(schedule_state(state), now)
         if due and slot['kind'] not in due[0]['allowed_actions']:
             due = None
         valid = due and due[0]['slot'] == slot['slot']
@@ -495,42 +487,36 @@ async def send_once(state, slot, draft, connection, user, source=None):
     if not valid:
         reject(state, slot, 'Opportunity changed during research; no send.')
         return
-    if slot['kind'] == 'reply':
-        if source is None:
-            raise ValueError('A reply requires a verified source')
-        if source.get('origin') == 'mention':
-            mentions.validate(source, utcnow())
-        elif source.get('origin') == 'priority' and slot.get('priority_reply') and slot.get('scheduled_at'):
-            priority.validate(source, utcnow(), state)
-            reply_writer.check_source(source, utcnow(), state)
-        elif slot.get('discovery_reply') and slot.get('scheduled_at'):
-            discovery_source(source, utcnow())
-            reply_writer.check_source(source, utcnow(), state)
-        else:
-            reject(state, slot, 'The source is not eligible for this reply opportunity.')
-            return
-        if (not thread_evidence(source, state['history'], state.get('observed_recipient_replies'))[2]
-                or thread_reply_count(source, state['history'], state.get('observed_recipient_replies')) >= THREAD_REPLY_LIMIT
-                or not eligible_author(source, state, utcnow(), str(user.id))
-                or set(source['source_ids']) & set(state['used_source_ids'])
-                or set(source['urls']) & set(state['used_urls'])):
-            reject(state, slot, 'Source or author was already used; no send.')
-            return
-    elif source is not None:
-        raise ValueError('A standalone post cannot have a reply source')
+    if source.get('origin') == 'mention':
+        mentions.validate(source, utcnow())
+    elif source.get('origin') == 'priority' and slot.get('priority_reply') and slot.get('scheduled_at'):
+        priority.validate(source, utcnow(), state)
+        reply_writer.check_source(source, utcnow(), state)
+    elif slot.get('discovery_reply') and slot.get('scheduled_at'):
+        discovery_source(source, utcnow())
+        reply_writer.check_source(source, utcnow(), state)
+    else:
+        reject(state, slot, 'The source is not eligible for this reply opportunity.')
+        return
+    if (not thread_evidence(source, state['history'], state.get('observed_recipient_replies'))[2]
+            or thread_reply_count(source, state['history'], state.get('observed_recipient_replies')) >= THREAD_REPLY_LIMIT
+            or not eligible_author(source, state, utcnow(), str(user.id))
+            or set(source['source_ids']) & set(state['used_source_ids'])
+            or set(source['urls']) & set(state['used_urls'])):
+        reject(state, slot, 'Source or author was already used; no send.')
+        return
     reserved = {**draft, 'slot': slot['slot'], 'kind': slot['kind'], 'author_id': str(user.id),
-                'reserved_at': utcnow().isoformat(), 'editorial_version': 'qofeno-voice-2026-11-21'}
-    if source:
-        reserved['source'] = source
-        reserved['thread_root'] = thread_root(source, state['history'])
-        state['used_source_ids'] = sorted(set(state['used_source_ids'] + source['source_ids']))
-        state['used_urls'] = sorted(set(state['used_urls'] + source['urls']))
+                'reserved_at': utcnow().isoformat(), 'editorial_version': 'qofeno-replies-2026-11-23'}
+    reserved['source'] = source
+    reserved['thread_root'] = thread_root(source, state['history'])
+    state['used_source_ids'] = sorted(set(state['used_source_ids'] + source['source_ids']))
+    state['used_urls'] = sorted(set(state['used_urls'] + source['urls']))
     state['used_events'] = sorted(set(state['used_events'] + [reply_writer.fingerprint(draft['event_key'])]))
     state['outbox'] = reserved
     state['used_texts'] = sorted(set(state['used_texts'] + [reply_writer.fingerprint(draft['text'])]))
     save_and_push(state)  # Remote reservation must succeed before the public side effect.
     send_time = utcnow()
-    if source and not reply_source_current(source, state, send_time):
+    if not reply_source_current(source, state, send_time):
         state['outbox'] = None
         reject(state, slot, 'The incoming post is outside the live reply window; no reply sent.')
         return
@@ -539,12 +525,9 @@ async def send_once(state, slot, draft, connection, user, source=None):
         reject(state, slot, 'Reservation completed after the opportunity expired; no send.')
         return
     sent_at = send_time.isoformat()
-    stage('send ' + slot['kind'], source['id'] if source else None)
+    stage('send reply', source['id'])
     try:
-        if source:
-            post = await connection.create_tweet(text=draft['text'], reply_to=source['id'])
-        else:
-            post = await connection.create_tweet(text=draft['text'])
+        post = await connection.create_tweet(text=draft['text'], reply_to=source['id'])
     except (Forbidden, NotFound, TweetNotAvailable) as exc:
         # Explicit native rejection. Keep burned identities, do not change
         # credentials/transport or try to bypass conversation restrictions.
@@ -557,12 +540,11 @@ async def send_once(state, slot, draft, connection, user, source=None):
         state['outbox'] = None
         now = utcnow()
         until = now + timedelta(minutes=30)
-        if slot['kind'] == 'reply':
-            reset = exc.rate_limit_reset
-            if reset is not None and reset > now.timestamp():
-                until = datetime.fromtimestamp(reset, timezone.utc)
-            if state.get('x_pause_until'):
-                until = max(until, timestamp(state['x_pause_until']))
+        reset = exc.rate_limit_reset
+        if reset is not None and reset > now.timestamp():
+            until = datetime.fromtimestamp(reset, timezone.utc)
+        if state.get('x_pause_until'):
+            until = max(until, timestamp(state['x_pause_until']))
         state['x_pause_until'] = until.isoformat()
         reject(state, slot, f'X rate limit reached. Publication paused until {until.isoformat()}.')
         return
@@ -694,17 +676,8 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
 
 
 async def publish_original(state, slot, connection, user, plan, memory_context):
-    stage('write original post')
-    try:
-        with budget_scope(state, save_and_push, utcnow):
-            draft = personality.original(plan, memory_context, state, utcnow())
-    except AIRequestTimeout:
-        reject(state, slot, 'Cloudflare timed out preparing the original post. Deferred before sending.')
-        return
-    except AIRequestTooLarge as exc:
-        reject(state, slot, f'Deferred original: request needs {exc.needed} estimated neurons, {exc.remaining} available this hour.')
-        return
-    await send_once(state, slot, draft, connection, user)
+    # Older callers can still hold original slots from before the cutover.
+    summary('Standalone posting is disabled. No draft or send.')
 
 
 def ledger_after_denial(history):
@@ -796,6 +769,12 @@ def record_silence(state, slot, now, plan):
 
 
 async def decide(state, slot, connection, user, *, incoming=None):
+    if 'reply' not in slot.get('allowed_actions', ()):
+        summary('Standalone publishing is disabled. No original decision or draft requested.')
+        return
+    # Retired mixed callers may still supply original as an option. The live
+    # planner receives only reply/silence, independently of workflow settings.
+    slot = {**slot, 'allowed_actions': ['reply']}
     stage('sync verified publications to D1')
     try:
         memory = Memory.connect()
@@ -821,16 +800,16 @@ async def decide(state, slot, connection, user, *, incoming=None):
     candidates = []
     # Scheduled discovery can join a public conversation; inbox-only checks remain focused.
     discovery_replies = bool(slot.get('discovery_reply') and slot.get('scheduled_at'))
-    if 'original' in slot['allowed_actions'] or discovery_replies:
+    if discovery_replies:
         stage('discover public conversations')
         try:
-            candidates = await sources.discover(connection, state, now, originals=set(slot['allowed_actions']) == {'original'})
+            candidates = await sources.discover(connection, state, now, originals=False)
         except (NotFound, TweetNotAvailable):
             summary('Topic discovery unavailable for this opportunity.')
     # Never feed an incidental tag or opted-out request back as a trending post.
     passive = [c for c in candidates if c['author_id'] not in invited_authors and candidate_eligible(c, state, now, own_id)
                and not re.search(r'(?<![\w@])@' + re.escape(ACCOUNT) + r'\b', c['text'], re.I)]
-    discovered = sources.shortlist(passive, now, limit=4 - len(invited), originals=set(slot['allowed_actions']) == {'original'})
+    discovered = sources.shortlist(passive, now, limit=4 - len(invited), originals=False)
     if discovery_replies:
         discovered = [discovery_source(row, now) for row in discovered]
     shortlist = invited + discovered
@@ -845,7 +824,7 @@ async def decide(state, slot, connection, user, *, incoming=None):
         exact = next((row for row in invited if row['id'] == slot['inbox_id']), None)
         plan = personality.direct_reply(exact, state, utcnow()) if exact else {'action': 'silent'}
     else:
-        stage('choose original, reply or silence')
+        stage('choose reply or silence')
         with budget_scope(state, save_and_push, utcnow):
             options = {'allow_discovery_replies': True} if discovery_replies else {}
             plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'], **options)
@@ -858,16 +837,13 @@ async def decide(state, slot, connection, user, *, incoming=None):
         raise DraftError('Decision exceeds the current publishing limits')
     before = len(state['history'])
     chosen_slot = {**slot, 'kind': action}
-    if action == 'reply':
-        permitted = invited + discovered if discovery_replies else invited
-        source = next((row for row in permitted if row['id'] == plan['source_id']), None)
-        if source is None:
-            raise DraftError('Reply decision must name an eligible invitation')
-        if source.get('origin') == 'discovery':
-            chosen_slot['discovery_id'] = source['id']
-        await publish_reply(state, chosen_slot, connection, user, selected=source, memory=context, angle=plan['angle'])
-    else:
-        await publish_original(state, chosen_slot, connection, user, plan, context)
+    permitted = invited + discovered if discovery_replies else invited
+    source = next((row for row in permitted if row['id'] == plan['source_id']), None)
+    if source is None:
+        raise DraftError('Reply decision must name an eligible invitation')
+    if source.get('origin') == 'discovery':
+        chosen_slot['discovery_id'] = source['id']
+    await publish_reply(state, chosen_slot, connection, user, selected=source, memory=context, angle=plan['angle'])
     if len(state['history']) > before:
         stage('remember verified publication')
         try:
@@ -992,51 +968,6 @@ async def process_priority(state, connection, *, scheduled_at):
                 context = memory.context(eligible[:INBOX_BATCH_SIZE])
 
 
-def original_needs_turn(state, now):
-    return not any(row.get('kind') in ('original', 'follow') and row.get('verified_at')
-                   and row.get('posted_at') and now - timedelta(hours=1) < timestamp(row['posted_at']) <= now
-                   for row in state['history'])
-
-
-async def scheduled_original(state, connection, start):
-    now = utcnow()
-    if not scheduled_remaining(schedule_state(state), 'original', now, start):
-        return
-    slot_id = f'{start.date()}:actions-original:{2 * start.hour + start.minute // 30}'
-    if slot_id in state.get('decision_slots', {}):
-        previous = state['decision_slots'][slot_id]
-        # A changed source policy can reconsider one explicit original silence.
-        # Unknown outcomes, reply decisions and malformed legacy records stay
-        # closed. This never changes publication history or send allowances.
-        if (not isinstance(previous, dict) or previous.get('action') != 'silent'
-                or any(key in previous for key in ('direct_reviewed', 'offered_invitations', 'summon_authors'))):
-            return
-        try:
-            at = timestamp(previous['at'])
-        except (KeyError, TypeError, ValueError, AttributeError):
-            return
-        if not start <= at <= now:
-            return
-        current_policy = sources.ORIGINAL_SOURCE_POLICY_VERSION
-        # Only the original measured-reach policy predates this change.
-        legacy_policy = 'original-inspiration-v1'
-        if (previous.get('original_source_policy', legacy_policy) != legacy_policy
-                or 'original_source_policy_attempted' in previous):
-            return
-        # Reserve this policy's decision before any network/model work. A crash
-        # or rejected draft must not turn repeated wakes into repeated retries.
-        previous['original_source_policy_attempted'] = current_policy
-        previous['original_source_policy_attempted_at'] = now.isoformat()
-        save_and_push(state)
-    slot = {'slot': slot_id, 'kind': 'decision', 'allowed_actions': ['original'],
-            'scheduled_at': start.isoformat(), 'expires_at': (start + HALF_HOUR).isoformat()}
-    user = await posting_account(connection)
-    try:
-        await decide(state, slot, connection, user, incoming=[])
-    except (AIRequestTimeout, AIPaused, DraftError) as exc:
-        reject(state, slot, f'Original deferred: {ai_deferral_detail(exc)}.')
-
-
 async def scheduled_wake(state, connection, now):
     start = half_hour_start(now)
     if not state.get('actions_inbox_since'):
@@ -1061,11 +992,7 @@ async def scheduled_wake(state, connection, now):
             if not delivery_open(state):
                 raise
             summary(f'The reply inbox was unavailable ({type(exc).__name__}).')
-    # Priority accounts and direct invitations retain first use of the shared
-    # budget. An original behind by an hour gets a turn before optional research.
-    original_first = original_needs_turn(state, utcnow())
-    if original_first:
-        await scheduled_original(state, connection, start)
+    # Priority accounts and direct invitations retain first use of the shared budget.
     # Silence closes this discovery slot, and each verified send consumes the shared cap.
     for index in range(2):
         now = utcnow()
@@ -1085,8 +1012,6 @@ async def scheduled_wake(state, connection, now):
             break
         if slot_id in state.get('decision_slots', {}):
             break
-    if not original_first:
-        await scheduled_original(state, connection, start)
 
 
 async def run(event):
@@ -1104,57 +1029,30 @@ async def run(event):
     if not delivery_open(state):
         summary('A previous publication requires reconciliation. No new send.')
         return
-    if event in ('inbox', 'scheduled'):
-        try:
-            if event == 'scheduled':
-                await scheduled_wake(state, connection, start)
-            else:
-                await process_inbox(state, connection)
-        except TooManyRequests as exc:
-            now = utcnow()
-            reset = getattr(exc, 'rate_limit_reset', None)
-            until = datetime.fromtimestamp(reset, timezone.utc) if reset and reset > now.timestamp() else now + timedelta(minutes=15)
-            state['x_pause_until'] = until.isoformat()
-            save_and_push(state)
-            summary(f'X rate-limited inbox access. Next check after {until.isoformat()}.')
+    if event == 'original':
+        summary('Standalone publishing is disabled. Legacy original mode reconciled existing delivery only.')
         return
-    user = await posting_account(connection)
-    window = None
-    if event == 'repository_dispatch':
-        window = start.replace(minute=start.minute // 30 * 30, second=0, microsecond=0) + timedelta(minutes=30)
-    summary('Autonomous Qofeno decision. Workers AI model ' + selected_model())
-    state = load()
-    now = utcnow()
-    hold = publication_hold(state, now)
-    if hold:
-        summary(hold)
-        return
-    scheduler = next_decision if event in ('push', 'repository_dispatch') else next_original
-    found = scheduler(schedule_state(state), now, window)
-    if not found:
-        summary(upcoming_opportunity(state, now, scheduler))
-        return
-    slot, ready = found
-    if ready > now:
-        summary(f'Waiting until {ready.isoformat()} to begin research for a decision.')
-    while (wait := (ready - utcnow()).total_seconds()) > 0:
-        await asyncio.sleep(min(wait, 30))
-    if utcnow() >= timestamp(slot['expires_at']):
+    if event not in ('inbox', 'scheduled', 'push', 'repository_dispatch', 'workflow_dispatch'):
+        summary('Unsupported publishing mode; no new send.')
         return
     try:
-        await decide(state, slot, connection, user)
-    except AIRequestTimeout:
-        reject(state, slot, 'Workers AI timed out while preparing the decision. No new send.')
-    except AIPaused as exc:
-        reject(state, slot, f'AI deferred until {exc.until.isoformat()}: {exc.reason}')
-    except DraftError as exc:
-        reject(state, slot, f'No approved decision or wording: {str(exc)[:240]}')
+        if event == 'inbox':
+            await process_inbox(state, connection)
+        else:
+            await scheduled_wake(state, connection, start)
+    except TooManyRequests as exc:
+        now = utcnow()
+        reset = getattr(exc, 'rate_limit_reset', None)
+        until = datetime.fromtimestamp(reset, timezone.utc) if reset and reset > now.timestamp() else now + timedelta(minutes=15)
+        state['x_pause_until'] = until.isoformat()
+        save_and_push(state)
+        summary(f'X rate-limited inbox access. Next check after {until.isoformat()}.')
 
 
 async def inspect():
     state = load()
     now = utcnow()
-    status = publication_hold(state, now) or upcoming_opportunity(state, now)
+    status = publication_hold(state, now) or 'Replies-only publishing is enabled; standalone posts are disabled.'
     inbox = 'open' if reply_ready(schedule_state(state), now) else 'held'
     summary(f'{status} Independent mention and thread-reply checks: {inbox}. '
             f'Confirmed publications: {len(state["history"])}. '

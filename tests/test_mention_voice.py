@@ -60,6 +60,27 @@ class MentionVoiceTests(unittest.TestCase):
                 self.assertEqual(model.call_count, 2)
                 self.assertNotIn('attention_only', model.call_args.args[1]['source'])
 
+    def test_short_greeting_premise_repair_explains_bounds_and_keeps_public_text_short(self):
+        good = {**DRAFT, 'text': 'Hey.', 'premise': 'The author greets Qofeno.'}
+        review = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': 'hi'}
+        for invalid in ('Hello', ' The author greets Qofeno.', 'x' * 211):
+            with self.subTest(premise=invalid), patch.object(reply_writer, 'complete',
+                    side_effect=[{**good, 'premise': invalid}, good, review]) as model:
+                self.assertEqual(reply_writer.generate(DIRECT, {}, NOW)['text'], 'Hey.')
+                self.assertEqual(model.call_count, 3)
+                self.assertIn('premise must contain 8–210 characters with no surrounding whitespace',
+                              model.call_args_list[1].args[1]['correction'])
+
+    def test_honest_ai_identity_answers_the_question_without_inventing_experience(self):
+        source = {**DIRECT, 'text': '@qofenoai are you human or an AI?'}
+        draft = {**DRAFT, 'text': "I'm AI. The opinions are mine.", 'premise': 'The author asks whether Qofeno is human or AI.'}
+        review = {**dict.fromkeys(reply_writer.FLAGS, True), 'source_evidence': 'are you human or an AI?'}
+        with patch.object(reply_writer, 'complete', side_effect=[draft, review]) as model:
+            self.assertEqual(reply_writer.generate(source, {}, NOW)['text'], draft['text'])
+            self.assertEqual(model.call_count, 2)
+        with self.assertRaises(DraftError):
+            reply_writer.validate({'text': 'I tested the app myself.', 'premise': draft['premise']}, source)
+
     def test_direct_invitation_survives_full_trending_shortlist_without_view_floor(self):
         trends = [{**DIRECT, 'id': str(i), 'source_ids': [str(i)], 'origin': 'discovery',
                    'text': 'The test suite is the slowest part of our build.', 'views': 20000}

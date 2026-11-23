@@ -10,7 +10,7 @@ MIN_FOLLOW_GAP = timedelta(hours=6)
 MIN_ACTIVITY_GAP = timedelta(minutes=2)
 RECHECK_GAP = timedelta(minutes=10)
 CAPS = {'reply': DAILY_REPLY_CAP, 'follow': DAILY_FOLLOW_CAP}
-SCHEDULED_TARGETS = {'reply': 70, 'original': 40}
+SCHEDULED_TARGETS = {'reply': 70, 'original': 0}
 HALF_HOUR = timedelta(minutes=30)
 
 

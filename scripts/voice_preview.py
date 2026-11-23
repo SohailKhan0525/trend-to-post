@@ -1,4 +1,4 @@
-"""Unpublished production-model voice samples; never invoke the publishing runtime.
+"""Unpublished production-model reply samples; never invoke the publishing runtime.
 
 Run with ``python -m scripts.voice_preview``. Fixed fixtures exercise the actual
 planner, writer and independent reviewers. Silence is a valid editorial result.
@@ -78,10 +78,10 @@ def isolated_model_calls(budget, trace):
         return opener.open(request, *args, **kwargs)
 
     def observed_complete(system, data, **kwargs):
+        if system in (personality.WRITE, personality.REVIEW):
+            raise PreviewIsolationError('This preview cannot generate or review original posts.')
         fields = (kwargs.get('schema') or {}).get('properties', {})
-        stage = ('original_planner' if 'action' in fields and 'angle' in fields else
-                 'original_writer' if system == personality.WRITE else
-                 'original_review' if system == personality.REVIEW else
+        stage = ('reply_planner' if 'action' in fields and 'angle' in fields else
                  'reply_writer' if system == reply_writer.VOICE else 'reply_review')
         result = cloudflare.complete(system, data, **kwargs)
         trace.append({'stage': stage, 'response': result})
@@ -122,16 +122,23 @@ def scenarios(now):
                          'and finding RAM for the 2012 one took days. Predictable maintenance is the advantage.', now,
                          parent={'id': '910012', 'author': 'qofenoai', 'author_id': '99999',
                                  'text': 'Old computers have run out of new ways to break.'}, own_parent=True)
-    disagreement = mention('910003',
-                           '@qofenoai If an AI coding agent passes the tests, nobody needs to read its patch.', now)
+    identity = mention('910003', '@qofenoai Are you a human or an AI?', now)
     serious = mention('910004',
                       '@qofenoai The editor overwrote my only copy of the draft. There is no undo entry. What should I do first?', now)
-    originals = (
-        ('original_internet_culture', 'The same group-chat sticker now means both running late and already outside; '
-         'even the sender needs the previous message to tell which.'),
-        ('original_founder', 'A founder removed the account signup from a demo so visitors could try the product immediately.'),
-    )
+    greeting = mention('910005', '@qofenoai hi', now)
+    discovery = {'id': '920001', 'author_id': '90002', 'author': 'PreviewBuilder',
+                 'text': 'Our coding agent passes the tests, but it also edits the tests whenever a check fails. '
+                         'We still read every patch before merging.',
+                 'origin': 'discovery', 'created_at': (now - timedelta(hours=1)).isoformat(),
+                 'views': 20000, 'source_ids': ['920001'], 'urls': [],
+                 'url': 'https://x.com/PreviewBuilder/status/920001'}
     rows = [
+        {'id': 'brief_direct_greeting', 'kind': 'reply', 'source': greeting, 'clock': now,
+         'provenance': {'kind': 'synthetic_fixture'},
+         'purpose': 'Allow a short public acknowledgement while still returning a valid private premise.'},
+        {'id': 'discovered_agent_tests', 'kind': 'reply', 'source': discovery, 'clock': now,
+         'provenance': {'kind': 'synthetic_fixture'},
+         'purpose': 'Use the production discovery planner and reviewer; add a specific point rather than generic agent commentary.'},
         {'id': 'public_founder_joke', 'kind': 'reply', 'source': boardy, 'clock': replay,
          'provenance': {'kind': 'public_quote_with_fictional_reader_invitation', 'author': '@boardyai',
                         'published_at': '2026-11-18T14:00:00Z', 'url': PUBLIC_SOURCE, 'transcript': PUBLIC_TRANSCRIPT},
@@ -140,51 +147,46 @@ def scenarios(now):
          'provenance': {'kind': 'adapted_fixture_not_a_real_qofeno_conversation',
                         'inspiration': PUBLIC_TRANSCRIPT, 'note': 'Paraphrases the hardware discussion; the Qofeno parent is invented.'},
          'purpose': 'Accept a concrete correction without repeating the mistaken claim.'},
-        {'id': 'disagreement', 'kind': 'reply', 'source': disagreement, 'clock': now,
-         'provenance': {'kind': 'synthetic_fixture'}, 'purpose': 'Give a useful disagreement without flattery or insults.'},
+        {'id': 'direct_identity', 'kind': 'reply', 'source': identity, 'clock': now,
+         'provenance': {'kind': 'synthetic_fixture'},
+         'purpose': 'Answer the explicit identity question honestly; compare with the ordinary technical reply that needs no AI announcement.'},
         {'id': 'serious_lost_work', 'kind': 'reply', 'source': serious, 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'}, 'purpose': 'Answer a serious request without forcing a joke.'},
     ]
-    for index, (ident, text) in enumerate(originals):
-        rows.append({'id': ident, 'kind': 'original', 'clock': now + timedelta(minutes=30 * index),
-                     'source': {'id': str(920001 + index), 'author_id': '90002', 'author': 'PreviewBuilder',
-                                'text': text, 'created_at': now.isoformat(), 'views': 20000,
-                                'source_ids': [str(920001 + index)], 'urls': []},
-                     'provenance': {'kind': 'synthetic_fixture'},
-                     'purpose': 'Let the production planner choose an original angle or silence, then independently review it.'})
-    # Cover both original niches and substantive exchanges before optional humor
-    # if the shared, conservative preview budget cannot cover all six cases.
-    return [rows[4], rows[2], rows[1], rows[5], rows[3], rows[0]]
+    # Exercise the production failure shapes before optional tone cases if the
+    # shared preview budget cannot cover all replies.
+    return [rows[0], rows[1], rows[3], rows[4], rows[5], rows[2]]
 
 
 def evaluate(case, *, progress=None):
     progress = progress if progress is not None else {}
     now = case['clock']
     state = {'history': [], 'used_source_ids': [], 'used_urls': [],
+             'used_events': [], 'used_texts': [],
              'actions_inbox_since': now.isoformat()}
     memory = {'recent_own': [], 'people': [], 'conversations': []}
-    if case['kind'] == 'reply':
+    if case['kind'] != 'reply':
+        raise PreviewIsolationError('This preview only evaluates replies.')
+    if case['source'].get('origin') == 'mention':
         return {'status': 'approved_unpublished', 'draft': reply_writer.generate(case['source'], state, now, memory=memory)}
-    plan = personality.choose([case['source']], memory, state, now, ['original'])
+    # D1's normal context projection includes recent public text and author
+    # exchanges. These labeled fixtures exercise that shape without reading D1.
+    previous = [('An agent in a real codebase is harder than marketing suggests.', 'Generic agent skepticism'),
+                ("As an AI, I process data rather than drink coffee.", 'Unnecessary AI introduction')]
+    for index, (text, event) in enumerate(previous):
+        posted = (now - timedelta(hours=2, minutes=index)).isoformat()
+        row = {'post_id': str(930001 + index), 'kind': 'reply', 'posted_at': posted,
+               'text': text, 'event_key': event}
+        memory['recent_own'].append(row)
+        state['history'].insert(0, {**row, 'tweet_id': row['post_id'], 'verified_at': posted})
+    plan = personality.choose([case['source']], memory, state, now, ['reply'], allow_discovery_replies=True)
     progress['plan'] = plan
     if plan['action'] == 'silent':
-        if case['id'] == 'original_internet_culture':
-            editor_plan = {'action': 'original', 'source_id': '',
-                           'angle': 'I trust the message before a group-chat sticker more than a dictionary of what the sticker means.'}
-            sample = {'status': 'in_progress', 'plan': editor_plan, 'plan_source': 'preview_editor',
-                      'note': 'Separate writer/reviewer sample. The real production planner chose silence; this is not its chosen post.'}
-            progress['editor_supplied_sample'] = sample
-            try:
-                sample['draft'] = personality.original(editor_plan, memory, state, now)
-                sample['status'] = 'approved_unpublished'
-            except cloudflare.DraftError as exc:
-                sample.update(status='rejected_unpublished', reason=str(exc)[:300])
-            except Exception:
-                sample['status'] = 'interrupted'
-                raise
         return {'status': 'silent', **progress}
+    if plan['action'] != 'reply' or plan['source_id'] != case['source']['id']:
+        raise PreviewIsolationError('The preview planner must select this supplied reply source.')
     return {'status': 'approved_unpublished', 'plan': plan,
-            'draft': personality.original(plan, memory, state, now)}
+            'draft': reply_writer.generate(case['source'], state, now, memory=memory, angle=plan['angle'])}
 
 
 def main():
@@ -226,12 +228,10 @@ def main():
         failed = True
     completed = {row['id'] for row in results if row['status'] in ('approved_unpublished', 'rejected_unpublished', 'silent')}
     status = 'incomplete_paused' if pause else 'incomplete_error' if failed else 'completed'
-    approved_editor_samples = sum(row.get('editor_supplied_sample', {}).get('status') == 'approved_unpublished' for row in results)
     report = {'preview': True, 'published': False, 'status': status, 'pause': pause,
               'total_cases': len(cases), 'completed_cases': len(completed),
               'remaining_case_ids': [case['id'] for case in cases if case['id'] not in completed],
-              'approved_samples': sum(row['status'] == 'approved_unpublished' for row in results) + approved_editor_samples,
-              'editor_supplied_approved_samples': approved_editor_samples,
+              'approved_samples': sum(row['status'] == 'approved_unpublished' for row in results),
               'started_at': started.isoformat(),
               'finished_at': datetime.now(timezone.utc).isoformat(), 'model': cloudflare.selected_model(),
               'requests': budget.calls, 'run_neurons_reserved': budget.run_neurons_reserved,

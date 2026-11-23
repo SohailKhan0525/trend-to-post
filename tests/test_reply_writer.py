@@ -200,6 +200,33 @@ class ReplyWriterTests(unittest.TestCase):
                 writer.generate(SOURCE, {}, NOW)
         self.assertEqual(calls.call_count, 2)
 
+    def test_interchangeable_commentary_is_rejected_while_concrete_views_remain_eligible(self):
+        cases = (
+            ('The model stays the same. Our integration now shows its requested changes before applying them.',
+             'The real shift is in the integration layer, not just the model.',
+             "I'd keep that preview on by default."),
+            ('Our coding agent writes patches. A person reviews each patch before merging.',
+             'The role shifts from writing code to managing an agentic control plane.',
+             'I want to see the patch before it gets merged.'),
+            ('We plan to build a billion-dollar company using agents, but have no paying users yet.',
+             'Scaling to a billion dollars requires more than just agentic workflows.',
+             "I'd look for a paying user before another agent."),
+        )
+        for text, commentary, response in cases:
+            source = {**SOURCE, 'text': text}
+            draft = {'text': commentary, 'premise': text, 'event_key': 'Response to the product choice'}
+            assessed = {**dict.fromkeys(writer.SOURCE_FLAGS, True), **draft, 'reply_mode': 'observation'}
+            review = {**VERDICT, 'source_evidence': text, 'specific': False, 'added_angle': False}
+            with self.subTest(commentary=commentary):
+                with patch.object(writer, 'complete', side_effect=[assessed, review]) as model:
+                    with self.assertRaisesRegex(DraftError, 'specific.*added_angle'):
+                        writer.generate(source, {}, NOW)
+                    self.assertEqual(model.call_count, 2)
+                result, model = self.generate([{**assessed, 'text': response},
+                    {**review, 'specific': True, 'added_angle': True}], source)
+                self.assertEqual(result['text'], response)
+                self.assertEqual(model.call_count, 2)
+
     def test_live_audit_time_claim_needs_a_time_saving_in_the_source(self):
         source = {**SOURCE, 'text': 'Copilot suggests NuGet updates. Apply the changes, then run your tests.'}
         draft = {'text': 'A suggested update still has to pass the tests.',

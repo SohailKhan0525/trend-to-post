@@ -78,17 +78,14 @@ class ReplySendClockTests(unittest.IsolatedAsyncioTestCase):
         self.enterContext(patch.object(editorial, 'summary'))
         self.enterContext(patch.object(editorial, 'stage'))
 
-    async def test_original_without_a_reply_target_still_publishes_in_its_own_window(self):
-        self.now = INBOX_START_AT - timedelta(days=1)
-        slot, _ = editorial.next_original(editorial.schedule_state(self.state), self.now)
-        post = SimpleNamespace(id=snowflake(self.now), user=self.user, full_text=ORIGINAL['text'])
-        self.connection.create_tweet.return_value = post
-        self.connection.get_tweet_by_id.return_value = post
-        with patch.object(editorial, 'save_and_push'):
-            await editorial.send_once(self.state, {**slot, 'kind': 'original'}, ORIGINAL,
-                                      self.connection, self.user)
-        self.connection.create_tweet.assert_awaited_once_with(text=ORIGINAL['text'])
-        self.assertEqual(self.state['history'][0]['tweet_id'], post.id)
+    async def test_saved_original_slot_cannot_publish_without_a_parent(self):
+        slot = {'slot': 'legacy-original', 'kind': 'original', 'allowed_actions': ['original'],
+                'expires_at': (self.now + timedelta(minutes=10)).isoformat()}
+        with patch.object(editorial, 'save_and_push') as persist:
+            await editorial.send_once(self.state, slot, ORIGINAL, self.connection, self.user)
+        self.connection.create_tweet.assert_not_awaited()
+        persist.assert_not_called()
+        self.assertEqual(self.state['history'], [])
 
     async def test_older_mixed_decision_cannot_send_to_pre_activation_mention(self):
         self.now = INBOX_START_AT + timedelta(seconds=15)

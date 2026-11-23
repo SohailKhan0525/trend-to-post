@@ -8,6 +8,7 @@ from unittest.mock import AsyncMock, Mock, patch
 
 from app import cli, editorial, server_ledger, store
 from app.memory import LedgerMemory, MemoryUnavailable
+from test_reply_freshness import invitation
 
 
 RELEASE = 'a' * 40
@@ -175,11 +176,11 @@ class ServerLedgerTests(unittest.TestCase):
         state = self.ledger.load()
         user = Mock(id='99', screen_name=store.ACCOUNT)
         x = Mock(create_tweet=AsyncMock())
-        slot = {'kind': 'original', 'slot': '123', 'expires_at': '2100-01-01T00:00:00+00:00',
-                'allowed_actions': ['original']}
+        source = invitation(editorial.utcnow())
+        slot = {**editorial.inbox_opportunity(source), 'kind': 'reply'}
         with patch.dict(os.environ, {'QOFENO_LEDGER': 'd1', 'QOFENO_INSTANCE': 'not-leader'}), \
-                patch.object(server_ledger, 'connect', return_value=self.ledger), \
-                patch.object(editorial, 'next_decision', return_value=(slot, None)), self.assertRaises(MemoryUnavailable):
-            asyncio.run(editorial.send_once(state, slot, {'text': 'New take', 'event_key': 'fun'}, x, user))
+                patch.object(server_ledger, 'connect', return_value=self.ledger), self.assertRaises(MemoryUnavailable):
+            asyncio.run(editorial.send_once(state, slot, {'text': 'Count retries', 'event_key': 'retry'},
+                                            x, user, source))
         x.create_tweet.assert_not_awaited()
         self.assertNotIn('outbox', self.ledger.load())

@@ -50,7 +50,7 @@ def main():
             from .metrics import metrics
             asyncio.run(metrics())
         else:
-            event = args.mode or "original"
+            event = args.mode or "scheduled"
             asyncio.run(editorial.inspect() if args.command == "inspect" else editorial.run(event))
     except AIPaused as exc:
         summary(f"AI paused until {exc.until.isoformat()}: {exc.reason}")

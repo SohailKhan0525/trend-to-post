@@ -4,12 +4,10 @@ from datetime import timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, call, patch
 
-from twikit.errors import NotFound
-
 from app import editorial
 from app.memory import MemoryAccessDenied, MemoryUnavailable
 from app.reply_schedule import next_decision
-from test_editorial import DRAFT, ORIGINAL, PLAN, SOURCE, START, empty
+from test_editorial import DRAFT, PLAN, SOURCE, START, empty
 from test_sources import tweet
 
 
@@ -53,7 +51,7 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
         parent.user.id = self.user.id
         return parent
 
-    async def test_native_low_view_invitation_reaches_its_exact_parent_when_trend_search_is_unavailable(self):
+    async def test_native_low_view_invitation_reaches_its_exact_parent_without_topic_research(self):
         state = empty()
         invite = self.inbox_post('920', '@qofenoai how should I test retries in my job queue?')
         answer = {'text': 'Fail the first attempt. Count the side effects on retry.', 'event_key': 'queue retry side effects'}
@@ -74,10 +72,11 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
                              'text': 'Keep the build output.', 'source': {'id': '879', 'author_id': invite.user.id}}]
         plan = {'action': 'reply', 'source_id': invite.id, 'angle': 'Test the retry after one real failure.'}
         with patch.object(editorial.Memory, 'connect') as connect, \
-                patch.object(editorial.sources, 'discover', AsyncMock(side_effect=NotFound('topic search unavailable'))), \
+                patch.object(editorial.sources, 'discover', new_callable=AsyncMock) as topics, \
                 patch.object(editorial.personality, 'choose', return_value=plan) as choose, \
                 patch.object(editorial.reply_writer, 'generate', return_value=answer) as generate:
             await editorial.decide(state, self.slot, connection, self.user)
+        topics.assert_not_awaited()
         connection.get_notifications.assert_awaited_once()
         self.assertEqual([s['id'] for s in choose.call_args.args[0]], [invite.id])
         self.assertEqual(generate.call_args.args[0]['origin'], 'mention')
@@ -210,14 +209,16 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
         connection.get_tweet_by_id.side_effect = {invite.id: invite, stop.id: stop, parent.id: parent}.__getitem__
         topic = {**SOURCE, 'author_id': stop.user.id, 'author': stop.user.screen_name,
                  'url': f'https://x.com/{stop.user.screen_name}/status/{SOURCE["id"]}'}
-        def choose(candidates, *args):
+        def choose(candidates, *args, **kwargs):
             self.assertEqual(candidates, [])
             self.assertTrue(editorial.mentions.opted_out(self.saved, stop.user.id))
             return {'action': 'silent', 'source_id': '', 'angle': ''}
         with patch.object(editorial.Memory, 'connect'), \
-                patch.object(editorial.sources, 'discover', AsyncMock(return_value=[topic])), \
+                patch.object(editorial.sources, 'discover', AsyncMock(return_value=[topic])) as discover, \
                 patch.object(editorial.personality, 'choose', side_effect=choose):
-            await editorial.decide(state, self.slot, connection, self.user)
+            slot = {**self.slot, 'discovery_reply': True, 'scheduled_at': self.now.isoformat()}
+            await editorial.decide(state, slot, connection, self.user)
+        discover.assert_awaited_once()
         connection.create_tweet.assert_not_awaited()
         self.assertEqual(state['history'], [])
 
@@ -250,26 +251,21 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.saved['history'], [])
         connection.create_tweet.assert_not_awaited()
 
-    async def test_previously_declined_invitation_leaves_room_for_an_original_and_remains_replyable(self):
+    async def test_declined_legacy_mixed_slot_keeps_invitation_eligible_for_a_later_reply(self):
         state, connection = empty(), self.connection()
         slot = {**self.slot, 'allowed_actions': ['reply', 'original']}
         silent = {'action': 'silent', 'source_id': '', 'angle': ''}
         with patch.object(editorial.Memory, 'connect'), \
                 patch.object(editorial, 'read_inbox', AsyncMock(return_value=[SOURCE])), \
-                patch.object(editorial.sources, 'discover', AsyncMock(return_value=[])), \
+                patch.object(editorial.sources, 'discover', new_callable=AsyncMock) as topics, \
                 patch.object(editorial.personality, 'complete', return_value=silent) as model:
-            await editorial.decide(state, slot, connection, self.user)
-        self.assertEqual(model.call_args.args[1]['allowed_actions'], ['reply', 'silent'])
-        self.assertEqual(list(state['decision_slots'][slot['slot']]['offered_invitations']), [SOURCE['id']])
+            for attempt in range(2):
+                await editorial.decide(state, {**slot, 'slot': f'{self.now.date()}:mixed:{attempt}'}, connection, self.user)
+                self.assertEqual(model.call_args.args[1]['allowed_actions'], ['reply', 'silent'])
+                self.assertEqual(model.call_args.args[1]['allowed_reply_ids'], [SOURCE['id']])
+        topics.assert_not_awaited()
+        self.assertEqual(len(state['decision_slots']), 2)
         self.assertEqual(state['used_source_ids'], [])
-        with patch.object(editorial.personality, 'complete', return_value=PLAN) as model:
-            editorial.personality.choose([{**SOURCE, 'views': 20000}], {}, state, self.now, slot['allowed_actions'])
-            self.assertEqual(model.call_args.args[1]['allowed_actions'], ['original', 'reply', 'silent'])
-            self.assertEqual(model.call_args.args[1]['allowed_reply_ids'], [SOURCE['id']])
-        edited = {**SOURCE, 'text': '@qofenoai how would you debug the stuck worker instead?'}
-        with patch.object(editorial.personality, 'complete', return_value=silent) as model:
-            editorial.personality.choose([edited], {}, state, self.now, slot['allowed_actions'])
-            self.assertEqual(model.call_args.args[1]['allowed_actions'], ['reply', 'silent'])
         connection.create_tweet.assert_not_awaited()
 
     async def test_planned_reply_reaches_verified_send_before_d1_remembers_it(self):
@@ -277,14 +273,10 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
         opportunity = {**self.slot, 'kind': 'decision', 'allowed_actions': ['reply', 'original']}
         context = {'conversations': [{'author_id': SOURCE['author_id'], 'text': 'Keep the failure log.'}]}
         plan = {'action': 'reply', 'source_id': SOURCE['id'], 'angle': 'Focus on multi-package changes.'}
-        other = {**SOURCE, 'id': '114', 'author_id': '888', 'author': 'OtherDev',
-                 'url': 'https://x.com/OtherDev/status/114', 'source_ids': ['114'], 'urls': [],
-                 'views': SOURCE['views'] + 100, 'origin': 'discovery',
-                 'text': 'Our code editor explains changes across a repository.'}
         snapshots = []
         with patch.object(editorial.Memory, 'connect') as connect, \
              patch.object(editorial, 'read_inbox', AsyncMock(return_value=[SOURCE])), \
-             patch.object(editorial.sources, 'discover', AsyncMock(return_value=[other])), \
+             patch.object(editorial.sources, 'discover', new_callable=AsyncMock) as discover, \
              patch.object(editorial.mentions, 'snapshot', return_value=SOURCE), \
              patch.object(editorial.personality, 'choose', return_value=plan) as choose, \
              patch.object(editorial.reply_writer, 'generate', return_value=DRAFT) as write:
@@ -292,7 +284,8 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
             memory.context.return_value = context
             memory.sync.side_effect = lambda rows: snapshots.append(copy.deepcopy(rows))
             await editorial.decide(state, opportunity, connection, self.user)
-        self.assertEqual([row['id'] for row in memory.context.call_args.args[0]], ['111', '114'])
+        discover.assert_not_awaited()
+        self.assertEqual([row['id'] for row in memory.context.call_args.args[0]], ['111'])
         self.assertEqual(choose.call_args.args[:2], (memory.context.call_args.args[0], context))
         write.assert_called_once()
         self.assertEqual(write.call_args.kwargs, {'memory': context, 'angle': plan['angle']})
@@ -303,29 +296,21 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(snapshots[1][0]['tweet_id'], '333')
         self.assertIn('verified_at', snapshots[1][0])
 
-    async def test_original_decision_remembers_its_confirmed_post(self):
-        state, connection = empty(), self.connection(None, ORIGINAL)
-        context = {'recent_own': [{'post_id': '332', 'text': 'The missing logs were the clue.'}]}
-        history_snapshots = []
-        with patch.object(editorial.Memory, 'connect') as connect, \
-             patch.object(editorial.sources, 'discover', AsyncMock(return_value=[])), \
-             patch.object(editorial.personality, 'choose', return_value=PLAN), \
-             patch.object(editorial.personality, 'original', return_value=ORIGINAL) as write:
-            memory = connect.return_value
-            memory.sync.side_effect = lambda rows: history_snapshots.append(copy.deepcopy(rows))
-            memory.context.return_value = context
-            await editorial.decide(state, self.slot, connection, self.user)
-        write.assert_called_once_with(PLAN, context, state, self.now)
-        connection.create_tweet.assert_awaited_once_with(text=ORIGINAL['text'])
-        self.assertEqual(history_snapshots[0], [])
-        self.assertEqual(len(history_snapshots), 2)
-        self.assertEqual(history_snapshots[1][0]['kind'], 'original')
-        self.assertEqual(history_snapshots[1][0]['tweet_id'], '333')
-        self.assertIn('verified_at', history_snapshots[1][0])
+    async def test_legacy_original_only_decision_stops_before_research_or_drafting(self):
+        state, connection = empty(), self.connection()
+        with patch.object(editorial.Memory, 'connect') as memory, \
+                patch.object(editorial.sources, 'discover', new_callable=AsyncMock) as topics, \
+                patch.object(editorial.personality, 'choose') as choose:
+            await editorial.decide(state, {**self.slot, 'allowed_actions': ['original']}, connection, self.user)
+        memory.assert_not_called()
+        topics.assert_not_awaited()
+        choose.assert_not_called()
+        connection.create_tweet.assert_not_awaited()
+        self.assertEqual(state, empty())
 
     async def test_forged_source_or_failed_planner_cannot_send(self):
         invalid = {'action': 'reply', 'source_id': '404', 'angle': 'A made-up selection'}
-        for outcome, error in ((invalid, editorial.DraftError), (editorial.AIRequestTimeout(), editorial.AIRequestTimeout)):
+        for outcome, error in ((invalid, editorial.DraftError), (PLAN, editorial.DraftError), (editorial.AIRequestTimeout(), editorial.AIRequestTimeout)):
             with self.subTest(outcome=outcome):
                 state, connection = empty(), self.connection()
                 with patch.object(editorial.Memory, 'connect'), \
@@ -378,19 +363,20 @@ class AutonomousDecisionTests(unittest.IsolatedAsyncioTestCase):
                 self.assertIn('108', state['used_source_ids'])
                 self.assertEqual(state['history'][-1]['tweet_id'], '333')
 
-    async def test_denied_post_send_sync_never_resends_the_verified_original(self):
-        state, connection = empty(), self.connection(None, ORIGINAL)
+    async def test_denied_post_send_sync_never_resends_the_verified_reply(self):
+        state, connection = empty(), self.connection()
+        plan = {'action': 'reply', 'source_id': SOURCE['id'], 'angle': 'Focus on the diff.'}
         with patch.object(editorial.Memory, 'connect') as connect, \
-             patch.object(editorial.sources, 'discover', AsyncMock(return_value=[])), \
-             patch.object(editorial.personality, 'choose', return_value=PLAN), \
-             patch.object(editorial.personality, 'original', return_value=ORIGINAL):
+                patch.object(editorial, 'read_inbox', AsyncMock(return_value=[SOURCE])), \
+                patch.object(editorial.mentions, 'snapshot', return_value=SOURCE), \
+                patch.object(editorial.personality, 'choose', return_value=plan), \
+                patch.object(editorial.reply_writer, 'generate', return_value=DRAFT):
             connect.return_value.sync.side_effect = [None, MemoryAccessDenied('D1 permission denied')]
             await editorial.decide(state, self.slot, connection, self.user)
         self.assertEqual(connect.return_value.sync.call_count, 2)
         self.assertEqual(state['history'][0]['tweet_id'], '333')
         self.assertIn('verified_at', state['history'][0])
         self.assertIsNone(state['outbox'])
-        self.assertIn(editorial.reply_writer.fingerprint(ORIGINAL['text']), state['used_texts'])
+        self.assertIn(editorial.reply_writer.fingerprint(DRAFT['text']), state['used_texts'])
         self.assertIsNone(next_decision(editorial.schedule_state(state), self.now))
-        connection.create_tweet.assert_awaited_once_with(text=ORIGINAL['text'])
-
+        connection.create_tweet.assert_awaited_once_with(text=DRAFT['text'], reply_to=SOURCE['id'])

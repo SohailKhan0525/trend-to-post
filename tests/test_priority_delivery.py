@@ -112,7 +112,7 @@ class PriorityDeliveryTests(unittest.IsolatedAsyncioTestCase):
             await editorial.scheduled_wake(self.state, self.connection, NOW)
         process.assert_awaited_once()
         inbox.assert_not_awaited()
-        self.assertEqual([call.args[1]['allowed_actions'] for call in decide.await_args_list], [['original']])
+        decide.assert_not_awaited()
 
     async def test_unavailable_priority_account_does_not_stop_normal_publishing(self):
         self.state['actions_inbox_since'] = NOW.isoformat()
@@ -126,7 +126,7 @@ class PriorityDeliveryTests(unittest.IsolatedAsyncioTestCase):
                 self.assertEqual(self.state[priority.STATE_KEY], before)
                 inbox.assert_awaited_once()
                 self.assertEqual([call.args[1]['allowed_actions'] for call in decide.await_args_list],
-                                 [['original'], ['reply'], ['reply']])
+                                 [['reply'], ['reply']])
 
     async def test_rejected_oldest_source_does_not_starve_later_originals(self):
         second = {**self.source, 'id': '102', 'source_ids': ['102'], 'conversation_id': '102',

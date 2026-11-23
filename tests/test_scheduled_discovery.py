@@ -105,7 +105,7 @@ class ScheduledDiscoveryTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(self.discover.await_count, first)
         self.connection.create_tweet.assert_not_awaited()
 
-    async def test_one_scheduled_batch_publishes_two_distinct_replies_and_one_original_once(self):
+    async def test_one_scheduled_batch_publishes_only_two_distinct_replies_once(self):
         other = tweet('102', author='other_dev', text='The compiler warning arrived after the build success notification.',
                       created_at=self.native._data['legacy']['created_at'])
         other.user.id = '2002'
@@ -127,12 +127,13 @@ class ScheduledDiscoveryTests(unittest.IsolatedAsyncioTestCase):
                 patch.object(reply_writer, 'generate', side_effect=lambda source, *args, **kwargs:
                              {'text': 'A different timing joke ' + source['id'], 'event_key': 'timing ' + source['id']}), \
                 patch.object(personality, 'original', return_value={'text': 'A quiet status light earned its evening off.',
-                                                                   'event_key': 'quiet status light'}):
+                                                                   'event_key': 'quiet status light'}) as original:
             await editorial.scheduled_wake(self.state, self.connection, NOW)
             await editorial.scheduled_wake(self.state, self.connection, NOW)
-        self.assertEqual([row['kind'] for row in self.state['history']], ['original', 'reply', 'reply'])
-        self.assertEqual([row['source']['id'] for row in self.state['history'][1:]], ['101', '102'])
-        self.assertEqual(self.connection.create_tweet.await_count, 3)
+        original.assert_not_called()
+        self.assertEqual([row['kind'] for row in self.state['history']], ['reply', 'reply'])
+        self.assertEqual([row['source']['id'] for row in self.state['history']], ['101', '102'])
+        self.assertEqual(self.connection.create_tweet.await_count, 2)
 
     async def test_final_refresh_preserves_native_thread_reply_ceiling(self):
         with patch.object(editorial.mentions, 'conversation_reply_ids', new=AsyncMock(return_value={'601', '602'})):
