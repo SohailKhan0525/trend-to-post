@@ -8,7 +8,7 @@ from difflib import SequenceMatcher
 from .cloudflare import DraftError, complete
 from .policy import MIN_SOURCE_VIEWS, has_excluded_terms
 
-EDITORIAL_POLICY_VERSION = 'context-replies-v17'
+EDITORIAL_POLICY_VERSION = 'context-replies-v18'
 MAX_REPLY_LENGTH = 100
 REPLY_MODES = ('joke', 'question', 'observation')
 
@@ -28,6 +28,9 @@ how roles and markets are changing. A reader should be able to name what your re
 adds: a choice, a specific limitation, an implication, or a fitting response to them.
 An abstract label or a claim that success requires more than the named technology
 adds nothing unless you say what is missing and why it matters here.
+Calling something the difference between two categories is not an explanation:
+say what behavior differs, unless the person actually asked for labels or the
+contrast supplies a real punchline. A grounded preference is welcome with or without "I".
 
 Choose reply_mode:
 - observation: State the answer or your view plainly. For disagreement, connect an
@@ -108,6 +111,9 @@ Past replies are repetition evidence, not a voice to imitate.
   Otherwise, if the copy merely paraphrases the source or announces a broad shift,
   importance, requirement or tradeoff, set both flags false. Naming a technical noun
   does not help. Ask what the author learns or receives beyond their own statement.
+  A contrast naming two categories must state the behavioral criterion, unless it
+  answers an explicit naming question or earns a specific joke. Do not mistake a
+  label for an explanation. A concrete grounded preference needs no self-reference.
   For disagreement, the reply must connect the proposed action to a specific omitted
   check, lost capability or possible failure. A deictic judgment or abstract warning
   is not a reason. Reject automatic skepticism, invented diagnoses and empty praise.
@@ -207,6 +213,15 @@ EVALUATION_ONLY = re.compile(
     r'(?:way|approach|strategy|move|choice|decision)'
     r'(?:(?: to (?:manage|handle|approach|treat|think about|deal with)| for) [^.!?;:—–]+)?|'
     r'[^.!?;:—–]+ is (?:an? )?(?:solid|strong|good|compelling|convincing) argument (?:for|against) [^.!?;:—–]+)[.!]?', re.I)
+LABEL_ONLY = re.compile(
+    r"(?:it|that|this)(?: is|['’]s) (?:the|a) (?:difference|distinction) between "
+    r'(?P<left>(?:an?|the) [\w-]+(?: [\w-]+){0,3}) and '
+    r'(?P<right>(?:an?|the) [\w-]+(?: [\w-]+){0,3})[.!]?', re.I)
+NAMING_REQUEST = re.compile(
+    r'\b(?:what|which) (?:(?:two|short|best|better|broad|different) ){0,2}(?:labels?|categories|category|names?|terms?)\b|'
+    r'\bwhat (?:do|would|should) you call\b|\bhow (?:would|do|should) you (?:label|name|categorize|classify)\b|'
+    r'\b(?:would|do|should) you (?:call|label|classify|categorize)\b|'
+    r'^(?:please )?(?:name|label|classify|categorize)\b', re.I)
 
 
 class SourceRejected(DraftError):
@@ -418,7 +433,7 @@ def check_source(source, now, state=None):
         raise SourceRejected('The source contains an excluded subject or instructions')
 
 
-def validate(draft, source):
+def validate(draft, source, *, reply_mode=None):
     direct = source.get('origin') == 'mention'
     limits = {'text': None, 'premise': 210}
     if not direct:
@@ -461,6 +476,14 @@ def validate(draft, source):
             raise DraftError('A currency claim is not present in the source')
     text = draft['text']
     words = normalized(text)
+    labels = LABEL_ONLY.fullmatch(text)
+    request = re.sub(r'@\w+', '', source_text).strip()
+    if (labels and reply_mode != 'joke' and not NAMING_REQUEST.search(request)
+            and not re.search(r'\b(?:that|which|who|when|because|without|with|to|for|by)\b',
+                              labels['left'] + ' ' + labels['right'], re.I)):
+        raise RecoverableDraftError('This names two categories but gives no criterion. '
+                                    'Replace the labels with the concrete behavior or choice that differs in this source. '
+                                    'A grounded preference is enough; do not add facts or an AI self-introduction.')
     if LARGE_TIME_SAVING.search(text) and not SOURCE_TIME_SAVING.search(facts):
         raise DraftError('The source does not report a time saving. Pick one concrete step or decision instead.')
     if EVALUATION_ONLY.fullmatch(text) and not re.search(r'\b(?:because|since|when|unless|without|even though|but|so)\b', text, re.I):
@@ -514,10 +537,10 @@ def validate_assessment(raw, source, context):
         fields['premise'] = replace_author_reference(fields['premise'], source['author'])
     else:
         fields['event_key'] = raw['event_key']
-    draft = validate(fields, source)
     mode = raw['reply_mode']
     if mode not in REPLY_MODES:
         raise DraftError('Choose joke, question, or observation to fit the original post.')
+    draft = validate(fields, source, reply_mode=mode)
     question = bool(question_count(draft['text']))
     if (question or mode == 'question') and not context['question_allowed']:
         raise DraftError('The last reply asked a question. Write a short statement that fits this post.')

@@ -50,6 +50,66 @@ class ReplyWriterTests(unittest.TestCase):
         result, _ = self.generate([{**ASSESSMENT, **draft, 'reply_mode': 'observation'}, VERDICT])
         self.assertEqual(result, draft)
 
+    def test_label_only_contrast_gets_one_revision_toward_a_real_criterion(self):
+        source = {**SOURCE, 'text': 'The assistant suggests a change and asks for approval before applying it.'}
+        for text in ("It's the difference between a tool and a collaborator.",
+                     'That is the distinction between an assistant and a partner.'):
+            draft = {'text': text, 'event_key': 'Approval before applying suggested changes', 'premise': source['text']}
+            assessment = {**dict.fromkeys(writer.SOURCE_FLAGS, True), **draft, 'reply_mode': 'observation'}
+            accepted = {**assessment, 'text': "I'd keep approval before applying changes."}
+            with self.subTest(text=text):
+                with self.assertRaisesRegex(writer.RecoverableDraftError, 'no criterion'):
+                    writer.validate(draft, source)
+                result, model = self.generate([assessment, accepted, {**VERDICT, 'source_evidence': source['text']}], source)
+                self.assertEqual(result['text'], accepted['text'])
+                self.assertEqual(model.call_count, 3)
+                self.assertIn('concrete behavior or choice', model.call_args_list[1].args[1]['correction'])
+                self.assertEqual(model.call_args_list[1].args[1]['rejected_reply'], text)
+                with patch.object(writer, 'complete', side_effect=[assessment, assessment]) as retry:
+                    with self.assertRaises(writer.RecoverableDraftError):
+                        writer.generate(source, {}, NOW)
+                    self.assertEqual(retry.call_count, 2)
+
+    def test_label_guard_preserves_explicit_naming_but_not_requests_for_the_difference(self):
+        text = "It's the difference between a tool and a collaborator."
+        for request in ('What labels would you use: one follows orders, the other challenges them?',
+                        'How would you categorize a system that follows orders versus one that challenges them?',
+                        'Please name the categories for a system that follows orders and one that challenges them.'):
+            source = {**SOURCE, 'text': request}
+            draft = {'text': text, 'premise': request, 'event_key': 'Naming the two approaches'}
+            with self.subTest(request=request):
+                self.assertEqual(writer.validate(draft, source), draft)
+        source = {**SOURCE, 'text': 'What is the difference between a tool and a collaborator?'}
+        with self.assertRaises(writer.RecoverableDraftError):
+            writer.validate({**draft, 'premise': source['text']}, source)
+
+    def test_behavior_contrast_and_grounded_preferences_need_no_self_reference(self):
+        source = {**SOURCE, 'text': 'The assistant suggests a change and asks for approval before applying it.'}
+        for text in ("It's the difference between suggesting a change and applying it.",
+                     "It's the difference between a tool and a collaborator: asking before changing code.",
+                     "I'd keep approval before applying changes.",
+                     'Keep approval before applying changes.'):
+            draft = {'text': text, 'premise': source['text'], 'event_key': 'Approval before applying changes'}
+            assessment = {**dict.fromkeys(writer.SOURCE_FLAGS, True), **draft, 'reply_mode': 'observation'}
+            with self.subTest(text=text):
+                result, model = self.generate([assessment, {**VERDICT, 'source_evidence': source['text']}], source)
+                self.assertEqual(result, draft)
+                self.assertEqual(model.call_count, 2)
+
+    def test_category_wordplay_still_requires_independent_joke_review(self):
+        source = {**SOURCE, 'text': 'We call it a deadline, but the due date moves whenever someone asks.'}
+        draft = {'text': "It's the difference between a deadline and a polite suggestion.",
+                 'premise': source['text'], 'event_key': 'A deadline moves whenever someone asks'}
+        assessment = {**dict.fromkeys(writer.SOURCE_FLAGS, True), **draft, 'reply_mode': 'joke'}
+        review = {**VERDICT, 'source_evidence': source['text']}
+        result, model = self.generate([assessment, review], source)
+        self.assertEqual(result, draft)
+        self.assertEqual(model.call_count, 2)
+        with patch.object(writer, 'complete', side_effect=[assessment, {**review, 'tone_fits': False}]) as model:
+            with self.assertRaisesRegex(DraftError, 'tone_fits'):
+                writer.generate(source, {}, NOW)
+            self.assertEqual(model.call_count, 2)
+
     def test_first_person_voice_does_not_promise_private_outreach(self):
         for text in ("I'll DM you the logs.", "I can introduce you to the engineer."):
             with self.subTest(text=text), self.assertRaises(DraftError):

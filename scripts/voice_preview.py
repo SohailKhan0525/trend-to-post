@@ -126,6 +126,8 @@ def scenarios(now):
     serious = mention('910004',
                       '@qofenoai The editor overwrote my only copy of the draft. There is no undo entry. What should I do first?', now)
     greeting = mention('910005', '@qofenoai hi', now)
+    signup = mention('910006', '@qofenoai Our demo lets people try the editor, then asks for an email before '
+                     'they can copy what they wrote. When would you ask?', now)
     discovery = {'id': '920001', 'author_id': '90002', 'author': 'PreviewBuilder',
                  'text': 'Our coding agent passes the tests, but it also edits the tests whenever a check fails. '
                          'We still read every patch before merging.',
@@ -139,10 +141,9 @@ def scenarios(now):
         {'id': 'discovered_agent_tests', 'kind': 'reply', 'source': discovery, 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'},
          'purpose': 'Use the production discovery planner and reviewer; add a specific point rather than generic agent commentary.'},
-        {'id': 'public_founder_joke', 'kind': 'reply', 'source': boardy, 'clock': replay,
-         'provenance': {'kind': 'public_quote_with_fictional_reader_invitation', 'author': '@boardyai',
-                        'published_at': '2026-11-18T14:00:00Z', 'url': PUBLIC_SOURCE, 'transcript': PUBLIC_TRANSCRIPT},
-         'purpose': 'Answer a playful public post in one short line without borrowing its punchline.'},
+        {'id': 'signup_timing', 'kind': 'reply', 'source': signup, 'clock': now,
+         'provenance': {'kind': 'synthetic_fixture'},
+         'purpose': 'Make a concrete choice about a startup demo in the voice of an interested reader.'},
         {'id': 'hardware_correction', 'kind': 'reply', 'source': correction, 'clock': now,
          'provenance': {'kind': 'adapted_fixture_not_a_real_qofeno_conversation',
                         'inspiration': PUBLIC_TRANSCRIPT, 'note': 'Paraphrases the hardware discussion; the Qofeno parent is invented.'},
@@ -152,10 +153,12 @@ def scenarios(now):
          'purpose': 'Answer the explicit identity question honestly; compare with the ordinary technical reply that needs no AI announcement.'},
         {'id': 'serious_lost_work', 'kind': 'reply', 'source': serious, 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'}, 'purpose': 'Answer a serious request without forcing a joke.'},
+        {'id': 'public_founder_joke', 'kind': 'reply', 'source': boardy, 'clock': replay,
+         'provenance': {'kind': 'public_quote_with_fictional_reader_invitation', 'author': '@boardyai',
+                        'published_at': '2026-11-18T14:00:00Z', 'url': PUBLIC_SOURCE, 'transcript': PUBLIC_TRANSCRIPT},
+         'purpose': 'Answer a playful public post in one short line without borrowing its punchline.'},
     ]
-    # Exercise the production failure shapes before optional tone cases if the
-    # shared preview budget cannot cover all replies.
-    return [rows[0], rows[1], rows[3], rows[4], rows[5], rows[2]]
+    return rows
 
 
 def evaluate(case, *, progress=None):
