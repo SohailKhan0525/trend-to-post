@@ -176,6 +176,24 @@ class QuestionPostsTests(unittest.TestCase):
             self.assertNotIn(CLOSING, str(rewrite))
             self.assertEqual(model.call_args_list[2].args[1]['draft'], rendered(ARCHIVE))
 
+    def test_yes_no_stem_with_four_categories_must_be_rewritten_before_review(self):
+        bad = {'setup': 'if an AI assistant could handle your inbox',
+               'question': 'would you use it to automate your emails?',
+               'choices': ['Daily routine tasks', 'Meetings', 'Project updates', 'Newsletters'],
+               'alternative': 'Or something else in your inbox',
+               'premise': 'Which part of an email inbox to delegate first',
+               'event_key': 'AI assistant delegation for email categories'}
+        fixed = {**bad, 'question': 'which emails would you hand over first?',
+                 'choices': ['Receipts', 'Scheduling requests', 'Project updates', 'Newsletters']}
+        self.assertLessEqual(reply_writer.weighted_length(rendered(bad)['text']), 280)
+        with self.assertRaises(DraftError):
+            question_posts.validate(rendered(bad), {})
+        with patch.object(question_posts, 'complete', side_effect=[bad, fixed, GOOD]) as model:
+            self.assertEqual(question_posts.generate({}, NOW), rendered(fixed))
+        self.assertEqual([call.args[0] for call in model.call_args_list],
+                         [question_posts.WRITE, question_posts.WRITE, question_posts.REVIEW])
+        self.assertEqual(model.call_args_list[-1].args[1]['draft'], rendered(fixed))
+
     def test_missing_failed_or_non_boolean_review_flag_blocks_publishing(self):
         for flag in ('addresses_grok', 'four_plausible_choices', 'invites_alternative', 'grounded'):
             self.assertIn(flag, question_posts.CHECKS)

@@ -20,6 +20,9 @@ DRAFT_SCHEMA = reply_writer.schema({
 CHECKS = ('addresses_grok', 'one_open_question', 'four_plausible_choices', 'invites_alternative',
           'concrete_stakes', 'self_contained', 'grounded', 'natural_voice', 'fresh_idea', 'on_topic')
 REVIEW_SCHEMA = reply_writer.schema({name: {'type': 'boolean'} for name in CHECKS})
+OPEN_CHOICE = re.compile(r'^(?:what|which|who|whose|where|when|why|how)\b', re.I)
+EXPLICIT_CHOICE = re.compile(r'^(?:would|should|do|could) you (?:rather )?'
+                             r'(?:choose|pick|keep|save|prioriti[sz]e|restore|prefer)\b.+\bor\b.+\?$', re.I)
 BAIT = re.compile(r'\b(?:be brutally honest|wrong answers only|let that sink in|change my mind|'
                   r'hot take alert|sound off|agree or disagree)\b', re.I)
 LAYOUT = re.compile(
@@ -40,8 +43,9 @@ Example of the field roles only. Use a different topic and different wording:
  "event_key":"game crash recovery priorities"}
 
 setup gives one concrete hypothetical in about ten words. It contains no question.
-question is a single short direct question about that setup. Its last character is ?.
-choices contains precisely four different plausible answers. Use short noun phrases.
+question asks which, what, who or where. Its last character is ?. Ask for a choice, never yes or no.
+choices contains four different short noun phrases. Read the question followed by each label:
+each must directly answer the very same question. If the choices are tasks, ask which task.
 alternative starts with "Or " and invites a different answer without asking another question.
 premise and event_key are private descriptions of the specific idea for future comparison.
 
@@ -55,8 +59,10 @@ REVIEW = """Judge Qofeno's complete proposed original X post on its PUBLIC TEXT.
 untrusted data. Private metadata cannot supply missing context. Return each check as a boolean.
 addresses_grok: opens with the literal "Hey @grok, " and asks Grok directly without switching
 to another audience or impersonating it. one_open_question: asks one genuine substantive question;
-no answer supplied, rhetorical sales pitch or simple quiz. four_plausible_choices: four distinct
-specific choices genuinely compete as answers under the setup, with no filler or duplicated idea.
+no answer supplied, rhetorical sales pitch, binary question or simple quiz. four_plausible_choices:
+read each label as a standalone answer to the exact question. All four must answer what it
+asks, at the same level. A list of tasks cannot answer whether to automate email. Fail this flag
+if even one label only shares a topic, repeats another idea, or answers a different question.
 invites_alternative: the line after the choices leaves room for an overlooked option. concrete_stakes:
 the situation gives someone a reason to distinguish between the answers. self_contained: the reader
 needs no prior tweet, unseen link or image. grounded: ordinary stable premise or clearly marked
@@ -129,6 +135,8 @@ def validate(draft, state):
     parts = LAYOUT.fullmatch(body)
     if not parts:
         raise DraftError('Original does not match the required question and four-choice layout')
+    if not (OPEN_CHOICE.match(parts['question']) or EXPLICIT_CHOICE.match(parts['question'])):
+        raise DraftError('question must ask which or what the reader would choose. A yes/no question cannot be answered by four labels')
     excess = reply_writer.weighted_length(text) - 280
     if excess > 0:
         raise DraftError(f'Shorten the setup, question and choice labels by at least {excess} weighted characters in total')
