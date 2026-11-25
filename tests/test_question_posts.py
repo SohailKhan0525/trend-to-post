@@ -143,8 +143,38 @@ class QuestionPostsTests(unittest.TestCase):
             self.assertEqual(question_posts.generate({}, NOW), rendered(ARCHIVE))
         rewrite = model.call_args_list[2].args[1]
         self.assertIn('fresh_idea', rewrite['revision_needed'])
-        self.assertEqual(rewrite['previous_attempt'], rendered(QUESTION)['text'])
+        self.assertEqual(rewrite['previous_attempt'], ' '.join([QUESTION['setup'], QUESTION['question'], *QUESTION['choices']]))
+        self.assertNotIn(PREFIX, rewrite['previous_attempt'])
+        self.assertNotIn(CLOSING, rewrite['previous_attempt'])
         self.assertEqual(model.call_args_list[3].args[1]['draft']['text'], rendered(ARCHIVE)['text'])
+
+    def test_model_numbered_labels_are_normalized_before_review_and_final_labels_are_strict(self):
+        numbered = {**QUESTION, 'choices': [f'{i}. {label}' for i, label in enumerate(QUESTION['choices'], 1)]}
+        with patch.object(question_posts, 'complete', side_effect=[numbered, GOOD]) as model:
+            self.assertEqual(question_posts.generate({}, NOW), rendered(QUESTION))
+        self.assertEqual(model.call_args_list[1].args[1]['draft'], rendered(QUESTION))
+        malformed = {**rendered(QUESTION), 'text': rendered(QUESTION)['text'].replace('1) Bad', '1) 1. Bad')}
+        with self.assertRaises(DraftError):
+            question_posts.validate(malformed, {})
+
+    def test_misplaced_ordinal_or_address_returns_only_a_field_specific_hint_before_repair(self):
+        for bad_fields, field in (
+            ({'setup': 'Hey @grok, ' + QUESTION['setup']}, 'setup'),
+            ({'setup': QUESTION['question']}, 'setup'),
+            ({'question': 'Which option wins? 1. Bad arithmetic'}, 'question'),
+            ({'alternative': 'Or something else?'}, 'alternative'),
+            ({'choices': ['2. Bad arithmetic', *QUESTION['choices'][1:]]}, 'choice 1'),
+        ):
+            with self.subTest(field=field), patch.object(question_posts, 'complete',
+                    side_effect=[{**QUESTION, **bad_fields}, ARCHIVE, GOOD]) as model:
+                self.assertEqual(question_posts.generate({}, NOW), rendered(ARCHIVE))
+            self.assertEqual(model.call_count, 3)
+            rewrite = model.call_args_list[1].args[1]
+            self.assertIn(field, rewrite['revision_needed'])
+            self.assertEqual(rewrite['previous_attempt'], '')
+            self.assertNotIn(PREFIX, str(rewrite))
+            self.assertNotIn(CLOSING, str(rewrite))
+            self.assertEqual(model.call_args_list[2].args[1]['draft'], rendered(ARCHIVE))
 
     def test_missing_failed_or_non_boolean_review_flag_blocks_publishing(self):
         for flag in ('addresses_grok', 'four_plausible_choices', 'invites_alternative', 'grounded'):
