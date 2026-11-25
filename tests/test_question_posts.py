@@ -8,82 +8,156 @@ from app.cloudflare import DraftError
 
 
 NOW = datetime(2026, 11, 25, 10, tzinfo=timezone.utc)
-QUESTION = {'text': 'An AI tutor can spot every mistake but can only interrupt once. Which mistake earns that interruption?',
+PREFIX = 'Hey @grok, '
+CLOSING = 'Be BRUTALLY HONEST.'
+QUESTION = {'setup': 'an AI tutor can interrupt once.',
+            'question': 'Which mistake earns that interruption?',
+            'choices': ['Bad arithmetic', 'A missed step', 'A wrong unit', 'A lucky guess'],
+            'alternative': 'Or some other mistake',
             'premise': 'When an AI tutor should spend its one interruption',
             'event_key': 'AI tutor limited correction priority'}
-CHOICES = {'text': 'A chat archive can keep one layer. Which would you miss most?\n\n1) The messages\n2) The reactions\n3) The timestamps',
+ARCHIVE = {'setup': 'a chat archive can save one layer.',
+           'question': 'Which part keeps the conversation legible?',
+           'choices': ['Messages', 'Reactions', 'Timestamps', 'Reply links'],
+           'alternative': 'Or something else entirely',
            'premise': 'Which part of a chat archive preserves its meaning',
            'event_key': 'Chat archive preservation choice'}
+
+
+def rendered(raw):
+    a, b, c, d = raw['choices']
+    text = (f"Hey @grok, {raw['setup']}\n\n{raw['question']}\n\n"
+            f"1) {a}    2) {b}\n3) {c}    4) {d}\n\n{raw['alternative']}\n\nBe BRUTALLY HONEST.")
+    return {'text': text, 'premise': raw['premise'], 'event_key': raw['event_key']}
+
+
 GOOD = {key: True for key in question_posts.CHECKS}
 
 
 class QuestionPostsTests(unittest.TestCase):
-    def test_model_writes_the_question_and_an_independent_reviewer_reads_the_public_text(self):
-        previous = {**CHOICES, 'kind': 'original', 'verified_at': NOW.isoformat()}
+    def test_writer_composes_the_complete_public_question_before_independent_review(self):
+        previous = {**rendered(ARCHIVE), 'kind': 'original', 'verified_at': NOW.isoformat()}
         reply = {'kind': 'reply', 'text': 'Private reply fixture.', 'verified_at': NOW.isoformat()}
         state = {'history': [previous, reply]}
         before = copy.deepcopy(state)
         with patch.object(question_posts, 'complete', side_effect=[QUESTION, GOOD]) as model:
-            self.assertEqual(question_posts.generate(state, NOW), QUESTION)
+            self.assertEqual(question_posts.generate(state, NOW), rendered(QUESTION))
         write, review = model.call_args_list
         self.assertEqual(write.args[0], question_posts.WRITE)
         self.assertEqual(review.args[0], question_posts.REVIEW)
-        self.assertEqual(review.args[1]['draft'], QUESTION)
+        self.assertEqual(review.args[1]['draft'], rendered(QUESTION))
         self.assertEqual(review.kwargs['temperature'], 0)
-        self.assertEqual(write.args[1]['recent_originals'][0]['text'], CHOICES['text'])
+        self.assertTrue(write.args[1]['recent_originals'])
         self.assertNotIn(reply['text'], str(model.call_args_list))
         self.assertEqual(state, before)
 
-    def test_choices_can_follow_main_question_and_one_line_is_allowed(self):
-        self.assertEqual(question_posts.validate(CHOICES, {}), CHOICES)
-        self.assertEqual(question_posts.validate(QUESTION, {}), QUESTION)
+    def test_template_has_five_blocks_four_numbered_choices_and_one_grok_address(self):
+        final = question_posts.compose(QUESTION)
+        self.assertEqual(final, rendered(QUESTION))
+        self.assertEqual(len(final['text'].split('\n\n')), 5)
+        self.assertEqual(final['text'].count('@'), 1)
+        self.assertEqual(final['text'].count('?'), 1)
+        self.assertEqual(question_posts.validate(final, {}), final)
+        # The source image leaves extra space between the numbered rows.
+        spaced = {**final, 'text': final['text'].replace('\n3) ', '\n\n3) ').replace('    2)', '         2)')}
+        self.assertEqual(question_posts.validate(spaced, {}), spaced)
 
-    def test_formatting_blocks_answers_bait_trailing_questions_and_unsupported_framing(self):
-        for text in ('Energy. That is the real bottleneck.', 'Which tradeoff matters? Why?',
-                     'Which feature would you keep? Be brutally honest.',
-                     '@grok Which feature would you keep and why?',
-                     'I tested three different meme generators. Which would you keep?',
-                     'Which option fits this tiny screen best? ' + '界' * 125,
-                     'Which do you prefer for this hypothetical chat archive?\u202e'):
-            with self.subTest(text=text), self.assertRaises(DraftError):
-                question_posts.validate({**QUESTION, 'text': text}, {})
+    def test_missing_duplicate_extra_or_injected_choices_cannot_reach_publication(self):
+        choices = QUESTION['choices']
+        for options in (choices[:3], choices + ['Another option'], [*choices[:3], choices[0]],
+                        [*choices[:3], choices[0].upper()], [*choices[:3], 'Bad\noption'],
+                        [*choices[:3], '@another'], [*choices[:3], '#technology']):
+            with self.subTest(choices=options), self.assertRaises(DraftError):
+                question_posts.validate(question_posts.compose({**QUESTION, 'choices': options}), {})
 
-    def test_rechecks_reserved_hashes_and_old_verified_premises_amid_reply_volume(self):
-        old = {**QUESTION, 'kind': 'original', 'verified_at': NOW.isoformat()}
-        states = [{'used_texts': [reply_writer.fingerprint(QUESTION['text'])]},
+    def test_final_readback_shape_requires_each_section_numbers_and_exact_closing(self):
+        final = rendered(QUESTION)
+        text = final['text']
+        for changed in (text.replace(PREFIX, '', 1), text.replace(PREFIX, 'Hey @Grok, ', 1),
+                        text.replace('    4) A lucky guess', ''), text.replace('3) A wrong unit', '2) A wrong unit'),
+                        text.replace('4) A lucky guess', '4) Bad arithmetic'),
+                        text.replace('Which mistake earns that interruption?', 'Why? Which mistake?'),
+                        text.replace('\n\n' + QUESTION['alternative'], ''), text.replace(CLOSING, ''),
+                        text.replace(CLOSING, 'Be brutally honest.'), text.replace('interruption?', 'interruption'),
+                        text.replace('an AI tutor', '@another AI tutor'), text.replace('A wrong unit', '＠another'),
+                        text.replace('A missed step', '#AI'), text.replace('A missed step', 'https://example.com'),
+                        text.replace(QUESTION['setup'], 'I tested three AI tutors.'),
+                        text.replace(QUESTION['question'], 'Which mistake deserves it? Wrong answers only.'),
+                        text.replace('A missed step', 'A missed step\u202e')):
+            with self.subTest(text=changed), self.assertRaises(DraftError):
+                question_posts.validate({**final, 'text': changed}, {})
+
+    def test_280_weighted_characters_include_every_piece_of_rendered_text(self):
+        base = rendered(QUESTION)
+        remaining = 280 - reply_writer.weighted_length(base['text'])
+        self.assertGreater(remaining, 0)
+        setup = QUESTION['setup'] + ' ' + '界' * ((remaining - 1) // 2) + 'x' * ((remaining - 1) % 2)
+        raw = {**QUESTION, 'setup': setup}
+        expected = rendered(raw)
+        self.assertEqual(reply_writer.weighted_length(expected['text']), 280)
+        self.assertEqual(question_posts.validate(question_posts.compose(raw), {}), expected)
+        with self.assertRaises(DraftError):
+            question_posts.validate(question_posts.compose({**raw, 'setup': setup + 'x'}), {})
+
+    def test_public_mention_cannot_appear_in_metadata(self):
+        final = rendered(QUESTION)
+        for field in ('premise', 'event_key'):
+            with self.subTest(field=field), self.assertRaises(DraftError):
+                question_posts.validate({**final, field: '@grok ' + final[field]}, {})
+
+    def test_prior_public_text_and_event_fingerprints_block_reuse(self):
+        final = rendered(QUESTION)
+        old = {**final, 'text': final['text'].removeprefix(PREFIX), 'kind': 'original', 'verified_at': NOW.isoformat()}
+        states = [{'used_texts': [reply_writer.fingerprint(final['text'])]},
+                  {'used_texts': [reply_writer.fingerprint(final['text'].removeprefix(PREFIX))]},
                   {'used_events': [reply_writer.fingerprint(QUESTION['event_key'])]},
-                  {'history': [old, *[{'kind': 'reply', 'event_key': 'a different answer',
-                                      'text': 'Unrelated short reply.'} for _ in range(170)]]}]
+                  {'history': [old, *[{'kind': 'reply', 'text': 'Unrelated short reply.'} for _ in range(170)]]}]
         for state in states:
             with self.subTest(state_keys=list(state)), self.assertRaises(DraftError):
-                question_posts.validate(QUESTION, state)
+                question_posts.validate(final, state)
 
-    def test_related_historical_questions_reach_review_after_falling_out_of_recent_memory(self):
+    def test_similar_questions_rejected_even_when_metadata_or_greeting_changes(self):
+        original = rendered(QUESTION)
+        revised = rendered({**QUESTION, 'question': 'Which mistake really earns that interruption?',
+                            'premise': 'How learners should receive feedback', 'event_key': 'feedback for learning'})
+        for text in (original['text'], original['text'].removeprefix(PREFIX)):
+            old = {**original, 'text': text, 'kind': 'original', 'verified_at': NOW.isoformat()}
+            state = {'history': [old]}
+            with self.subTest(text=text), self.assertRaises(DraftError):
+                question_posts.validate(revised, state)
+            self.assertEqual(question_posts.validate(rendered(ARCHIVE), state), rendered(ARCHIVE))
+
+    def test_related_historical_questions_reach_review_beyond_recent_memory(self):
         old = {'text': 'Should an AI tutor interrupt when it catches an arithmetic error?',
                'premise': 'The cost of stopping a student mid-solution', 'kind': 'original',
                'verified_at': NOW.isoformat()}
-        later = [{**CHOICES, 'text': f'Older unrelated note about a chat archive {i}.',
+        later = [{**rendered(ARCHIVE), 'text': f'Older unrelated note about a chat archive {i}.',
                   'kind': 'original', 'verified_at': NOW.isoformat()} for i in range(14)]
         with patch.object(question_posts, 'complete', side_effect=[QUESTION, GOOD]) as model:
             question_posts.generate({'history': [old, *later]}, NOW)
         self.assertIn(old['text'], model.call_args.args[1]['related_originals'])
 
-    def test_revision_must_pass_its_own_review(self):
+    def test_corrected_format_or_revision_must_pass_its_own_review(self):
         with patch.object(question_posts, 'complete', side_effect=[QUESTION, {**GOOD, 'fresh_idea': False},
-                                                                  CHOICES, GOOD]) as model:
-            self.assertEqual(question_posts.generate({}, NOW), CHOICES)
+                                                                  ARCHIVE, GOOD]) as model:
+            self.assertEqual(question_posts.generate({}, NOW), rendered(ARCHIVE))
         rewrite = model.call_args_list[2].args[1]
         self.assertIn('fresh_idea', rewrite['revision_needed'])
-        self.assertEqual(rewrite['previous_attempt'], QUESTION['text'])
-        self.assertEqual(model.call_args_list[3].args[1]['draft']['text'], CHOICES['text'])
+        self.assertEqual(rewrite['previous_attempt'], rendered(QUESTION)['text'])
+        self.assertEqual(model.call_args_list[3].args[1]['draft']['text'], rendered(ARCHIVE)['text'])
 
-    def test_semantic_rejection_cannot_be_overridden_by_the_writer(self):
-        for incorrect in ({**GOOD, 'grounded': False}, {**GOOD, 'fresh_idea': 'yes'}, {'publish': True}):
-            with self.subTest(verdict=incorrect), patch.object(question_posts, 'complete',
-                    side_effect=[QUESTION, incorrect, CHOICES, incorrect]) as model:
-                with self.assertRaises(DraftError):
-                    question_posts.generate({}, NOW)
-                self.assertEqual(model.call_count, 4)
+    def test_missing_failed_or_non_boolean_review_flag_blocks_publishing(self):
+        for flag in ('addresses_grok', 'four_plausible_choices', 'invites_alternative', 'grounded'):
+            self.assertIn(flag, question_posts.CHECKS)
+            for value in (False, 'yes', None):
+                verdict = {**GOOD, flag: value}
+                if value is None:
+                    del verdict[flag]
+                with self.subTest(flag=flag, value=value), patch.object(question_posts, 'complete',
+                        side_effect=[QUESTION, verdict, ARCHIVE, verdict]) as model:
+                    with self.assertRaises(DraftError):
+                        question_posts.generate({}, NOW)
+                    self.assertEqual(model.call_count, 4)
 
     def test_repeating_a_rejected_question_never_reaches_another_review(self):
         with patch.object(question_posts, 'complete', side_effect=[QUESTION, {**GOOD, 'natural_voice': False},

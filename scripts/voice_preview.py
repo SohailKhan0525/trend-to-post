@@ -138,7 +138,7 @@ def scenarios(now):
     rows = [
         {'id': 'standalone_question', 'kind': 'original', 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'},
-         'purpose': 'Ask readers an original, self-contained question that invites a specific choice or judgment.'},
+         'purpose': 'Preview a fresh standalone question addressed to @grok, including four choices, an alternative, and the requested closing line.'},
         {'id': 'brief_direct_greeting', 'kind': 'reply', 'source': greeting, 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'},
          'purpose': 'Allow a short public acknowledgement while still returning a valid private premise.'},

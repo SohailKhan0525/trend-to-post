@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 from app import personality, question_posts, reply_writer
 from scripts import voice_preview
+from test_question_posts import QUESTION, rendered
 
 
 NOW = datetime(2026, 11, 23, 11, tzinfo=timezone.utc)
@@ -61,15 +62,14 @@ class VoicePreviewTests(unittest.TestCase):
         planner.assert_not_called()
 
     def test_independent_question_writer_uses_synthetic_state_and_produces_an_unpublished_draft(self):
-        draft = {'text': 'If your deploy fails once a week, which check earns its place first?',
-                 'premise': 'Finding deploy failures.', 'event_key': 'choosing a deployment check'}
-        with patch.object(question_posts, 'generate', return_value=draft) as writer, \
+        checks = dict.fromkeys(question_posts.CHECKS, True)
+        with patch.object(question_posts, 'complete', side_effect=[QUESTION, checks]) as model, \
                 patch.object(reply_writer, 'generate') as reply, patch.object(personality, 'choose') as planner:
             result = voice_preview.evaluate(voice_preview.scenarios(NOW)[0])
-        state, clock = writer.call_args.args
-        self.assertEqual(clock, NOW)
-        self.assertEqual(state['history'], [])
-        self.assertEqual(result, {'status': 'approved_unpublished', 'draft': draft})
+        self.assertEqual(model.call_args_list[0].args[1]['recent_originals'], [])
+        final = rendered(QUESTION)
+        self.assertEqual(result, {'status': 'approved_unpublished', 'draft': final})
+        self.assertEqual(model.call_args_list[1].args[1]['draft']['text'], final['text'])
         reply.assert_not_called()
         planner.assert_not_called()
 

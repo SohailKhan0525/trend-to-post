@@ -525,7 +525,7 @@ async def send_once(state, slot, draft, connection, user, source=None):
             return
     reserved = {**draft, 'slot': slot['slot'], 'kind': slot['kind'], 'author_id': str(user.id),
                 'reserved_at': utcnow().isoformat(),
-                'editorial_version': 'qofeno-question-2026-11-25' if original else 'qofeno-replies-2026-11-23'}
+                'editorial_version': 'qofeno-grok-question-2026-11-25' if original else 'qofeno-replies-2026-11-23'}
     if original:
         reserved['post_style'] = 'open_question'
     else:
@@ -1010,9 +1010,9 @@ async def scheduled_question_original(state, connection, start):
         return
     try:
         user = await posting_account(connection)
-        stage('write an original question')
+        stage('prepare the scheduled original question')
         with budget_scope(state, save_and_push, utcnow):
-            draft = question_posts.generate(state, now)
+            draft = question_posts.scheduled_draft(state, now)
         await send_once(state, slot, draft, connection, user)
     except DraftError as exc:
         reject(state, slot, f'Original question did not pass review: {str(exc)[:240]}')

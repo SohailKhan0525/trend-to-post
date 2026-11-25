@@ -7,14 +7,11 @@ from unittest.mock import AsyncMock, Mock, patch
 from app import editorial, question_posts
 from app.reply_schedule import half_hour_start, verified_originals_today
 from test_editorial import empty
+from test_question_posts import QUESTION, rendered
 
 
 NOW = datetime(2026, 11, 25, 12, 7, tzinfo=timezone.utc)
-DRAFT = {
-    'text': 'Your database fits in memory but takes an hour to restore. Would you buy more RAM or test a smaller backup first?',
-    'premise': 'Recovery time versus extra hardware for a small database',
-    'event_key': 'database restore testing versus extra memory',
-}
+DRAFT = rendered(QUESTION)
 
 
 class ScheduledQuestionPublishingTests(unittest.IsolatedAsyncioTestCase):
@@ -37,7 +34,7 @@ class ScheduledQuestionPublishingTests(unittest.IsolatedAsyncioTestCase):
         self.enterContext(patch.object(editorial, 'summary'))
         self.priority = self.enterContext(patch.object(editorial, 'process_priority', new_callable=AsyncMock))
         self.inbox = self.enterContext(patch.object(editorial, 'process_inbox', new_callable=AsyncMock))
-        self.writer = self.enterContext(patch.object(question_posts, 'generate', return_value=DRAFT))
+        self.writer = self.enterContext(patch.object(question_posts, 'scheduled_draft', return_value=DRAFT))
         self.discovery = self.enterContext(patch.object(editorial, 'decide', new_callable=AsyncMock))
         self.discovery.side_effect = lambda state, slot, *a, **kw: editorial.record_silence(state, slot, self.now, {})
 
@@ -52,6 +49,7 @@ class ScheduledQuestionPublishingTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.discovery.call_args.args[1]['allowed_actions'], ['reply'])
         self.connection.create_tweet.assert_awaited_once_with(text=DRAFT['text'])
         self.connection.get_tweet_by_id.assert_awaited_once_with(self.post.id)
+        self.assertEqual(self.state['history'][0]['text'], DRAFT['text'])
         reservation = next(saved for saved in self.saved if saved.get('outbox'))
         self.assertEqual(reservation['history'], [])
         self.assertNotIn('tweet_id', reservation['outbox'])
@@ -65,6 +63,25 @@ class ScheduledQuestionPublishingTests(unittest.IsolatedAsyncioTestCase):
         await editorial.run('scheduled')
         self.assertEqual(self.writer.call_count, 1)
         self.connection.create_tweet.assert_awaited_once()
+
+    async def test_send_guard_rejects_untagged_or_extra_mentions_even_from_the_original_writer(self):
+        body = DRAFT['text'].removeprefix('Hey @grok, ')
+        for text in (body, DRAFT['text'] + ' @other', DRAFT['text'] + ' @grok'):
+            with self.subTest(text=text):
+                slot = editorial.question_slot(half_hour_start(self.now))
+                with self.assertRaises(editorial.DraftError):
+                    await editorial.send_once(self.state, slot, {**DRAFT, 'text': text}, self.connection, self.user)
+                self.connection.create_tweet.assert_not_awaited()
+                self.assertFalse(self.state.get('outbox'))
+                self.assertEqual(self.state['used_texts'], [])
+
+    async def test_native_readback_must_be_a_root_post_even_though_text_mentions_grok(self):
+        self.post.in_reply_to = '777'
+        await editorial.run('scheduled')
+        self.connection.create_tweet.assert_awaited_once_with(text=DRAFT['text'])
+        self.assertEqual(self.state['outbox']['tweet_id'], self.post.id)
+        self.assertEqual(verified_originals_today(self.state, self.now), 0)
+        self.discovery.assert_not_awaited()
 
     async def test_original_draft_failure_keeps_existing_reply_opportunity_and_paces_retries(self):
         self.writer.side_effect = editorial.DraftError('Question repeats a previous dilemma')

@@ -4,7 +4,7 @@
 
 ## Original posts
 
-Qofeno publishes up to five standalone questions per UTC day and aims to fill all five. It poses a concrete scenario or tradeoff that readers can answer. When two or more choices help frame the question, it can name them. The writer checks past originals for repeated questions, and a separate review checks the draft before publication. The scheduler spaces the five opportunities through the day and can catch up by publishing one original per half-hour. A post counts as verified after the publisher reads it back from X.
+Qofeno publishes up to five standalone questions per UTC day and aims to fill all five. Every new original opens with the literal greeting `Hey @grok, ` and asks Grok about a concrete scenario or tradeoff. The publisher inserts the greeting and checks the complete post, including the mention, against the 280-character weighted limit. Each question has four numbered choices, invites Grok to name another possibility, and closes with `Be BRUTALLY HONEST.` The first tagged post uses the account owner’s supplied AI bottleneck question. Its text and subject are reserved in the same ledger as every other original. The writer checks past originals for repeated questions, and a separate review checks AI-generated questions before publication. The scheduler spaces the five opportunities through the day and can catch up by publishing one original per half-hour. A post counts as verified after the publisher reads it back from X.
 
 ## Replies
 
