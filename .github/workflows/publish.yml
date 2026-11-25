@@ -11,6 +11,8 @@ on:
       - 'app/editorial.py'
       - 'app/personality.py'
       - 'app/reply_writer.py'
+      - 'app/sources.py'
+      - 'app/reasoned_replies.py'
 permissions:
   contents: read
   # A job-scoped token hands off to the next run when cron events are missed.

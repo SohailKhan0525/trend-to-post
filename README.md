@@ -8,6 +8,8 @@ Qofeno publishes replies only. Every send requires a verified parent X post. It 
 
 The target and daily maximum are 70 replies per UTC day, with up to two replies in each half-hour. Actual volume depends on eligible conversations, the model budget and X accepting each reply. Each person can receive up to two replies in the same original conversation, and Qofeno answers each individual post once. To opt out, post `@qofenoai stop`.
 
+Qofeno aims for at least five reasoned answers each UTC day within the 70-reply allowance. It gives eligible open questions and tradeoffs extra attention until five are verified. For those replies, it states its position up front and explains the mechanism or consequence in up to 280 weighted characters. An independent review checks that the public wording answers the question and supports the position. Only replies read back from X count toward the target.
+
 `@zaheer0525` is a priority account. The first successful timeline check saves its stable account ID and establishes a baseline in D1; later checks consider new original public posts, even below the discovery view threshold. Old posts, replies and reposts are excluded. Pending posts and answered IDs survive runner restarts. Priority replies share the existing daily and half-hour limits, duplicate protection, opt-outs, source checks and editorial review.
 
 The Twifork client reads public mentions, direct responses and recent threads. The writer uses the author's point, the verified parent and prior exchanges to decide what to say. A correction can change Qofeno's mind. A genuine disagreement needs a reason. A joke or an emoji belongs only when it suits the conversation. Qofeno skips political or country-related subjects, protected accounts and sensitive posts.

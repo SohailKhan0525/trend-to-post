@@ -11,13 +11,10 @@ import os
 from pathlib import Path
 import urllib.request
 
-from app import ai_budget, cloudflare, personality, reply_writer
+from app import ai_budget, cloudflare, personality, reply_writer, sources
 
 
-MAX_REQUESTS = 20
-PUBLIC_SOURCE = 'https://x.com/boardyai/status/2123053655528210596'
-PUBLIC_TRANSCRIPT = 'https://www.teapawt.org/boardyai/status/2123053655528210596'
-BOARDY_TEXT = "seed-stage founders are the most prepared for post-agi because they're already used to not getting paid"
+MAX_REQUESTS = 16
 FORBIDDEN_ENVIRONMENT = ('X_AUTH_TOKEN', 'X_CT0', 'CLOUDFLARE_D1_API_TOKEN',
                          'D1_DATABASE_ID', 'QOFENO_INSTANCE', 'GH_TOKEN', 'GITHUB_TOKEN')
 
@@ -82,7 +79,7 @@ def isolated_model_calls(budget, trace):
             raise PreviewIsolationError('This preview cannot generate or review original posts.')
         fields = (kwargs.get('schema') or {}).get('properties', {})
         stage = ('reply_planner' if 'action' in fields and 'angle' in fields else
-                 'reply_writer' if system == reply_writer.VOICE else 'reply_review')
+                 'reply_review' if 'source_evidence' in fields else 'reply_writer')
         result = cloudflare.complete(system, data, **kwargs)
         trace.append({'stage': stage, 'response': result})
         return result
@@ -112,22 +109,18 @@ def mention(ident, text, now, *, parent=None, own_parent=False):
 
 
 def scenarios(now):
-    # This historical replay retains the actual quoted post's date. The reader
-    # invitation is fictional; no claim is made that Boardy addressed Qofeno.
-    replay = datetime(2026, 11, 18, 14, 5, tzinfo=timezone.utc)
-    boardy = mention('910001', '@qofenoai what do you make of this?', replay,
-                     parent={'id': '2123053655528210596', 'author': 'boardyai', 'text': BOARDY_TEXT})
+    bottleneck = mention('910007',
+                         '@qofenoai If AI can solve most intellectual tasks, what becomes the main bottleneck: '
+                         'compute, energy, data, people, or something else? Explain your choice.', now)
+    backups = mention('910008',
+                      '@qofenoai For a small team choosing a backup system, should fast restores or an immutable copy '
+                      'come first? Explain the trade-off and when your choice would change.', now)
     correction = mention('910002',
                          '@qofenoai Old computers still fail. Our 2013 machine lost update support, '
                          'and finding RAM for the 2012 one took days. Predictable maintenance is the advantage.', now,
                          parent={'id': '910012', 'author': 'qofenoai', 'author_id': '99999',
                                  'text': 'Old computers have run out of new ways to break.'}, own_parent=True)
-    identity = mention('910003', '@qofenoai Are you a human or an AI?', now)
-    serious = mention('910004',
-                      '@qofenoai The editor overwrote my only copy of the draft. There is no undo entry. What should I do first?', now)
     greeting = mention('910005', '@qofenoai hi', now)
-    signup = mention('910006', '@qofenoai Our demo lets people try the editor, then asks for an email before '
-                     'they can copy what they wrote. When would you ask?', now)
     discovery = {'id': '920001', 'author_id': '90002', 'author': 'PreviewBuilder',
                  'text': 'Our coding agent passes the tests, but it also edits the tests whenever a check fails. '
                          'We still read every patch before merging.',
@@ -135,28 +128,25 @@ def scenarios(now):
                  'views': 20000, 'source_ids': ['920001'], 'urls': [],
                  'url': 'https://x.com/PreviewBuilder/status/920001'}
     rows = [
+        {'id': 'reasoned_ai_bottleneck', 'kind': 'reply', 'source': bottleneck, 'clock': now,
+         'expected_reply_style': 'reasoned_answer',
+         'provenance': {'kind': 'synthetic_adaptation_of_user_screenshot',
+                        'note': 'The pictured question addressed Grok, not Qofeno. This is a fictional Qofeno invitation, '
+                                'written independently; no Grok answer is supplied or copied.'},
+         'purpose': 'Answer the hypothetical with a defensible choice and explanation rather than a one-line label.'},
+        {'id': 'reasoned_backup_tradeoff', 'kind': 'reply', 'source': backups, 'clock': now,
+         'expected_reply_style': 'reasoned_answer', 'provenance': {'kind': 'synthetic_fixture'},
+         'purpose': 'Explain an unrelated practical trade-off and a condition that changes the answer.'},
         {'id': 'brief_direct_greeting', 'kind': 'reply', 'source': greeting, 'clock': now,
+         'expected_reply_style': 'short',
          'provenance': {'kind': 'synthetic_fixture'},
          'purpose': 'Allow a short public acknowledgement while still returning a valid private premise.'},
         {'id': 'discovered_agent_tests', 'kind': 'reply', 'source': discovery, 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'},
          'purpose': 'Use the production discovery planner and reviewer; add a specific point rather than generic agent commentary.'},
-        {'id': 'signup_timing', 'kind': 'reply', 'source': signup, 'clock': now,
-         'provenance': {'kind': 'synthetic_fixture'},
-         'purpose': 'Make a concrete choice about a startup demo in the voice of an interested reader.'},
         {'id': 'hardware_correction', 'kind': 'reply', 'source': correction, 'clock': now,
-         'provenance': {'kind': 'adapted_fixture_not_a_real_qofeno_conversation',
-                        'inspiration': PUBLIC_TRANSCRIPT, 'note': 'Paraphrases the hardware discussion; the Qofeno parent is invented.'},
+         'provenance': {'kind': 'synthetic_fixture', 'note': 'The Qofeno parent is invented.'},
          'purpose': 'Accept a concrete correction without repeating the mistaken claim.'},
-        {'id': 'direct_identity', 'kind': 'reply', 'source': identity, 'clock': now,
-         'provenance': {'kind': 'synthetic_fixture'},
-         'purpose': 'Answer the explicit identity question honestly; compare with the ordinary technical reply that needs no AI announcement.'},
-        {'id': 'serious_lost_work', 'kind': 'reply', 'source': serious, 'clock': now,
-         'provenance': {'kind': 'synthetic_fixture'}, 'purpose': 'Answer a serious request without forcing a joke.'},
-        {'id': 'public_founder_joke', 'kind': 'reply', 'source': boardy, 'clock': replay,
-         'provenance': {'kind': 'public_quote_with_fictional_reader_invitation', 'author': '@boardyai',
-                        'published_at': '2026-11-18T14:00:00Z', 'url': PUBLIC_SOURCE, 'transcript': PUBLIC_TRANSCRIPT},
-         'purpose': 'Answer a playful public post in one short line without borrowing its punchline.'},
     ]
     return rows
 
@@ -170,8 +160,14 @@ def evaluate(case, *, progress=None):
     memory = {'recent_own': [], 'people': [], 'conversations': []}
     if case['kind'] != 'reply':
         raise PreviewIsolationError('This preview only evaluates replies.')
+    reasoned = sources.is_reasoned_question(case['source'])
+    if case.get('expected_reply_style') == 'reasoned_answer' and not reasoned:
+        raise PreviewIsolationError('The reasoned-answer fixture no longer passes production eligibility.')
+    progress['selected_reply_style'] = 'reasoned_answer' if reasoned else 'short'
+    options = {'reasoned_answer': True} if reasoned else {}
     if case['source'].get('origin') == 'mention':
-        return {'status': 'approved_unpublished', 'draft': reply_writer.generate(case['source'], state, now, memory=memory)}
+        return {'status': 'approved_unpublished', **progress,
+                'draft': reply_writer.generate(case['source'], state, now, memory=memory, **options)}
     # D1's normal context projection includes recent public text and author
     # exchanges. These labeled fixtures exercise that shape without reading D1.
     previous = [('An agent in a real codebase is harder than marketing suggests.', 'Generic agent skepticism'),
@@ -188,8 +184,8 @@ def evaluate(case, *, progress=None):
         return {'status': 'silent', **progress}
     if plan['action'] != 'reply' or plan['source_id'] != case['source']['id']:
         raise PreviewIsolationError('The preview planner must select this supplied reply source.')
-    return {'status': 'approved_unpublished', 'plan': plan,
-            'draft': reply_writer.generate(case['source'], state, now, memory=memory, angle=plan['angle'])}
+    return {'status': 'approved_unpublished', **progress,
+            'draft': reply_writer.generate(case['source'], state, now, memory=memory, angle=plan['angle'], **options)}
 
 
 def main():
@@ -199,7 +195,7 @@ def main():
     emit('start', timestamp=started.isoformat(), release=os.environ.get('GITHUB_SHA', 'local'),
          model=cloudflare.selected_model(), request_ceiling=MAX_REQUESTS,
          local_hour_neuron_limit=ai_budget.HOURLY_LIMIT,
-         note='Historical and synthetic fixtures only. No X or D1 requests; no account history loaded.')
+         note='Synthetic fixtures only. No X or D1 requests; no account history loaded.')
     failed, pause = False, None
     try:
         with isolated_model_calls(budget, trace):

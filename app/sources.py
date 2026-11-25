@@ -14,6 +14,7 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from twikit.errors import NotFound, TweetNotAvailable
 
 from .policy import MIN_SOURCE_VIEWS, has_excluded_terms
+from .store import ACCOUNT
 
 
 MAX_AGE = timedelta(hours=24)
@@ -33,6 +34,14 @@ PRACTITIONER_QUERIES = (
     '("I built" OR "I tried" OR "my project") (debugging OR "code review" OR "coding agent")',
     '("I shipped" OR "I fixed" OR "I wrote") (compiler OR debugger OR "unit tests")',
 )
+# Replace one existing search, rather than spending another endpoint request.
+# The other Top lanes and the Latest lane retain the ordinary reply fallback.
+QUESTION_QUERIES = (
+    '(AI OR LLM OR inference) ("why" OR "what if" OR "bottleneck")',
+    '(startup OR SaaS OR founder) ("why" OR "tradeoff" OR "should")',
+    '(software OR database OR debugging) ("why" OR "how" OR "bottleneck")',
+    '(meme OR "group chat" OR "internet culture") ("why" OR "how" OR "what if")',
+)
 # Read these conversations for standalone writing. Each lane gets one search,
 # so a busy AI launch cannot fill every place in the research shortlist.
 ORIGINAL_QUERIES = (
@@ -51,6 +60,56 @@ ORIGINAL_LATEST = (
 _HANDLE = re.compile(r"[A-Za-z0-9_]{1,15}\Z")
 _NUMBER = re.compile(r"[0-9]+\Z")
 _URL = re.compile(r"https?://\S+", re.I)
+_TAG = re.compile(r'(?<![\w@])@([A-Za-z0-9_]{1,15})(?![A-Za-z0-9_])')
+_QUOTED_QUESTION = re.compile(r'"[^"\n]*\?[^"\n]*"|“[^”\n]*\?[^”\n]*”|^\s*>.*$', re.M)
+_QUESTION_TOPIC = re.compile(
+    r'\b(?:ai|llms?|gpt\w*|chatgpt|claude|codex|gemini|deepseek|copilot|'
+    r'inference|reasoning models?|language models?|machine learning|training data|'
+    r'neural|tokens?|context windows?|retrieval|rag|hallucinat\w*|gpus?|'
+    r'latency|throughput|compute|memory bandwidth|cach\w*|'
+    r'code|coding|programming|software|developer\w*|debug\w*|compilers?|'
+    r'databases?|sql|apis?|browsers?|servers?|backups?|restores?|storage|'
+    r'encryption|open source|unit tests?|'
+    r'code review|distributed systems?|agents?|automation|'
+    r'startups?|founders?|saas|bootstrapp\w*|onboarding|retention|pricing|'
+    r'product.market fit|first customers?|network effects?|'
+    r'memes?|fandoms?|group chats?|internet culture|social media|'
+    r'feeds?|moderation|creators?|shitposts?)\b', re.I)
+_OPEN_QUESTION = re.compile(
+    r'\b(?:why|how|what if|what happens|what changes|what makes|what causes|'
+    r'what becomes|what remains|what matters|'
+    r'what (?:is|are|would|should|could|might|does|do)|which|'
+    r'where (?:is|are|does|do|would|should)|when (?:would|should|does|do))\b', re.I)
+_CHOICE_QUESTION = re.compile(r'\b(?:should|would|could|can|is|are|do|does)\b', re.I)
+_REASONING_DETAIL = re.compile(
+    r'\b(?:or|if|versus|vs|trade.?offs?|bottleneck|instead|better|worse|'
+    r'limit\w*|scale\w*|fail\w*|depend\w*|affect\w*|worth)\b', re.I)
+_NOT_ANALYTICAL = re.compile(
+    r'\b(?:how are you|how is everyone|what.?s up|good morning|good night|'
+    r'who else|anyone else|am i the only|who needs|why bother|'
+    r'what could (?:possibly )?go wrong|can we all agree|'
+    r'are you (?:ready|excited)|who.?s ready|'
+    r'(?:your|everyone.?s) favou?rite|'
+    r'how much (?:is|does)\b[^?]*\bcost|when was\b[^?]*\b(?:released|launched)|'
+    r'who (?:created|founded|owns)|latest version|'
+    r'emergency|urgent(?:ly)?|suicid\w*|overdose|chest pain|'
+    r'(?:my|our) (?:account|password|subscription|refund)|'
+    r'(?:can.?t|cannot|unable to) (?:log|sign) in|'
+    r'help me|anyone (?:please )?help|fix my|production is down|'
+    r'promo code|coupon|giveaway|limited.time|link in (?:my |our )?bio|'
+    r'join (?:my |our |the )?waitlist|sign up (?:now|today)|'
+    r'try (?:my|our)\b|buy (?:my|our)\b|dm me|'
+    r'(?:like|repost|retweet) (?:and|to)\b)\b', re.I)
+_OTHER_ASSISTANTS = frozenset({'grok', 'chatgpt', 'claude', 'claudeai', 'gemini', 'copilot', 'askperplexity'})
+_COLLECTIVE_ADDRESS = frozenset({'developers', 'builders', 'founders', 'engineers', 'folks',
+                               'everyone', 'anyone', 'people', 'friends', 'team', 'chat'})
+_DISCOURSE_OPENERS = frozenset({'honestly', 'so', 'actually', 'also', 'well', 'okay', 'ok',
+                              'yes', 'no', 'wait', 'seriously', 'look', 'anyway', 'instead',
+                              'finally', 'first', 'then', 'second', 'however', 'maybe',
+                              'technically', 'basically', 'apparently', 'curiously', 'question'})
+_PARENT_INVITATION = re.compile(
+    r'\b(?:(?:please )?(?:answer|explain|reply to|respond to) (?:this|that|the question)|'
+    r'what do you (?:think|make of)|your (?:thoughts|take)|thoughts\s*[?!])', re.I)
 _TRACKING = frozenset({
     "ref", "referrer", "referer", "source", "src", "campaign", "fbclid",
     "gclid", "dclid", "msclkid", "mc_cid", "mc_eid", "igshid", "s", "t",
@@ -355,7 +414,97 @@ def _snapshot(tweet, now, include_parent, validator):
     return validator(fields, now)
 
 
-def search_plan(now, *, originals=False):
+def _other_addressee(text):
+    """Recognize an addressed recipient without treating every mention as one."""
+    prose = _QUOTED_QUESTION.sub(' ', _URL.sub('', text)).strip()
+    tags = [tag.casefold() for tag in _TAG.findall(prose)]
+    if _OTHER_ASSISTANTS.intersection(tags):
+        return True
+    leading = re.match(r'^(?:(?:hey|hi|hello|yo|ok|okay)[\s,!.:]+)?'
+                       r'((?:@[A-Za-z0-9_]{1,15}[\s,]*)+)', prose, re.I)
+    if leading and any(tag.casefold() != ACCOUNT for tag in _TAG.findall(leading[1])):
+        return True
+    # A bare name is a recipient only in a vocative, not merely a named topic.
+    named = re.match(r'^(?i:hey|hi|hello|yo)[\s,]+([A-Za-z][A-Za-z0-9_]*)\b|'
+                     r'^([A-Z][A-Za-z0-9_]{1,30})\s*,\s*', prose)
+    if named:
+        name = (named[1] or named[2]).casefold()
+        if (name not in _COLLECTIVE_ADDRESS and name not in _DISCOURSE_OPENERS
+                and name not in (ACCOUNT, 'qofeno') and not _QUESTION_TOPIC.fullmatch(name)):
+            return True
+    if re.match(r'^(?:grok|chatgpt|claude|gemini|copilot)\b[\s,:]+', prose, re.I):
+        return True
+    for match in _TAG.finditer(prose):
+        if match[1].casefold() == ACCOUNT:
+            continue
+        before, after = prose[:match.start()], prose[match.end():]
+        if re.match(r'\s*[,،:]?\s*(?:can|could|would|will|do|did|are|should) you\b', after, re.I):
+            return True
+        if (not after.strip(' \n\t?!.,:') and '?' in before
+                and not re.search(r'\b(?:by|from|at|about|via|with|of|to)\s*$', before, re.I)):
+            return True
+    return False
+
+
+def _analytical_question(text):
+    prose = _QUOTED_QUESTION.sub(' ', _URL.sub('', text)).strip()
+    if ('?' not in prose or _other_addressee(prose) or _NOT_ANALYTICAL.search(prose)
+            or not _QUESTION_TOPIC.search(prose)):
+        return False
+    # A quoted question, a slogan or the author's own question-and-answer hook
+    # is not an open request for another participant's analysis.
+    if re.search(r'\?\s*(?:because\b|here.?s\b|the answer\b|answer\s*:|a thread\b)', prose, re.I):
+        return False
+    words = re.findall(r"[A-Za-z]+(?:['’][A-Za-z]+)?", _TAG.sub('', prose))
+    if len(words) < 6:
+        return False
+    return bool(_OPEN_QUESTION.search(prose)
+                or (_CHOICE_QUESTION.search(prose) and _REASONING_DETAIL.search(prose)))
+
+
+def is_reasoned_question(source):
+    """Classify a native, attributed source; never grant publishing eligibility.
+
+    Discovery and the final native refresh still enforce reach, privacy, age,
+    opt-outs and source integrity. A mention may borrow a question only from
+    its verified exact parent when the author expressly asks Qofeno to answer.
+    """
+    if not isinstance(source, dict) or source.get('origin') == 'inspiration':
+        return False
+    # The local import avoids a module initialization cycle with mentions.
+    from .reply_writer import INJECTION, SourceRejected, mention_parent
+    try:
+        _identifier(source.get('id'))
+        _identifier(source.get('author_id'))
+        author = source.get('author')
+        if (not isinstance(author, str) or not _HANDLE.fullmatch(author)
+                or author.casefold() == ACCOUNT or author.casefold() in _OTHER_ASSISTANTS):
+            return False
+        text = _text(source.get('text'), minimum_letters=1)
+        if len(text) > 3000 or _other_addressee(text):
+            return False
+        # Use the writer's existing instruction and parent-integrity checks.
+        if INJECTION.search(text):
+            return False
+        if _analytical_question(text):
+            return True
+        if (source.get('origin') != 'mention' or source.get('intent') != 'invite'
+                or ACCOUNT not in {tag.casefold() for tag in _TAG.findall(text)}
+                or not _PARENT_INVITATION.search(text) or _NOT_ANALYTICAL.search(text)):
+            return False
+        from .mentions import _intent
+        if _intent(text) != 'invite':
+            return False
+        parent = mention_parent(source)
+        if not parent or _identifier(parent['id']) == source['id']:
+            return False
+        parent_text = _text(parent['text'], minimum_letters=1)
+        return _analytical_question(parent_text)
+    except (SourceError, SourceRejected, KeyError, TypeError, ValueError):
+        return False
+
+
+def search_plan(now, *, originals=False, reasoned_questions=False):
     """Use three Top searches and one Latest search for the current opportunity."""
     current = _utc(now, "invalid current timestamp")
     hour = int(current.timestamp() // 3600)
@@ -364,11 +513,13 @@ def search_plan(now, *, originals=False):
     topics = ORIGINAL_QUERIES if originals else TOPIC_QUERIES
     latest = ORIGINAL_LATEST if originals else PRACTITIONER_QUERIES
     plan = [(variants[hour % len(variants)] + suffix, "Top") for variants in topics]
+    if reasoned_questions and not originals:
+        plan[0] = (QUESTION_QUERIES[hour % len(QUESTION_QUERIES)] + suffix, "Top")
     plan.append((latest[hour % len(latest)] + suffix, "Latest"))
     return plan
 
 
-def shortlist(candidates, now, limit=4, *, originals=False):
+def shortlist(candidates, now, limit=4, *, originals=False, reasoned_questions=False):
     """Select distinct authors across search topics, favoring recent measured reach.
 
     The views-per-hour estimate is a lifetime average from one public snapshot.
@@ -382,32 +533,39 @@ def shortlist(candidates, now, limit=4, *, originals=False):
             candidate = (validate_inspiration if originals else validate)(candidate, current)
         except SourceError:
             continue
+        if reasoned_questions and _other_addressee(candidate['text']):
+            continue
         age_hours = (current - _utc(candidate["created_at"], "invalid source timestamp")).total_seconds() / 3600
         # Unknown views stay unknown in the snapshot. A zero ranking contribution
         # is not a measured count and cannot qualify this source for a reply.
         reach_per_hour = (candidate["views"] or 0) / max(1, age_hours)
-        groups.setdefault(candidate.get("discovery_query"), []).append((reach_per_hour, candidate))
+        priority = bool(reasoned_questions and is_reasoned_question(candidate))
+        groups.setdefault((priority, candidate.get("discovery_query")), []).append((reach_per_hour, candidate))
 
-    ranked_groups = [iter(sorted(group, key=lambda pair: pair[0], reverse=True))
-                     for group in groups.values()]
     selected = []
     authors = set()
-    while len(selected) < limit:
-        previous = len(selected)
-        for group in ranked_groups:
-            for _, candidate in group:
-                if candidate["author_id"] not in authors:
-                    selected.append(candidate)
-                    authors.add(candidate["author_id"])
-                    break
-            if len(selected) == limit:
-                return selected
-        if len(selected) == previous:
-            break
+    # Exhaust genuine questions before the normal fallback, preserving topic
+    # rotation and distinct authors within each tier. The daily target is never
+    # filled by relabeling an ordinary declaration as a question.
+    for priority in (True, False):
+        ranked_groups = [iter(sorted(group, key=lambda pair: pair[0], reverse=True))
+                         for (question, _), group in groups.items() if question == priority]
+        while len(selected) < limit:
+            previous = len(selected)
+            for group in ranked_groups:
+                for _, candidate in group:
+                    if candidate["author_id"] not in authors:
+                        selected.append(candidate)
+                        authors.add(candidate["author_id"])
+                        break
+                if len(selected) == limit:
+                    return selected
+            if len(selected) == previous:
+                break
     return selected
 
 
-async def discover(connection, state, now, *, originals=False):
+async def discover(connection, state, now, *, originals=False, reasoned_questions=False):
     """Run four sequential topic searches; return unseen eligible snapshots.
 
     No pagination, endpoint retries, badge requirement, or volume fallback.
@@ -422,7 +580,7 @@ async def discover(connection, state, now, *, originals=False):
     batches = []
     counts = Counter()
     rejections = Counter()
-    queries = search_plan(current, originals=originals)
+    queries = search_plan(current, originals=originals, reasoned_questions=reasoned_questions)
     unavailable = []
     for index, (query, product) in enumerate(queries, start=1):
         before = dict(counts)
@@ -442,6 +600,10 @@ async def discover(connection, state, now, *, originals=False):
             except SourceError as exc:
                 counts["ineligible"] += 1
                 rejections[_REJECTION_REASONS.get(str(exc), "invalid_metadata")] += 1
+                continue
+            if reasoned_questions and _other_addressee(candidate['text']):
+                counts['ineligible'] += 1
+                rejections['other_addressee'] += 1
                 continue
             if used_ids.intersection(candidate["source_ids"]) or used_urls.intersection(candidate["urls"]):
                 counts["duplicates"] += 1
@@ -463,6 +625,8 @@ async def discover(connection, state, now, *, originals=False):
     first = int(current.timestamp() // 1800) % len(batches)
     batches = batches[first:] + batches[:first]
     candidates = [item for round_ in zip_longest(*batches) for item in round_ if item is not None]
+    if reasoned_questions:
+        candidates.sort(key=is_reasoned_question, reverse=True)
     print(f"Source discovery: examined={counts['examined']} eligible={len(candidates)} "
           f"ineligible={counts['ineligible']} duplicates={counts['duplicates']}.")
     if rejections:

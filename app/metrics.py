@@ -6,6 +6,7 @@ from statistics import median
 from twikit.errors import InvalidSession, TooManyRequests
 
 from . import store
+from .reasoned_replies import DAILY_REASONED_GOAL, reasoned_reply_count
 
 
 METRIC_FIELDS = {"views": "view_count", "likes": "favorite_count",
@@ -111,7 +112,9 @@ async def metrics():
     selected = metric_candidates(state.get("history", []), now)
     report = {"captured_at": now.isoformat(), "minimum_age_hours": 6,
               "maximum_reads": METRICS_LIMIT, "selected_posts": len(selected),
-              "account_followers": None, "posts": [], "errors": []}
+              "account_followers": None, "posts": [], "errors": [],
+              "reasoned_replies_today": {"utc_date": now.date().isoformat(), "target": DAILY_REASONED_GOAL,
+                                        "verified": reasoned_reply_count(state, now)}}
     if selected:
         connection = store.client()
         for posted, ident, row in selected:
@@ -149,6 +152,7 @@ async def metrics():
                 "source_id": str(source_id or ""),
                 "source_author": str(row.get("author") or source.get("author") or "")[:80],
                 "editorial_version": row.get("editorial_version", "legacy"),
+                "reply_style": row.get("reply_style"),
                 "body_style": row.get("body_style", "question" if "?" in text else "detail"),
                 "source_views_at_publication": source_views,
                 "metrics": counts,

@@ -114,6 +114,58 @@ class PriorityDeliveryTests(unittest.IsolatedAsyncioTestCase):
         inbox.assert_not_awaited()
         decide.assert_not_awaited()
 
+    def reasoned_question(self):
+        return {**self.source, 'id': '102', 'source_ids': ['102'], 'conversation_id': '102',
+                'url': f'https://x.com/{priority.HANDLE}/status/102',
+                'text': 'Why do AI coding agents miss bugs when the failing tests describe them?'}
+
+    async def record_routed_reply(self, state, slot, connection, user, *, selected, **kwargs):
+        state['used_source_ids'].append(selected['id'])
+        state['history'].append({
+            'kind': 'reply', 'tweet_id': str(900 + len(state['history'])),
+            'posted_at': NOW.isoformat(), 'verified_at': NOW.isoformat(),
+            'reply_style': 'reasoned_answer' if selected['id'] == '102' else 'short_reply',
+            'source': selected,
+        })
+
+    async def test_open_reasoned_goal_prefers_priority_question_then_allows_ordinary_reply(self):
+        self.discover.return_value = [self.source, self.reasoned_question()]
+        with patch.object(sources, 'is_reasoned_question', side_effect=lambda row: row['id'] == '102'), \
+                patch.object(editorial, 'publish_reply', side_effect=self.record_routed_reply) as publish:
+            await editorial.process_priority(self.state, self.connection, scheduled_at=self.start)
+        self.assertEqual([call.kwargs['selected']['id'] for call in publish.await_args_list], ['102', '101'])
+        self.assertEqual(len(self.state['history']), 2)
+        self.assertEqual(editorial.reasoned_reply_count(self.state, NOW), 1)
+
+    async def test_rejected_priority_question_does_not_block_ordinary_fallback(self):
+        self.discover.return_value = [self.source, self.reasoned_question()]
+
+        async def attempt(state, slot, connection, user, *, selected, **kwargs):
+            if selected['id'] == '102':
+                raise reply_writer.SourceRejected('The question requires unavailable evidence')
+            await self.record_routed_reply(state, slot, connection, user, selected=selected, **kwargs)
+
+        with patch.object(sources, 'is_reasoned_question', side_effect=lambda row: row['id'] == '102'), \
+                patch.object(editorial, 'publish_reply', side_effect=attempt) as publish:
+            await editorial.process_priority(self.state, self.connection, scheduled_at=self.start)
+        self.assertEqual([call.kwargs['selected']['id'] for call in publish.await_args_list], ['102', '101'])
+        self.assertEqual([row['source']['id'] for row in self.state['history']], ['101'])
+        self.assertEqual(editorial.reasoned_reply_count(self.state, NOW), 0)
+
+    async def test_five_verified_reasoned_replies_restore_normal_priority_source_order(self):
+        earlier = (NOW - timedelta(hours=1)).isoformat()
+        self.state['history'] = [
+            {'kind': 'reply', 'tweet_id': str(700 + i), 'reply_style': 'reasoned_answer',
+             'posted_at': earlier, 'verified_at': earlier}
+            for i in range(5)
+        ]
+        self.discover.return_value = [self.source, self.reasoned_question()]
+        with patch.object(sources, 'is_reasoned_question', side_effect=lambda row: row['id'] == '102'), \
+                patch.object(editorial, 'publish_reply', side_effect=self.record_routed_reply) as publish:
+            await editorial.process_priority(self.state, self.connection, scheduled_at=self.start)
+        self.assertEqual([call.kwargs['selected']['id'] for call in publish.await_args_list], ['101', '102'])
+        self.assertEqual(len(self.state['history']), 7)
+
     async def test_unavailable_priority_account_does_not_stop_normal_publishing(self):
         self.state['actions_inbox_since'] = NOW.isoformat()
         for failure in (UserNotFound('native lookup failed'), UserUnavailable('native account unavailable')):

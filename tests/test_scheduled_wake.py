@@ -142,10 +142,42 @@ class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
             await editorial.scheduled_wake(state, object(), now)
         self.assertEqual([call.args[1]['allowed_actions'] for call in decide.await_args_list], [['reply']])
         messages = [call.args[0] for call in summary.call_args_list]
-        self.assertEqual(len(messages), 1)
-        self.assertTrue(all('123 estimated neurons, 42 available this UTC hour' in message for message in messages))
+        self.assertIn('Reasoned answers verified', messages[0])
+        self.assertEqual(len(messages), 2)
+        self.assertIn('123 estimated neurons, 42 available this UTC hour', messages[-1])
         self.assertTrue(all('secret' not in message for message in messages))
         self.assertEqual(len(state['last_attempts']), 1)
+
+    async def test_targeted_question_pool_has_one_silence_decision_despite_prior_general_silence(self):
+        now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
+        state = {**empty(), 'actions_inbox_since': now.isoformat(), 'decision_slots': {
+            '2026-11-21:actions-discovery:18:0': {'action': 'silent', 'at': now.isoformat()}}}
+        def silence(state, slot, *args, **kwargs):
+            editorial.record_silence(state, slot, now, {})
+        with patch.object(editorial, 'utcnow', return_value=now), \
+                patch.object(editorial, 'process_inbox', new_callable=AsyncMock), \
+                patch.object(editorial, 'posting_account', new_callable=AsyncMock), \
+                patch.object(editorial, 'save_and_push'), patch.object(editorial, 'summary'), \
+                patch.object(editorial, 'decide', new=AsyncMock(side_effect=silence)) as decide:
+            await editorial.scheduled_wake(state, object(), now)
+            await editorial.scheduled_wake(state, object(), now)
+        decide.assert_awaited_once()
+        self.assertEqual(decide.call_args.args[1]['slot'], '2026-11-21:actions-discovery-reasoned-v1:18:0')
+        self.assertEqual(state['history'], [])
+
+    async def test_completed_daily_goal_keeps_normal_discovery_silence_cached(self):
+        now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
+        posted = (now - timedelta(hours=1)).isoformat()
+        state = {**empty(), 'actions_inbox_since': now.isoformat(), 'decision_slots': {
+            '2026-11-21:actions-discovery:18:0': {'action': 'silent', 'at': now.isoformat()}},
+            'history': [{'kind': 'reply', 'reply_style': 'reasoned_answer', 'tweet_id': str(700 + i),
+                         'posted_at': posted, 'verified_at': posted} for i in range(5)]}
+        with patch.object(editorial, 'utcnow', return_value=now), \
+                patch.object(editorial, 'process_inbox', new_callable=AsyncMock), \
+                patch.object(editorial, 'posting_account', new_callable=AsyncMock), \
+                patch.object(editorial, 'decide', new_callable=AsyncMock) as decide:
+            await editorial.scheduled_wake(state, object(), now)
+        decide.assert_not_awaited()
 
     async def test_no_invitation_does_not_fall_back_to_a_standalone_post(self):
         now = datetime(2026, 11, 18, 12, 7, tzinfo=timezone.utc)

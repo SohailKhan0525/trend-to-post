@@ -22,6 +22,15 @@ def tweet(ident, **counts):
 
 
 class MetricsTests(unittest.IsolatedAsyncioTestCase):
+    async def test_daily_reasoned_total_includes_new_replies_outside_engagement_sample(self):
+        at = (NOW - timedelta(minutes=10)).isoformat()
+        recent = row(101, kind='reply', posted_at=at, verified_at=at, reply_style='reasoned_answer')
+        with patch.object(store, 'load', return_value={'history': [recent]}):
+            report = await metrics.metrics()
+        self.assertEqual(report['selected_posts'], 0)
+        self.assertEqual(report['reasoned_replies_today'], {'utc_date': NOW.date().isoformat(),
+                                                            'target': 5, 'verified': 1})
+
     def setUp(self):
         self.state = {"history": [], "pending": {"some": "unconfirmed send"}}
         self.connection = SimpleNamespace(get_tweet_by_id=AsyncMock(), create_tweet=AsyncMock())

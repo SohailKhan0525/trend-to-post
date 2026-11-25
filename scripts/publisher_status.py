@@ -8,6 +8,7 @@ from app.memory import Memory, MemoryUnavailable, database_uuid
 from app.reply_schedule import HALF_HOUR, half_hour_start, reply_ready, timestamp
 from app.server_ledger import AUTHORITY, FRESH_SECONDS, HEAD, LEASE, PAGES, unpack
 from app.store import summary
+from app.reasoned_replies import DAILY_REASONED_GOAL, reasoned_reply_count
 
 
 def category(reason):
@@ -27,6 +28,10 @@ def category(reason):
 def opportunity_label(slot):
     if re.fullmatch(r'\d{4}-\d\d-\d\d-inbox-[1-9][0-9]{0,19}-[a-f0-9]{16}', str(slot)):
         return 'inbound reply'
+    if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-discovery-reasoned-v1:\d{1,2}:[01]', str(slot)):
+        return 'question discovery'
+    if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-discovery:\d{1,2}:[01]', str(slot)):
+        return 'reply discovery'
     if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-original:\d{1,2}', str(slot)):
         return 'scheduled original'
     if re.fullmatch(r'\d{4}-\d\d-\d\d:(reply|follow)-v1:\d{1,2}', str(slot)):
@@ -69,6 +74,7 @@ def report(state, now):
     if next_wake <= now:
         next_wake += HALF_HOUR
     lines = [f'Latest verified X post: {receipt}', f'Latest recorded decision: {decision}',
+             f'Reasoned replies verified today (UTC): {reasoned_reply_count(state, now)}/{DAILY_REASONED_GOAL}.',
              f'Pending delivery: {bool(pending)}', inbox_schedule(state, now),
              f'Next scheduled GitHub wake: {next_wake.isoformat()}.']
     outbox = state.get('outbox')
