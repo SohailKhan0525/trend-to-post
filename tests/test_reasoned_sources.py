@@ -114,6 +114,7 @@ class ReasonedQuestionTests(unittest.TestCase):
             self.assertIn('"biggest bottleneck"', analytical[0][0])
             self.assertIn('"would you choose"', analytical[0][0])
             self.assertIn('min_faves:15', analytical[0][0])
+            self.assertTrue(all(' ? ' in query for query, _ in analytical[:2]))
             self.assertNotIn('min_faves:', analytical[1][0])
             self.assertIn('why OR how OR what OR which OR should OR would', analytical[1][0])
             self.assertEqual([product for _, product in analytical], ['Top', 'Top', 'Top', 'Latest'])

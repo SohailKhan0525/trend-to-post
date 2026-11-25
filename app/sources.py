@@ -39,6 +39,7 @@ PRACTITIONER_QUERIES = (
 # X's engagement operator is only a retrieval hint: actual eligibility still
 # requires measured views and never requires a like count.
 QUESTION_BROAD_QUERY = (
+    '(AI OR software OR startup OR memes) '
     '("biggest bottleneck" OR "main bottleneck" OR "tradeoff" OR "would you choose" OR "what if") min_faves:15'
 )
 QUESTION_QUERIES = (
@@ -519,8 +520,11 @@ def search_plan(now, *, originals=False, reasoned_questions=False):
     latest = ORIGINAL_LATEST if originals else PRACTITIONER_QUERIES
     plan = [(variants[hour % len(variants)] + suffix, "Top") for variants in topics]
     if reasoned_questions and not originals:
-        plan[0] = (QUESTION_BROAD_QUERY + suffix, "Top")
-        plan[1] = (QUESTION_QUERIES[hour % len(QUESTION_QUERIES)] + suffix, "Top")
+        # Ask the search endpoint for questions before subjecting complete
+        # posts to local audience, topic, reach and suitability checks.
+        questions = ' ?' + suffix
+        plan[0] = (QUESTION_BROAD_QUERY + questions, "Top")
+        plan[1] = (QUESTION_QUERIES[hour % len(QUESTION_QUERIES)] + questions, "Top")
     plan.append((latest[hour % len(latest)] + suffix, "Latest"))
     return plan
 
