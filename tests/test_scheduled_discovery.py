@@ -1,4 +1,3 @@
-import copy
 from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 import unittest
@@ -6,7 +5,6 @@ from unittest.mock import AsyncMock, patch
 
 from app import editorial, personality, reply_writer, sources
 from app.reply_schedule import half_hour_start
-from app.reasoned_replies import reasoned_reply_count
 from test_editorial import empty
 from test_sources import tweet
 
@@ -17,6 +15,7 @@ NOW = datetime(2026, 11, 18, 12, 7, tzinfo=timezone.utc)
 class ScheduledDiscoveryTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         self.enterContext(patch.object(editorial, 'process_priority', new_callable=AsyncMock))
+        self.enterContext(patch.object(editorial, 'scheduled_question_original', new_callable=AsyncMock))
         self.state = empty()
         self.state['actions_inbox_since'] = (NOW - timedelta(days=1)).isoformat()
         self.user = SimpleNamespace(id='999', screen_name=editorial.ACCOUNT)
@@ -107,44 +106,6 @@ class ScheduledDiscoveryTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(self.discover.await_count, first)
         self.connection.create_tweet.assert_not_awaited()
 
-    async def test_empty_discovery_keeps_slot_open_for_a_later_fresh_source(self):
-        self.discover.return_value = []
-        before = copy.deepcopy(self.state)
-        with patch.object(personality, 'choose', return_value={'action': 'silent'}) as model, \
-                patch.object(editorial, 'record_silence', wraps=editorial.record_silence) as silence, \
-                patch.object(editorial, 'save_and_push') as persist:
-            outcome = await editorial.decide(self.state, self.slot, self.connection, self.user, incoming=[])
-            self.assertEqual(outcome, 'no_candidates')
-            model.assert_not_called()
-            silence.assert_not_called()
-            persist.assert_not_called()
-        self.assertEqual(self.state, before)
-        self.connection.create_tweet.assert_not_awaited()
-
-        # The next wake in the same half-hour may discover a conversation that
-        # was absent from the first result; an empty search is not a veto.
-        self.discover.return_value = [self.source]
-        writer = await self.run_reply()
-        writer.assert_called_once()
-        self.assertEqual(self.discover.await_count, 2)
-        self.connection.create_tweet.assert_awaited_once_with(text=self.answer['text'], reply_to='101')
-        self.assertEqual(self.state['history'][0]['source']['id'], '101')
-        self.assertIn('verified_at', self.state['history'][0])
-
-    async def test_opted_out_only_shortlist_does_not_run_model_or_close_discovery_slot(self):
-        self.state['mention_preferences'] = {self.source['author_id']: {'intent': 'stop'}}
-        before = copy.deepcopy(self.state)
-        with patch.object(personality, 'choose', return_value={'action': 'silent'}) as model, \
-                patch.object(editorial, 'record_silence', wraps=editorial.record_silence) as silence, \
-                patch.object(editorial, 'save_and_push') as persist:
-            outcome = await editorial.decide(self.state, self.slot, self.connection, self.user, incoming=[])
-        self.assertEqual(outcome, 'no_candidates')
-        model.assert_not_called()
-        silence.assert_not_called()
-        persist.assert_not_called()
-        self.connection.create_tweet.assert_not_awaited()
-        self.assertEqual(self.state, before)
-
     async def test_one_scheduled_batch_publishes_only_two_distinct_replies_once(self):
         other = tweet('102', author='other_dev', text='The compiler warning arrived after the build success notification.',
                       created_at=self.native._data['legacy']['created_at'])
@@ -181,109 +142,8 @@ class ScheduledDiscoveryTests(unittest.IsolatedAsyncioTestCase):
         writer.assert_not_called()
         self.connection.create_tweet.assert_not_awaited()
 
-    def set_question(self, *, direct=False):
-        text = ('For a small team choosing a backup system, should fast restores or an immutable copy come first? '
-                'Explain the trade-off and when your choice would change.')
-        if direct:
-            text = '@qofenoai ' + text
-        self.native = tweet('101', author='builder', text=text,
-            created_at=(NOW - timedelta(minutes=2)).strftime('%a %b %d %H:%M:%S %z %Y'))
-        self.source = editorial.mentions.snapshot(self.native, NOW) if direct else sources.snapshot(self.native, NOW)
-        self.discover.return_value = [self.source]
-
-    def add_verified_answers(self, count):
-        posted = (NOW - timedelta(hours=1)).isoformat()
-        self.state['history'].extend({'kind': 'reply', 'reply_style': 'reasoned_answer', 'tweet_id': str(700 + i),
-                                     'posted_at': posted, 'verified_at': posted} for i in range(count))
-
-    async def test_fifth_reasoned_answer_uses_native_reply_then_verified_goal_and_dedupe(self):
-        self.set_question()
-        self.add_verified_answers(4)
-        self.answer['reply_style'] = 'reasoned_answer'
-        with patch.object(personality, 'choose', wraps=personality.choose) as choose:
-            writer = await self.run_reply()
-        self.assertTrue(writer.call_args.kwargs['reasoned_answer'])
-        self.assertTrue(self.discover.call_args.kwargs['reasoned_questions'])
-        self.assertTrue(choose.call_args.kwargs['prefer_reasoned_answers'])
-        self.connection.create_tweet.assert_awaited_once_with(text=self.answer['text'], reply_to='101')
-        self.assertEqual(reasoned_reply_count(self.state, NOW), 5)
-        self.assertEqual(self.state['history'][-1]['reply_style'], 'reasoned_answer')
-        await self.run_reply()
-        self.connection.create_tweet.assert_awaited_once()
-        self.assertEqual(reasoned_reply_count(self.state, NOW), 5)
-
-    async def test_goal_completed_restores_normal_discovery_and_short_writer(self):
-        self.set_question()
-        self.add_verified_answers(5)
-        with patch.object(personality, 'choose', wraps=personality.choose) as choose:
-            writer = await self.run_reply()
-        self.assertNotIn('reasoned_answer', writer.call_args.kwargs)
-        self.assertNotIn('reasoned_questions', self.discover.call_args.kwargs)
-        self.assertNotIn('prefer_reasoned_answers', choose.call_args.kwargs)
-        self.assertEqual(reasoned_reply_count(self.state, NOW), 5)
-        self.connection.create_tweet.assert_awaited_once()
-
-    async def test_plain_conversation_remains_available_while_goal_is_open(self):
-        with patch.object(personality, 'choose', wraps=personality.choose) as choose:
-            writer = await self.run_reply()
-        self.assertTrue(self.discover.call_args.kwargs['reasoned_questions'])
-        self.assertNotIn('reasoned_answer', writer.call_args.kwargs)
-        self.assertNotIn('prefer_reasoned_answers', choose.call_args.kwargs)
-        self.connection.create_tweet.assert_awaited_once()
-        self.assertEqual(reasoned_reply_count(self.state, NOW), 0)
-
-    async def test_substantive_direct_invitation_can_get_reasoned_answer_after_daily_goal(self):
-        self.set_question(direct=True)
-        self.add_verified_answers(5)
-        self.answer['reply_style'] = 'reasoned_answer'
-        slot = {**editorial.inbox_opportunity(self.source), 'scheduled_at': half_hour_start(NOW).isoformat()}
-        with patch.object(editorial, 'fresh_invitation', return_value=True), \
-                patch.object(reply_writer, 'generate', return_value=self.answer) as writer:
-            await editorial.decide(self.state, slot, self.connection, self.user, incoming=[self.source])
-        self.assertTrue(writer.call_args.kwargs['reasoned_answer'])
-        self.assertEqual(reasoned_reply_count(self.state, NOW), 6)
-        self.connection.create_tweet.assert_awaited_once_with(text=self.answer['text'], reply_to='101')
-
-    async def test_unverified_reasoned_delivery_does_not_count_or_send_twice(self):
-        self.set_question()
-        self.add_verified_answers(4)
-        self.answer['reply_style'] = 'reasoned_answer'
-        self.published.full_text = 'A different post was returned.'
-        await self.run_reply()
-        self.assertEqual(reasoned_reply_count(self.state, NOW), 4)
-        self.assertEqual(self.state['outbox']['reply_style'], 'reasoned_answer')
-        with patch.object(editorial, 'process_inbox', new_callable=AsyncMock):
-            await editorial.scheduled_wake(self.state, self.connection, NOW)
-        self.connection.create_tweet.assert_awaited_once()
-
-    async def test_reasoned_answer_goal_never_bypasses_daily_or_half_hour_caps(self):
-        self.set_question()
-        self.answer['reply_style'] = 'reasoned_answer'
-        for count, posted in ((2, NOW), (70, NOW - timedelta(hours=1))):
-            state = {**empty(), 'actions_inbox_since': NOW.isoformat(), 'history': [
-                {'kind': 'reply', 'tweet_id': str(700 + i), 'posted_at': posted.isoformat(),
-                 'verified_at': posted.isoformat()} for i in range(count)]}
-            with self.subTest(count=count), patch.object(editorial, 'process_inbox', new_callable=AsyncMock), \
-                    patch.object(reply_writer, 'generate', return_value=self.answer) as writer:
-                await editorial.scheduled_wake(state, self.connection, NOW)
-                writer.assert_not_called()
-                self.assertEqual(reasoned_reply_count(state, NOW), 0)
-        self.connection.create_tweet.assert_not_awaited()
-
 
 class DiscoveryPlannerTests(unittest.TestCase):
-    def test_inbox_question_preference_keeps_ordinary_direct_chats_available(self):
-        native = tweet('101', author='builder', text='@qofenoai hello there',
-                       created_at=(NOW - timedelta(minutes=1)).strftime('%a %b %d %H:%M:%S %z %Y'))
-        greeting = editorial.mentions.snapshot(native, NOW)
-        question = {**greeting, 'id': '102', 'source_ids': ['102'], 'author_id': '2002',
-                    'created_at': (NOW - timedelta(minutes=2)).isoformat(),
-                    'text': '@qofenoai Should a small backup system prioritize fast restores or an immutable copy? Explain why.'}
-        self.assertTrue(sources.is_reasoned_question(question))
-        self.assertEqual(editorial.inbox_shortlist([greeting, question], '999', prefer_reasoned_answers=True),
-                         [question, greeting])
-        self.assertFalse(sources.is_reasoned_question(greeting))
-
     def test_public_source_is_optional_and_fresh_invitation_keeps_priority(self):
         raw = tweet('101', author='builder', created_at=(NOW - timedelta(hours=2)).strftime('%a %b %d %H:%M:%S %z %Y'))
         source = editorial.discovery_source(sources.snapshot(raw, NOW), NOW)

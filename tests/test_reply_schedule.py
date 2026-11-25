@@ -17,6 +17,37 @@ def record(state, slot, sent_at):
 
 
 class ReplyScheduleTests(unittest.TestCase):
+    def test_verified_original_progress_uses_unique_x_receipts_and_actual_utc_posting_date(self):
+        posted = '2026-11-14T01:00:00+05:30'
+        verified = '2026-11-14T10:32:00Z'
+        original = {'tweet_id': '101', 'kind': 'original', 'posted_at': posted, 'verified_at': verified}
+        legacy = {**original, 'tweet_id': '102', 'kind': 'follow'}
+        history = [original, {**original, 'tweet_id': '0101'}, legacy,
+                   {**original, 'kind': 'reply', 'tweet_id': '103'},
+                   {**original, 'tweet_id': '104', 'posted_at': verified},
+                   {**original, 'tweet_id': '105', 'verified_at': '2026-11-14T10:31:00'},
+                   {**original, 'tweet_id': '106', 'posted_at': '2026-11-13T10:03:00'},
+                   {**original, 'tweet_id': '107', 'verified_at': None},
+                   {**original, 'tweet_id': '0'}, {**original, 'tweet_id': '١٠٨'}, {}]
+        state = {'history': history, 'outbox': {**original, 'tweet_id': '999'},
+                 'editorial_history': [{**original, 'tweet_id': '998'}]}
+        self.assertEqual(schedule.verified_originals_today(state, START), 2)
+        self.assertEqual(schedule.verified_originals_today(state, START + timedelta(days=1)), 1)
+        with self.assertRaises(ValueError):
+            schedule.verified_originals_today(state, START.replace(tzinfo=None))
+
+    def test_midday_catchup_allows_one_original_per_half_hour_even_if_reply_cap_is_full(self):
+        now = START + timedelta(hours=13, minutes=7)
+        state = {'history': [{'kind': 'reply', 'posted_at': now.isoformat()} for _ in range(70)]}
+        self.assertEqual(schedule.scheduled_remaining(state, 'reply', now, schedule.half_hour_start(now)), 0)
+        for count in range(3):
+            start = schedule.half_hour_start(now)
+            self.assertEqual(schedule.scheduled_remaining(state, 'original', now, start), 1)
+            state['history'].append({'kind': 'original', 'posted_at': now.isoformat()})
+            self.assertEqual(schedule.scheduled_remaining(state, 'original', now, start), 0)
+            now += schedule.HALF_HOUR
+        self.assertEqual(len(state['history']), 73)
+
     def test_half_hour_opportunities_allow_forty_eight_replies_and_two_follow_posts(self):
         state = empty()
         for day in range(14):

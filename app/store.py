@@ -20,6 +20,23 @@ def utcnow():
     return datetime.now(timezone.utc)
 
 
+def is_standalone_post(post):
+    """A matching text on a reply, quoted post or repost cannot confirm an original."""
+    raw = getattr(post, '_data', {})
+    if not isinstance(raw, dict) or not isinstance(raw.get('legacy', {}), dict):
+        return False
+    relationship_fields = (
+        'in_reply_to_status_id', 'in_reply_to_status_id_str', 'in_reply_to_user_id',
+        'in_reply_to_user_id_str', 'is_quote_status', 'quoted_status_id',
+        'quoted_status_id_str', 'quoted_status_result', 'retweeted_status',
+        'retweeted_status_result', 'retweeted_status_id', 'retweeted_status_id_str',
+    )
+    if any(layer.get(key) for layer in (raw, raw.get('legacy', {})) for key in relationship_fields):
+        return False
+    return not any(getattr(post, field, None) for field in
+                   ('in_reply_to', 'quoted_status_id', 'quote', 'retweeted_tweet'))
+
+
 def validate(state):
     if not isinstance(state, dict) or type(state.get('version')) is not int or state['version'] != 1:
         raise ValueError('Invalid publication ledger')

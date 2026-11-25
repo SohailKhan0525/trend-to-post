@@ -1,4 +1,4 @@
-"""Autonomous replies for Qofeno.
+"""Scheduled original questions and autonomous replies for Qofeno.
 
 Every send is durably reserved first. Unknown outcomes block publication rather
 than retrying. Native X permission and rate-limit failures are never bypassed.
@@ -13,23 +13,21 @@ from datetime import datetime, timedelta, timezone
 from httpx import NetworkError, TimeoutException
 from twikit.errors import (CouldNotTweet, Forbidden, NotFound, RequestTimeout, ServerError,
                            TooManyRequests, TweetNotAvailable, UserNotFound, UserUnavailable)
-from . import mentions, personality, priority, reply_writer, sources
+from . import mentions, personality, priority, question_posts, reply_writer, sources
 from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .metrics import post_id
-from .reasoned_replies import DAILY_REASONED_GOAL, reasoned_reply_count
 from .reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, fresh_invitation
 from .ai_budget import AIPaused, AIRequestTooLarge, active_pause, budget_scope
 from .cloudflare import AIRequestTimeout, DraftError
-from .reply_schedule import (HALF_HOUR, half_hour_start, next_decision, next_original, next_slot,
-                             reply_ready, scheduled_remaining, timestamp)
-from .store import ACCOUNT, SessionUnavailable, client, load, save_and_push, summary, utcnow
+from .reply_schedule import (HALF_HOUR, RECHECK_GAP, SCHEDULED_TARGETS, half_hour_start, next_decision, next_slot,
+                             reply_ready, scheduled_remaining, timestamp, verified_originals_today)
+from .store import ACCOUNT, SessionUnavailable, client, is_standalone_post, load, save_and_push, summary, utcnow
 
 STAGE = {'name': 'startup', 'source_id': None}
 THREAD_REPLY_LIMIT = 2
 INBOX_BATCH_SIZE = 4
 INBOX_RETRY_DELAY = timedelta(seconds=30)
 MAX_INBOX_ATTEMPTS = 3
-NO_DISCOVERY_CANDIDATES = 'no_candidates'
 
 
 class DeliveryUnresolved(RuntimeError):
@@ -71,15 +69,6 @@ def ai_deferral_detail(exc):
         return (f'AIRequestTooLarge: request needs {exc.needed} estimated neurons, '
                 f'{exc.remaining} available this UTC hour')
     return type(exc).__name__
-
-
-def reasoned_goal_open(state, now):
-    return reasoned_reply_count(state, now) < DAILY_REASONED_GOAL
-
-
-def reasoned_progress(state, now):
-    summary(f'Reasoned answers verified for {now.astimezone(timezone.utc).date()}: '
-            f'{reasoned_reply_count(state, now)}/{DAILY_REASONED_GOAL}; included in the normal reply limits.')
 
 
 def thread_evidence(source, history, observed=None):
@@ -315,6 +304,8 @@ def publication_hold(state, now):
 
 
 def matches_publication(pending, post):
+    if pending['kind'] in ('original', 'follow') and not is_standalone_post(post):
+        return False
     user = getattr(post, 'user', None)
     text = getattr(post, 'full_text', None) or getattr(post, 'text', '')
     if not isinstance(text, str):
@@ -464,14 +455,25 @@ async def verify_delivery(state, connection):
         state.pop('pause_reason')
     save_and_push(state)
     summary(f'{row["kind"].capitalize()} verified: https://x.com/{ACCOUNT}/status/{row["tweet_id"]}')
-    if row.get('kind') == 'reply' and row.get('reply_style') == 'reasoned_answer':
-        reasoned_progress(state, now)
+    if row['kind'] == 'original':
+        summary(original_progress(state, now))
     return True
 
 
+def question_slot(start):
+    return {'slot': f'{start.date()}:actions-question:{2 * start.hour + start.minute // 30}',
+            'kind': 'original', 'scheduled_at': start.isoformat(), 'expires_at': (start + HALF_HOUR).isoformat()}
+
+
 async def send_once(state, slot, draft, connection, user, source=None):
-    if slot.get('kind') != 'reply' or not isinstance(source, dict) or not post_id(source.get('id')):
-        summary('Replies only: a verified parent post is required. No send.')
+    original = slot.get('kind') == 'original'
+    if original:
+        # Only this scheduler's exact opportunity may authorize a parentless send.
+        if source is not None or slot != question_slot(half_hour_start(utcnow())):
+            summary('No current original-question opportunity for this send.')
+            return
+    elif slot.get('kind') != 'reply' or not isinstance(source, dict) or not post_id(source.get('id')):
+        summary('A reply requires a verified parent post. No send.')
         return
     if str(getattr(user, 'screen_name', '')).casefold() != ACCOUNT or not str(getattr(user, 'id', '')).isdigit():
         raise SessionUnavailable()
@@ -483,7 +485,7 @@ async def send_once(state, slot, draft, connection, user, source=None):
     if slot.get('scheduled_at'):
         start = timestamp(slot['scheduled_at'])
         valid = (scheduled_remaining(schedule_state(state), slot['kind'], now, start) > 0
-                 and (source['id'] == slot.get('inbox_id')
+                 and (original or source['id'] == slot.get('inbox_id')
                       or (slot.get('discovery_reply') and source['id'] == slot.get('discovery_id'))
                       or (slot.get('priority_reply') and source['id'] == slot.get('priority_id'))))
     elif slot.get('inbox_id'):
@@ -500,36 +502,43 @@ async def send_once(state, slot, draft, connection, user, source=None):
     if not valid:
         reject(state, slot, 'Opportunity changed during research; no send.')
         return
-    if source.get('origin') == 'mention':
-        mentions.validate(source, utcnow())
-    elif source.get('origin') == 'priority' and slot.get('priority_reply') and slot.get('scheduled_at'):
-        priority.validate(source, utcnow(), state)
-        reply_writer.check_source(source, utcnow(), state)
-    elif slot.get('discovery_reply') and slot.get('scheduled_at'):
-        discovery_source(source, utcnow())
-        reply_writer.check_source(source, utcnow(), state)
+    if original:
+        draft = question_posts.validate(draft, state)
     else:
-        reject(state, slot, 'The source is not eligible for this reply opportunity.')
-        return
-    if (not thread_evidence(source, state['history'], state.get('observed_recipient_replies'))[2]
-            or thread_reply_count(source, state['history'], state.get('observed_recipient_replies')) >= THREAD_REPLY_LIMIT
-            or not eligible_author(source, state, utcnow(), str(user.id))
-            or set(source['source_ids']) & set(state['used_source_ids'])
-            or set(source['urls']) & set(state['used_urls'])):
-        reject(state, slot, 'Source or author was already used; no send.')
-        return
+        if source.get('origin') == 'mention':
+            mentions.validate(source, utcnow())
+        elif source.get('origin') == 'priority' and slot.get('priority_reply') and slot.get('scheduled_at'):
+            priority.validate(source, utcnow(), state)
+            reply_writer.check_source(source, utcnow(), state)
+        elif slot.get('discovery_reply') and slot.get('scheduled_at'):
+            discovery_source(source, utcnow())
+            reply_writer.check_source(source, utcnow(), state)
+        else:
+            reject(state, slot, 'The source is not eligible for this reply opportunity.')
+            return
+        if (not thread_evidence(source, state['history'], state.get('observed_recipient_replies'))[2]
+                or thread_reply_count(source, state['history'], state.get('observed_recipient_replies')) >= THREAD_REPLY_LIMIT
+                or not eligible_author(source, state, utcnow(), str(user.id))
+                or set(source['source_ids']) & set(state['used_source_ids'])
+                or set(source['urls']) & set(state['used_urls'])):
+            reject(state, slot, 'Source or author was already used; no send.')
+            return
     reserved = {**draft, 'slot': slot['slot'], 'kind': slot['kind'], 'author_id': str(user.id),
-                'reserved_at': utcnow().isoformat(), 'editorial_version': 'qofeno-replies-2026-11-25'}
-    reserved['source'] = source
-    reserved['thread_root'] = thread_root(source, state['history'])
-    state['used_source_ids'] = sorted(set(state['used_source_ids'] + source['source_ids']))
-    state['used_urls'] = sorted(set(state['used_urls'] + source['urls']))
+                'reserved_at': utcnow().isoformat(),
+                'editorial_version': 'qofeno-question-2026-11-25' if original else 'qofeno-replies-2026-11-23'}
+    if original:
+        reserved['post_style'] = 'open_question'
+    else:
+        reserved['source'] = source
+        reserved['thread_root'] = thread_root(source, state['history'])
+        state['used_source_ids'] = sorted(set(state['used_source_ids'] + source['source_ids']))
+        state['used_urls'] = sorted(set(state['used_urls'] + source['urls']))
     state['used_events'] = sorted(set(state['used_events'] + [reply_writer.fingerprint(draft['event_key'])]))
     state['outbox'] = reserved
     state['used_texts'] = sorted(set(state['used_texts'] + [reply_writer.fingerprint(draft['text'])]))
     save_and_push(state)  # Remote reservation must succeed before the public side effect.
     send_time = utcnow()
-    if not reply_source_current(source, state, send_time):
+    if not original and not reply_source_current(source, state, send_time):
         state['outbox'] = None
         reject(state, slot, 'The incoming post is outside the live reply window; no reply sent.')
         return
@@ -538,9 +547,12 @@ async def send_once(state, slot, draft, connection, user, source=None):
         reject(state, slot, 'Reservation completed after the opportunity expired; no send.')
         return
     sent_at = send_time.isoformat()
-    stage('send reply', source['id'])
+    stage('send ' + slot['kind'], None if original else source['id'])
     try:
-        post = await connection.create_tweet(text=draft['text'], reply_to=source['id'])
+        if original:
+            post = await connection.create_tweet(text=draft['text'])
+        else:
+            post = await connection.create_tweet(text=draft['text'], reply_to=source['id'])
     except (Forbidden, NotFound, TweetNotAvailable) as exc:
         # Explicit native rejection. Keep burned identities, do not change
         # credentials/transport or try to bypass conversation restrictions.
@@ -608,8 +620,6 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
                   and not reply_rejection_active(candidate, rejections.get(rejection_key(candidate)), now)
                   and not set(candidate['source_ids']).intersection(state['used_source_ids'])
                   and not set(candidate['urls']).intersection(state['used_urls'])]
-    if reasoned_goal_open(state, now):
-        candidates.sort(key=lambda row: not sources.is_reasoned_question(row))
     deferred = 0
     for _ in range(min(4, len(candidates))):
         candidate = candidates.pop(0)
@@ -634,13 +644,8 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
                 save_and_push(state)
             if not reply_source_current(fresh, state, utcnow()):
                 continue
-            # The five-per-day goal changes discovery preference, not the
-            # ability to answer a fresh substantive question addressed to us.
-            reasoned = (sources.is_reasoned_question(fresh)
-                        and (reasoned_goal_open(state, utcnow()) or fresh.get('origin') == 'mention'))
             with budget_scope(state, save_and_push, utcnow, direct_mention=bool(slot.get('inbox_id') or slot.get('priority_id'))):
-                draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle,
-                                              **({'reasoned_answer': True} if reasoned else {}))
+                draft = reply_writer.generate(fresh, state, utcnow(), memory=memory, angle=angle)
             stage('refresh source before sending', candidate['id'])
             post = await connection.get_tweet_by_id(candidate['id'])
             final = refreshed_reply_source(post, candidate, state, utcnow())
@@ -697,7 +702,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
 
 async def publish_original(state, slot, connection, user, plan, memory_context):
     # Older callers can still hold original slots from before the cutover.
-    summary('Standalone posting is disabled. No draft or send.')
+    summary('Legacy original decisions are retired. New questions require a scheduled question opportunity.')
 
 
 def ledger_after_denial(history):
@@ -729,15 +734,14 @@ async def check_inbox():
     summary(f'Mention inbox check completed. {sum(mentions.invited(state, row) for row in rows)} current invitations.')
 
 
-def inbox_shortlist(rows, own_id, *, prefer_reasoned_answers=False):
+def inbox_shortlist(rows, own_id):
     """Give new callers and ongoing threads a seat each when distinct people are waiting."""
     def priority(row):
         text = row['text']
         tag = mentions.TAG.search(text)
         body = text[tag.end():].lstrip(' ,:—-') if tag else text
         asked = bool(mentions.ASK.match(body) or re.search('[?？؟]', text))
-        reasoned = prefer_reasoned_answers and sources.is_reasoned_question(row)
-        return reasoned, asked, timestamp(row['created_at']), int(row['id'])
+        return asked, timestamp(row['created_at']), int(row['id'])
 
     ordered = sorted(rows, key=priority, reverse=True)
     followups = [row for row in ordered if mentions.is_own_reply(row, own_id)]
@@ -791,7 +795,7 @@ def record_silence(state, slot, now, plan):
 
 async def decide(state, slot, connection, user, *, incoming=None):
     if 'reply' not in slot.get('allowed_actions', ()):
-        summary('Standalone publishing is disabled. No original decision or draft requested.')
+        summary('The reply planner only selects replies. No original decision or draft requested.')
         return
     # Retired mixed callers may still supply original as an option. The live
     # planner receives only reply/silence, independently of workflow settings.
@@ -813,10 +817,8 @@ async def decide(state, slot, connection, user, *, incoming=None):
                 incoming = []
         else:
             incoming = []
-    prefer_reasoned = reasoned_goal_open(state, now)
     selected = inbox_shortlist([row for row in incoming if row['intent'] == 'invite'
-                                and candidate_eligible(row, state, now, own_id)], own_id,
-                               prefer_reasoned_answers=prefer_reasoned)
+                                and candidate_eligible(row, state, now, own_id)], own_id)
     invited = [row if row.get('parent_context') else await mentions.thread_context(connection, row, now)
                for row in selected]
     invited_authors = {row['author_id'] for row in invited}
@@ -826,24 +828,17 @@ async def decide(state, slot, connection, user, *, incoming=None):
     if discovery_replies:
         stage('discover public conversations')
         try:
-            candidates = await sources.discover(connection, state, now, originals=False,
-                                               **({'reasoned_questions': True} if prefer_reasoned else {}))
+            candidates = await sources.discover(connection, state, now, originals=False)
         except (NotFound, TweetNotAvailable):
             summary('Topic discovery unavailable for this opportunity.')
     # Never feed an incidental tag or opted-out request back as a trending post.
     passive = [c for c in candidates if c['author_id'] not in invited_authors and candidate_eligible(c, state, now, own_id)
                and not re.search(r'(?<![\w@])@' + re.escape(ACCOUNT) + r'\b', c['text'], re.I)]
-    discovered = sources.shortlist(passive, now, limit=4 - len(invited), originals=False,
-                                   **({'reasoned_questions': True} if prefer_reasoned else {}))
+    discovered = sources.shortlist(passive, now, limit=4 - len(invited), originals=False)
     if discovery_replies:
         discovered = [discovery_source(row, now) for row in discovered]
     shortlist = invited + discovered
     summary(f'Considering {len(invited)} direct invitations and {len(shortlist) - len(invited)} discovered conversations.')
-    if discovery_replies and prefer_reasoned and not shortlist:
-        # An empty search is not an editorial rejection. Keep the opportunity
-        # open for fresher sources on the next wake, without searching twice now.
-        summary('No eligible discovery candidates while the daily answer goal is open. A later wake may check fresh sources.')
-        return NO_DISCOVERY_CANDIDATES
     try:
         context = memory.context(shortlist)
     except MemoryAccessDenied:
@@ -857,11 +852,6 @@ async def decide(state, slot, connection, user, *, incoming=None):
         stage('choose reply or silence')
         with budget_scope(state, save_and_push, utcnow):
             options = {'allow_discovery_replies': True} if discovery_replies else {}
-            if discovery_replies and prefer_reasoned:
-                questions = sum(sources.is_reasoned_question(row) for row in discovered)
-                summary(f'Eligible substantive questions in this shortlist: {questions}/{len(discovered)}.')
-                if questions:
-                    options['prefer_reasoned_answers'] = True
             plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'], **options)
     action = plan['action']
     if action == 'silent':
@@ -905,7 +895,7 @@ async def process_inbox(state, connection, *, scheduled_at=None):
                    if row.get('verified_at') and row.get('author_id')), None)
     rows = await read_inbox(state, connection, now, own_id, poll=True)
     invitations = [row for row in rows if row['intent'] == 'invite' and candidate_eligible(row, state, now, own_id)]
-    first = inbox_shortlist(invitations, own_id, prefer_reasoned_answers=reasoned_goal_open(state, now))
+    first = inbox_shortlist(invitations, own_id)
     user = None
     considered = 0
     for row in first + [row for row in invitations if row not in first]:
@@ -959,8 +949,6 @@ async def process_priority(state, connection, *, scheduled_at):
     # Apply newly received stop/start preferences before any priority reply.
     await read_inbox(state, connection, utcnow(), str(user.id), poll=True)
     eligible = [row for row in rows if candidate_eligible(row, state, utcnow(), str(user.id))]
-    if reasoned_goal_open(state, utcnow()):
-        eligible.sort(key=lambda row: not sources.is_reasoned_question(row))
     summary(f'Priority @{priority.HANDLE}: eligible after preferences/dedupe={len(eligible)}; shared reply allowance={scheduled_remaining(schedule_state(state), "reply", utcnow(), scheduled_at)}.')
     if not eligible:
         return
@@ -1005,9 +993,39 @@ async def process_priority(state, connection, *, scheduled_at):
                 context = memory.context(eligible[:INBOX_BATCH_SIZE])
 
 
+def original_progress(state, now):
+    total = verified_originals_today(state, now)
+    day = now.astimezone(timezone.utc).date()
+    return f'Verified originals for {day}: {total}/{SCHEDULED_TARGETS["original"]}.'
+
+
+async def scheduled_question_original(state, connection, start):
+    now = utcnow()
+    summary(original_progress(state, now))
+    if not scheduled_remaining(schedule_state(state), 'original', now, start):
+        return
+    slot = question_slot(start)
+    attempt = state.get('last_attempts', {}).get(slot['slot'])
+    if attempt and now < timestamp(attempt['at']) + RECHECK_GAP:
+        return
+    try:
+        user = await posting_account(connection)
+        stage('write an original question')
+        with budget_scope(state, save_and_push, utcnow):
+            draft = question_posts.generate(state, now)
+        await send_once(state, slot, draft, connection, user)
+    except DraftError as exc:
+        reject(state, slot, f'Original question did not pass review: {str(exc)[:240]}')
+    except (AIRequestTimeout, AIPaused) as exc:
+        reject(state, slot, f'Original question deferred: {ai_deferral_detail(exc)}.')
+    except (NetworkError, TimeoutException, RequestTimeout, ServerError) as exc:
+        if not delivery_open(state):
+            raise
+        reject(state, slot, f'Original question account check unavailable ({type(exc).__name__}).')
+
+
 async def scheduled_wake(state, connection, now):
     start = half_hour_start(now)
-    reasoned_progress(state, now)
     if not state.get('actions_inbox_since'):
         # Switching to a half-hour cron must not reopen a backlog that already
         # expired under the previous publisher's five-minute policy.
@@ -1030,17 +1048,14 @@ async def scheduled_wake(state, connection, now):
             if not delivery_open(state):
                 raise
             summary(f'The reply inbox was unavailable ({type(exc).__name__}).')
-    # Priority accounts and direct invitations retain first use of the shared budget.
+    # Direct replies retain first access to the model budget. The original has its own send allowance.
+    await scheduled_question_original(state, connection, start)
     # Silence closes this discovery slot, and each verified send consumes the shared cap.
     for index in range(2):
         now = utcnow()
         if not scheduled_remaining(schedule_state(state), 'reply', now, start):
             break
-        # Targeted question searches have their own stable silence decision.
-        # A prior general search cannot close a newly introduced source pool;
-        # every pool still shares the verified reply/outbox allowance above.
-        lane = 'actions-discovery-reasoned-v3' if reasoned_goal_open(state, now) else 'actions-discovery'
-        slot_id = f'{start.date()}:{lane}:{2 * start.hour + start.minute // 30}:{index}'
+        slot_id = f'{start.date()}:actions-discovery:{2 * start.hour + start.minute // 30}:{index}'
         if slot_id in state.get('decision_slots', {}):
             break
         slot = {'slot': slot_id, 'kind': 'decision', 'allowed_actions': ['reply'],
@@ -1048,11 +1063,11 @@ async def scheduled_wake(state, connection, now):
                 'expires_at': (start + HALF_HOUR).isoformat()}
         user = await posting_account(connection)
         try:
-            outcome = await decide(state, slot, connection, user, incoming=[])
+            await decide(state, slot, connection, user, incoming=[])
         except (AIRequestTimeout, AIPaused, DraftError) as exc:
             reject(state, slot, f'Discovery reply deferred: {ai_deferral_detail(exc)}.')
             break
-        if outcome == NO_DISCOVERY_CANDIDATES or slot_id in state.get('decision_slots', {}):
+        if slot_id in state.get('decision_slots', {}):
             break
 
 
@@ -1072,7 +1087,7 @@ async def run(event):
         summary('A previous publication requires reconciliation. No new send.')
         return
     if event == 'original':
-        summary('Standalone publishing is disabled. Legacy original mode reconciled existing delivery only.')
+        summary('Legacy original mode reconciled existing delivery only. Original questions use scheduled publishing.')
         return
     if event not in ('inbox', 'scheduled', 'push', 'repository_dispatch', 'workflow_dispatch'):
         summary('Unsupported publishing mode; no new send.')
@@ -1094,8 +1109,8 @@ async def run(event):
 async def inspect():
     state = load()
     now = utcnow()
-    status = publication_hold(state, now) or 'Replies-only publishing is enabled; standalone posts are disabled.'
+    status = publication_hold(state, now) or 'Scheduled original questions and replies are enabled.'
     inbox = 'open' if reply_ready(schedule_state(state), now) else 'held'
-    summary(f'{status} Independent mention and thread-reply checks: {inbox}. '
+    summary(f'{status} {original_progress(state, now)} Independent mention and thread-reply checks: {inbox}. '
             f'Confirmed publications: {len(state["history"])}. '
             f'Pending send: {bool(state.get("outbox"))}. No model or send calls.')

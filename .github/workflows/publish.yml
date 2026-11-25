@@ -12,7 +12,9 @@ on:
       - 'app/personality.py'
       - 'app/reply_writer.py'
       - 'app/sources.py'
-      - 'app/reasoned_replies.py'
+      - 'app/question_posts.py'
+      - 'app/reply_schedule.py'
+      - 'app/store.py'
 permissions:
   contents: read
   # A job-scoped token hands off to the next run when cron events are missed.

@@ -10,7 +10,7 @@ MIN_FOLLOW_GAP = timedelta(hours=6)
 MIN_ACTIVITY_GAP = timedelta(minutes=2)
 RECHECK_GAP = timedelta(minutes=10)
 CAPS = {'reply': DAILY_REPLY_CAP, 'follow': DAILY_FOLLOW_CAP}
-SCHEDULED_TARGETS = {'reply': 70, 'original': 0}
+SCHEDULED_TARGETS = {'reply': 70, 'original': 5}
 HALF_HOUR = timedelta(minutes=30)
 
 
@@ -83,6 +83,26 @@ def half_hour_start(now):
         raise ValueError('The scheduling clock must include a timezone')
     now = now.astimezone(timezone.utc)
     return now.replace(minute=now.minute // 30 * 30, second=0, microsecond=0)
+
+
+def verified_originals_today(state, now):
+    """Count distinct, read-back originals on their actual UTC publication date."""
+    day = half_hour_start(now).date()
+    identities = set()
+    for row in state.get('history', []):
+        if not isinstance(row, dict) or row.get('kind') not in ('original', 'follow'):
+            continue
+        ident = row.get('tweet_id')
+        if not isinstance(ident, str) or not 1 <= len(ident) <= 20 or not ident.isascii() or not ident.isdigit():
+            continue
+        try:
+            posted = timestamp(row['posted_at'])
+            timestamp(row['verified_at'])
+        except (KeyError, AttributeError, TypeError, ValueError):
+            continue
+        if posted.date() == day and int(ident) > 0:
+            identities.add(int(ident))
+    return len(identities)
 
 
 def scheduled_remaining(state, kind, now, start):

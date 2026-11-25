@@ -3,32 +3,27 @@ import unittest
 from datetime import datetime, timezone
 from unittest.mock import patch
 
-from app import personality, reply_writer, sources
+from app import personality, question_posts, reply_writer
 from scripts import voice_preview
 
 
-NOW = datetime(2026, 11, 25, 11, tzinfo=timezone.utc)
-
-
-def preview_case(ident):
-    return next(case for case in voice_preview.scenarios(NOW) if case['id'] == ident)
+NOW = datetime(2026, 11, 23, 11, tzinfo=timezone.utc)
 
 
 class VoicePreviewTests(unittest.TestCase):
-    def test_only_replies_with_valid_direct_and_discovered_sources(self):
-        cases = voice_preview.scenarios(NOW)
+    def test_standalone_question_first_then_original_reply_fixtures(self):
+        original, *cases = voice_preview.scenarios(NOW)
+        self.assertEqual((original['kind'], original['id']), ('original', 'standalone_question'))
+        self.assertNotIn('source', original)
         self.assertEqual({case['kind'] for case in cases}, {'reply'})
-        self.assertEqual([case['expected_reply_style'] for case in cases[:2]], ['reasoned_answer'] * 2)
-        self.assertEqual(cases[2]['id'], 'brief_direct_greeting')
-        self.assertTrue(all(sources.is_reasoned_question(case['source']) for case in cases[:2]))
-        self.assertFalse(sources.is_reasoned_question(cases[2]['source']))
-        self.assertIn('addressed Grok, not Qofeno', cases[0]['provenance']['note'])
+        self.assertEqual(cases[0]['id'], 'brief_direct_greeting')
+        self.assertEqual(cases[1]['source']['origin'], 'discovery')
         for case in cases:
             with self.subTest(case=case['id']):
                 reply_writer.check_source(case['source'], case['clock'], {})
 
     def test_discovery_uses_reply_planner_and_real_writer_with_memory(self):
-        case = preview_case('discovered_agent_tests')
+        case = voice_preview.scenarios(NOW)[2]
         plan = {'action': 'reply', 'source_id': case['source']['id'],
                 'angle': 'Keep a check independent from the agent being checked.'}
         with patch.object(personality, 'choose', return_value=plan) as planner, \
@@ -44,7 +39,7 @@ class VoicePreviewTests(unittest.TestCase):
         original.assert_not_called()
 
     def test_discovery_silence_never_falls_back_to_an_original(self):
-        case = preview_case('discovered_agent_tests')
+        case = voice_preview.scenarios(NOW)[2]
         with patch.object(personality, 'choose', return_value={'action': 'silent'}) as planner, \
                 patch.object(reply_writer, 'generate') as writer, patch.object(personality, 'original') as original:
             self.assertEqual(voice_preview.evaluate(case)['status'], 'silent')
@@ -52,7 +47,7 @@ class VoicePreviewTests(unittest.TestCase):
         original.assert_not_called()
 
     def test_brief_direct_reply_keeps_real_premise_validation_and_review(self):
-        case = preview_case('brief_direct_greeting')
+        case = voice_preview.scenarios(NOW)[1]
         assessment = {**dict.fromkeys(reply_writer.SOURCE_FLAGS, True),
                       'text': 'Hi.', 'premise': '', 'reply_mode': 'observation'}
         fixed = {**assessment, 'premise': 'The author greets Qofeno.'}
@@ -62,47 +57,36 @@ class VoicePreviewTests(unittest.TestCase):
             result = voice_preview.evaluate(case)
         self.assertEqual(result['draft']['text'], 'Hi.')
         self.assertEqual(model.call_count, 3)
-        self.assertEqual(result['selected_reply_style'], 'short')
         self.assertIn('premise', model.call_args_list[1].args[1]['correction'])
         planner.assert_not_called()
 
-    def test_both_questions_use_actual_reasoned_writer_and_review(self):
-        examples = (
-            ('reasoned_ai_bottleneck', "People deciding what to do next.\nSolving a task doesn't choose the goal or get a decision acted on."),
-            ('reasoned_backup_tradeoff', "I'd keep an immutable copy first: fast recovery can't restore a deleted backup.\nIf downtime is the main cost, restore speed matters more."),
-        )
-        for ident, answer in examples:
-            case = preview_case(ident)
-            assessment = {**dict.fromkeys(reply_writer.SOURCE_FLAGS, True), 'text': answer,
-                          'premise': 'The reader asks for a choice and an explanation of the trade-off.',
-                          'reply_mode': 'observation'}
-            review = {**dict.fromkeys(reply_writer.REASONED_REVIEW_SCHEMA['properties'], True),
-                      'source_evidence': case['source']['text']}
-            with self.subTest(case=ident), patch.object(reply_writer, 'complete', side_effect=[assessment, review]) as model:
-                result = voice_preview.evaluate(case)
-            self.assertEqual(result['draft']['reply_style'], 'reasoned_answer')
-            self.assertEqual(result['draft']['text'], answer)
-            self.assertEqual(model.call_count, 2)
-            self.assertEqual(model.call_args_list[0].kwargs['schema'], reply_writer.REASONED_MENTION_DRAFT_SCHEMA)
-            self.assertEqual(model.call_args_list[1].kwargs['schema'], reply_writer.REASONED_REVIEW_SCHEMA)
+    def test_independent_question_writer_uses_synthetic_state_and_produces_an_unpublished_draft(self):
+        draft = {'text': 'If your deploy fails once a week, which check earns its place first?',
+                 'premise': 'Finding deploy failures.', 'event_key': 'choosing a deployment check'}
+        with patch.object(question_posts, 'generate', return_value=draft) as writer, \
+                patch.object(reply_writer, 'generate') as reply, patch.object(personality, 'choose') as planner:
+            result = voice_preview.evaluate(voice_preview.scenarios(NOW)[0])
+        state, clock = writer.call_args.args
+        self.assertEqual(clock, NOW)
+        self.assertEqual(state['history'], [])
+        self.assertEqual(result, {'status': 'approved_unpublished', 'draft': draft})
+        reply.assert_not_called()
+        planner.assert_not_called()
 
-    def test_reasoned_fixture_cannot_bypass_production_eligibility(self):
-        with patch.object(sources, 'is_reasoned_question', return_value=False), \
-                patch.object(reply_writer, 'generate') as writer:
-            with self.assertRaises(voice_preview.PreviewIsolationError):
-                voice_preview.evaluate(preview_case('reasoned_ai_bottleneck'))
-        writer.assert_not_called()
-
-    def test_review_trace_keeps_reasoning_flags(self):
-        verdict = {'answers_question': True, 'reasoning_complete': False}
+    def test_original_question_model_calls_are_traced_and_isolated(self):
         trace = []
-        with patch.dict(os.environ, {}, clear=True), patch.object(voice_preview.cloudflare, 'complete', return_value=verdict), \
+        with patch.dict(os.environ, {}, clear=True), patch.object(voice_preview.cloudflare, 'complete', return_value={}), \
                 voice_preview.isolated_model_calls(voice_preview.PreviewBudget(), trace):
-            reply_writer.complete('reasoned review', {}, schema=reply_writer.REASONED_REVIEW_SCHEMA)
-        self.assertEqual(trace, [{'stage': 'reply_review', 'response': verdict}])
+            question_posts.complete(question_posts.WRITE, {})
+            question_posts.complete(question_posts.REVIEW, {})
+        self.assertEqual([row['stage'] for row in trace], ['original_question_writer', 'original_question_review'])
+        with patch.dict(os.environ, {'X_AUTH_TOKEN': 'test-only'}, clear=True):
+            with self.assertRaises(voice_preview.PreviewIsolationError):
+                with voice_preview.isolated_model_calls(voice_preview.PreviewBudget(), []):
+                    self.fail('Preview entered model scope with X credentials')
 
-    def test_original_cases_are_rejected_before_model_use(self):
-        case = {**voice_preview.scenarios(NOW)[0], 'kind': 'original'}
+    def test_original_case_with_a_reply_parent_is_rejected_before_model_use(self):
+        case = {**voice_preview.scenarios(NOW)[1], 'kind': 'original'}
         with patch.object(reply_writer, 'generate') as writer, patch.object(personality, 'choose') as planner:
             with self.assertRaises(voice_preview.PreviewIsolationError):
                 voice_preview.evaluate(case)

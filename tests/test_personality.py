@@ -24,21 +24,6 @@ DRAFT = {'text': 'I want the rollback button to lead a deeply uneventful life.',
 
 
 class PersonalityTests(unittest.TestCase):
-    def test_question_preference_cannot_expand_discovery_or_resurface_used_sources(self):
-        source = {**SOURCE, 'text': 'Which is the bigger bottleneck for AI inference: memory bandwidth or compute, and why?'}
-        used = {**source, 'id': '125', 'source_ids': ['125']}
-        silence = {'action': 'silent', 'source_id': '', 'angle': ''}
-        with patch.object(editor, 'complete', return_value=silence) as model:
-            decision = editor.choose([source, used], MEMORY, {'used_source_ids': ['125']}, NOW, ['reply'],
-                                     allow_discovery_replies=True, prefer_reasoned_answers=True)
-            self.assertEqual(decision, silence)
-            self.assertEqual(model.call_args.args[0], editor.QUESTION_DECIDE)
-            self.assertEqual(model.call_args.args[1]['preferred_question_ids'], [source['id']])
-            model.reset_mock()
-            self.assertEqual(editor.choose([source], MEMORY, {}, NOW, ['reply'],
-                                           prefer_reasoned_answers=True), silence)
-            model.assert_not_called()
-
     def test_direct_greetings_questions_and_pings_skip_the_optional_planner(self):
         with patch.object(editor, 'complete') as model:
             for text in ('@qofenoai hello!', '@qofenoai', INVITE['text']):

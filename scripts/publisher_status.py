@@ -5,10 +5,9 @@ from datetime import datetime, timedelta, timezone
 
 from app.editorial import THREAD_REPLY_LIMIT, schedule_state
 from app.memory import Memory, MemoryUnavailable, database_uuid
-from app.reply_schedule import HALF_HOUR, half_hour_start, reply_ready, timestamp
+from app.reply_schedule import SCHEDULED_TARGETS, reply_ready, timestamp, verified_originals_today
 from app.server_ledger import AUTHORITY, FRESH_SECONDS, HEAD, LEASE, PAGES, unpack
 from app.store import summary
-from app.reasoned_replies import DAILY_REASONED_GOAL, reasoned_reply_count
 
 
 def category(reason):
@@ -17,7 +16,7 @@ def category(reason):
         ('X rate limit', 'X rate limit'), ('X rejected', 'X rejected publication'),
         ('X returned a posting error', 'awaiting X verification'), ('Source or author', 'duplicate source or author'),
         ('No reply sent', 'AI unavailable or budget'), ('Deferred original', 'AI budget'), ('AI deferred', 'AI cooldown'),
-        ('Workers AI timed out', 'AI timeout'), ('Cloudflare timed out', 'AI timeout'),
+        ('Original question deferred', 'original question deferred'), ('Workers AI timed out', 'AI timeout'), ('Cloudflare timed out', 'AI timeout'),
         ('Opportunity changed', 'window expired'), ('Reply opportunity ended', 'window expired'),
         ('Reservation completed after', 'window expired')):
         if reason.startswith(prefix):
@@ -32,7 +31,7 @@ def opportunity_label(slot):
         return 'question discovery'
     if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-discovery:\d{1,2}:[01]', str(slot)):
         return 'reply discovery'
-    if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-original:\d{1,2}', str(slot)):
+    if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-(?:original|question):\d{1,2}', str(slot)):
         return 'scheduled original'
     if re.fullmatch(r'\d{4}-\d\d-\d\d:(reply|follow)-v1:\d{1,2}', str(slot)):
         return slot
@@ -41,7 +40,7 @@ def opportunity_label(slot):
 
 def inbox_schedule(state, now):
     eligibility = 'open' if reply_ready(schedule_state(state), now) else 'on hold'
-    return (f'GitHub schedule: every 30 minutes. Reply eligibility in D1: {eligibility}. '
+    return (f'GitHub checks every 10 minutes. Reply eligibility in D1: {eligibility}. '
             f'Each person can receive up to {THREAD_REPLY_LIMIT} replies per original conversation across all days.')
 
 
@@ -70,13 +69,13 @@ def report(state, now):
         at, slot, outcome = max(valid_slots)
         decision = f'{slot} at {at.isoformat()} ({outcome})'
     pending = any(state.get(k) for k in ('outbox','pending','pending_reply','follow_pending','verification_pending'))
-    next_wake = half_hour_start(now) + timedelta(minutes=7)
+    next_wake = now.replace(minute=(now.minute // 10) * 10 + 7, second=0, microsecond=0)
     if next_wake <= now:
-        next_wake += HALF_HOUR
+        next_wake += timedelta(minutes=10)
     lines = [f'Latest verified X post: {receipt}', f'Latest recorded decision: {decision}',
-             f'Reasoned replies verified today (UTC): {reasoned_reply_count(state, now)}/{DAILY_REASONED_GOAL}.',
+             f'Original posts verified today (UTC): {verified_originals_today(state, now)}/{SCHEDULED_TARGETS["original"]}.',
              f'Pending delivery: {bool(pending)}', inbox_schedule(state, now),
-             f'Next scheduled GitHub wake: {next_wake.isoformat()}.']
+             f'Next GitHub cron trigger: {next_wake.isoformat()}.']
     outbox = state.get('outbox')
     if outbox:
         post_id = str(outbox.get('tweet_id') or '')

@@ -231,7 +231,7 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(state, before)
         self.assertEqual(self.saves, [])
 
-    async def test_send_guard_requires_reply_kind_and_source_before_any_mutation(self):
+    async def test_send_guard_rejects_legacy_original_slots_and_replies_without_valid_sources_before_mutation(self):
         for kind, source in (('original', None), ('original', SOURCE), ('follow', None),
                              ('decision', SOURCE), ('reply', None), ('reply', {}),
                              ('reply', {**SOURCE, 'id': None}), ('reply', {**SOURCE, 'id': 'invalid'})):
@@ -598,11 +598,11 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
                 patch.object(editorial, 'scheduled_wake', new_callable=AsyncMock) as scheduled, \
                 patch.object(editorial.asyncio, 'sleep', new_callable=AsyncMock) as sleep:
             await editorial.inspect()
-            self.assertIn('standalone posts are disabled', editorial.summary.call_args.args[0])
+            self.assertIn('Verified originals for 2026-11-13: 1/5', editorial.summary.call_args.args[0])
             self.assertIn('Confirmed publications: 1', editorial.summary.call_args.args[0])
             client.assert_not_called()
             await editorial.run('original')
-            self.assertIn('Standalone publishing is disabled', editorial.summary.call_args.args[0])
+            self.assertIn('Legacy original mode reconciled existing delivery only', editorial.summary.call_args.args[0])
             decision.assert_not_awaited()
             scheduled.assert_not_awaited()
             sleep.assert_not_awaited()
@@ -610,7 +610,7 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.saved, before)
         self.assertEqual(self.saves, [])
 
-    async def test_inspect_reports_reply_daily_cap_without_an_original_fallback(self):
+    async def test_inspect_reports_the_reply_daily_cap_and_independent_original_schedule(self):
         self.saved['actions_inbox_since'] = START.isoformat()
         self.saved['history'] = [{'kind': 'reply', 'tweet_id': str(500 + index),
                                   'posted_at': self.now.isoformat(), 'verified_at': self.now.isoformat()}
@@ -619,7 +619,7 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         message = editorial.summary.call_args.args[0]
         self.assertIn('thread-reply checks: held', message)
         self.assertIn('Confirmed publications: 70', message)
-        self.assertIn('standalone posts are disabled', message)
+        self.assertIn('Verified originals for 2026-11-13: 0/5', message)
 
     async def test_dispatch_modes_use_reply_cycle_without_legacy_wait_or_model_selection(self):
         for event in ('repository_dispatch', 'workflow_dispatch'):

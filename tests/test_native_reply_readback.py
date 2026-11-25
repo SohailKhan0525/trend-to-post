@@ -55,3 +55,32 @@ class NativeReplyReadbackTests(unittest.IsolatedAsyncioTestCase):
                      self.post('written words ' + self.text, [len('written words '), len(self.text) + 14])):
             with self.subTest(text=post.full_text, metadata=post._data):
                 self.assertFalse(editorial.matches_publication(self.pending, post))
+
+
+class NativeOriginalReadbackTests(unittest.TestCase):
+    def test_verified_original_requires_matching_account_text_and_no_parent_quote_or_repost(self):
+        text = 'Which part of a code review would you hand to an agent first?'
+        pending = {'kind': 'original', 'text': text, 'author_id': '999'}
+        author = SimpleNamespace(id='999', screen_name=editorial.ACCOUNT)
+
+        def matches(**fields):
+            values = {'user': author, 'full_text': text, 'in_reply_to': None,
+                      '_data': {'legacy': {'is_quote_status': False}}}
+            return editorial.matches_publication(pending, SimpleNamespace(**{**values, **fields}))
+
+        self.assertTrue(matches())
+        for change in ({'user': SimpleNamespace(id='998', screen_name=editorial.ACCOUNT)},
+                       {'user': SimpleNamespace(id='999', screen_name='someone_else')},
+                       {'full_text': text + '!'}, {'in_reply_to': '555'},
+                       {'quote': object()}, {'retweeted_tweet': object()}):
+            with self.subTest(change=change):
+                self.assertFalse(matches(**change))
+        # A partially populated client object can omit decoded relationship
+        # attributes even though the underlying X result identifies the post.
+        for field, value in (('in_reply_to_status_id_str', '555'), ('in_reply_to_user_id', 42),
+                             ('is_quote_status', True), ('quoted_status_id_str', '555'),
+                             ('quoted_status_result', {'result': {}}),
+                             ('retweeted_status_result', {'result': {}}), ('retweeted_status_id', 555)):
+            for raw in ({field: value}, {'legacy': {field: value}}):
+                with self.subTest(raw=raw):
+                    self.assertFalse(matches(_data=raw))
