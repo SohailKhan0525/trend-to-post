@@ -108,15 +108,23 @@ class ReasonedQuestionTests(unittest.TestCase):
             ordinary = search_plan(now)
             analytical = search_plan(now, reasoned_questions=True)
             self.assertEqual(len(analytical), 4)
-            self.assertEqual(analytical[1:], ordinary[1:])
+            self.assertEqual(analytical[2:], ordinary[2:])
             self.assertNotEqual(analytical[0], ordinary[0])
+            self.assertNotEqual(analytical[1], ordinary[1])
+            self.assertIn('"biggest bottleneck"', analytical[0][0])
+            self.assertIn('"would you choose"', analytical[0][0])
+            self.assertIn('min_faves:15', analytical[0][0])
+            self.assertNotIn('min_faves:', analytical[1][0])
+            self.assertIn('why OR how OR what OR which OR should OR would', analytical[1][0])
             self.assertEqual([product for _, product in analytical], ['Top', 'Top', 'Top', 'Latest'])
             for query, _ in analytical:
                 self.assertIn('-filter:replies -filter:retweets', query)
                 self.assertIn('since:', query)
                 self.assertLess(len(query), 220)
-            variants.add(analytical[0][0])
+            variants.add(analytical[1][0])
         self.assertEqual(len(variants), 4)
+        self.assertEqual(search_plan(NOW, originals=True, reasoned_questions=True),
+                         search_plan(NOW, originals=True))
 
     def test_shortlist_prefers_questions_across_topics_without_losing_fallback(self):
         declaration = source('We shipped a faster AI coding model with fewer inference stalls.', views='900000')
@@ -152,10 +160,18 @@ class ReasonedDiscoveryTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_no_question_still_returns_ordinary_eligible_source(self):
         connection = AsyncMock()
-        connection.search_tweet.side_effect = [[], [tweet()], [], []]
+        connection.search_tweet.side_effect = [[], [], [tweet()], []]
         result = await discover(connection, {}, NOW, reasoned_questions=True)
         self.assertEqual([row['id'] for row in result], ['1001'])
         self.assertFalse(is_reasoned_question(result[0]))
+        self.assertEqual(connection.search_tweet.await_count, 4)
+
+    async def test_search_like_hint_does_not_become_candidate_eligibility(self):
+        question = tweet('1010', text=QUESTION, views='10000', favorite_count=0)
+        connection = AsyncMock()
+        connection.search_tweet.side_effect = [[question], [], [], []]
+        result = await discover(connection, {}, NOW, reasoned_questions=True)
+        self.assertEqual([row['id'] for row in result], ['1010'])
         self.assertEqual(connection.search_tweet.await_count, 4)
 
     async def test_question_lane_preserves_reach_privacy_age_completeness_and_dedup(self):

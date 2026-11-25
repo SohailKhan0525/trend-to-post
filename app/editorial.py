@@ -851,8 +851,11 @@ async def decide(state, slot, connection, user, *, incoming=None):
         stage('choose reply or silence')
         with budget_scope(state, save_and_push, utcnow):
             options = {'allow_discovery_replies': True} if discovery_replies else {}
-            if discovery_replies and prefer_reasoned and any(sources.is_reasoned_question(row) for row in discovered):
-                options['prefer_reasoned_answers'] = True
+            if discovery_replies and prefer_reasoned:
+                questions = sum(sources.is_reasoned_question(row) for row in discovered)
+                summary(f'Eligible substantive questions in this shortlist: {questions}/{len(discovered)}.')
+                if questions:
+                    options['prefer_reasoned_answers'] = True
             plan = personality.choose(shortlist, context, state, utcnow(), slot['allowed_actions'], **options)
     action = plan['action']
     if action == 'silent':
@@ -1030,7 +1033,7 @@ async def scheduled_wake(state, connection, now):
         # Targeted question searches have their own stable silence decision.
         # A prior general search cannot close a newly introduced source pool;
         # every pool still shares the verified reply/outbox allowance above.
-        lane = 'actions-discovery-reasoned-v1' if reasoned_goal_open(state, now) else 'actions-discovery'
+        lane = 'actions-discovery-reasoned-v2' if reasoned_goal_open(state, now) else 'actions-discovery'
         slot_id = f'{start.date()}:{lane}:{2 * start.hour + start.minute // 30}:{index}'
         if slot_id in state.get('decision_slots', {}):
             break

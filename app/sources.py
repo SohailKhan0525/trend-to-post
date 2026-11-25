@@ -34,13 +34,18 @@ PRACTITIONER_QUERIES = (
     '("I built" OR "I tried" OR "my project") (debugging OR "code review" OR "coding agent")',
     '("I shipped" OR "I fixed" OR "I wrote") (compiler OR debugger OR "unit tests")',
 )
-# Replace one existing search, rather than spending another endpoint request.
-# The other Top lanes and the Latest lane retain the ordinary reply fallback.
+# Replace two existing searches without adding an endpoint request. One broad
+# lane finds questions across niches; the other rotates a more open topic lane.
+# X's engagement operator is only a retrieval hint: actual eligibility still
+# requires measured views and never requires a like count.
+QUESTION_BROAD_QUERY = (
+    '("biggest bottleneck" OR "main bottleneck" OR "tradeoff" OR "would you choose" OR "what if") min_faves:15'
+)
 QUESTION_QUERIES = (
-    '(AI OR LLM OR inference) ("why" OR "what if" OR "bottleneck")',
-    '(startup OR SaaS OR founder) ("why" OR "tradeoff" OR "should")',
-    '(software OR database OR debugging) ("why" OR "how" OR "bottleneck")',
-    '(meme OR "group chat" OR "internet culture") ("why" OR "how" OR "what if")',
+    '(AI OR LLM OR inference OR agents) (why OR how OR what OR which OR should OR would)',
+    '(startup OR SaaS OR founder OR pricing) (why OR how OR what OR which OR should OR would)',
+    '(software OR database OR coding OR backups) (why OR how OR what OR which OR should OR would)',
+    '(meme OR "group chat" OR "internet culture") (why OR how OR what OR which OR should OR would)',
 )
 # Read these conversations for standalone writing. Each lane gets one search,
 # so a busy AI launch cannot fill every place in the research shortlist.
@@ -514,7 +519,8 @@ def search_plan(now, *, originals=False, reasoned_questions=False):
     latest = ORIGINAL_LATEST if originals else PRACTITIONER_QUERIES
     plan = [(variants[hour % len(variants)] + suffix, "Top") for variants in topics]
     if reasoned_questions and not originals:
-        plan[0] = (QUESTION_QUERIES[hour % len(QUESTION_QUERIES)] + suffix, "Top")
+        plan[0] = (QUESTION_BROAD_QUERY + suffix, "Top")
+        plan[1] = (QUESTION_QUERIES[hour % len(QUESTION_QUERIES)] + suffix, "Top")
     plan.append((latest[hour % len(latest)] + suffix, "Latest"))
     return plan
 

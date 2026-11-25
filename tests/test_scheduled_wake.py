@@ -151,7 +151,8 @@ class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
     async def test_targeted_question_pool_has_one_silence_decision_despite_prior_general_silence(self):
         now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
         state = {**empty(), 'actions_inbox_since': now.isoformat(), 'decision_slots': {
-            '2026-11-21:actions-discovery:18:0': {'action': 'silent', 'at': now.isoformat()}}}
+            '2026-11-21:actions-discovery:18:0': {'action': 'silent', 'at': now.isoformat()},
+            '2026-11-21:actions-discovery-reasoned-v1:18:0': {'action': 'silent', 'at': now.isoformat()}}}
         def silence(state, slot, *args, **kwargs):
             editorial.record_silence(state, slot, now, {})
         with patch.object(editorial, 'utcnow', return_value=now), \
@@ -162,7 +163,7 @@ class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
             await editorial.scheduled_wake(state, object(), now)
             await editorial.scheduled_wake(state, object(), now)
         decide.assert_awaited_once()
-        self.assertEqual(decide.call_args.args[1]['slot'], '2026-11-21:actions-discovery-reasoned-v1:18:0')
+        self.assertEqual(decide.call_args.args[1]['slot'], '2026-11-21:actions-discovery-reasoned-v2:18:0')
         self.assertEqual(state['history'], [])
 
     async def test_completed_daily_goal_keeps_normal_discovery_silence_cached(self):

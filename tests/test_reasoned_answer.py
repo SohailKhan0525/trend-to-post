@@ -23,9 +23,14 @@ DRAFT = {
     'event_key': 'Preserving failed logs across retry attempts',
 }
 ASSESSMENT = {**DRAFT, **dict.fromkeys(writer.SOURCE_FLAGS, True), 'reply_mode': 'observation'}
-REASONED_FLAGS = (*writer.FLAGS, 'answers_question', 'reasoning_complete')
+EXTRA_REASONED_FLAGS = ('answers_question', 'reasoning_complete', 'premise_preserved')
+REASONED_FLAGS = (*writer.FLAGS, *EXTRA_REASONED_FLAGS)
 VERDICT = {**dict.fromkeys(REASONED_FLAGS, True),
            'source_evidence': 'Retrying a job clears its failed log, but the retry can fail too.'}
+AI_QUESTION = 'If AI can solve most intellectual tasks, what becomes the main bottleneck?'
+BAD_AI_ANSWER = ('Data is the inevitable bottleneck. As AI models ingest the sum of human-generated text, '
+                 'the scarcity of novel, high-quality information creates a feedback loop where models '
+                 'train on synthetic outputs, degrading reasoning accuracy through model collapse.')
 
 
 class ReasonedAnswerTests(unittest.TestCase):
@@ -96,7 +101,7 @@ class ReasonedAnswerTests(unittest.TestCase):
         self.assertNotIn('rejected_reply', review.args[1])
 
     def test_failed_answer_or_reasoning_review_stops_without_rewriting_to_yes(self):
-        for flag in ('answers_question', 'reasoning_complete', 'grounded', 'honest'):
+        for flag in (*EXTRA_REASONED_FLAGS, 'grounded', 'honest'):
             with self.subTest(flag=flag), patch.object(
                     writer, 'complete', side_effect=[ASSESSMENT, {**VERDICT, flag: False}]) as calls:
                 with self.assertRaises(DraftError):
@@ -112,13 +117,13 @@ class ReasonedAnswerTests(unittest.TestCase):
                 self.assertEqual(calls.call_count, 1)
 
     def test_reasoning_review_flags_must_be_actual_booleans(self):
-        for flag in ('answers_question', 'reasoning_complete'):
+        for flag in EXTRA_REASONED_FLAGS:
             for invalid in ('true', 1, None):
                 with self.subTest(flag=flag, invalid=invalid), self.assertRaises(DraftError):
                     writer.validate_review({**VERDICT, flag: invalid}, SOURCE, reasoned_answer=True)
 
     def test_missing_reasoning_flags_get_one_review_format_repair(self):
-        for missing in ('answers_question', 'reasoning_complete'):
+        for missing in EXTRA_REASONED_FLAGS:
             incomplete = {key: value for key, value in VERDICT.items() if key != missing}
             with self.subTest(missing=missing):
                 result, calls = self.generate([ASSESSMENT, incomplete, VERDICT])
@@ -157,7 +162,7 @@ class ReasonedAnswerTests(unittest.TestCase):
         short = {**DRAFT, 'text': 'Keep the old log so another failure cannot erase it.'}
         assessment = {**ASSESSMENT, **short}
         verdict = {key: value for key, value in VERDICT.items()
-                   if key not in ('answers_question', 'reasoning_complete')}
+                   if key not in EXTRA_REASONED_FLAGS}
         with patch.object(writer, 'complete', side_effect=[assessment, verdict]) as calls:
             result = writer.generate(SOURCE, {}, NOW)
         self.assertEqual(result, short)
@@ -267,7 +272,7 @@ class ReasonedAnswerTests(unittest.TestCase):
                               'text': 'A lost draft has no undo entry.'}]}
         short = {**ASSESSMENT, 'text': 'Keep the old log so another failure cannot erase it.'}
         verdict = {key: value for key, value in VERDICT.items()
-                   if key not in ('answers_question', 'reasoning_complete')}
+                   if key not in EXTRA_REASONED_FLAGS}
         with patch.object(writer, 'complete', side_effect=[ASSESSMENT, short, verdict]) as calls:
             result = writer.generate(source, state, NOW)
         self.assertNotIn('reply_style', result)
@@ -285,6 +290,82 @@ class ReasonedAnswerTests(unittest.TestCase):
                 writer.generate(SOURCE, state, NOW, reasoned_answer=True)
             self.assertEqual(calls.call_count, 1)
         self.assertEqual(state, before)
+
+    def test_live_inevitable_claim_gets_one_revision_then_independent_review(self):
+        source = {**SOURCE, 'text': AI_QUESTION}
+        draft = {**DRAFT, 'text': BAD_AI_ANSWER,
+                 'premise': 'The author asks what constrains a world where AI can already solve most intellectual tasks.',
+                 'event_key': 'Bottleneck after broad AI task capability'}
+        assessment = {**ASSESSMENT, **draft}
+        repaired_text = ('Energy. Solving a task still requires running the model; limited power can constrain '
+                         'how widely that capability is deployed even when the reasoning works.')
+        repaired = {**assessment, 'text': repaired_text}
+        verdict = {**VERDICT, 'source_evidence': AI_QUESTION}
+        with self.assertRaisesRegex(writer.RecoverableDraftError, 'certainty'):
+            writer.validate(draft, source, reply_mode='observation', reasoned_answer=True)
+        result, calls = self.generate([assessment, repaired, verdict], source=source)
+        self.assertEqual(result['text'], repaired_text)
+        self.assertEqual(result['reply_style'], 'reasoned_answer')
+        self.assertEqual(calls.call_count, 3)
+        self.assertIn('certainty', calls.call_args_list[1].args[1]['correction'])
+        self.assertEqual(calls.call_args_list[1].args[1]['rejected_reply'], BAD_AI_ANSWER)
+        self.assertEqual(calls.call_args_list[2].args[0], writer.REASONED_REVIEW)
+        self.assertEqual(calls.call_args_list[2].args[1]['draft']['text'], repaired_text)
+        self.assertEqual(calls.call_args_list[2].args[1]['source']['text'], AI_QUESTION)
+
+    def test_removing_absolute_word_cannot_hide_changed_hypothetical_premise(self):
+        source = {**SOURCE, 'text': AI_QUESTION}
+        assessment = {**ASSESSMENT, 'text': BAD_AI_ANSWER,
+                      'premise': 'The author asks what becomes scarce after AI can solve most intellectual tasks.'}
+        still_wrong = {**assessment, 'text': BAD_AI_ANSWER.replace('inevitable', 'main')}
+        verdict = {**VERDICT, 'source_evidence': AI_QUESTION, 'premise_preserved': False}
+        with patch.object(writer, 'complete', side_effect=[assessment, still_wrong, verdict]) as calls:
+            with self.assertRaisesRegex(DraftError, 'premise_preserved'):
+                writer.generate(source, {}, NOW, reasoned_answer=True)
+            self.assertEqual(calls.call_count, 3)
+            self.assertEqual(calls.call_args_list[-1].args[1]['draft']['text'], still_wrong['text'])
+        with patch.object(writer, 'complete', side_effect=[still_wrong, verdict]) as calls:
+            with self.assertRaisesRegex(DraftError, 'premise_preserved'):
+                writer.generate(source, {}, NOW, reasoned_answer=True)
+            self.assertEqual(calls.call_count, 2)
+
+    def test_backup_existence_guarantee_requires_one_qualified_revision(self):
+        question = ('For a small team choosing a backup system, should fast restores or an immutable copy '
+                    'come first? Explain the trade-off and when your choice would change.')
+        source = {**SOURCE, 'text': question}
+        draft = {**DRAFT, 'text': 'An immutable copy comes first. It ensures data existence.',
+                 'premise': 'The author asks how to prioritize immutable backup copies versus fast restoration.',
+                 'event_key': 'Immutable backup copy versus fast restoration'}
+        assessment = {**ASSESSMENT, **draft}
+        repaired_text = ('Keep an immutable copy first: fast restores cannot recover an overwritten copy. '
+                         'Prioritize restore speed once a protected, usable copy exists and downtime is the binding cost.')
+        repaired = {**assessment, 'text': repaired_text}
+        verdict = {**VERDICT, 'source_evidence': question}
+        with self.assertRaisesRegex(writer.RecoverableDraftError, 'certainty'):
+            writer.validate(draft, source, reply_mode='observation', reasoned_answer=True)
+        result, calls = self.generate([assessment, repaired, verdict], source=source)
+        self.assertEqual(result['text'], repaired_text)
+        self.assertEqual(calls.call_count, 3)
+        self.assertIn('certainty', calls.call_args_list[1].args[1]['correction'])
+        self.assertEqual(calls.call_args_list[-1].kwargs['schema'], writer.REASONED_REVIEW_SCHEMA)
+
+    def test_certainty_guard_preserves_negative_qualified_and_supported_claims_for_review(self):
+        cases = (
+            (SOURCE, 'A successful retry is not inevitable; keep the failed log to compare attempts.'),
+            (SOURCE, 'Keeping the failed log does not guarantee a successful retry.'),
+            (SOURCE, 'Saving the failed log cannot ensure that the next attempt succeeds.'),
+            (SOURCE, 'A retained log can ensure a comparison only if it includes the failed attempt.'),
+            (SOURCE, 'Keeping the log ensures a comparison if the saved copy remains readable.'),
+            ({**SOURCE, 'text': 'The documented write-once store guarantees that existing log entries cannot be overwritten.'},
+             'The store guarantees append-only logs, so retries must record their results separately.'),
+            ({**SOURCE, 'text': 'The documented retry design ensures that the old failure log is kept.'},
+             'It ensures the old failure log remains available for comparison with the retry.'),
+        )
+        for source, text in cases:
+            with self.subTest(text=text):
+                draft = {**DRAFT, 'text': text}
+                self.assertEqual(writer.validate(draft, source, reply_mode='observation',
+                                                 reasoned_answer=True), draft)
 
 
 if __name__ == '__main__':
