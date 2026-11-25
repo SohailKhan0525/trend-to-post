@@ -28,7 +28,7 @@ def category(reason):
 def opportunity_label(slot):
     if re.fullmatch(r'\d{4}-\d\d-\d\d-inbox-[1-9][0-9]{0,19}-[a-f0-9]{16}', str(slot)):
         return 'inbound reply'
-    if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-discovery-reasoned-v[12]:\d{1,2}:[01]', str(slot)):
+    if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-discovery-reasoned-v[123]:\d{1,2}:[01]', str(slot)):
         return 'question discovery'
     if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-discovery:\d{1,2}:[01]', str(slot)):
         return 'reply discovery'

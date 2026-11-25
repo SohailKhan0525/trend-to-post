@@ -61,6 +61,43 @@ class ReasonedQuestionTests(unittest.TestCase):
             with self.subTest(text=text):
                 self.assertFalse(is_reasoned_question({**source(), 'text': text}))
 
+    def test_unambiguous_public_questions_and_decision_invitations_need_no_question_mark(self):
+        questions = (
+            QUESTION.rstrip('?'),
+            "We're choosing between a database cache and another replica. Which would you ship first",
+            'What if AI inference were free but every extra tool call added latency',
+            'Honestly, why does adding more GPU compute stop improving inference latency',
+            '@qofenoai Which database tradeoff matters most when writes greatly outnumber reads',
+            'Would you choose another database replica or a cache for read-heavy traffic',
+            'Help us choose between a database cache and another replica',
+            'Help me decide between per-seat and per-request pricing for our SaaS',
+            'Where is the main bottleneck when AI inference stops scaling with GPU count',
+        )
+        for text in questions:
+            with self.subTest(text=text):
+                self.assertTrue(is_reasoned_question(source(text)))
+
+    def test_missing_question_mark_does_not_admit_headlines_quotes_or_other_addressees(self):
+        excluded = (
+            'How AI changes coding for every software developer',
+            'We know why GPU inference stops scaling with more compute',
+            'Why does GPU inference stop scaling. Because memory bandwidth is the bottleneck',
+            'Which database comes first depends on the read load',
+            'Why does GPU inference stop scaling explained in a thread',
+            'My friend asked "Why does GPU inference stop scaling with more compute"',
+            'My friend asked “Which database would you choose for read-heavy traffic”',
+            'Why do AI coding agents take so long. Try our new tool today',
+            'Who needs AI coding agents anyway',
+            'Which would you choose for dinner, soup or a sandwich',
+            '@grok Why does GPU inference stop scaling with more compute',
+            'Why does GPU inference stop scaling with more compute @Alice',
+            "We're choosing between a database cache and another replica. @grok which would you ship first",
+            "We're choosing between a database cache and another replica. @Alice which would you ship first",
+        )
+        for text in excluded:
+            with self.subTest(text=text):
+                self.assertFalse(is_reasoned_question(source(text)))
+
     def test_named_others_and_assistant_mentions_do_not_become_invitations(self):
         excluded = (
             '@grok ' + QUESTION, 'Hey Grok, ' + QUESTION,
@@ -114,9 +151,11 @@ class ReasonedQuestionTests(unittest.TestCase):
             self.assertIn('"biggest bottleneck"', analytical[0][0])
             self.assertIn('"would you choose"', analytical[0][0])
             self.assertIn('min_faves:15', analytical[0][0])
-            self.assertTrue(all(' ? ' in query for query, _ in analytical[:2]))
+            self.assertTrue(all('?' not in query for query, _ in analytical[:2]))
             self.assertNotIn('min_faves:', analytical[1][0])
-            self.assertIn('why OR how OR what OR which OR should OR would', analytical[1][0])
+            self.assertTrue(any(phrase in analytical[1][0] for phrase in
+                                ('"why does"', '"should we"', '"why do"')))
+            self.assertNotIn('(AI OR software OR startup OR memes)', analytical[0][0])
             self.assertEqual([product for _, product in analytical], ['Top', 'Top', 'Top', 'Latest'])
             for query, _ in analytical:
                 self.assertIn('-filter:replies -filter:retweets', query)
@@ -173,6 +212,15 @@ class ReasonedDiscoveryTests(unittest.IsolatedAsyncioTestCase):
         connection.search_tweet.side_effect = [[question], [], [], []]
         result = await discover(connection, {}, NOW, reasoned_questions=True)
         self.assertEqual([row['id'] for row in result], ['1010'])
+        self.assertEqual(connection.search_tweet.await_count, 4)
+
+    async def test_native_unpunctuated_question_is_preferred_after_normal_validation(self):
+        text = "We're choosing between a database cache and another replica. Which would you ship first"
+        connection = AsyncMock()
+        connection.search_tweet.side_effect = [[tweet('1011', text=text)], [], [tweet()], []]
+        result = await discover(connection, {}, NOW, reasoned_questions=True)
+        self.assertEqual([row['id'] for row in result], ['1011', '1001'])
+        self.assertTrue(is_reasoned_question(result[0]))
         self.assertEqual(connection.search_tweet.await_count, 4)
 
     async def test_question_lane_preserves_reach_privacy_age_completeness_and_dedup(self):

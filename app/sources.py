@@ -39,14 +39,13 @@ PRACTITIONER_QUERIES = (
 # X's engagement operator is only a retrieval hint: actual eligibility still
 # requires measured views and never requires a like count.
 QUESTION_BROAD_QUERY = (
-    '(AI OR software OR startup OR memes) '
-    '("biggest bottleneck" OR "main bottleneck" OR "tradeoff" OR "would you choose" OR "what if") min_faves:15'
+    '("would you choose" OR "which would you" OR "biggest bottleneck" OR "main bottleneck" OR "what if") min_faves:15'
 )
 QUESTION_QUERIES = (
-    '(AI OR LLM OR inference OR agents) (why OR how OR what OR which OR should OR would)',
-    '(startup OR SaaS OR founder OR pricing) (why OR how OR what OR which OR should OR would)',
-    '(software OR database OR coding OR backups) (why OR how OR what OR which OR should OR would)',
-    '(meme OR "group chat" OR "internet culture") (why OR how OR what OR which OR should OR would)',
+    '(AI OR LLM OR inference) ("why does" OR "what if" OR "would you")',
+    '(startup OR SaaS OR pricing) ("should we" OR "which would" OR "how would")',
+    '(software OR database OR coding) ("why does" OR "would you" OR "which would")',
+    '(meme OR "group chat") ("why do" OR "what if" OR "how would")',
 )
 # Read these conversations for standalone writing. Each lane gets one search,
 # so a busy AI launch cannot fill every place in the research shortlist.
@@ -67,7 +66,9 @@ _HANDLE = re.compile(r"[A-Za-z0-9_]{1,15}\Z")
 _NUMBER = re.compile(r"[0-9]+\Z")
 _URL = re.compile(r"https?://\S+", re.I)
 _TAG = re.compile(r'(?<![\w@])@([A-Za-z0-9_]{1,15})(?![A-Za-z0-9_])')
-_QUOTED_QUESTION = re.compile(r'"[^"\n]*\?[^"\n]*"|“[^”\n]*\?[^”\n]*”|^\s*>.*$', re.M)
+_QUOTED_QUESTION = re.compile(
+    r'"(?=[^"\n]*(?:\?|\b(?:why|how|what|which|should|would|could)\b))[^"\n]*"|'
+    r'“(?=[^”\n]*(?:\?|\b(?:why|how|what|which|should|would|could)\b))[^”\n]*”|^\s*>.*$', re.I | re.M)
 _QUESTION_TOPIC = re.compile(
     r'\b(?:ai|llms?|gpt\w*|chatgpt|claude|codex|gemini|deepseek|copilot|'
     r'inference|reasoning models?|language models?|machine learning|training data|'
@@ -87,8 +88,16 @@ _OPEN_QUESTION = re.compile(
     r'what (?:is|are|would|should|could|might|does|do)|which|'
     r'where (?:is|are|does|do|would|should)|when (?:would|should|does|do))\b', re.I)
 _CHOICE_QUESTION = re.compile(r'\b(?:should|would|could|can|is|are|do|does)\b', re.I)
+_UNPUNCTUATED_ASK = re.compile(
+    r'(?:^|[.!:,\n]\s*)(?:'
+    r'(?:why|how) (?:do|does|did|is|are|was|were|can|could|would|will|should|might|must)\b|'
+    r'what (?:if|would|should|could|might|does|do|is|are|makes|becomes|remains|matters|changes|happens|causes)\b|'
+    r'where (?:is|are|does|do|would|should)\b|when (?:would|should|does|do)\b|'
+    r'which(?:\s+[A-Za-z]+){0,4}\s+(?:would|should|could|is|are|works|matters|comes|scales)\b|'
+    r'(?:would|should|could|can|do|does|is|are)\s+(?:you|we|i|a|an|the)\b|'
+    r'help (?:me|us) (?:choose|decide)\b)', re.I)
 _REASONING_DETAIL = re.compile(
-    r'\b(?:or|if|versus|vs|trade.?offs?|bottleneck|instead|better|worse|'
+    r'\b(?:or|if|between|versus|vs|trade.?offs?|bottleneck|instead|better|worse|'
     r'limit\w*|scale\w*|fail\w*|depend\w*|affect\w*|worth)\b', re.I)
 _NOT_ANALYTICAL = re.compile(
     r'\b(?:how are you|how is everyone|what.?s up|good morning|good night|'
@@ -101,7 +110,7 @@ _NOT_ANALYTICAL = re.compile(
     r'emergency|urgent(?:ly)?|suicid\w*|overdose|chest pain|'
     r'(?:my|our) (?:account|password|subscription|refund)|'
     r'(?:can.?t|cannot|unable to) (?:log|sign) in|'
-    r'help me|anyone (?:please )?help|fix my|production is down|'
+    r'help me(?!\s+(?:choose|decide)\b)|anyone (?:please )?help|fix my|production is down|'
     r'promo code|coupon|giveaway|limited.time|link in (?:my |our )?bio|'
     r'join (?:my |our |the )?waitlist|sign up (?:now|today)|'
     r'try (?:my|our)\b|buy (?:my|our)\b|dm me|'
@@ -446,7 +455,9 @@ def _other_addressee(text):
         before, after = prose[:match.start()], prose[match.end():]
         if re.match(r'\s*[,،:]?\s*(?:can|could|would|will|do|did|are|should) you\b', after, re.I):
             return True
-        if (not after.strip(' \n\t?!.,:') and '?' in before
+        if re.match(r'\s*[,،:]?\s*(?:why|how|what|which|where|when)\b', after, re.I):
+            return True
+        if (not after.strip(' \n\t?!.,:') and ('?' in before or _UNPUNCTUATED_ASK.search(before.strip()))
                 and not re.search(r'\b(?:by|from|at|about|via|with|of|to)\s*$', before, re.I)):
             return True
     return False
@@ -454,17 +465,27 @@ def _other_addressee(text):
 
 def _analytical_question(text):
     prose = _QUOTED_QUESTION.sub(' ', _URL.sub('', text)).strip()
-    if ('?' not in prose or _other_addressee(prose) or _NOT_ANALYTICAL.search(prose)
+    if (_other_addressee(prose) or _NOT_ANALYTICAL.search(prose)
             or not _QUESTION_TOPIC.search(prose)):
+        return False
+    # Punctuation is optional in public posts. Require an actual interrogative
+    # clause or explicit decision invitation, not a headline such as "How AI
+    # changes coding" or a statement that happens to contain "why".
+    unpunctuated = '?' not in prose
+    if unpunctuated and not _UNPUNCTUATED_ASK.search(_TAG.sub('', prose).strip()):
         return False
     # A quoted question, a slogan or the author's own question-and-answer hook
     # is not an open request for another participant's analysis.
-    if re.search(r'\?\s*(?:because\b|here.?s\b|the answer\b|answer\s*:|a thread\b)', prose, re.I):
+    if re.search(r'[?!.:\n—–]\s*(?:because\b|here.?s\b|the answer\b|answer\s*:|a thread\b)', prose, re.I):
+        return False
+    if unpunctuated and re.search(r'\b(?:explained|the answer is|depends on|we found|i found)\b', prose, re.I):
         return False
     words = re.findall(r"[A-Za-z]+(?:['’][A-Za-z]+)?", _TAG.sub('', prose))
     if len(words) < 6:
         return False
     return bool(_OPEN_QUESTION.search(prose)
+                or (re.search(r'\bhelp (?:me|us) (?:choose|decide)\b', prose, re.I)
+                    and _REASONING_DETAIL.search(prose))
                 or (_CHOICE_QUESTION.search(prose) and _REASONING_DETAIL.search(prose)))
 
 
@@ -520,11 +541,10 @@ def search_plan(now, *, originals=False, reasoned_questions=False):
     latest = ORIGINAL_LATEST if originals else PRACTITIONER_QUERIES
     plan = [(variants[hour % len(variants)] + suffix, "Top") for variants in topics]
     if reasoned_questions and not originals:
-        # Ask the search endpoint for questions before subjecting complete
-        # posts to local audience, topic, reach and suitability checks.
-        questions = ' ?' + suffix
-        plan[0] = (QUESTION_BROAD_QUERY + questions, "Top")
-        plan[1] = (QUESTION_QUERIES[hour % len(QUESTION_QUERIES)] + questions, "Top")
+        # A bare question-mark operator returned zero raw results in live
+        # retrieval. Search ordinary phrases; assess actual questions locally.
+        plan[0] = (QUESTION_BROAD_QUERY + suffix, "Top")
+        plan[1] = (QUESTION_QUERIES[hour % len(QUESTION_QUERIES)] + suffix, "Top")
     plan.append((latest[hour % len(latest)] + suffix, "Latest"))
     return plan
 

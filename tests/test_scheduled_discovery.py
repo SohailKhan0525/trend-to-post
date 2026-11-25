@@ -1,3 +1,4 @@
+import copy
 from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 import unittest
@@ -105,6 +106,44 @@ class ScheduledDiscoveryTests(unittest.IsolatedAsyncioTestCase):
             await editorial.scheduled_wake(self.state, self.connection, NOW)
             self.assertEqual(self.discover.await_count, first)
         self.connection.create_tweet.assert_not_awaited()
+
+    async def test_empty_discovery_keeps_slot_open_for_a_later_fresh_source(self):
+        self.discover.return_value = []
+        before = copy.deepcopy(self.state)
+        with patch.object(personality, 'choose', return_value={'action': 'silent'}) as model, \
+                patch.object(editorial, 'record_silence', wraps=editorial.record_silence) as silence, \
+                patch.object(editorial, 'save_and_push') as persist:
+            outcome = await editorial.decide(self.state, self.slot, self.connection, self.user, incoming=[])
+            self.assertEqual(outcome, 'no_candidates')
+            model.assert_not_called()
+            silence.assert_not_called()
+            persist.assert_not_called()
+        self.assertEqual(self.state, before)
+        self.connection.create_tweet.assert_not_awaited()
+
+        # The next wake in the same half-hour may discover a conversation that
+        # was absent from the first result; an empty search is not a veto.
+        self.discover.return_value = [self.source]
+        writer = await self.run_reply()
+        writer.assert_called_once()
+        self.assertEqual(self.discover.await_count, 2)
+        self.connection.create_tweet.assert_awaited_once_with(text=self.answer['text'], reply_to='101')
+        self.assertEqual(self.state['history'][0]['source']['id'], '101')
+        self.assertIn('verified_at', self.state['history'][0])
+
+    async def test_opted_out_only_shortlist_does_not_run_model_or_close_discovery_slot(self):
+        self.state['mention_preferences'] = {self.source['author_id']: {'intent': 'stop'}}
+        before = copy.deepcopy(self.state)
+        with patch.object(personality, 'choose', return_value={'action': 'silent'}) as model, \
+                patch.object(editorial, 'record_silence', wraps=editorial.record_silence) as silence, \
+                patch.object(editorial, 'save_and_push') as persist:
+            outcome = await editorial.decide(self.state, self.slot, self.connection, self.user, incoming=[])
+        self.assertEqual(outcome, 'no_candidates')
+        model.assert_not_called()
+        silence.assert_not_called()
+        persist.assert_not_called()
+        self.connection.create_tweet.assert_not_awaited()
+        self.assertEqual(self.state, before)
 
     async def test_one_scheduled_batch_publishes_only_two_distinct_replies_once(self):
         other = tweet('102', author='other_dev', text='The compiler warning arrived after the build success notification.',

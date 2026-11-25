@@ -29,6 +29,7 @@ THREAD_REPLY_LIMIT = 2
 INBOX_BATCH_SIZE = 4
 INBOX_RETRY_DELAY = timedelta(seconds=30)
 MAX_INBOX_ATTEMPTS = 3
+NO_DISCOVERY_CANDIDATES = 'no_candidates'
 
 
 class DeliveryUnresolved(RuntimeError):
@@ -838,6 +839,11 @@ async def decide(state, slot, connection, user, *, incoming=None):
         discovered = [discovery_source(row, now) for row in discovered]
     shortlist = invited + discovered
     summary(f'Considering {len(invited)} direct invitations and {len(shortlist) - len(invited)} discovered conversations.')
+    if discovery_replies and prefer_reasoned and not shortlist:
+        # An empty search is not an editorial rejection. Keep the opportunity
+        # open for fresher sources on the next wake, without searching twice now.
+        summary('No eligible discovery candidates while the daily answer goal is open. A later wake may check fresh sources.')
+        return NO_DISCOVERY_CANDIDATES
     try:
         context = memory.context(shortlist)
     except MemoryAccessDenied:
@@ -1033,7 +1039,7 @@ async def scheduled_wake(state, connection, now):
         # Targeted question searches have their own stable silence decision.
         # A prior general search cannot close a newly introduced source pool;
         # every pool still shares the verified reply/outbox allowance above.
-        lane = 'actions-discovery-reasoned-v2' if reasoned_goal_open(state, now) else 'actions-discovery'
+        lane = 'actions-discovery-reasoned-v3' if reasoned_goal_open(state, now) else 'actions-discovery'
         slot_id = f'{start.date()}:{lane}:{2 * start.hour + start.minute // 30}:{index}'
         if slot_id in state.get('decision_slots', {}):
             break
@@ -1042,11 +1048,11 @@ async def scheduled_wake(state, connection, now):
                 'expires_at': (start + HALF_HOUR).isoformat()}
         user = await posting_account(connection)
         try:
-            await decide(state, slot, connection, user, incoming=[])
+            outcome = await decide(state, slot, connection, user, incoming=[])
         except (AIRequestTimeout, AIPaused, DraftError) as exc:
             reject(state, slot, f'Discovery reply deferred: {ai_deferral_detail(exc)}.')
             break
-        if slot_id in state.get('decision_slots', {}):
+        if outcome == NO_DISCOVERY_CANDIDATES or slot_id in state.get('decision_slots', {}):
             break
 
 

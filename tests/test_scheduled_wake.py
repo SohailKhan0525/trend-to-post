@@ -152,7 +152,8 @@ class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
         now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
         state = {**empty(), 'actions_inbox_since': now.isoformat(), 'decision_slots': {
             '2026-11-21:actions-discovery:18:0': {'action': 'silent', 'at': now.isoformat()},
-            '2026-11-21:actions-discovery-reasoned-v1:18:0': {'action': 'silent', 'at': now.isoformat()}}}
+            '2026-11-21:actions-discovery-reasoned-v1:18:0': {'action': 'silent', 'at': now.isoformat()},
+            '2026-11-21:actions-discovery-reasoned-v2:18:0': {'action': 'silent', 'at': now.isoformat()}}}
         def silence(state, slot, *args, **kwargs):
             editorial.record_silence(state, slot, now, {})
         with patch.object(editorial, 'utcnow', return_value=now), \
@@ -163,7 +164,24 @@ class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
             await editorial.scheduled_wake(state, object(), now)
             await editorial.scheduled_wake(state, object(), now)
         decide.assert_awaited_once()
-        self.assertEqual(decide.call_args.args[1]['slot'], '2026-11-21:actions-discovery-reasoned-v2:18:0')
+        self.assertEqual(decide.call_args.args[1]['slot'], '2026-11-21:actions-discovery-reasoned-v3:18:0')
+        self.assertEqual(state['history'], [])
+
+    async def test_no_candidates_ends_this_wake_but_later_wake_retries_same_open_slot(self):
+        now = datetime(2026, 11, 21, 9, 7, tzinfo=timezone.utc)
+        state = {**empty(), 'actions_inbox_since': now.isoformat()}
+        with patch.object(editorial, 'utcnow', return_value=now), \
+                patch.object(editorial, 'process_inbox', new_callable=AsyncMock), \
+                patch.object(editorial, 'posting_account', new_callable=AsyncMock), \
+                patch.object(editorial, 'summary'), \
+                patch.object(editorial, 'decide', new=AsyncMock(return_value=editorial.NO_DISCOVERY_CANDIDATES)) as decide:
+            await editorial.scheduled_wake(state, object(), now)
+            decide.assert_awaited_once()
+            await editorial.scheduled_wake(state, object(), now)
+        self.assertEqual(decide.await_count, 2)
+        slots = [call.args[1]['slot'] for call in decide.await_args_list]
+        self.assertEqual(slots, ['2026-11-21:actions-discovery-reasoned-v3:18:0'] * 2)
+        self.assertFalse(state.get('decision_slots'))
         self.assertEqual(state['history'], [])
 
     async def test_completed_daily_goal_keeps_normal_discovery_silence_cached(self):

@@ -5,6 +5,17 @@ from scripts.publisher_status import report
 
 
 class PublisherStatusTests(unittest.TestCase):
+    def test_question_discovery_versions_are_reported_without_slot_details(self):
+        now = datetime(2026, 11, 17, 12, 10, tzinfo=timezone.utc)
+        for version in (1, 2, 3):
+            with self.subTest(version=version):
+                slot = f'2026-11-17:actions-discovery-reasoned-v{version}:24:0'
+                state = {'history': [], 'decision_slots': {slot: {
+                    'at': '2026-11-17T12:08:00Z', 'action': 'silent'}}}
+                result = '\n'.join(report(state, now))
+                self.assertIn('question discovery at 2026-11-17T12:08:00+00:00 (silence)', result)
+                self.assertNotIn(slot, result)
+
     def test_observed_reply_time_uses_source_and_publication_times(self):
         now = datetime(2026, 11, 17, 12, 10, tzinfo=timezone.utc)
         row = {'tweet_id': '456', 'kind': 'reply', 'posted_at': '2026-11-17T12:09:23Z',
