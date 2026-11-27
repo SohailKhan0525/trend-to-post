@@ -1,4 +1,4 @@
-"""Scheduled original questions and autonomous replies for Qofeno.
+"""Scheduled movie posts and autonomous replies for Qofeno.
 
 Every send is durably reserved first. Unknown outcomes block publication rather
 than retrying. Native X permission and rate-limit failures are never bypassed.
@@ -13,7 +13,7 @@ from datetime import datetime, timedelta, timezone
 from httpx import NetworkError, TimeoutException
 from twikit.errors import (CouldNotTweet, Forbidden, NotFound, RequestTimeout, ServerError,
                            TooManyRequests, TweetNotAvailable, UserNotFound, UserUnavailable)
-from . import mentions, personality, priority, question_posts, reply_writer, sources
+from . import mentions, movie_posts, personality, priority, reply_writer, sources
 from .memory import LedgerMemory, Memory, MemoryAccessDenied
 from .metrics import post_id
 from .reply_freshness import INBOX_START_AT, MAX_REPLY_AGE, fresh_invitation
@@ -460,8 +460,8 @@ async def verify_delivery(state, connection):
     return True
 
 
-def question_slot(start):
-    return {'slot': f'{start.date()}:actions-question:{2 * start.hour + start.minute // 30}',
+def movie_slot(start):
+    return {'slot': f'{start.date()}:actions-movie:{2 * start.hour + start.minute // 30}',
             'kind': 'original', 'scheduled_at': start.isoformat(), 'expires_at': (start + HALF_HOUR).isoformat()}
 
 
@@ -469,8 +469,8 @@ async def send_once(state, slot, draft, connection, user, source=None):
     original = slot.get('kind') == 'original'
     if original:
         # Only this scheduler's exact opportunity may authorize a parentless send.
-        if source is not None or slot != question_slot(half_hour_start(utcnow())):
-            summary('No current original-question opportunity for this send.')
+        if source is not None or slot != movie_slot(half_hour_start(utcnow())):
+            summary('No current movie-post opportunity for this send.')
             return
     elif slot.get('kind') != 'reply' or not isinstance(source, dict) or not post_id(source.get('id')):
         summary('A reply requires a verified parent post. No send.')
@@ -484,7 +484,8 @@ async def send_once(state, slot, draft, connection, user, source=None):
     now = utcnow()
     if slot.get('scheduled_at'):
         start = timestamp(slot['scheduled_at'])
-        valid = (scheduled_remaining(schedule_state(state), slot['kind'], now, start) > 0
+        valid = (scheduled_remaining(schedule_state(state), slot['kind'], now, start,
+                                     reset_due=original and movie_posts.reset_pending(state)) > 0
                  and (original or source['id'] == slot.get('inbox_id')
                       or (slot.get('discovery_reply') and source['id'] == slot.get('discovery_id'))
                       or (slot.get('priority_reply') and source['id'] == slot.get('priority_id'))))
@@ -503,7 +504,7 @@ async def send_once(state, slot, draft, connection, user, source=None):
         reject(state, slot, 'Opportunity changed during research; no send.')
         return
     if original:
-        draft = question_posts.validate(draft, state)
+        draft = movie_posts.validate(draft, state)
     else:
         if source.get('origin') == 'mention':
             mentions.validate(source, utcnow())
@@ -525,9 +526,13 @@ async def send_once(state, slot, draft, connection, user, source=None):
             return
     reserved = {**draft, 'slot': slot['slot'], 'kind': slot['kind'], 'author_id': str(user.id),
                 'reserved_at': utcnow().isoformat(),
-                'editorial_version': 'qofeno-grok-question-2026-11-25' if original else 'qofeno-replies-2026-11-23'}
+                'editorial_version': 'qofeno-movies-2026-11-27' if original else 'qofeno-replies-2026-11-23'}
     if original:
-        reserved['post_style'] = 'open_question'
+        if draft['event_key'] == movie_posts.RESET_EVENT:
+            reserved['post_style'] = 'reset_announcement'
+        else:
+            reserved['post_style'] = 'movie_quote'
+            reserved['movie_credit'] = movie_posts.credit(draft, state)
     else:
         reserved['source'] = source
         reserved['thread_root'] = thread_root(source, state['history'])
@@ -543,6 +548,8 @@ async def send_once(state, slot, draft, connection, user, source=None):
         reject(state, slot, 'The incoming post is outside the live reply window; no reply sent.')
         return
     if send_time >= timestamp(slot['expires_at']):
+        if original and draft['event_key'] == movie_posts.RESET_EVENT:
+            state.setdefault('delivery_rejections', []).append({**reserved, 'error': 'ExpiredBeforeSend'})
         state['outbox'] = None
         reject(state, slot, 'Reservation completed after the opportunity expired; no send.')
         return
@@ -617,6 +624,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
                   if (candidate.get('origin') == 'mention' or (slot.get('discovery_reply') and slot.get('scheduled_at'))
                       or (candidate.get('origin') == 'priority' and slot.get('priority_reply') and slot.get('scheduled_at')))
                   and eligible_author(candidate, state, now, own_id)
+                  and not (candidate.get('origin') == 'mention' and inbox_reviewed(state, candidate))
                   and not reply_rejection_active(candidate, rejections.get(rejection_key(candidate)), now)
                   and not set(candidate['source_ids']).intersection(state['used_source_ids'])
                   and not set(candidate['urls']).intersection(state['used_urls'])]
@@ -682,6 +690,14 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
             # The actual send runs below it and retains its durable reservation on errors.
             summary(f'Temporary X read failure for invitation {candidate["id"]} ({type(exc).__name__}).')
             continue
+        except reply_writer.MentionDeclined:
+            if candidate.get('origin') != 'mention':
+                raise
+            record_silence(state, inbox_opportunity(candidate), utcnow(), {})
+            summary(f'Qofeno chose to leave invitation {candidate["id"]} unanswered.')
+            if selected is not None or not candidates:
+                return
+            continue
         except reply_writer.RecoverableDraftError as exc:
             delay = INBOX_RETRY_DELAY if slot.get('inbox_id') else timedelta(minutes=10)
             rejections[key] = draft_format_hold(candidate, utcnow(), rejections.get(key, {}).get('retried_version'),
@@ -702,7 +718,7 @@ async def publish_reply(state, slot, connection, user, *, selected=None, memory=
 
 async def publish_original(state, slot, connection, user, plan, memory_context):
     # Older callers can still hold original slots from before the cutover.
-    summary('Legacy original decisions are retired. New questions require a scheduled question opportunity.')
+    summary('Legacy original decisions are retired. Movie posts require a current scheduled opportunity.')
 
 
 def ledger_after_denial(history):
@@ -760,6 +776,7 @@ def inbox_shortlist(rows, own_id):
 def candidate_eligible(candidate, state, now, own_id):
     rejection = state.get('reply_rejections', {}).get(rejection_key(candidate))
     return (eligible_author(candidate, state, now, own_id)
+            and not (candidate.get('origin') == 'mention' and inbox_reviewed(state, candidate))
             and not set(candidate['source_ids']).intersection(state['used_source_ids'])
             and not set(candidate['urls']).intersection(state['used_urls'])
             and not reply_rejection_active(candidate, rejection, now))
@@ -999,29 +1016,26 @@ def original_progress(state, now):
     return f'Verified originals for {day}: {total}/{SCHEDULED_TARGETS["original"]}.'
 
 
-async def scheduled_question_original(state, connection, start):
+async def scheduled_movie_original(state, connection, start):
     now = utcnow()
     summary(original_progress(state, now))
-    if not scheduled_remaining(schedule_state(state), 'original', now, start):
+    if not scheduled_remaining(schedule_state(state), 'original', now, start, reset_due=movie_posts.reset_pending(state)):
         return
-    slot = question_slot(start)
+    slot = movie_slot(start)
     attempt = state.get('last_attempts', {}).get(slot['slot'])
     if attempt and now < timestamp(attempt['at']) + RECHECK_GAP:
         return
     try:
         user = await posting_account(connection)
-        stage('prepare the scheduled original question')
-        with budget_scope(state, save_and_push, utcnow):
-            draft = question_posts.scheduled_draft(state, now)
+        stage('select the scheduled movie post')
+        draft = movie_posts.scheduled_draft(state, now)
         await send_once(state, slot, draft, connection, user)
     except DraftError as exc:
-        reject(state, slot, f'Original question did not pass review: {str(exc)[:240]}')
-    except (AIRequestTimeout, AIPaused) as exc:
-        reject(state, slot, f'Original question deferred: {ai_deferral_detail(exc)}.')
+        reject(state, slot, f'Original movie post held: {str(exc)[:240]}')
     except (NetworkError, TimeoutException, RequestTimeout, ServerError) as exc:
         if not delivery_open(state):
             raise
-        reject(state, slot, f'Original question account check unavailable ({type(exc).__name__}).')
+        reject(state, slot, f'Movie post account check unavailable ({type(exc).__name__}).')
 
 
 async def scheduled_wake(state, connection, now):
@@ -1049,7 +1063,7 @@ async def scheduled_wake(state, connection, now):
                 raise
             summary(f'The reply inbox was unavailable ({type(exc).__name__}).')
     # Direct replies retain first access to the model budget. The original has its own send allowance.
-    await scheduled_question_original(state, connection, start)
+    await scheduled_movie_original(state, connection, start)
     # Silence closes this discovery slot, and each verified send consumes the shared cap.
     for index in range(2):
         now = utcnow()
@@ -1087,7 +1101,7 @@ async def run(event):
         summary('A previous publication requires reconciliation. No new send.')
         return
     if event == 'original':
-        summary('Legacy original mode reconciled existing delivery only. Original questions use scheduled publishing.')
+        summary('Legacy original mode reconciled existing delivery only. Movie posts use scheduled publishing.')
         return
     if event not in ('inbox', 'scheduled', 'push', 'repository_dispatch', 'workflow_dispatch'):
         summary('Unsupported publishing mode; no new send.')
@@ -1109,7 +1123,7 @@ async def run(event):
 async def inspect():
     state = load()
     now = utcnow()
-    status = publication_hold(state, now) or 'Scheduled original questions and replies are enabled.'
+    status = publication_hold(state, now) or 'Scheduled movie posts and replies are enabled.'
     inbox = 'open' if reply_ready(schedule_state(state), now) else 'held'
     summary(f'{status} {original_progress(state, now)} Independent mention and thread-reply checks: {inbox}. '
             f'Confirmed publications: {len(state["history"])}. '

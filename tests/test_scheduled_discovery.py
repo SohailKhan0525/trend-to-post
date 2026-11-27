@@ -15,7 +15,7 @@ NOW = datetime(2026, 11, 18, 12, 7, tzinfo=timezone.utc)
 class ScheduledDiscoveryTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         self.enterContext(patch.object(editorial, 'process_priority', new_callable=AsyncMock))
-        self.enterContext(patch.object(editorial, 'scheduled_question_original', new_callable=AsyncMock))
+        self.enterContext(patch.object(editorial, 'scheduled_movie_original', new_callable=AsyncMock))
         self.state = empty()
         self.state['actions_inbox_since'] = (NOW - timedelta(days=1)).isoformat()
         self.user = SimpleNamespace(id='999', screen_name=editorial.ACCOUNT)

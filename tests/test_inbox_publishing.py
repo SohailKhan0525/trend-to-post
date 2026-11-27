@@ -40,6 +40,29 @@ class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
             mocked.start()
             self.addCleanup(mocked.stop)
 
+    async def test_direct_mention_can_pass_once_and_reply_to_another_reader(self):
+        posts = {row['id']: row for row in self.rows}
+        self.connection.get_tweet_by_id.side_effect = posts.__getitem__
+        def send(text, reply_to):
+            posts['505'] = SimpleNamespace(id='505', user=self.user, full_text=text, in_reply_to=reply_to)
+            return posts['505']
+        self.connection.create_tweet.side_effect = send
+        def write(source, *args, **kwargs):
+            if source['id'] == self.second['id']:
+                raise editorial.reply_writer.MentionDeclined('Nothing useful to add')
+            return {'text': 'Start with the smallest failing change.', 'event_key': 'check one change'}
+        with patch.object(mentions, 'snapshot', side_effect=lambda row, _now: copy.deepcopy(row)), \
+                patch.object(editorial.reply_writer, 'generate', side_effect=write) as writer:
+            await editorial.run('inbox')
+            self.state = copy.deepcopy(self.state)
+            await editorial.run('inbox')
+        self.assertEqual(writer.call_count, 2)
+        self.assertTrue(editorial.inbox_reviewed(self.state, self.second))
+        self.assertNotIn(self.second['id'], self.state['used_source_ids'])
+        self.assertEqual([row['source']['id'] for row in self.state['history']], [self.first['id']])
+        self.connection.create_tweet.assert_awaited_once_with(text='Start with the smallest failing change.',
+                                                             reply_to=self.first['id'])
+
     async def test_transient_pre_send_timeouts_retry_while_the_invitation_is_fresh(self):
         self.rows = [self.first]
         draft = {'text': 'One failing test tells us more.', 'event_key': 'test scope'}
@@ -162,8 +185,9 @@ class InboxPublishingTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.state['history'][-1]['tweet_id'], '505')
 
         self.state['ai_pause'] = {'reason': ai_budget.LOCAL_HOURLY_PAUSE, 'until': until.isoformat()}
+        # Curated movie originals consume no model budget.
         self.assertEqual(scheduled_remaining(editorial.schedule_state(self.state), 'original', self.now,
-                                             half_hour_start(self.now)), 0)
+                                             half_hour_start(self.now)), 1)
 
     async def test_provider_reset_controls_next_read_and_survives_restart(self):
         reset = self.now + timedelta(minutes=3)

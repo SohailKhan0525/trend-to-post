@@ -12,7 +12,9 @@ on:
       - 'app/personality.py'
       - 'app/reply_writer.py'
       - 'app/sources.py'
-      - 'app/question_posts.py'
+      - 'app/movie_posts.py'
+      - 'app/movie_lines.json'
+      - 'app/movie_catalog.py'
       - 'app/reply_schedule.py'
       - 'app/store.py'
 permissions:

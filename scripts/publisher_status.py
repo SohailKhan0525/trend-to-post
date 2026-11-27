@@ -16,7 +16,7 @@ def category(reason):
         ('X rate limit', 'X rate limit'), ('X rejected', 'X rejected publication'),
         ('X returned a posting error', 'awaiting X verification'), ('Source or author', 'duplicate source or author'),
         ('No reply sent', 'AI unavailable or budget'), ('Deferred original', 'AI budget'), ('AI deferred', 'AI cooldown'),
-        ('Original question deferred', 'original question deferred'), ('Workers AI timed out', 'AI timeout'), ('Cloudflare timed out', 'AI timeout'),
+        ('Movie original deferred', 'movie original deferred'), ('Original question deferred', 'original question deferred'), ('Workers AI timed out', 'AI timeout'), ('Cloudflare timed out', 'AI timeout'),
         ('Opportunity changed', 'window expired'), ('Reply opportunity ended', 'window expired'),
         ('Reservation completed after', 'window expired')):
         if reason.startswith(prefix):
@@ -31,7 +31,7 @@ def opportunity_label(slot):
         return 'question discovery'
     if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-discovery:\d{1,2}:[01]', str(slot)):
         return 'reply discovery'
-    if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-(?:original|question):\d{1,2}', str(slot)):
+    if re.fullmatch(r'\d{4}-\d\d-\d\d:actions-(?:original|question|movie):\d{1,2}', str(slot)):
         return 'scheduled original'
     if re.fullmatch(r'\d{4}-\d\d-\d\d:(reply|follow)-v1:\d{1,2}', str(slot)):
         return slot

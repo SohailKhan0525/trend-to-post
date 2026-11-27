@@ -647,8 +647,9 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn('reconciliation', editorial.summary.call_args.args[0])
         self.assertNotIn('research opportunity', editorial.summary.call_args.args[0])
 
-    async def test_ai_pause_stops_research_and_send(self):
-        state, connection = empty(), self.connection()
+    async def test_ai_pause_holds_generated_replies_but_allows_the_prepared_movie_post(self):
+        state, connection = empty(), self.connection('original')
+        connection.get_tweet_by_id.return_value.full_text = editorial.movie_posts.RESET_TEXT
         state['ai_pause'] = {'until': (self.now+timedelta(hours=1)).isoformat(), 'reason': 'quota'}
         self.persist(state)
         with patch.object(editorial, 'client', return_value=connection), \
@@ -657,7 +658,8 @@ class EditorialTests(unittest.IsolatedAsyncioTestCase):
              patch.object(editorial, 'decide', AsyncMock()) as decision:
             await editorial.run('push')
         decision.assert_not_awaited()
-        connection.create_tweet.assert_not_awaited()
+        connection.create_tweet.assert_awaited_once_with(text=editorial.movie_posts.RESET_TEXT)
+        self.assertEqual(self.saved['history'][-1]['post_style'], 'reset_announcement')
 
 
 if __name__ == '__main__':

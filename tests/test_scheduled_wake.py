@@ -64,7 +64,7 @@ class CliModeTests(unittest.TestCase):
 class ScheduledWakeTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         self.enterContext(patch.object(editorial, 'process_priority', new_callable=AsyncMock))
-        self.scheduled_original = self.enterContext(patch.object(editorial, 'scheduled_question_original', new_callable=AsyncMock))
+        self.scheduled_original = self.enterContext(patch.object(editorial, 'scheduled_movie_original', new_callable=AsyncMock))
 
     async def test_temporary_inbox_failure_allows_discovery_but_never_bypasses_outbox(self):
         now = datetime(2026, 11, 18, 12, 7, tzinfo=timezone.utc)

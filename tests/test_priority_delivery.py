@@ -16,7 +16,7 @@ NOW = datetime(2026, 11, 18, 12, 7, tzinfo=timezone.utc)
 
 class PriorityDeliveryTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
-        self.enterContext(patch.object(editorial, 'scheduled_question_original', new_callable=AsyncMock))
+        self.enterContext(patch.object(editorial, 'scheduled_movie_original', new_callable=AsyncMock))
         self.state = empty()
         self.state[priority.STATE_KEY] = {'handle': priority.HANDLE, 'user_id': '2001',
             'activated_at': (NOW - timedelta(hours=1)).isoformat(), 'baseline_ids': ['99'],

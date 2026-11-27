@@ -56,7 +56,7 @@ def _retry_ready(state, slot_id, ready):
     return ready
 
 
-def _publication_start(state, now, *, direct_mention=False):
+def _publication_start(state, now, *, direct_mention=False, needs_ai=True):
     if now.tzinfo is None:
         raise ValueError('The scheduling clock must include a timezone')
     if any(state.get(key) for key in ('pending', 'pending_reply', 'follow_pending', 'outbox',
@@ -65,9 +65,10 @@ def _publication_start(state, now, *, direct_mention=False):
     earliest = now
     if state.get('x_pause_until'):
         earliest = max(earliest, timestamp(state['x_pause_until']))
-    pause = active_pause(state, now, direct_mention=direct_mention)
-    if pause:
-        earliest = max(earliest, pause.until)
+    if needs_ai:
+        pause = active_pause(state, now, direct_mention=direct_mention)
+        if pause:
+            earliest = max(earliest, pause.until)
     return earliest
 
 
@@ -105,13 +106,17 @@ def verified_originals_today(state, now):
     return len(identities)
 
 
-def scheduled_remaining(state, kind, now, start):
+def scheduled_remaining(state, kind, now, start, *, reset_due=False):
     """Bound this half hour and UTC day using actual sends, including previous publishers."""
-    if half_hour_start(now) != start or _publication_start(state, now, direct_mention=kind == 'reply') != now:
+    # Scheduled originals are prewritten. Only replies require model headroom.
+    if (half_hour_start(now) != start
+            or _publication_start(state, now, direct_mention=kind == 'reply', needs_ai=kind != 'original') != now):
         return 0
     target = SCHEDULED_TARGETS[kind]
     tick = 2 * start.hour + start.minute // 30 + 1
-    due = (tick * target + 47) // 48
+    # The initial reset can take the next safe opportunity even ahead of
+    # normal pacing. It still takes one of today's five and the current half-hour.
+    due = target if kind == 'original' and reset_due else (tick * target + 47) // 48
     actual = [at for row, at in _publications(state)
               if at.date() == start.date() and ('original' if row.get('kind') == 'follow' else row.get('kind')) == kind]
     per_wake = (target + 47) // 48

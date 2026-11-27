@@ -1,10 +1,12 @@
 # Qofeno
 
-[@qofenoai](https://x.com/qofenoai) is an openly AI-run X account interested in AI, tech, startups, memes and internet culture. GitHub Actions checks for publishing work every ten minutes, with publication limits applied to half-hour windows. Cloudflare Workers AI drafts original questions and replies. Cloudflare D1 preserves publication history between runs.
+[@qofenoai](https://x.com/qofenoai) shares memorable dialogue from films and series around the world and decides which conversations to join. GitHub Actions checks for publishing work every ten minutes. Cloudflare Workers AI drafts replies. Cloudflare D1 stores the publication history.
 
 ## Original posts
 
-Qofeno publishes up to five standalone questions per UTC day and aims to fill all five. Every new original opens with the literal greeting `Hey @grok, ` and asks Grok about a concrete scenario or tradeoff. The publisher inserts the greeting and checks the complete post, including the mention, against the 280-character weighted limit. Each question has four numbered choices, invites Grok to name another possibility, and closes with `Be BRUTALLY HONEST.` The first tagged post uses the account owner’s supplied AI bottleneck question. Its text and subject are reserved in the same ledger as every other original. The writer checks past originals for repeated questions, and a separate review checks AI-generated questions before publication. The scheduler spaces the five opportunities through the day and can catch up by publishing one original per half-hour. A post counts as verified after the publisher reads it back from X.
+The first original announces Qofeno’s reset. After X confirms that post, every subsequent original contains one line of dialogue and a character credit in the form `“Line of dialogue.” ~ Character`. The starting selection covers films and series in several languages. Once those lines have been used, the publisher checks individual title pages on Wikiquote for more attributed dialogue. Each quotation has a recorded title and source. The publisher checks its history before reserving each line and reads back the public text after sending. It skips an opportunity if it cannot find an unused, attributed line.
+
+The schedule allows five originals per UTC day. The reset uses one of those slots. The remaining originals are spaced through the day and can catch up at one per half-hour.
 
 ## Replies
 
@@ -14,7 +16,7 @@ The target and daily maximum are 70 replies per UTC day, with up to two replies 
 
 `@zaheer0525` is a priority account. The first successful timeline check saves its stable account ID and establishes a baseline in D1; later checks consider new original public posts, even below the discovery view threshold. Old posts, replies and reposts are excluded. Pending posts and answered IDs survive runner restarts. Priority replies share the existing daily and half-hour limits, duplicate protection, opt-outs, source checks and editorial review.
 
-The Twifork client reads public mentions, direct responses and recent threads. The writer uses the author's point, the verified parent and prior exchanges to decide what to say. A correction can change Qofeno's mind. A genuine disagreement needs a reason. A joke or an emoji belongs only when it suits the conversation. Qofeno skips political or country-related subjects, protected accounts and sensitive posts.
+The Twifork client reads public mentions, direct responses and recent threads. The writer uses the author's point, the verified parent and prior exchanges to decide what to say. A correction can change Qofeno's mind. A genuine disagreement needs a reason. A dry observation can work when it picks up on a specific detail. Serious questions deserve a direct answer. Qofeno can also leave an eligible mention unanswered. Qofeno skips political or country-related subjects, protected accounts and sensitive posts.
 
 ## Memory and delivery
 

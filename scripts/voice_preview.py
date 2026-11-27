@@ -11,7 +11,7 @@ import os
 from pathlib import Path
 import urllib.request
 
-from app import ai_budget, cloudflare, personality, question_posts, reply_writer
+from app import ai_budget, cloudflare, movie_posts, personality, reply_writer
 
 
 MAX_REQUESTS = 20
@@ -71,7 +71,6 @@ def isolated_model_calls(budget, trace):
     previous_urlopen = urllib.request.urlopen
     previous_personality = personality.complete
     previous_reply = reply_writer.complete
-    previous_question = question_posts.complete
 
     def only_ai(request, *args, **kwargs):
         if not isinstance(request, urllib.request.Request) or request.full_url != expected or request.get_method() != 'POST':
@@ -79,8 +78,7 @@ def isolated_model_calls(budget, trace):
         return opener.open(request, *args, **kwargs)
 
     def observed_complete(system, data, **kwargs):
-        stages = {question_posts.WRITE: 'original_question_writer', question_posts.REVIEW: 'original_question_review',
-                  personality.DECIDE: 'reply_planner', reply_writer.VOICE: 'reply_writer', reply_writer.REVIEW: 'reply_review'}
+        stages = {personality.DECIDE: 'reply_planner', reply_writer.VOICE: 'reply_writer', reply_writer.REVIEW: 'reply_review'}
         if system not in stages:
             raise PreviewIsolationError('Unknown model request in the voice preview.')
         result = cloudflare.complete(system, data, **kwargs)
@@ -89,12 +87,11 @@ def isolated_model_calls(budget, trace):
 
     token = ai_budget.ACTIVE.set(budget)
     urllib.request.urlopen = only_ai
-    personality.complete = reply_writer.complete = question_posts.complete = observed_complete
+    personality.complete = reply_writer.complete = observed_complete
     try:
         yield
     finally:
         personality.complete, reply_writer.complete = previous_personality, previous_reply
-        question_posts.complete = previous_question
         urllib.request.urlopen = previous_urlopen
         ai_budget.ACTIVE.reset(token)
 
@@ -127,8 +124,7 @@ def scenarios(now):
     serious = mention('910004',
                       '@qofenoai The editor overwrote my only copy of the draft. There is no undo entry. What should I do first?', now)
     greeting = mention('910005', '@qofenoai hi', now)
-    signup = mention('910006', '@qofenoai Our demo lets people try the editor, then asks for an email before '
-                     'they can copy what they wrote. When would you ask?', now)
+    flaky_build = mention('910006', '@qofenoai The build passes if I run it three times. Can I call it fixed?', now)
     discovery = {'id': '920001', 'author_id': '90002', 'author': 'PreviewBuilder',
                  'text': 'Our coding agent passes the tests, but it also edits the tests whenever a check fails. '
                          'We still read every patch before merging.',
@@ -136,18 +132,21 @@ def scenarios(now):
                  'views': 20000, 'source_ids': ['920001'], 'urls': [],
                  'url': 'https://x.com/PreviewBuilder/status/920001'}
     rows = [
-        {'id': 'standalone_question', 'kind': 'original', 'clock': now,
+        {'id': 'movie_reset', 'kind': 'original', 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'},
-         'purpose': 'Preview a fresh standalone question addressed to @grok, including four choices, an alternative, and the requested closing line.'},
+         'purpose': 'Show the one-time account announcement.'},
+        {'id': 'first_movie_line', 'kind': 'original', 'clock': now,
+         'provenance': {'kind': 'synthetic_fixture'},
+         'purpose': 'Show the next attributed line with a verified reset in synthetic history.'},
         {'id': 'brief_direct_greeting', 'kind': 'reply', 'source': greeting, 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'},
          'purpose': 'Allow a short public acknowledgement while still returning a valid private premise.'},
         {'id': 'discovered_agent_tests', 'kind': 'reply', 'source': discovery, 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'},
          'purpose': 'Use the production discovery planner and reviewer; add a specific point rather than generic agent commentary.'},
-        {'id': 'signup_timing', 'kind': 'reply', 'source': signup, 'clock': now,
+        {'id': 'flaky_build', 'kind': 'reply', 'source': flaky_build, 'clock': now,
          'provenance': {'kind': 'synthetic_fixture'},
-         'purpose': 'Make a concrete choice about a startup demo in the voice of an interested reader.'},
+         'purpose': 'Give a direct answer to a playful engineering question; dry wit is optional.'},
         {'id': 'hardware_correction', 'kind': 'reply', 'source': correction, 'clock': now,
          'provenance': {'kind': 'adapted_fixture_not_a_real_qofeno_conversation',
                         'inspiration': PUBLIC_TRANSCRIPT, 'note': 'Paraphrases the hardware discussion; the Qofeno parent is invented.'},
@@ -172,12 +171,20 @@ def evaluate(case, *, progress=None):
              'used_events': [], 'used_texts': [],
              'actions_inbox_since': now.isoformat()}
     if case['kind'] == 'original' and 'source' not in case:
-        return {'status': 'approved_unpublished', 'draft': question_posts.generate(state, now)}
+        if case['id'] == 'first_movie_line':
+            reset = movie_posts.scheduled_draft(state, now)
+            state['history'].append({**reset, 'kind': 'original', 'tweet_id': '930030',
+                                     'posted_at': now.isoformat(), 'verified_at': now.isoformat()})
+        return {'status': 'approved_unpublished', 'draft': movie_posts.scheduled_draft(state, now)}
     memory = {'recent_own': [], 'people': [], 'conversations': []}
     if case['kind'] != 'reply':
         raise PreviewIsolationError('Expected a standalone original or a reply to the supplied source.')
     if case['source'].get('origin') == 'mention':
-        return {'status': 'approved_unpublished', 'draft': reply_writer.generate(case['source'], state, now, memory=memory)}
+        try:
+            draft = reply_writer.generate(case['source'], state, now, memory=memory)
+        except reply_writer.MentionDeclined:
+            return {'status': 'silent'}
+        return {'status': 'approved_unpublished', 'draft': draft}
     # D1's normal context projection includes recent public text and author
     # exchanges. These labeled fixtures exercise that shape without reading D1.
     previous = [('An agent in a real codebase is harder than marketing suggests.', 'Generic agent skepticism'),

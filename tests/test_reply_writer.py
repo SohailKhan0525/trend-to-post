@@ -32,6 +32,48 @@ class ReplyWriterTests(unittest.TestCase):
             draft = writer.generate(source or SOURCE, state or {}, NOW)
         return draft, calls
 
+    def test_direct_mention_may_choose_silence_even_when_safe_relevant_and_complete(self):
+        source = {**SOURCE, 'id': '456', 'author': 'builder', 'author_id': '123',
+                  'source_ids': ['456'], 'urls': [], 'origin': 'mention', 'intent': 'invite',
+                  'url': 'https://x.com/builder/status/456', 'text': '@qofenoai yep, same point again.'}
+        for stray_text in ('', 'A stray draft must never escape.'):
+            decision = {**dict.fromkeys(writer.SOURCE_FLAGS, True), 'reply_mode': 'silent',
+                        'text': stray_text, 'premise': ''}
+            with self.subTest(stray_text=stray_text), patch.object(writer, 'complete', return_value=decision) as model:
+                with self.assertRaises(writer.MentionDeclined):
+                    writer.generate(source, {}, NOW)
+                model.assert_called_once()
+                self.assertIn('silent', model.call_args.kwargs['schema']['properties']['reply_mode']['enum'])
+        self.assertNotIn('silent', writer.DRAFT_SCHEMA['properties']['reply_mode']['enum'])
+
+    def test_film_attribution_requires_matching_verified_own_parent_for_both_models(self):
+        credit = {'title': 'Signal 17', 'speaker': 'The Courier', 'quote': 'Keep the lights on.',
+                  'source': 'https://example.org/fictional-transcript'}
+        parent = {'id': '777', 'author': 'qofenoai', 'author_id': '999', 'text': '“Keep the lights on.” ~ The Courier'}
+        source = {**SOURCE, 'id': '456', 'author': 'reader', 'author_id': '123', 'source_ids': ['456'],
+                  'urls': [], 'origin': 'mention', 'intent': 'invite', 'url': 'https://x.com/reader/status/456',
+                  'text': '@qofenoai which movie is that from?', 'parent_id': '777', 'parent_author': 'qofenoai',
+                  'parent_context': parent}
+        row = {'kind': 'original', 'tweet_id': '777', 'author_id': '999', 'text': parent['text'],
+               'movie_credit': credit, 'verified_at': NOW.isoformat()}
+        assessment = {**dict.fromkeys(writer.SOURCE_FLAGS, True), 'reply_mode': 'observation', 'text': 'Signal 17.',
+                      'premise': 'The reader asks for the title of the film.'}
+        review = {**dict.fromkeys(writer.FLAGS, True), 'source_evidence': 'Signal 17'}
+        answer, calls = self.generate([assessment, review], source, {'history': [row]})
+        self.assertEqual(answer['text'], 'Signal 17.')
+        for call in calls.call_args_list:
+            self.assertEqual(call.args[1]['verified_movie_credit'], credit)
+        for changes in ({'tweet_id': '778'}, {'verified_at': None}, {'author_id': '001'}, {'kind': 'reply'},
+                        {'text': 'Unrelated X post'}, {'movie_credit': {**credit, 'quote': 'A different line.'}}):
+            with self.subTest(changes=changes):
+                self.assertIsNone(writer.verified_movie_credit(source, [{**row, **changes}]))
+        misleading = {**source, 'verified_movie_credit': credit}
+        with patch.object(writer, 'complete', return_value=assessment) as model, self.assertRaises(DraftError):
+            writer.generate(misleading, {'history': []}, NOW)
+        self.assertNotIn('verified_movie_credit', model.call_args.args[1])
+        external = {**source, 'parent_author': 'another', 'parent_context': {**parent, 'author': 'another'}}
+        self.assertIsNone(writer.verified_movie_credit(external, [row]))
+
     def test_normal_path_uses_two_calls_and_reviews_original_evidence(self):
         result, calls = self.generate([ASSESSMENT, VERDICT])
         self.assertEqual(result, DRAFT)
